@@ -206,7 +206,16 @@
 
       const titleEl = document.createElement("h2");
       titleEl.className = "card-title";
-      titleEl.textContent = item.title || "Untitled";
+
+      const titleLink = document.createElement("a");
+      titleLink.className = "card-title-link";
+      titleLink.href = item.link || "#";
+      titleLink.target = "_blank";
+      titleLink.rel = "noopener noreferrer";
+      titleLink.textContent = item.title || "Untitled";
+
+      titleEl.appendChild(titleLink);
+
 
       const body = document.createElement("div");
       body.className = "card-body";
