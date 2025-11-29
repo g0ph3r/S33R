@@ -205,6 +205,43 @@ def main() -> None:
 
     items_by_link: dict[str, dict] = {}
 
+    # -------------------------------
+    # Incremental mode:
+    #   - Carrega o JSON existente (se houver)
+    #   - Reaproveita itens ainda dentro da janela DAYS_BACK
+    #   - Evita duplicatas por link
+    # -------------------------------
+    if OUTPUT_PATH.exists():
+        try:
+            existing_data = json.loads(OUTPUT_PATH.read_text(encoding="utf-8"))
+            existing_items = existing_data.get("items", [])
+            kept_existing = 0
+
+            for item in existing_items:
+                link = item.get("link")
+                if not link:
+                    continue
+
+                pub_ts = item.get("published_ts")
+                # Se tiver timestamp, aplica o mesmo cutoff de DAYS_BACK
+                if pub_ts is not None:
+                    try:
+                        existing_dt = datetime.fromtimestamp(pub_ts, tz=timezone.utc)
+                        if existing_dt < cutoff:
+                            # Muito antigo, deixa expirar naturalmente
+                            continue
+                    except Exception:
+                        # Se der algum problema bizarro no timestamp, não derruba o script
+                        pass
+
+                items_by_link[link] = item
+                kept_existing += 1
+
+            if kept_existing:
+                print(f"[INFO] Pre-loaded {kept_existing} existing items from {OUTPUT_PATH}")
+        except Exception as e:
+            print(f"[WARN] Could not load existing JSON from {OUTPUT_PATH}: {e!r}")
+
     print(f"[INFO] Using OPML: {OPML_PATH}")
     print(f"[INFO] Collecting items from the last {DAYS_BACK} days (>= {cutoff.isoformat()})")
 
@@ -238,6 +275,7 @@ def main() -> None:
                 pub_iso = None
                 pub_ts = None
             else:
+                # Respeita a janela de DAYS_BACK
                 if pub_dt < cutoff:
                     continue
                 pub_iso = pub_dt.isoformat()
@@ -260,11 +298,14 @@ def main() -> None:
 
             existing = items_by_link.get(link)
             if existing is None:
+                # Novo link
                 items_by_link[link] = item
             else:
+                # Mesmo link: fica com a versão mais recente
                 if (item["published_ts"] or 0) > (existing.get("published_ts") or 0):
                     items_by_link[link] = item
 
+    # Converte para lista e ordena por published_ts desc
     items_list = list(items_by_link.values())
     items_list.sort(
         key=lambda x: x["published_ts"] if x["published_ts"] is not None else 0,
