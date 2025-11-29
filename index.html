@@ -80,7 +80,7 @@
             <div class="filter-group recent-only-group">
               <label class="checkbox-label">
                 <input id="recent-only-checkbox" type="checkbox" checked />
-                <span>Recent only (last 30 days)</span>
+                <span>Recent only (last 24 hours)</span>
               </label>
             </div>
           </div>
@@ -264,8 +264,8 @@
       const recentOnly = state.recentOnly;
 
       const now = Date.now() / 1000;
-      const THIRTY_DAYS = 30 * 24 * 60 * 60;
-      const cutoff = now - THIRTY_DAYS;
+      const ONE_DAY = 24 * 60 * 60;
+      const cutoff = now - ONE_DAY;
 
       let result = state.allItems.filter((item) => {
         if (cat !== "all" && item.type !== cat) {
