@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>S33R Security News Feed</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Security news feed by clivoa, powered by prebuilt JSON + public RSS sources." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="site-title-block">
+        <div class="badge badge-live">LIVE FEED</div>
+        <h1 class="site-title">S33R Security News Feed</h1>
+        <p class="site-subtitle muted">
+          A security news board that aggregates items from multiple public RSS sources.
+          Everything is fetched in your browser &mdash; nothing is stored on the server.
+        </p>
+      </div>
+
+      <div class="header-meta">
+        <div class="meta-item">
+          <span class="meta-label">Last JSON update</span>
+          <span class="meta-value" id="meta-last-update">loading...</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Time window</span>
+          <span class="meta-value" id="meta-window">last 24 hours</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="layout">
+      <!-- SEARCH + FILTERS -->
+      <section class="controls">
+        <div class="filters-row">
+          <div class="search-group">
+            <label for="news-search-input" class="filter-label">Search</label>
+            <div class="search-input-wrapper">
+              <input
+                id="news-search-input"
+                type="text"
+                class="filter-input"
+                placeholder="Search for 0-day, threat actor, CVE-2024-XXXX..."
+              />
+              <button id="news-search-btn" class="btn-primary">Search</button>
+            </div>
+          </div>
+
+          <div class="sort-group">
+            <label for="sort-select" class="filter-label">Sort</label>
+            <select id="sort-select" class="filter-input">
+              <option value="latest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+              <option value="source">Source A–Z</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="filters-row categories-row">
+          <span class="filter-label">Category</span>
+          <div class="news-type-bar" id="category-bar">
+            <button class="news-type-btn active" data-type="all">All</button>
+            <button class="news-type-btn" data-type="crypto">Crypto</button>
+            <button class="news-type-btn" data-type="cybercrime">Cybercrime, Darknet</button>
+            <button class="news-type-btn" data-type="dfir">DFIR</button>
+            <button class="news-type-btn" data-type="general">General Security</button>
+            <button class="news-type-btn" data-type="gov_cert">Government, CERT</button>
+            <button class="news-type-btn" data-type="leaks">Leaks</button>
+            <button class="news-type-btn" data-type="malware">Malware</button>
+            <button class="news-type-btn" data-type="threat_intel">Threat Intel</button>
+            <button class="news-type-btn" data-type="malware_analysis">Malware Analysis</button>
+            <button class="news-type-btn" data-type="osint">OSINT, Communities</button>
+            <button class="news-type-btn" data-type="podcasts">Podcasts</button>
+            <button class="news-type-btn" data-type="vendors">Vendors</button>
+            <button class="news-type-btn" data-type="vulns">Vulnerabilities, CVEs</button>
+            <button class="news-type-btn" data-type="exploits">Exploits</button>
+            <button class="news-type-btn" data-type="vuln_advisories">Vulnerability Advisories</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- LATEST HEADLINES + RECENT ONLY -->
+      <section class="status-bar">
+        <div class="status-left">
+          <span class="status-title">Latest headlines</span>
+          <span class="status-pill">BETA</span>
+          <span id="stats-text" class="status-stats"></span>
+        </div>
+        <div class="status-right">
+          <label class="checkbox-label checkbox-inline">
+            <input type="checkbox" id="recent-only-checkbox" checked />
+            <span class="checkbox-custom"></span>
+            <span class="checkbox-text">Recent only (last 24 hours)</span>
+          </label>
+        </div>
+      </section>
+      <div class="status-subline">
+        <span id="status-text">Loading news feeds...</span>
+      </div>
+
+      <!-- NEWS LIST -->
+      <section class="news-list-container">
+        <div id="news-list" class="news-list"></div>
+        <div id="loading-indicator" class="loading-indicator">
+          <div class="spinner"></div>
+          <span>Loading news…</span>
+        </div>
+        <div id="end-of-results" class="end-of-results hidden">
+          <span>No more results.</span>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // ====================== CONFIG ======================
+    const JSON_URL = "data/news_recent.json";
+    const PAGE_SIZE = 30;
+
+    const TYPE_LABELS = {
+      crypto: "Crypto",
+      cybercrime: "Cybercrime, Darknet",
+      dfir: "DFIR",
+      general: "General Security",
+      gov_cert: "Government, CERT",
+      leaks: "Leaks",
+      malware: "Malware",
+      threat_intel: "Threat Intel",
+      malware_analysis: "Malware Analysis",
+      osint: "OSINT, Communities",
+      podcasts: "Podcasts",
+      vendors: "Vendors",
+      vulns: "Vulnerabilities, CVEs",
+      exploits: "Exploits",
+      vuln_advisories: "Vulnerability Advisories"
+    };
+
+    // ====================== STATE ======================
+    const state = {
+      items: [],        // todos do JSON
+      filtered: [],     // após filtros
+      renderedCount: 0, // quantos já estão na tela
+      currentType: "all",
+      query: "",
+      recentOnly: true,
+      sort: "latest",
+      isLoading: false
+    };
+
+    let listEl, loadingEl, endOfResultsEl, statusEl, statsEl, lastUpdateEl, windowEl;
+    let hasUserScrolled = false;
+
+    // ====================== HELPERS ======================
+    function parseDate(value) {
+      if (!value) return null;
+      const d = new Date(value);
+      if (isNaN(d.getTime())) return null;
+      return d;
+    }
+
+    function formatDate(d) {
+      if (!d) return "no date";
+      return d.toLocaleString(undefined, {
+        year: "numeric",
+        month: "short",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+    }
+
+    function humanCount(n) {
+      if (n == null) return "";
+      if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, "") + "k";
+      return String(n);
+    }
+
+    function computeThresholdDays(days) {
+      const ms = days * 24 * 60 * 60 * 1000;
+      return new Date(Date.now() - ms);
+    }
+
+    function normalizeItem(raw) {
+      const published =
+        parseDate(raw.published) ||
+        parseDate(raw.pubDate) ||
+        parseDate(raw.date) ||
+        null;
+
+      return {
+        title: raw.title || "Untitled",
+        link: raw.link || raw.url || "#",
+        source: raw.source || raw.source_title || "Unknown source",
+        summary: raw.summary || raw.description || "",
+        category: raw.category || raw.type || "general",
+        published,
+        published_raw: raw.published || raw.pubDate || raw.date || null
+      };
+    }
+
+    // ====================== RENDERING ======================
+    function clearList() {
+      listEl.innerHTML = "";
+      state.renderedCount = 0;
+      endOfResultsEl.classList.add("hidden");
+      updateStats();
+    }
+
+    function createCard(item) {
+      const card = document.createElement("article");
+      card.className = "card";
+
+      const top = document.createElement("div");
+      top.className = "card-top";
+
+      const sourceSpan = document.createElement("span");
+      sourceSpan.className = "card-source";
+      sourceSpan.textContent = item.source;
+
+      const metaRight = document.createElement("div");
+      metaRight.className = "card-meta-right";
+
+      if (item.category && item.category !== "all") {
+        const categoryBadge = document.createElement("span");
+        categoryBadge.className = "card-category";
+        const label = TYPE_LABELS[item.category] || item.category;
+        categoryBadge.textContent = label;
+        metaRight.appendChild(categoryBadge);
+      }
+
+      const dateSpan = document.createElement("span");
+      dateSpan.className = "card-date";
+      dateSpan.textContent = formatDate(item.published);
+      metaRight.appendChild(dateSpan);
+
+      top.appendChild(sourceSpan);
+      top.appendChild(metaRight);
+
+      const title = document.createElement("h2");
+      title.className = "card-title";
+      const link = document.createElement("a");
+      link.href = item.link || "#";
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = item.title;
+      title.appendChild(link);
+
+      const body = document.createElement("p");
+      body.className = "card-body-text";
+      body.textContent =
+        item.summary && item.summary.trim().length > 0
+          ? item.summary.trim()
+          : "No summary available for this entry.";
+
+      const footer = document.createElement("div");
+      footer.className = "card-footer";
+
+      const btn = document.createElement("a");
+      btn.className = "card-link-btn";
+      btn.href = item.link || "#";
+      btn.target = "_blank";
+      btn.rel = "noopener noreferrer";
+      btn.textContent = "Read full article";
+
+      footer.appendChild(btn);
+
+      card.appendChild(top);
+      card.appendChild(title);
+      card.appendChild(body);
+      card.appendChild(footer);
+
+      return card;
+    }
+
+    function updateStats() {
+      const total = state.filtered ? state.filtered.length : 0;
+      const shown = state.renderedCount || 0;
+
+      const stats = document.getElementById("stats-text");
+      stats.textContent = `${humanCount(shown)} of ${humanCount(total)} articles shown`;
+    }
+
+    function setStatus(msg) {
+      statusEl.textContent = msg;
+    }
+
+    function renderMore() {
+      if (state.isLoading) return;
+      if (!state.filtered || state.filtered.length === 0) {
+        clearList();
+        document.getElementById("loading-indicator").classList.add("hidden");
+        endOfResultsEl.classList.remove("hidden");
+        endOfResultsEl.textContent = "No results for current filters.";
+        return;
+      }
+
+      if (state.renderedCount >= state.filtered.length) {
+        document.getElementById("loading-indicator").classList.add("hidden");
+        endOfResultsEl.classList.remove("hidden");
+        endOfResultsEl.textContent = "No more results.";
+        updateStats();
+        return;
+      }
+
+      state.isLoading = true;
+      document.getElementById("loading-indicator").classList.remove("hidden");
+
+      const nextItems = state.filtered.slice(
+        state.renderedCount,
+        state.renderedCount + PAGE_SIZE
+      );
+
+      for (const item of nextItems) {
+        const card = createCard(item);
+        listEl.appendChild(card);
+      }
+
+      state.renderedCount += nextItems.length;
+      state.isLoading = false;
+
+      if (state.renderedCount >= state.filtered.length) {
+        document.getElementById("loading-indicator").classList.add("hidden");
+        endOfResultsEl.classList.remove("hidden");
+        endOfResultsEl.textContent = "No more results.";
+      } else {
+        document.getElementById("loading-indicator").classList.add("hidden");
+      }
+
+      updateStats();
+    }
+
+    // ====================== FILTERING ======================
+    function applyFilters(resetRendered) {
+      let items = state.items.slice();
+
+      // Category
+      if (state.currentType && state.currentType !== "all") {
+        items = items.filter((i) => i.category === state.currentType);
+      }
+
+      // Recent only (last 24 hours)
+      if (state.recentOnly) {
+        const threshold = new Date(Date.now() - 24 * 60 * 60 * 1000); // 1 day
+        items = items.filter((i) => i.published && i.published >= threshold);
+      }
+
+
+      // Search query
+      const q = (state.query || "").trim().toLowerCase();
+      if (q.length > 0) {
+        items = items.filter((i) => {
+          const haystack = [
+            i.title || "",
+            i.summary || "",
+            i.source || ""
+          ]
+            .join(" ")
+            .toLowerCase();
+          return haystack.includes(q);
+        });
+      }
+
+      // Sort
+      if (state.sort === "latest") {
+        items.sort((a, b) => {
+          const ad = a.published ? a.published.getTime() : 0;
+          const bd = b.published ? b.published.getTime() : 0;
+          return bd - ad;
+        });
+      } else if (state.sort === "oldest") {
+        items.sort((a, b) => {
+          const ad = a.published ? a.published.getTime() : 0;
+          const bd = b.published ? b.published.getTime() : 0;
+          return ad - bd;
+        });
+      } else if (state.sort === "source") {
+        items.sort((a, b) => {
+          const as = (a.source || "").toLowerCase();
+          const bs = (b.source || "").toLowerCase();
+          if (as < bs) return -1;
+          if (as > bs) return 1;
+          const ad = a.published ? a.published.getTime() : 0;
+          const bd = b.published ? b.published.getTime() : 0;
+          return bd - ad;
+        });
+      }
+
+      state.filtered = items;
+
+      if (resetRendered) {
+        clearList();
+      }
+      renderMore();
+    }
+
+    // ====================== DATA LOADING ======================
+    async function loadJson() {
+      setStatus("Loading prebuilt JSON…");
+      document.getElementById("loading-indicator").classList.remove("hidden");
+
+      const cacheBuster = Date.now();
+      const url = `${JSON_URL}?v=${cacheBuster}`;
+
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) {
+        throw new Error(`Failed to fetch JSON: ${res.status}`);
+      }
+      const data = await res.json();
+
+      const itemsArray = Array.isArray(data) ? data : data.items || [];
+      state.items = itemsArray.map(normalizeItem);
+
+      // Last update + window
+      if (data.generated_at) {
+        const d = parseDate(data.generated_at);
+        if (d) {
+          lastUpdateEl.textContent = formatDate(d);
+        } else {
+          lastUpdateEl.textContent = data.generated_at;
+        }
+      } else {
+        lastUpdateEl.textContent = "unknown";
+      }
+
+      if (data.days_back) {
+        document.getElementById("meta-window").textContent =
+          `last ${data.days_back} days`;
+      }
+
+      setStatus("Ready.");
+      applyFilters(true);
+    }
+
+    // ====================== EVENTS ======================
+    function setupEvents() {
+      // Category buttons
+      const buttons = document.querySelectorAll(".news-type-btn");
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          buttons.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          state.currentType = btn.dataset.type || "all";
+          applyFilters(true);
+        });
+      });
+
+      // Search
+      const searchInput = document.getElementById("news-search-input");
+      const searchBtn = document.getElementById("news-search-btn");
+
+      searchBtn.addEventListener("click", () => {
+        state.query = searchInput.value || "";
+        applyFilters(true);
+      });
+
+      searchInput.addEventListener("keydown", (ev) => {
+        if (ev.key === "Enter") {
+          state.query = searchInput.value || "";
+          applyFilters(true);
+        }
+      });
+
+      // Recent only
+      const recentCheckbox = document.getElementById("recent-only-checkbox");
+      recentCheckbox.addEventListener("change", () => {
+        state.recentOnly = recentCheckbox.checked;
+        applyFilters(true);
+      });
+
+      // Sort
+      const sortSelect = document.getElementById("sort-select");
+      sortSelect.addEventListener("change", () => {
+        state.sort = sortSelect.value || "latest";
+        applyFilters(true);
+      });
+
+      // Infinite scroll (só ativa depois que o usuário realmente rolar)
+      windowEl.addEventListener("scroll", () => {
+        const y = windowEl.scrollY || windowEl.pageYOffset || 0;
+
+        if (y <= 0 && !hasUserScrolled) {
+          return;
+        }
+        hasUserScrolled = true;
+
+        const scrollPosition = y + windowEl.innerHeight;
+        const threshold = document.documentElement.scrollHeight - 400;
+
+        if (scrollPosition >= threshold) {
+          renderMore();
+        }
+      });
+    }
+
+    // ====================== INIT ======================
+    document.addEventListener("DOMContentLoaded", () => {
+      listEl = document.getElementById("news-list");
+      loadingEl = document.getElementById("loading-indicator");
+      endOfResultsEl = document.getElementById("end-of-results");
+      statusEl = document.getElementById("status-text");
+      statsEl = document.getElementById("stats-text");
+      lastUpdateEl = document.getElementById("meta-last-update");
+      windowEl = window;
+
+      setupEvents();
+
+      loadJson().catch((err) => {
+        console.error("Error loading news JSON", err);
+        setStatus("Error while loading news JSON.");
+        document.getElementById("loading-indicator").classList.add("hidden");
+        listEl.innerHTML = "";
+        const errCard = document.createElement("div");
+        errCard.className = "card";
+        const p = document.createElement("p");
+        p.className = "card-body-text";
+        p.textContent = "Error while loading news feeds. Please try again later.";
+        errCard.appendChild(p);
+        listEl.appendChild(errCard);
+      });
+    });
+  </script>
+</body>
+</html>
