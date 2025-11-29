@@ -32,12 +32,12 @@ jobs:
         run: |
           python scripts/build_news_json.py
 
-      - name: Commit changes via GitHub API (branch master)
+      - name: Commit changes via GitHub API (branch main)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          BRANCH="master"
+          BRANCH="main"
  
           CHANGED=$(git ls-files -m data/* || true)
           [ -z "$CHANGED" ] && { echo "No changes detected."; exit 0; }
