@@ -386,6 +386,7 @@
       });
 
       // Search
+            // Search (live, enquanto digita)
       const searchInput = document.getElementById("news-search-input");
       const searchBtn = document.getElementById("news-search-btn");
 
@@ -394,17 +395,19 @@
         applyFilters(true);
       }
 
+      // Busca dinâmica enquanto digita, com debounce
+      searchInput.addEventListener("input", () => {
+        debounceSearch(() => {
+          doSearch();
+        }, 250); // ajusta o delay se quiser mais rápido/lento
+      });
+
+      // Botão de busca continua funcionando (opcional)
       searchBtn.addEventListener("click", (e) => {
         e.preventDefault();
         doSearch();
       });
 
-      searchInput.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          doSearch();
-        }
-      });
 
       // Recent only
       const recentCheckbox = document.getElementById("recent-only-checkbox");

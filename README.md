@@ -41,7 +41,7 @@ Browse all past content with:
 
 ---
 
-### 📊 Annual Overview Dashboard (`archive_overview.html`)
+### 📊 Annual Overview Dashboard (`archive-overview.html`)
 A fully static dashboard built with **vanilla JS + `<canvas>`**, no libraries:
 
 - Monthly activity chart (bar chart)
@@ -113,7 +113,7 @@ S33R/
 │
 ├── index.html                  # Main 24h news feed
 ├── archive.html                # Monthly archive UI
-├── archive_overview.html       # Annual visualization dashboard
+├── archive-overview.html       # Annual visualization dashboard
 │
 ├── styles.css                  # Dracula-inspired theme
 │
