@@ -10,7 +10,7 @@ Build a consolidated JSON file with recent security news.
 - Deduplicates by link
 - Cleans HTML from summaries
 - Enriches items with keyword-based "smart_groups"
-- Filters out promotional/deal content (Black Friday, etc.)
+- Filters out promotional/deal content (Black Friday, etc.) using conservative rules
 - Writes data/news_recent.json
 - Writes a report of filtered promotional items to:
     - data/archive/promo_filtered_YYYYMMDD_HHMMSS.json
@@ -25,7 +25,6 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import xml.etree.ElementTree as ET
 from typing import Iterable, List, Optional, Tuple
-from urllib.parse import urlparse
 
 from email.utils import parsedate_to_datetime
 
@@ -91,12 +90,12 @@ SMART_GROUP_RULES: List[Tuple[str, List[str]]] = [
         "black basta",           # Known ransomware gang
         "hellokitty",            # HelloKitty/FiveHands
 
-        # Well-known ransomware gangs (not always MITRE groups but widely referenced)
+        # Well-known ransomware gangs
         "lockbit", "lockbit 3.0", "lockbit 2.0",
         "alphv", "blackcat", "alphv/blackcat",
         "clop", "cl0p", "clop ransomware",
         "conti", "conti leaks",
-        "emotet",  # precursor/access vector for ransomware ops
+        "emotet",
         "ryuk",
         "maze", "maze cartel",
         "egregor",
@@ -116,13 +115,13 @@ SMART_GROUP_RULES: List[Tuple[str, List[str]]] = [
         "redkite",
         "snatch ransomware",
 
-        # Ransomware affiliates & IABs linked to MITRE groups
+        # Ransomware affiliates & IABs
         "fin7",
         "fin13",
         "lazarus",
         "apt41",
 
-        # Common indicators / operational language
+        # Operational language
         "leak site", "ransom negotiation", "ransom portal",
         "ransomware-as-a-service", "raas",
         "affiliate program", "affiliate ransomware",
@@ -246,23 +245,8 @@ SMART_GROUP_RULES: List[Tuple[str, List[str]]] = [
 ]
 
 # -------------------------------
-# Promotional / commercial content filtering
+# Promotional / commercial content filtering (ultra-conservador)
 # -------------------------------
-# Feeds "puros de segurança" onde NÃO queremos heurísticas agressivas
-SECURITY_FEED_ALLOWLIST = [
-    "googleprojectzero.blogspot.com",
-    "www.virusbulletin.com",
-    "virusbulletin.com",
-    "www.cisa.gov",
-    "us-cert.cisa.gov",
-    "www.us-cert.gov",
-]
-
-def is_security_feed(feed_url: Optional[str]) -> bool:
-    if not feed_url:
-        return False
-    host = urlparse(feed_url).netloc.lower()
-    return any(host.endswith(h) for h in SECURITY_FEED_ALLOWLIST)
 
 # Padrões fortes: praticamente só aparecem em conteúdo de ofertas/vendas
 STRONG_PROMO_PATTERNS: List[str] = [
@@ -292,123 +276,30 @@ STRONG_PROMO_PATTERNS: List[str] = [
     "voucher code",
     "deal of the day",
     "deal alert",
-    "tv deals",
-    "laptop deals",
-    "monitor deals",
-    "ipad deals",
-    "iphone deals",
-    "macbook deals",
-    "gaming pc deals",
-    "gaming laptop deals",
+    " tv deals",
+    " laptop deals",
+    " monitor deals",
+    " ipad deals",
+    " iphone deals",
+    " macbook deals",
+    " gaming pc deals",
+    " gaming laptop deals",
     "live-tracking the best",
     "live tracking the best",
     "i'm live-tracking",
     "im live-tracking",
 ]
 
-# Padrões fracos: podem aparecer em reviews, mas são bem comuns em artigos de compra
-WEAK_PROMO_PATTERNS: List[str] = [
-    "best tvs",
-    "best tv ",
-    "best laptops",
-    "best laptop",
-    "best monitors",
-    "best monitor",
-    "best phones",
-    "best phone",
-    "best tablets",
-    "best tablet",
-    "best headphones",
-    "best earbuds",
-    "best soundbar",
-    "best soundbars",
-    "best gaming pc",
-    "best gaming laptop",
-    "best gaming monitor",
-    "best routers",
-    "best router",
-    "best mesh wifi",
-    "buying guide",
-    "gift guide",
-    "what to buy",
-    "which one should you buy",
-    "which should you buy",
-    "top picks",
-    "top deals",
-]
-
-# Categorias/tag suspeitas – usadas só para feeds não-whitelist
-BAD_CATEGORY_TERMS: List[str] = [
-    "deal",
-    "deals",
-    "shopping",
-    "buying guide",
-    "gift guide",
-    "hardware deals",
-    "software deals",
-    "discounts",
-    "sales",
-]
-
-def _collect_entry_tags(entry) -> List[str]:
-    """Extract lowercase tag/category labels from a feedparser entry."""
-    tags: List[str] = []
-    tags_attr = getattr(entry, "tags", None)
-    if not tags_attr:
-        return tags
-
-    for t in tags_attr:
-        term = getattr(t, "term", None)
-        if term is None and isinstance(t, dict):
-            term = t.get("term") or t.get("label")
-        if term:
-            tags.append(str(term).lower())
-    return tags
-
-
-def is_promotional_entry(
-    entry,
-    title: str,
-    summary_raw: str,
-    feed_url: Optional[str],
-    type_label: Optional[str] = None,
-) -> bool:
+def is_promotional_entry(title: str, summary_raw: str) -> bool:
     """
-    Return True if the entry looks like a commercial/deal article.
-
-    Regras:
-    - Padrões FORTES: valem para qualquer feed (se bater, é promo).
-    - Feeds em SECURITY_FEED_ALLOWLIST:
-        - NÃO usam padrões fracos
-        - NÃO usam categorias/tags
-    - Feeds normais:
-        - usam padrões fracos + categorias/tags de forma conservadora
+    Versão ultra-conservadora:
+    - SOMENTE filtra se bater em STRONG_PROMO_PATTERNS
+      no título+summary.
+    - Não usa tags, categorias, weak patterns ou heurísticas
+      por feed.
     """
     text = f"{title or ''} {summary_raw or ''}".lower()
-    security = is_security_feed(feed_url)
-
-    # 1) Padrões fortes – se bater, independente do feed, é promo
-    for pat in STRONG_PROMO_PATTERNS:
-        if pat in text:
-            return True
-
-    # 2) Feeds de segurança confiáveis – paramos por aqui
-    if security:
-        return False
-
-    # 3) Padrões fracos – apenas para feeds não-whitelist
-    for pat in WEAK_PROMO_PATTERNS:
-        if pat in text:
-            return True
-
-    # 4) Categorias/tags – apenas para feeds não-whitelist, e ainda assim conservador
-    tags = _collect_entry_tags(entry)
-    for tag in tags:
-        for bad in BAD_CATEGORY_TERMS:
-            if bad in tag:
-                return True
-
-    return False
+    return any(pat in text for pat in STRONG_PROMO_PATTERNS)
 
 # -------------------------------
 # Helpers
@@ -613,8 +504,8 @@ def main() -> None:
             if not link or not title:
                 continue
 
-            # Filtra conteúdo promocional / deals e acumula stats
-            if is_promotional_entry(entry, title, summary_raw, xml_url, type_label):
+            # Filtro PROMO super conservador
+            if is_promotional_entry(title, summary_raw):
                 feed_stat["promo_count"] += 1
                 if len(feed_stat["examples"]) < 10:
                     feed_stat["examples"].append(title)
