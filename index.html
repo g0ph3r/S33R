@@ -369,6 +369,16 @@
       }
     }
 
+    // --- Debounce para busca live ---
+    let searchDebounceTimer = null;
+    function debounceSearch(callback, delay = 250) {
+      if (searchDebounceTimer) {
+        clearTimeout(searchDebounceTimer);
+      }
+      searchDebounceTimer = setTimeout(callback, delay);
+    }
+
+
     function initEvents() {
       // Category pills
       const catContainer = document.getElementById("category-filters");
