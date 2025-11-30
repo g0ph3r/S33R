@@ -98,18 +98,16 @@ SMART_GROUP_RULES: List[Tuple[str, List[str]]] = [
     "ryuk",
     "maze", "maze cartel",
     "egregor",
-    "revictim",
-    "play ransomware",
-    "akira",
-    "blackbyte",
-    "ragnar locker",
-    "darkside",
+    "revil", "sodinokibi",
+    "darkside", "dark side",
+    "blackmatter",
+    "doppelpaymer",
+    "vice society",
     "babuk",
-    "hive",
+    "netwalker",
+    "hive ransomware", "hive",
     "royal ransomware",
-    "nokoyawa",
-    "cuba ransomware",
-    "mount locker",
+    "play ransomware", "playcrypt",
     "phobos ransomware",
     "vice society",
     "bianlian",
@@ -147,9 +145,8 @@ SMART_GROUP_RULES: List[Tuple[str, List[str]]] = [
     # === Microsoft Ecosystem ===
     ("Windows / Microsoft", [
         "windows", "exchange server", "office 365",
-        "msrc", "sharepoint", "outlook",
-        "active directory", "adfs", "ntlm",
-        "ms defender", "intune",
+        "azure ad", "active directory",
+        "powershell", "ms defender", "intune",
     ]),
 
     # === Linux Ecosystem ===
@@ -180,10 +177,35 @@ SMART_GROUP_RULES: List[Tuple[str, List[str]]] = [
     # === Malware / Payloads ===
     ("Malware / Payloads", [
         "malware", "trojan", "backdoor",
-        "infostealer", "info-stealer", "stealer",
-        " rat ", "remote access trojan", "botnet",
-        "loader", "dropper", "rootkit", "worm",
-        "keylogger", "banking trojan",
+        "rootkit", "botnet", "loader",
+        "infostealer", "info-stealer", "keylogger",
+        "rat (remote access trojan)", "remote access trojan",
+        "wiper", "locker", "locker malware",
+    ]),
+
+    # === Web App / API Security ===
+    ("Web / API Security", [
+        "xss", "cross-site scripting",
+        "csrf", "cross-site request forgery",
+        "sql injection", "sqli",
+        "lfi", "rfi", "directory traversal",
+        "api security", "graphql", "web application firewall",
+    ]),
+
+    # === Identity / Access ===
+    ("Identity / Access", [
+        "mfa", "2fa", "passwordless",
+        "sso", "single sign-on",
+        "oauth", "saml", "openid connect",
+        "identity provider", "idp",
+    ]),
+
+    # === Network / OT / ICS ===
+    ("Network / OT / ICS", [
+        "ics", "scada", "plc",
+        "industrial control systems",
+        "critical infrastructure",
+        "ot security", "operational technology",
     ]),
 
     # === Data Breaches / Leaks ===
@@ -198,78 +220,192 @@ SMART_GROUP_RULES: List[Tuple[str, List[str]]] = [
     ("Phishing / Social Engineering", [
         "phishing", "spear-phishing", "spear phishing",
         "social engineering", "credential harvesting",
-        "smishing", "vishing", "impersonation",
-        "brand impersonation",
+        "smishing", "vishing",
+        "business email compromise", "bec attack",
     ]),
 
-    # === Vendor Security Intelligence (Novo!) ===
-    ("Vendor Security Intelligence", [
-        # EDR/AV vendors
-        "crowdstrike", "falcon", "sentinelone", "sentinel one",
-        "palo alto", "cortex xdr", "unit 42",
-        "microsoft defender", "mdr microsoft", "ms defender",
-        "symantec", "broadcom security",
-        "trend micro",
-
-        # Networking & FW vendors
-        "cisco", "asa firewall", "talos",
-        "fortinet", "fortigate", "fortios",
-        "checkpoint", "juniper",
-
-        # IR & Threat intel vendors
-        "mandiant", "fireeye", "google cloud sec",
-        "kaspersky", "securelist", "bitdefender",
-        "eset", "secureworks", "sophos",
-
-        # Cloud & CDN vendors
-        "cloudflare", "akamai", "fastly",
-
-        # Identity vendors
-        "okta", "auth0", "duo security",
-
-        # Email & anti-phish vendors
-        "proofpoint", "mimecast",
-
-        # Other relevant vendors
-        "vmware", "broadcom", "1password", "lastpass",
+    # === Crypto / Web3 ===
+    ("Crypto / Web3", [
+        "crypto exchange", "cryptocurrency",
+        "defi", "dex", "web3",
+        "smart contract", "solidity",
+        "rug pull", "bridge exploit",
     ]),
 
-    # === Supply Chain Security / Dependency Attacks ===
-    ("Supply Chain & Dependency Attacks", [
-        "supply chain attack", "dependency hijack",
-        "package compromise", "typosquatting",
-        "npm package", "pypi", "malicious package",
-        "software supply chain", "backdoored library",
-    ]),
-
-    # === Crypto / Blockchain Security ===
-    ("Crypto / Blockchain Security", [
-        "crypto scam", "blockchain hack", "defi exploit",
-        "smart contract vulnerability", "rug pull",
-        "crypto theft", "exchange hacked",
-        "web3", "metamask", "ledger",
-    ]),
-
-    # === Darknet / Cybercrime Ops ===
-    ("Cybercrime / Darknet", [
-        "darknet", "dark web", "crime forum",
-        "underground marketplace", "stealer logs",
-        "initial access broker", "iab", "ransom gang leak site",
-    ]),
-
-    # === DFIR / Incident Response ===
-    ("DFIR / Incident Response", [
-        "dfir", "forensic", "incident response",
-        "memory analysis", "disk image", "timeline analysis",
-        "ioc", "tactics techniques", "mitre att&ck",
+    # === Supply-chain / Software ===
+    ("Supply Chain / Software", [
+        "software supply chain",
+        "ci/cd pipeline",
+        "dependency confusion",
+        "typosquatting package",
+        "malicious npm package", "malicious pypi package",
+        "malicious nuget package",
     ]),
 ]
 
+# -------------------------------
+# Promotional / commercial content filtering
+# -------------------------------
+PROMO_PATTERNS: List[str] = [
+    # Seasonal sales / generic deals
+    "black friday",
+    "cyber monday",
+    "prime day",
+    "boxing day sale",
+    "back to school deals",
+    "holiday deals",
+    "christmas deals",
+    "year-end sale",
+    "new year sale",
 
-def slugify(text: str) -> str:
-    text = text.strip().lower()
+    # Explicit deal / discount language
+    "best deals",
+    "best deal",
+    "deal alert",
+    "deal of the day",
+    "doorbuster",
+    "flash sale",
+    "mega sale",
+    "hot sale",
+    "limited-time offer",
+    "limited time offer",
+    "time-limited offer",
+    "price drop",
+    "price drops",
+    "on sale",
+    "lowest price",
+    "lowest-ever price",
+    "cheapest price",
+    "now only",
+    "starting at",
+    "starting from",
+    "save up to",
+    "save $",
+    "save €",
+    "% off",
+    "off all",
+    "discount code",
+    "discounts on",
+    "coupon code",
+    "voucher code",
+
+    # Buying guides / product roundups
+    "best tvs",
+    "best tv ",
+    "best laptops",
+    "best laptop",
+    "best monitors",
+    "best monitor",
+    "best phones",
+    "best phone",
+    "best tablets",
+    "best tablet",
+    "best headphones",
+    "best earbuds",
+    "best soundbar",
+    "best soundbars",
+    "best gaming pc",
+    "best gaming laptop",
+    "best gaming monitor",
+    "best routers",
+    "best router",
+    "best mesh wifi",
+    "buying guide",
+    "gift guide",
+    "what to buy",
+    "which one should you buy",
+    "which should you buy",
+    "top picks",
+    "top deals",
+
+    # Live deal tracking
+    "live-tracking the best",
+    "live tracking the best",
+    "i'm live-tracking",
+    "im live-tracking",
+
+    # Highly likely promo phrasing
+    "tv deals",
+    "laptop deals",
+    "monitor deals",
+    "ipad deals",
+    "iphone deals",
+    "macbook deals",
+    "ps5 deals",
+    "xbox deals",
+    "nintendo switch deals",
+    "gaming pc deals",
+    "gaming laptop deals",
+]
+
+BAD_CATEGORY_TERMS: List[str] = [
+    "deal",
+    "deals",
+    "shopping",
+    "buying guide",
+    "reviews",
+    "review",
+    "best of",
+    "top picks",
+    "gift guide",
+    "hardware deals",
+    "software deals",
+    "discounts",
+    "sales",
+]
+
+def _collect_entry_tags(entry) -> list[str]:
+    """Extract lowercase tag/category labels from a feedparser entry.
+
+    We support both the attribute-style (entry.tags) and dict-style access,
+    and handle objects with a ``term`` attribute or dicts with ``term``/``label`` keys.
+    """
+    tags: list[str] = []
+    tags_attr = getattr(entry, "tags", None)
+    if not tags_attr:
+        return tags
+
+    for t in tags_attr:
+        term = getattr(t, "term", None)
+        if term is None and isinstance(t, dict):
+            term = t.get("term") or t.get("label")
+        if term:
+            tags.append(str(term).lower())
+    return tags
+
+
+def is_promotional_entry(entry, title: str, summary_raw: str) -> bool:
+    """Return True if the entry looks like a commercial/deal article.
+
+    This is deliberately conservative: we avoid blocking vendor names directly
+    (amazon, walmart, target, etc.) and instead focus on:
+      - explicit deal / discount / sale language in the title+summary
+      - categories/tags that clearly mark the item as a deal/review/shopping
+    """
+    text = f"{title or ''} {summary_raw or ''}".lower()
+
+    # 1) Check explicit promo/deal phrases in title+summary
+    for pat in PROMO_PATTERNS:
+        if pat in text:
+            return True
+
+    # 2) Check categories/tags
+    tags = _collect_entry_tags(entry)
+    for tag in tags:
+        for bad in BAD_CATEGORY_TERMS:
+            if bad in tag:
+                return True
+
+    return False
+
+
+# -------------------------------
+# Helpers
+# -------------------------------
+def slugify(label: str) -> str:
+    text = label.lower()
     text = re.sub(r"[^a-z0-9]+", "-", text)
-    text = re.sub(r"-+", "-", text).strip("-")
+    text = text.strip("-")
     return text or "unknown"
 
 
@@ -305,8 +441,20 @@ def parse_published(entry) -> Optional[datetime]:
     dt_struct = getattr(entry, "published_parsed", None) or getattr(
         entry, "updated_parsed", None
     )
-    if dt_struct:
-        return datetime(*dt_struct[:6], tzinfo=timezone.utc)
+
+    if dt_struct is not None:
+        # parsedate_to_datetime sabe lidar com struct_time?
+        # Se não, usamos datetime diretamente.
+        try:
+            dt = datetime.fromtimestamp(
+                datetime(*dt_struct[:6], tzinfo=timezone.utc).timestamp(),
+                tz=timezone.utc,
+            )
+        except Exception:
+            dt = None
+
+        if dt is not None:
+            return dt
 
     # 2) Fallback para campos de data em string
     candidate_fields = [
@@ -337,13 +485,10 @@ def parse_published(entry) -> Optional[datetime]:
         # Se não tiver timezone, assume UTC (como você pediu)
         if dt.tzinfo is None:
             dt = dt.replace(tzinfo=timezone.utc)
-        else:
-            # Normaliza para UTC por consistência
-            dt = dt.astimezone(timezone.utc)
 
         return dt
 
-    # Nada deu certo -> caller decide se ignora o item
+    # 3) Se nada funcionar, retorna None
     return None
 
 
@@ -454,6 +599,12 @@ def main() -> None:
             link = getattr(entry, "link", None)
             title = getattr(entry, "title", "").strip()
             summary_raw = getattr(entry, "summary", "") or getattr(entry, "description", "")
+
+            # Skip obvious promotional / commercial "deal" content
+            if is_promotional_entry(entry, title, summary_raw):
+                # Uncomment for debugging:
+                # print(f"[DEBUG] Skipping promotional item: {title!r}")
+                continue
 
             if not link or not title:
                 continue
