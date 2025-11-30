@@ -41,39 +41,73 @@ jobs:
           set -euo pipefail
           BRANCH="main"
 
-          # 1) REMOVE arquivos temporários promo_filtered_*.json
-          echo "Cleaning temporary promo_filtered_* files..."
-          find data/archive -maxdepth 1 -type f -name "promo_filtered_*.json" -print -delete
- 
-          # 2) Identifica arquivos alterados após remover os temporários
+          REPO="${{ github.repository }}"
+
+          ##############################################
+          # 1) Deletar arquivos promo_filtered_* do repo
+          ##############################################
+          echo "Looking for tracked promo_filtered_*.json to delete..."
+          PROMO_FILES=$(git ls-files "data/archive/promo_filtered_*.json" || true)
+
+          if [ -n "$PROMO_FILES" ]; then
+            for file in $PROMO_FILES; do
+              echo "Deleting $file via GitHub API..."
+
+              SHA=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+                       "https://api.github.com/repos/$REPO/contents/$file?ref=$BRANCH" \
+                       | jq -r .sha)
+
+              if [ "${SHA:-null}" = "null" ] || [ -z "$SHA" ]; then
+                echo "  -> Could not get SHA for $file, skipping."
+                continue
+              fi
+
+              jq -n --arg msg "Remove $file" --arg branch "$BRANCH" --arg sha "$SHA" \
+                '{message:$msg, branch:$branch, sha:$sha}' \
+              | curl -sS -X DELETE \
+                  -H "Authorization: token $GITHUB_TOKEN" \
+                  -H "Content-Type: application/json" \
+                  --data-binary @- \
+                  "https://api.github.com/repos/$REPO/contents/$file"
+
+              echo "  -> Deleted $file"
+            done
+          else
+            echo "No tracked promo_filtered_*.json files found to delete."
+          fi
+
+          ###################################################
+          # 2) Commitar arquivos alterados em data/archive/*
+          ###################################################
           CHANGED=$(git ls-files -m -o --exclude-standard data/archive || true)
           [ -z "$CHANGED" ] && { echo "No changes detected."; exit 0; }
- 
+
           for file in $CHANGED; do
             echo "Processing $file"
 
-            # 3) Ignora se o arquivo não existe mais
+            # Se o arquivo foi removido localmente, ignoramos aqui
+            # (remoção já foi tratada acima via DELETE)
             if [ ! -f "$file" ]; then
-              echo "File $file no longer exists, skipping."
+              echo "  -> $file no longer exists locally, skipping in PUT loop."
               continue
             fi
 
-            # 4) Ignorar os promo_filtered_* caso algum escape da limpeza
+            # Não deve acontecer, mas garantimos que promo_filtered_* não seja recriado
             case "$file" in
               data/archive/promo_filtered_*.json)
-                echo "Skipping transient promo file $file"
+                echo "  -> Skipping transient promo file $file"
                 continue
                 ;;
             esac
- 
-            # 5) Commit normal dos arquivos restantes
+
             BASE64_CONTENT="$(base64 -w 0 "$file" | tr -d '\n')"
- 
+
             SHA=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-                     "https://api.github.com/repos/${{ github.repository }}/contents/$file?ref=$BRANCH" \
+                     "https://api.github.com/repos/$REPO/contents/$file?ref=$BRANCH" \
                      | jq -r .sha)
- 
+
             if [ "${SHA:-null}" = "null" ] || [ -z "$SHA" ]; then
+              echo "  -> Creating $file"
               printf '%s\n' "$BASE64_CONTENT" \
                 | jq -Rs --arg msg "Add $file" --arg branch "$BRANCH" \
                     '{message:$msg, content:., branch:$branch}' \
@@ -81,8 +115,9 @@ jobs:
                     -H "Authorization: token $GITHUB_TOKEN" \
                     -H "Content-Type: application/json" \
                     --data-binary @- \
-                    "https://api.github.com/repos/${{ github.repository }}/contents/$file"
+                    "https://api.github.com/repos/$REPO/contents/$file"
             else
+              echo "  -> Updating $file"
               printf '%s\n' "$BASE64_CONTENT" \
                 | jq -Rs --arg msg "Update $file" --arg branch "$BRANCH" --arg sha "$SHA" \
                     '{message:$msg, content:., branch:$branch, sha:$sha}' \
@@ -90,6 +125,6 @@ jobs:
                     -H "Authorization: token $GITHUB_TOKEN" \
                     -H "Content-Type: application/json" \
                     --data-binary @- \
-                    "https://api.github.com/repos/${{ github.repository }}/contents/$file"
+                    "https://api.github.com/repos/$REPO/contents/$file"
             fi
           done
