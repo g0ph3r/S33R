@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S33R Archive – Year Overview</title>
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    .overview-container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 32px 12px 40px;
+      text-align: center;
+    }
+
+    .overview-title {
+      font-size: 30px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      color: var(--text-primary);
+    }
+
+    .overview-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .overview-controls {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .overview-controls select {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 6px 10px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      min-width: 100px;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      text-align: left;
+    }
+
+    @media (min-width: 900px) {
+      .overview-grid {
+        grid-template-columns: 1.1fr 0.9fr;
+      }
+    }
+
+    .overview-card {
+      background: var(--bg-elevated);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-color);
+      padding: 14px 16px 12px;
+    }
+
+    .overview-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .overview-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .overview-list {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .overview-list li {
+      margin-bottom: 2px;
+    }
+
+    canvas {
+      width: 100%;
+      height: 260px;
+    }
+
+    @media (max-width: 640px) {
+      .overview-container {
+        padding-top: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Minimal Navbar -->
+  <div class="minimal-navbar">
+    <a href="index.html" class="minimal-nav-link">News (24h)</a>
+  </div>
+
+  <div class="overview-container">
+    <h1 class="overview-title">S33R Archive – Year Overview</h1>
+    <p class="overview-subtitle">
+      Visual summary of archived security news per year: activity per month and top sources.
+    </p>
+
+    <div class="overview-controls">
+      <select id="year-select">
+        <option value="">Select year...</option>
+      </select>
+    </div>
+
+    <div id="overview-meta" class="overview-meta"></div>
+
+    <div class="overview-grid">
+      <div class="overview-card">
+        <div class="overview-card-title">Items per month</div>
+        <canvas id="monthly-chart" width="450" height="260"></canvas>
+      </div>
+
+      <div class="overview-card">
+        <div class="overview-card-title">Top sources in year</div>
+        <canvas id="sources-chart" width="450" height="260"></canvas>
+        <ul id="sources-list" class="overview-list"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const candidateYears = [2023, 2024, 2025, 2026, 2027];
+    let currentYear = null;
+    let yearItems = [];
+
+    async function fetchJSON(path) {
+      try {
+        const res = await fetch(path);
+        if (!res.ok) return null;
+        return await res.json();
+      } catch {
+        return null;
+      }
+    }
+
+    async function loadYears() {
+      const select = document.getElementById("year-select");
+      for (const y of candidateYears) {
+        const data = await fetchJSON(`data/archive/yearly/${y}.json`);
+        if (Array.isArray(data) && data.length > 0) {
+          const opt = document.createElement("option");
+          opt.value = y;
+          opt.textContent = y;
+          select.appendChild(opt);
+        }
+      }
+    }
+
+    function extractYearStats(items) {
+      const monthlyCounts = Array(12).fill(0);
+      const sourceCounts = {};
+      let minTs = Infinity;
+      let maxTs = -Infinity;
+
+      items.forEach(item => {
+        let date = null;
+        if (typeof item.published_ts === "number") {
+          date = new Date(item.published_ts * 1000);
+        } else if (item.published) {
+          const d = new Date(item.published);
+          if (!isNaN(d.getTime())) date = d;
+        }
+        if (!date) return;
+
+        const m = date.getMonth(); // 0-11
+        monthlyCounts[m] += 1;
+
+        const src = item.source || "Unknown";
+        sourceCounts[src] = (sourceCounts[src] || 0) + 1;
+
+        const ts = date.getTime();
+        if (ts < minTs) minTs = ts;
+        if (ts > maxTs) maxTs = ts;
+      });
+
+      const topSources = Object.entries(sourceCounts)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 7);
+
+      const rangeStart = isFinite(minTs) ? new Date(minTs).toLocaleString() : "Unknown";
+      const rangeEnd = isFinite(maxTs) ? new Date(maxTs).toLocaleString() : "Unknown";
+
+      return {
+        monthlyCounts,
+        topSources,
+        totalItems: items.length,
+        totalSources: Object.keys(sourceCounts).length,
+        rangeStart,
+        rangeEnd
+      };
+    }
+
+    // ---------- Canvas helpers ----------
+
+    function clearCanvas(canvas) {
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function drawMonthlyChart(canvas, counts) {
+      const ctx = canvas.getContext("2d");
+      clearCanvas(canvas);
+
+      const labels = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
+      const padding = { top: 20, right: 16, bottom: 26, left: 26 };
+      const w = canvas.width;
+      const h = canvas.height;
+      const chartW = w - padding.left - padding.right;
+      const chartH = h - padding.top - padding.bottom;
+
+      const maxVal = Math.max(1, Math.max(...counts));
+      const barWidth = chartW / counts.length * 0.6;
+      const gap = chartW / counts.length * 0.4;
+
+      ctx.font = "11px system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
+      ctx.fillStyle = "#888";
+
+      // Y axis labels (0, max)
+      ctx.textAlign = "right";
+      ctx.textBaseline = "middle";
+      ctx.fillText("0", padding.left - 4, h - padding.bottom);
+      ctx.fillText(String(maxVal), padding.left - 4, padding.top);
+
+      // X axis labels + bars
+      counts.forEach((val, i) => {
+        const x = padding.left + i * (barWidth + gap) + gap * 0.2;
+        const barHeight = chartH * (val / maxVal);
+        const y = padding.top + (chartH - barHeight);
+
+        // bar
+        const grad = ctx.createLinearGradient(0, y, 0, y + barHeight);
+        grad.addColorStop(0, "#ff79c6");
+        grad.addColorStop(1, "#bd93f9");
+        ctx.fillStyle = grad;
+        ctx.fillRect(x, y, barWidth, barHeight);
+
+        // x label
+        ctx.fillStyle = "#888";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "top";
+        const labelX = x + barWidth / 2;
+        const labelY = h - padding.bottom + 4;
+        ctx.fillText(labels[i], labelX, labelY);
+      });
+
+      // axes
+      ctx.strokeStyle = "#444";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(padding.left, padding.top);
+      ctx.lineTo(padding.left, h - padding.bottom);
+      ctx.lineTo(w - padding.right, h - padding.bottom);
+      ctx.stroke();
+    }
+
+    function drawSourcesChart(canvas, topSources) {
+      const ctx = canvas.getContext("2d");
+      clearCanvas(canvas);
+
+      if (!topSources || topSources.length === 0) return;
+
+      const padding = { top: 14, right: 10, bottom: 14, left: 80 };
+      const w = canvas.width;
+      const h = canvas.height;
+      const chartW = w - padding.left - padding.right;
+      const chartH = h - padding.top - padding.bottom;
+
+      const maxVal = Math.max(...topSources.map(s => s[1]));
+      const rowHeight = chartH / topSources.length;
+
+      ctx.font = "11px system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
+      ctx.textAlign = "right";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = "#888";
+
+      topSources.forEach((entry, idx) => {
+        const [src, count] = entry;
+        const yCenter = padding.top + rowHeight * idx + rowHeight / 2;
+
+        // label
+        ctx.fillText(src, padding.left - 6, yCenter);
+
+        // bar
+        const width = chartW * (count / maxVal);
+        const x = padding.left;
+        const y = yCenter - 6;
+
+        const grad = ctx.createLinearGradient(x, 0, x + width, 0);
+        grad.addColorStop(0, "#8be9fd");
+        grad.addColorStop(1, "#50fa7b");
+        ctx.fillStyle = grad;
+        ctx.fillRect(x, y, width, 12);
+
+        // count
+        ctx.fillStyle = "#bbb";
+        ctx.textAlign = "left";
+        ctx.fillText(String(count), x + width + 4, yCenter);
+        ctx.fillStyle = "#888";
+        ctx.textAlign = "right";
+      });
+    }
+
+    function renderOverviewMeta(year, stats) {
+      const metaEl = document.getElementById("overview-meta");
+      if (!stats || stats.totalItems === 0) {
+        metaEl.textContent = "";
+        return;
+      }
+      metaEl.textContent =
+        `Year ${year}: ${stats.totalItems} items, ` +
+        `${stats.totalSources} sources, ` +
+        `range ${stats.rangeStart} → ${stats.rangeEnd}`;
+    }
+
+    function renderSourcesList(topSources) {
+      const ul = document.getElementById("sources-list");
+      ul.innerHTML = "";
+      if (!topSources || topSources.length === 0) return;
+      topSources.forEach(([src, count]) => {
+        const li = document.createElement("li");
+        li.textContent = `${src}: ${count}`;
+        ul.appendChild(li);
+      });
+    }
+
+    async function updateYearOverview(year) {
+      const data = await fetchJSON(`data/archive/yearly/${year}.json`);
+      const canvasMonthly = document.getElementById("monthly-chart");
+      const canvasSources = document.getElementById("sources-chart");
+      clearCanvas(canvasMonthly);
+      clearCanvas(canvasSources);
+      document.getElementById("sources-list").innerHTML = "";
+      document.getElementById("overview-meta").textContent = "";
+
+      if (!Array.isArray(data) || data.length === 0) {
+        document.getElementById("overview-meta").textContent = "No data for this year.";
+        return;
+      }
+
+      yearItems = data;
+      const stats = extractYearStats(yearItems);
+
+      drawMonthlyChart(canvasMonthly, stats.monthlyCounts);
+      drawSourcesChart(canvasSources, stats.topSources);
+      renderOverviewMeta(year, stats);
+      renderSourcesList(stats.topSources);
+    }
+
+    document.getElementById("year-select").addEventListener("change", (e) => {
+      const y = e.target.value;
+      currentYear = y || null;
+      if (!currentYear) {
+        document.getElementById("overview-meta").textContent = "";
+        clearCanvas(document.getElementById("monthly-chart"));
+        clearCanvas(document.getElementById("sources-chart"));
+        document.getElementById("sources-list").innerHTML = "";
+        return;
+      }
+      updateYearOverview(currentYear);
+    });
+
+    loadYears();
+  </script>
+
+</body>
+</html>
