@@ -578,22 +578,25 @@ def main() -> None:
     report_latest = ARCHIVE_DIR / "promo_filtered_latest.json"
 
     report = {
-        "generated_at": datetime.now(timezone.utc).isoformat(),
-        "days_back": DAYS_BACK,
-        "total_promo_filtered": total_promo,
-        "feeds": [],
-    }
+    "generated_at": datetime.now(timezone.utc).isoformat(),
+    "days_back": DAYS_BACK,
+    "total_promo_filtered": total_promo,
+    "feeds": [],
+    }   
 
     for s in promo_stats.values():
-        report["feeds"].append(
-            {
-                "feed_title": s["feed_title"],
-                "xml_url": s["xml_url"],
-                "type_label": s["type_label"],
-                "promo_count": s["promo_count"],
-                "examples": s["examples"],
-            }
-        )
+        # Só inclui feeds que realmente tiveram itens filtrados
+        if s["promo_count"] > 0:
+            report["feeds"].append(
+                {
+                    "feed_title": s["feed_title"],
+                    "xml_url": s["xml_url"],
+                    "type_label": s["type_label"],
+                    "promo_count": s["promo_count"],
+                    "examples": s["examples"],
+                }
+            )
+
 
     report_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
     report_latest.write_text(json.dumps(report, indent=2), encoding="utf-8")
