@@ -40,20 +40,25 @@ jobs:
         run: |
           set -euo pipefail
           BRANCH="main"
+
+          # 1) REMOVE arquivos temporários promo_filtered_*.json
+          echo "Cleaning temporary promo_filtered_* files..."
+          find data/archive -maxdepth 1 -type f -name "promo_filtered_*.json" -print -delete
  
+          # 2) Identifica arquivos alterados após remover os temporários
           CHANGED=$(git ls-files -m -o --exclude-standard data/archive || true)
           [ -z "$CHANGED" ] && { echo "No changes detected."; exit 0; }
  
           for file in $CHANGED; do
             echo "Processing $file"
 
-            # 1) Se o arquivo não existe mais (foi deletado), apenas ignorar
+            # 3) Ignora se o arquivo não existe mais
             if [ ! -f "$file" ]; then
               echo "File $file no longer exists, skipping."
               continue
             fi
 
-            # 2) (Opcional) Ignorar arquivos temporários promo_filtered_*.json
+            # 4) Ignorar os promo_filtered_* caso algum escape da limpeza
             case "$file" in
               data/archive/promo_filtered_*.json)
                 echo "Skipping transient promo file $file"
@@ -61,31 +66,30 @@ jobs:
                 ;;
             esac
  
-            # Conteúdo codificado SEM quebras de linha
+            # 5) Commit normal dos arquivos restantes
             BASE64_CONTENT="$(base64 -w 0 "$file" | tr -d '\n')"
  
-            # SHA atual (se houver)
             SHA=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
                      "https://api.github.com/repos/${{ github.repository }}/contents/$file?ref=$BRANCH" \
                      | jq -r .sha)
  
             if [ "${SHA:-null}" = "null" ] || [ -z "$SHA" ]; then
-              # ---------- ARQUIVO NOVO ----------
               printf '%s\n' "$BASE64_CONTENT" \
                 | jq -Rs --arg msg "Add $file" --arg branch "$BRANCH" \
                     '{message:$msg, content:., branch:$branch}' \
-                | curl -sS -X PUT -H "Authorization: token $GITHUB_TOKEN" \
-                        -H "Content-Type: application/json" \
-                        --data-binary @- \
-                        "https://api.github.com/repos/${{ github.repository }}/contents/$file"
+                | curl -sS -X PUT \
+                    -H "Authorization: token $GITHUB_TOKEN" \
+                    -H "Content-Type: application/json" \
+                    --data-binary @- \
+                    "https://api.github.com/repos/${{ github.repository }}/contents/$file"
             else
-              # ---------- ATUALIZA EXISTENTE ----------
               printf '%s\n' "$BASE64_CONTENT" \
                 | jq -Rs --arg msg "Update $file" --arg branch "$BRANCH" --arg sha "$SHA" \
                     '{message:$msg, content:., branch:$branch, sha:$sha}' \
-                | curl -sS -X PUT -H "Authorization: token $GITHUB_TOKEN" \
-                        -H "Content-Type: application/json" \
-                        --data-binary @- \
-                        "https://api.github.com/repos/${{ github.repository }}/contents/$file"
+                | curl -sS -X PUT \
+                    -H "Authorization: token $GITHUB_TOKEN" \
+                    -H "Content-Type: application/json" \
+                    --data-binary @- \
+                    "https://api.github.com/repos/${{ github.repository }}/contents/$file"
             fi
           done
