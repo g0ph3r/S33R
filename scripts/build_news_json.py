@@ -10,9 +10,9 @@ Build a consolidated JSON file with recent security news.
 - Deduplicates by link
 - Cleans HTML from summaries
 - Enriches items with keyword-based "smart_groups"
+- Filters out promotional/deal content (Black Friday, etc.)
 - Writes data/news_recent.json
-
-This script is meant to be run from the repo root (S33R).
+- Writes a report of filtered promotional items to data/archive/promo_filtered_*.json
 """
 
 import os
@@ -24,10 +24,9 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 from typing import Iterable, List, Optional, Tuple
 
-from email.utils import parsedate_to_datetime  # <-- NOVO
+from email.utils import parsedate_to_datetime
 
 import feedparser
-
 
 try:
     from bs4 import BeautifulSoup  # Optional, nicer HTML cleanup
@@ -40,6 +39,7 @@ except ImportError:  # pragma: no cover
 BASE_DIR = Path(__file__).resolve().parent.parent
 OPML_PATH = BASE_DIR / "sec_feeds.xml"
 OUTPUT_PATH = BASE_DIR / "data" / "news_recent.json"
+ARCHIVE_DIR = BASE_DIR / "data" / "archive"
 
 DAYS_BACK = int(os.environ.get("DAYS_BACK", "30"))
 
@@ -74,57 +74,56 @@ SMART_GROUP_RULES: List[Tuple[str, List[str]]] = [
 
     # === Ransomware ===
     ("Ransomware", [
+        # General terms
+        "ransomware", "ransom note", "double extortion",
+        "locker", "crypto-locker", "ransom demand", "ransom gang",
+        "extortion", "data exfiltration extortion",
 
-    # General terms
-    "ransomware", "ransom note", "double extortion",
-    "locker", "crypto-locker", "ransom demand", "ransom gang",
-    "extortion", "data exfiltration extortion",
+        # MITRE groups known for ransomware operations
+        "wizard spider",         # Ryuk
+        "royal",                 # Royal Ransomware (ex-Wizard Spider splinter)
+        "fin12",                 # Known ransomware affiliate
+        "muddled libra",         # Ransomware extortion/social engineering
+        "scattered spider",      # Also involved in ransomware breaches
+        "black basta",           # Known ransomware gang
+        "hellokitty",            # HelloKitty/FiveHands
 
-    # MITRE groups known for ransomware operations
-    "wizard spider",         # Ryuk
-    "royal",                 # Royal Ransomware (ex-Wizard Spider splinter)
-    "fin12",                 # Known ransomware affiliate
-    "muddled libra",         # Ransomware extortion/social engineering
-    "scattered spider",      # Also involved in ransomware breaches
-    "black basta",           # Known ransomware gang
-    "hellokitty",            # HelloKitty/FiveHands
+        # Well-known ransomware gangs (not always MITRE groups but widely referenced)
+        "lockbit", "lockbit 3.0", "lockbit 2.0",
+        "alphv", "blackcat", "alphv/blackcat",
+        "clop", "cl0p", "clop ransomware",
+        "conti", "conti leaks",
+        "emotet",  # precursor/access vector for ransomware ops
+        "ryuk",
+        "maze", "maze cartel",
+        "egregor",
+        "revil", "sodinokibi",
+        "darkside", "dark side",
+        "blackmatter",
+        "doppelpaymer",
+        "vice society",
+        "babuk",
+        "netwalker",
+        "hive ransomware", "hive",
+        "royal ransomware",
+        "play ransomware", "playcrypt",
+        "phobos ransomware",
+        "vice society",
+        "bianlian",
+        "redkite",
+        "snatch ransomware",
 
-    # Well-known ransomware gangs (not always MITRE groups but widely referenced)
-    "lockbit", "lockbit 3.0", "lockbit 2.0",
-    "alphv", "blackcat", "alphv/blackcat",
-    "clop", "cl0p", "clop ransomware",
-    "conti", "conti leaks",
-    "emotet", # precursor/access vector for ransomware ops
-    "ryuk",
-    "maze", "maze cartel",
-    "egregor",
-    "revil", "sodinokibi",
-    "darkside", "dark side",
-    "blackmatter",
-    "doppelpaymer",
-    "vice society",
-    "babuk",
-    "netwalker",
-    "hive ransomware", "hive",
-    "royal ransomware",
-    "play ransomware", "playcrypt",
-    "phobos ransomware",
-    "vice society",
-    "bianlian",
-    "redkite",
-    "snatch ransomware",
+        # Ransomware affiliates & IABs linked to MITRE groups
+        "fin7",           # sometimes tied in supply-chain / IAB
+        "fin13",
+        "lazarus",        # has used faux-ransomware in ops
+        "apt41",          # double-extortion impersonation cases
 
-    # Ransomware affiliates & IABs linked to MITRE groups
-    "fin7",           # sometimes tied in supply-chain / IAB
-    "fin13",
-    "lazarus",        # has used faux-ransomware in ops
-    "apt41",          # double-extortion impersonation cases
-
-    # Common indicators / operational language
-    "leak site", "ransom negotiation", "ransom portal",
-    "ransomware-as-a-service", "raas",
-    "affiliate program", "affiliate ransomware",
-]),
+        # Common indicators / operational language
+        "leak site", "ransom negotiation", "ransom portal",
+        "ransomware-as-a-service", "raas",
+        "affiliate program", "affiliate ransomware",
+    ]),
 
     # === Vulnerabilities / CVEs ===
     ("Vulnerabilities / CVEs", [
@@ -355,11 +354,7 @@ BAD_CATEGORY_TERMS: List[str] = [
 ]
 
 def _collect_entry_tags(entry) -> list[str]:
-    """Extract lowercase tag/category labels from a feedparser entry.
-
-    We support both the attribute-style (entry.tags) and dict-style access,
-    and handle objects with a ``term`` attribute or dicts with ``term``/``label`` keys.
-    """
+    """Extract lowercase tag/category labels from a feedparser entry."""
     tags: list[str] = []
     tags_attr = getattr(entry, "tags", None)
     if not tags_attr:
@@ -375,13 +370,7 @@ def _collect_entry_tags(entry) -> list[str]:
 
 
 def is_promotional_entry(entry, title: str, summary_raw: str) -> bool:
-    """Return True if the entry looks like a commercial/deal article.
-
-    This is deliberately conservative: we avoid blocking vendor names directly
-    (amazon, walmart, target, etc.) and instead focus on:
-      - explicit deal / discount / sale language in the title+summary
-      - categories/tags that clearly mark the item as a deal/review/shopping
-    """
+    """Return True if the entry looks like a commercial/deal article."""
     text = f"{title or ''} {summary_raw or ''}".lower()
 
     # 1) Check explicit promo/deal phrases in title+summary
@@ -434,29 +423,24 @@ def clean_html_summary(raw: str) -> str:
 
 def parse_published(entry) -> Optional[datetime]:
     """Return a timezone-aware datetime for a feed entry.
-    Tries feedparser's *_parsed fields first, then falls back to date strings.
-    If no timezone is present, assumes UTC.
+
+    - Tries feedparser's *_parsed fields first
+    - Falls back to common date fields using parsedate_to_datetime
+    - If no timezone is present, assumes UTC
     """
-    # 1) Tenta primeiro os campos estruturados do feedparser
     dt_struct = getattr(entry, "published_parsed", None) or getattr(
         entry, "updated_parsed", None
     )
 
     if dt_struct is not None:
-        # parsedate_to_datetime sabe lidar com struct_time?
-        # Se não, usamos datetime diretamente.
         try:
-            dt = datetime.fromtimestamp(
-                datetime(*dt_struct[:6], tzinfo=timezone.utc).timestamp(),
-                tz=timezone.utc,
-            )
-        except Exception:
-            dt = None
-
-        if dt is not None:
+            dt = datetime(*dt_struct[:6])
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
             return dt
+        except Exception:
+            pass
 
-    # 2) Fallback para campos de data em string
     candidate_fields = [
         "published",
         "updated",
@@ -467,7 +451,6 @@ def parse_published(entry) -> Optional[datetime]:
     ]
 
     for field in candidate_fields:
-        # feedparser entries se comportam como dict + atributos
         value = getattr(entry, field, None)
         if not value and isinstance(entry, dict):
             value = entry.get(field)
@@ -482,13 +465,11 @@ def parse_published(entry) -> Optional[datetime]:
         if dt is None:
             continue
 
-        # Se não tiver timezone, assume UTC (como você pediu)
         if dt.tzinfo is None:
             dt = dt.replace(tzinfo=timezone.utc)
 
         return dt
 
-    # 3) Se nada funcionar, retorna None
     return None
 
 
@@ -502,7 +483,6 @@ def compute_smart_groups(title: str, summary: str) -> list[str]:
                 groups.append(label)
                 break
 
-    # Dedup preservando ordem
     seen = set()
     deduped: list[str] = []
     for g in groups:
@@ -538,12 +518,10 @@ def main() -> None:
 
     items_by_link: dict[str, dict] = {}
 
-    # -------------------------------
-    # Incremental mode:
-    #   - Carrega o JSON existente (se houver)
-    #   - Reaproveita itens ainda dentro da janela DAYS_BACK
-    #   - Evita duplicatas por link
-    # -------------------------------
+    # Estatísticas de promo por feed
+    promo_stats: dict[str, dict] = {}
+
+    # Incremental mode: reaproveita itens existentes
     if OUTPUT_PATH.exists():
         try:
             existing_data = json.loads(OUTPUT_PATH.read_text(encoding="utf-8"))
@@ -556,15 +534,12 @@ def main() -> None:
                     continue
 
                 pub_ts = item.get("published_ts")
-                # Se tiver timestamp, aplica o mesmo cutoff de DAYS_BACK
                 if pub_ts is not None:
                     try:
                         existing_dt = datetime.fromtimestamp(pub_ts, tz=timezone.utc)
                         if existing_dt < cutoff:
-                            # Muito antigo, deixa expirar naturalmente
                             continue
                     except Exception:
-                        # Se der algum problema bizarro no timestamp, não derruba o script
                         pass
 
                 items_by_link[link] = item
@@ -582,10 +557,22 @@ def main() -> None:
         type_slug, type_label = normalize_category(group_title)
         print(f"[INFO] Fetching feed: {feed_title} ({xml_url}) [{type_label}]")
 
-        # --- robust fetch: don't let one broken feed kill the whole job
+        # prepara estrutura de stats para este feed
+        feed_key = xml_url or feed_title
+        if feed_key not in promo_stats:
+            promo_stats[feed_key] = {
+                "feed_title": feed_title,
+                "xml_url": xml_url,
+                "type_label": type_label,
+                "promo_count": 0,
+                "examples": [],
+            }
+
+        feed_stat = promo_stats[feed_key]
+
         try:
             parsed = feedparser.parse(xml_url)
-        except Exception as e:  # network / TLS errors, RemoteDisconnected, etc.
+        except Exception as e:
             print(f"[WARN] Failed to fetch feed {feed_title} ({xml_url}): {e!r}")
             continue
 
@@ -600,13 +587,14 @@ def main() -> None:
             title = getattr(entry, "title", "").strip()
             summary_raw = getattr(entry, "summary", "") or getattr(entry, "description", "")
 
-            # Skip obvious promotional / commercial "deal" content
-            if is_promotional_entry(entry, title, summary_raw):
-                # Uncomment for debugging:
-                # print(f"[DEBUG] Skipping promotional item: {title!r}")
+            if not link or not title:
                 continue
 
-            if not link or not title:
+            # Filtra conteúdo promocional / deals e acumula stats
+            if is_promotional_entry(entry, title, summary_raw):
+                feed_stat["promo_count"] += 1
+                if len(feed_stat["examples"]) < 10:
+                    feed_stat["examples"].append(title)
                 continue
 
             pub_dt = parse_published(entry)
@@ -614,7 +602,6 @@ def main() -> None:
                 pub_iso = None
                 pub_ts = None
             else:
-                # Respeita a janela de DAYS_BACK
                 if pub_dt < cutoff:
                     continue
                 pub_iso = pub_dt.isoformat()
@@ -637,14 +624,12 @@ def main() -> None:
 
             existing = items_by_link.get(link)
             if existing is None:
-                # Novo link
                 items_by_link[link] = item
             else:
-                # Mesmo link: fica com a versão mais recente
                 if (item["published_ts"] or 0) > (existing.get("published_ts") or 0):
                     items_by_link[link] = item
 
-    # Converte para lista e ordena por published_ts desc
+    # Converte para lista e ordena por data
     items_list = list(items_by_link.values())
     items_list.sort(
         key=lambda x: x["published_ts"] if x["published_ts"] is not None else 0,
@@ -660,6 +645,44 @@ def main() -> None:
     }
     OUTPUT_PATH.write_text(json.dumps(out_data, indent=2), encoding="utf-8")
     print(f"[INFO] Wrote {len(items_list)} items to {OUTPUT_PATH}")
+
+    # -------------------------------
+    # Relatório de itens promocionais filtrados
+    # -------------------------------
+    total_promo = sum(s["promo_count"] for s in promo_stats.values())
+    print(f"[INFO] Total promotional items filtered: {total_promo}")
+
+    for feed_key, s in promo_stats.items():
+        if s["promo_count"] > 0:
+            print(
+                f"[INFO]   {s['feed_title']} ({s['xml_url']}): "
+                f"{s['promo_count']} promotional items filtered"
+            )
+
+    # Grava JSON de relatório em data/archive
+    ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
+    report_path = ARCHIVE_DIR / f"promo_filtered_{now.strftime('%Y%m%d_%H%M%S')}.json"
+
+    report = {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "days_back": DAYS_BACK,
+        "total_promo_filtered": total_promo,
+        "feeds": [],
+    }
+
+    for s in promo_stats.values():
+        report["feeds"].append(
+            {
+                "feed_title": s["feed_title"],
+                "xml_url": s["xml_url"],
+                "type_label": s["type_label"],
+                "promo_count": s["promo_count"],
+                "examples": s["examples"],
+            }
+        )
+
+    report_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
+    print(f"[INFO] Wrote promo filter report to {report_path}")
 
 
 if __name__ == "__main__":
