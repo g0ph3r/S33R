@@ -70,10 +70,33 @@ CATEGORY_SLUGS = {
 }
 
 # -------------------------------
+# Curated: keywords para notícias "selecionadas"
+# -------------------------------
+CURATED_KEYWORDS: List[str] = [
+    # Exploits e vulns críticas
+    "zero-day", "zeroday", "0day",
+    "critical vulnerability", "critical exploit",
+
+    # Supply chain / impacto grande
+    "supply chain attack", "software supply chain",
+    "supply-chain attack",
+
+    # Vazamentos e mega incidentes
+    "major breach", "data leak", "data leaks", "massive leak",
+
+    # Ransom gangs (mais quentes)
+    "ransom gang", "ransomware gang", "new ransomware",
+]
+
+
+# -------------------------------
 # Keyword-based smart grouping
 # -------------------------------
 SMART_GROUP_RULES: List[Tuple[str, List[str]]] = [
 
+    # === Curated (high-signal items) ===
+    ("Curated", CURATED_KEYWORDS),
+    
     # === Ransomware ===
     ("Ransomware", [
         # General terms
@@ -457,6 +480,15 @@ def main() -> None:
                     except Exception:
                         pass
 
+                # Garante que itens antigos também tenham o campo "curated"
+                if "curated" not in item:
+                    title = (item.get("title") or "")
+                    summary = (item.get("summary") or "")
+                    text = f"{title} {summary}".lower()
+                    item["curated"] = any(
+                        kw.lower() in text for kw in CURATED_KEYWORDS
+                    )
+
                 items_by_link[link] = item
                 kept_existing += 1
 
@@ -524,6 +556,9 @@ def main() -> None:
             summary = clean_html_summary(summary_raw)
             smart_groups = compute_smart_groups(title, summary)
 
+            # Item é "Curated" se o smart_group já tiver Curated
+            is_curated = "Curated" in smart_groups
+
             item = {
                 "title": title,
                 "summary": summary,
@@ -534,6 +569,7 @@ def main() -> None:
                 "published": pub_iso,
                 "published_ts": pub_ts,
                 "smart_groups": smart_groups,
+                "curated": is_curated,
             }
 
             existing = items_by_link.get(link)

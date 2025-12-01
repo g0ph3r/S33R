@@ -37,6 +37,7 @@
           <h2 class="sidebar-title">Categories</h2>
           <div id="category-filters" class="pill-group">
             <button class="pill pill-active" data-type="all">All</button>
+            <button class="pill" data-category="Curated">Curated</button>
             <button class="pill" data-type="crypto">Crypto</button>
             <button class="pill" data-type="cybercrime">Cybercrime, Darknet</button>
             <button class="pill" data-type="dfir">DFIR</button>
@@ -289,14 +290,23 @@
       const cutoff = now - ONE_DAY;
 
       let result = state.allItems.filter((item) => {
-        if (cat !== "all" && item.type !== cat) {
+        // --- filtro por categoria / curated ---
+        if (cat === "curated") {
+          // Curated: usa campo booleano
+          if (!item.curated) {
+            return false;
+          }
+        } else if (cat !== "all" && item.type !== cat) {
+          // Demais categorias: comportamento atual
           return false;
         }
 
+        // --- filtro "Recent only" (últimas 24h) ---
         if (recentOnly && item.published_ts && item.published_ts < cutoff) {
           return false;
         }
 
+        // --- filtro de busca ---
         if (search) {
           const hay = [
             item.title || "",
@@ -331,6 +341,7 @@
       renderList();
       updateStats();
     }
+
 
     function renderList() {
       const listEl = document.getElementById("news-list");
