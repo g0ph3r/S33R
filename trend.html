@@ -196,7 +196,7 @@
       <section class="trend-grid">
         <!-- News volume per day (last 90d) -->
         <article class="card">
-          <h2>News volume per day (90d)</h2>
+          <h2>News volume per day</h2>
           <div class="chart-container">
             <canvas id="volumeChart"></canvas>
           </div>
@@ -266,6 +266,13 @@
     const trendsUrl = "data/trends.json";
 
     let trendsData = null;
+    const WINDOW_DAYS = {
+      "24h": 1,
+      "7d": 7,
+      "30d": 30,
+      "90d": 90,
+    };
+
     let currentWindow = "7d";
 
     let volumeChart = null;
@@ -293,11 +300,30 @@
       return trendsData.windows[0] || "7d";
     }
 
-    function updateVolumeChart() {
+      function updateVolumeChart(win) {
       const ctx = document.getElementById("volumeChart").getContext("2d");
       const series = trendsData.daily_volume || [];
-      const labels = series.map(d => d.date);
-      const counts = series.map(d => d.count);
+
+      const generatedAt = trendsData.generated_at
+        ? new Date(trendsData.generated_at)
+        : new Date();
+
+      const days = WINDOW_DAYS[win] || 90;
+
+      // cutoff = generatedAt - (days - 1)
+      const cutoff = new Date(generatedAt);
+      cutoff.setDate(cutoff.getDate() - (days - 1));
+
+      // filtra por data >= cutoff
+      const filtered = series.filter(d => {
+        const dDate = new Date(d.date + "T00:00:00Z");
+        return dDate >= cutoff;
+      });
+
+      const dataToUse = filtered.length > 0 ? filtered : series;
+
+      const labels = dataToUse.map(d => d.date);
+      const counts = dataToUse.map(d => d.count);
 
       volumeChart = createOrUpdateChart(
         volumeChart,
@@ -329,6 +355,7 @@
         }
       );
     }
+
 
     function updateCategoryChart(win) {
       const ctx = document.getElementById("categoryChart").getContext("2d");
