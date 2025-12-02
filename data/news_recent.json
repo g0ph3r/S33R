@@ -1,8 +1,345 @@
 {
-  "generated_at": "2025-12-02T14:30:01.508455+00:00",
+  "generated_at": "2025-12-02T15:30:54.589052+00:00",
   "days_back": 30,
-  "total_items": 1589,
+  "total_items": 1623,
   "items": [
+    {
+      "title": "Decoding high-bandwidth memory: A practical guide to GPU memory for fine-tuning AI models",
+      "summary": "We've all been there. You've meticulously prepared your dataset and written your training script. You hit run , and your excitement builds, only to be crushed by the infamous error: CUDA out of memory. This is one of the most common roadblocks in AI development. Your GPU's High Bandwidth Memory (HBM) , is the high-speed memory that holds everything that's needed for computation, and running out of it is a hard stop. But how do you know how much you need? To build a clear foundation, we'll start by breaking down the HBM consumers on a single GPU and we'll present key strategies to reduce HBM consumption on a single GPU. Later, we'll explore advanced multi-GPU strategies like data and model parallelism that can help relieve memory pressure and scale your training in the cloud. Understanding HBM: What's using all the memory? When you fine-tune a model , your HBM is primarily consumed by three things: Model Weights : This is the most straightforward. It's the storage space required for the model's parameters\u2014the \"brain\" that it uses to make predictions. A 7-billion parameter model loaded in 16-bit precision will take up roughly 14 GB before you even process a single piece of data. Optimizer States and Gradients : This is the overhead that's required for learning. To update the model's weights, the training process needs to calculate gradients (the direction of learning) and the optimizer (like the popular AdamW ) needs to store its own data to guide the training. In full fine-tuning, this can be the largest consumer of HBM. Activations and Batch Data : This is the most dynamic part. When your data (images, text, etc.) flows through the model's layers, the intermediate calculations, or activations , are stored in HBM. The memory needed here is directly proportional to your batch size. A larger batch size means more activations are stored simultaneously, which leads to faster training but much higher memory usage. Note : These calculations are theoretical minimums. Real-world frameworks add up to 30% overhead due to temporary buffers, kernel launches, and memory fragmentation . Although it's impossible to get a perfect number without experimentation, you can estimate your HBM needs with this general formula: Total HBM \u2248 (Model Size) + (Optimizer States) + (Gradients) + (Activations) Further reading : See this excellent JAX e-book that covers these topics in great detail and even has some \"try it out yourself\" test questions . Example: Why full fine-tuning is so demanding To see why running out of memory is such a common problem, let's walk through a real-world example that I recently worked on: fine-tuning the medgemma-4b-it model , which has 4 billion parameters. Our script loads it in bfloat16 precision (2 bytes per parameter). First, let's calculate the static HBM footprint. This is the memory that's required just to load the model and prepare it for training, before you've even processed a single piece of data. Model Size : The memory that's needed to simply hold the model on the GPU. 4 billion parameters \u00d7 2 bytes/parameter = 8 GB Gradients and Optimizer States : The overhead for training every parameter with the AdamW optimizer. Gradients: 4 billion parameters \u00d7 2 bytes/parameter = 8 GB Optimizer States (AdamW): 2 \u00d7 4 billion parameters \u00d7 2 bytes/parameter = 16 GB Note : While AdamW is a popular optimizer, other optimizers, such as Adafactor and Lion, have different memory footprints. Adding these together gives us our baseline HBM cost for a full fine-tuning attempt: 8 GB (Model) + 8 GB (Gradients) + 16 GB (Optimizer) = 32 GB This 32 GB is the baseline just to start the training process. On top of this, the GPU needs additional memory for activations , which is a dynamic cost that grows with your batch size and input data size. This is why full fine-tuning of large models is so demanding and often reserved for the most powerful hardware. Key strategies to reduce HBM consumption The HBM requirement for a full fine-tune can seem impossibly high. But several powerful techniques can reduce memory consumption, making it feasible to train large models on consumer-grade or entry-level professional GPUs. Parameter-Efficient Fine-Tuning (PEFT) with LoRA Instead of training all the billions of parameters in a model, Parameter-Efficient Fine-Tuning (PEFT) methods focus on training only a small subset of parameters. The most popular of these is LoRA (Low-Rank Adaptation) . LoRA works by freezing the original model's weights and injecting a tiny number of new, trainable adapter layers into the model architecture. This means the memory-hungry gradients and optimizer states are only needed for these few million new parameters, not the full 4 billion. The math behind LoRA's memory savings LoRA doesn't remove the base model from your GPU. The full 8 GB of the original model's weights are still loaded and taking up HBM. They're just frozen, which means that the GPU isn't training them. All of the memory savings come from the fact that you no longer need to store the huge gradients and optimizer states for that massive, frozen part of the model. Let's recalculate the static HBM footprint with LoRA, assuming it adds 20 million trainable parameters: Model Size (unchanged) : The base model is still loaded. 4 billion parameters \u00d7 2 bytes/parameter = 8 GB LoRA Gradients & Optimizer States : We now only need overhead for the tiny set of new parameters. Gradients: 20 million parameters \u00d7 2 bytes/parameter = 40 MB Optimizer States: 2 \u00d7 20 million parameters \u00d7 2 bytes/parameter = 80 MB The new static HBM footprint is now: 8 GB (Model) + 40 MB (Gradients) + 80 MB (Optimizer) \u2248 8.12 GB The training overhead has shrunk from 24 GB to just 120 MB. Your new baseline memory requirement is now just over 8 GB. This lower baseline memory requirement leaves much more room for the dynamic memory that's needed for activations, which lets you use a reasonable batch size on a common 16 GB or 24 GB GPU without running out of memory. Model quantization Besides training fewer parameters, we can also shrink the ones that we have by using quantization , which involves reducing the numerical precision of the model's weights. T he standard precision for modern training is bfloat16 because it offers the dynamic range of float32 with half the memory footprint. But we can reduce HBM usage further by converting weights to lower-precision integer formats like int8 or int4. Using lower-precision integer formats has a significant impact on HBM when compared to the standard bfloat16 baseline: bfloat16 (standard): The baseline size (e.g., a 7B model requires ~14 GB ). 8-bit precision: Halves the model size (e.g., 14 GB becomes ~7 GB ). 4-bit precision: Reduces the model size by a factor of 4 (e.g., 14 GB becomes ~3.5 GB ). The reduction in size lets you fit much larger models into memory with minimal degradation in performance. aside_block ), ('btn_text', ''), ('href', ''), ('image', None)])]> Combining LoRA and Quantization : These techniques work best together. Quantized LoRA ( QLoRA) is a method that stores the massive base model in a highly efficient 4-bit format (specifically NF4 or NormalFloat 4), while adding small, trainable LoRA adapters in bfloat16. During the training process, the 4-bit weights are dequantized to bfloat16 for computation. Dequantizing in process lets you fine-tune very large models on a single GPU with the memory savings of 4-bit storage and the mathematical stability of 16-bit training. FlashAttention: An algorithmic speed boost Finally, FlashAttention is a foundational algorithmic optimization that significantly reduces HBM usage and speeds up training on both single and multi-GPU setups. The attention mechanism in transformers is a primary memory bottleneck because it requires storing a large, intermediate attention matrix . FlashAttention cleverly reorders the computation to avoid storing this full matrix in memory, leading to substantial memory savings and faster execution. Best of all, enabling FlashAttention is often as simple as a one-line change. In the MedGemma fine-tuning script , this was done by setting the value attn_implementation=\"sdpa\" , which can automatically use more efficient backends like FlashAttention if the hardware supports it. Scaling beyond a single GPU: Advanced strategies Techniques like LoRA and quantization are useful for lowering HBM needs on a single GPU. But to train truly massive models or to really speed up the process, you'll eventually need to scale out to multiple GPUs. Here are some of the key strategies that can be used to distribute the load and overcome memory limitations. Data parallelism Data parallelism is the most common and intuitive approach to scaling. In a Distributed Data Parallel (DDP) setup, the entire model is replicated on each GPU. The key is that the global batch of training data is split, with each GPU processing its own mini-batch concurrently. After each forward and backward pass, the gradients from each GPU are averaged together to ensure that all of the model replicas learn from the entire dataset and they stay in sync. This method is excellent for speeding up training but it doesn't reduce the HBM that's required to hold the model itself, because every GPU needs a full copy. Model parallelism When a model is too large to fit into the memory of a single GPU, you must use model parallelism . Instead of replicating the model, this strategy splits the model across multiple GPUs. There are two primary ways to do this: Tensor parallelism : This method splits a single large operation (like a massive weight matrix in a transformer layer) across several GPUs. Each GPU computes its part of the operation, and the results are combined. Pipeline parallelism : This technique places different layers of the model onto different GPUs in a sequence. The data flows through the first set of layers on GPU 1, then the output is passed to GPU 2 for the next set of layers, and so on, like an assembly line. These strategies are more complex to implement than data parallelism, but they're essential for models that are simply too big for one device. Fully Sharded Data Parallelism (FSDP) FSDP is a powerful and efficient hybrid strategy that combines the ideas of data parallelism and model parallelism. Unlike standard data parallelism where each GPU holds a full copy of the model, optimizer states, and gradients, FSDP shards (or splits) all of these components across the GPUs. Each GPU only materializes the full parameters for the specific layer that it's computing at that moment, dramatically reducing the peak HBM usage per device. FSDP makes it possible to train enormous models on a cluster of smaller GPUs. By combining these hardware and software strategies, you can scale your fine-tuning jobs from a single GPU to a powerful, distributed cluster capable of handling even the most demanding AI models. HBM sizing guide HBM Use case and explanation 16 GB Sufficient for basic inference or fine-tuning with techniques like LoRA using a very small batch size (e.g., 1-2). Expect slower training times at this level. 24 GB The recommended starting point for a good experience with 4-7 B parameter models. This capacity allows for a more effective batch size (e.g., 8-16) when using LoRA, providing a great balance of training speed and cost. 40+ GB Necessary for maximizing training speed with large batch sizes or for working with larger models (in the 20+ B parameter range) now or in the future. Encountering the CUDA out of memory error provides an important lesson in the trade-offs between model size, training techniques, and batch size. By understanding what consumes your HBM, you can make smarter decisions and keep your projects running smoothly. I hope that this guide has helped clarify the CUDA out of memory error and that it's given you the tools to keep your projects running smoothly. When you're ready to take the next step, Go ogle Cloud has the tools to accelerate your AI development. Explore GPU configurations for your Cloud Run services and best practices for running Cloud Run jobs with GPU . For maximum control: Spin up a Compute Engine instance with the latest NVIDIA H100 or A100 Tensor Core GPUs and take full control of your environment. Looking to optimize your model hosting infrastructure? Take a look at The Ultimate Guide to xPU Inference Configuration . For a deeper dive into scaling your model, check out How to Scale Your Model . New to Google Cloud? Get started with the $300 free credit to find the perfect solution for your next project. Special thanks to Jason Monden and Sayce Falk from the AI compute team for their helpful review and feedback on this post.",
+      "link": "https://cloud.google.com/blog/topics/developers-practitioners/decoding-high-bandwidth-memory-a-practical-guide-to-gpu-memory-for-fine-tuning-ai-models/",
+      "source": "Google Cloud Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2025-12-02T16:00:00+00:00",
+      "published_ts": 1764691200,
+      "smart_groups": [
+        "Cloud / SaaS",
+        "Identity / Access",
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Grafana CVE-2025-6023 Bypass: A Technical Deep Dive",
+      "summary": "submitted by /u/matosd [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1pcb8pw/grafana_cve20256023_bypass_a_technical_deep_dive/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2025-12-02T15:24:15+00:00",
+      "published_ts": 1764689055,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Ethereum price analysis: Will ETH continue to decline in December?",
+      "summary": "Ethereum risks a deeper sell-off toward $2,500\u2013$2,200 as MVRV support weakens and a bearish pennant threatens to break lower.",
+      "link": "https://cointelegraph.com/news/ehtereum-price-analysis-will-eth-continue-decline-december?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2025-12-02T15:20:00+00:00",
+      "published_ts": 1764688800,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Google fixes Android vulnerabilities \"under targeted exploitation\" (CVE-2025-48633, CVE-2025-48572)",
+      "summary": "submitted by /u/tekz [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1pcb02f/google_fixes_android_vulnerabilities_under/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2025-12-02T15:15:01+00:00",
+      "published_ts": 1764688501,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "ShadyPanda's Seven-Year Campaign Infects 4.3M Chrome and Edge Users",
+      "summary": "Infected 4.3 million Chrome and Edge users via extensions; ShadyPanda exploited browser marketplaces",
+      "link": "https://www.infosecurity-magazine.com/news/shadypanda-infects-43m-chrome-edge/",
+      "source": "Infosecurity Magazine \u2013 News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T15:10:00+00:00",
+      "published_ts": 1764688200,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "When do you guys think Google most email providers will support post quantum DKIM algorithms?",
+      "summary": "RSA has been the DKIM go to for so long. I know ECC is a good middle ground. But most services haven\u2019t even gone to that yet. Though I suppose a jump from RSA to I think it would be crystals dilithium. It\u2019d be really cool to see when this happens. These things always get some many delays. submitted by /u/Fresh_Heron_3707 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1pcasqh/when_do_you_guys_think_google_most_email/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2025-12-02T15:06:57+00:00",
+      "published_ts": 1764688017,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Is my release process SOC2 compliant?",
+      "summary": "Hi, I work as a software developer for a small start-up that's looking to do SOC2. The bulk of our SOC2 stuff is going to be done by the IT admin I work with, but as I understand it, the auditors will also look at how our software product is actually released to production. That's my area of responsibility. I want to check with the crowd if our release process is compliant with SOC2. Here is how we do releases to prod now: - Our software product is an application that lives in its own \"application\" repo on GitHub. It has a protected \"main\" branch that requires all new merges to go through a manual peer review process, accompanied by a battery of automated tests. Nothing gets merged into main until it's approved and passed all tests. - Every time there is a new commit on main, we automatically build a docker image and push it to a AWS ECR. - For managing infra and actual deployments, we have a separate repo called \"infra\". This holds all the Terraform stuff, as well as some Python scripts for deploying new revisions of the application image. The script is literally `python deploy.py -- env [staging | prod] --application-image-id [image_tag]`. - All developers on my small team have access to the infra repo & the deploy script. Once the product manager decides it's time to release, one of the developers picks the correct image from the ECR, and updates prod with it (we use AWS ECS for container orchestration). - The deploy script is wrapped in a GitHub Action. So the workflow is \"pick image -> go to infra repo -> manually dispatch deployment GitHub action with new image sha\". The approval for release is not really documented anywhere, and any logging that happens here is whatever AWS cloud trail generates when our deploy script calls AWS SDK. --- I think the continuous integration of our setup is solid. We maintain a library of releasable images in ECR, and I can point the auditor to the thousands of reviewed and tested pull requests in the application repo. I am not so sure about the release process. My LLM is telling me my releases need to be \"documented & authorized\". The LLM is suggesting I make image id of what's running in prod a part of the infra repo. As in, my deploy script should consume not something developers enter manually into it ad hoc, but a string from a version-controlled config file. So if a developer wants to update prod, they change the config file and create a pull request. Once PR gets approved, the deployment script runs automatically with the updated config file. The PR would be the \"documented & authorized\" artifact. Is that about right? PS Before you ask \"why the hell is your image id not already part of the Terraform config!!!\", we use AWS ECS to orchestrate containers, and Terraform is very-very good at setting up ECS infra, but it's not very good at doing actual _deployments_ of new images to ECS . So I made a conscious decision of splitting deployment pipe into its own python script. submitted by /u/OtherwiseUniversity7 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1pcaov3/is_my_release_process_soc2_compliant/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2025-12-02T15:02:38+00:00",
+      "published_ts": 1764687758,
+      "smart_groups": [
+        "Ransomware",
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "GitHub - alpkeskin/locus: Turn street photos into GPS coordinates using AI",
+      "summary": "submitted by /u/alpkeskin [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1pcaopp/github_alpkeskinlocus_turn_street_photos_into_gps/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2025-12-02T15:02:28+00:00",
+      "published_ts": 1764687748,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Coinbase\u2019s x402 adds identity checks to power AI stablecoin payments",
+      "summary": "Coinbase\u2019s x402 added age and ID checks to stablecoin payments, allowing AI systems to pay for restricted goods and services online.",
+      "link": "https://cointelegraph.com/news/coinbase-x402-ai-stablecoin-payments-id-age-verification?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2025-12-02T15:01:00+00:00",
+      "published_ts": 1764687660,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Mistral's latest open-source release says smaller models beat large ones - here's why",
+      "summary": "The company aims to create 'distributed intelligence' with its new Mistral 3 models.",
+      "link": "https://www.zdnet.com/article/mistrals-latest-open-source-release-says-smaller-models-beat-large-ones-heres-why/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T15:00:40+00:00",
+      "published_ts": 1764687640,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "SmartTube YouTube App for Android TV Compromised Following Exposure of Signing Keys",
+      "summary": "The Android TV community faces a significant security crisis as SmartTube, a popular third-party YouTube client, has been compromised due to exposed signing keys. Security researchers have identified malicious code embedded within official releases, prompting Google to forcibly disable the application on affected devices. The incident, which came to light through extensive community analysis, demonstrates [\u2026] The post SmartTube YouTube App for Android TV Compromised Following Exposure of Signing Keys appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/smarttube-youtube-app-for-android-tv-compromised/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T15:00:14+00:00",
+      "published_ts": 1764687614,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Sanctioned Lender Huione Shuts Phnom Penh Branches, Halts Withdrawals",
+      "summary": "The Cambodian finance giant has closed its doors amid mounting international pressure including U.S. and UK sanctions.",
+      "link": "https://decrypt.co/350632/sanctioned-lender-huione-shuts-phnom-penh-branches-halts-withdrawals",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2025-12-02T14:56:17+00:00",
+      "published_ts": 1764687377,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Google fixes Android vulnerabilities \u201cunder targeted exploitation\u201d (CVE-2025-48633, CVE-2025-48572)",
+      "summary": "Google has shipped patches for 51 Android vulnerabilities, including two high-severity flaws (CVE-2025-48633, CVE-2025-48572) that \u201cmay be under limited, targeted exploitation\u201d. According to the December Android security bulletin, both vulnerabilities affect the Android Framework, which is a collection of core software components, libraries, and APIs that developers use to build Android apps. Their exact nature has yet to be revealed, but the bulletin notes that CVE-2025-48633 can be exploited by Android applications to access sensitive \u2026 More \u2192 The post Google fixes Android vulnerabilities \u201cunder targeted exploitation\u201d (CVE-2025-48633, CVE-2025-48572) appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2025/12/02/android-cve-2025-48633-cve-2025-48572/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T14:48:50+00:00",
+      "published_ts": 1764686930,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "OSCP vs CYSA",
+      "summary": "Im in year 3 of uni for cybersecurity but still a generalist. I dont know if I want blue team, red team, IR, or cloud yet. I want a strong cert that isnt a waste of time. I am halfway into HTB\u2019s CPTS path to prep for OSCP , but im afraid OSCP is too specialized and offensive-security focused. I am also considering CYSA, but its not as renowned as OSCP. Sec+ is also not very respected in my country. I want something solid but still broad enough so I dont lock myself into a path too early. What cert makes sense as a first strong generalist option for someone who has not chosen a niche yet? I already have CHFI and CEH for free. submitted by /u/BoyfriendSharkDudu [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1pcaak3/oscp_vs_cysa/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2025-12-02T14:46:40+00:00",
+      "published_ts": 1764686800,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Cyber Startup Frenetik Launches with Patented Deception Technology That Bets Against the AI Arms Race",
+      "summary": "Bethesda, USA / Maryland, December 2nd, 2025, CyberNewsWire While most cybersecurity companies pour resources into AI models, massive compute, hoovering up all the data, and enhanced analytics to detect and prevent threats, Frenetik, a Maryland cyber startup, is betting on something simpler: making sure attackers don\u2019t know what defenders know. The company emerged today with [\u2026] The post Cyber Startup Frenetik Launches with Patented Deception Technology That Bets Against the AI Arms Race appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/cyber-startup-frenetik-launches-with-patented-deception-technology-that-bets-against-the-ai-arms-race/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T14:42:34+00:00",
+      "published_ts": 1764686554,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Cyber Startup Frenetik Launches with Patented Deception Technology That Bets Against the AI Arms Race",
+      "summary": "Bethesda, USA / Maryland, December 2nd, 2025, CyberNewsWire While most cybersecurity companies pour resources into AI models, massive compute, hoovering up all the data, and enhanced analytics to detect and prevent threats, Frenetik, a Maryland cyber startup, is betting on something simpler: making sure attackers don\u2019t know what defenders know. The company emerged today with [\u2026] The post Cyber Startup Frenetik Launches with Patented Deception Technology That Bets Against the AI Arms Race appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/cyber-startup-frenetik-launches-with-patented-deception-technology-that-bets-against-the-ai-arms-race/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T14:41:14+00:00",
+      "published_ts": 1764686474,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "AI Adoption Surges While Governance Lags \u2014 Report Warns of Growing Shadow Identity Risk",
+      "summary": "Baltimore, MD, December 2nd, 2025, CyberNewsWire The 2025 State of AI Data Security Report reveals a widening contradiction in enterprise security: AI adoption is nearly universal, yet oversight remains limited. Eighty-three percent of organizations already use AI in daily operations, but only 13 percent say they have strong visibility into how these systems handle sensitive [\u2026] The post AI Adoption Surges While Governance Lags \u2014 Report Warns of Growing Shadow Identity Risk appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/ai-adoption-surges-shadow-identity-risk/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T14:38:58+00:00",
+      "published_ts": 1764686338,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "AI Adoption Surges While Governance Lags \u2014 Report Warns of Growing Shadow Identity Risk",
+      "summary": "Baltimore, MD, December 2nd, 2025, CyberNewsWire The 2025 State of AI Data Security Report reveals a widening contradiction in enterprise security: AI adoption is nearly universal, yet oversight remains limited. Eighty-three percent of organizations already use AI in daily operations, but only 13 percent say they have strong visibility into how these systems handle sensitive [\u2026] The post AI Adoption Surges While Governance Lags \u2014 Report Warns of Growing Shadow Identity Risk appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/ai-adoption-surges-shadow-identity-risk/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T14:36:47+00:00",
+      "published_ts": 1764686207,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Forward Edge-AI delivers quantum-safe data diode and earns communications patent",
+      "summary": "Forward Edge-AI announced two major milestones in advancing quantum-resistant communications: the United States Patent and Trademark Office (USPTO) has issued a Notice of Allowance for its patent application covering attack-resilient, trust-verified communications, and the company has delivered its Isidore Quantum One-Way Data Diode to National Central University (NCU) in Taiwan. Breakthrough deployment to National Central University The delivery of Isidore Quantum to National Central University marks a significant milestone in cross-national research collaboration on next-generation \u2026 More \u2192 The post Forward Edge-AI delivers quantum-safe data diode and earns communications patent appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2025/12/02/forward-edge-ai-isidore-quantum/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T14:35:49+00:00",
+      "published_ts": 1764686149,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "New Arkanix Stealer Attacking Users to Steal VPN Accounts, Screenshots and Wi-Fi Credentials",
+      "summary": "The Arkanix stealer is a new malware family now spreading in the wild. It targets home users and small offices that rely on VPN clients and wireless networks for daily work. Once active, it focuses on stealing VPN account data, Wi\u2011Fi profiles, browser credentials, and desktop screenshots. This gives attackers direct access to private networks [\u2026] The post New Arkanix Stealer Attacking Users to Steal VPN Accounts, Screenshots and Wi-Fi Credentials appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/new-arkanix-stealer-attacking-users/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T14:32:07+00:00",
+      "published_ts": 1764685927,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "The Great Disconnect: Unmasking the \u2018Two Separate Conversations\u2019 in Security",
+      "summary": "When familiar security concepts carry unfamiliar meanings for different audiences, teams talk past each other without even realizing it. This silent disconnect weakens communication, clarity, and outcomes. The post The Great Disconnect: Unmasking the \u2018Two Separate Conversations\u2019 in Security appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/the-great-disconnect-unmasking-the-two-separate-conversations-in-security/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T14:30:00+00:00",
+      "published_ts": 1764685800,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "CSO 30 Awards 2025: Celebrating Excellence, Innovation and Leadership in Cybersecurity",
+      "summary": "With submissions showcasing advances in automation, inclusion, workforce development, and real-world resilience, this year\u2019s programme highlights the multifaceted role of today\u2019s CSO. As threats evolve and organizational complexity grows, the CSO is now a strategist, communicator, technologist, and cultural leader. A panel of expert judges reviewed an exceptional set of candidates, ultimately selecting winners whose work demonstrates measurable impact, strategic clarity, and a commitment to elevating the cybersecurity profession. Below are the 2025 CSO 30 Award Innovation Award winners. AI and Digital Excellence in Cybersecurity Winner: Greg Emmerson, Applegreen This category celebrates outstanding leadership in AI, automation, and digital innovation. UK CSO 30 2025 winner Greg Emmerson (right) with judge Andrew Barber (left) CSO UK / Foundry Greg Emmerson stood out for transforming both the culture and capability of Applegreen\u2019s security organization. Emmerson established regional Centres of Excellence to strengthen collaboration and skill development across global teams, modernizing operations through Continuous Threat Exposure Management and enterprise-wide canary tooling. By unifying identities and embedding advanced backup and recovery practices, he has positioned security as a true business enabler. His approach balances innovation with wellbeing, promoting focused priorities, adaptive working, and micro-learning initiatives that have elevated awareness and resilience across the enterprise. Rising Star in Cybersecurity Winner: Chris Bardell, Royal Papworth Hospital The Rising Star Award recognizes early-career professionals whose dedication and innovation are already reshaping security within their organizations. While completing a demanding Level 4 Cyber Security Apprenticeship, Bardell led major improvements across incident response, automation, AI governance, and endpoint resilience. His work on ransomware preparedness, simulations, phishing exercises, and awareness campaigns has significantly strengthened operational readiness at Royal Papworth Hospital. Combining technical capability with empathy and collaboration, Bardell exemplifies the next generation of cyber leadership. Diversity, Inclusion and Social Impact in Security Winner: Amy Lemberger This award honours leaders who advance equity, inclusion, and societal benefit through their security programs. UK CSO 30 2025 winner Amy Lemberger (right) and judge Theo Botha (left) CSO UK / Foundry Amy Lemberger built an entire cybersecurity function from the ground up, prioritizing inclusive hiring, removing unnecessary qualification barriers, and personally reaching out to underrepresented talent. The resulting team is high-performing, diverse, and characterized by exceptional retention and trust. Lemberger has driven innovation through automation and AI partnerships while championing mental health, meaningful leadership, and authentic inclusion across the cyber community. People, Culture and Security Collaboration Winner: Simon Chan, Berenberg This category recognizes leaders who enable security-aware cultures through engagement, creativity, and cross-functional collaboration. UK CSO 30 2025 judge Holly Foxcroft (far right) with representatives from Berenberg (left) CSO UK/Foundry Simon Chan transformed security engagement at Berenberg through storytelling and inclusive communication. His team\u2019s innovative internal podcast series opened conversations across the business, showcasing varied perspectives and building a shared sense of responsibility. By blending technical insight with human connection, Chan positioned cybersecurity not as a back-office function but as a collaborative driver of enterprise success. Future Talent and Workforce Development in Security Winner: Adrian Hope, University of Warwick Adrian Hope reshaped cybersecurity culture within higher education by uniting academic and operational communities. His work brings together students, scholars, and professionals to enhance defences and embed security across the university. UK CSO 30 2025 winner Adrian Hope (left) and CSO 30 Chair Romy Tuin (right) CSO UK / Foundry Hope has fostered a diverse and empowered team, championed responsible AI adoption, and delivered creative awareness initiatives including a Cyber Security Escape Room to engage staff and students alike. His efforts demonstrate what is possible when security leadership embraces education, collaboration, and long-term talent development. CSO of the Year Winner: Craig Hickmott, British Heart Foundation The highest honour of the evening, the CSO of the Year Award, recognizes visionary leadership with enterprise-wide impact. UK CSO of the Year winner Craig Hickmott (right) with judge Manoj Bhatt (left) CSO UK / Foundry Craig Hickmott inherited a fragmented and under-resourced security function. Through strategic clarity, persistence, and a human-first philosophy, he secured long-term investment, rebuilt the team, and embedded security across the organization as a true partner and enabler. Hickmott has created one of the sector\u2019s most diverse security teams, launched the organization\u2019s first cybersecurity apprenticeship, and introduced groundbreaking practices including AI \u201cteam members,\u201d data-driven operations, and transformative ransomware simulations for executives. He has championed wellbeing, mental health, and psychological safety through initiatives such as \u201cManual of Me,\u201d fostering a culture where security and humanity reinforce one another. His holistic approach has strengthened resilience across an organization whose mission impacts millions of lives. CSO 30 Hall of Fame 2025 The evening concluded with the induction of three exceptional leaders into the prestigious CSO 30 Hall of Fame, individuals whose long-term contributions have shaped the cybersecurity landscape. Theo Botha, Chief Information Security Officer, Dr. Martens With over twenty years in technology and cybersecurity, Botha has built and delivered security strategies across multiple industries. At Dr. Martens, he leads the security and governance approach enabling responsible AI adoption while preserving brand heritage and driving transformation. CSO UK / Foundry Jasmine Eskenzi, Co-Founder & CEO, The Zensory Eskenzi has redefined how organizations approach wellbeing, focus, and digital resilience. Through The Zensory, she has helped more than 150,000 people reduce burnout and build healthier workplace cultures, integrating neuroscience, wellbeing, and cybersecurity for global brands including Google, Vodafone and the NHS. CSO UK / Foundry Andrew Barber, Head of Apps and Devices, Surrey and Sussex Police Barber oversees a team developing innovative, user-centred solutions that enhance public safety. Across a career in financial services and technology leadership, he has delivered large-scale transformation while championing mental health, diversity and inclusion, demonstrating that leadership must balance technical excellence with empathy. CSO UK / Foundry Celebrating a New Era of Cybersecurity Leadership This year\u2019s CSO 30 Awards highlight a profound shift in the industry. Today\u2019s cybersecurity leaders are not only technologists, they are culture builders, educators, innovators, and advocates for people. Their work ensures not just safer systems, but stronger, more resilient organizations. Congratulations to all of this year\u2019s winners and Hall of Fame inductees. Adrian Hope, CISO, University of Warwick Amar Patel, CISO, Fund Management Amy Lemberger, CISO, Gamme Bronwyn Boyle, CISO, PPRO Chris Bardell, Cyber Security Analyst, Royal Papworth Hospital Chris Leather, CISO, Clifford Chance Craig Hickmott, Director of Information Security and Organisational Resilience, British Heart Foundation Daniel Card, Founder, PwnDefend David Edwards, VP of Information Security, Payroc Gregory Emmerson, Group IT Director Security & Operations, AppleGreen Hazel McPherson, Founder & CEO, Culture Gem Ian Edwards, Head of Information Security, Induction Healthcare (a Vital Hub Company) Jagjot Singh, CISO, Castore Jim Wilson, Director of Technology, Cogora Jon Winterburn, CISO, J.D. Power Joseph van der Vlugt, Information Security Administrator, Amnesty International Leum Dunn, Head of Information Security, Pencil AI Limited Mitch Islin, Head of IT & Infosec, Motors.co.uk Moneer Alitto, CTO, IDWise Nicholas Bown, CSO, Sycurio Peter Adams, CIO, IM Group Ritesh Patel, Security Principal, bp Sam Das, CISO, Metro Bank Samantha Rule, CISO, Ninety One Simon Chan, Head of Cyber Security Operations, Berenberg Tarnveer Singh, CISO, The Exeter Tim Grieveson, Chief Security & Risk Officer, CloudPay Tim Stead, Infrastructure Manager, Hovis Ltd Tom Gormley, Senior Security Analyst, Everywhen (previously Ardonagh Advisory) Tom Pepper, AI Cyber Advisory Practice Lead, Avella Security Ltd A special thank you to our event sponsor HP for supporting this celebration of cybersecurity leadership and innovation. The CSO and CIO Events team will be heading to Manchester on the 19 th March for our next UK Cybersecurity Event, learn more about our next event here .",
+      "link": "https://www.csoonline.com/article/1251209/uk-cso-30-awards.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T14:24:42+00:00",
+      "published_ts": 1764685482,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Phishing / Social Engineering",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "XRP ETF inflows exceed $756M as bullish divergence hints at trend reversal",
+      "summary": "Spot XRP ETFs recorded inflows for 11 consecutive days as the RSI formed a bullish divergence on the price charts, early signs that a rally was in the cards.",
+      "link": "https://cointelegraph.com/news/xrp-etf-inflows-exceed-756m-bullish-divergence-hints-at-trend-reversal?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2025-12-02T14:22:44+00:00",
+      "published_ts": 1764685364,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Whispering poetry at AI can make it break its own rules",
+      "summary": "Malicious prompts rewritten as poems have been found to bypass AI guardrails. Which models resisted and which failed the poetic jailbreak test?",
+      "link": "https://www.malwarebytes.com/blog/news/2025/12/whispering-poetry-at-ai-can-make-it-break-its-own-rules",
+      "source": "Malwarebytes Labs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T14:18:00+00:00",
+      "published_ts": 1764685080,
+      "smart_groups": [],
+      "curated": false
+    },
     {
       "title": "Russia mulls relaxing crypto rules to blunt impact of Western sanctions",
       "summary": "Russia\u2019s central bank is considering scrapping its strict requirements for crypto transactions as sanctions make it hard for Russians transact internationally.",
@@ -14,6 +351,23 @@
       "published_ts": 1764685034,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "Candiru\u2019s DevilsTongue Spyware Attacking Windows Users in Multiple Countries",
+      "summary": "Candiru, an Israeli-based spyware vendor, has deployed sophisticated malware infrastructure across multiple countries to target high-value individuals including politicians, journalists, and business leaders. The mercenary spyware, known as DevilsTongue, represents a growing threat to Windows users globally, with eight distinct operational clusters identified across Hungary, Saudi Arabia, Indonesia, and Azerbaijan. This modular Windows malware combines [\u2026] The post Candiru\u2019s DevilsTongue Spyware Attacking Windows Users in Multiple Countries appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/candirus-devilstongue-spyware/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T14:15:36+00:00",
+      "published_ts": 1764684936,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Malware / Payloads"
+      ],
+      "curated": true
     },
     {
       "title": "PlayStation Goes Crypto? Sony Stablecoin Could Be Used for Gaming Payments: Nikkei",
@@ -85,6 +439,18 @@
       "curated": false
     },
     {
+      "title": "Ethical Hacker: Coolest Job In 2026",
+      "summary": "This week in cybersecurity from the editors at Cybercrime Magazine Sausalito, Calif. \u2013 Dec. 2, 2025 \u2013 Read the full story in Bolde The working world is far weirder, cooler, and more creative than anyone tells you. Behind the scenes, there are people making real The post Ethical Hacker: Coolest Job In 2026 appeared first on Cybercrime Magazine .",
+      "link": "https://cybersecurityventures.com/ethical-hacker-coolest-job-in-2026/",
+      "source": "Cybersecurity Ventures",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T13:58:47+00:00",
+      "published_ts": 1764683927,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "APIM cross tenant signup bypass",
       "summary": "F submitted by /u/Top_Speaker_7568 [link] [comments]",
       "link": "https://www.reddit.com/r/cybersecurity/comments/1pc91by/apim_cross_tenant_signup_bypass/",
@@ -95,6 +461,22 @@
       "published_ts": 1764683692,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "Dash Cam Hack: How Criminals Can Seize Control in Seconds",
+      "summary": "Dashcams have become an essential accessory in vehicles across many countries, serving as impartial witnesses in the event of accidents and roadside disputes. Yet, new research presented at Security Analyst Summit 2025 by a team of Singaporean cybersecurity researchers has uncovered a disturbing reality: dashcams, even offline ones, are increasingly being exploited as convenient surveillance [\u2026] The post Dash Cam Hack: How Criminals Can Seize Control in Seconds appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/dash-cam-hack/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T13:54:36+00:00",
+      "published_ts": 1764683676,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC",
+        "Identity / Access"
+      ],
+      "curated": true
     },
     {
       "title": "Ethereum\u2019s Fusaka upgrade: Scaling rollups without breaking the core",
@@ -184,6 +566,21 @@
       "curated": true
     },
     {
+      "title": "Early Indicators of Insider Threats Through Authentication and Access Controls",
+      "summary": "Security researchers at Nisos have identified a critical gap in insider threat detection: organizations often fail to correlate early behavioral anomalies with external intelligence sources, leaving meaningful warning signs buried beneath operational noise until incidents escalate into confirmed breaches. Most insider threats do not announce themselves with apparent malicious activity. Instead, security teams encounter subtle [\u2026] The post Early Indicators of Insider Threats Through Authentication and Access Controls appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/insider-threats/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T13:30:37+00:00",
+      "published_ts": 1764682237,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
       "title": "Google addresses 107 Android vulnerabilities, including two zero-days",
       "summary": "submitted by /u/r0techa [link] [comments]",
       "link": "https://www.reddit.com/r/cybersecurity/comments/1pc8hfl/google_addresses_107_android_vulnerabilities/",
@@ -195,6 +592,22 @@
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "nopCommerce Flaw Lets Attackers Access Accounts Using Captured Cookies",
+      "summary": "Security researchers have uncovered a serious vulnerability in nopCommerce, a popular open-source ecommerce platform used by major companies, including Microsoft, Volvo, and BMW. The flaw allows attackers to hijack user accounts by exploiting captured session cookies, even after legitimate users have logged out. Field Details CVE ID CVE-2025-11699 Vulnerability Title Insufficient Session Cookie Invalidation Platform [\u2026] The post nopCommerce Flaw Lets Attackers Access Accounts Using Captured Cookies appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/nopcommerce-flaw/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T13:22:09+00:00",
+      "published_ts": 1764681729,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
       ],
       "curated": true
     },
@@ -278,6 +691,34 @@
       "curated": false
     },
     {
+      "title": "Ukrainian Hackers Target Russian Aerospace and Defense Sectors",
+      "summary": "Multiple Ukrainian hacktivist groups have launched an extensive spearphishing campaign targeting Russia\u2019s critical aerospace and defence industries, according to a new threat intelligence report by Intrinsec. The coordinated attacks between June and September 2025 represent an escalating cyber warfare strategy aimed at disrupting Russian military capabilities and civilian aviation operations.\u200b The campaign involves several prominent [\u2026] The post Ukrainian Hackers Target Russian Aerospace and Defense Sectors appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/ukrainian-hackers-2/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T13:03:05+00:00",
+      "published_ts": 1764680585,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "DPRK's 'Contagious Interview' Spawns Malicious Npm Package Factory",
+      "summary": "North Korean attackers have delivered more than 197 malicious packages with 31K-plus downloads since Oct. 10, as part of ongoing state-sponsored activity to compromise software developers.",
+      "link": "https://www.darkreading.com/application-security/contagious-interview-malicious-npm-package-factory",
+      "source": "Dark Reading \u2013 All",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T13:02:14+00:00",
+      "published_ts": 1764680534,
+      "smart_groups": [
+        "Supply Chain / Software"
+      ],
+      "curated": false
+    },
+    {
       "title": "Cyber Startup Frenetik Launches with Patented Deception Technology That Bets Against the AI Arms Race",
       "summary": "Bethesda, USA / Maryland, 2nd December 2025, CyberNewsWire",
       "link": "https://hackread.com/cyber-startup-frenetik-launches-with-patented-deception-technology-that-bets-against-the-ai-arms-race/",
@@ -314,6 +755,23 @@
         "Cloud / SaaS"
       ],
       "curated": false
+    },
+    {
+      "title": "Evilginx Attack Techniques Allow Hackers to Defeat MFA Through SSO Phishing",
+      "summary": "A sophisticated threat actor has been conducting a persistent phishing campaign against United States educational institutions since April 2025, leveraging the open-source Evilginx framework to bypass multi-factor authentication (MFA). The campaign, which has targeted at least 18 universities to date, utilizes adversary-in-the-middle (AiTM) techniques to intercept login credentials and session cookies by mimicking legitimate single [\u2026] The post Evilginx Attack Techniques Allow Hackers to Defeat MFA Through SSO Phishing appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/evilginx-attack/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T12:38:59+00:00",
+      "published_ts": 1764679139,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Identity / Access",
+        "Phishing / Social Engineering"
+      ],
+      "curated": true
     },
     {
       "title": "UK considers ban on crypto donations to political parties: Politico",
@@ -536,6 +994,21 @@
       "smart_groups": [
         "Curated",
         "Ransomware",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "SmartTube Android TV App Compromised After Signing Keys Leak",
+      "summary": "SmartTube, a popular open-source YouTube client for Android TV devices with over 25,900 GitHub stars, has been compromised after its digital signing keys were exposed, prompting an urgent security response from developer Yurii Liskov (yuliskov). The incident, disclosed on November 27, 2025, has forced affected users to reinstall the application under a new digital signature [\u2026] The post SmartTube Android TV App Compromised After Signing Keys Leak appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/smarttube-android-tv/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T11:56:40+00:00",
+      "published_ts": 1764676600,
+      "smart_groups": [
+        "Curated",
         "Vulnerabilities / CVEs"
       ],
       "curated": true
@@ -3559,6 +4032,22 @@
       "published_ts": 1764630000,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "K7 Antivirus: Named pipe abuse, registry manipulation and privilege escalation",
+      "summary": "Exploitation of the K7 antivirus, from the vulnerability discovery to the retro-analysis of its key components.",
+      "link": "http://blog.quarkslab.com/k7-antivirus-named-pipe-abuse-registry-manipulation-and-privilege-escalation.html",
+      "source": "Quarkslab Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2025-12-01T23:00:00+00:00",
+      "published_ts": 1764630000,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
     },
     {
       "title": "Vanguard to Allow Bitcoin, Ethereum and XRP ETF Trading in Major Crypto Pivot",
