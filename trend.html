@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>S33R – Trend Analytics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Main project stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    /* Page-specific layout for the Trend Analytics view */
+
+    .trend-layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    .trend-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .trend-title {
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+
+    .window-selector {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .window-selector button {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      background: transparent;
+      cursor: pointer;
+      font-size: 0.85rem;
+      opacity: 0.7;
+      transition: background 0.15s, opacity 0.15s, transform 0.1s;
+    }
+
+    .window-selector button.active {
+      opacity: 1;
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .trend-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+      gap: 1rem;
+    }
+
+    .trend-grid-full {
+      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1rem;
+    }
+
+    .card {
+      /* Your main stylesheet may already define this.
+         This is a fallback to keep the Dracula-like look. */
+      background: #282a36;
+      border-radius: 0.75rem;
+      padding: 1rem;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03);
+    }
+
+    .card h2 {
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .chart-container {
+      position: relative;
+      width: 100%;
+      height: 260px;
+    }
+
+    .small-chart {
+      height: 220px;
+    }
+
+    /* MITRE heatmap */
+
+    .heatmap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+      gap: 0.35rem;
+      margin-top: 0.5rem;
+    }
+
+    .heatmap-cell {
+      border-radius: 0.5rem;
+      padding: 0.35rem;
+      font-size: 0.7rem;
+      line-height: 1.2;
+      text-align: center;
+      cursor: default;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .heatmap-cell .tech {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.1rem;
+    }
+
+    .heatmap-cell .count {
+      opacity: 0.8;
+      font-size: 0.65rem;
+    }
+
+    @media (max-width: 900px) {
+      .trend-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- Adjust this header/nav to follow your global layout -->
+    <header class="site-header">
+      <div class="site-title">S33R Security News Feed</div>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="archive.html">Archive</a>
+        <a href="archive-overview.html">Archive Overview</a>
+        <a href="trend.html" class="active">Trend Analytics</a>
+      </nav>
+    </header>
+
+    <main class="trend-layout">
+      <section class="trend-header">
+        <div>
+          <div class="trend-title">Trend Analytics</div>
+          <p class="trend-subtitle">
+            Heatmaps, top keywords, vendors, and attack trends derived from the monthly archive and recent news.
+          </p>
+        </div>
+        <div class="window-selector" id="windowSelector">
+          <button data-win="24h">Last 24h</button>
+          <button data-win="7d" class="active">Last 7d</button>
+          <button data-win="30d">Last 30d</button>
+          <button data-win="90d">Last 90d</button>
+        </div>
+      </section>
+
+      <section class="trend-grid">
+        <!-- News volume per day (last 90d) -->
+        <article class="card">
+          <h2>News volume per day (90d)</h2>
+          <div class="chart-container">
+            <canvas id="volumeChart"></canvas>
+          </div>
+        </article>
+
+        <!-- Category breakdown -->
+        <article class="card">
+          <h2>Category breakdown</h2>
+          <div class="chart-container small-chart">
+            <canvas id="categoryChart"></canvas>
+          </div>
+        </article>
+      </section>
+
+      <section class="trend-grid">
+        <!-- Top keywords -->
+        <article class="card">
+          <h2>Top keywords</h2>
+          <div class="chart-container small-chart">
+            <canvas id="keywordsChart"></canvas>
+          </div>
+        </article>
+
+        <!-- Vendors -->
+        <article class="card">
+          <h2>Vendors (by mentions)</h2>
+          <div class="chart-container small-chart">
+            <canvas id="vendorChart"></canvas>
+          </div>
+        </article>
+      </section>
+
+      <section class="trend-grid-full">
+        <!-- Attack trends -->
+        <article class="card">
+          <h2>Emerging attack trends</h2>
+          <p style="font-size: 0.8rem; opacity: 0.8; margin-bottom: 0.5rem;">
+            Counts how often terms like "ransomware", "supply chain", "0-day", etc. appear within the selected time window.
+          </p>
+          <div class="chart-container small-chart">
+            <canvas id="trendChart"></canvas>
+          </div>
+        </article>
+
+        <!-- MITRE heatmap -->
+        <article class="card">
+          <h2>MITRE ATT&CK heatmap (T-techniques, last 90d)</h2>
+          <p style="font-size: 0.8rem; opacity: 0.8; margin-bottom: 0.25rem;">
+            Techniques most frequently referenced across the news (not grouped by tactic, purely by T-code frequency).
+          </p>
+          <div id="mitreHeatmap" class="heatmap-grid">
+            <!-- filled via JavaScript -->
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        S33R Security News Feed<br>
+        <span class="muted">Powered by JSON cache and public RSS sources</span>
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    const trendsUrl = "data/trends.json";
+
+    let trendsData = null;
+    let currentWindow = "7d";
+
+    let volumeChart = null;
+    let categoryChart = null;
+    let keywordsChart = null;
+    let vendorChart = null;
+    let trendChart = null;
+
+    function createOrUpdateChart(chartRef, ctx, type, data, options = {}) {
+      if (chartRef && chartRef.destroy) {
+        chartRef.destroy();
+      }
+      return new Chart(ctx, {
+        type,
+        data,
+        options,
+      });
+    }
+
+    function getWindowSafe(win) {
+      if (!trendsData) return "7d";
+      if (trendsData.windows && trendsData.windows.includes(win)) {
+        return win;
+      }
+      return trendsData.windows[0] || "7d";
+    }
+
+    function updateVolumeChart() {
+      const ctx = document.getElementById("volumeChart").getContext("2d");
+      const series = trendsData.daily_volume || [];
+      const labels = series.map(d => d.date);
+      const counts = series.map(d => d.count);
+
+      volumeChart = createOrUpdateChart(
+        volumeChart,
+        ctx,
+        "line",
+        {
+          labels,
+          datasets: [{
+            label: "News per day",
+            data: counts,
+            fill: false,
+          }],
+        },
+        {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              ticks: { maxTicksLimit: 10 },
+            },
+            y: {
+              beginAtZero: true,
+              ticks: { precision: 0 },
+            },
+          },
+          plugins: {
+            legend: { display: false },
+          },
+        }
+      );
+    }
+
+    function updateCategoryChart(win) {
+      const ctx = document.getElementById("categoryChart").getContext("2d");
+      const categoriesByWin = trendsData.categories || {};
+      const dataObj = categoriesByWin[win] || {};
+
+      const labels = Object.keys(dataObj);
+      const values = Object.values(dataObj);
+
+      categoryChart = createOrUpdateChart(
+        categoryChart,
+        ctx,
+        "doughnut",
+        {
+          labels,
+          datasets: [{
+            data: values,
+          }],
+        },
+        {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: "bottom",
+            },
+          },
+        }
+      );
+    }
+
+    function updateKeywordsChart(win) {
+      const ctx = document.getElementById("keywordsChart").getContext("2d");
+      const kwByWin = trendsData.top_keywords || {};
+      const pairs = kwByWin[win] || [];
+      // Take the top 15 keywords
+      const top = pairs.slice(0, 15);
+      const labels = top.map(p => p[0]);
+      const values = top.map(p => p[1]);
+
+      keywordsChart = createOrUpdateChart(
+        keywordsChart,
+        ctx,
+        "bar",
+        {
+          labels,
+          datasets: [{
+            label: "Count",
+            data: values,
+          }],
+        },
+        {
+          indexAxis: "y",
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              beginAtZero: true,
+              ticks: { precision: 0 },
+            },
+          },
+          plugins: {
+            legend: { display: false },
+          },
+        }
+      );
+    }
+
+    function updateVendorChart(win) {
+      const ctx = document.getElementById("vendorChart").getContext("2d");
+      const vendorsByWin = trendsData.vendors || {};
+      const pairs = vendorsByWin[win] || [];
+      const top = pairs.slice(0, 10);
+      const labels = top.map(p => p[0]);
+      const values = top.map(p => p[1]);
+
+      vendorChart = createOrUpdateChart(
+        vendorChart,
+        ctx,
+        "bar",
+        {
+          labels,
+          datasets: [{
+            label: "Mentions",
+            data: values,
+          }],
+        },
+        {
+          indexAxis: "y",
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              beginAtZero: true,
+              ticks: { precision: 0 },
+            },
+          },
+          plugins: {
+            legend: { display: false },
+          },
+        }
+      );
+    }
+
+    function updateTrendChart(win) {
+      const ctx = document.getElementById("trendChart").getContext("2d");
+      const tt = trendsData.trending_terms || {};
+      const labels = [];
+      const values = [];
+      Object.keys(tt).forEach(key => {
+        const entry = tt[key];
+        const label = entry.label || key;
+        const counts = entry.counts || {};
+        labels.push(label);
+        values.push(counts[win] || 0);
+      });
+
+      trendChart = createOrUpdateChart(
+        trendChart,
+        ctx,
+        "bar",
+        {
+          labels,
+          datasets: [{
+            label: `Mentions (${win})`,
+            data: values,
+          }],
+        },
+        {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: { precision: 0 },
+            },
+          },
+          plugins: {
+            legend: { display: false },
+          },
+        }
+      );
+    }
+
+    function updateMitreHeatmap() {
+      const container = document.getElementById("mitreHeatmap");
+      container.innerHTML = "";
+
+      const mitre = trendsData.mitre_counts || [];
+      if (!mitre.length) {
+        container.innerHTML = "<p style='font-size:0.8rem; opacity:0.8;'>No MITRE techniques detected in the last 90 days.</p>";
+        return;
+      }
+
+      // Limit to top 40 to avoid a huge wall of cells
+      const top = mitre.slice(0, 40);
+      const maxCount = top[0].count || 1;
+
+      top.forEach(entry => {
+        const cell = document.createElement("div");
+        cell.className = "heatmap-cell";
+
+        const intensity = entry.count / maxCount; // 0..1
+        // Simple gradient: the higher the count, the more intense the color
+        const alpha = 0.2 + intensity * 0.6;
+        cell.style.backgroundColor = `rgba(255, 99, 132, ${alpha})`;
+        cell.style.borderColor = `rgba(255, 99, 132, ${0.3 + intensity * 0.4})`;
+
+        cell.title = `${entry.technique} – ${entry.count} hits`;
+
+        const techSpan = document.createElement("span");
+        techSpan.className = "tech";
+        techSpan.textContent = entry.technique;
+
+        const countSpan = document.createElement("span");
+        countSpan.className = "count";
+        countSpan.textContent = `${entry.count} hits`;
+
+        cell.appendChild(techSpan);
+        cell.appendChild(countSpan);
+        container.appendChild(cell);
+      });
+    }
+
+    function setActiveWindowButton(win) {
+      const buttons = document.querySelectorAll("#windowSelector button");
+      buttons.forEach(btn => {
+        if (btn.dataset.win === win) {
+          btn.classList.add("active");
+        } else {
+          btn.classList.remove("active");
+        }
+      });
+    }
+
+    function updateAllCharts(win) {
+      const w = getWindowSafe(win);
+      currentWindow = w;
+      setActiveWindowButton(w);
+
+      updateVolumeChart();
+      updateCategoryChart(w);
+      updateKeywordsChart(w);
+      updateVendorChart(w);
+      updateTrendChart(w);
+      updateMitreHeatmap();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // Window range selector buttons
+      document.getElementById("windowSelector").addEventListener("click", (e) => {
+        const btn = e.target.closest("button[data-win]");
+        if (!btn) return;
+        const win = btn.dataset.win;
+        if (!trendsData) return;
+        updateAllCharts(win);
+      });
+
+      // Load trends.json
+      fetch(trendsUrl, { cache: "no-store" })
+        .then(resp => resp.json())
+        .then(data => {
+          trendsData = data;
+          updateAllCharts(currentWindow);
+        })
+        .catch(err => {
+          console.error("Failed to load trends.json", err);
+        });
+    });
+  </script>
+</body>
+</html>
