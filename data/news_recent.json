@@ -1,8 +1,142 @@
 {
-  "generated_at": "2025-12-02T09:33:37.502039+00:00",
+  "generated_at": "2025-12-02T10:31:14.987920+00:00",
   "days_back": 30,
-  "total_items": 1517,
+  "total_items": 1526,
   "items": [
+    {
+      "title": "Digital asset treasury boom stalls as flows drop to $1.3B and stocks tumble",
+      "summary": "Bitcoin treasury companies drove November inflows with $1.06 billion, with Ether seeing $37 million in outflows despite continued accumulation by BitMine.",
+      "link": "https://cointelegraph.com/news/dat-inflows-2025-low-as-stocks-sell-off?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2025-12-02T10:14:06+00:00",
+      "published_ts": 1764670446,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Microsoft Silently Patched CVE-2025-9491 - We Think Our Patch Provides More Security",
+      "summary": "Patching What You See vs. Patching What You Execute Summary : Trend Micro discovered that attackers have long been using a trick to hide what a Windows shortcut actually does, preventing users from seeing malicious commands. Microsoft decided this was not patch-worthy. Others then found this same trick still being exploited, and the issue got a CVE. Microsoft doubled down, but silently patched the issue so that malicious commands can no longer be hidden. We created a different patch that actually blocks discovered attacks. The story - or at least its public part - begins on March 18, 2025, with Trend Micro's publication of Advisory ZDI-25-148 and an associated article titled Windows Shortcut Exploit Abused as Zero-Day in Widespread APT Campaigns . This article by Peter Girnus and Aliakbar Zahravi describes how they observed close to a thousand malicious Windows shortcut (.lnk) files being used in various offensive campaigns dating back to 2017. These shortcut files were crafted such that viewing their properties in Windows, one could not see the entire commands the shortcuts executed. The trick was an old one: using various \"whitespace\" characters to move the malicious part of the command out of user's sight. For instance, the article shows how Windows 11 would show properties of a shortcut file with a target like this: conhost.exe calc.exe Windows 11 showing an obfuscated target in a Windows shortcut (Image borrowed from Trend Micro's article) As you can see, the Target field shows only space characters (selected, therefore in blue), and even scrolling left or right would not reveal the presence of \" calc.exe \", or whatever malicious command there might be at the end. Instead of space characters, various other characters could be used to achieve a similar effect. As Peter and Aliakbar explained, Microsoft was notified about this issue but decided it didn't meet their bar for servicing. In other words, they would not consider it a vulnerability worth patching. At this point we have to admit we (too?) misunderstood the problem Trend Micro was presenting in April. We thought the issue was just that padding a malicious command with spaces would not show the malicious command in the dialog because the dialog always showed the end of the command - and when padded with spaces, the end is just all spaces. We considered that a bit silly as the user could always scroll back to the start of the field and see everything - and we found Microsoft's decision to not fix this reasonable, albeit the trick was actually being used in malicious campaigns. After all, what could be done? One can't ban whitespace characters from the command string, and if the Properties dialog showed the beginning of the target instead of the end, malicious code could then be hidden at the end. In addition to these technical details, there was also a social engineering aspect: what profile of user gets a PDF-lookalike Windows shortcut file, checks its properties, sees something like \" powershell.exe \" - without the hidden malicious arguments - and based on that still decides to double-click it? Most users, we thought, would either be non-IT persons and not look at properties at all, or would be somewhat IT persons and probably concerned by seeing some script there, likely also scrolling left and right in the Target field to see the whole thing. Following this reasoning, we also decided not to patch this issue. Case closed. Until end of October, that is, when Arctic Wolf published an article titled UNC6384 Weaponizes ZDI-CAN-25373 Vulnerability to Deploy PlugX Against Hungarian and Belgian Diplomatic Entities . UNC6384 is code name for a Chinese-affiliated threat actor, and ZDI-CAN-25373 is Trend Micro's working ID for the described issue. Arctic Wolf identified a campaign by threat actor UNC6384 specifically targeting Hungarian and Belgian diplomatic entities during September and October 2025 - using Windows shortcuts exploiting the described vulnerability. This discovery revived the interest in this issue, which was by then assigned CVE-2025-9491 . Microsoft was under some heat in the media for not having patched this exploited-in-the-wild issue yet, but they doubled-down with and advisory titled Microsoft Guidance on CVE-2025-9491 Windows LNK File UI Behavior . In this advisory, Microsoft claimed that \" during the user experience, the user is warned several times that proceeding may be harmful. \" Now, \" several times \" is a bit of an exaggeration for what must have been just once in described actual attacks, but fact is, if one downloads a .lnk file from the Internet (which has to be packaged in a ZIP archive as browsers deliberately mangle its file name to protect users), it will have Mark of the Web and double-clicking it will warn the user about opening a potentially harmful file from the Internet. That is, unless the attacker knows of some vulnerability that bypasses Mark of the Web like this one . The advisory concludes: \" Due to the user interaction involved and the fact that the system already warns users that this format is untrusted, Microsoft does not consider this a vulnerability. \" Having read this advisory with our then-current understanding of the issue, we still agreed with Microsoft's conclusion. But then we looked again. And finally saw what the issue really was: it was not just the sliding of malicious content out of the Target field's default focus. Instead, a .lnk file structure allows the Target arguments to be a very long string (tens of thousands of characters), but the Properties dialog only shows the first 260 characters , silently cutting off the rest. So it is possible to construct a .lnk file that runs a reeeeealy long PowerShell or BAT script, but only the first 260 characters of it would be shown to the user who viewed its properties. And these characters could be mostly \"whitespace\" characters to push the interesting bits entirely out of the Target field - even if the user scrolled to the very end. Now this makes it more interesting: it's now a matter of trust in the user interface. The string that Windows are showing to you -- is not the entire string that will actually be executed. Even if you're an IT person, you can be fooled by this issue because you rightfully expect the UI can be trusted to show you the whole command. This did look patch-worthy, so we decided to analyze the issue deeper in order to come up with a good patch. While we were developing our patch, the November Patch Tuesday brought new Windows Updates. And as expected (\" Microsoft does not consider this a vulnerability \"), there was no mention of anything remotely akin to this issue among its 63 patched vulnerabilities . However... Microsoft's Patch However, we noticed something did change with November Windows Updates: now, the Properties dialog of a .lnk file shows the entire Target command with arguments, no matter how long it is. The theoretically-up-to-32k-character-long string is now shown in the same single-line field that can't even reveal an entire modest-sized command without selecting some text and moving the mouse left or right. But okay, at least one can select all, copy and paste the string to a text editor. The issue was apparently demoted from vulnerability to functional bug, silently fixed without an advisory, and trust in the user interface was restored. Arguably, if the problem was defined as \"The properties dialog does not always show exactly what will be executed,\" it would indeed have been resolved. But this approach was weird: namely, it has always been the case that the \"ordinary\" way to create or modify a Windows shortcut - via Explorer user interface - only allowed you to enter up to 260 characters to the Target field. The only way for this string to be longer is to create the shortcut programmatically, e.g. using Windows API . (And some application may be creating such legitimate shortcuts for its own use.) So how much would showing all Target characters in a small field improve chances for victims targeted in actual attacks? Our Patch We decided to take a different route: Our premise was that a legitimate non-malicious .lnk file that regular Windows users come across would be created manually and would therefore never have a Target with more than 260 characters. However, we still accept that shortcut files with more than 260 character Target can be valid, just not meant for manual opening by users. Consequently, our patch has the following logic: If the process opening the .lnk file is Windows Explorer, AND the Target has more than 260 characters, then we cut the Target at 260 characters and alert the user that a suspicious .lnk file was shortened. Our patch would break the 1000+ malicious shortcuts identified by Trend Micro for all targeted users, while Microsoft's patch would only allow the most cautious among these users - who would probably not launch such shortcuts anyway - to see the entire malicious command string. Even though malicious shortcuts could be constructed with fewer than 260 characters, we believe disrupting actual attacks detected in the wild can make a big difference for those targeted. Let's see our patch in action. On the video below you can see that a shortcut file looking like a PDF document has a Target that doesn't fully show in the Properties dialog, while a hex editor reveals its full content. Launching it with 0patch disabled results in spawning the calculator (which was hidden from the Properties dialog), but launching it with 0patch enabled results in a security notification and the execution of only the first 260 characters of the shortcut's Target. Micropatch Availability Micropatches were written for the following security-adopted Windows versions: Windows 11 v22H2 - fully updated Windows 11 v21H2 - fully updated Windows 10 v22H2 - fully updated Windows 10 v21H2 - fully updated Windows 10 v21H1 - fully updated Windows 10 v20H2 - fully updated Windows 10 v2004 - fully updated Windows 10 v1909 - fully updated Windows 10 v1809 - fully updated Windows 10 v1803 - fully updated Windows 7 - fully updated with no ESU, ESU 1, ESU 2 or ESU 3 Windows Server 2008 R2 - fully updated with no ESU, ESU 1, ESU 2, ESU 3 or ESU 4 Windows Server 2012 - fully updated with no ESU or ESU 1 Windows Server 2012 R2 - fully updated with no ESU or ESU 1 In addition, patches were written for the following still-supported fully updated Windows Server versions, which for some reason did not receive a patch from Microsoft (note that Server 2025 did get the patch for some reason): Windows Server 2016 Windows Server 2019 Windows Server 2022 Micropatches have already been distributed to, and applied on, all affected online computers with 0patch Agent in PRO or Enterprise accounts (unless Enterprise group settings prevented that). Vulnerabilities like these get discovered on a regular basis, and attackers know about them all. If you're using Windows that aren't receiving official security updates anymore, 0patch will make sure these vulnerabilities won't be exploited on your computers - and you won't even have to know or care about these things. If you're new to 0patch , create a free account in 0patch Central , start a free trial, then install and register 0patch Agent. Everything else will happen automatically. No computer reboot will be needed. Did you know 0patch security-adopted Windows 10 and Office 2016 and 2019 when they went out of support last October, allowing you to keep using them for at least 3 more years (5 years for Windows 10)? Read more about it here and here . To learn more about 0patch, please visit our Help Center .",
+      "link": "https://blog.0patch.com/2025/12/microsoft-silently-patched-cve-2025.html",
+      "source": "0patch Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2025-12-02T10:10:00+00:00",
+      "published_ts": 1764670200,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Windows / Microsoft",
+        "Threat Actors / APT",
+        "Identity / Access",
+        "Phishing / Social Engineering",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Bitcoin battles $50K price target as Fed adds $13.5B overnight liquidity",
+      "summary": "Bitcoin liquidity cues received a clear signal from the Fed, as the end of QT sparked the second-largest overnight liquidity injection since the COVID-19 era.",
+      "link": "https://cointelegraph.com/news/bitcoin-battles-50k-price-target-fed-adds-13-5b-overnight-liquidity?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2025-12-02T10:04:47+00:00",
+      "published_ts": 1764669887,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "MuddyWater cyber campaign adds new backdoors in latest wave of attacks",
+      "summary": "ESET researchers say an Iran aligned threat group is refining its playbook again, and the latest activity shows how much its tactics have shifted. MuddyWater is a long running cyberespionage group, and new findings points to a campaign that hits a range of organizations in Israel, with one confirmed victim in Egypt. A wider set of targets and tools Researchers say the victims in Israel were in the technology, engineering, manufacturing, local government and educational \u2026 More \u2192 The post MuddyWater cyber campaign adds new backdoors in latest wave of attacks appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2025/12/02/eset-muddywater-cyber-campaign/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T10:00:58+00:00",
+      "published_ts": 1764669658,
+      "smart_groups": [
+        "Curated",
+        "Malware / Payloads",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "European Authorities Disrupt Cryptomixer, Seize Millions in Cryptocurrency in Major Cybercrime Crackdown",
+      "summary": "submitted by /u/projak [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1pc4n40/european_authorities_disrupt_cryptomixer_seize/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2025-12-02T10:00:17+00:00",
+      "published_ts": 1764669617,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "How Hackers Use NPMSCan.com to Hack Web Apps (Next.js, Nuxt.js, React, Bun)",
+      "summary": "submitted by /u/kryakrya_it [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1pc4maf/how_hackers_use_npmscancom_to_hack_web_apps/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2025-12-02T09:58:47+00:00",
+      "published_ts": 1764669527,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Most Companies Fear State-Sponsored Cyber-Attacks and Want More Government Help",
+      "summary": "New IO study claims 88% of US and UK firms are concerned about state-sponsored cyber-attacks",
+      "link": "https://www.infosecurity-magazine.com/news/companies-fear-state-attacks-more/",
+      "source": "Infosecurity Magazine \u2013 News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T09:40:00+00:00",
+      "published_ts": 1764668400,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Android\u2019s December 2025 Updates Patch Two Zero-Days",
+      "summary": "Google warns that two out of the 107 vulnerabilities patched in Android this month have been exploited in limited, targeted attacks. The post Android\u2019s December 2025 Updates Patch Two Zero-Days appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/androids-december-2025-updates-patch-two-zero-days/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2025-12-02T09:36:46+00:00",
+      "published_ts": 1764668206,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Poland\u2019s president vetoes strict crypto bill in clash with government",
+      "summary": "Poland\u2019s president vetoed a sweeping cryptocurrency bill over concerns it would stifle innovation and threaten freedoms, sparking a fierce political clash.",
+      "link": "https://cointelegraph.com/news/poland-president-veto-crypto-bill-political-clash?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2025-12-02T09:32:13+00:00",
+      "published_ts": 1764667933,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
     {
       "title": "It + security certs",
       "summary": "I want to live in New Zealand, Canada, or Australia so I\u2019m trying to secure as many job opportunities as possible. I\u2019m currently studying IT and I\u2019m thinking about collecting security certifications. Is this a good plan or is it better to switch my major to Cybersecurity instead? submitted by /u/imadesertbaby [link] [comments]",
