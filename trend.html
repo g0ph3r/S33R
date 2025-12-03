@@ -79,7 +79,6 @@
       transform: translateY(0);
     }
 
-
     .trend-grid {
       display: grid;
       grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
@@ -94,8 +93,6 @@
     }
 
     .card {
-      /* Your main stylesheet may already define this.
-         This is a fallback to keep the Dracula-like look. */
       background: #282a36;
       border-radius: 0.75rem;
       padding: 1rem;
@@ -117,40 +114,6 @@
       height: 220px;
     }
 
-    /* MITRE heatmap */
-
-    .heatmap-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-      gap: 0.35rem;
-      margin-top: 0.5rem;
-    }
-
-    .heatmap-cell {
-      border-radius: 0.5rem;
-      padding: 0.35rem;
-      font-size: 0.7rem;
-      line-height: 1.2;
-      text-align: center;
-      cursor: default;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .heatmap-cell .tech {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 0.1rem;
-    }
-
-    .heatmap-cell .count {
-      opacity: 0.8;
-      font-size: 0.65rem;
-    }
-
     @media (max-width: 900px) {
       .trend-grid {
         grid-template-columns: minmax(0, 1fr);
@@ -160,17 +123,15 @@
 </head>
 <body>
   <div class="minimal-navbar">
-  
-
-  <div class="minimal-dropdown">
-    <span class="minimal-nav-link dropdown-toggle">Archive ▾</span>
-    <div class="dropdown-menu">
-      <a href="index.html">News</a>
-      <a href="archive.html">Archive List</a>
-      <a href="archive-overview.html">Year Overview</a>
+    <div class="minimal-dropdown">
+      <span class="minimal-nav-link dropdown-toggle">Insights ▾</span>
+      <div class="dropdown-menu">
+        <a href="index.html">News</a>
+        <a href="archive.html">Archive List</a>
+        <a href="archive-overview.html">Year Overview</a>
+      </div>
     </div>
   </div>
-</div>
   <div class="page">
     <!-- Adjust this header/nav to follow your global layout -->
     <header class="site-header">
@@ -182,7 +143,7 @@
         <div>
           <div class="trend-title">Trend Analytics</div>
           <p class="trend-subtitle">
-            Heatmaps, top keywords, vendors, and attack trends derived from the monthly archive and recent news.
+            Top categories, CVEs, vendors, keywords and attack trends derived from the monthly archive and recent news.
           </p>
         </div>
         <div class="window-selector" id="windowSelector">
@@ -194,7 +155,7 @@
       </section>
 
       <section class="trend-grid">
-        <!-- News volume per day (last 90d) -->
+        <!-- News volume per day -->
         <article class="card">
           <h2>News volume per day</h2>
           <div class="chart-container">
@@ -202,9 +163,9 @@
           </div>
         </article>
 
-        <!-- Category breakdown -->
+        <!-- Top categories (bar chart, per selected window) -->
         <article class="card">
-          <h2>Category breakdown</h2>
+          <h2>Top categories (per window)</h2>
           <div class="chart-container small-chart">
             <canvas id="categoryChart"></canvas>
           </div>
@@ -230,7 +191,7 @@
       </section>
 
       <section class="trend-grid-full">
-        <!-- Attack trends -->
+        <!-- Emerging attack trends -->
         <article class="card">
           <h2>Emerging attack trends</h2>
           <p style="font-size: 0.8rem; opacity: 0.8; margin-bottom: 0.5rem;">
@@ -241,14 +202,25 @@
           </div>
         </article>
 
-        <!-- MITRE heatmap -->
+        <!-- CVE frequency ranking -->
         <article class="card">
-          <h2>MITRE ATT&CK heatmap (T-techniques, last 90d)</h2>
-          <p style="font-size: 0.8rem; opacity: 0.8; margin-bottom: 0.25rem;">
-            Techniques most frequently referenced across the news (not grouped by tactic, purely by T-code frequency).
+          <h2>CVE frequency (Top 20)</h2>
+          <p style="font-size: 0.8rem; opacity: 0.8; margin-bottom: 0.5rem;">
+            Top CVEs mentioned in news titles and summaries for the selected time window.
           </p>
-          <div id="mitreHeatmap" class="heatmap-grid">
-            <!-- filled via JavaScript -->
+          <div class="chart-container small-chart">
+            <canvas id="cveChart"></canvas>
+          </div>
+        </article>
+
+        <!-- Threat actor mentions timeline -->
+        <article class="card">
+          <h2>Threat actor mentions (timeline)</h2>
+          <p style="font-size: 0.8rem; opacity: 0.8; margin-bottom: 0.5rem;">
+            Daily count of news items referencing named threat actors (e.g., TA577, Scattered Spider, Lazarus) over the selected time window.
+          </p>
+          <div class="chart-container small-chart">
+            <canvas id="threatActorChart"></canvas>
           </div>
         </article>
       </section>
@@ -280,6 +252,8 @@
     let keywordsChart = null;
     let vendorChart = null;
     let trendChart = null;
+    let cveChart = null;
+    let threatActorChart = null;
 
     function createOrUpdateChart(chartRef, ctx, type, data, options = {}) {
       if (chartRef && chartRef.destroy) {
@@ -300,7 +274,7 @@
       return trendsData.windows[0] || "7d";
     }
 
-      function updateVolumeChart(win) {
+    function updateVolumeChart(win) {
       const ctx = document.getElementById("volumeChart").getContext("2d");
       const series = trendsData.daily_volume || [];
 
@@ -356,7 +330,6 @@
       );
     }
 
-
     function updateCategoryChart(win) {
       const ctx = document.getElementById("categoryChart").getContext("2d");
       const categoriesByWin = trendsData.categories || {};
@@ -368,20 +341,26 @@
       categoryChart = createOrUpdateChart(
         categoryChart,
         ctx,
-        "doughnut",
+        "bar",
         {
           labels,
           datasets: [{
+            label: "Mentions",
             data: values,
           }],
         },
         {
+          indexAxis: "y",
           responsive: true,
           maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: "bottom",
+          scales: {
+            x: {
+              beginAtZero: true,
+              ticks: { precision: 0 },
             },
+          },
+          plugins: {
+            legend: { display: false },
           },
         }
       );
@@ -500,44 +479,94 @@
       );
     }
 
-    function updateMitreHeatmap() {
-      const container = document.getElementById("mitreHeatmap");
-      container.innerHTML = "";
+    function updateCveChart(win) {
+      const ctx = document.getElementById("cveChart").getContext("2d");
+      const cvesByWin = trendsData.top_cves || {};
+      const pairs = cvesByWin[win] || [];
+      const top = pairs.slice(0, 20);
+      const labels = top.map(p => p[0]);
+      const values = top.map(p => p[1]);
 
-      const mitre = trendsData.mitre_counts || [];
-      if (!mitre.length) {
-        container.innerHTML = "<p style='font-size:0.8rem; opacity:0.8;'>No MITRE techniques detected in the last 90 days.</p>";
-        return;
-      }
+      cveChart = createOrUpdateChart(
+        cveChart,
+        ctx,
+        "bar",
+        {
+          labels,
+          datasets: [{
+            label: "Mentions",
+            data: values,
+          }],
+        },
+        {
+          indexAxis: "y",
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              beginAtZero: true,
+              ticks: { precision: 0 },
+            },
+          },
+          plugins: {
+            legend: { display: false },
+          },
+        }
+      );
+    }
 
-      // Limit to top 40 to avoid a huge wall of cells
-      const top = mitre.slice(0, 40);
-      const maxCount = top[0].count || 1;
+    function updateThreatActorTimeline(win) {
+      const ctx = document.getElementById("threatActorChart").getContext("2d");
+      const series = trendsData.threat_actor_daily || [];
 
-      top.forEach(entry => {
-        const cell = document.createElement("div");
-        cell.className = "heatmap-cell";
+      const generatedAt = trendsData.generated_at
+        ? new Date(trendsData.generated_at)
+        : new Date();
 
-        const intensity = entry.count / maxCount; // 0..1
-        // Simple gradient: the higher the count, the more intense the color
-        const alpha = 0.2 + intensity * 0.6;
-        cell.style.backgroundColor = `rgba(255, 99, 132, ${alpha})`;
-        cell.style.borderColor = `rgba(255, 99, 132, ${0.3 + intensity * 0.4})`;
+      const days = WINDOW_DAYS[win] || 90;
 
-        cell.title = `${entry.technique} – ${entry.count} hits`;
+      const cutoff = new Date(generatedAt);
+      cutoff.setDate(cutoff.getDate() - (days - 1));
 
-        const techSpan = document.createElement("span");
-        techSpan.className = "tech";
-        techSpan.textContent = entry.technique;
-
-        const countSpan = document.createElement("span");
-        countSpan.className = "count";
-        countSpan.textContent = `${entry.count} hits`;
-
-        cell.appendChild(techSpan);
-        cell.appendChild(countSpan);
-        container.appendChild(cell);
+      const filtered = series.filter(d => {
+        const dDate = new Date(d.date + "T00:00:00Z");
+        return dDate >= cutoff;
       });
+
+      const dataToUse = filtered.length > 0 ? filtered : series;
+
+      const labels = dataToUse.map(d => d.date);
+      const counts = dataToUse.map(d => d.count);
+
+      threatActorChart = createOrUpdateChart(
+        threatActorChart,
+        ctx,
+        "line",
+        {
+          labels,
+          datasets: [{
+            label: "Threat actor mentions per day",
+            data: counts,
+            fill: false,
+          }],
+        },
+        {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              ticks: { maxTicksLimit: 10 },
+            },
+            y: {
+              beginAtZero: true,
+              ticks: { precision: 0 },
+            },
+          },
+          plugins: {
+            legend: { display: false },
+          },
+        }
+      );
     }
 
     function setActiveWindowButton(win) {
@@ -561,7 +590,8 @@
       updateKeywordsChart(w);
       updateVendorChart(w);
       updateTrendChart(w);
-      updateMitreHeatmap();
+      updateCveChart(w);
+      updateThreatActorTimeline(w);
     }
 
     document.addEventListener("DOMContentLoaded", () => {

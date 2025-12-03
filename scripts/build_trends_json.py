@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 """
-Gera data/trends.json com métricas de tendências:
+Gera data/trends.json com métricas de tendências para o trend.html:
 
+- Volume diário de notícias
+- Breakdown por categoria (smart_groups / tags)
 - Top keywords por janela (24h, 7d, 30d, 90d)
-- Volume diário de notícias (últimos 90d)
-- Breakdown por categoria
-- Contagem por vendor
+- Contagem por vendor por janela
 - Tendências de termos de ataque (ransomware, supply chain, 0-day, etc.)
-- Heatmap MITRE ATT&CK (T-codes) por frequência
+- Top CVEs por janela (para o ranking de CVEs)
+- Linha do tempo de menções a threat actors (por dia)
 
 Fonte de dados:
 - data/news_recent.json
-- data/archive/monthly/<ano>/*.json
 """
 
 import json
@@ -19,322 +19,296 @@ import re
 from collections import Counter
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Dict, List, Any, Iterable, Optional
+from typing import Any, Dict, Iterable, List
 
-# -------------------------------
-# Caminhos baseados na estrutura do S33R
-# -------------------------------
-BASE_DIR = Path(__file__).resolve().parents[1]
-DATA_DIR = BASE_DIR / "data"
+BASE_DIR = Path(__file__).resolve().parent.parent
+NEWS_RECENT_PATH = BASE_DIR / "data" / "news_recent.json"
+OUTPUT_PATH = BASE_DIR / "data" / "trends.json"
 
-RECENT_PATH = DATA_DIR / "news_recent.json"
-ARCHIVE_DIR = DATA_DIR / "archive"
-MONTHLY_DIR = ARCHIVE_DIR / "monthly"
-
-OUTPUT_PATH = DATA_DIR / "trends.json"  # => trend.html lê em "data/trends.json"
-
-TIME_WINDOWS = {
-    "24h": timedelta(hours=24),
-    "7d": timedelta(days=7),
-    "30d": timedelta(days=30),
-    "90d": timedelta(days=90),
+# Janelas usadas pelo front
+WINDOWS = {
+    "24h": 1,
+    "7d": 7,
+    "30d": 30,
+    "90d": 90,
 }
 
-ATTACK_TERMS = {
+STOPWORDS = {
+    "the", "and", "for", "with", "from", "this", "that", "have", "has",
+    "into", "over", "under", "about", "your", "you", "are", "was", "were",
+    "will", "their", "they", "them", "its", "our", "out", "but", "not",
+    "can", "could", "would", "should", "may", "might", "than", "then",
+    "after", "before", "more", "less", "also", "just", "into", "via",
+    "security", "cyber", "attack", "attacks", "threat", "threats",
+    "vulnerability", "vulnerabilities", "report", "reports", "new",
+    "zero", "day", "days", "research", "team", "blog", "post",
+}
+
+# Vendors simples (ajuste conforme necessário)
+VENDOR_KEYWORDS = {
+    "Microsoft": ["microsoft", "windows", "exchange", "azure"],
+    "Cisco": ["cisco", "ios xe"],
+    "Palo Alto": ["palo alto", "pan-os"],
+    "Fortinet": ["fortinet", "fortigate"],
+    "Cloudflare": ["cloudflare"],
+    "Google": ["google", "chrome", "android", "gmail"],
+    "Apple": ["apple", "macos", "ios", "ipados"],
+    "VMware": ["vmware", "esxi"],
+    "Citrix": ["citrix"],
+    "Progress": ["progress", "moveit"],
+    "Atlassian": ["atlassian", "jira", "confluence"],
+}
+
+# Termos de "attack trends" que aparecerão no gráfico Emerging attack trends
+TRENDING_TERMS = {
     "ransomware": "Ransomware",
+    "double extortion": "Double extortion",
     "supply chain": "Supply chain",
     "0-day": "0-day",
     "zero-day": "Zero-day",
-    "supply-chain": "Supply-chain",
+    "data breach": "Data breach",
+    "initial access": "Initial access",
     "phishing": "Phishing",
-    "data extortion": "Data extortion",
-    "double extortion": "Double extortion",
+    "credential stuffing": "Credential stuffing",
 }
 
-VENDORS = [
-    "CrowdStrike", "Microsoft", "Cisco", "Palo Alto", "Palo Alto Networks",
-    "Fortinet", "Cloudflare", "Google", "Mandiant", "FireEye",
-    "Check Point", "Trend Micro", "SentinelOne", "Okta",
-    "Zscaler", "IBM", "Rapid7", "Sophos", "Kaspersky",
-    "Oracle", "Amazon", "AWS",
+# Threat actors (pode expandir depois)
+THREAT_ACTOR_PATTERNS = [
+    r"\bAPT ?\d+\b",
+    r"\bTA\d+\b",
+    r"\bUNC\d+\b",
+    r"\bStorm-\d+\b",
+    r"\bFIN\d+\b",
+    r"\bLazarus\b",
+    r"\bScattered Spider\b",
+    r"\bOcto Tempest\b",
+    r"\bSandworm\b",
+    r"\bAPT28\b",
+    r"\bAPT29\b",
 ]
 
-STOPWORDS = {
-    "the", "and", "for", "with", "from", "this", "that", "have",
-    "has", "into", "about", "como", "para", "com", "uma", "uma",
-    "dos", "das", "nos", "nas", "de", "da", "do", "aqui", "mais",
-    "less", "but", "you", "your", "their", "them", "they", "was",
-    "were", "will", "would", "could", "should", "sobre", "entre",
-    "após", "apos", "after", "before", "during",
-}
+CVE_REGEX = re.compile(r"\bCVE-\d{4}-\d{4,7}\b", re.IGNORECASE)
 
 
-def parse_datetime(value: Optional[str]) -> Optional[datetime]:
-    if not value:
-        return None
-    try:
-        v = value
-        if v.endswith("Z"):
-            v = v[:-1] + "+00:00"
-        return datetime.fromisoformat(v).astimezone(timezone.utc)
-    except Exception:
-        return None
+def parse_iso(date_str: str) -> datetime:
+    """
+    Faz parse de uma string de data (ISO-ish) e retorna datetime com timezone UTC.
+    """
+    if not date_str:
+        raise ValueError("empty date")
+    s = date_str
+    if s.endswith("Z"):
+        s = s[:-1] + "+00:00"
+    dt = datetime.fromisoformat(s)
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    else:
+        dt = dt.astimezone(timezone.utc)
+    return dt
 
 
-def load_json_items(path: Path) -> List[Dict[str, Any]]:
-    if not path.exists():
-        return []
-    try:
-        raw = json.loads(path.read_text(encoding="utf-8"))
-    except Exception as e:
-        print(f"[WARN] Failed to load {path}: {e}")
-        return []
-
-    # news_recent.json tem formato {"items": [...]}
-    if isinstance(raw, dict) and "items" in raw:
-        items = raw["items"]
-        return items if isinstance(items, list) else []
-
-    # arquivos mensais são listas
-    if isinstance(raw, list):
-        return raw
-
-    return []
+def load_news() -> List[Dict[str, Any]]:
+    print(f"[INFO] Loading {NEWS_RECENT_PATH}...")
+    data = json.loads(NEWS_RECENT_PATH.read_text(encoding="utf-8"))
+    if not isinstance(data, list):
+        raise RuntimeError("news_recent.json não é uma lista de entradas.")
+    return data
 
 
-def iter_news_items() -> Iterable[Dict[str, Any]]:
-    """Itera sobre news_recent + arquivos mensais (dedupe por link)."""
-    seen_links = set()
+def normalize_text(entry: Dict[str, Any]) -> str:
+    parts = [
+        entry.get("title", "") or "",
+        entry.get("summary", "") or "",
+        entry.get("source", "") or "",
+    ]
+    return " ".join(parts).lower()
 
-    # recent
-    for item in load_json_items(RECENT_PATH):
-        link = item.get("link") or item.get("url")
-        if not link or link in seen_links:
+
+def tokenize(text: str) -> Iterable[str]:
+    """
+    Divide o texto em tokens simples, removendo stopwords e tokens muito curtos.
+    """
+    for token in re.findall(r"[a-zA-Z0-9\-]+", text.lower()):
+        if len(token) < 3:
             continue
-        seen_links.add(link)
-        yield item
-
-    # monthly/<ano>/*.json
-    if MONTHLY_DIR.exists():
-        for year_dir in sorted(MONTHLY_DIR.iterdir()):
-            if not year_dir.is_dir():
-                continue
-            for path in sorted(year_dir.glob("*.json")):
-                for item in load_json_items(path):
-                    link = item.get("link") or item.get("url")
-                    if not link or link in seen_links:
-                        continue
-                    seen_links.add(link)
-                    yield item
+        if token in STOPWORDS:
+            continue
+        yield token
 
 
-def extract_keywords(item: Dict[str, Any]) -> List[str]:
-    # Se já houver keywords/tags no item, usa direto
-    for key in ("keywords", "tags"):
-        if key in item and item[key]:
-            val = item[key]
-            if isinstance(val, str):
-                return [val.strip().lower()] if val.strip() else []
-            if isinstance(val, list):
-                return [str(v).strip().lower() for v in val if str(v).strip()]
-    # Caso contrário, extrai do texto
-    text_parts = [
-        item.get("title") or "",
-        item.get("summary") or "",
-        item.get("description") or "",
-    ]
-    text = " ".join(text_parts).lower()
-    words = re.findall(r"[a-z0-9\-]{4,}", text)
-    return [
-        w for w in words
-        if w not in STOPWORDS and not w.isdigit()
-    ]
-
-
-EXCLUDED_CATEGORIES = {"Curated"}
-
-def extract_categories(item: Dict[str, Any]) -> List[str]:
+def get_categories(entry: Dict[str, Any]) -> List[str]:
     """
-    Use the same grouping field used by S33R smart groups.
-    Priority:
-    - smart_groups (main field used in news_recent.json)
-    - categories / category (fallbacks, if present)
+    Tenta obter categorias / smart_groups da entrada.
     """
-    cats = (
-        item.get("smart_groups")
-        or item.get("categories")
-        or item.get("category")
-        or []
-    )
+    cats = []
 
-    if isinstance(cats, str):
-        cats = [cats]
+    sg = entry.get("smart_groups") or entry.get("categories") or entry.get("tags")
+    if isinstance(sg, list):
+        cats.extend([str(c) for c in sg])
+    elif isinstance(sg, str):
+        cats.append(sg)
+
+    cat = entry.get("category")
+    if isinstance(cat, str):
+        cats.append(cat)
 
     cleaned = []
     for c in cats:
-        c = str(c).strip()
-        if not c:
-            continue
-        if c in EXCLUDED_CATEGORIES:
-            continue
-        cleaned.append(c)
-
+        c = c.strip()
+        if c:
+            cleaned.append(c)
     return cleaned
 
 
-
-def extract_mitre_techniques(item: Dict[str, Any]) -> List[str]:
-    mitre = item.get("mitre_techniques") or item.get("mitre") or []
-    if isinstance(mitre, str):
-        mitre = [mitre]
-
-    techniques: List[str] = []
-
-    for m in mitre:
-        m_str = str(m).strip().upper()
-        if re.match(r"^T\d{4}(\.\d{3})?$", m_str):
-            techniques.append(m_str)
-
-    # Também tenta achar Txxxx no texto
-    blob = " ".join([
-        item.get("title") or "",
-        item.get("summary") or "",
-        item.get("description") or "",
-        " ".join(item.get("tags") or []),
-    ])
-    for match in re.findall(r"\bT\d{4}(?:\.\d{3})?\b", blob):
-        m_str = match.strip().upper()
-        if m_str:
-            techniques.append(m_str)
-
-    # remove duplicados preservando ordem
-    seen = set()
-    norm: List[str] = []
-    for t in techniques:
-        if t not in seen:
-            seen.add(t)
-            norm.append(t)
-    return norm
-
-
-def detect_vendors(item: Dict[str, Any]) -> List[str]:
-    text = " ".join([
-        item.get("title") or "",
-        item.get("summary") or "",
-        item.get("description") or "",
-        item.get("source") or "",
-    ]).lower()
-    found: List[str] = []
-    for v in VENDORS:
-        if v.lower() in text:
-            found.append(v)
-    return found
-
-
-def count_attack_terms(text: str) -> Counter:
-    text_l = text.lower()
-    counts: Counter = Counter()
-    for raw, label in ATTACK_TERMS.items():
-        if raw in text_l:
-            counts[label] += text_l.count(raw)
-    return counts
+def within_window(entry_dt: datetime, now: datetime, days: int) -> bool:
+    return entry_dt >= (now - timedelta(days=days))
 
 
 def main() -> None:
+    news = load_news()
     now = datetime.now(timezone.utc)
 
-    # Counters por janela
-    keyword_counters: Dict[str, Counter] = {k: Counter() for k in TIME_WINDOWS}
-    category_counters: Dict[str, Counter] = {k: Counter() for k in TIME_WINDOWS}
-    vendor_counters: Dict[str, Counter] = {k: Counter() for k in TIME_WINDOWS}
-    attack_counters: Dict[str, Counter] = {k: Counter() for k in TIME_WINDOWS}
+    # Contadores agregados
+    daily_counter = Counter()  # date_str -> total de notícias
+    per_window_categories: Dict[str, Counter] = {w: Counter() for w in WINDOWS}
+    per_window_keywords: Dict[str, Counter] = {w: Counter() for w in WINDOWS}
+    per_window_vendors: Dict[str, Counter] = {w: Counter() for w in WINDOWS}
+    per_window_trends: Dict[str, Counter] = {w: Counter() for w in WINDOWS}
+    per_window_cves: Dict[str, Counter] = {w: Counter() for w in WINDOWS}
+    threat_actor_daily_counter = Counter()  # date_str -> notícias que citam actor
 
-    # MITRE (90d) + volume diário (90d)
-    mitre_counter: Counter = Counter()
-    daily_counts: Counter = Counter()
+    threat_actor_compiled = [re.compile(pat, re.IGNORECASE) for pat in THREAT_ACTOR_PATTERNS]
 
-    max_age = TIME_WINDOWS["90d"]
+    processed = 0
+    skipped_no_date = 0
 
-    for item in iter_news_items():
-        published = parse_datetime(item.get("published") or item.get("date"))
-        if not published:
+    for entry in news:
+        date_str = entry.get("published") or entry.get("date")
+        if not date_str:
+            skipped_no_date += 1
             continue
 
-        age = now - published
-        if age < timedelta(0) or age > max_age:
+        try:
+            dt = parse_iso(date_str)
+        except Exception:
+            skipped_no_date += 1
             continue
 
-        day_key = published.strftime("%Y-%m-%d")
-        daily_counts[day_key] += 1
+        date_only = dt.date().isoformat()
+        text = normalize_text(entry)
 
-        keywords = extract_keywords(item)
-        categories = extract_categories(item)
-        mitre = extract_mitre_techniques(item)
-        vendors_found = detect_vendors(item)
+        # Volume diário
+        daily_counter[date_only] += 1
 
-        text_blob = " ".join([
-            item.get("title") or "",
-            item.get("summary") or "",
-            item.get("description") or "",
-        ])
-        attack_terms_counts = count_attack_terms(text_blob)
+        # Threat actors (para timeline diária)
+        has_actor = any(p.search(text) for p in threat_actor_compiled)
+        if has_actor:
+            threat_actor_daily_counter[date_only] += 1
 
-        # Atualiza counters por janela
-        for win_key, delta in TIME_WINDOWS.items():
-            if age <= delta:
-                keyword_counters[win_key].update(keywords)
-                category_counters[win_key].update(categories)
-                vendor_counters[win_key].update(vendors_found)
-                attack_counters[win_key].update(attack_terms_counts)
+        # Categorias
+        cats = get_categories(entry)
 
-        mitre_counter.update(mitre)
+        # Keywords
+        tokens = list(tokenize(text))
 
-    # Volume diário (ordenado por data)
+        # Vendors
+        vendor_hits = set()
+        for vendor, patterns in VENDOR_KEYWORDS.items():
+            for pat in patterns:
+                if pat.lower() in text:
+                    vendor_hits.add(vendor)
+                    break
+
+        # Trending terms
+        trend_hits = set()
+        for key, label in TRENDING_TERMS.items():
+            if key.lower() in text:
+                trend_hits.add(key)
+
+        # CVEs
+        cve_hits = set(m.upper() for m in CVE_REGEX.findall(text))
+
+        # Aplicar em cada janela
+        for win, days in WINDOWS.items():
+            if not within_window(dt, now, days):
+                continue
+
+            for c in cats:
+                per_window_categories[win][c] += 1
+
+            for t in tokens:
+                per_window_keywords[win][t] += 1
+
+            for v in vendor_hits:
+                per_window_vendors[win][v] += 1
+
+            for key in trend_hits:
+                per_window_trends[win][key] += 1
+
+            for cve in cve_hits:
+                per_window_cves[win][cve] += 1
+
+        processed += 1
+
+    print(f"[INFO] Processed entries: {processed}, skipped (no date): {skipped_no_date}")
+
+    # daily_volume ordenado
     daily_volume = [
-        {"date": d, "count": int(daily_counts[d])}
-        for d in sorted(daily_counts.keys())
+        {"date": d, "count": int(daily_counter[d])}
+        for d in sorted(daily_counter.keys())
     ]
 
-    # Top keywords / vendors por janela
-    top_keywords = {
-        win: [[k, int(c)] for k, c in counter.most_common(30)]
-        for win, counter in keyword_counters.items()
-    }
-    vendors = {
-        win: [[k, int(c)] for k, c in counter.most_common(20)]
-        for win, counter in vendor_counters.items()
-    }
-    categories = {
-        win: {k: int(c) for k, c in counter.most_common()}
-        for win, counter in category_counters.items()
+    def counter_to_sorted_list(cnt: Counter) -> List[List[Any]]:
+        return [[k, int(v)] for k, v in cnt.most_common()]
+
+    categories_out = {
+        win: {k: int(v) for k, v in per_window_categories[win].most_common()}
+        for win in WINDOWS
     }
 
-    trending_terms: Dict[str, Any] = {}
-    for _raw, label in ATTACK_TERMS.items():
-        term_data = {}
-        for win in TIME_WINDOWS:
-            term_data[win] = int(attack_counters[win][label])
-        trending_terms[label] = {
+    top_keywords_out = {
+        win: counter_to_sorted_list(per_window_keywords[win])
+        for win in WINDOWS
+    }
+
+    vendors_out = {
+        win: counter_to_sorted_list(per_window_vendors[win])
+        for win in WINDOWS
+    }
+
+    trending_terms_out: Dict[str, Dict[str, Any]] = {}
+    for key, label in TRENDING_TERMS.items():
+        counts_per_win = {}
+        for win in WINDOWS:
+            counts_per_win[win] = int(per_window_trends[win][key])
+        trending_terms_out[key] = {
             "label": label,
-            "counts": term_data,
+            "counts": counts_per_win,
         }
 
-    mitre_counts = [
-        {"technique": t, "count": int(c)}
-        for t, c in mitre_counter.most_common()
+    top_cves_out = {
+        win: counter_to_sorted_list(per_window_cves[win])
+        for win in WINDOWS
+    }
+
+    threat_actor_daily = [
+        {"date": d, "count": int(threat_actor_daily_counter[d])}
+        for d in sorted(threat_actor_daily_counter.keys())
     ]
 
     output = {
         "generated_at": now.isoformat(),
-        "windows": list(TIME_WINDOWS.keys()),
+        "windows": list(WINDOWS.keys()),
         "daily_volume": daily_volume,
-        "top_keywords": top_keywords,
-        "vendors": vendors,
-        "categories": categories,
-        "mitre_counts": mitre_counts,
-        "trending_terms": trending_terms,
+        "categories": categories_out,
+        "top_keywords": top_keywords_out,
+        "vendors": vendors_out,
+        "trending_terms": trending_terms_out,
+        "top_cves": top_cves_out,
+        "threat_actor_daily": threat_actor_daily,
     }
 
+    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(json.dumps(output, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"[OK] Trends written to {OUTPUT_PATH}")
 
