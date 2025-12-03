@@ -286,7 +286,34 @@
         genInfo.textContent = "";
       }
     }
+        // Mapeia categorias -> palavras-chave esperadas nos smart_groups
+    const CATEGORY_SMARTGROUP_RULES = {
+      exploits: [
+        "exploit",
+        "proof-of-concept",
+        "poc",
+        "weaponized",
+      ],
+      vulns: [
+        "vulnerability",
+        "vulnerabilities",
+        "cve-",
+        "remote code execution",
+        "rce",
+        "privilege escalation",
+      ],
+      vuln_advisories: [
+        "security advisory",
+        "advisory",
+        "security bulletin",
+        "patch tuesday",
+        "security update",
+      ],
+      // se quiser, dá pra mapear outras categorias futuramente
+      // ransomware: ["ransomware", "double extortion", "ransom note"],
+    };
 
+    
     function applyFilters(resetVisible) {
       const cat = state.category;
       const search = state.search.trim().toLowerCase();
@@ -303,9 +330,22 @@
           if (!item.curated) {
             return false;
           }
-        } else if (cat !== "all" && item.type !== cat) {
-          // Demais categorias: comportamento atual
-          return false;
+        } else if (cat !== "all") {
+          const typeMatch = item.type === cat;
+
+          // Match via smart_groups (Exploits, Vulns, etc.)
+          let smartMatch = false;
+          const rules = CATEGORY_SMARTGROUP_RULES[cat];
+          const groups = item.smart_groups || [];
+
+          if (rules && groups.length) {
+            const sgText = groups.join(" ").toLowerCase();
+            smartMatch = rules.some((kw) => sgText.includes(kw.toLowerCase()));
+          }
+
+          if (!typeMatch && !smartMatch) {
+            return false;
+          }
         }
 
         // --- filtro "Recent only" (últimas 24h) ---
@@ -348,6 +388,7 @@
       renderList();
       updateStats();
     }
+
 
 
     function renderList() {
