@@ -287,31 +287,231 @@
       }
     }
         // Mapeia categorias -> palavras-chave esperadas nos smart_groups
+        // Mapeia categorias da sidebar -> palavras-chave usadas nas SMART_GROUP_RULES do Python
+    // A ideia é manter aqui o mesmo "espírito" de cada smart group.
     const CATEGORY_SMARTGROUP_RULES = {
-      exploits: [
-        "exploit",
-        "proof-of-concept",
-        "poc",
-        "weaponized",
-      ],
+      // -------- Vulnerabilities / CVEs --------
+      // Espelha o smart group "Vulnerabilities / CVEs"
       vulns: [
+        "cve-",
         "vulnerability",
         "vulnerabilities",
-        "cve-",
         "remote code execution",
         "rce",
         "privilege escalation",
+        "buffer overflow",
+        "out-of-bounds write",
+        "sql injection",
+        "authentication bypass",
+        "zero-day",
+        "0day",
       ],
+
+      // -------- Exploit / PoC --------
+      // Espelha o smart group "Exploit / PoC"
+      exploits: [
+        "exploit",
+        "poc released",
+        "proof-of-concept",
+        "exploit code",
+        "weaponized",
+        "exploit available",
+        "exploit toolkit",
+        "exploit released",
+      ],
+
+      // -------- Vulnerability Advisories --------
+      // Normalmente ligado a boletins e updates oficiais
       vuln_advisories: [
         "security advisory",
-        "advisory",
         "security bulletin",
         "patch tuesday",
         "security update",
+        "cumulative update",
+        "vendor advisory",
       ],
-      // se quiser, dá pra mapear outras categorias futuramente
-      // ransomware: ["ransomware", "double extortion", "ransom note"],
+
+      // -------- Crypto / Web3 --------
+      // Próximo de um smart group tipo "Crypto / Web3"
+      crypto: [
+        "blockchain",
+        "web3",
+        "smart contract",
+        "defi",
+        "dex",
+        "exchange",
+        "wallet",
+        "token",
+        "nft",
+        "airdrops",
+        "rug pull",
+        "bridge exploit",
+      ],
+
+      // -------- Cybercrime, Darknet --------
+      // Próximo de um smart group "Cybercrime / Darknet & Leaks"
+      cybercrime: [
+        "darknet",
+        "dark web",
+        "marketplace",
+        "ransomware gang",
+        "ransom gang",
+        "initial access broker",
+        "data leak site",
+        "leak site",
+        "underground forum",
+        "crimeware",
+        "credential stuffing",
+      ],
+
+      // -------- DFIR --------
+      // Próximo de um smart group "DFIR / Forensics"
+      dfir: [
+        "dfir",
+        "forensics",
+        "memory analysis",
+        "timeline analysis",
+        "incident response",
+        "artifact",
+        "mft",
+        "prefetch",
+        "dfrws",
+      ],
+
+      // -------- General Security --------
+      // Bem amplo, pega tópicos genéricos de segurança
+      general: [
+        "cybersecurity",
+        "information security",
+        "infosec",
+        "security posture",
+        "security program",
+        "risk management",
+      ],
+
+      // -------- Government, CERT --------
+      // Próximo de um smart group "Government / CERT / National CSIRT"
+      government: [
+        "cert-",
+        "csirt",
+        "gov",
+        "government",
+        "cisa",
+        "enisa",
+        "nist",
+        "nsa",
+        "national cyber",
+      ],
+
+      // -------- Leaks --------
+      // Próximo de um smart group "Data Breaches / Leaks"
+      leaks: [
+        "data breach",
+        "breach",
+        "customer data",
+        "stolen data",
+        "leaked database",
+        "leaked data",
+        "breached records",
+        "database leak",
+        "compromised data",
+      ],
+
+      // -------- Malware --------
+      // Próximo de um smart group "Malware / Payloads"
+      malware: [
+        "malware",
+        "ransomware",
+        "trojan",
+        "backdoor",
+        "botnet",
+        "infostealer",
+        "loader",
+        "wiper",
+        "remote access trojan",
+        "rat ",
+        "payload",
+        "locker",
+      ],
+
+      // -------- Threat Intel --------
+      // Próximo de "Threat Actors / APT", "Campaigns", etc.
+      threat_intel: [
+        "apt ",
+        "nation-state",
+        "state-sponsored",
+        "threat actor",
+        "actor group",
+        "campaign",
+        "tactics, techniques and procedures",
+        "ttp",
+        "ioc",
+        "indicator of compromise",
+        "mitre atta&ck",
+      ],
+
+      // -------- Malware Analysis --------
+      // Próximo de "Malware Analysis / Reverse Engineering"
+      malware_analysis: [
+        "reverse engineering",
+        "static analysis",
+        "dynamic analysis",
+        "sandbox analysis",
+        "yara rule",
+        "unpack",
+        "disassembly",
+        "debugger",
+        "emulation",
+      ],
+
+      // -------- OSINT, Communities --------
+      osint: [
+        "osint",
+        "open-source intelligence",
+        "community project",
+        "github repo",
+        "threat hunting community",
+        "slack workspace",
+        "discord community",
+      ],
+
+      // -------- Podcasts --------
+      podcasts: [
+        "podcast",
+        "episode",
+        "listen",
+        "audio only",
+        "show notes",
+      ],
+
+      // -------- Vendors --------
+      // Próximo de "Vendors / Products"
+      vendors: [
+        "vendor",
+        "product update",
+        "security appliance",
+        "endpoint security",
+        "siem",
+        "xdr",
+        "edr",
+        "ngfw",
+        "cloud security product",
+        // nomes típicos podem aparecer aqui também:
+        "microsoft",
+        "google cloud",
+        "aws",
+        "azure",
+        "palo alto",
+        "crowdstrike",
+        "cisco",
+        "fortinet",
+        "checkpoint",
+      ],
+
+      // Outras categorias como "curated" e "all" são tratadas
+      // diretamente na lógica do applyFilters, então não entram aqui.
     };
+
 
     
     function applyFilters(resetVisible) {
