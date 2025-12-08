@@ -552,6 +552,29 @@ button.pill[data-type="curated"] {
   text-decoration: underline;
 }
 
+/* Evita que algum conteúdo interno estoure a largura do board */
+.layout,
+.main-content,
+.news-list {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+.card {
+  min-width: 0;
+}
+
+/* Garante quebra de linha em títulos/resumos/fontes muito longos */
+.card,
+.card-title,
+.card-body-text,
+.card-source,
+.smart-group-badge {
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+}
+
+
 /* Responsive */
 @media (max-width: 900px) {
   body {
