@@ -221,7 +221,9 @@ def call_openai_morning_call(
 ) -> str:
     """
     Faz a chamada à OpenAI usando Chat Completions e retorna o texto do morning call.
-    Em caso de insufficient_quota, retorna uma mensagem amigável em vez de quebrar o script.
+
+    - Para modelos mais novos (ex: gpt-5.1), usamos max_completion_tokens.
+    - Em caso de insufficient_quota, devolve um texto amigável em vez de quebrar o pipeline.
     """
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
@@ -238,13 +240,13 @@ def call_openai_morning_call(
                 {"role": "user", "content": user_prompt},
             ],
             temperature=0.3,
-            max_tokens=2000,
+            # IMPORTANTE: modelos novos (gpt-5.1, etc.) usam max_completion_tokens
+            max_completion_tokens=2000,
         )
         text = completion.choices[0].message.content
         print("[INFO] OpenAI response received.")
         return text
     except APIError as e:
-        # Se estourar quota, não derruba o pipeline, gera uma mensagem fallback
         err_code = getattr(e, "code", None)
         if err_code == "insufficient_quota":
             print("[ERROR] OpenAI insufficient_quota: cannot generate morning call today.")
@@ -255,7 +257,7 @@ def call_openai_morning_call(
                 "Please check the OpenAI billing / quota settings and re-run once the "
                 "API is available again.\n"
             )
-        # outros erros ainda sobem
+        # outros erros ainda sobem para o caller
         raise
 
 
