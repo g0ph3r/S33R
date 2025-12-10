@@ -229,13 +229,15 @@ def call_openai_morning_call(model: str, system_prompt: str, user_prompt: str) -
     try:
         resp = client.chat.completions.create(
             model=model,
+            modalities=["text"],   # <-- OBRIGATÓRIO EM GPT-5.1
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
             ],
             temperature=0.3,
-            max_completion_tokens=2000,   # REQUIRED for GPT-5.x
+            max_completion_tokens=2000,
         )
+
         text = extract_text_from_response(resp)
         print("[INFO] OpenAI response extracted.")
         return text or "### Morning call unavailable\n(No text returned by model.)"
