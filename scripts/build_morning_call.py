@@ -224,32 +224,34 @@ def call_openai_morning_call(model: str, system_prompt: str, user_prompt: str) -
 
     client = OpenAI(api_key=api_key)
 
-    print(f"[INFO] Calling OpenAI with model={model}...")
+    print(f"[INFO] Calling OpenAI (Responses API) with model={model}...")
 
     try:
-        resp = client.chat.completions.create(
+        resp = client.responses.create(
             model=model,
-            modalities=["text"],   # <-- OBRIGATÓRIO EM GPT-5.1
-            messages=[
+            input=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
             ],
-            temperature=0.3,
-            max_completion_tokens=2000,
+            max_output_tokens=2000,
         )
 
-        text = extract_text_from_response(resp)
-        print("[INFO] OpenAI response extracted.")
-        return text or "### Morning call unavailable\n(No text returned by model.)"
+        # extract text
+        try:
+            return resp.output[0].content[0].text.strip()
+        except Exception:
+            return "### Morning call unavailable\n(No text returned by GPT-5.1)"
 
-    except APIError as e:
-        if getattr(e, "code", None) == "insufficient_quota":
-            print("[WARN] OpenAI insufficient quota.")
+    except Exception as e:
+        # tratamento de quota
+        if hasattr(e, "code") and e.code == "insufficient_quota":
+            print("[WARN] insufficient_quota from OpenAI")
             return (
                 "### Morning call unavailable\n\n"
-                "OpenAI API quota exceeded — unable to generate morning call today."
+                "OpenAI API quota exceeded — morning call could not be generated today."
             )
         raise
+
 
 
 #
