@@ -129,6 +129,30 @@
         #morning-card {
           page-break-inside: avoid;
         }
+
+        /* Destaques para labels tipo "What:", "Why it matters:" etc */
+        .mc-label {
+          display: inline-block;
+          padding: 1px 8px;
+          margin-right: 4px;
+          border-radius: 999px;
+          background: rgba(189,147,249,0.22);
+          color: var(--accent-strong);
+          font-size: 11px;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
+        }
+
+        /* Ajuste leve para o texto logo após a label */
+        .markdown-body li {
+          line-height: 1.6;
+        }
+
+        /* Se a label estiver no começo do parágrafo, dá um respiro */
+        .markdown-body p > .mc-label:first-child {
+          margin-right: 6px;
+        }
+
       }
     </style>
   </head>
@@ -389,6 +413,9 @@
           // Markdown → HTML
           const md = data.morning_call_markdown || "No content available.";
           morningContent.innerHTML = marked.parse(md);
+
+          // Depois de renderizar o markdown, destacamos labels SOC
+          highlightSocLabels();
         } catch (err) {
           console.error(err);
           hideLoading();
@@ -418,6 +445,38 @@
       document.getElementById("btn-print").addEventListener("click", () => {
         window.print();
       });
+      
+      function highlightSocLabels() {
+      const LABELS = [
+        "What:",
+        "What happened:",
+        "Why it matters:",
+        "Why it matters operationally:",
+        "Recommended immediate actions:",
+        "Recommended actions:",
+        "Log sources:",
+        "Log source:",
+        "Focus:",
+      ];
+
+      const strongNodes = morningContent.querySelectorAll("strong, b");
+
+      strongNodes.forEach((node) => {
+        const text = (node.textContent || "").trim();
+
+        // Normaliza para comparação sem case e sem espaço final
+        const normalized = text.replace(/\s+/g, " ").toLowerCase();
+
+        LABELS.forEach((labelRaw) => {
+          const labelNorm = labelRaw.replace(/\s+/g, " ").toLowerCase();
+
+          // Se o <strong> for exatamente a label (com ou sem espaço extra)
+          if (normalized === labelNorm || normalized === labelNorm.replace(/:$/, "")) {
+            node.classList.add("mc-label");
+          }
+        });
+      });
+    }
 
       window.addEventListener("DOMContentLoaded", () => {
         fetchMorningCall(LATEST_URL);
