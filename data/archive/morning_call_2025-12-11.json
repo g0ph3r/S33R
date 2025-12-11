@@ -1,16 +1,41 @@
 {
-  "generated_at": "2025-12-11T06:50:45.365807+00:00",
+  "generated_at": "2025-12-11T08:19:45.491794+00:00",
   "analysis_date": "2025-12-11",
   "model": "gpt-5.1",
   "window_hours": 24,
   "source_file": "data/news_recent.json",
-  "source_generated_at": "2025-12-11T05:38:22.820225+00:00",
+  "source_generated_at": "2025-12-11T07:38:47.334101+00:00",
   "source_days_back": 30,
-  "source_total_items": 4137,
-  "total_items_in_window_all": 312,
-  "total_items_in_window_curated": 100,
-  "morning_call_markdown": "### Executive Summary\n\n- Active exploitation of multiple client-side and server-side 0‑days/KEVs: Chrome, WinRAR, Windows/PowerShell, Outlook, and React2Shell (CVE‑2025‑55182) with APT and malware delivery.\n- Critical internet‑facing and monitoring stack risks: Gogs Git service 0‑day RCE, Ivanti EPM RCE, Fortinet FortiCloud/FortiSandbox auth bypass / OS command injection, and Splunk Enterprise vulns.\n- AI/cloud exposure: zero‑click data exposure in Google Gemini Enterprise and Kubernetes OS command injection variant (CVE‑2024‑9042) show risk to cloud workloads and corporate data.\n- Ongoing financially motivated and state‑sponsored activity: North Korea exploiting React2Shell (EtherRAT, PeerBlight), pro‑Russia targeting of US critical infrastructure, and new Rust ransomware (01flip).\n\n---\n\n### High-priority items (immediate attention)\n\n#### 1. React2Shell – Critical React Server Components RCE (CVE‑2025‑55182) under active APT exploitation\n\n- **What happened**\n  - Critical React Server Components vulnerability (“React2Shell”) added to CISA KEV; active exploitation confirmed.\n  - North Korean actors using it to deploy EtherRAT backdoor and Linux PeerBlight malware; also used for crypto miners and proxy tunneling.\n- **Why it matters**\n  - Impacts large numbers of internet‑facing web apps using React/Next.js (hundreds of thousands of domains).\n  - Enables takeover of front-end to pivot to internal APIs/data and deploy malware (initial access + lateral movement).\n- **Immediate SOC actions**\n  - **Identify exposure**\n    - Ask app/platform teams for list of internet‑facing apps using React Server Components / Next.js & versions.\n    - Prioritize any that expose internal APIs or sensitive customer data.\n  - **Detection & monitoring**\n    - Web logs (WAF, reverse proxies, app logs): hunt for anomalous POSTs to RSC/Next.js endpoints, unusual query parameters or template injection patterns around the time PoCs went public.\n    - EDR: watch for new webserver child processes spawning shells, curl/wget, or crypto miners from node/react-related processes.\n  - **Containment/patch**\n    - Ensure emergency patching or mitigations per React/Next.js vendor guidance and Unit42/HTB advisories.\n    - If exploitation indicators found, treat as potential **APT compromise** and escalate to IR, including credential reset and API key rotation.\n\n---\n\n#### 2. Microsoft December Patch Tuesday – multiple actively exploited Windows/WinRAR/Outlook zero‑days\n\n- **What happened**\n  - Microsoft released December updates: 56–57 vulnerabilities, including **at least one Windows 0‑day actively exploited** (CVE‑2025‑62221 per coverage).\n  - CISA added **Windows** and **WinRAR CVE‑2025‑6218** to KEV; WinRAR RCE already exploited by multiple threat groups.\n  - Articles highlight exploitable **Outlook** RCE and **Windows Defender Firewall** and **PowerShell 0‑day** issues.\n- **Why it matters**\n  - High‑volume phishing and archive‑based delivery (RAR) common in financials; KEV inclusion implies real campaigns.\n  - Outlook/WinRAR/PowerShell flaws can give adversaries code execution from email or document handling with minimal user interaction.\n- **Immediate SOC actions**\n  - **Patch & configuration status**\n    - Confirm with IT that **December Patch Tuesday** is being fast‑tracked on servers, VDIs, trader desktops, and admin workstations.\n    - Check WinRAR version in endpoint inventory; prioritize patch/removal on high‑risk users (finance, executives, ops).\n  - **Detection focus (last 30 days, ongoing)**\n    - Email security + EDR:\n      - Suspicious RAR attachments and downloads from untrusted sources.\n      - Outlook spawning child processes (cmd.exe, powershell.exe, wscript.exe, rundll32.exe).\n    - Endpoint logs:\n      - PowerShell execution from Office/Outlook or archive handlers; use Script Block Logging and AMSI if available.\n    - Look for **RAR/executable** combinations or self‑extracting archives in downloads/temp paths.\n  - **Policy**\n    - If feasible, **block RAR attachments** at email gateway or enforce sandbox detonation for all archives from external senders.\n    - Reinforce user comms: do not open unexpected archives, even from known senders; report suspicious emails.\n\n---\n\n#### 3. Chrome 0‑day actively exploited\n\n- **What happened**\n  - Google released an emergency update for a Chrome 0‑day exploited in the wild (Windows, macOS, Linux).\n- **Why it matters**\n  - Browser 0‑days are heavily used in phishing/exploit kit campaigns; many internal apps and SaaS access rely on Chrome.\n  - A compromised browser on privileged endpoints (trading, treasury, admin) can lead to credential theft and lateral movement.\n- **Immediate SOC actions**\n  - **Patch push**\n    - Confirm Chrome auto‑update status; coordinate IT to force update to latest stable on all corporate endpoints, especially VDI and shared terminals.\n  - **Monitoring**\n    - EDR: look for Chrome spawning unusual child processes (cmd, powershell, regsvr32, certutil, mshta) or writing to unusual directories.\n    - Proxy/DNS: track connections to newly seen domains immediately following browser exploitation indicators.\n  - **Temporary mitigations**\n    - Consider restricting access from high‑risk users to known‑good domains only until patch saturation is high.\n    - Encourage restart of browsers today to complete updates.\n\n---\n\n#### 4. Ivanti Endpoint Manager (EPM) critical RCE / admin session hijacking\n\n- **What happened**\n  - Critical vulnerability in **Ivanti EPM** allows RCE and admin session hijacking via stored XSS; hundreds of EPM systems are exposed online.\n- **Why it matters**\n  - EPM is a **central management platform** with high privileges across endpoints; compromise equals mass deployment of malware/ransomware.\n- **Immediate SOC actions**\n  - **Confirm exposure**\n    - With infrastructure team, check if we run **Ivanti EPM** and whether any instance is internet‑facing or reachable from DMZ segments.\n  - **Patch & hardening**\n    - Ensure Ivanti’s latest security update is applied; if patching is delayed, restrict management console access (VPN only, admin subnets).\n  - **Monitoring**\n    - Review EPM logs for:\n      - New or modified admin accounts.\n      - New or unusual distribution packages or scripts pushed to many endpoints.\n      - Admin logins from atypical IPs/geos or at odd times.\n    - EDR: look for simultaneous new software/powershell deployment across many hosts originating from EPM server.\n\n---\n\n#### 5. Fortinet FortiCloud SSO / FortiSandbox critical vulnerabilities\n\n- **What happened**\n  - Fortinet fixed two critical **authentication bypass** flaws in FortiCloud SSO and a **FortiSandbox OS command injection** allowing remote code execution.\n- **Why it matters**\n  - Fortinet components often sit at or near the perimeter. Auth bypass and OS command injection can give attackers privileged access to management and inspection points, ideal for traffic interception or further lateral movement.\n- **Immediate SOC actions**\n  - **Inventory & patch**\n    - Confirm if we use **FortiCloud SSO** and **FortiSandbox** (including managed service providers).\n    - Ensure emergency firmware/software updates are scheduled or completed.\n  - **Monitoring**\n    - Firewall/VPN logs: unusual logins to Fortinet management from foreign IPs, new admin accounts or API keys.\n    - FortiSandbox: unexpected outbound connections, new system users, or execution of atypical shell commands.\n  - **Access control**\n    - Restrict management interfaces to dedicated admin networks/VPN; verify MFA enforced for all Fortinet admin accounts.\n\n---\n\n#### 6. Gogs Git service 0‑day RCE (CVE‑2025‑8110) exploited in the wild\n\n- **What happened**\n  - Wiz disclosed an RCE 0‑day in **Gogs** (self‑hosted Git service), with exploitation observed in the wild.\n- **Why it matters**\n  - Compromise of Git/CI infrastructure can lead to **supply‑chain attacks**, backdoored code, and credential exfiltration.\n- **Immediate SOC actions**\n  - **Identify instances**\n    - Check asset inventories and DevOps with: are we running **Gogs** on‑prem or in labs/PoCs?\n  - **Contain/patch**\n    - If present, ensure patched or taken offline from internet exposure; restrict to VPN and internal networks.\n  - **Hunt**\n    - System logs: look for unexpected admin account creation, SSH key additions to user accounts, or unauthorized webhooks.\n    - CI/CD: inspect recent pipeline changes and newly added secrets, especially around the timeframe reported in the advisory.\n\n---\n\n#### 7. Google Gemini Enterprise zero‑click data exposure\n\n- **What happened**\n  - Google patched a **zero‑click** vulnerability in Gemini Enterprise that allowed access to corporate data (Gmail, Calendar, Docs) without user interaction.\n- **Why it matters**\n  - Financial institutions increasingly tie AI assistants to sensitive email/docs. A cloud‑side flaw could expose confidential data even without local compromise.\n- **",
+  "source_total_items": 4166,
+  "total_items_in_window_all": 321,
+  "total_items_in_window_curated": 97,
+  "morning_call_markdown": "### Executive Summary\n- Active exploitation of **React2Shell (CVE-2025-55182 / React Server Components)** across sectors, including use by **North Korean actors (EtherRAT, PeerBlight)** and crypto miners; CISA KEV listing indicates urgent patching and targeted attacks.\n- **Microsoft December Patch Tuesday**: 50+ flaws, **three zero‑days**, plus additional **Windows, Outlook, PowerShell and WinRAR vulnerabilities now in CISA KEV** – active exploitation observed.\n- **WinRAR CVE-2025-6218** and related archive parsing bugs are being exploited by multiple threat groups; highly relevant to end‑user workstations and email/web‑delivered payloads.\n- **Ivanti EPM and Fortinet (FortiCloud SSO / FortiSandbox)** ship critical remotely exploitable flaws (auth bypass, RCE, stored XSS) with many systems still exposed.\n\n---\n\n### High-priority items (immediate attention)\n\n#### 1. React2Shell (CVE-2025-55182 & related React/Next.js RSC flaws) – Active exploitation, NK APT, malware delivery\n- **What happened**\n  - Critical vulnerability in **React Server Components / Next.js (React2Shell)** added to **CISA KEV** and is being widely exploited to gain server‑side code execution and pivot to internal APIs.\n  - Campaigns delivering **crypto miners**, **EtherRAT backdoor** (North Korean threat actors), and **PeerBlight Linux malware for proxy tunneling** are reported across multiple sectors.\n- **Why it matters**\n  - Any **Internet‑facing React/Next.js app using RSC** may provide **direct access to internal APIs, credentials, and lateral movement** into our environment or third‑party providers.\n  - Financial web portals, customer apps, and internal dashboards using modern JS stacks are at risk of **web‑to‑core environment compromise**.\n- **Immediate SOC actions**\n  - **Triage exposure (with app/platform teams)**\n    - Identify any **Internet‑facing services using React/Next.js with RSC**; confirm versions and patch status.\n    - If we use **managed web providers / SaaS** built on React, verify they have patched.\n  - **Hunt for compromise**\n    - Web logs / WAF: search for **anomalous POSTs or crafted queries** to RSC endpoints, unusual path traversal or template injection‑like patterns around React/Next routes.\n    - Backend: look for **new or unexpected child processes** spawned by node/next runtimes (EDR).\n    - Linux servers: hunt for **new miners**, unusual systemd services, cron jobs, or reverse proxies/tunnels (SSH, socat, Cloudflared‑like patterns).\n  - **Strengthen controls**\n    - Ensure **WAF virtual patching** in place for known React2Shell patterns (coordinate with infra).\n    - Increase monitoring for **suspicious outbound connections** from web tiers to rare external IPs/ports (e.g., 4444, 8080, 1337, high ports).\n\n---\n\n#### 2. Microsoft December 2025 Patch Tuesday & associated 0-days (Windows, Outlook, PowerShell)\n- **What happened**\n  - Microsoft released December updates addressing **~56 vulnerabilities**, including **three zero‑days**, one already used to **hijack Windows devices**.\n  - Separate reporting highlights:\n    - **Windows Defender Firewall Service data disclosure flaw**.\n    - **PowerShell 0‑day RCE**, allowing remote arbitrary code execution.\n    - **Outlook RCE** allowing code execution via crafted content.\n- **Why it matters**\n  - Direct impact on **all Windows endpoints and servers**, and **Outlook clients**; typical entry vector for phishing and initial access.\n  - PowerShell/Outlook bugs are **prime candidates for phishing campaigns and lateral movement** inside financial networks.\n- **Immediate SOC actions**\n  - **Patch prioritization (coordinate with IT)**\n    - Confirm **December 2025 cumulative updates** are prioritized for **domain controllers, Exchange/Outlook‑heavy servers, and high‑risk user endpoints** (admins, finance, execs).\n  - **Detection focus**\n    - EDR/Windows logs:\n      - Monitor for **PowerShell execution** with unusual flags (e.g., `-EncodedCommand`, `-nop`, `-w hidden`) from **Office/Outlook child processes**.\n      - Alert on **Outlook spawning scripting/LOLBin processes** (powershell.exe, cmd.exe, wscript.exe, mshta.exe).\n    - Email security:\n      - Heighten inspection of attachments likely to exploit Office/Outlook, especially rarely used formats or **embedded OLE/ActiveX**.\n  - **Hunting**\n    - Timeline‑bound hunt (since Patch Tuesday release) for:\n      - New **Outlook‑initiated PowerShell** or MSI/EXE installers.\n      - **Unusual firewall rule changes** or Defender configuration tampering.\n\n---\n\n#### 3. WinRAR RCE (CVE-2025-6218) – Actively exploited by multiple threat groups\n- **What happened**\n  - **WinRAR vulnerability** added to **CISA KEV**, with multiple groups using it in the wild for RCE when users open crafted archives.\n- **Why it matters**\n  - Highly common on **end‑user workstations**, often **unmanaged versions**.\n  - Tight coupling with **phishing and web downloads** (e.g., fake invoices, reports, “password‑protected” archives).\n- **Immediate SOC actions**\n  - **Asset check**\n    - With endpoint team, identify **installed WinRAR versions**; ensure updates or consider forced removal in corporate images.\n  - **Detection & prevention**\n    - Email/web security: increase scrutiny and sandboxing of **RAR/ZIP/ACE archives, especially from external senders**.\n    - EDR: alert when `winrar.exe` or extraction tools immediately spawn **scripts or binaries** from `%TEMP%` or user profile paths.\n  - **Hunting**\n    - Search for sequences: **email attachment → archive opened → child process execution** within a short time window.\n    - Look for **previous suspicious archive detonations** in sandbox systems.\n\n---\n\n#### 4. Ivanti EPM critical flaw (stored XSS → admin session hijack / RCE)\n- **What happened**\n  - Critical vulnerability in **Ivanti Endpoint Manager (EPM)** enables **stored XSS**, letting attackers hijack **admin sessions** and potentially reach **RCE**; hundreds of exposed EPM instances reported online.\n- **Why it matters**\n  - EPM is a **central management and software distribution platform**; compromise provides **enterprise‑wide code execution** and rapid ransomware deployment potential.\n- **Immediate SOC actions**\n  - **Exposure & patch status**\n    - Confirm whether we run **Ivanti EPM**; validate **patch application** for the current advisory.\n    - If EPM is Internet‑facing, treat as **high‑risk**; consider temporary **access limitation (VPN only)**.\n  - **Log review**\n    - Check **EPM admin access logs** for:\n      - Logins from **unusual IPs/ASNs**.\n      - Sudden creation of **new admin accounts**, or role changes.\n    - Review **software distribution / task logs** for:\n      - Unexpected deployment jobs or scripts pushed to many endpoints.\n  - **Hunting**\n    - EDR: look for **simultaneous new agent jobs** or unusual scripts executed from Ivanti agent paths.\n    - If suspicious activity is found, **triage EPM server for webshells or modified web content**.\n\n---\n\n#### 5. Fortinet: FortiCloud SSO auth‑bypass & FortiSandbox OS command injection\n- **What happened**\n  - Fortinet released fixes for **two critical authentication‑bypass vulnerabilities** affecting **FortiCloud SSO** as well as a **FortiSandbox OS command injection flaw** that allows remote code execution.\n- **Why it matters**\n  - Fortinet devices and cloud SSO are often **network edge and security control points**; compromise provides **network‑wide visibility and policy control**, and can be used as a **springboard into internal networks**.\n- **Immediate SOC actions**\n  - **Inventory & patch**\n    - Identify any **FortiCloud‑integrated Fortinet devices** and **FortiSandbox instances** in use and confirm **firmware/patch level** against the latest advisories.\n    - For any unpatched Internet‑exposed systems, raise **urgent change requests**.\n  - **Monitoring**\n    - Firewall/IDS logs:\n      - Look for **login attempts or API calls** from unusual IPs to Fortinet management interfaces.\n      - Watch for **changes to security policies, admin accounts, or logging destinations**.\n  - **Hunting**\n    - Inspect **FortiSandbox** for signs of:\n      - **Unexpected system users**, cron jobs, or outbound connections not matching known telemetry targets.\n    - If logs are shipped centrally, run anomaly detection for **new or rare outbound destinations** originating from Fortinet appliances.\n\n---\n\n#### 6. Gogs 0‑day RCE (CVE-2025-8110) – Exploited in the wild\n- **What happened**\n  - Research reports an **RCE 0‑day in Gogs (self‑hosted Git service)** being actively exploited.\n-",
   "highlights": [
+    {
+      "title": "40 open-source tools redefining how security teams secure the stack",
+      "link": "https://www.helpnetsecurity.com/2025/12/11/free-open-source-security-software/",
+      "source": "Help Net Security",
+      "published": "2025-12-11T07:00:35+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Identity / Access",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Active Attacks Exploit Gladinet's Hard-Coded Keys for Unauthorized Access and Code Execution",
+      "link": "https://thehackernews.com/2025/12/hard-coded-gladinet-keys-let-attackers.html",
+      "source": "The Hacker News",
+      "published": "2025-12-11T05:56:00+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
     {
       "title": "API Gateway Hack Explained: How Hackers Bypass Cloud APIs | BOLA Vulnerabilities",
       "link": "https://www.reddit.com/r/cybersecurity/comments/1pjpkk4/api_gateway_hack_explained_how_hackers_bypass/",
@@ -21,6 +46,30 @@
         "Vulnerabilities / CVEs",
         "Exploit / PoC",
         "Web / API Security"
+      ],
+      "curated": true
+    },
+    {
+      "title": "644K+ Websites at Risk Due to Critical React Server Components Flaw",
+      "link": "https://gbhackers.com/644k-websites-at-risk-due-to-critical-react-server-components-flaw/",
+      "source": "GBHackers News",
+      "published": "2025-12-11T04:42:48+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Windows Defender Firewall Service Vulnerability Let Attackers Disclose Sensitive Data",
+      "link": "https://cybersecuritynews.com/windows-defender-firewall-service-vulnerability/",
+      "source": "Cyber Security News (FeedBurner)",
+      "published": "2025-12-11T04:15:59+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft"
       ],
       "curated": true
     },
@@ -82,56 +131,6 @@
         "Curated",
         "Vulnerabilities / CVEs",
         "Windows / Microsoft"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Is this worth a CVE? SD card from medical device has recoverable test results after \"factory reset\"",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1pjkwnl/is_this_worth_a_cve_sd_card_from_medical_device/",
-      "source": "/r/cybersecurity",
-      "published": "2025-12-11T01:36:12+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Fortinet admins urged to update software to close FortiCloud SSO holes",
-      "link": "https://www.csoonline.com/article/4104499/fortinet-admins-urged-to-update-software-to-close-forticloud-sso-holes.html",
-      "source": "CSO Online",
-      "published": "2025-12-11T01:24:42+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Identity / Access"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Hidden .NET HTTP proxy behavior can open RCE flaws in apps — a security issue Microsoft won’t fix",
-      "link": "https://www.csoonline.com/article/4104460/hidden-net-http-proxy-behavior-can-open-rce-flaws-in-apps-a-security-issue-microsoft-wont-fix.html",
-      "source": "CSO Online",
-      "published": "2025-12-11T00:37:26+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Windows / Microsoft",
-        "Cloud / SaaS",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Smashing Security podcast #447: Grok the stalker, the Louvre heist, and Microsoft 365 mayhem",
-      "link": "https://grahamcluley.com/smashing-security-podcast-447/",
-      "source": "Graham Cluley",
-      "published": "2025-12-11T00:30:16+00:00",
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC"
       ],
       "curated": true
     }
