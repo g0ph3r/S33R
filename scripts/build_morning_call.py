@@ -8,8 +8,8 @@ Generates a SOC-oriented morning call from curated news items in data/news_recen
 - Handles multiple response formats (string, list-of-blocks, response_text).
 - Filters curated items only.
 - Saves:
-    data/archive/morning_call_YYYY-MM-DD.json
-    data/archive/morning_call_latest.json
+    data/morning_call_latest.json
+    data/archive/morning_call_YYYY-MM-DD.json   (flat; later moved by build_news_archive.py)
 """
 
 import json
@@ -308,10 +308,13 @@ def save_output_json(
     date_str = now.date().isoformat()
     generated_at = now.isoformat()
 
-    OUTPUT_BASE_DIR.mkdir(parents=True, exist_ok=True)
+    archive_dir = OUTPUT_BASE_DIR  # continua default data/archive
+    archive_dir.mkdir(parents=True, exist_ok=True)
 
-    daily_path = OUTPUT_BASE_DIR / f"morning_call_{date_str}.json"
-    latest_path = OUTPUT_BASE_DIR / "morning_call_latest.json"
+    daily_path = archive_dir / f"morning_call_{date_str}.json"
+    latest_path = Path("data/morning_call_latest.json")
+    latest_path.parent.mkdir(parents=True, exist_ok=True)
+
 
     highlights = []
     for it in curated_items[:10]:

@@ -84,7 +84,7 @@ jobs:
           ###################################################################
           # 2) Commit changed files in data/archive/* and data/trends.json
           ###################################################################
-          CHANGED=$(git ls-files -m -o --exclude-standard data/archive data/trends.json || true)
+          CHANGED=$(git ls-files -m -o --exclude-standard data/archive data/trends.json data/morning_call_latest.json || true)
           [ -z "$CHANGED" ] && { echo "No changes detected."; exit 0; }
 
           for file in $CHANGED; do

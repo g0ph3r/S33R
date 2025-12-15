@@ -43,6 +43,8 @@ YEARLY_DIR = ARCHIVE_DIR / "yearly"
 PROMO_DIR = ARCHIVE_DIR / "promo"
 PROMO_MONTHLY_DIR = PROMO_DIR / "monthly"
 
+MORNING_CALL_DIR = ARCHIVE_DIR / "morning_call"
+
 
 # ---------- Utilidades de I/O ----------
 
@@ -408,6 +410,55 @@ def process_promo_filtered_files() -> None:
             print(f"[WARN] Não foi possível apagar {path}: {e}")
 
 
+def process_morning_call_files() -> None:
+    """
+    Move arquivos flat:
+      data/archive/morning_call_YYYY-MM-DD.json
+    para:
+      data/archive/morning_call/<ano>/<mes>/morning_call_YYYY-MM-DD.json
+    """
+    mc_files = sorted(ARCHIVE_DIR.glob("morning_call_*.json"))
+    if not mc_files:
+        print("[INFO] Nenhum morning_call_*.json (flat) para organizar.")
+        return
+
+    for src in mc_files:
+        # segurança: ignore qualquer coisa que não seja arquivo normal
+        if not src.is_file():
+            continue
+
+        # tenta extrair data do próprio JSON (analysis_date / generated_at), senão usa mtime
+        dt = None
+        try:
+            raw = load_json_any(src)
+            if isinstance(raw, dict):
+                if raw.get("analysis_date"):
+                    dt = parse_datetime(str(raw["analysis_date"]) + "T00:00:00Z")
+                if dt is None and raw.get("generated_at"):
+                    dt = parse_datetime(raw.get("generated_at"))
+        except Exception:
+            dt = None
+
+        if dt is None:
+            dt = datetime.fromtimestamp(src.stat().st_mtime, tz=timezone.utc)
+
+        year_str = f"{dt.year}"
+        month_str = f"{dt.month:02d}"
+
+        dest_dir = MORNING_CALL_DIR / year_str / month_str
+        dest_dir.mkdir(parents=True, exist_ok=True)
+
+        dest = dest_dir / src.name
+        if dest.exists():
+            # evita sobrescrever sem necessidade
+            print(f"[INFO] Destino já existe, removendo duplicado: {src} -> {dest}")
+            src.unlink()
+            continue
+
+        src.rename(dest)
+        print(f"[INFO] Morning call movido: {src} -> {dest}")
+
+
 # ---------- Função principal ----------
 
 def main() -> None:
@@ -458,6 +509,7 @@ def main() -> None:
         )
 
     # --------- Processa arquivos promo_filtered_* ---------
+    process_morning_call_files()
     process_promo_filtered_files()
 
     print("[INFO] build_news_archive.py concluído com sucesso.")
