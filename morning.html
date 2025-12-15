@@ -438,7 +438,10 @@
         .addEventListener("click", () => {
           const value = document.getElementById("previous-date").value;
           if (!value) return alert("Select a date");
-          fetchMorningCall(`data/archive/morning_call_${value}.json`);
+
+          const [yyyy, mm] = value.split("-");
+
+          fetchMorningCall(`data/archive/morning_call/${yyyy}/${mm}/morning_call_${value}.json`);
         });
 
       document.getElementById("btn-print").addEventListener("click", () => {

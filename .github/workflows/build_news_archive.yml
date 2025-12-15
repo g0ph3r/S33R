@@ -81,8 +81,41 @@ jobs:
             echo "No tracked promo_filtered_*.json files found to delete."
           fi
 
+          ##############################################
+          # 2) Delete tracked morning_call_* from repo
+          ##############################################
+          echo "Looking for tracked morning_call_*.json to delete..."
+          PROMO_FILES=$(git ls-files "data/archive/morning_call_*.json" || true)
+
+          if [ -n "$PROMO_FILES" ]; then
+            for file in $PROMO_FILES; do
+              echo "Deleting $file via GitHub API..."
+
+              SHA=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+                       "https://api.github.com/repos/$REPO/contents/$file?ref=$BRANCH" \
+                       | jq -r .sha)
+
+              if [ "${SHA:-null}" = "null" ] || [ -z "$SHA" ]; then
+                echo "  -> Could not get SHA for $file, skipping."
+                continue
+              fi
+
+              jq -n --arg msg "Remove $file" --arg branch "$BRANCH" --arg sha "$SHA" \
+                '{message:$msg, branch:$branch, sha:$sha}' \
+              | curl -sS -X DELETE \
+                  -H "Authorization: token $GITHUB_TOKEN" \
+                  -H "Content-Type: application/json" \
+                  --data-binary @- \
+                  "https://api.github.com/repos/$REPO/contents/$file"
+
+              echo "  -> Deleted $file"
+            done
+          else
+            echo "No tracked promo_filtered_*.json files found to delete."
+          fi
+
           ###################################################################
-          # 2) Commit changed files in data/archive/* and data/trends.json
+          # 3) Commit changed files in data/archive/* and data/trends.json
           ###################################################################
           CHANGED=$(git ls-files -m -o --exclude-standard data/archive data/trends.json data/morning_call_latest.json || true)
           [ -z "$CHANGED" ] && { echo "No changes detected."; exit 0; }
