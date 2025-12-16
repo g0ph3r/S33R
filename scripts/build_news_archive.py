@@ -30,6 +30,8 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
+from json import JSONDecodeError
+
 
 # Caminhos base
 BASE_DIR = Path(__file__).resolve().parents[1]
@@ -48,51 +50,77 @@ MORNING_CALL_DIR = ARCHIVE_DIR / "morning_call"
 
 # ---------- Utilidades de I/O ----------
 
+
+
 def load_json_any(path: Path) -> Any:
     if not path.exists():
         return None
-    with path.open("r", encoding="utf-8") as f:
-        return json.load(f)
 
+    try:
+        raw = path.read_text(encoding="utf-8")
+    except OSError as e:
+        print(f"[WARN] Falha ao ler {path}: {e}")
+        return None
+
+    # Arquivo existe mas está vazio / whitespace
+    if not raw.strip():
+        print(f"[WARN] JSON vazio em {path}. Tratando como 'None'.")
+        return None
+
+    try:
+        return json.loads(raw)
+    except JSONDecodeError as e:
+        # Renomeia o arquivo corrompido para não quebrar execuções futuras
+        ts = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+        corrupt = path.with_suffix(path.suffix + f".corrupt_{ts}")
+        try:
+            path.rename(corrupt)
+            print(f"[WARN] JSON inválido em {path}. Renomeado para {corrupt}. Erro: {e}")
+        except OSError:
+            print(f"[WARN] JSON inválido em {path} (não consegui renomear). Erro: {e}")
+        return None
 
 def load_json_list(path: Path, root_key: Optional[str] = None) -> List[Dict[str, Any]]:
     """
-    Carrega um JSON e retorna uma lista de itens.
-
-    - Se for uma lista na raiz, retorna direto.
-    - Se for um dict com a chave `root_key` (ou 'items' por padrão), retorna essa lista.
+    Carrega JSON e garante retorno como lista de dicts.
+    - Se root_key for informado (ex: 'items'), lê de um objeto {root_key: [...]}
+    - Se o arquivo já for uma lista, retorna direto
+    - Se estiver vazio/corrompido, retorna []
     """
-    if not path.exists():
+    data = load_json_any(path)
+    if data is None:
         return []
 
-    data = load_json_any(path)
+    if root_key:
+        if isinstance(data, dict):
+            val = data.get(root_key, [])
+            return val if isinstance(val, list) else []
+        return []
 
-    # Caso mais simples: já é lista
+    # Sem root_key: aceitamos lista direto
     if isinstance(data, list):
         return data
 
-    # Caso dict (como news_recent.json)
+    # Caso alguém salve como dict por engano, tentamos fallback comum
     if isinstance(data, dict):
-        # se root_key foi informado, tentar ela primeiro
-        if root_key and isinstance(data.get(root_key), list):
-            return data[root_key]
+        val = data.get("items")
+        if isinstance(val, list):
+            return val
 
-        # fallback padrão para "items"
-        if isinstance(data.get("items"), list):
-            return data["items"]
-
-        raise ValueError(
-            f"Esperado lista ou dict com chave 'items' em {path}, "
-            f"mas encontrei dict com chaves: {list(data.keys())}"
-        )
-
-    raise ValueError(f"Esperado lista ou dict em {path}, mas encontrei {type(data)}")
+    print(f"[WARN] JSON em {path} não é lista (nem contém '{root_key or 'items'}'). Ignorando.")
+    return []
 
 
 def save_json_list(path: Path, items: List[Dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", encoding="utf-8") as f:
+
+    # Escrita atômica: escreve em tmp e depois substitui
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    with tmp.open("w", encoding="utf-8") as f:
         json.dump(items, f, ensure_ascii=False, indent=2)
+
+    tmp.replace(path)
+
 
 
 # ---------- Helpers para datas ----------
