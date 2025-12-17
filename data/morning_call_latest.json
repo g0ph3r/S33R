@@ -1,74 +1,65 @@
 {
-  "generated_at": "2025-12-16T06:50:28.444592+00:00",
-  "analysis_date": "2025-12-16",
+  "generated_at": "2025-12-17T06:49:33.966917+00:00",
+  "analysis_date": "2025-12-17",
   "model": "gpt-5.1",
   "window_hours": 24,
   "source_file": "data/news_recent.json",
-  "source_generated_at": "2025-12-16T06:47:39.571415+00:00",
+  "source_generated_at": "2025-12-17T05:36:37.296391+00:00",
   "source_days_back": 30,
-  "source_total_items": 5050,
-  "total_items_in_window_all": 327,
-  "total_items_in_window_curated": 80,
-  "morning_call_markdown": "### Executive Summary\n- Active, large-scale exploitation of React2Shell (CVE‑2025‑55182) in Next.js/React Server Components is delivering multiple malware families (PCPcat, ZnDoor) with tens of thousands of servers compromised.\n- Multiple actively exploited vulnerabilities in Apple products and several new KEV‑listed issues (Apple, Gladinet/Triofox, GeoServer, Sierra routers) require expedited patch review, especially for remote-access and web-exposed services.\n- New and ongoing threat activity (Makop & “Gentlemen” ransomware, xHunt APT on Exchange/IIS, AWS report on npm supply chain campaigns) reinforces need to tighten email/web filtering, supply‑chain monitoring, and privilege escalation detection.\n\n---\n\n### High-priority items (immediate attention)\n\n- **React2Shell (CVE‑2025‑55182) & related RSC vulns with mass exploitation (PCPcat, ZnDoor, 59k Next.js servers)**\n  - What happened: Critical RCE in React Server Components / Next.js is being mass-exploited by multiple groups and malware families; 59k+ servers reportedly compromised in ~48h, with fake “GitHub scanners” that are actually malware.\n  - Why it matters operationally: Any Internet-facing app using React RSC/Next.js in our stack or vendors’ stacks could be a foothold for full compromise, webshells, and data theft.\n  - Recommended immediate actions: Coordinate with app/platform teams to (1) positively identify any RSC/Next.js use and confirm patch status/workarounds; (2) hunt in web/app logs for anomalous POSTs to RSC endpoints and sudden file writes/spawned shells; (3) block known malicious “React2Shell scanner” repos/tools if seen; (4) raise priority on any alerts from web front-ends and related app servers.\n\n- **Apple zero‑days (CVE‑2025‑14174, CVE‑2025‑43529) – actively exploited, on CISA KEV**\n  - What happened: Apple released updates for iOS/iPadOS/macOS for two actively exploited bugs, now added by CISA to KEV; linked to a separate exploited Chrome-related flaw.\n  - Why it matters operationally: At‑risk mobile endpoints (execs, traders, remote staff) and unmanaged BYOD may be already compromised and used as entry or exfiltration channels.\n  - Recommended immediate actions: Confirm MDM is enforcing latest iOS/iPadOS/macOS versions for all managed devices; flag non‑compliant as high risk in access control; monitor mobile device VPN/IdP sign‑ins for anomalies; brief helpdesk to triage users with unexpected prompts, crashes, or browser redirections on Apple devices.\n\n- **New KEV items & Internet‑facing service vulns (GeoServer, Sierra routers, Gladinet CentreStack/Triofox, FreePBX, Plesk, pgAdmin)**\n  - What happened: CISA added multiple actively exploited issues (Apple, Sierra router, Gladinet) and several vendors pushed patches for high‑severity RCE/LPE in Internet‑facing or admin tools (GeoServer, FreePBX auth bypass + SQLi + file upload, Plesk root escalation, pgAdmin RCE).\n  - Why it matters operationally: Unpatched instances (on‑prem or in third‑party providers) are prime initial access paths; exploitation is already in the wild.\n  - Recommended immediate actions: With infra team, run quick CMDB/scan check for these product names and versions on perimeter and management networks; if any exposed, raise to incident/urgent patch level and increase monitoring of associated hosts and inbound traffic; verify critical vendors (hosting, MSPs, GIS, comms) have patched where they host our data.\n\n- **Ransomware activity: Makop, “Gentlemen” ransomware, Storm‑0249 EDR abuse**\n  - What happened: Makop campaigns using GuLoader and privilege escalation; new “Gentlemen” ransomware targeting corporate networks with exfil + encryption; Storm‑0249 abusing DLL sideloading in EDR processes to hide activity.\n  - Why it matters operationally: Techniques overlap with what we see in financial‑sector intrusions—email‑borne loaders, lateral movement, EDR evasion, double‑extortion.\n  - Recommended immediate actions: Tighten review of loader/droppers (GuLoader‑like) and LOLBins in EDR; prioritize alerts about unexpected service installations, LSASS access, and EDR process anomalies; verify EDR integrity checks are enabled and not suppressed; highlight to L1 that suspicious “backup,” “sync,” or “update” tools on servers should be escalated.\n\n- **xHunt APT targeting Exchange & IIS to deploy custom backdoors**\n  - What happened: xHunt is reported exploiting Microsoft Exchange and IIS servers to drop bespoke backdoors.\n  - Why it matters operationally: Exchange/IIS remain high‑value targets in finance; compromise can yield email, credentials, and internal pivot.\n  - Recommended immediate actions: Confirm all Exchange/IIS instances are fully patched and not Internet‑exposed beyond design; hunt on those servers for unusual w3wp.exe children, new modules/virtual directories, and suspicious .aspx/.ashx files; review outbound connections from these servers to unknown IPs/domains and escalate any anomalies for rapid IR.\n\n---\n\n### Monitoring & detection recommendations\n\n- **React2Shell / Next.js exploitation (CVE‑2025‑55182/3/4)**\n  - Logs: Web server (NGINX/IIS/Apache), WAF, app logs, containers.\n  - Focus: Unusual POSTs/GETs to RSC/Next.js API or _next/ paths; spikes in 500 errors; web server spawning shells (cmd.exe, powershell.exe, /bin/sh); new files in app directories.  \n  - MITRE: T1190 (Exploit Public-Facing App), T1059 (Command Shell).\n\n- **Malware delivery via loaders (GuLoader, PCPcat, ZnDoor, npm campaigns)**\n  - Logs: EDR, web proxy, email security, DNS, endpoint application install logs.\n  - Focus: Scripted downloads from file‑sharing/paste sites or unusual GitHub repos; compressed archives launching scripts; unsigned binaries launched from user profile or temp; persistence via Run keys, scheduled tasks.  \n  - MITRE: T1204, T1105, T1053, T1060/T1547.\n\n- **Ransomware and EDR sideloading (Storm‑0249, Makop, Gentlemen)**\n  - Logs: EDR, Windows Event Logs (Sysmon if deployed), application logs.\n  - Focus: DLL sideloading patterns (trusted EXEs loading unexpected DLLs from writable dirs), tampering with AV/EDR services, mass file access/encryption behavior, shadow copy deletion (vssadmin, wmic), abnormal backup deletion.  \n  - MITRE: T1574.002 (DLL Search Order Hijack), T1486, T1562 (Defense Evasion).\n\n- **Exchange / IIS backdoors (xHunt)**\n  - Logs: IIS logs, Exchange logs, EDR on servers, firewall.\n  - Focus: Rare user agents or odd URLs hitting Exchange/IIS; unusual outbound traffic from these servers; w3wp.exe spawning cmd/PowerShell; new/modified webshell‑like files within inetpub/ or OWA/ECP paths.  \n  - MITRE: T1505.003 (Web Shell), T1105.\n\n- **Apple / mobile compromise**\n  - Logs: MDM, VPN, IdP (Okta/AAD/etc.), email access logs.\n  - Focus: New mobile devices registering unexpectedly to high‑privilege accounts; logins from impossible travel locations tied to iOS/macOS; repeated MFA prompts or push fatigue signs; devices stuck on old OS versions.  \n  - MITRE: T1078 (Valid Accounts), T1114 (Email Collection).\n\n- **KEV / edge devices and routers (Sierra routers, remote‑assist, Plesk, GeoServer)**\n  - Logs: Firewall, VPN, router logs, jump hosts, admin portals.\n  - Focus: Management interfaces accessed from the Internet or unfamiliar IPs; new admin users, config changes out of hours; unexpected outbound connections from network gear or management servers.  \n  - MITRE: T1190, T1090 (Proxy), T1078.\n\n- **npm / supply‑chain campaigns (per AWS report)**\n  - Logs: Developer endpoints (EDR), CI/CD logs, artifact registries, outbound web/DNS.\n  - Focus: npm installs of new or rarely used packages, especially typo‑squats; packages executed in build agents with network calls to unknown domains; scripts spawning shells or downloading payloads during builds.  \n  - MITRE: T1195 (Supply Chain), T1127 (Trusted Developer Utilities).\n\n- **Phishing & social engineering (Frogblight Android malware, Clickfix/finger.exe abuse, PayPal email issues)**\n  - Logs: Email security, secure web gateway, EDR.\n  - Focus: Messages purporting to be government portals, delivery services, or payment confirmations; links leading to APK downloads; finger.exe or other legacy tools invoked via Office or browser; users reporting odd PayPal or banking purchase notices.  \n  - MITRE: T1566 (Phishing), T1204.\n\n---\n\n### Medium-term follow-ups\n\n- **React/Next.js security posture**\n  - Inventory all internal and third‑party apps using React RSC/Next.js; ensure patch strategy, WAF rules, and secure coding guidelines are updated; include React2Shell checks in regular web app assessments.\n\n- **KEV alignment and patch governance**\n  - Cross‑check current KEV list (Apple, Sierra, Gladinet, GeoServer, etc.) against asset inventory; formalize a fast‑track process for KEV items affecting Internet‑facing or high‑privilege systems.\n\n- **Email/mobile security awareness**\n  - Update user training materials with examples of current scams (government‑spoofing APKs, fake employment scams, purchase notice fraud); emphasize verification for financial or credential‑related requests.\n\n- **Supply‑chain / dev environment hardening**\n  - With DevOps, enforce lockfiles, internal registries, and package allow‑lists for npm and other ecosystems; implement code signing and integrity checks for build artifacts; log and monitor all package downloads from public registries.\n\n- **EDR & logging coverage review**\n  - Validate that EDR is fully deployed and logging on Exchange/IIS, web front‑ends, and admin jump hosts; ensure Sysmon/advanced logging is enabled where allowed to better detect sideloading and ransomware precursors.\n\n- **Third‑party and vendor risk**\n  - Engage key service providers (cloud, comms, payment processors, GIS, hosting) for written assurance on recent critical vulnerabilities (React2Shell exposure, FreePBX/Plesk/GeoServer patches, Apple device hygiene of their operators).",
+  "source_total_items": 5387,
+  "total_items_in_window_all": 342,
+  "total_items_in_window_curated": 83,
+  "morning_call_markdown": "### Executive Summary\n- Fortinet FortiGate/FortiWeb SSO/auth bypass flaws are under active exploitation days after patch release; edge devices are being used for credential theft and initial access.\n- React2Shell in React Server Components and a new Apple WebKit zero‑day are being exploited in the wild to deploy backdoors and run arbitrary code.\n- Malicious browser/extension and NuGet packages are exfiltrating AI chat inputs and crypto wallet data, highlighting growing client‑side and supply‑chain abuse.\n\n---\n\n### High-priority items (immediate attention)\n\n- **Fortinet FortiGate/FortiWeb SSO / auth bypass actively exploited**\n  - What happened: Multiple FortiGate SAML SSO/auth bypass and FortiWeb admin takeover vulnerabilities (incl. CVE-2025-64446 and related) are being weaponized in the wild for full admin access and credential theft.\n  - Why it matters: Edge firewalls/WAFs are high-value for VPN access, east‑west visibility bypass and staging ransomware; compromise may bypass MFA and network segmentation.\n  - Recommended immediate actions for the SOC today:  \n    - Confirm with infra which Fortinet products/versions we run; verify latest Fortinet advisories/patches applied.  \n    - Threat hunt last 14–30 days: unusual logins to FortiGate admin/SSO, config changes, new admin users, unknown IPs; review VPN logs for anomalous geos/devices directly after SSO events.  \n\n- **React2Shell RCE in React Server Components – active exploitation for Linux backdoors**\n  - What happened: The React2Shell RCE is being actively exploited to compromise React Server Components and deploy Linux backdoors; Microsoft has published mitigations.\n  - Why it matters: Any customer‑facing or internal web app built with affected React server components on Linux could be a stealthy web‑tier entry point for data theft or lateral movement.\n  - Recommended immediate actions for the SOC today:  \n    - Coordinate with app owners to identify any Internet‑exposed React server workloads; confirm whether vendor mitigations/patches are applied.  \n    - Monitor WAF/NGFW and Linux EDR for unexpected shell spawns from Node/React processes, outbound C2 from web servers, and anomalous modifications to app directories.\n\n- **Apple WebKit zero‑day (CVE-2025-14174) exploited in targeted attacks**\n  - What happened: CISA and others report an Apple WebKit memory corruption 0‑day being actively used in targeted campaigns (likely via malicious web content).\n  - Why it matters: Staff using Safari/iOS/macOS to access internal portals, email or privileged apps could be compromised via drive‑by attacks, bypassing traditional email controls.\n  - Recommended immediate actions for the SOC today:  \n    - Confirm with IT that latest iOS/iPadOS/macOS/Safari security updates are being urgently deployed, prioritizing high‑risk users (execs, traders, admins).  \n    - Increase monitoring for suspicious connections from Apple devices to newly observed domains; review EDR telemetry where available for browser‑spawned processes or persistence post‑browsing.\n\n- **Malicious browser extensions & VPN app harvesting AI chats and other data**\n  - What happened: A widely used Chrome extension (~6M installs) and the Urban VPN browser extension were caught capturing user inputs to AI chatbots and stealing private AI chats.\n  - Why it matters: If installed on corporate endpoints, they can exfiltrate sensitive prompts, internal code, credentials and confidential financial data pasted into AI tools, bypassing normal DLP.\n  - Recommended immediate actions for the SOC today:  \n    - Query EDR/endpoint management for presence of Urban VPN and the flagged Chrome extension (or any unapproved VPN/AI helper extensions); coordinate immediate removal.  \n    - Enhance proxy/secure web gateway blocks for known extension update URLs/domains if available, and monitor for unusual outbound traffic from browsers with many extensions.\n\n- **Malicious NuGet package stealing cryptocurrency wallet data**\n  - What happened: A malicious NuGet package masquerading as a .NET logging tool is stealing cryptocurrency wallet information and exfiltrating data.\n  - Why it matters: Indicates ongoing supply‑chain risk in developer ecosystems; any dev workstation or build agent pulling unvetted NuGet packages could be a pivot into banking back‑end code or secrets.\n  - Recommended immediate actions for the SOC today:  \n    - Ask dev/security engineering for a quick check of recent NuGet additions to CI/CD and developer projects; flag any match with the reported malicious package family for workstation/build host review.  \n    - Monitor developer endpoints for abnormal outbound connections from build tools/IDE processes and unusual PowerShell / .NET processes starting shortly after package restores.\n\n---\n\n### Monitoring & detection recommendations\n\n- **Fortinet edge device abuse (APT & random attackers) – SSO/auth bypass**\n  - Logs: FortiGate/FortiWeb admin logs, VPN/SSL VPN logs, IdP SAML logs, perimeter firewall.  \n  - Focus/hunt:  \n    - Logins to admin or SSO endpoints from atypical geos/ASNs or outside business hours (ATT&CK T1133 – External Remote Services, T1078 – Valid Accounts).  \n    - Sudden config exports, policy changes, or creation of new SSO/LDAP/OAuth configurations.\n\n- **Web application RCE (React2Shell)**\n  - Logs: WAF/NGFW, web server (Nginx/Apache), application logs, Linux EDR.  \n  - Focus/hunt:  \n    - Requests with anomalous headers/payload patterns, followed by shell/child processes from Node/React users (T1190 – Exploit Public‑Facing Application, T1059 – Command Shell).  \n    - New binaries or scripts appearing in web app directories; unexpected outbound traffic from web servers to rare destinations.\n\n- **Apple/WebKit exploitation**\n  - Logs: EDR on macOS, DNS/proxy logs, MDM telemetry.  \n  - Focus/hunt:  \n    - Safari/WebKit spawning unusual processes (curl, bash, Python), new LaunchAgents/LaunchDaemons shortly after browsing (T1204 – User Execution, T1547 – Boot or Logon Autostart).  \n    - Clusters of connections from Apple devices to domains first seen in last 24–48h.\n\n- **Malicious browser extensions / VPN extensions**\n  - Logs: Browser extension inventory (if available), EDR, proxy/DNS logs.  \n  - Focus/hunt:  \n    - HTTP(S) POSTs with large payloads to extension backends from browsers, especially to domains not associated with our approved SaaS (T1119 – Data from Information Repositories, T1041 – Exfiltration over C2 Channel).  \n    - Endpoints with many non‑standard extensions installed, especially VPNs or AI helpers.\n\n- **Supply-chain malware via NuGet / dev tools**\n  - Logs: Developer workstation EDR, build server logs, package manager logs, outbound proxy.  \n  - Focus/hunt:  \n    - Execution of unknown .NET binaries or PowerShell launched from NuGet cache or project folders (T1059.001 – PowerShell, T1203 – Exploitation for Client Execution).  \n    - New outbound connections from build agents/IDEs to domains not in our dev allowlist.\n\n- **Ransomware preparation (LLM‑driven automation, Windows 10 risk)**\n  - Logs: EDR, Windows event logs, backup/DR systems, admin tooling.  \n  - Focus/hunt:  \n    - Mass discovery and archiving activity, shadow copy deletion, disabling AV, or scripted triage of file servers from admin accounts (T1486 – Data Encrypted, T1489 – Service Stop).  \n    - On legacy Windows 10/older systems, look for lateral movement tools (PsExec, WMI, RDP) and new scheduled tasks.\n\n- **VoIP/FreePBX exploitation**\n  - Logs: FreePBX logs, SIP firewall, Linux EDR.  \n  - Focus/hunt:  \n    - Anonymous or unusual IPs invoking admin or provisioning endpoints, followed by OS command execution or new web shells on PBX servers (T1190, T1505 – Server‑Side Components).\n\n- **Messaging account hijack (GhostPairing for WhatsApp) – user risk**\n  - Logs: Mobile device management, DNS/proxy, identity logs.  \n  - Focus/hunt:  \n    - Unusual WhatsApp Web usage from corporate browsers, especially immediately after password reset or new device pairings (T1078 – Valid Accounts, T1098 – Account Manipulation).\n\n---\n\n### Medium-term follow-ups\n\n- **Fortinet hardening and segmentation**\n  - Complete full patching and hardening of all Fortinet appliances; ensure management interfaces are not Internet‑exposed and 2FA is enforced for all admin/VPN accounts.  \n  - Implement regular backup and integrity checks of Fortinet configs and enable detailed logging to central SIEM.\n\n- **Web application and open‑source dependency hygiene**\n  - Conduct a targeted review of React‑based and other Internet‑facing apps for dependency versions and WAF rules; integrate SCA (software composition analysis) into CI/CD.  \n  - Validate that WAF signatures for recent CVEs (React2Shell, FreePBX, ScreenConnect, etc.) are enabled and tuned.\n\n- **Browser and extension policy tightening**\n  - Enforce a strict browser extension allowlist (especially for VPNs, AI helpers, crypto tools) and remove Urban VPN and similar from any approved channels.  \n  - Update security awareness: do not paste sensitive data into AI web UIs from unmanaged devices or via unvetted extensions.\n\n- **Apple/macOS/iOS fleet management**\n  - Ensure all corporate Apple devices are enrolled in MDM with enforced timely OS/browser patching SLAs and telemetry to SIEM.  \n  - Define incident playbooks for suspected mobile/browser 0‑day exploitation (triage, containment, re‑imaging).\n\n- **Developer and CI/CD supply-chain controls**\n  - Establish/refresh policies for allowed NuGet/NPM/PyPI sources; implement signed/verified packages and repository allowlists.  \n  - Add specific detections and regular hunts for anomalous behavior on build agents and high‑privilege dev workstations.\n\n- **Ransomware playbook and legacy OS risk reduction**\n  - Review/update our ransomware playbook using latest guidance; run a table‑top focused on firewall edge compromise plus rapid ransomware deployment.  \n  - Work with infra to accelerate decommissioning or isolation of legacy Windows (10 and older) systems that cannot be fully secured.",
   "highlights": [
     {
-      "title": "Multiple Vulnerabilities in Apple Products Could Allow for Arbitrary Code Execution",
-      "link": "https://www.cisecurity.org/advisory/multiple-vulnerabilities-in-apple-products-could-allow-for-arbitrary-code-execution_2025-116",
-      "source": "CIS – Advisories",
-      "published": "2025-12-16T04:14:56+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Identity / Access"
-      ],
-      "curated": true
-    },
-    {
-      "title": "The Origin Story... Disney Characters and Advanced Wordreaper Techniques [Tool + Tutorial]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1pnqkj0/the_origin_story_disney_characters_and_advanced/",
-      "source": "/r/cybersecurity",
-      "published": "2025-12-16T02:34:51+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Autonomous code analyzer beats all human teams at OSS zero-day competition",
-      "link": "https://www.reddit.com/r/netsec/comments/1pnohe9/autonomous_code_analyzer_beats_all_human_teams_at/",
-      "source": "/r/netsec",
-      "published": "2025-12-16T00:57:11+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Microsoft named an overall leader in KuppingerCole Leadership Compass for Generative AI Defense",
-      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-community/microsoft-named-an-overall-leader-in-kuppingercole-leadership/ba-p/4478093",
-      "source": "Microsoft Security Blog (TechCommunity)",
-      "published": "2025-12-16T00:56:41+00:00",
+      "title": "Australia - React’s Perfect 10 Mess",
+      "link": "https://www.youtube.com/watch?v=dS-V84rw-jg",
+      "source": "Security Now (YouTube Playlist)",
+      "published": "2025-12-17T04:55:06+00:00",
       "smart_groups": [
         "Curated",
         "Ransomware",
         "Vulnerabilities / CVEs",
-        "Data Breaches / Leaks"
+        "Windows / Microsoft",
+        "Cloud / SaaS",
+        "Malware / Payloads"
       ],
       "curated": true
     },
     {
-      "title": "A question to consumers of penetration test reports",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1pno85j/a_question_to_consumers_of_penetration_test/",
-      "source": "/r/cybersecurity",
-      "published": "2025-12-16T00:45:29+00:00",
+      "title": "SAFE Crypto Act will have scammers shaking in their boots: Crypto lawyer",
+      "link": "https://cointelegraph.com/news/safe-crypto-act-could-scare-crypto-fraudsters?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "published": "2025-12-17T04:30:59+00:00",
       "smart_groups": [
         "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "US government ‘tech force’ gets backup from Coinbase, Robinhood",
+      "link": "https://cointelegraph.com/news/us-tech-force-backup-coinbase-robinhood?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "published": "2025-12-17T02:58:29+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "FortiGate firewall credentials being stolen after vulnerabilities discovered",
+      "link": "https://www.csoonline.com/article/4107440/fortigate-firewall-credentials-being-stolen-after-vulnerabilities-discovered.html",
+      "source": "CSO Online",
+      "published": "2025-12-17T01:36:01+00:00",
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
         "Vulnerabilities / CVEs",
         "Exploit / PoC",
-        "Cloud / SaaS"
+        "Cloud / SaaS",
+        "Identity / Access"
       ],
       "curated": true
     },
@@ -76,22 +67,39 @@
       "title": "Welcome to the Microsoft Security Community!",
       "link": "https://techcommunity.microsoft.com/t5/microsoft-security-community/welcome-to-the-microsoft-security-community/ba-p/4471927",
       "source": "Microsoft Security Blog (TechCommunity)",
-      "published": "2025-12-15T23:43:13+00:00",
+      "published": "2025-12-17T00:01:33+00:00",
       "smart_groups": [
         "Curated",
         "Ransomware",
         "Vulnerabilities / CVEs",
-        "Windows / Microsoft",
         "Cloud / SaaS",
         "Crypto / Web3"
       ],
       "curated": true
     },
     {
-      "title": "SEC commissioner says Crypto is ‘helping to nudge reassessment’ on privacy",
-      "link": "https://cointelegraph.com/news/sec-commissioner-crypto-financial-privacy?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "published": "2025-12-15T21:46:36+00:00",
+      "title": "Russian APT group pivots to network edge device misconfigurations",
+      "link": "https://www.csoonline.com/article/4107406/russian-apt-group-pivots-to-network-edge-device-misconfigurations.html",
+      "source": "CSO Online",
+      "published": "2025-12-16T23:54:27+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Cloud / SaaS",
+        "Threat Actors / APT",
+        "Malware / Payloads",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Phishing / Social Engineering"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Security+ Test Prep Free Beta",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1pogz5h/security_test_prep_free_beta/",
+      "source": "/r/cybersecurity",
+      "published": "2025-12-16T23:23:51+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs"
@@ -99,38 +107,40 @@
       "curated": true
     },
     {
-      "title": "What AWS Security learned from responding to recent npm supply chain threat campaigns",
-      "link": "https://aws.amazon.com/blogs/security/what-aws-security-learned-from-responding-to-recent-npm-supply-chain-threat-campaigns/",
-      "source": "AWS Security Blog",
-      "published": "2025-12-15T21:12:35+00:00",
+      "title": "FTC Compels Nomad Operator to Repay Users After $186M Crypto Bridge Hack in 2022",
+      "link": "https://decrypt.co/352621/ftc-nomad-operator-repay-users-186m-crypto-bridge-hack-2022",
+      "source": "Decrypt",
+      "published": "2025-12-16T22:36:41+00:00",
       "smart_groups": [
         "Curated",
-        "Cloud / SaaS",
-        "Supply Chain / Software"
+        "Exploit / PoC"
       ],
       "curated": true
     },
     {
-      "title": "Makop ransomware: GuLoader and privilege escalation in attacks against Indian businesses",
-      "link": "https://www.reddit.com/r/netsec/comments/1pnj2xy/makop_ransomware_guloader_and_privilege/",
-      "source": "/r/netsec",
-      "published": "2025-12-15T21:10:13+00:00",
+      "title": "TSZ, Open-Source AI Guardrails & PII Security Gateway",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1pofdl4/tsz_opensource_ai_guardrails_pii_security_gateway/",
+      "source": "/r/cybersecurity",
+      "published": "2025-12-16T22:16:41+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Cybersecurity statistics of the week (December 8th - 14th)",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1poeeyr/cybersecurity_statistics_of_the_week_december_8th/",
+      "source": "/r/cybersecurity",
+      "published": "2025-12-16T21:38:08+00:00",
       "smart_groups": [
         "Curated",
         "Ransomware",
         "Vulnerabilities / CVEs",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "SEC ’eased up on’ 60% of crypto enforcement cases under Trump: Report",
-      "link": "https://cointelegraph.com/news/sec-crypto-enforcement-donald-trump-dropped?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "published": "2025-12-15T20:52:26+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
+        "Cloud / SaaS",
+        "Network / OT / ICS",
+        "Data Breaches / Leaks"
       ],
       "curated": true
     }
