@@ -1,127 +1,120 @@
 {
-  "generated_at": "2025-12-17T06:49:33.966917+00:00",
-  "analysis_date": "2025-12-17",
+  "generated_at": "2025-12-18T06:49:35.380539+00:00",
+  "analysis_date": "2025-12-18",
   "model": "gpt-5.1",
   "window_hours": 24,
   "source_file": "data/news_recent.json",
-  "source_generated_at": "2025-12-17T05:36:37.296391+00:00",
+  "source_generated_at": "2025-12-18T05:39:43.834720+00:00",
   "source_days_back": 30,
-  "source_total_items": 5387,
-  "total_items_in_window_all": 342,
-  "total_items_in_window_curated": 83,
-  "morning_call_markdown": "### Executive Summary\n- Fortinet FortiGate/FortiWeb SSO/auth bypass flaws are under active exploitation days after patch release; edge devices are being used for credential theft and initial access.\n- React2Shell in React Server Components and a new Apple WebKit zero‑day are being exploited in the wild to deploy backdoors and run arbitrary code.\n- Malicious browser/extension and NuGet packages are exfiltrating AI chat inputs and crypto wallet data, highlighting growing client‑side and supply‑chain abuse.\n\n---\n\n### High-priority items (immediate attention)\n\n- **Fortinet FortiGate/FortiWeb SSO / auth bypass actively exploited**\n  - What happened: Multiple FortiGate SAML SSO/auth bypass and FortiWeb admin takeover vulnerabilities (incl. CVE-2025-64446 and related) are being weaponized in the wild for full admin access and credential theft.\n  - Why it matters: Edge firewalls/WAFs are high-value for VPN access, east‑west visibility bypass and staging ransomware; compromise may bypass MFA and network segmentation.\n  - Recommended immediate actions for the SOC today:  \n    - Confirm with infra which Fortinet products/versions we run; verify latest Fortinet advisories/patches applied.  \n    - Threat hunt last 14–30 days: unusual logins to FortiGate admin/SSO, config changes, new admin users, unknown IPs; review VPN logs for anomalous geos/devices directly after SSO events.  \n\n- **React2Shell RCE in React Server Components – active exploitation for Linux backdoors**\n  - What happened: The React2Shell RCE is being actively exploited to compromise React Server Components and deploy Linux backdoors; Microsoft has published mitigations.\n  - Why it matters: Any customer‑facing or internal web app built with affected React server components on Linux could be a stealthy web‑tier entry point for data theft or lateral movement.\n  - Recommended immediate actions for the SOC today:  \n    - Coordinate with app owners to identify any Internet‑exposed React server workloads; confirm whether vendor mitigations/patches are applied.  \n    - Monitor WAF/NGFW and Linux EDR for unexpected shell spawns from Node/React processes, outbound C2 from web servers, and anomalous modifications to app directories.\n\n- **Apple WebKit zero‑day (CVE-2025-14174) exploited in targeted attacks**\n  - What happened: CISA and others report an Apple WebKit memory corruption 0‑day being actively used in targeted campaigns (likely via malicious web content).\n  - Why it matters: Staff using Safari/iOS/macOS to access internal portals, email or privileged apps could be compromised via drive‑by attacks, bypassing traditional email controls.\n  - Recommended immediate actions for the SOC today:  \n    - Confirm with IT that latest iOS/iPadOS/macOS/Safari security updates are being urgently deployed, prioritizing high‑risk users (execs, traders, admins).  \n    - Increase monitoring for suspicious connections from Apple devices to newly observed domains; review EDR telemetry where available for browser‑spawned processes or persistence post‑browsing.\n\n- **Malicious browser extensions & VPN app harvesting AI chats and other data**\n  - What happened: A widely used Chrome extension (~6M installs) and the Urban VPN browser extension were caught capturing user inputs to AI chatbots and stealing private AI chats.\n  - Why it matters: If installed on corporate endpoints, they can exfiltrate sensitive prompts, internal code, credentials and confidential financial data pasted into AI tools, bypassing normal DLP.\n  - Recommended immediate actions for the SOC today:  \n    - Query EDR/endpoint management for presence of Urban VPN and the flagged Chrome extension (or any unapproved VPN/AI helper extensions); coordinate immediate removal.  \n    - Enhance proxy/secure web gateway blocks for known extension update URLs/domains if available, and monitor for unusual outbound traffic from browsers with many extensions.\n\n- **Malicious NuGet package stealing cryptocurrency wallet data**\n  - What happened: A malicious NuGet package masquerading as a .NET logging tool is stealing cryptocurrency wallet information and exfiltrating data.\n  - Why it matters: Indicates ongoing supply‑chain risk in developer ecosystems; any dev workstation or build agent pulling unvetted NuGet packages could be a pivot into banking back‑end code or secrets.\n  - Recommended immediate actions for the SOC today:  \n    - Ask dev/security engineering for a quick check of recent NuGet additions to CI/CD and developer projects; flag any match with the reported malicious package family for workstation/build host review.  \n    - Monitor developer endpoints for abnormal outbound connections from build tools/IDE processes and unusual PowerShell / .NET processes starting shortly after package restores.\n\n---\n\n### Monitoring & detection recommendations\n\n- **Fortinet edge device abuse (APT & random attackers) – SSO/auth bypass**\n  - Logs: FortiGate/FortiWeb admin logs, VPN/SSL VPN logs, IdP SAML logs, perimeter firewall.  \n  - Focus/hunt:  \n    - Logins to admin or SSO endpoints from atypical geos/ASNs or outside business hours (ATT&CK T1133 – External Remote Services, T1078 – Valid Accounts).  \n    - Sudden config exports, policy changes, or creation of new SSO/LDAP/OAuth configurations.\n\n- **Web application RCE (React2Shell)**\n  - Logs: WAF/NGFW, web server (Nginx/Apache), application logs, Linux EDR.  \n  - Focus/hunt:  \n    - Requests with anomalous headers/payload patterns, followed by shell/child processes from Node/React users (T1190 – Exploit Public‑Facing Application, T1059 – Command Shell).  \n    - New binaries or scripts appearing in web app directories; unexpected outbound traffic from web servers to rare destinations.\n\n- **Apple/WebKit exploitation**\n  - Logs: EDR on macOS, DNS/proxy logs, MDM telemetry.  \n  - Focus/hunt:  \n    - Safari/WebKit spawning unusual processes (curl, bash, Python), new LaunchAgents/LaunchDaemons shortly after browsing (T1204 – User Execution, T1547 – Boot or Logon Autostart).  \n    - Clusters of connections from Apple devices to domains first seen in last 24–48h.\n\n- **Malicious browser extensions / VPN extensions**\n  - Logs: Browser extension inventory (if available), EDR, proxy/DNS logs.  \n  - Focus/hunt:  \n    - HTTP(S) POSTs with large payloads to extension backends from browsers, especially to domains not associated with our approved SaaS (T1119 – Data from Information Repositories, T1041 – Exfiltration over C2 Channel).  \n    - Endpoints with many non‑standard extensions installed, especially VPNs or AI helpers.\n\n- **Supply-chain malware via NuGet / dev tools**\n  - Logs: Developer workstation EDR, build server logs, package manager logs, outbound proxy.  \n  - Focus/hunt:  \n    - Execution of unknown .NET binaries or PowerShell launched from NuGet cache or project folders (T1059.001 – PowerShell, T1203 – Exploitation for Client Execution).  \n    - New outbound connections from build agents/IDEs to domains not in our dev allowlist.\n\n- **Ransomware preparation (LLM‑driven automation, Windows 10 risk)**\n  - Logs: EDR, Windows event logs, backup/DR systems, admin tooling.  \n  - Focus/hunt:  \n    - Mass discovery and archiving activity, shadow copy deletion, disabling AV, or scripted triage of file servers from admin accounts (T1486 – Data Encrypted, T1489 – Service Stop).  \n    - On legacy Windows 10/older systems, look for lateral movement tools (PsExec, WMI, RDP) and new scheduled tasks.\n\n- **VoIP/FreePBX exploitation**\n  - Logs: FreePBX logs, SIP firewall, Linux EDR.  \n  - Focus/hunt:  \n    - Anonymous or unusual IPs invoking admin or provisioning endpoints, followed by OS command execution or new web shells on PBX servers (T1190, T1505 – Server‑Side Components).\n\n- **Messaging account hijack (GhostPairing for WhatsApp) – user risk**\n  - Logs: Mobile device management, DNS/proxy, identity logs.  \n  - Focus/hunt:  \n    - Unusual WhatsApp Web usage from corporate browsers, especially immediately after password reset or new device pairings (T1078 – Valid Accounts, T1098 – Account Manipulation).\n\n---\n\n### Medium-term follow-ups\n\n- **Fortinet hardening and segmentation**\n  - Complete full patching and hardening of all Fortinet appliances; ensure management interfaces are not Internet‑exposed and 2FA is enforced for all admin/VPN accounts.  \n  - Implement regular backup and integrity checks of Fortinet configs and enable detailed logging to central SIEM.\n\n- **Web application and open‑source dependency hygiene**\n  - Conduct a targeted review of React‑based and other Internet‑facing apps for dependency versions and WAF rules; integrate SCA (software composition analysis) into CI/CD.  \n  - Validate that WAF signatures for recent CVEs (React2Shell, FreePBX, ScreenConnect, etc.) are enabled and tuned.\n\n- **Browser and extension policy tightening**\n  - Enforce a strict browser extension allowlist (especially for VPNs, AI helpers, crypto tools) and remove Urban VPN and similar from any approved channels.  \n  - Update security awareness: do not paste sensitive data into AI web UIs from unmanaged devices or via unvetted extensions.\n\n- **Apple/macOS/iOS fleet management**\n  - Ensure all corporate Apple devices are enrolled in MDM with enforced timely OS/browser patching SLAs and telemetry to SIEM.  \n  - Define incident playbooks for suspected mobile/browser 0‑day exploitation (triage, containment, re‑imaging).\n\n- **Developer and CI/CD supply-chain controls**\n  - Establish/refresh policies for allowed NuGet/NPM/PyPI sources; implement signed/verified packages and repository allowlists.  \n  - Add specific detections and regular hunts for anomalous behavior on build agents and high‑privilege dev workstations.\n\n- **Ransomware playbook and legacy OS risk reduction**\n  - Review/update our ransomware playbook using latest guidance; run a table‑top focused on firewall edge compromise plus rapid ransomware deployment.  \n  - Work with infra to accelerate decommissioning or isolation of legacy Windows (10 and older) systems that cannot be fully secured.",
+  "source_total_items": 5716,
+  "total_items_in_window_all": 340,
+  "total_items_in_window_curated": 75,
+  "morning_call_markdown": "### Executive Summary\n- Multiple perimeter security products (Cisco Secure Email, FortiGate, SonicWall, Cisco & Palo Alto VPNs) are under active exploitation; assume widespread scanning and opportunistic compromise.\n- New Windows Desktop Window Manager local privilege escalation and evolving ransomware tooling increase impact if initial access is gained.\n- Phishing campaigns (DarkGate “Word Online” lure, Chrome zero‑day, browser extensions, malicious QR codes/mobile apps) continue to be key vectors; strengthen email/web/mobile monitoring.\n\n---\n\n### High-priority items (immediate attention)\n\n- **Cisco Secure Email (AsyncOS) 0‑day – appliances being rooted and backdoored**  \n  - What happened: Unpatched 0‑day in Cisco AsyncOS email security is being actively exploited for system-level command execution and persistent backdoors.  \n  - Why it matters operationally: Direct compromise of mail relays/filters enables interception/tampering of email (BEC), credential theft, and pivoting into internal networks.  \n  - Recommended immediate actions for the SOC today:  \n    - Identify if we run Cisco Secure Email / ESA; if yes, pull current config and logs off-box, and coordinate emergency review with infra team.  \n    - Hunt on ESA and internal network for unusual admin logins, config changes, outbound connections from ESA to unknown IPs/domains, and new local accounts/scripts; be prepared to recommend isolation if compromise indicators are found.\n\n- **Actively exploited VPN / firewall flaws (Fortinet, SonicWall SMA 100, Cisco & Palo Alto VPN gateways)**  \n  - What happened: CISA and vendors report active exploitation of auth-bypass / signature-verification issues in FortiGate, SonicWall SMA 100, Gladinet CentreStack/Triofox, plus mass login attacks on Cisco & Palo Alto VPNs.  \n  - Why it matters operationally: These are common perimeter gateways; compromise leads to direct network access, credential theft, and staging for ransomware or APT operations.  \n  - Recommended immediate actions for the SOC today:  \n    - Confirm with infra which versions/models we run; ensure latest patches are applied or compensating controls (e.g., geofencing, MFA enforcement, admin interface not exposed).  \n    - Review last 14 days of VPN/firewall logs for: new source countries, password-spray patterns, abnormal admin logins, config changes, and new VPN users/devices; escalate any anomalies to IR.\n\n- **Windows Desktop Window Manager (DWM) LPE (CVE-2025-55681) – viable post-exploitation booster**  \n  - What happened: New DWM out-of-bounds / LPE vulnerability publicly documented, enabling elevation from user to SYSTEM on Windows.  \n  - Why it matters operationally: Once attackers gain a foothold (phish/VPN), this bug can be used to disable AV/EDR, dump creds, and persist with high privileges.  \n  - Recommended immediate actions for the SOC today:  \n    - In EDR, hunt for suspicious use of `dwm.exe`, abnormal token-manipulation, or unsigned binaries spawning from user context to SYSTEM shortly after initial infection indicators.  \n    - Coordinate with patch management to prioritize test & deployment of Microsoft’s fix once available; treat any suspected compromise as potentially SYSTEM-level.\n\n- **Phishing/malware waves: DarkGate “ClickFix Word Online”, Chrome 0‑day campaigns, GhostPoster & mobile RATs**  \n  - What happened: Multiple campaigns: DarkGate via fake “Word Online” update messages, operations exploiting Chrome 0‑days, malicious Firefox PNG-icon extension (GhostPoster), and cheap Cellik Android RAT / Kimsuky QR-based malicious apps.  \n  - Why it matters operationally: Higher chance of user-driven initial access from email/web/mobile; potential credential theft and lateral movement from BYOD or poorly managed endpoints.  \n  - Recommended immediate actions for the SOC today:  \n    - Tighten email/web proxy detections: flag links to fake “Word/Office Online” portals, unexpected browser extension installs, and executables from cloud storage/file-sharing sites.  \n    - Watch MDM/endpoint telemetry for new/unknown Android apps on corporate-managed devices and push an advisory to helpdesk about “Word Online / browser update” phishing themes.\n\n- **ShadowPad / “Ink Dragon” APT targeting IIS to build stealthy C2 networks**  \n  - What happened: Chinese-linked actors are deploying ShadowPad via a custom IIS listener module (“Ink Dragon”) turning compromised IIS servers into relay nodes.  \n  - Why it matters operationally: Internet-facing IIS apps (including OWA/legacy apps) can become stealth C2 hubs, bypassing usual perimeter monitoring and serving as staging points into internal networks and partner connections.  \n  - Recommended immediate actions for the SOC today:  \n    - Identify all IIS servers; check for unexpected modules, edits to `applicationHost.config`, or recently modified DLLs in IIS module paths; compare against approved baseline.  \n    - Monitor for IIS worker processes (`w3wp.exe`) making outbound connections to unfamiliar IPs/ports and serving atypical traffic volumes; escalate any suspicious servers for forensic review.\n\n---\n\n### Monitoring & detection recommendations\n\n- **Perimeter devices (Cisco ESA, FortiGate, SonicWall, Cisco/PAN VPNs, CentreStack/Triofox)**  \n  - Log sources: VPN/firewall logs, device syslog, admin audit logs.  \n  - Hunts: Repeated failed logins (T1110), login from new geos/ASNs, sudden config/firmware changes, creation of new admin accounts, unexpected outbound connections from those appliances (T1105).\n\n- **Windows LPE & ransomware staging (DWM LPE, RansomHouse evolution)**  \n  - Log sources: EDR, Windows Security logs, Sysmon.  \n  - Hunts: Rapid sequence of user->SYSTEM privilege change without standard tools (T1068), `lsass.exe` access (T1003), shadow copy deletion, mass encryption behavior, or abnormal use of `vssadmin`, `wbadmin`, `bcdedit`.\n\n- **Email & web phishing (DarkGate ClickFix, Chrome 0‑day lures, Kimsuky QR, GhostPoster)**  \n  - Log sources: Secure email gateway, web proxy, DNS, browser extension inventories.  \n  - Hunts: Links to newly registered domains in Office-themed messages (T1566.002), downloads of EXE/ISO/JS/LOLBINs from cloud drives, sudden spikes in browser extension installs or extension updates (T1176).\n\n- **IIS / web server compromise (Ink Dragon / ShadowPad modules)**  \n  - Log sources: IIS logs, Windows Event Logs, file integrity monitoring on web roots and `inetsrv`/module directories.  \n  - Hunts: `w3wp.exe` spawning cmd/PowerShell (T1059), unusual HTTP verbs/paths, large outbound connections from web servers to rare IPs (T1071).\n\n- **VPN identity abuse & lateral movement**  \n  - Log sources: VPN, IdP/SSO, AD, NetFlow/Zeek.  \n  - Hunts: Valid accounts from unexpected locations/devices (T1078), impossible travel, off-hours admin access, sudden increase in SMB/RDP from VPN concentrators or user subnets (T1021).\n\n- **Browser and extension-based attacks (GhostPoster, Chrome 0‑day, ShadyPanda-like browser takeover)**  \n  - Log sources: Endpoint/browser management, EDR, web proxy.  \n  - Hunts: New browser processes with unusual command-lines, injection into browser processes (T1055), unknown extensions with high permissions, or browser making outbound C2-like beacon patterns (small, regular, encrypted).\n\n- **Mobile malware (Cellik RAT, malicious QR-based apps)**  \n  - Log sources: MDM, mobile AV, VPN client logs.  \n  - Hunts: Unapproved app installs, new VPN profiles from mobile, unusual DNS/HTTP patterns from mobile subnets to rare domains (T1430 / T1432 in mobile MITRE).\n\n- **Cloud/SaaS abuse (APT vs Western critical infrastructure, CASB focus)**  \n  - Log sources: Cloud audit logs (O365, GCP/AWS/Azure), CASB if deployed, IdP logs.  \n  - Hunts: Creation of new OAuth apps, consent grants, mailbox rules for auto-forward (T1114.003), API tokens created from unusual IPs, or privilege escalations inside cloud consoles.\n\n---\n\n### Medium-term follow-ups\n\n- **Comprehensive perimeter review & hardening**  \n  - Inventory all VPNs, email gateways, firewalls, file-sharing portals; ensure patch cadence, MFA, IP allow-listing, and removal of direct internet-exposed admin interfaces.\n\n- **Patch management uplift for high-impact Windows & web-facing vulnerabilities**  \n  - Prioritize Windows LPEs (including DWM), browser zero-days, and key third-party apps (Nagios XI, NVIDIA Isaac Lab) into the normal patch pipeline with defined SLAs.\n\n- **IIS and legacy web application security program**  \n  - Establish/refresh baseline of modules, configs, and file hashes; deploy regular integrity checks and consider segmenting or replacing legacy IIS apps used for critical banking services.\n\n- **Phishing/awareness campaign refresh**  \n  - Update training and internal comms highlighting “Word Online update”, browser update prompts, QR-code lures, and mobile app risks; align with email gateway rulesets.\n\n- **Ransomware tabletop & runbook refinement**  \n  - Incorporate latest TTPs from RansomHouse and similar groups into playbooks (data exfil, double extortion, faster encryption); validate backup isolation and restore times.\n\n- **LLM/AI and agentic tools governance**  \n  - In light of research that LLMs can be exploited and new “offensive AI” tooling, ensure policies for AI usage, prompt/response logging, and review controls for any AI integrated into customer-facing or internal systems.",
   "highlights": [
     {
-      "title": "Australia - React’s Perfect 10 Mess",
-      "link": "https://www.youtube.com/watch?v=dS-V84rw-jg",
-      "source": "Security Now (YouTube Playlist)",
-      "published": "2025-12-17T04:55:06+00:00",
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Windows / Microsoft",
-        "Cloud / SaaS",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "SAFE Crypto Act will have scammers shaking in their boots: Crypto lawyer",
-      "link": "https://cointelegraph.com/news/safe-crypto-act-could-scare-crypto-fraudsters?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "published": "2025-12-17T04:30:59+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "US government ‘tech force’ gets backup from Coinbase, Robinhood",
-      "link": "https://cointelegraph.com/news/us-tech-force-backup-coinbase-robinhood?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "published": "2025-12-17T02:58:29+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "FortiGate firewall credentials being stolen after vulnerabilities discovered",
-      "link": "https://www.csoonline.com/article/4107440/fortigate-firewall-credentials-being-stolen-after-vulnerabilities-discovered.html",
-      "source": "CSO Online",
-      "published": "2025-12-17T01:36:01+00:00",
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Cloud / SaaS",
-        "Identity / Access"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Welcome to the Microsoft Security Community!",
-      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-community/welcome-to-the-microsoft-security-community/ba-p/4471927",
-      "source": "Microsoft Security Blog (TechCommunity)",
-      "published": "2025-12-17T00:01:33+00:00",
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Russian APT group pivots to network edge device misconfigurations",
-      "link": "https://www.csoonline.com/article/4107406/russian-apt-group-pivots-to-network-edge-device-misconfigurations.html",
-      "source": "CSO Online",
-      "published": "2025-12-16T23:54:27+00:00",
+      "title": "Cisco Warns of Active Attacks Exploiting Unpatched 0-Day in AsyncOS Email Security Appliances",
+      "link": "https://thehackernews.com/2025/12/cisco-warns-of-active-attacks.html",
+      "source": "The Hacker News",
+      "published": "2025-12-18T04:10:00+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Cloud / SaaS",
-        "Threat Actors / APT",
-        "Malware / Payloads",
-        "Identity / Access",
-        "Network / OT / ICS",
-        "Phishing / Social Engineering"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Security+ Test Prep Free Beta",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1pogz5h/security_test_prep_free_beta/",
-      "source": "/r/cybersecurity",
-      "published": "2025-12-16T23:23:51+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "FTC Compels Nomad Operator to Repay Users After $186M Crypto Bridge Hack in 2022",
-      "link": "https://decrypt.co/352621/ftc-nomad-operator-repay-users-186m-crypto-bridge-hack-2022",
-      "source": "Decrypt",
-      "published": "2025-12-16T22:36:41+00:00",
-      "smart_groups": [
-        "Curated",
         "Exploit / PoC"
       ],
       "curated": true
     },
     {
-      "title": "TSZ, Open-Source AI Guardrails & PII Security Gateway",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1pofdl4/tsz_opensource_ai_guardrails_pii_security_gateway/",
+      "title": "The Raspberry Pi wakeup call: Why enterprises must rethink physical security",
+      "link": "https://www.csoonline.com/article/4108328/the-raspberry-pi-wakeup-call-why-enterprises-must-rethink-physical-security.html",
+      "source": "CSO Online",
+      "published": "2025-12-18T04:05:25+00:00",
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Linux / Unix",
+        "Malware / Payloads",
+        "Identity / Access",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Microsoft warns MSMQ may fail after update, breaking apps",
+      "link": "https://www.csoonline.com/article/4108360/microsoft-warns-msmq-may-fail-after-update-breaking-apps-2.html",
+      "source": "CSO Online",
+      "published": "2025-12-18T03:17:00+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Cisco AsyncOS 0-Day Vulnerability Exploited in the Wild to run System-level Commands",
+      "link": "https://cybersecuritynews.com/cisco-asyncos-0-day-vulnerability/",
+      "source": "Cyber Security News (FeedBurner)",
+      "published": "2025-12-18T03:08:18+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Hackers Actively Attacking Cisco and Palo Alto Networks VPN Gateways to Gain Login Access",
+      "link": "https://cybersecuritynews.com/cisco-and-palo-alto-vpn-gateways-under-attack/",
+      "source": "Cyber Security News (FeedBurner)",
+      "published": "2025-12-18T02:55:40+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Smashing Security podcast #448: The Kindle that got pwned",
+      "link": "https://grahamcluley.com/smashing-security-podcast-448/",
+      "source": "Graham Cluley",
+      "published": "2025-12-18T00:30:44+00:00",
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "‘Ink Dragon’ threat group targets IIS servers to build stealthy global network",
+      "link": "https://www.csoonline.com/article/4108158/ink-dragon-threat-group-targets-iis-servers-to-build-stealthy-global-network.html",
+      "source": "CSO Online",
+      "published": "2025-12-18T00:25:31+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Web / API Security"
+      ],
+      "curated": true
+    },
+    {
+      "title": "USB Trigger Boards",
+      "link": "https://blog.didierstevens.com/2025/12/18/usb-trigger-boards/",
+      "source": "https://blog.didierstevens.com/feed/",
+      "published": "2025-12-18T00:00:00+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "CRML, an open engine agnostic risk modeling language, or Risk as Code (RaC)",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1ppbltd/crml_an_open_engine_agnostic_risk_modeling/",
       "source": "/r/cybersecurity",
-      "published": "2025-12-16T22:16:41+00:00",
+      "published": "2025-12-17T23:29:50+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs",
@@ -130,17 +123,15 @@
       "curated": true
     },
     {
-      "title": "Cybersecurity statistics of the week (December 8th - 14th)",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1poeeyr/cybersecurity_statistics_of_the_week_december_8th/",
+      "title": "First real IT job pretty sure I work in a slow motion security dumpster fire advice greatly appreciated.",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1ppbh4i/first_real_it_job_pretty_sure_i_work_in_a_slow/",
       "source": "/r/cybersecurity",
-      "published": "2025-12-16T21:38:08+00:00",
+      "published": "2025-12-17T23:24:19+00:00",
       "smart_groups": [
         "Curated",
         "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Network / OT / ICS",
-        "Data Breaches / Leaks"
+        "Windows / Microsoft",
+        "Identity / Access"
       ],
       "curated": true
     }
