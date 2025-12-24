@@ -1,21 +1,46 @@
 {
-  "generated_at": "2025-12-23T06:50:12.336224+00:00",
-  "analysis_date": "2025-12-23",
+  "generated_at": "2025-12-24T06:50:09.511002+00:00",
+  "analysis_date": "2025-12-24",
   "model": "gpt-5.1",
   "window_hours": 24,
   "source_file": "data/news_recent.json",
-  "source_generated_at": "2025-12-23T06:47:45.456704+00:00",
+  "source_generated_at": "2025-12-24T06:45:25.536696+00:00",
   "source_days_back": 30,
-  "source_total_items": 6611,
-  "total_items_in_window_all": 230,
-  "total_items_in_window_curated": 58,
-  "morning_call_markdown": "### Executive Summary\n- Active exploitation of a WatchGuard Firebox zero-day RCE (CVE-2025-14733) with PoC publicly discussed; perimeter devices are at immediate risk.\n- Multiple identity-focused threats: Microsoft OAuth device-code abuse, new MFA-bypassing phishing kit, .onmicrosoft.com-based scams, and insider-access campaigns explicitly targeting banks.\n- Fresh PoCs and tooling (Linux kernel privilege-escalation bug, Nezha abused for C2, malicious npm package, Rust DDoS botnet) increase likelihood of rapid weaponization and follow-on ransomware or data theft.\n\n---\n\n### High-priority items (immediate attention)\n\n- **WatchGuard Firebox zero-day RCE (CVE-2025-14733) actively exploited**\n  - What happened: WatchGuard patched a Firebox RCE previously exploited in the wild; ~125k Internet-exposed devices reported vulnerable.\n  - Why it matters: If we or critical third parties use Firebox, compromise = full network foothold at the perimeter (VPN, routing, inspection bypass).\n  - Recommended immediate actions for the SOC today:  \n    - Confirm with network team if any Firebox/WatchGuard gear is in use (including subsidiaries/third parties); if yes, verify firmware/patch level and emergency patch/mitigation status.  \n    - Increase monitoring for anomalous admin/API access, config changes, and unusual traffic patterns through any Firebox; request retro hunt in firewall logs for suspicious access to Firebox management interfaces.\n\n- **Microsoft OAuth device-code abuse & MFA-bypassing phishing (BlackForce kit, .onmicrosoft.com TOAD scams)**\n  - What happened: Reports describe attackers hijacking Microsoft cloud accounts via OAuth device codes, MFA-bypass phishing kits, and abuse of .onmicrosoft.com domains for TOAD-style credential and payment fraud.\n  - Why it matters: Direct impact on O365/Azure AD tenants, with realistic paths to bypass MFA and gain persistent access to email and cloud resources.\n  - Recommended immediate actions for the SOC today:  \n    - Hunt in Microsoft 365/Azure AD logs for anomalous device code sign-ins, consent grants, and sign-ins from new devices/locations, especially for privileged or finance-related accounts.  \n    - Tighten detections for suspicious inbound mail: “Your session expired / re-authenticate” themes, URLs using *.onmicrosoft.com* plus re-directors; coordinate with email team to quarantine similar campaigns and raise to phishing response.\n\n- **Nezha monitoring tool abused as stealth post-exploitation backdoor**\n  - What happened: Nezha, an open-source monitoring/probing tool, is being repurposed as a stealth Trojan for persistent C2/post-exploitation.\n  - Why it matters: Nezha may appear as benign monitoring traffic or agents while actually providing remote control on compromised servers.\n  - Recommended immediate actions for the SOC today:  \n    - Search EDR, ESM, and proxy logs for Nezha binaries/process names and unusual outbound traffic to Nezha-like control servers (non-standard monitoring destinations, odd ports).  \n    - If Nezha-like activity is found and not approved by infra/DevOps, treat as potential C2: isolate host, preserve memory/disk, and escalate to IR.\n\n- **Linux kernel POSIX CPU timers use-after-free PoC & Microsoft Brokering File System LPE (CVE-2025-29970)**\n  - What happened: Public PoC released for a Linux kernel use‑after‑free in POSIX CPU timers; separate disclosure of a Windows Brokering File System local privilege-escalation bug.\n  - Why it matters: Both enable attackers (or malware already inside) to escalate to root/SYSTEM; expect rapid integration into EDR-evasion, ransomware, and cloud workload compromise.\n  - Recommended immediate actions for the SOC today:  \n    - Prioritize monitoring for unusual kernel-level crashes, new kernel modules, and privilege escalation attempts on Linux servers and containers; verify critical Linux systems are on patched kernels where available.  \n    - On Windows, hunt for suspicious use of brokered file system paths or unapproved services gaining SYSTEM quickly after low-priv compromise; ensure EDR is deployed/enabled on all servers and jump hosts.\n\n- **Insider access campaigns specifically targeting banks & Rust DDoS botnet activity**\n  - What happened: Threat actors are openly recruiting insiders in banks and telecoms for paid access/data; separate analysis surfaced a Rust-based DDoS botnet actively targeting multiple services.\n  - Why it matters: Increased risk of malicious insider activity in financial orgs and potential DDoS against web/mobile banking and APIs around holiday peaks.\n  - Recommended immediate actions for the SOC today:  \n    - Increase scrutiny of privileged user behavior: unusual access to high-value datasets, off-hours activity, large exports, and atypical use of admin tools; alert on anomalous access from new locations/devices for staff with payment/ledger access.  \n    - Review DDoS protections and alerting on Internet-facing banking/portal/API endpoints; coordinate with network/ISP/CDN to ensure rate-limiting and traffic scrubbing plans are ready if volumetric anomalies appear.\n\n---\n\n### Monitoring & detection recommendations\n\n- **Identity & OAuth abuse (device codes, MFA bypass, TOAD scams) – T1078, T1556, T1566**\n  - Log sources: Azure AD / Entra ID sign-in logs, OAuth audit logs, O365 unified audit, email security gateway.\n  - Hunt for:  \n    - Multiple device code auth attempts from unfamiliar IPs, “impossible travel” sign-ins, suspicious consent to new apps.  \n    - Inbound emails with login/Re-auth themes and links to *.onmicrosoft.com* or unusual third-party auth pages.\n\n- **Perimeter appliance exploitation (WatchGuard Firebox RCE) – T1190**\n  - Log sources: Firewall/VPN logs, appliance admin logs, perimeter IDS/IPS.\n  - Hunt for:  \n    - Access to management interfaces from the Internet, new or changed admin accounts, unexpected configuration exports, sudden VPN user enumeration or mass session creation.\n\n- **Post-exploitation C2 and dual-use tools (Nezha, Rust botnet) – T1071, T1105**\n  - Log sources: EDR, netflow, proxy logs, DNS.\n  - Hunt for:  \n    - Long-lived outbound connections from servers to low-reputation IPs/hosts posing as “monitoring” or “metrics,” unusual ports, or custom protocols.  \n    - Hosts initiating many outbound connections to different IPs in short intervals (DDoS-like patterns).\n\n- **Privilege escalation on Linux and Windows – T1068, T1548**\n  - Log sources: Sysmon, Linux auditd/journald, EDR.\n  - Hunt for:  \n    - Low-priv users spawning privileged shells, new SUID binaries, unexpected kernel panics or crashes.  \n    - On Windows, processes started as low-priv shortly followed by SYSTEM processes of non-standard binaries or services.\n\n- **Malicious packages / supply chain (fake WhatsApp npm package, Docker images) – T1195, T1554**\n  - Log sources: Developer workstation EDR, proxy logs, internal artifact registries.\n  - Hunt for:  \n    - npm installs from public registry of new or rarely used packages in sensitive projects; scripts executing network calls or exfiltrating tokens/contacts.  \n    - Docker pulls of unapproved base images; execution of containers with outbound connections to unknown domains.\n\n- **Phishing & credential theft kits (BlackForce, TOAD) – T1566, T1110**\n  - Log sources: Secure email gateway, web proxy, endpoint browser telemetry.\n  - Hunt for:  \n    - Repeated failed logins followed by successful login from different IP/device; browser-based password manager access shortly after visiting suspect URLs.  \n    - HTML attachments, QR-code based login flows, or look‑alike login pages in user-reported emails.\n\n- **Insider and data exfiltration – T1537, T1041**\n  - Log sources: DLP, database logs, file shares, VPN, CASB.\n  - Hunt for:  \n    - Large exports of transactional or customer data, especially by users who don’t normally perform bulk extracts.  \n    - Sudden use of personal cloud storage, personal email, or unusual uploads from endpoints with privileged access.\n\n- **Ransomware ecosystem watch (Nefilim sentencing, RansomHouse tactics) – multiple ATT&CK (initial access to impact)**\n  - Log sources: EDR, AD logs, backup systems, network.\n  - Hunt for:  \n    - “Living off the land” execution (PsExec, PowerShell, WMI) from admin accounts, rapid file renames/encryption patterns, disabled AV/EDR services.  \n    - Unauthorized access or deletion of backup repositories and snapshot operations.\n\n---\n\n### Medium-term follow-ups\n\n- **Inventory & patch Firewalls/VPNs and other edge devices**\n  - Complete asset inventory of all perimeter appliances (including subsidiaries/critical vendors), confirm firmware patch status for Firebox and similar gear, and enable dedicated security logging.\n\n- **Cloud identity hardening**\n  - Work with IAM to tighten conditional access policies, reduce device-code auth exposure, require phishing-resistant MFA for privileged and finance-related accounts, and restrict app consent to admins.\n\n- **Developer and CI/CD security**\n  - Enforce allowlisting for npm and container images; adopt/expand use of hardened Docker base images; integrate SCA and malware scanning into CI pipelines.\n\n- **Insider risk program reinforcement**\n  - Review monitoring coverage for privileged users; coordinate with HR/Legal on awareness around recruitment by cybercriminals and clear reporting channels for suspected approaches.\n\n- **Linux and Windows kernel/LPE patch management**\n  - Prioritize scheduling kernel and OS updates for Internet-facing and critical systems; include LPE and kernel vulns in risk-based patch SLAs and regression-testing plans.\n\n- **C2 & “dual-use tool” baseline**\n  - Document and approve all legitimate remote monitoring and management tools (including Nezha-like platforms if any); block or tightly monitor anything not on the allowlist and tune detections accordingly.",
+  "source_total_items": 6814,
+  "total_items_in_window_all": 217,
+  "total_items_in_window_curated": 65,
+  "morning_call_markdown": "### Executive Summary\n- Critical RCEs in internet-facing infrastructure (WatchGuard Firebox/Fireware, n8n, Digiever, HPE OneView) are actively exploited with PoCs released; prioritize exposure checks and emergency patching/mitigations.\n- Ransomware and credential theft activity continues to lean on weak remote access (open RDP/SMB), fake tools (fake PoCs, npm package, Chrome “VPN” extensions), and social engineering (false human verification, tax-themed lures).\n- Multiple data-theft and browser/extension threats highlight ongoing risk to customer and employee credentials; tighten browser, npm, and extension controls and monitoring.\n\n---\n\n### High-priority items (immediate attention)\n\n- **WatchGuard Firebox / Fireware OS critical RCE (CVE-2025-14733) – actively exploited**\n  - What happened: Critical RCE in WatchGuard Firebox/Fireware used in real-world attacks; ~120K IPs reportedly exposed.\n  - Why it matters: Internet-facing firewalls are a common initial access vector for ransomware and persistent access into internal networks.\n  - Recommended immediate actions:  \n    - Inventory any WatchGuard Firebox/Fireware; confirm firmware against latest advisory; apply patches or vendor mitigations ASAP.  \n    - If exposed and unpatched, assume possible compromise: pull logs, look for abnormal admin logins/config changes, and consider password/PKI rotation.\n\n- **n8n automation platform RCE (CVSS ~10, PoC public, >100K instances exposed)**\n  - What happened: Critical expression engine isolation failure in n8n enables arbitrary code execution; multiple detailed writeups and PoC exploits out.\n  - Why it matters: n8n often holds API keys, secrets and has connectivity to core systems; compromise can pivot deep into internal/business workflows.\n  - Recommended immediate actions:  \n    - Identify any self-hosted n8n (on-prem or cloud); if internet-exposed, treat as priority-1 for patching or temporary access restriction (VPN-only, WAF).  \n    - Review recent n8n logs and hosting system logs for new/abnormal users, unexpected workflows, and shell/child-process creation.\n\n- **Actively exploited Digiever DS-2105 Pro authorization vulnerability (on CISA KEV)**\n  - What happened: CISA added a Digiever DS-2105 Pro authorization flaw to KEV following active exploitation.\n  - Why it matters: Even if we don’t use this exact device, it signals ongoing targeting of edge cameras/NVR/IoT for footholds and lateral movement.\n  - Recommended immediate actions:  \n    - Confirm whether any Digiever or similar NVR/camera systems exist in branches or data centers; if yes, restrict internet access and schedule patching.  \n    - For any internet-facing IoT/camera/NVR, review for strange outbound connections and admin logins from non-standard IPs.\n\n- **Ransomware trends: HardBit 4.0 + React2Shell / Qilin & water-utility attack**\n  - What happened: HardBit 4.0 abuses open RDP/SMB; React2Shell ransomware case tied to vulnerable web server; Qilin spreads via fake “human verification”; Romanian water authority hit by ransomware, taking ~1000 systems offline.\n  - Why it matters: Confirms attackers are still very effective with basic misconfigurations (RDP/SMB) and web app/RDP exposure; potential analog for our branches and OT-adjacent assets.\n  - Recommended immediate actions:  \n    - Validate no external RDP/SMB is open to the internet; if exceptions exist, verify MFA and log collection; review for brute-force patterns in last 7 days.  \n    - Re-check patch status and WAF coverage for public web apps (especially Node/React/Next.js stacks); hunt for webshell/CLI spawn from webserver processes.\n\n- **Credential theft via browser extensions and npm package (Chrome VPN extensions & fake WhatsApp API package)**\n  - What happened: Malicious Chrome “VPN” extensions and an npm package with 56K downloads were found stealing WhatsApp credentials/data and intercepting user traffic.\n  - Why it matters: High risk of credential exfiltration from developers, customer-support teams, and staff using unmanaged extensions or npm modules.\n  - Recommended immediate actions:  \n    - Confirm browser-extension allowlists on corporate-managed browsers; block VPN/proxy extensions by default; alert on deviations.  \n    - For build/dev environments, enforce npm repository controls (private registry/allowlist); check for use of suspicious WhatsApp API-style packages and rotate affected credentials if found.\n\n---\n\n### Monitoring & detection recommendations\n\n- **Firewall / VPN / network edge (WatchGuard, Digiever, similar) – Initial Access (T1190, T1133)**\n  - Monitor firewall logs for: new/unknown admin accounts, config changes outside maintenance windows, and logins from unusual geos/IP ranges.\n  - On any edge device, look for spikes in HTTP/HTTPS error codes, repeated requests to admin URLs, or access from scanning IPs.\n\n- **Automation/orchestration platforms (n8n, similar tools) – Command Execution (T1059), Lateral Movement (T1021)**\n  - Collect application logs and host EDR; hunt for shell/PowerShell/python processes spawned by n8n or node.js service accounts.\n  - Search for new/modified workflows that execute OS commands, connect to unfamiliar domains, or access new internal systems.\n\n- **RDP/SMB exposure and brute forcing – Valid Accounts (T1078), Brute Force (T1110)**\n  - From Windows event logs and network IDS: alert on multiple failed RDP logons followed by success, especially from external IPs or TOR/VPN ranges.\n  - Track SMB access to critical file shares from unusual hosts or service accounts; detect mass file rename/encryption patterns.\n\n- **Web applications (Next.js/React/Operation PCPcat, React2Shell) – Web Exploitation (T1190)**\n  - Web/WAF logs: monitor for anomalous POSTs to rarely used endpoints, long query strings, or payloads containing OS command characters (`;`, `&&`, `|`, `$( )`).\n  - EDR on web servers: flag new binaries, webshell-like files, or processes running under webserver accounts connecting outbound to rare IPs.\n\n- **Browser & extension misuse – Credential Access (T1555), Exfiltration to Cloud (T1567)**\n  - From endpoint and proxy logs: detect installation of new browser extensions, especially VPN/proxy, crypto, or messaging-related; correlate with connections to unknown extension CDNs.\n  - Look for browser processes making unusual connections to non-standard ports or high-risk countries, and POSTing large volumes of form data.\n\n- **npm / development environments – Supply Chain Compromise (T1195.002)**\n  - On dev endpoints/CI: log npm installs; alert on new packages with low reputation, typosquats, or direct GitHub/raw URLs.\n  - EDR: watch for node/npm processes accessing browser credential stores, keychains, or reading SMS/contacts-type data (where applicable).\n\n- **Phishing / social engineering (income-tax-themed lures, fake human verification, browser-based e-challan scams) – Phishing (T1566)**\n  - Email and proxy: detect tax-/payment-/fine-themed messages with links to non-official domains; use URL sandboxing.\n  - Web logs: watch for repeated visits to short-link or CAPTCHA/verification sites preceding malware downloads.\n\n- **Data theft & stealer malware (MacSync, WhatsApp data theft) – Collection (T1114, T1552)**\n  - EDR: alert on processes accessing browser storage, password managers, or messaging app data directories, especially from non-standard binaries.\n  - Monitor outbound TLS connections to newly seen domains shortly after such access.\n\n---\n\n### Medium-term follow-ups\n\n- **Asset & exposure review for edge devices and automation tools**\n  - Complete inventory of internet-facing firewalls, NVR/cameras, automation/orchestration platforms (n8n, similar); enforce central logging and MFA where supported.\n\n- **Hardening RDP/SMB and remote access**\n  - Implement default-deny for external RDP/SMB; enforce just-in-time access, network-level authentication, and mandatory MFA for all remaining remote admin pathways.\n\n- **Browser and extension governance**\n  - Formalize extension allowlist for corporate browsers; block VPN/proxy, crypto wallets, and messaging extensions by policy; review MDM/Intune profiles.\n\n- **Secure developer and CI/CD practices**\n  - Introduce/strengthen internal npm registry with strict allowlists; integrate SCA (software composition analysis) and reputation checks into pipelines.\n\n- **Awareness training refresh**\n  - Short, targeted awareness push on: fake human verification, tax/payment-themed phishing, and risks of installing “free” VPNs or PoC tools from untrusted sources.\n\n- **Incident playbooks & threat hunting**\n  - Update ransomware and edge-device compromise playbooks with WatchGuard/n8n/Digiever-specific checks; schedule a focused hunt across last 30 days for related TTPs (edge exploitation → lateral movement → encryption).",
   "highlights": [
     {
-      "title": "AI code looks fine until the review starts",
-      "link": "https://www.helpnetsecurity.com/2025/12/23/coderabbit-ai-assisted-pull-requests-report/",
+      "title": "Conjur: Open-source secrets management and application identity",
+      "link": "https://www.helpnetsecurity.com/2025/12/24/conjur-open-source-secrets-management/",
       "source": "Help Net Security",
-      "published": "2025-12-23T06:00:22+00:00",
+      "published": "2025-12-24T06:30:28+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Operation PCPcat Exploits Next.js and React, Impacting 59,000+ Servers",
+      "link": "https://gbhackers.com/operation-pcpcat-exploits-next-js-and-react/",
+      "source": "GBHackers News",
+      "published": "2025-12-24T05:41:21+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Linearizing SHA-256 via fractional modular analysis (Kaoru Method)",
+      "link": "https://www.reddit.com/r/netsec/comments/1puflky/linearizing_sha256_via_fractional_modular/",
+      "source": "/r/netsec",
+      "published": "2025-12-24T05:33:11+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs"
@@ -23,47 +48,10 @@
       "curated": true
     },
     {
-      "title": "Cyber Risk Assessments: Risikobewertung hilft CISOs",
-      "link": "https://www.csoonline.com/article/3492180/cyber-risk-assessments-risikobewertung-hilft-cisos.html",
-      "source": "CSO Online",
-      "published": "2025-12-23T04:01:00+00:00",
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Identity / Access",
-        "Data Breaches / Leaks"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Der Aufstieg des Chief Trust Officers: Wo passt der CISO hinein?",
-      "link": "https://www.csoonline.com/article/4107832/der-aufstieg-des-chief-trust-officers-wo-passt-der-ciso-hinein.html",
-      "source": "CSO Online",
-      "published": "2025-12-23T04:00:00+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Identity / Access"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Google’s Gemini 3 Flash Is Smart, Fast, and Weirdly Dishonest",
-      "link": "https://www.vice.com/en/article/googles-gemini-3-flash-is-smart-fast-and-weirdly-dishonest/",
-      "source": "Motherboard – Tech",
-      "published": "2025-12-23T03:05:34+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Meta Bug Bounty: Vulnerability fixed 2 months ago, but still \"Triaged\" with no bounty. Is this a bad sign?",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1ptg0y2/meta_bug_bounty_vulnerability_fixed_2_months_ago/",
-      "source": "/r/cybersecurity",
-      "published": "2025-12-23T00:42:37+00:00",
+      "title": "Critical MongoDB Flaw Leaks Sensitive Data Through zlib Compression",
+      "link": "https://gbhackers.com/critical-mongodb-flaw-leaks-sensitive-data-through-zlib-compression/",
+      "source": "GBHackers News",
+      "published": "2025-12-24T04:51:12+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs",
@@ -72,49 +60,46 @@
       "curated": true
     },
     {
-      "title": "Spotify's 300TB Data Leak - The Next Big AI Training Dataset?",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1ptctg3/spotifys_300tb_data_leak_the_next_big_ai_training/",
+      "title": "3.5 Million Affected by University of Phoenix Data Breach",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1pude2k/35_million_affected_by_university_of_phoenix_data/",
       "source": "/r/cybersecurity",
-      "published": "2025-12-22T22:22:35+00:00",
+      "published": "2025-12-24T03:33:25+00:00",
       "smart_groups": [
         "Curated",
         "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
         "Data Breaches / Leaks"
       ],
       "curated": true
     },
     {
-      "title": "Spotify disables accounts after open-source group scrapes 86 million songs from platform",
-      "link": "https://therecord.media/spotify-disables-scraping-annas",
-      "source": "The Record",
-      "published": "2025-12-22T21:04:00+00:00",
+      "title": "ServiceNow’s $7.75 billion cash deal for Armis illustrates shifting strategies",
+      "link": "https://www.csoonline.com/article/4111449/servicenows-7-75-billion-cash-deal-for-armis-illustrates-shifting-strategies-2.html",
+      "source": "CSO Online",
+      "published": "2025-12-24T03:30:20+00:00",
       "smart_groups": [
         "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Romanian Waters confirms cyberattack, critical water operations unaffected",
-      "link": "https://securityaffairs.com/186010/cyber-crime/romanian-waters-confirms-cyberattack-critical-water-operations-unaffected.html",
-      "source": "Security Affairs",
-      "published": "2025-12-22T20:41:05+00:00",
-      "smart_groups": [
-        "Curated",
-        "Ransomware"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Microsoft Defender Experts Disrupt Jasper Sleet’s Insider Access Campaign",
-      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-experts-blog/microsoft-defender-experts-disrupt-jasper-sleet-s-insider-access/ba-p/4478112",
-      "source": "Microsoft Security Experts",
-      "published": "2025-12-22T20:14:10+00:00",
-      "smart_groups": [
-        "Curated",
+        "Ransomware",
         "Vulnerabilities / CVEs",
-        "Linux / Unix",
-        "Cloud / SaaS",
+        "Identity / Access",
+        "Data Breaches / Leaks",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Interpol sweep takes down cybercrooks in 19 countries",
+      "link": "https://www.csoonline.com/article/4111324/interpol-sweep-takes-down-cybercrooks-in-19-countries.html",
+      "source": "CSO Online",
+      "published": "2025-12-24T01:53:26+00:00",
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Threat Actors / APT",
+        "Malware / Payloads",
         "Identity / Access",
         "Network / OT / ICS",
         "Phishing / Social Engineering"
@@ -122,13 +107,36 @@
       "curated": true
     },
     {
-      "title": "DDoS incident disrupts France’s postal and banking services ahead of Christmas",
-      "link": "https://therecord.media/la-poste-france-ddos-disruption-days-before-christmas",
-      "source": "The Record – Cybercrime",
-      "published": "2025-12-22T19:15:34+00:00",
+      "title": "A Vulnerability in WatchGuard Fireware OS Could Allow for Arbitrary Code Execution.",
+      "link": "https://www.cisecurity.org/advisory/a-vulnerability-in-watchguard-fireware-os-could-allow-for-arbitrary-code-execution_2025-118",
+      "source": "CIS – Advisories",
+      "published": "2025-12-23T21:35:35+00:00",
       "smart_groups": [
         "Curated",
-        "Vulnerabilities / CVEs"
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Gnosis announces hard fork to recover funds from Balancer exploit",
+      "link": "https://cointelegraph.com/news/gnosis-hard-fork-balancer-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "published": "2025-12-23T20:11:37+00:00",
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Programming language",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1pu3nse/programming_language/",
+      "source": "/r/cybersecurity",
+      "published": "2025-12-23T20:05:28+00:00",
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC"
       ],
       "curated": true
     }
