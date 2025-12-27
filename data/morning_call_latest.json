@@ -1,131 +1,139 @@
 {
-  "generated_at": "2025-12-26T06:48:27.848414+00:00",
-  "analysis_date": "2025-12-26",
+  "generated_at": "2025-12-27T06:46:51.797226+00:00",
+  "analysis_date": "2025-12-27",
   "model": "gpt-5.1",
   "window_hours": 24,
   "source_file": "data/news_recent.json",
-  "source_generated_at": "2025-12-26T06:47:23.193768+00:00",
+  "source_generated_at": "2025-12-27T06:41:45.316253+00:00",
   "source_days_back": 30,
-  "source_total_items": 6917,
-  "total_items_in_window_all": 78,
-  "total_items_in_window_curated": 21,
-  "morning_call_markdown": "### Executive Summary\n- Active exploitation of a long-standing Fortinet FortiOS SSL VPN 2FA-bypass flaw; high relevance if we or critical vendors use FortiGate VPNs.\n- New critical vulnerabilities highlighted in LangChain-based AI apps and MongoDB that could expose secrets or enable full server takeover, especially in cloud/SaaS environments.\n- CISA flags active exploitation of Digiever NVR (RCE) and community reports of increased brute force against Palo Alto firewalls, signaling elevated pressure on perimeter/remote-access tech.\n\n---\n\n### High-priority items (immediate attention)\n\n- **Fortinet FortiOS SSL VPN – actively exploited 2FA bypass (5-year-old vuln)**\n  - What happened: Fortinet and multiple sources report active exploitation of an older FortiOS SSL VPN vulnerability that allows 2FA bypass.\n  - Why it matters operationally: Direct impact on remote access; enables credential theft/session hijack and potential initial access around MFA controls.\n  - Recommended immediate actions:  \n    - Confirm if any Fortinet/FortiGate SSL VPNs are in use (internal or managed providers); if yes, verify version against latest Fortinet advisory and patch/mitigate urgently.  \n    - Today in SOC: hunt VPN logs for: logins without corresponding 2FA challenges, impossible travel, logins from new countries/ASNs, sudden admin logins outside normal patterns.\n\n- **LangChain AI application vulnerability – secret exfiltration**\n  - What happened: Critical flaw in LangChain-based apps can allow attackers to exfiltrate sensitive secrets (API keys, credentials) from AI workflows/integrations.\n  - Why it matters operationally: Any internal tools or vendors using LangChain for automation or chat interfaces could leak keys that grant broad access (cloud, payments, internal APIs).\n  - Recommended immediate actions:  \n    - Identify whether any internal AI apps, chatbots, or automation tools use LangChain (ask app/platform teams); if yes, request status vs. latest security guidance and mitigation.  \n    - Monitor for unusual use of API keys/secrets tied to those apps (cloud logs, API gateways); watch for sudden access from new IPs or over-privileged token use.\n\n- **MongoDB high-severity flaw (CVE-2025-14847) – potential server takeover**\n  - What happened: New high-severity MongoDB vulnerability disclosed that can allow server takeover; exploit PoC exists/expected.\n  - Why it matters operationally: Direct risk to any MongoDB backing customer-facing apps, analytics, or internal services; compromise can expose transactional and PII data.\n  - Recommended immediate actions:  \n    - Ask platform/DB teams for inventory of on-prem/cloud MongoDB and versions; confirm if affected and whether vendor patches/workarounds are applied.  \n    - For exposed MongoDB (internet or DMZ), increase monitoring for anomalous admin ops: new users/roles, changes to auth config, unexpected remote connections.\n\n- **CISA: actively exploited Digiever NVR RCE**\n  - What happened: CISA added a Digiever NVR vulnerability to the KEV catalog; actively exploited to obtain remote code execution on network video recorders.\n  - Why it matters operationally: These devices often sit in internal or semi-trusted networks; compromise offers a stealth foothold and lateral-movement platform.\n  - Recommended immediate actions:  \n    - Confirm with physical security/facilities and network teams if Digiever NVRs are deployed; if yes, check exposure (internet/DMZ) and patch or isolate urgently.  \n    - Today: watch for outbound connections from camera/NVR VLANs to unfamiliar IPs, and any interactive shells/tunnels originating from those segments.\n\n- **Increased brute-force activity on Palo Alto firewalls (community reports)**\n  - What happened: Operators report a spike in brute-force attempts against Palo Alto devices (likely targeting management or VPN portals).\n  - Why it matters operationally: Even if we’re patched, sustained password-spraying/brute force can lead to account compromise or DoS; indicates adversary focus on network edge.\n  - Recommended immediate actions:  \n    - Review PAN logs today for spikes in failed logins, particularly to admin and GlobalProtect portals; validate rate-limiting, lockout, and MFA policies.  \n    - Create/enable alerts for repeated failed logins from single IP/ASN and for successful logins from IPs previously showing high failure counts.\n\n---\n\n### Monitoring & detection recommendations\n\n- **Remote access/VPN exploitation (Fortinet, Palo Alto) – Initial Access (T1133), Valid Accounts (T1078)**\n  - Log sources: VPN/firewall logs, IdP logs, EDR on VPN gateways (if supported).  \n  - Hunt for: logins without expected MFA events, impossible travel, sudden use of dormant accounts, high failed-login counts followed by success.\n\n- **Credential & token abuse from AI/LangChain apps – Credentials in Files (T1552), Use of Valid Accounts (T1078)**\n  - Log sources: Cloud provider logs (CloudTrail, Azure Activity), API gateway logs, OAuth/IdP logs.  \n  - Hunt for: API keys or service accounts suddenly used from new geos, non-corporate IPs, or at unusual volumes; spikes in failed API auth.\n\n- **MongoDB exploitation – Exploitation for Privilege Escalation (T1068), Data from Databases (T1105/T1555)**\n  - Log sources: MongoDB audit logs, OS logs on DB servers, WAF/NGFW in front of DB-backed apps.  \n  - Hunt for: new admin roles/users, changes to auth mechanisms, unusual commands (e.g., user management, dump-like activity) from unfamiliar clients.\n\n- **IoT/NVR compromise (Digiever) – Exploit Public-Facing Application (T1190), Command & Control (T1071)**\n  - Log sources: Network flow/NetFlow, firewall logs around camera/NVR VLANs, any syslog from NVRs.  \n  - Hunt for: outbound connections to rare external IPs/ports, DNS to domains not related to vendor clouds, lateral connections from NVRs to internal servers.\n\n- **General stealth loaders / malware trends (per ThreatsDay bulletin) – Defense Evasion (T1027), Persistence (T1053/T1547)**\n  - Log sources: EDR, email security, web proxy, sandbox detonation.  \n  - Hunt for: low-prevalence binaries in %ProgramData%/temp, LOLBins spawning unusual child processes (e.g., mshta, regsvr32, wscript) and beacon-like network patterns.\n\n- **Windows/Exchange targeting APTs (xHunt reference) – Lateral Movement (T1021), Privilege Escalation (T1068)**\n  - Log sources: Windows event logs (4768–4769, 4624, 4672), Exchange/IIS logs, EDR.  \n  - Hunt for: abnormal PowerShell usage, new mailbox rules/forwarding, service creation, credential-dumping tools, and new admin group memberships.\n\n- **Password spraying / brute-force (Palo Alto, general) – Brute Force (T1110)**\n  - Log sources: VPN/firewall auth logs, IdP, AD.  \n  - Hunt for: distributed low-and-slow attempts across many accounts from same IP/ASN; enable correlation rules and temporary IP blocking where policy allows.\n\n---\n\n### Medium-term follow-ups\n\n- **Asset & exposure review for VPNs and remote access**\n  - Maintain up-to-date inventory of all SSL VPNs (Fortinet, Palo Alto, others), with version and exposure; enforce strict SLAs for patching KEV-listed issues.\n\n- **AI/LLM security review**\n  - Conduct a structured review of all internal/external AI/LLM-based services (especially LangChain) to ensure secrets management, isolation, and least-privilege keys.\n\n- **Database hardening and patch cadence (MongoDB, others)**\n  - Validate standard build, encryption, auth, and network segmentation for databases; ensure audit logging is consistently enabled and reviewed.\n\n- **IoT/OT and NVR network segmentation**\n  - Work with physical security to ensure all cameras/NVRs (including Digiever) are segmented, minimally exposed, and covered by vulnerability management and logging.\n\n- **Playbook updates for VPN and AI-app compromise**\n  - Update incident response playbooks to include: VPN 2FA bypass scenarios, cloud/API key abuse from AI tools, and IoT device foothold → lateral movement paths.\n\n- **Awareness for brute-force and credential hygiene**\n  - Reinforce secure password and MFA usage with staff and admins; ensure admin accounts have stronger controls (hardware tokens, IP restrictions where feasible).",
+  "source_total_items": 6909,
+  "total_items_in_window_all": 110,
+  "total_items_in_window_curated": 19,
+  "morning_call_markdown": "### Executive Summary\n- Active unauthenticated exploit released for a critical MongoDB flaw (CVE-2025-14847) with widespread cloud/SaaS exposure risk.\n- Multiple new application/infrastructure vulnerabilities (TeamViewer DEX, M‑Files, Aruba, LangChain Core) that could impact remote access, internal apps, and AI integrations.\n- Ongoing ransomware, data theft, and supply-chain threats (Everest ransomware breach, trojanized NPM package, DNS‑based MgBot campaign) underline need for holiday‑period vigilance.\n\n---\n\n### High-priority items (immediate attention)\n\n- **MongoDB critical vulnerability with unauth exploit (CVE‑2025‑14847)**\n  - What happened: Public unauthenticated exploit code released for a high‑severity MongoDB issue enabling memory leakage and likely data access.\n  - Why it matters operationally: Exposed or poorly secured MongoDB (on‑prem or cloud) could be remotely enumerated/exfiltrated quickly, including customer or transaction data.\n  - Recommended immediate actions for the SOC today:  \n    • Identify MongoDB instances via CMDB/cloud inventories; confirm patch level and internet exposure; raise to on‑call engineering if unknown.  \n    • Today, monitor perimeter/firewall and cloud logs for spikes in connections to MongoDB ports (default 27017/27018) and unusual queries from new IPs; set temporary alerting thresholds for failed auth/anonymous access attempts.\n\n- **TeamViewer DEX vulnerabilities (DoS and data exposure)**\n  - What happened: New flaws in TeamViewer DEX allow attackers to trigger denial of service and potentially expose sensitive data.\n  - Why it matters operationally: If used for remote access/support, exploitation could both disrupt operations and give adversaries insight into internal systems/users.\n  - Recommended immediate actions for the SOC today:  \n    • Confirm whether TeamViewer DEX (or related components) is in use for remote access or third‑party support; if yes, request current version and patch status.  \n    • Intensify monitoring for new inbound connections to TeamViewer infrastructure, unusual remote sessions (off-hours, new devices), and mass screen/file access patterns on endpoints with TeamViewer.\n\n- **M‑Files session token capture flaw**\n  - What happened: Vulnerability in M‑Files allows attackers to capture other users’ active session tokens.\n  - Why it matters operationally: Compromised tokens = direct access to stored documents without passwords; ideal for data theft and lateral movement.\n  - Recommended immediate actions for the SOC today:  \n    • Identify any M‑Files instances (cloud or on‑prem); confirm if they are internet‑facing; flag for urgent patching and web app firewall (WAF) hardening.  \n    • Monitor M‑Files logs and web proxy logs for logins from new geos/devices on existing accounts, sudden large exports/downloads of documents, and multiple user sessions from a single IP.\n\n- **LangChain Core serialization injection vulnerability**\n  - What happened: Critical flaw in LangChain Core allows secrets exposure via serialization injection; PoC is public.\n  - Why it matters operationally: Any internal AI/chatbot/workflow using LangChain could leak stored API keys, database credentials, or prompt data if reachable by attackers or untrusted inputs.\n  - Recommended immediate actions for the SOC today:  \n    • Engage app/platform teams to quickly identify internal services using LangChain Core; verify versions and internet exposure.  \n    • For known LangChain services, monitor app logs and reverse‑proxy/WAF for anomalous input patterns (large serialized payloads, atypical query parameters) and unexpected outbound calls to new APIs/hosts from those services.\n\n- **Ransomware/data theft and supply‑chain threats (Everest, NPM trojan, DNS‑delivered MgBot)**\n  - What happened: Everest ransomware claimed a major 1TB data theft; Trojanized NPM package “lotusbail” steals WhatsApp chats; China‑linked Evasive Panda used DNS poisoning to deliver MgBot malware.\n  - Why it matters operationally: Confirms continuous data‑theft‑before‑encryption model, package‑repository abuse, and DNS‑based infection vectors—common paths into financial environments, especially via dev and remote‑user systems.\n  - Recommended immediate actions for the SOC today:  \n    • Block/alert on known malicious NPM package names (e.g., “lotusbail”) in proxy and developer tooling; monitor dev endpoints for suspicious NPM install activity outside internal registries.  \n    • Tighten monitoring on DNS: detect responses from non‑approved resolvers, unusual DNS responses/TTL changes, and endpoints performing DNS to suspicious domains followed by new process creation or C2 beacons.\n\n---\n\n### Monitoring & detection recommendations\n\n- **MongoDB exploitation attempts (CVE‑2025‑14847)**  \n  - Log sources: Firewall/WAF, NDR, cloud security logs, MongoDB logs.  \n  - Hunt for: New external IPs hitting MongoDB ports 27017/27018, high rate of connection attempts, unauthenticated queries, and any authentication failures from unusual geos (ATT&CK T1190/T1046).\n\n- **Remote tools (TeamViewer, MgBot, general RAT activity)**  \n  - Log sources: EDR, endpoint firewall, proxy logs.  \n  - Hunt for: Unknown remote access binaries, TeamViewer sessions outside normal admin accounts, processes spawning network connections over uncommon ports/protocols (T1219, T1105).\n\n- **Web app/session abuse (M‑Files, LangChain apps)**  \n  - Log sources: Web server/WAF, app logs, IdP.  \n  - Hunt for: Single IP using multiple session tokens, token reuse from new geos, abnormal user‑agent strings, large downloads or bulk API calls from a single user in short time (T1539, T1071).\n\n- **DNS poisoning and DNS‑based C2 (Evasive Panda / MgBot pattern)**  \n  - Log sources: DNS resolver logs, EDR, NDR.  \n  - Hunt for: Hosts switching to non‑corporate DNS, repeated NXDOMAINs followed by successful resolution via another resolver, or DNS queries preceding outbound connections to rare domains/IPs (T1557.001, T1071.004).\n\n- **Developer supply‑chain abuse (NPM trojan, Docker/containers from bulletin)**  \n  - Log sources: Developer endpoint EDR, proxy logs, CI/CD logs, container registry logs.  \n  - Hunt for: NPM/Yarn installs from public registry on production hosts, downloads of low‑reputation packages, execution of newly installed node modules spawning shell/network connections (T1195, T1059).\n\n- **Ransomware/data exfil patterns (Everest and others)**  \n  - Log sources: EDR, DLP, proxy, file servers, cloud storage.  \n  - Hunt for: Mass file encryption behavior, high‑volume file reads followed by outbound transfers, staging of archives (7z/rar/zip) on user shares, and use of living‑off‑the‑land tools for compression/exfil (T1486, T1041, T1560).\n\n- **Cloud/SaaS account abuse (TeamViewer, M‑Files, LangChain in cloud)**  \n  - Log sources: SaaS audit logs, IdP, CASB.  \n  - Hunt for: New OAuth grants, API tokens created or used from unusual locations, sign‑ins without MFA, and anomalous admin operations (T1078, T1098, T1550).\n\n- **Hashing/crypto libraries & integrity (SHA‑256 second‑preimage research)**  \n  - Log sources: Code repos, build pipeline logs.  \n  - Hunt for: Any internal projects or dependencies using non‑standard crypto libraries or custom SHA‑256 implementations being modified unexpectedly (T1553 – code signing / integrity).\n\n---\n\n### Medium-term follow-ups\n\n- **MongoDB and database exposure review**\n  - Full asset inventory of all MongoDB and similar NoSQL instances; ensure patching, strong auth, TLS, and strict firewall rules; remove any direct internet exposure.\n\n- **Remote access and third‑party tool governance**\n  - Review and harden policies for TeamViewer/other remote tools (allow‑list, MFA, logging requirements); confirm vendor remote access paths are monitored and time‑bound.\n\n- **Internal AI / LangChain usage assessment**\n  - Conduct a survey of all AI/chatbot services; mandate updates for LangChain Core; implement secure coding guidelines around serialization and untrusted inputs.\n\n- **Web application and content management (M‑Files and similar)**\n  - Work with app owners to ensure timely patching, modern auth (SAML/OIDC + MFA), and WAF coverage for all document management and intranet apps.\n\n- **Supply‑chain security for development**\n  - Enforce use of internal package registries, software composition analysis (SCA), and allow‑listing of external package sources; integrate alerts on risky NPM/Docker pulls into the SOC.\n\n- **Ransomware tabletop and data exfil readiness**\n  - Use the Everest/data‑theft case as a trigger for a quick tabletop: validate backup restoration, exfiltration detection coverage, and out‑of‑hours escalation paths during holiday periods.",
   "highlights": [
     {
-      "title": "Seeking sponsors for a 24-hour offline cybersecurity CTF event",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1pvx6oa/seeking_sponsors_for_a_24hour_offline/",
-      "source": "/r/cybersecurity",
-      "published": "2025-12-26T06:04:46+00:00",
+      "title": "Flock and Urban Surveillance",
+      "link": "https://computer.rip/2025-12-26-Flock-and-Urban-Surveillance.html",
+      "source": "https://computer.rip/rss.xml",
+      "published": "2026-12-23T00:00:00+00:00",
       "smart_groups": [
         "Curated",
+        "Ransomware",
         "Vulnerabilities / CVEs",
-        "Network / OT / ICS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Critical LangChain Vulnerability Allows Attackers to Steal Sensitive Secrets",
-      "link": "https://gbhackers.com/critical-langchain-vulnerability/",
-      "source": "GBHackers News",
-      "published": "2025-12-26T05:37:06+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "From AI to cyber risk, why IT leaders are anxious heading into 2026",
-      "link": "https://www.helpnetsecurity.com/2025/12/26/it-planning-cybersecurity-threats-2026/",
-      "source": "Help Net Security",
-      "published": "2025-12-26T05:30:46+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "A tool where people can leave public anonymous notes on any website?",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1pvuk9e/a_tool_where_people_can_leave_public_anonymous/",
-      "source": "/r/cybersecurity",
-      "published": "2025-12-26T03:38:51+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Critical Langchain Vulnerability Let attackers Exfiltrate Sensitive Secrets from AI systems",
-      "link": "https://cybersecuritynews.com/langchain-vulnerability/",
-      "source": "Cyber Security News (FeedBurner)",
-      "published": "2025-12-26T02:48:17+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Responsible disclosure is unpaid. Exploitation is unethical. So what’s the incentive?",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1pvl1z4/responsible_disclosure_is_unpaid_exploitation_is/",
-      "source": "/r/cybersecurity",
-      "published": "2025-12-25T19:40:12+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Five-year-old Fortinet FortiOS SSL VPN vulnerability actively exploited",
-      "link": "https://securityaffairs.com/186117/security/five-year-old-fortinet-fortios-ssl-vpn-flaw-actively-exploited.html",
-      "source": "Security Affairs",
-      "published": "2025-12-25T19:40:04+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "GRC Professional Seeking Transition into Blue Team Security (SOC / IR / Detection)",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1pvj93y/grc_professional_seeking_transition_into_blue/",
-      "source": "/r/cybersecurity",
-      "published": "2025-12-25T18:17:36+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "ThreatsDay Bulletin: Stealth Loaders, AI Chatbot Flaws AI Exploits, Docker Hack, and 15 More Stories",
-      "link": "https://thehackernews.com/2025/12/threatsday-bulletin-stealth-loaders-ai.html",
-      "source": "The Hacker News",
-      "published": "2025-12-25T14:01:00+00:00",
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC",
         "Cloud / SaaS",
-        "Malware / Payloads"
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Crypto / Web3"
       ],
       "curated": true
     },
     {
-      "title": "SOC L1 trying to understand how log sources and traffic usually flow in an org",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1pvdf49/soc_l1_trying_to_understand_how_log_sources_and/",
-      "source": "/r/cybersecurity",
-      "published": "2025-12-25T13:29:56+00:00",
+      "title": "TeamViewer DEX Vulnerabilities Let Attackers Trigger DoS Attack and Expose Sensitive Data",
+      "link": "https://cybersecuritynews.com/teamviewer-dex-vulnerabilities/",
+      "source": "Cyber Security News (FeedBurner)",
+      "published": "2025-12-27T04:49:32+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs",
-        "Network / OT / ICS"
+        "Windows / Microsoft",
+        "Cloud / SaaS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "M-Files Vulnerability Let Attacker Capture Session Tokens of Other Active Users",
+      "link": "https://cybersecuritynews.com/m-files-vulnerability/",
+      "source": "Cyber Security News (FeedBurner)",
+      "published": "2025-12-27T02:33:54+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "I think I might have come across both the leaked Ebay and AT&T data dumps",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1pwmak9/i_think_i_might_have_come_across_both_the_leaked/",
+      "source": "/r/cybersecurity",
+      "published": "2025-12-27T02:31:08+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "First verified SHA-256 second-preimage collision: Structural analysis of the W-schedule vulnerability",
+      "link": "https://www.reddit.com/r/netsec/comments/1pwlp7g/first_verified_sha256_secondpreimage_collision/",
+      "source": "/r/netsec",
+      "published": "2025-12-27T02:03:01+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Everest Ransomware Group Claims Theft of Over 1TB of Chrysler Data",
+      "link": "https://hackread.com/everest-ransomware-group-chrysler-data-breach/",
+      "source": "HackRead",
+      "published": "2025-12-26T22:24:09+00:00",
+      "smart_groups": [
+        "Curated",
+        "Ransomware"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Holiday Special Part 2: You’re Gonna Click the Link - Rob Allen - SWN #541",
+      "link": "https://www.youtube.com/watch?v=aarBIv89dc8",
+      "source": "Security Weekly News (YouTube)",
+      "published": "2025-12-26T22:00:02+00:00",
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Network / OT / ICS",
+        "Phishing / Social Engineering"
+      ],
+      "curated": true
+    },
+    {
+      "title": "High severity flaw in MongoDB could allow memory leakage",
+      "link": "https://www.csoonline.com/article/4111711/high-severity-flaw-in-mongodb-could-allow-memory-leakage-2.html",
+      "source": "CSO Online",
+      "published": "2025-12-26T20:19:47+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Identity / Access"
+      ],
+      "curated": true
+    },
+    {
+      "title": "MongoDB unauth exploit released, patch immediately (CVE-2025-14847)",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1pwac8c/mongodb_unauth_exploit_released_patch_immediately/",
+      "source": "/r/cybersecurity",
+      "published": "2025-12-26T17:51:47+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Someone Downloaded All of Spotify - Threat Wire",
+      "link": "https://www.youtube.com/watch?v=JFyVU0LONLA",
+      "source": "Threat Wire (YouTube)",
+      "published": "2025-12-26T17:08:55+00:00",
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Linux / Unix"
       ],
       "curated": true
     }
