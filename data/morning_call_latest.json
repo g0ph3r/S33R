@@ -1,21 +1,32 @@
 {
-  "generated_at": "2025-12-28T06:46:53.491097+00:00",
-  "analysis_date": "2025-12-28",
+  "generated_at": "2025-12-29T06:52:42.852897+00:00",
+  "analysis_date": "2025-12-29",
   "model": "gpt-5.1",
   "window_hours": 24,
   "source_file": "data/news_recent.json",
-  "source_generated_at": "2025-12-28T05:51:17.916921+00:00",
+  "source_generated_at": "2025-12-29T05:55:05.335105+00:00",
   "source_days_back": 30,
-  "source_total_items": 7211,
-  "total_items_in_window_all": 74,
-  "total_items_in_window_curated": 15,
-  "morning_call_markdown": "### Executive Summary\n- Public PoC released for critical MongoDB “MongoBleed” vulnerability allowing unauthenticated memory disclosure; ~87K instances exposed on the internet.\n- Chinese threat actors are actively exploiting the recent “React2Shell” vulnerability, demonstrating very fast weaponization of new web stack bugs.\n- New research on “EDR freeze” attacks shows practical methods to blind or stall endpoint security during ransomware operations.\n\n---\n\n### High-priority items (immediate attention)\n\n- **MongoDB “MongoBleed” (CVE-2025-14847) – PoC released, large attack surface**\n  - What happened: Critical MongoDB flaw leaks uninitialized memory to unauthenticated users; PoC and exploitation tooling now public.\n  - Why it matters operationally: Any internet‑accessible or poorly isolated MongoDB (including test/dev, containers, internal APIs using it) could leak credentials, keys, and customer data without obvious logs.\n  - Recommended immediate actions for the SOC today:  \n    - Coordinate with infra/app teams to quickly identify all MongoDB instances (on‑prem + cloud) exposed to the internet or unsegmented networks and verify version/patch status.  \n    - Increase monitoring on MongoDB ports (default 27017) for abnormal/anonymous access, spikes in queries, and scanning from external IPs; alert on any previously unseen source accessing MongoDB.\n\n- **Active exploitation of “React2Shell” by Chinese actors**\n  - What happened: Chinese threat actors are reported exploiting a recently disclosed React-related web framework vulnerability (“React2Shell”).\n  - Why it matters operationally: Shows rapid weaponization of modern web stack bugs; if we host React-based apps or use affected components, they may already be probed or exploited for initial access.\n  - Recommended immediate actions for the SOC today:  \n    - Confirm with app/dev teams whether any internet-facing apps use the affected React2Shell components; if yes, check web/WAF logs for anomalous POSTs, unusual error spikes, or command injection patterns since disclosure.  \n    - Tighten WAF rules and signatures for command injection / RCE patterns in React/Node APIs; temporarily raise alerting sensitivity on those apps.\n\n- **EDR Freeze / EDR evasion techniques linked to ransomware**\n  - What happened: New forensic analysis describes a practical “EDR freeze” attack, where ransomware operators temporarily stall or disable EDR visibility without standard tamper events.\n  - Why it matters operationally: Ransomware groups may already be using these techniques, leading to “quiet” lateral movement and encryption even though agents appear “healthy” in dashboards.\n  - Recommended immediate actions for the SOC today:  \n    - Review endpoints where EDR telemetry volume suddenly drops or stops while the agent is still “online”; correlate with process creation, network anomalies, and abnormal CPU/disk I/O.  \n    - Add manual checks during high‑severity alerts: validate EDR data freshness vs. system uptime, and escalate any mismatches as potential EDR evasion.\n\n- **Supply-chain / npm package compromising WhatsApp accounts**\n  - What happened: A popular npm package (56K+ downloads) was found stealing data and compromising WhatsApp accounts.\n  - Why it matters operationally: Indicates ongoing supply-chain risk in JavaScript dependencies used by our web apps, internal tools, and automation; could be repurposed to steal credentials, session tokens, or client data.\n  - Recommended immediate actions for the SOC today:  \n    - Ask dev/platform teams for a quick spot-check of newly added/updated npm packages in the last 30 days; flag unknown or rarely used packages for review.  \n    - Monitor proxy/NGFW logs for developer systems contacting suspicious npm or third-party package domains outside the usual registries; alert on anomalous downloads/install bursts.\n\n- **LangChain core vulnerability enabling prompt injection/data exposure**\n  - What happened: Vulnerability in LangChain core allows prompt injection and sensitive data exposure from LLM-integrated apps.\n  - Why it matters operationally: Any internal tools, chatbots, or automation pipelines built on LangChain and tied to production data or credentials could be exfiltrating information via crafted prompts or external content.\n  - Recommended immediate actions for the SOC today:  \n    - Identify any production or pilot LLM apps using LangChain; enforce temporary restrictions on connecting those apps to sensitive data sources until patched/hardened.  \n    - Monitor outbound traffic from LLM app hosts for unusual destinations or data volumes, and watch app logs for unexpected prompt content or high error/timeout rates.\n\n---\n\n### Monitoring & detection recommendations\n\n- **MongoDB / MongoBleed**\n  - Log sources: Firewall/NGFW, netflow, MongoDB logs if available.  \n  - Focus: New source IPs hitting 27017, failed auth anomalies (if auth enabled), abrupt spikes in find/aggregate operations; correlate with external scanning spikes. (ATT&CK T1595, T1005)\n\n- **React2Shell exploitation attempts**\n  - Log sources: WAF, web server logs, reverse proxies, load balancers.  \n  - Focus: Suspicious POST requests with OS commands, encoded payloads, or abnormal headers to React/Node endpoints; 4xx/5xx error bursts tied to few IPs; WAF “command injection” / “RCE” signatures. (T1190, T1059)\n\n- **EDR freeze / ransomware precursors**\n  - Log sources: EDR, Windows event logs (Sysmon if available), central logging.  \n  - Focus: Hosts where EDR events suddenly stop but Windows logs continue; services stopping/starting security processes, abnormal kernel driver loads, unsigned binaries performing high-volume file writes or shadow copy deletion. (T1562, T1486)\n\n- **Malicious npm / supply-chain**\n  - Log sources: Proxy/NGFW, DNS, EDR on dev/build servers, CI/CD logs.  \n  - Focus: Developer endpoints or build servers installing new npm packages from non-standard registries; scripts spawning browsers, access to credential stores, or messaging apps (e.g., WhatsApp desktop). (T1195, T1555)\n\n- **LangChain / LLM app misuse**\n  - Log sources: Application logs, API gateways, data access logs, outbound proxy logs.  \n  - Focus: LLM apps making unexpected large data pulls from DBs or file shares; unknown users/clients sending long or highly encoded prompts; abnormal outbound connections from LLM backends to unapproved domains. (T1071, T1020)\n\n- **General scanning / exploitation surge**\n  - Log sources: Perimeter firewalls, IDS/IPS, cloud security tools (WAF, security groups).  \n  - Focus: Increases in inbound scans to web ports (80/443) and DB ports (27017, 1433, 3306, etc.); repeated 401/403 patterns followed by successful logins from same IP. (T1133, T1110)\n\n- **Account misuse / lateral movement after web/DB compromise**\n  - Log sources: IdP (SSO logs), AD, VPN, PAM, EDR.  \n  - Focus: New device logins for privileged accounts, logins from rare geos/ASNs, abnormal Kerberos ticket patterns, and new remote service usage following a web or DB alert. (T1078, T1021)\n\n---\n\n### Medium-term follow-ups\n\n- **Inventory and hardening of databases**\n  - Complete an updated inventory of all MongoDB (and other DB) instances; ensure network segregation, TLS, auth, strong configuration baselines, and regular patch process.\n\n- **Modern web stack security posture**\n  - Work with app/dev to maintain SBOMs for React/Node stacks; integrate SAST/DAST and dependency scanning into CI/CD; ensure WAF coverage with modern rule sets.\n\n- **EDR resilience testing**\n  - Run red-team or purple-team exercises focusing on EDR evasion/freeze techniques; validate alerting on agent tampering, telemetry gaps, and ransomware precursors.\n\n- **Supply-chain governance for npm and other ecosystems**\n  - Formalize an approved package registry list, establish review for new/high-risk packages, and integrate software composition analysis (SCA) into all build pipelines.\n\n- **LLM/AI security standards**\n  - Define baseline security requirements for LLM-based tools (including LangChain): data classification controls, prompt injection defenses, logging, and external connector restrictions.\n\n- **Regulatory and incident response lessons**\n  - Use the OrthopedicsNY fine as a reminder to review our own breach notification, logging, and evidence-retention posture to ensure we can support regulatory inquiries after incidents.",
+  "source_total_items": 7193,
+  "total_items_in_window_all": 83,
+  "total_items_in_window_curated": 26,
+  "morning_call_markdown": "### Executive Summary\n- Active exploitation of MongoBleed (CVE-2025-14847) in MongoDB is exposing secrets and databases at scale; 87K+ servers reportedly vulnerable and real breaches reported.\n- Multiple real-world incidents (Ubisoft, panicked Reddit orgs) show misconfigured or unpatched MongoDB in internet-facing environments is being hit rapidly.\n- Ongoing credential/data leaks and insider misuse (Coinbase, Wired, healthcare sector) highlight the need to tighten data access monitoring and leaked-credential detection.\n\n---\n\n### High-priority items (immediate attention)\n\n**1) MongoBleed – Critical MongoDB flaw (CVE-2025-14847) exploited in the wild**\n\n- What happened  \n  - Critical MongoDB vulnerability (\"MongoBleed\") plus misconfig exposures are leaking secrets; 87K+ servers exposed and multiple confirmed breaches (e.g., game servers).\n\n- Why it matters operationally  \n  - If we run MongoDB (self‑hosted, containers, cloud VMs) this is a likely initial access/vector for full database theft and downstream credential abuse.\n\n- Recommended immediate actions for the SOC today  \n  - Coordinate with infra/app teams to urgently identify all MongoDB instances (on‑prem, cloud, containers), especially internet‑facing.  \n  - Check latest vendor guidance for CVE-2025-14847 and verify patching/hardening status; if unknown, escalate as critical.  \n  - Hunt for suspicious MongoDB access: spikes in unauthenticated connections, large read/export operations, new IPs hitting MongoDB ports (default 27017) from internet.\n\n---\n\n**2) Active targeting of gaming/consumer platforms via MongoBleed (indicator of broader scanning)**\n\n- What happened  \n  - Ubisoft Rainbow Six Siege servers and other public services were reportedly breached by exploiting MongoBleed/misconfigured MongoDB.\n\n- Why it matters operationally  \n  - Mass internet scanning for vulnerable MongoDB is underway; our exposed services or shared hosting providers could be probed in the same campaigns.\n\n- Recommended immediate actions for the SOC today  \n  - Review perimeter firewall/WAF logs for connections to MongoDB ports from unfamiliar external IPs in the last 7 days; escalate any high-volume or scripted access patterns.  \n  - If any MongoDB is internet‑reachable, request temporary network restriction (VPN-only / IP allowlisting) until patching and config review are completed.\n\n---\n\n**3) Panic reports from organizations on Reddit about exposed MongoDB company databases**\n\n- What happened  \n  - Multiple admins report discovering that their “entire company database” is exposed due to the MongoDB bug/misconfig, some finding it only after public coverage.\n\n- Why it matters operationally  \n  - Demonstrates that many environments are unaware of their MongoDB exposure; we must assume shadow / legacy instances may exist outside standard CMDB.\n\n- Recommended immediate actions for the SOC today  \n  - Ask infra and cloud teams for an emergency inventory validation: cross‑check CMDB vs. live network/cloud scans (e.g., Shodan-like queries, internal nmap) for MongoDB.  \n  - For any newly discovered MongoDB, immediately pull access logs, enable auth/TLS if missing, and hunt for bulk read/export, new DB users, or unusual admin activity.\n\n---\n\n**4) Growing abuse of open-source tools as post-exploitation RATs (Nezha)**\n\n- What happened  \n  - Reports show the open‑source Nezha tool being used as a post‑exploitation remote access trojan, masquerading as benign tooling.\n\n- Why it matters operationally  \n  - Adversaries are using “legit‑looking” agents to maintain C2; these can bypass simple signature-based rules and blend into IT tooling.\n\n- Recommended immediate actions for the SOC today  \n  - Hunt for unknown/unauthorized remote monitoring agents or “helpers” on servers and workstations (new services, scheduled tasks, or daemons added recently).  \n  - In EDR, flag binaries and processes establishing long‑lived outbound connections to uncommon domains/ports from servers that normally have limited egress.\n\n---\n\n**5) Insider / credential misuse and data leaks (Coinbase agent, Wired DB breach, healthcare breaches)**\n\n- What happened  \n  - Multiple incidents where insiders or compromised accounts exfiltrated subscriber/customer data; large subscriber DB (Wired) and multiple healthcare orgs impacted.\n\n- Why it matters operationally  \n  - Reinforces risk of privileged account abuse and credential theft; attackers often monetize stolen email/address data via phishing and fraud against financial services.\n\n- Recommended immediate actions for the SOC today  \n  - Intensify monitoring for anomalous data access by privileged accounts: unusual export/report runs, off‑hours access, and atypical client locations/devices.  \n  - Validate that our leaked credential monitoring (commercial or OSINT feeds) is functioning and on‑call knows the playbook when new org accounts are found in dumps.\n\n---\n\n### Monitoring & detection recommendations\n\n- **MongoBleed / MongoDB exploitation (Initial Access – T1190, Data from Databases – T1025)**  \n  - Log sources: MongoDB audit logs, host logs, firewall, cloud security logs.  \n  - Hunt for: unauthenticated connections, new IPs hitting 27017, rapid sequential reads across many collections, large outbound data transfer from DB hosts.\n\n- **Perimeter scanning and exploitation attempts**  \n  - Log sources: firewalls, NIDS/WAF, cloud load balancers.  \n  - Hunt for: repeated connection attempts to MongoDB or other DB ports from single IPs, generic HTTP user-agents or scripts probing many IPs/ports.\n\n- **Post-exploitation RATs / Nezha-style tools (Command & Control – T1071, T1105)**  \n  - Log sources: EDR, proxy, DNS, netflow.  \n  - Hunt for: new binaries installed shortly after privilege escalation or webshell activity, long-duration outbound sessions to low-reputation domains or VPS providers.\n\n- **Data exfiltration/DB dumps (Exfiltration – T1041)**  \n  - Log sources: DLP, DB logs, storage logs, proxy/netflow.  \n  - Hunt for: sudden spikes in DB export commands, compression tools (7z/rar/zip) shortly before large outbound transfers, large responses from DB servers to single clients.\n\n- **Privileged/insider misuse (Valid Accounts – T1078, Abuse of Privileges – T1098)**  \n  - Log sources: IdP, PAM, DB/app audit, HR joiner/mover/leaver feeds.  \n  - Hunt for: admins accessing datasets/apps outside normal duties, off‑hours large queries, logins from atypical geos/ISPs, shared account usage anomalies.\n\n- **Leaked credentials and account takeover (Credential Access – T1552, T1110)**  \n  - Log sources: IdP, VPN, web SSO, email security.  \n  - Hunt for: password spraying patterns, multiple failed logins followed by success from new IP, MFA fatigue prompts, newly-enrolled devices for existing users.\n\n- **Cloud-hosted DB and shadow IT exposure**  \n  - Log sources: Cloud provider inventory (CSPM), security groups, flow logs.  \n  - Hunt for: unmanaged VMs/containers exposing MongoDB or other DB ports, security groups with 0.0.0.0/0 on DB ports, untagged resources not in CMDB.\n\n- **Suspicious use of on-box compilers and scripting (T1059, T1127)**  \n  - Log sources: EDR, Sysmon, application logs.  \n  - Hunt for: unexpected use of csc.exe, powershell.exe, python, etc., especially on servers, running from temp/user-writable directories or invoked by web server processes.\n\n---\n\n### Medium-term follow-ups\n\n- **Formal MongoDB hardening standard**  \n  - Define and enforce baseline: auth required, TLS enabled, no internet-facing exposure without strong justification, backups encrypted, and logging/auditing mandatory.\n\n- **Asset discovery and CMDB accuracy**  \n  - Improve routine discovery of databases and services (internal scanning + CSPM) and tie into CMDB so “forgotten” MongoDB instances cannot exist unmanaged.\n\n- **Vendor and third-party exposure review**  \n  - Ask key service providers (including SaaS used for customer contact/marketing) to confirm they are not exposed to MongoBleed and have patched/validated configs.\n\n- **Strengthen insider threat and privileged access monitoring**  \n  - Enhance UEBA rules, require least-privilege access for customer data, and ensure regular review of high-risk roles (support agents, DBAs, operations).\n\n- **Leaked credentials program maturity**  \n  - Formalize process for ingesting credential leak intel, mapping to corporate identities, forcing resets, and assessing whether further IR is needed.\n\n- **Training and tabletop**  \n  - Run a short tabletop focused on “internet-exposed DB breach” and “insider data exfiltration” to test incident playbooks, notification paths, and legal/PR coordination.",
   "highlights": [
     {
-      "title": "87,000+ MongoDB Instances Vulnerable to MongoBleed Flaw Exposed Online – PoC Exploit Released",
-      "link": "https://cybersecuritynews.com/mongobleed/",
-      "source": "Cyber Security News (FeedBurner)",
-      "published": "2025-12-28T03:41:34+00:00",
+      "title": "Automation forces a reset in security strategy",
+      "link": "https://www.helpnetsecurity.com/2025/12/29/trellix-hybrid-security-infrastructure-report/",
+      "source": "Help Net Security",
+      "published": "2025-12-29T05:30:25+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "MongoBleed Detector Launched to Identify Critical MongoDB Flaw (CVE-2025-14847)",
+      "link": "https://gbhackers.com/mongobleed-detector-launched-to-identify-critical-mongodb-flaw/",
+      "source": "GBHackers News",
+      "published": "2025-12-29T05:03:23+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs",
@@ -24,114 +35,95 @@
       "curated": true
     },
     {
-      "title": "OrthopedicsNY fined $500K by NYS for patient data breach",
-      "link": "https://databreaches.net/2025/12/27/orthopedicsny-fined-500k-by-nys-for-patient-data-breach/?pk_campaign=feed&pk_kwd=orthopedicsny-fined-500k-by-nys-for-patient-data-breach",
-      "source": "DataBreaches.net",
-      "published": "2025-12-27T22:56:21+00:00",
+      "title": "Your SBOM reports what you intended to ship. What's actually executing in production?",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1pyccu0/your_sbom_reports_what_you_intended_to_ship_whats/",
+      "source": "/r/cybersecurity",
+      "published": "2025-12-29T04:18:01+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs",
-        "Network / OT / ICS",
-        "Data Breaches / Leaks"
+        "Exploit / PoC"
       ],
       "curated": true
     },
     {
-      "title": "Emerge's 2025 Tech Trend of The Year: Quantum Computing Stopped Being Background Noise",
-      "link": "https://decrypt.co/351363/2025-the-year-quantum-computing-stopped-being-background-noise",
-      "source": "Decrypt",
-      "published": "2025-12-27T20:01:02+00:00",
+      "title": "Bitcoin helps USD's reserve status ‘in a strange way’: Coinbase CEO",
+      "link": "https://cointelegraph.com/news/bitcoin-helps-us-dollar-reserve-status-coinbase-ceo?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "published": "2025-12-29T03:48:22+00:00",
       "smart_groups": [
         "Curated",
-        "Vulnerabilities / CVEs"
+        "Vulnerabilities / CVEs",
+        "Crypto / Web3"
       ],
       "curated": true
     },
     {
-      "title": "LangChain core vulnerability allows prompt injection and data exposure",
-      "link": "https://securityaffairs.com/186185/hacking/langchain-core-vulnerability-allows-prompt-injection-and-data-exposure.html",
-      "source": "Security Affairs",
-      "published": "2025-12-27T18:20:16+00:00",
+      "title": "Hackers Claim Breach of WIRED Database Containing 2.3 million Subscriber Records",
+      "link": "https://cybersecuritynews.com/wired-database-breach/",
+      "source": "Cyber Security News (FeedBurner)",
+      "published": "2025-12-29T02:48:14+00:00",
       "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
+        "Curated"
       ],
       "curated": true
     },
     {
-      "title": "I made an infosec news roundup YouTube channel (Infosec Now)",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1pwz9d9/i_made_an_infosec_news_roundup_youtube_channel/",
+      "title": "MongoDB Vuln",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1py7liq/mongodb_vuln/",
       "source": "/r/cybersecurity",
-      "published": "2025-12-27T14:35:45+00:00",
+      "published": "2025-12-29T00:39:05+00:00",
       "smart_groups": [
         "Curated",
-        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Flow validators urged to halt work after divisive blockchain rollback",
+      "link": "https://cointelegraph.com/news/flow-validators-urged-halt-work-after-chain-rollback?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "published": "2025-12-29T00:33:37+00:00",
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Exploited MongoBleed flaw leaks MongoDB secrets, 87K servers exposed",
+      "link": "https://www.bleepingcomputer.com/news/security/exploited-mongobleed-flaw-leaks-mongodb-secrets-87k-servers-exposed/",
+      "source": "BleepingComputer",
+      "published": "2025-12-28T20:38:15+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Hacker Who Stole Millions in Seconds Finally Caught",
+      "link": "https://databreaches.net/2025/12/28/hacker-who-stole-millions-in-seconds-finally-caught/?pk_campaign=feed&pk_kwd=hacker-who-stole-millions-in-seconds-finally-caught",
+      "source": "DataBreaches.net",
+      "published": "2025-12-28T20:04:56+00:00",
+      "smart_groups": [
+        "Curated",
         "Vulnerabilities / CVEs",
         "Malware / Payloads",
-        "Network / OT / ICS",
-        "Data Breaches / Leaks"
+        "Crypto / Web3"
       ],
       "curated": true
     },
     {
-      "title": "Mongobleed - CVE-2025-14847",
-      "link": "https://www.reddit.com/r/netsec/comments/1pwxku1/mongobleed_cve202514847/",
-      "source": "/r/netsec",
-      "published": "2025-12-27T13:15:07+00:00",
+      "title": "Open-source local LLM for cryptographic compliance assessment (NIS2, PCI-DSS, post-quantum)",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1py0yed/opensource_local_llm_for_cryptographic_compliance/",
+      "source": "/r/cybersecurity",
+      "published": "2025-12-28T20:03:44+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Chinese Hackers Exploited The Recently Revealed React2Shell Vulnerability",
-      "link": "https://www.news4hackers.com/chinese-hackers-exploited-the-recently-revealed-react2shell-vulnerability/",
-      "source": "News4Hackers",
-      "published": "2025-12-27T12:18:48+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Forensic Insights into an EDR Freeze Attack",
-      "link": "https://detect.fyi/forensic-insights-into-an-edr-freeze-attack-e559b0e50a91?source=rss----d5fd8f494f6a---4",
-      "source": "Detect.fyi",
-      "published": "2025-12-27T12:09:37+00:00",
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Windows / Microsoft"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Mongobleed PoC Exploit Tool Released for MongoDB Flaw that Exposes Sensitive Data",
-      "link": "https://cybersecuritynews.com/mongobleed-poc-exploit-mongodb/",
-      "source": "Cyber Security News (FeedBurner)",
-      "published": "2025-12-27T12:00:42+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Self-hosted secure messenger for closed user groups — E2E encryption, no screenshots, remote wipe, self-destruct",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1pwux9z/selfhosted_secure_messenger_for_closed_user/",
-      "source": "/r/cybersecurity",
-      "published": "2025-12-27T10:40:59+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Network / OT / ICS",
-        "Crypto / Web3"
       ],
       "curated": true
     }
