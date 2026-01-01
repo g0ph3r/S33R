@@ -150,5 +150,98 @@
     "published_ts": 1768305600,
     "smart_groups": [],
     "curated": false
+  },
+  {
+    "title": "Critical vulnerability in IBM API Connect could allow authentication bypass",
+    "summary": "IBM is urging customers to quickly patch a critical vulnerability in its API Connect platform that could allow remote attackers to bypass authentication. The company describes API Connect as a full lifecycle application programming interface (API) gateway used “to create, test, manage, secure, analyze, and socialize APIs.” It particularly touts it as a way to “unlock the potential of agentic AI” by providing a central point of control for access to AI services via APIs. The platform also includes API Agent, which automates tasks across the API lifecycle using AI. A key component is a customizable self-service portal that allows developers to easily onboard themselves, and to discover and consume multiple types of API, including SOAP, REST, events, ASyncAPIs, GraphQL, and others. The flaw, tracked as CVE-2025-13915 , affects IBM API Connect versions 10.0.8.0 through 10.0.8.5, and version 10.0.11.0, and could give unauthorized access to the exposed applications, with no user interaction required. An architectural assumption is broken “CVE-2025-13915 is not best understood as a security bug,” said Sanchit Vir Gogia , chief analyst at Greyhound Research. “It is better understood as a moment where a long standing architectural assumption finally breaks in the open. The assumption is simple and deeply embedded in enterprise design: If traffic passes through the API gateway, identity has been enforced and trust has been established. This vulnerability proves that assumption can fail completely.” He noted that the classification of the weakness, which maps to CWE-305 , is important because it rules out a whole class of what he called comforting explanations. “This is not stolen credentials. It is not role misconfiguration. It is not a permissions mistake,” he said. “The authentication enforcement itself can be circumvented.” When that happens, he explained, downstream services do not simply face elevated risk, they lose the foundation on which their access decisions were built because they do not revalidate identity. They were never designed to; they inherit trust. “Once enforcement fails upstream, inherited trust becomes unearned trust, and the exposure propagates silently,” he said. “This class of vulnerability aligns with automation, broad scanning, and opportunistic probing rather than careful targeting.” Interim fixes provided IBM said that the issue was discovered during internal testing, and it has provided interim fixes for each affected version of the software, with individual update details for VMware, OCP/CP4I, and Kubernetes. The only mitigation suggested for the flaw, according to IBM’s security bulletin , is this: “Customers unable to install the interim fix should disable self-service sign-up on their Developer Portal if enabled, which will help minimize their exposure to this vulnerability.” The company also notes in its installation instructions for the fixes that the image overrides described in the document must be removed when upgrading to the next release or fixpack. This, said Gogia, further elevates the risk. “That is not a cosmetic detail,” he noted. “Management planes define configuration truth, lifecycle control, and operational authority across the platform. When remediation touches this layer, the vulnerability sits close to the control core, not at an isolated gateway edge. That raises both blast radius and remediation risk.” This is because errors in these areas can turn into prolonged exposure or service instability. “[Image overrides] also introduce a governance hazard: Image overrides create shadow state; if they are not explicitly removed later, they persist quietly,” he pointed out. “Over time, they drift out of visibility, ownership, and audit scope. This is how temporary fixes turn into long term risk.” Most valuable outcome: Learning He added that the operational challenges involved in remediation are not so much in knowing what has to be done, but in doing it fast enough without breaking the business. And, he said, API governance now needs to include up to date inventories of APIs, their versions, dependencies, and exposure points, as well as monitoring of behavior. “The most valuable outcome here is not closure,” Gogia observed. “It is learning. Enterprises should ask what would have happened if this flaw had been exploited quietly for weeks. Which services would have trusted the gateway implicitly? Which logs would have shown abnormal behavior? Which teams would have noticed first? Those answers reveal whether trust assumptions are visible or invisible. Organizations that stop at patching will miss a rare opportunity to strengthen resilience before the next control plane failure arrives.” This article originally appeared on InfoWorld .",
+    "link": "https://www.csoonline.com/article/4112265/critical-vulnerability-in-ibm-api-connect-could-allow-authentication-bypass-2.html",
+    "source": "CSO Online",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-01-01T01:55:48+00:00",
+    "published_ts": 1767232548,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC",
+      "Cloud / SaaS",
+      "Web / API Security",
+      "Crypto / Web3"
+    ],
+    "curated": true
+  },
+  {
+    "title": "CFTC director who made Bitcoin futures possible returns as chief of staff",
+    "summary": "Amir Zaidi’s return signals a strengthening of crypto oversight as the agency prepares for new digital asset laws.",
+    "link": "https://cointelegraph.com/news/cftc-division-director-who-made-bitcoin-futures-possible-returns-as-chief-of-staff?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-01-01T01:49:03+00:00",
+    "published_ts": 1767232143,
+    "smart_groups": [
+      "Cloud / SaaS"
+    ],
+    "curated": false
+  },
+  {
+    "title": "India’s central bank urges countries to prioritize CBDCs over stablecoins",
+    "summary": "Only three CBDCs have been successfully launched around the world so far, in Nigeria, the Bahamas and Jamaica, although many jurisdictions are considering it.",
+    "link": "https://cointelegraph.com/news/india-central-bank-cbdc-vs-stablecoins?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-01-01T01:26:40+00:00",
+    "published_ts": 1767230800,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "How to disable ACR on your TV (and why doing so makes such a big difference)",
+    "summary": "Your Samsung, LG, and even Sony TV comes with notable privacy risks. Here's how to avoid one of the biggest with just a few steps.",
+    "link": "https://www.zdnet.com/article/how-to-disable-acr-on-tv-why/",
+    "source": "ZDNet – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-01-01T01:00:45+00:00",
+    "published_ts": 1767229245,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Digital ID, CBDCs risk turning US into ‘surveillance state’: US rep",
+    "summary": "US Representative Warren Davidson said the stablecoin-focused GENIUS Act may backfire on Americans by stripping them of their financial freedom and privacy.",
+    "link": "https://cointelegraph.com/news/us-risks-becoming-surveillance-state-cbdc-digital-id?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-01-01T00:36:21+00:00",
+    "published_ts": 1767227781,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Do you think jobs in Cybersecurity are at risk because of AI",
+    "summary": "As AI keeps advancing in IT, jobs in many IT related fields are being eliminated. Do you think Cybersecurity jobs (to some extent) are also at risk of being partially eliminated? What are your thoughts and views. submitted by /u/tgfzmqpfwe987cybrtch [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1q0rj6u/do_you_think_jobs_in_cybersecurity_are_at_risk/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-01-01T00:35:06+00:00",
+    "published_ts": 1767227706,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "NYC Mayoral Inauguration officially bans Flipper Zero and Raspberry Pi devices",
+    "summary": "Saw this interesting bit of \"security theater\" for NYC's 2026 mayoral inauguration. The official banned items list explicitly names Flipper Zero and Raspberry Pi devices alongside weapons and explosives. The ironic part? Laptops and smartphones aren't banned. So you can't bring a Pi, but you can bring a laptop running Kali, or a phone with NetHunter. It's a pretty clear case of singling out specific tools based on their reputation rather than their actual capability. Event organizers haven't explained why they were singled out. Feels like a policy written by someone who knows just enough to recognize the names of these devices, but not enough to understand what they actually do. submitted by /u/tutezapf [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1q0r2gj/nyc_mayoral_inauguration_officially_bans_flipper/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-01-01T00:10:19+00:00",
+    "published_ts": 1767226219,
+    "smart_groups": [],
+    "curated": false
   }
 ]
