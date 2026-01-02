@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-01-01T06:49:54.120208+00:00",
-  "analysis_date": "2026-01-01",
+  "generated_at": "2026-01-02T06:50:24.023152+00:00",
+  "analysis_date": "2026-01-02",
   "model": "gpt-5.1",
   "window_hours": 24,
   "source_file": "data/news_recent.json",
-  "source_generated_at": "2026-01-01T05:55:52.812534+00:00",
+  "source_generated_at": "2026-01-02T05:49:40.449154+00:00",
   "source_days_back": 30,
-  "source_total_items": 7057,
-  "total_items_in_window_all": 130,
-  "total_items_in_window_curated": 35,
-  "morning_call_markdown": "### Executive Summary\n- Critical auth bypass in IBM API Connect and other new high‑severity backend flaws (MongoDB “MongoBleed”, SmarterMail RCE, Apache StreamPipes) are being actively discussed and in some cases exploited; review exposure and monitoring today.\n- Multiple supply-chain and developer-tooling abuse cases (Trust Wallet Chrome extension compromise, GlassWorm VS Code malware, new C2 framework AdaptixC2) highlight increased risk from developer/end‑user extensions and open-source components.\n- Ransomware and data‑leak activity (ASUS, Korean Air, Cl0p, Everest, ALPHV/BlackCat operators) continues; double‑extortion + insider‑like abuse remain a realistic threat model for financials.\n\n---\n\n### High-priority items (immediate attention)\n\n- **IBM API Connect critical auth bypass (CVE – remote, unauth access)**\n  - What happened: IBM disclosed a critical vulnerability in API Connect enabling remote authentication bypass on affected gateways/management components.\n  - Why it matters: Any exposed API Connect instance (on‑prem or cloud) could allow attackers to access or manipulate APIs that front core services or integrations.\n  - Recommended immediate actions: Identify whether we or key vendors use IBM API Connect; if yes, confirm patch/mitigation status with owners today and increase logging/alerting for anomalous API admin/auth events.\n\n- **MongoBleed (CVE‑2025‑14847) – mass exploitation of MongoDB**\n  - What happened: Large‑scale exploitation of MongoBleed affecting MongoDB instances in US, EU, China, with active data theft/wiping.\n  - Why it matters: Any internet‑exposed or misconfigured MongoDB in our environment or vendors could lead to data exfiltration or destructive attacks.\n  - Recommended immediate actions: Validate no MongoDB instances are directly internet‑exposed without auth; threat hunt for unusual MongoDB access patterns (new IPs, mass reads/dumps) in infra and critical vendors’ environments where we have telemetry.\n\n- **Critical RCE / takeover in SmarterMail and Apache StreamPipes**\n  - What happened: Singapore CSA flagged a max‑severity SmarterMail RCE; separate advisory for critical Apache StreamPipes vuln allowing admin takeover.\n  - Why it matters: These platforms, if present and exposed, could act as initial access points into internal networks or be abused for email/user impersonation and data theft.\n  - Recommended immediate actions: Quickly inventory whether these products exist in our estate or in third‑party managed zones; if present and unpatched, isolate from internet, restrict access (VPN‑only), and prioritize emergency patching.\n\n- **Supply-chain attack on Trust Wallet Chrome extension (Shai‑Hulud)**\n  - What happened: Malicious update in Trust Wallet’s Chrome extension led to $8.5M theft via compromised supply chain.\n  - Why it matters: Demonstrates realistic risk of browser extension supply‑chain compromise for any staff using crypto/finance‑related extensions on corporate devices or browsers used for sensitive apps.\n  - Recommended immediate actions: Confirm we have controls on browser extensions (policy/allowlists); for EDR‑covered endpoints, review for presence/use of wallet/finance extensions and unusual browser processes or clipboard scraping behavior.\n\n- **Developer‑focused threats: GlassWorm VS Code worm + AdaptixC2 release**\n  - What happened: New self‑propagating malware “GlassWorm” abuses VS Code extensions on macOS; new open‑source C2 (AdaptixC2) released with improved capabilities.\n  - Why it matters: Dev endpoints are high‑value; malicious VS Code extensions or modern C2 frameworks could enable stealthy lateral movement from developer workstations into critical systems.\n  - Recommended immediate actions: Check for unmanaged/custom VS Code extensions on dev endpoints (macOS and others); increase scrutiny on outbound C2‑like traffic from dev subnets and enforce dev workstation hardening policies.\n\n---\n\n### Monitoring & detection recommendations\n\n- **API & gateway abuse (IBM API Connect, StreamPipes)**\n  - Log sources: API gateway logs, WAF, reverse proxies, container logs.\n  - Hunt for: Anonymous or new source IPs performing admin/API configuration actions, spikes in 401→200 transitions, unusual JWT/OAuth anomalies.  \n    - MITRE: T1190 (Exploit Public‑Facing App), T1133 (External Remote Services).\n\n- **Database exploitation (MongoBleed / MongoDB)**\n  - Log sources: MongoDB logs, OS logs on DB hosts, firewall/NGFW, cloud security groups.\n  - Hunt for: Direct internet connections to MongoDB ports (e.g., 27017), large “find”/dump operations from new IPs, auth disabled or changed configs, sudden DB size changes.  \n    - MITRE: T1005 (Data from Local System), T1565.001 (Stored Data Manipulation).\n\n- **Email + web exploitation (SmarterMail, tax‑themed ValleyRAT)**\n  - Log sources: Secure email gateway, mail server logs, EDR, DNS proxy.\n  - Hunt for: Tax/payment‑themed lures with attachments/links, executable archives, or macros; SmarterMail admin logins from unusual IPs or geo; process trees with mail server spawning shells or web shells.  \n    - MITRE: T1566 (Phishing), T1059 (Command Execution).\n\n- **Supply-chain / extension abuse (Trust Wallet Chrome, GlassWorm VS Code)**\n  - Log sources: EDR on endpoints, browser extension inventory, MDM, proxy logs.\n  - Hunt for: New or updated extensions outside allowlist; extensions making network calls to non‑standard domains; VS Code processes spawning shells or network tools; abnormal access to wallet, key, or clipboard data.  \n    - MITRE: T1204 (User Execution), T1105 (Ingress Tool Transfer).\n\n- **Ransomware and data‑leak patterns (Everest, Cl0p, BlackCat)**\n  - Log sources: EDR, file servers, backup systems, DLP, VPN/IdP logs.\n  - Hunt for: Mass file renames/encryption behavior; large outbound data transfers (especially compressed archives) to unfamiliar destinations; domain accounts doing abnormal file access; VPN logins from atypical regions/device fingerprints.  \n    - MITRE: T1486 (Data Encryption), T1041 (Exfil over C2 Channel).\n\n- **C2 and offensive tooling (AdaptixC2, AI‑assisted exploitation)**\n  - Log sources: Network IDS/IPS, firewall, EDR, DNS logs.\n  - Hunt for: Beacon‑like outbound traffic (periodic low‑volume HTTPS/WebSocket) to newly registered domains or uncommon ports; PowerShell/CLI activity fetching binaries/scripts from paste sites or code repos.  \n    - MITRE: T1071 (Web Protocols), T1105, T1059.001 (PowerShell).\n\n- **Developer and CI/CD environments (VS Code, Go tooling issues)**\n  - Log sources: Dev endpoint EDR, SCM logs, CI/CD platform logs.\n  - Hunt for: Unusual commit activity outside working hours, new build scripts or dependencies added without approvals, unsigned binaries entering pipelines from dev endpoints.  \n    - MITRE: T1195 (Supply Chain Compromise), T1552 (Unsecured Credentials).\n\n- **Insider‑like ransomware behavior (BlackCat case with “security pros”)**\n  - Log sources: IdP, VPN, EDR, privileged access management logs.\n  - Hunt for: Admins running encryption tools, modifying backups, disabling AV/EDR, or creating new service accounts; privilege escalations followed by data compression/exfil.  \n    - MITRE: T1078 (Valid Accounts), T1489 (Service Stop), T1565 (Data Manipulation).\n\n---\n\n### Medium-term follow-ups\n\n- **Patch and exposure review**\n  - Confirm asset owners and patch plans for IBM API Connect, MongoDB, SmarterMail, Apache StreamPipes, and any other externally facing middleware; ensure they are in our standard internet‑facing hardening baseline.\n\n- **Browser and extension governance**\n  - Tighten policies and technical controls for browser extensions on corporate endpoints (allowlists, monitoring, explicit ban on crypto wallets and risky add‑ons on work devices).\n\n- **Developer workstation and toolchain hardening**\n  - Implement/refresh policies for VS Code extensions, package managers, and open-source tooling; ensure dev endpoints have full EDR coverage, least privilege, and regular audits.\n\n- **Ransomware tabletop and insider threat scenarios**\n  - Update IR playbooks and run a tabletop that includes: double‑extortion, use of legitimate admin tools, and “trusted insider/contractor” abuse matching recent ALPHV/BlackCat cases.\n\n- **Third‑party and supplier risk**\n  - Engage vendor management to verify whether critical suppliers use the affected technologies (API Connect, MongoDB, SmarterMail, Trust Wallet, etc.) and confirm their mitigation status.\n\n- **Awareness refresh (phishing, romance/AI scams, social engineering)**\n  - Incorporate recent AI‑assisted scams and tax/payment‑themed lures into the next awareness campaign, with emphasis on staff who handle payments, HR, and high‑value personal data.",
+  "source_total_items": 6842,
+  "total_items_in_window_all": 95,
+  "total_items_in_window_curated": 25,
+  "morning_call_markdown": "### Executive Summary\n- Active exploitation of the React2Shell vulnerability by the RondoDox botnet is driving compromise of IoT devices and web servers; treat as a live, internet-facing threat vector.\n- Ongoing supply-chain targeting of crypto/finance users (Trust Wallet Shai‑Hulud, trojanized Mac crypto wallets) underscores increased risk to customers and staff using personal wallets and related apps.\n- MongoBleed (CVE‑2025‑14847) memory corruption in MongoDB and other 2025 “top exploited” CVEs highlight the need to prioritize patch validation and exploit monitoring on externally exposed services and cloud/SaaS stacks.\n\n---\n\n### High-priority items (immediate attention)\n\n- **React2Shell exploited by RondoDox botnet (IoT & web servers) – Items 19 & 23**\n  - What happened: RondoDox botnet is actively exploiting the React2Shell vulnerability to hijack IoT devices and web servers for miners and malware.\n  - Why it matters operationally: Any exposed web front-end or lightweight Linux host (including DMZ services, branch routers, monitoring appliances) could become a foothold for lateral movement or DDoS infrastructure.\n  - Recommended immediate actions for the SOC today:  \n    - Ask platform/infra teams to urgently confirm whether any React2Shell‑affected software is in use and externally exposed; if unknown, treat as at‑risk and start traffic review.  \n    - Hunt for new/abnormal outbound connections and crypto‑mining behavior from internet-facing Linux hosts and appliances; increase alerting for web‑shell‑like activity (sudden curl/wget, bash one‑liners) on those systems.\n\n- **MongoBleed (CVE‑2025‑14847) – memory corruption in MongoDB – Item 11**\n  - What happened: Detailed analysis published on MongoBleed (CVE‑2025‑14847), a memory corruption flaw in MongoDB with exploit details and PoC context.\n  - Why it matters operationally: If any MongoDB (self‑hosted or in IaaS) is internet‑facing or reachable from compromised DMZ, this could become a direct data theft or RCE vector.\n  - Recommended immediate actions for the SOC today:  \n    - Obtain from DB/platform teams a list of MongoDB instances, versions, and exposure (internet/DMZ/internal); specifically flag any pre‑patched versions.  \n    - Monitor for anomalous MongoDB commands/logins from unusual sources and for scans to MongoDB ports (default 27017) from the internet; enable/verify detailed MongoDB audit logging where feasible.\n\n- **Crypto / wallet supply‑chain & malware – Trust Wallet Shai‑Hulud, GlassWorm – Items 13 & 17**\n  - What happened: Trust Wallet confirmed a second Shai‑Hulud supply‑chain compromise (USD 8.5M stolen); a new GlassWorm malware wave is targeting macOS via trojanized crypto wallets.\n  - Why it matters operationally: High likelihood of targeting staff and high‑value customers who manage crypto on personal or work‑adjacent devices; potential for credential theft, lateral movement, and reputational impact if employees are compromised.\n  - Recommended immediate actions for the SOC today:  \n    - Enhance EDR and proxy alerts for downloads/installers of wallet apps, especially Trust Wallet and unknown Mac “wallet” packages; flag unsigned/unnotarized installers on macOS.  \n    - Push an urgent internal advisory via comms/awareness: only download wallets from verified official stores; no personal wallet software on corporate endpoints; report any unexpected wallet update prompts.\n\n- **N-able falsely flagged as malware by Microsoft Defender – Item 8**\n  - What happened: Reports that Microsoft Defender is detecting N‑ABLE (remote management tool) as malware, causing operational disruption.\n  - Why it matters operationally: Our remote support tooling or that of key vendors/MSPs could be blocked, leading to false positives, interruptions, and potential confusion with real remote‑admin abuse.\n  - Recommended immediate actions for the SOC today:  \n    - Check current Defender detections for N‑ABLE (or related RMM agents) and coordinate with endpoint team to validate and suppress confirmed false positives via allowlisting policies.  \n    - At the same time, “trust but verify”: ensure all RMM binaries and remote sessions are from expected management servers/users; review for any anomalous RMM usage that could hide behind the FP noise.\n\n- **Insider / professional‑affiliate ransomware risk – ALPHV/BlackCat cases & moonlighting stories – Items 12 & 22**\n  - What happened: Two US cybersecurity professionals pled guilty to acting as ALPHV/BlackCat affiliates; separate reports highlight “moonlighting” defenders involved in ransomware.\n  - Why it matters operationally: Confirms real risk of skilled insiders misusing legitimate access and tools (living‑off‑the‑land) for extortion operations.\n  - Recommended immediate actions for the SOC today:  \n    - Re‑check for privileged users running unusual encryption tools, exfiltration utilities, or bulk file access outside normal change windows; review high‑risk admin accounts for anomalous VPN/SSO behavior.  \n    - Escalate any suspicious activity from internal admin accounts (even if techniques look “legitimate”) for rapid insider‑threat triage.\n\n---\n\n### Monitoring & detection recommendations\n\n- **Botnet / React2Shell exploitation (RondoDox) – Items 19 & 23**\n  - Log sources: Web server logs (Apache/Nginx), WAF, IDS/IPS, Linux EDR, netflow.  \n  - Focus: Look for repeated unusual POSTs to uncommon endpoints, large numbers of 4xx/5xx from unique IPs, and subsequent execution of curl/wget/bash from web server processes (T1190, T1059, T1105).\n\n- **Crypto‑mining and post‑compromise activity**\n  - Log sources: Linux/Unix EDR, process accounting, network telemetry, eBPF where available.  \n  - Focus: Sudden high CPU from web/IoT processes, mining‑pool domains/IPs, long‑lived outbound TCP connections, installation of typical miners (xmrig‑like names) (T1496, T1105).\n\n- **MongoBleed / MongoDB targeting – Item 11**\n  - Log sources: MongoDB audit logs, firewall logs for 27017, cloud security groups, IDS.  \n  - Focus: New external IPs accessing MongoDB, bursts of unauthorized/failed auth, abnormal admin command usage (e.g., listDatabases, dump‑like activity) from unusual clients (T1046, T1005, T1078).\n\n- **Supply‑chain / trojanized crypto‑wallets – Items 13 & 17**\n  - Log sources: EDR (Windows/macOS), web proxy, DNS, mail gateways.  \n  - Focus: Executions of newly seen wallet installers, unsigned or unnotarized macOS binaries, connections to newly registered domains immediately after download; inspect email lures with wallet/update themes (T1204, T1189, T1566).\n\n- **RMM / N‑ABLE anomalies and abuse – Item 8**\n  - Log sources: EDR, RMM server logs, Windows event logs (logon/remote sessions), VPN logs.  \n  - Focus: RMM agents communicating with unexpected controllers, off‑hours remote sessions, RMM execution by non‑IT user accounts, multiple hosts pivoted in quick succession (T1219, T1021).\n\n- **Insider‑style ransomware affiliate behavior – Items 12 & 22**\n  - Log sources: File server logs, DLP, EDR, SIEM correlation of admin accounts.  \n  - Focus: Bulk file access/zip/encryption operations by admins, use of dual‑use tools (Rclone, MEGA clients, 7zip, WinRAR) on servers, large outbound transfers to cloud storage (T1486, T1041, T1078).\n\n- **General external service exploitation & 2025 “top exploited CVEs” – Items 16, 18, 24**\n  - Log sources: Perimeter firewalls, VPN, IDS/IPS, load balancers, cloud WAF.  \n  - Focus: Scanning and exploit‑like patterns to VPN, email gateways, and legacy web apps previously flagged as using 2025‑era vulnerable versions; prioritize abnormal headers, serialized objects, or payloads targeting admin interfaces (T1190).\n\n- **macOS‑focused malware (GlassWorm) – Item 17**\n  - Log sources: macOS EDR, endpoint telemetry, MDM logs.  \n  - Focus: New LaunchAgents/LaunchDaemons, persistence in ~/Library/Launch*, unknown binaries requesting Accessibility or Screen Recording, and outbound traffic from Mac endpoints to uncommon domains (T1547, T1059, T1105).\n\n---\n\n### Medium-term follow-ups\n\n- **Validate exposure and patching for React2Shell and MongoBleed**\n  - Coordinate with architecture/infra to identify exact products using React2Shell and MongoDB instances; ensure patches/workarounds are in change pipeline and that internet exposure is minimized or removed.\n\n- **Review 2025 “top exploited vulnerabilities” against our estate – Item 16**\n  - Map the published 10 high‑risk CVEs to our asset inventory (VPNs, email gateways, security appliances, hypervisors, web frameworks) and confirm patch status and compensating controls.\n\n- **Strengthen wallet / crypto‑related security posture**\n  - Update acceptable‑use policies and endpoint baselines to explicitly address crypto wallets and trading tools on corporate devices; consider adding specific wallet categories in web filtering and application control.\n\n- **Improve IoT and appliance visibility**\n  - Work with network and facilities teams to inventory internet‑reachable IoT and “black box” appliances (cameras, HVAC, printers, security boxes) and onboard them, where possible, to logging/monitoring; segment where not already segmented.\n\n- **Insider‑threat governance and monitoring**\n  - Reassess monitoring coverage and segregation of duties for SOC, admin, and developer accounts; ensure insider‑threat analytics rules include ransomware‑style behaviors (mass encryption, unusual compression, offsite backups).\n\n- **Vendor and MSP dependency review**\n  - Confirm with key vendors/MSPs (especially those using RMM tools like N‑ABLE) that they are aware of current detection quirks, are patching exposed services, and have documented incident‑response expectations and contact paths.",
   "highlights": [
     {
-      "title": "Crypto forces to compound in 2026, accelerating adoption: Coinbase",
-      "link": "https://cointelegraph.com/news/crypto-forces-compound-2026-adoption?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "published": "2026-01-01T04:58:31+00:00",
+      "title": "Apache NuttX Flaw Allows Attackers to Crash Embedded Systems",
+      "link": "https://gbhackers.com/apache-nuttx-flaw-attackers-to-crash-embedded-systems/",
+      "source": "GBHackers News",
+      "published": "2026-01-02T05:27:56+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs"
@@ -23,63 +23,54 @@
       "curated": true
     },
     {
-      "title": "A supplier outage turned into a security incident halfway through incident response",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1q0vpuq/a_supplier_outage_turned_into_a_security_incident/",
-      "source": "/r/cybersecurity",
-      "published": "2026-01-01T04:31:20+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Best phishing awareness platforms for 2025/2026: addressing realism gaps in internal security training.",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1q0vl03/best_phishing_awareness_platforms_for_20252026/",
-      "source": "/r/cybersecurity",
-      "published": "2026-01-01T04:23:36+00:00",
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Network / OT / ICS",
-        "Phishing / Social Engineering"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Critical vulnerability in IBM API Connect could allow authentication bypass",
-      "link": "https://www.csoonline.com/article/4112265/critical-vulnerability-in-ibm-api-connect-could-allow-authentication-bypass-2.html",
+      "title": "Wie KI die Cybersicherheit neu gestaltet",
+      "link": "https://www.csoonline.com/article/4106894/wie-ki-die-cybersicherheit-neu-gestaltet.html",
       "source": "CSO Online",
-      "published": "2026-01-01T01:55:48+00:00",
+      "published": "2026-01-02T04:00:00+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Cloud / SaaS",
-        "Web / API Security",
+        "Identity / Access",
+        "Phishing / Social Engineering",
         "Crypto / Web3"
       ],
       "curated": true
     },
     {
-      "title": "Flagvent 2025",
-      "link": "https://0xdf.gitlab.io/flagvent2025/",
-      "source": "https://0xdf.gitlab.io/feed.xml",
-      "published": "2025-12-31T22:00:00+00:00",
+      "title": "So You Say You Want A House…",
+      "link": "https://medium.com/cloud-security/so-you-say-you-want-a-house-a8ecbcc280fd?source=rss-863161906cc5------2",
+      "source": "Medium – @2ndsightlab",
+      "published": "2026-01-02T03:30:52+00:00",
       "smart_groups": [
         "Curated",
-        "Exploit / PoC",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
         "Cloud / SaaS",
-        "Web / API Security"
+        "Identity / Access",
+        "Crypto / Web3"
       ],
       "curated": true
     },
     {
-      "title": "US lawmakers expected to address market structure markup in January",
-      "link": "https://cointelegraph.com/news/banking-committee-market-structure-markup-january?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "published": "2025-12-31T21:15:01+00:00",
+      "title": "Was CISOs von Moschusochsen lernen können",
+      "link": "https://www.csoonline.com/article/3558811/was-cisos-von-moschusochsen-lernen-konnen.html",
+      "source": "CSO Online",
+      "published": "2026-01-02T03:00:00+00:00",
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Threat Actors / APT",
+        "Identity / Access"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Akylade Cert - thoughts?",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1q1l4bv/akylade_cert_thoughts/",
+      "source": "/r/cybersecurity",
+      "published": "2026-01-02T01:21:31+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs"
@@ -87,50 +78,59 @@
       "curated": true
     },
     {
-      "title": "How an AI-fueled romance scam drained a Bitcoin retirement fund",
-      "link": "https://cointelegraph.com/news/how-an-ai-fueled-romance-scam-drained-a-bitcoin-retirement-fund?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Losses from crypto hacks down 60% in December: PeckShield",
+      "link": "https://cointelegraph.com/news/losses-crypto-hacks-down-60-december?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "Cointelegraph.com News",
-      "published": "2025-12-31T18:16:45+00:00",
+      "published": "2026-01-01T22:02:07+00:00",
       "smart_groups": [
         "Curated",
-        "Vulnerabilities / CVEs",
         "Exploit / PoC"
       ],
       "curated": true
     },
     {
-      "title": "Sunken Ships: Will Orgs Learn From Ivanti EPMM Attacks?",
-      "link": "https://www.darkreading.com/cyber-risk/sunken-ships-ivanti-epmm-attacks",
-      "source": "darkreading",
-      "published": "2025-12-31T17:35:27+00:00",
+      "title": "Breaking Into Cybersecurity - PSW #907",
+      "link": "https://podcast.securityweekly.com/breaking-into-cybersecurity-psw-907",
+      "source": "Security Weekly Podcast Network (Audio)",
+      "published": "2026-01-01T22:00:00+00:00",
       "smart_groups": [
         "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Threat Actors / APT"
+        "Vulnerabilities / CVEs"
       ],
       "curated": true
     },
     {
-      "title": "How did you become a security engineer?",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1q0icag/how_did_you_become_a_security_engineer/",
+      "title": "Defender just decided N-ABLE is malware for anyone who might be getting called :)",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1q1fxss/defender_just_decided_nable_is_malware_for_anyone/",
       "source": "/r/cybersecurity",
-      "published": "2025-12-31T17:23:01+00:00",
+      "published": "2026-01-01T21:40:25+00:00",
       "smart_groups": [
         "Curated",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Flow advances recovery plan, raises exchange concerns after $3.9M exploit",
+      "link": "https://cointelegraph.com/news/flow-recovery-plan-exchange-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "published": "2026-01-01T21:38:49+00:00",
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
         "Exploit / PoC"
       ],
       "curated": true
     },
     {
-      "title": "Self-Propagating GlassWorm Weaponizing VS Code Extensions to Attack macOS Users",
-      "link": "https://cybersecuritynews.com/self-propagating-glassworm-weaponizing-vs-code/",
-      "source": "Cyber Security News (FeedBurner)",
-      "published": "2025-12-31T17:13:38+00:00",
+      "title": "How do I learn web exploitation / networking for CTFs?",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1q1f0ly/how_do_i_learn_web_exploitation_networking_for/",
+      "source": "/r/cybersecurity",
+      "published": "2026-01-01T21:03:00+00:00",
       "smart_groups": [
         "Curated",
-        "Windows / Microsoft",
-        "Malware / Payloads"
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
       ],
       "curated": true
     }
