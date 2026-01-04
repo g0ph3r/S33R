@@ -1,0 +1,100 @@
+name: Test Telegram Morning Call
+
+on:
+  workflow_dispatch:
+    inputs:
+      json_path:
+        description: "Path to morning call JSON in repo"
+        required: false
+        default: "data/morning_call_latest.json"
+      preview_only:
+        description: "If true, only prints the message (does not send)"
+        required: false
+        default: "false"
+      disable_preview:
+        description: "Disable link previews in Telegram"
+        required: false
+        default: "true"
+      silent:
+        description: "Send silently (no notification sound)"
+        required: false
+        default: "false"
+      force_send:
+        description: "Ignore anti-spam state and always send (for testing)"
+        required: false
+        default: "true"
+
+permissions:
+  contents: read
+
+jobs:
+  test-telegram:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate inputs & file exists
+        run: |
+          set -euo pipefail
+          JSON_PATH="${{ inputs.json_path }}"
+          echo "Using JSON_PATH=$JSON_PATH"
+          if [ ! -f "$JSON_PATH" ]; then
+            echo "❌ File not found: $JSON_PATH"
+            echo "Tip: ensure the file exists in this branch, or change json_path input."
+            exit 1
+          fi
+
+      - name: Preview message (log)
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+
+          p = Path(os.environ.get("JSON_PATH", "data/morning_call_latest.json"))
+          data = json.loads(p.read_text(encoding="utf-8"))
+
+          md = (data.get("morning_call_markdown") or data.get("markdown") or "").strip()
+          if not md:
+            raise SystemExit("❌ Missing morning_call_markdown (or markdown) in JSON")
+
+          header = "☕ S33R Morning Call (TEST)\n"
+          if data.get("window"): header += f"Window: {data['window']}\n"
+          if data.get("generated_at"): header += f"Generated: {data['generated_at']}\n"
+          header += "-" * 28 + "\n\n"
+
+          msg = header + md
+          # keep logs readable
+          print("----- BEGIN MESSAGE PREVIEW -----")
+          print(msg[:3500])
+          if len(msg) > 3500:
+            print("\n...[truncated preview]...\n")
+          print("----- END MESSAGE PREVIEW -----")
+          PY
+        env:
+          JSON_PATH: ${{ inputs.json_path }}
+
+      - name: Send to Telegram
+        if: ${{ inputs.preview_only != 'true' }}
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          S33R_MORNING_CALL_PATH: ${{ inputs.json_path }}
+          TELEGRAM_DISABLE_PREVIEW: ${{ inputs.disable_preview }}
+          TELEGRAM_SILENT: ${{ inputs.silent }}
+          # For testing: optionally force-send by using a temp state path
+          TELEGRAM_STATE_PATH: ${{ inputs.force_send == 'true' && '/tmp/telegram_state_test.json' || 'data/telegram_state.json' }}
+          TELEGRAM_PREFIX: "☕ S33R Morning Call (TEST)"
+        run: |
+          set -euo pipefail
+          if [ -z "${TELEGRAM_BOT_TOKEN:-}" ] || [ -z "${TELEGRAM_CHAT_ID:-}" ]; then
+            echo "❌ Missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID secrets."
+            exit 1
+          fi
+          python scripts/notify_telegram_morning_call.py
