@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Send S33R Morning Call (data/morning_call_latest.json) to Telegram.
+Send S33R Morning Call (data/morning_call_latest.json) to Telegram, with formatting.
 
 Required env vars:
   TELEGRAM_BOT_TOKEN
-  TELEGRAM_CHAT_ID
+  TELEGRAM_CHAT_ID         # for public channels, use: @channel_username
 
 Optional env vars:
   S33R_MORNING_CALL_PATH   (default: data/morning_call_latest.json)
@@ -12,21 +12,24 @@ Optional env vars:
   TELEGRAM_DISABLE_PREVIEW (default: true)
   TELEGRAM_SILENT          (default: false)
   TELEGRAM_PREFIX          (default: "☕ S33R Morning Call")
+  TELEGRAM_PARSE_MODE      (default: "HTML")  # HTML recommended
 """
 
 from __future__ import annotations
 
+import html
 import json
 import os
+import re
 import sys
 import time
 import urllib.parse
 import urllib.request
 from pathlib import Path
-from typing import List, Optional
+from typing import List
 
 
-MAX_TELEGRAM_TEXT = 4096  # Telegram message limit (UTF-8, post-entities parsing)
+MAX_TELEGRAM_TEXT = 4096  # Telegram message limit
 
 
 def _env_bool(name: str, default: bool) -> bool:
@@ -87,10 +90,78 @@ def save_state(path: Path, state: dict) -> None:
     path.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+def _looks_like_bullet_line(s: str) -> bool:
+    return s.lstrip().startswith(("• ", "- ", "* "))
+
+
+def markdown_to_telegram_html(md: str) -> str:
+    """
+    Convert a subset of Markdown (common in morning_call_markdown) to Telegram-safe HTML.
+
+    Strategy:
+    - Escape everything first (prevents HTML injection)
+    - Transform headers, bold, bullets, separators
+    - Do a conservative italic conversion (avoids breaking on asterisks in random contexts)
+    """
+    if not md:
+        return ""
+
+    # Normalize line endings
+    md = md.replace("\r\n", "\n").replace("\r", "\n").strip()
+
+    # Escape early (Telegram HTML requires valid HTML)
+    s = html.escape(md)
+
+    # Convert horizontal rule-like separators
+    # supports: "---" or "—" sequences in markdown
+    s = re.sub(r'^\s*---+\s*$', '————————————', s, flags=re.MULTILINE)
+
+    # Headers: ### Title / ## Title
+    # Telegram doesn't have header tags; use bold.
+    s = re.sub(r'^\s*###\s+(.*)$', r'<b>\1</b>', s, flags=re.MULTILINE)
+    s = re.sub(r'^\s*##\s+(.*)$', r'<b>\1</b>', s, flags=re.MULTILINE)
+
+    # Bold: **text** -> <b>text</b>
+    # Because we've escaped HTML already, this is safe.
+    s = re.sub(r'\*\*(.+?)\*\*', r'<b>\1</b>', s)
+
+    # Bullets: "- " -> "• "
+    s = re.sub(r'^\s*-\s+', '• ', s, flags=re.MULTILINE)
+
+    # Convert "What:", "Why it matters:", etc. (already in your format)
+    # Make the labels italic + bold-ish
+    s = re.sub(r'^\s*•\s*(What:)\s*', r'• <i>\1</i> ', s, flags=re.MULTILINE)
+    s = re.sub(r'^\s*•\s*(Why it matters:)\s*', r'• <i>\1</i> ', s, flags=re.MULTILINE)
+    s = re.sub(r'^\s*•\s*(Recommended immediate actions:)\s*', r'• <i>\1</i> ', s, flags=re.MULTILINE)
+    s = re.sub(r'^\s*•\s*(Logs sources:)\s*', r'• <i>\1</i> ', s, flags=re.MULTILINE)
+    s = re.sub(r'^\s*•\s*(Focus:)\s*', r'• <i>\1</i> ', s, flags=re.MULTILINE)
+
+    # Conservative italic: *text* -> <i>text</i>
+    # Only apply when it looks like standalone emphasis (not bullet markers, not within words).
+    # Avoid converting if there are angle-brackets already (we use them ourselves).
+    def italics_repl(match: re.Match) -> str:
+        inner = match.group(1)
+        # Avoid italicizing very long spans that can get weird
+        if len(inner) > 120:
+            return match.group(0)
+        return f"<i>{inner}</i>"
+
+    # Pattern: *something* where something does not contain '*' or newlines
+    # Also ensure it's not preceded/followed by word chars (to avoid mid-word)
+    s = re.sub(r'(?<!\w)\*(?!\s)([^\n*]{1,120}?)(?<!\s)\*(?!\w)', italics_repl, s)
+
+    # Improve spacing: add blank line after bold headers if not already
+    # (Telegram renders better with whitespace)
+    s = re.sub(r'(</b>)\n(?!\n)', r'\1\n\n', s)
+
+    return s
+
+
 def telegram_send_message(
     token: str,
     chat_id: str,
     text: str,
+    parse_mode: str = "HTML",
     disable_preview: bool = True,
     silent: bool = False,
     timeout_sec: int = 20,
@@ -99,6 +170,7 @@ def telegram_send_message(
     payload = {
         "chat_id": chat_id,
         "text": text,
+        "parse_mode": parse_mode,
         "disable_web_page_preview": "true" if disable_preview else "false",
         "disable_notification": "true" if silent else "false",
     }
@@ -107,7 +179,6 @@ def telegram_send_message(
     req = urllib.request.Request(url, data=data, method="POST")
     with urllib.request.urlopen(req, timeout=timeout_sec) as resp:
         body = resp.read().decode("utf-8", errors="replace")
-        # Telegram always returns JSON with ok/result or ok=false/description (per docs)
         try:
             j = json.loads(body)
         except Exception:
@@ -129,6 +200,7 @@ def main() -> int:
     disable_preview = _env_bool("TELEGRAM_DISABLE_PREVIEW", True)
     silent = _env_bool("TELEGRAM_SILENT", False)
     prefix = (os.getenv("TELEGRAM_PREFIX") or "☕ S33R Morning Call").strip()
+    parse_mode = (os.getenv("TELEGRAM_PARSE_MODE") or "HTML").strip() or "HTML"
 
     if not src.exists():
         print(f"Missing {src}", file=sys.stderr)
@@ -138,7 +210,6 @@ def main() -> int:
     generated_at = (data.get("generated_at") or "").strip()
     window = (data.get("window") or "").strip()
 
-    # content key: you mentioned "resumo pronto" — usually this is in morning_call_markdown
     md = (data.get("morning_call_markdown") or data.get("markdown") or "").strip()
     if not md:
         print("Missing morning_call_markdown (or markdown) in morning_call_latest.json", file=sys.stderr)
@@ -151,15 +222,17 @@ def main() -> int:
         print("No changes (generated_at already sent).")
         return 0
 
-    header = prefix
+    header_lines = [f"<b>{html.escape(prefix)}</b>"]
     if window:
-        header += f"\nWindow: {window}"
+        header_lines.append(f"<i>Window:</i> {html.escape(window)}")
     if generated_at:
-        header += f"\nGenerated: {generated_at}"
-    header += "\n" + ("-" * 28) + "\n"
+        header_lines.append(f"<i>Generated:</i> {html.escape(generated_at)}")
+    header_lines.append("————————————")
+    header = "\n".join(header_lines) + "\n\n"
 
-    # Plain-text; Telegram will auto-link URLs.
-    message = header + md
+    body = markdown_to_telegram_html(md)
+
+    message = header + body
 
     chunks = chunk_text(message, MAX_TELEGRAM_TEXT)
     if not chunks:
@@ -168,18 +241,18 @@ def main() -> int:
 
     for i, chunk in enumerate(chunks, start=1):
         if len(chunks) > 1:
-            chunk = f"[{i}/{len(chunks)}]\n" + chunk
+            chunk = f"<i>[{i}/{len(chunks)}]</i>\n" + chunk
         telegram_send_message(
             token=token,
             chat_id=chat_id,
             text=chunk,
+            parse_mode=parse_mode,
             disable_preview=disable_preview,
             silent=silent,
         )
-        # Being polite with rate limits
+        # gentle pacing
         time.sleep(1.1)
 
-    # Persist state
     if generated_at:
         state["last_sent_generated_at"] = generated_at
         state["last_sent_at_epoch"] = int(time.time())

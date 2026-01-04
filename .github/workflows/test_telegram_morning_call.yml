@@ -88,9 +88,9 @@ jobs:
           S33R_MORNING_CALL_PATH: ${{ inputs.json_path }}
           TELEGRAM_DISABLE_PREVIEW: ${{ inputs.disable_preview }}
           TELEGRAM_SILENT: ${{ inputs.silent }}
-          # For testing: optionally force-send by using a temp state path
           TELEGRAM_STATE_PATH: ${{ inputs.force_send == 'true' && '/tmp/telegram_state_test.json' || 'data/telegram_state.json' }}
           TELEGRAM_PREFIX: "☕ S33R Morning Call (TEST)"
+          TELEGRAM_PARSE_MODE: "HTML"
         run: |
           set -euo pipefail
           if [ -z "${TELEGRAM_BOT_TOKEN:-}" ] || [ -z "${TELEGRAM_CHAT_ID:-}" ]; then
