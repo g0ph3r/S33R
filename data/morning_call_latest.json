@@ -1,32 +1,61 @@
 {
-  "generated_at": "2026-01-04T06:48:05.128773+00:00",
-  "analysis_date": "2026-01-04",
+  "generated_at": "2026-01-05T06:56:02.125130+00:00",
+  "analysis_date": "2026-01-05",
   "model": "gpt-5.1",
   "window_hours": 24,
   "source_file": "data/news_recent.json",
-  "source_generated_at": "2026-01-04T05:52:03.336985+00:00",
+  "source_generated_at": "2026-01-05T06:00:28.881015+00:00",
   "source_days_back": 30,
-  "source_total_items": 6314,
-  "total_items_in_window_all": 74,
-  "total_items_in_window_curated": 15,
-  "morning_call_markdown": "### Executive Summary\n- Active exploitation spikes observed against Adobe ColdFusion and unpatched internet-facing services; prioritize perimeter reviews and virtual patching.  \n- New HardBit 4.0 ransomware evolution and botnet/C2 tooling (RondoDox + C2 framework) highlight increasing sophistication in post-compromise operations.  \n- New GlassWorm macOS malware wave targeting crypto wallets underscores risk to trading/treasury teams using Macs or personal devices.\n\n---\n\n### High-priority items (immediate attention)\n\n- **Adobe ColdFusion exploitation surge (SecurityAffairs – Christmas attacks)**\n  - What: Thousands of exploit attempts against ColdFusion instances observed globally over the holidays.  \n  - Why it matters: Any exposed CF-based app (legacy portals, internal tools moved to DMZ) is at high risk for RCE and data theft.  \n  - Recommended immediate actions:  \n    - Confirm whether we or key vendors run ColdFusion externally; if yes, urgently validate patch level and WAF coverage.  \n    - Add / tighten rules in WAF/IDS for ColdFusion exploit patterns; review past 14 days of WAF/HTTP logs for anomalous CF requests & web shells.\n\n- **RondoDox botnet using React2Shell to hijack unpatched devices (HackRead)**\n  - What: New botnet exploiting “React2Shell” in internet-facing devices/apps to conscript thousands of systems.  \n  - Why it matters: Compromised edge devices can be used as DDoS pivot, proxy for data exfiltration, or stepping-stone into internal networks.  \n  - Recommended immediate actions:  \n    - Identify any devices/apps we run that match “React/Node-based” stacks mentioned in the article; verify patch/firmware status and external exposure.  \n    - Hunt in firewall/IDS logs for scanning/exploitation towards those services and unusual outbound C2-like connections from network appliances.\n\n- **HardBit 4.0 ransomware evolution (r/netsec, r/cybersecurity)**\n  - What: New version of HardBit ransomware with updated negotiation tactics and likely improved payload/evasion.  \n  - Why it matters: Financial sector remains a prime target; HardBit’s negotiation pressure and data-theft model may change impact profile and dwell time.  \n  - Recommended immediate actions:  \n    - Ensure EDR and email filters are using latest ransomware and HardBit-related rules; check anti-ransomware policies are in “block” mode.  \n    - Run quick hunts for recent suspicious archive/script downloads and mass file renames or shadow copy deletion (last 7 days) on servers and endpoints.\n\n- **GlassWorm macOS malware targeting trojanized crypto wallets (r/cybersecurity)**\n  - What: New GlassWorm wave on macOS via trojanized crypto wallet apps.  \n  - Why it matters: Risk to staff dealing with digital assets/trading, and to BYOD/macOS endpoints used for work access (credential theft, lateral movement).  \n  - Recommended immediate actions:  \n    - Work with IT to verify that only approved wallet/trading software is allowed on corporate Macs; check MDM compliance & EDR coverage on all managed Macs.  \n    - Hunt for unapproved wallet executables, new unsigned apps, and unusual outbound connections from macOS hosts to newly-registered domains.\n\n- **Increased attacker focus on C2/botnet frameworks (RondoDox + C2 framework article)**\n  - What: RondoDox botnet and a public “C2 framework in modern C++23” tutorial highlight easier access to custom C2.  \n  - Why it matters: Expect more bespoke C2 patterns that evade static signatures and use legit protocols/infrastructure.  \n  - Recommended immediate actions:  \n    - Tighten anomaly-based detections in proxy/NDR for rare destinations, unusual TLS fingerprints, and low-volume persistent beacons.  \n    - Validate that EDR detections for process injection, LOLBins (PowerShell, MSHTA, curl, certutil, bash), and unsigned binaries are enabled and not overly suppressed.\n\n---\n\n### Monitoring & detection recommendations\n\n- **ColdFusion & web app exploitation (item 13) – Initial Access / Web Shells (T1190, T1505.003)**  \n  - Review web server/WAF logs for: unusual POSTs to CFAdmin, upload endpoints, or .cfm files; spikes in 404/500 around ColdFusion paths.  \n  - Hunt for new or modified files in webroots (especially .cfm, .jsp, .php, .aspx) and suspicious child processes spawned by web server accounts.\n\n- **RondoDox / React2Shell – Edge device compromise & botnet C2 (T1133, T1071)**  \n  - Monitor firewall, NDR, and appliance logs for: outbound connections from routers, load balancers, or “should-be-quiet” devices to rare external IPs/ports.  \n  - Flag repeated HTTP(S) requests with unusual user agents or paths tied to React2Shell POCs (Regex-like scanning, atypical API endpoints).\n\n- **HardBit 4.0 ransomware – Execution & Impact (T1059, T1486, T1490)**  \n  - EDR: alert on mass file renames, rapid file writes with ransomware-like extensions, vssadmin / wbadmin / bcdedit usage, and shutdown of AV/backup services.  \n  - SIEM: correlate privilege-escalation events + new local admin creation + subsequent file encryption on file servers.\n\n- **macOS GlassWorm – Credential/Wallet theft & C2 (T1555, T1105)**  \n  - On macOS logs/EDR: detect new unsigned apps, quarantine events, and requests for keychain access from non-standard wallet/trading apps.  \n  - Proxy/DNS: look for macOS hosts reaching newly-registered domains, dynamic DNS, or crypto-related domains not in allowlists.\n\n- **Custom C2 & C2 framework trends (item 15) – Command & Control (T1071, T1090, T1571)**  \n  - NDR/proxy: hunt for long-lived, low-volume HTTPS sessions to single IPs, uncommon TLS cipher suites, or SNI mismatch (no SNI / IP-only).  \n  - SIEM: create baseline for per-host external connection patterns and alert on new rare destinations or protocol/port combinations.\n\n- **Ransomware negotiations & extortion patterns (item 1) – Data theft & exfil (T1041, T1567)**  \n  - Monitor egress for large data transfers to cloud storage, file-sharing, or TOR-exit-like IPs from non-backup servers.  \n  - Watch for archiving commands (7z, rar, tar, zip) on servers followed by outbound uploads.\n\n- **OT/critical infrastructure cyber-offense signal (Venezuela blackout article) – Lateral movement (T1021, T1040)**  \n  - For any connections to utilities/market infrastructure partners, monitor for anomalous RDP/SSH/VPN use outside normal schedules and geos.  \n  - Enhance alerts on new VPN device fingerprints or MFA anomalies for privileged accounts with infra/OT access.\n\n- **Data breach / honeypot discussions (ShinyHunters vs. Resecurity) – Credential theft use (T1078)**  \n  - Monitor for use of valid but anomalous credentials: impossible travel, unusual device fingerprints, logins from new ASNs to high-privilege accounts.  \n\n---\n\n### Medium-term follow-ups\n\n- Coordinate with asset management to positively confirm whether any ColdFusion or React/Node-based externally exposed apps exist; if yes, schedule formal code review and patch/hardening plan.  \n\n- Review ransomware playbooks (including HardBit-like double extortion) with IR and legal: negotiation stance, data disclosure scenarios, and decision trees should be up to date.  \n\n- Strengthen macOS security baseline: enforce MDM on all corporate Macs, restrict unsigned apps, and define approved list for any wallet/trading tools used by finance teams.  \n\n- Enhance C2/botnet detection capability: evaluate or tune NDR/behavioral analytics for beaconing patterns, TLS fingerprinting, and anomalous DNS use.  \n\n- Update third-party risk questionnaires to explicitly ask critical vendors about ColdFusion usage, patch status, and exposure of legacy web tech.  \n\n- Incorporate recent botnet and ransomware TTPs (HardBit 4.0, RondoDox, GlassWorm) into purple-team exercises and tabletop scenarios for Q1.",
+  "source_total_items": 6169,
+  "total_items_in_window_all": 102,
+  "total_items_in_window_curated": 16,
+  "morning_call_markdown": "### Executive Summary\n- No single new must-patch CVE or global campaign surfaced in the last 24h, but several items reinforce common weak points: cloud config, identity, and data protection.\n- Discussions and tooling around AI, OSINT (automated dorking), and exploit/0‑day ecosystems highlight increasing offensive automation and data exposure risk.\n- A recent government data‑exposure incident and renewed focus on attack datasets and forensics are a reminder to tighten our own data mapping, monitoring and IR readiness.\n\n---\n\n### High-priority items (immediate attention)\n\n- **Cloud misconfiguration and identity abuse (Items [1], [2], [15])**  \n  - What: Articles on cloud misconfig and federated identity management underscore frequent real-world abuse paths via IdP and role mis‑assignment.  \n  - Why it matters: Our sector relies heavily on SaaS and cloud; misconfigured trust, tokens, or roles are a primary route to business email compromise and data theft (T1078, T1550).  \n  - Recommended immediate actions:  \n    - Today: Review last 48h of cloud IdP logs for anomalous SSO sign-ins, consent grants, and privilege escalations; ensure alerts are firing on new global admin / privileged role grants and risky sign-ins.  \n\n- **Automated Google dorking / OSINT tooling (Item [3])**  \n  - What: Release of “DorkSearch PRO” to automate Google dorks and OSINT discovery of exposed assets.  \n  - Why it matters: Increases attacker ability to quickly find misconfigured cloud buckets, debug portals, test systems, and leaked documents tied to our brand/domains.  \n  - Recommended immediate actions:  \n    - Today: Run a quick asset exposure check (security team, not L1) for our primary domains (open indexes, misconfigured storage, test portals); flag any discovered external assets to engineering for takedown / hardening.  \n\n- **Growing use of AI and automation in security tooling and recon (Items [13], [14])**  \n  - What: Discussions and tools around AI for vuln detection / scanning (including Nmap integration) show maturing offensive and defensive automation.  \n  - Why it matters: Adversaries can scale recon and vulnerability discovery faster; noisy but broad scans against our perimeter and internal ranges may increase.  \n  - Recommended immediate actions:  \n    - Today: Check perimeter WAF/IDS and firewall logs for spikes in generic scanning (Nmap-like signatures, unusual user agents) and new 4xx/5xx patterns; validate rate-limiting and blocking actions are correctly triggered on excessive probing.  \n\n- **Data exposure incident at public agency (Item [10])**  \n  - What: Illinois Department of Human Services tightened map security after a data incident involving exposed sensitive information.  \n  - Why it matters: Similar misconfig of internal/external dashboards, mapping tools, or analytics portals in our environment could leak client or transaction data without “classic” intrusion.  \n  - Recommended immediate actions:  \n    - Today: Identify any internet-exposed dashboards/maps/BI tools; verify access control (auth required, no open directories, no PII in public tiles); raise a quick ticket if you see unauthenticated or weakly protected endpoints in scans.  \n\n- **Threat actor tradecraft and breach TTPs (ShinyHunters honeypot, general newsletter / 4n6 roundup) (Items [5], [11], [15])**  \n  - What: Reporting on ShinyHunters being trapped in a honeypot and broader weekly threat/TTP roundups.  \n  - Why it matters: ShinyHunters and similar data-theft groups rely on reused initial access methods (phishing, SSO abuse, credential stuffing) and bulk data exfiltration that map well to our monitoring stack.  \n  - Recommended immediate actions:  \n    - Today: Re-validate that DLP / outbound proxies are alerting on abnormal large data transfers to cloud storage and anonymizers; ensure high-sensitivity alerts for mass download / export from file shares and DBs are not suppressed.\n\n---\n\n### Monitoring & detection recommendations\n\n- **Federated identity and SSO abuse (Items [1], [15])**  \n  - Log sources: IdP (Azure AD/Entra, Okta, etc.), VPN, cloud apps, on-prem AD.  \n  - Hunt:  \n    - Unusual consent grants / OAuth app registrations (T1550.001, T1528).  \n    - New MFA methods added or disabled and sign-ins from new locations immediately following role elevation.\n\n- **Cloud misconfig and exposed services (Items [2], [3], [10])**  \n  - Log sources: WAF, external vulnerability scans, cloud storage access logs, web server logs.  \n  - Hunt:  \n    - Anonymous/unauthenticated GETs on objects typically accessed only by authenticated users.  \n    - Repeated enumeration of directory-like paths (/backup, /test, /old, /logs) from the same IP.\n\n- **Automated recon / dork-assisted scanning (Item [3], [14])**  \n  - Log sources: Perimeter firewalls, IDS/IPS, WAF, honeypots.  \n  - Hunt:  \n    - High-rate requests with varied paths and parameters from a single IP (T1595, T1596).  \n    - Nmap and generic scanner finger­prints (e.g., specific TCP options, timing) or odd user-agents.\n\n- **Credential abuse and account takeover (multiple items, identity focus)**  \n  - Log sources: IdP, VPN, EDR, e-mail security.  \n  - Hunt:  \n    - Multiple failed logins followed by success from new IPs / ASN, then immediate mailbox rules creation or OAuth grants (T1078, T1114.003).  \n\n- **Data exfiltration patterns similar to breach actors (Items [5], [10], [11])**  \n  - Log sources: DLP tooling, secure web gateway, proxy, DB audit, SaaS audit logs.  \n  - Hunt:  \n    - Large exports / downloads outside business hours, especially to personal webmail, file-sharing sites, or unknown S3/Blob endpoints (T1567, T1041).  \n\n- **Windows attack-campaign datasets relevance (Item [8])**  \n  - Log sources: EDR, Windows Event Logs (Security, Sysmon).  \n  - Hunt:  \n    - Lateral movement indicators (SMB, WMI, PSRemoting – T1021), suspicious service and scheduled task creation (T1543, T1053).  \n    - Correlate with any known TTP patterns from public datasets if/when integrated into our hunting playbooks.\n\n- **AI-assisted vuln scanning side-effects (Items [13], [14])**  \n  - Log sources: Internal network telemetry, scanners, Dev/QA logs.  \n  - Hunt:  \n    - Unscheduled/internal port scans or vuln scans originating from atypical hosts; validate they’re owned by security teams to avoid confusion with real intrusions.\n\n---\n\n### Medium-term follow-ups\n\n- **Cloud and IdP hardening program**  \n  - Ensure formal review of all external IdP trusts, conditional access policies, and privileged roles; reduce standing global admin accounts and enforce strong MFA.\n\n- **External exposure management**  \n  - Establish or refine a recurring process (e.g., monthly) to check for exposed assets via OSINT/dorking, not just traditional scanning; integrate findings into asset inventory.\n\n- **Data mapping and “public dashboard” review**  \n  - Inventory mapping/BI/analytics tools, classify data shown, and confirm least-privilege sharing; consider mandatory reviews for any internet-exposed visualizations.\n\n- **Threat hunting content update using public attack datasets (Item [8], [11], [15])**  \n  - Incorporate relevant ATT&CK-aligned patterns from public Windows attack datasets and forensics roundups into our internal hunt queries and Sigma/KQL content.\n\n- **AI use policy and monitoring**  \n  - Work with architecture/GRC to define where AI-powered tools can run in the network, required logging, and guardrails to prevent accidental data exfiltration or noisy scanning.\n\n- **Vendor / supply-chain risk awareness (spyware, 0-day ecosystem) (Items [4], [16])**  \n  - Reassess due diligence for surveillance/monitoring tech and bug-bounty/0‑day brokers used by vendors; ensure contracts and risk assessments reflect potential dual-use or exploit-hoarding concerns.",
   "highlights": [
     {
-      "title": "‘Why should we pay these criminals?’: the hidden world of ransomware negotiations",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1q3eg8w/why_should_we_pay_these_criminals_the_hidden/",
-      "source": "/r/cybersecurity",
-      "published": "2026-01-04T02:58:50+00:00",
+      "title": "Was ist Federated Identity Management?",
+      "link": "https://www.csoonline.com/article/3494300/was-ist-federated-identity-management.html",
+      "source": "CSO Online",
+      "published": "2026-01-05T04:14:00+00:00",
       "smart_groups": [
         "Curated",
-        "Ransomware"
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Cloud / SaaS",
+        "Identity / Access",
+        "Crypto / Web3"
       ],
       "curated": true
     },
     {
-      "title": "Is “All Files Access” safe for an executor if shared storage has no personal data?",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1q367lt/is_all_files_access_safe_for_an_executor_if/",
+      "title": "Was bei der Cloud-Konfiguration schiefläuft – und wie es besser geht",
+      "link": "https://www.csoonline.com/article/4107149/was-bei-der-cloud-konfiguration-schieflauft-und-wie-es-besser-geht.html",
+      "source": "CSO Online",
+      "published": "2026-01-05T04:00:00+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS",
+        "Identity / Access"
+      ],
+      "curated": true
+    },
+    {
+      "title": "DorkSearch PRO – Open Source Tool to Automate Google Dorks (OSINT)",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1q3ymdy/dorksearch_pro_open_source_tool_to_automate/",
       "source": "/r/cybersecurity",
-      "published": "2026-01-03T21:08:55+00:00",
+      "published": "2026-01-04T19:12:19+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Trump admin sends heart emoji to commercial spyware makers with lifted Predator sanctions",
+      "link": "https://go.theregister.com/feed/www.theregister.com/2026/01/04/trump_admin_lifts_sanctions_predator_spyware_execs/",
+      "source": "The Register - Security",
+      "published": "2026-01-04T19:02:14+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs"
@@ -34,47 +63,55 @@
       "curated": true
     },
     {
-      "title": "HardBit 4.0 Ransomware Evolution",
-      "link": "https://www.reddit.com/r/netsec/comments/1q361ae/hardbit_40_ransomware_evolution/",
-      "source": "/r/netsec",
-      "published": "2026-01-03T21:02:02+00:00",
+      "title": "Resecurity Caught ShinyHunters in Honeypot",
+      "link": "https://securityaffairs.com/186528/security/resecurity-caught-shinyhunters-in-honeypot.html",
+      "source": "Security Affairs",
+      "published": "2026-01-04T18:06:43+00:00",
       "smart_groups": [
         "Curated",
-        "Ransomware",
-        "Malware / Payloads",
-        "Data Breaches / Leaks"
+        "Vulnerabilities / CVEs"
       ],
       "curated": true
     },
     {
-      "title": "HardBit 4.0 Ransomware Evolution",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1q360kd/hardbit_40_ransomware_evolution/",
+      "title": "Lone security engineer with less than basic understanding job responsibilities",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1q3wnsi/lone_security_engineer_with_less_than_basic/",
       "source": "/r/cybersecurity",
-      "published": "2026-01-03T21:01:12+00:00",
+      "published": "2026-01-04T17:59:18+00:00",
       "smart_groups": [
         "Curated",
-        "Ransomware",
-        "Malware / Payloads",
-        "Data Breaches / Leaks"
+        "Vulnerabilities / CVEs"
       ],
       "curated": true
     },
     {
-      "title": "New GlassWorm malware wave targets Macs with trojanized crypto wallets",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1q33zg5/new_glassworm_malware_wave_targets_macs_with/",
+      "title": "CLI to download websites' actual JS/CSS/assets (not flattened HTML)",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1q3vrxs/cli_to_download_websites_actual_jscssassets_not/",
       "source": "/r/cybersecurity",
-      "published": "2026-01-03T19:41:21+00:00",
+      "published": "2026-01-04T17:26:46+00:00",
       "smart_groups": [
         "Curated",
-        "Malware / Payloads"
+        "Vulnerabilities / CVEs"
       ],
       "curated": true
     },
     {
-      "title": "ShinyHunters claims to have compromised Resecurity, but it looks like they fell for a honeypot",
-      "link": "https://databreaches.net/2026/01/03/shinyhunters-claims-to-have-compromised-resecurity-but-it-looks-like-they-fell-for-a-honeypot/?pk_campaign=feed&pk_kwd=shinyhunters-claims-to-have-compromised-resecurity-but-it-looks-like-they-fell-for-a-honeypot",
+      "title": "Public enterprise-scale Windows attack-campaign dataset + BigQuery table (SQL-only)",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1q3vhy2/public_enterprisescale_windows_attackcampaign/",
+      "source": "/r/cybersecurity",
+      "published": "2026-01-04T17:16:18+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Reminder: Survey on threats experienced by journalists and security researchers",
+      "link": "https://databreaches.net/2026/01/04/reminder-survey-on-threats-experienced-by-journalists-and-security-researchers/?pk_campaign=feed&pk_kwd=reminder-survey-on-threats-experienced-by-journalists-and-security-researchers",
       "source": "DataBreaches.net",
-      "published": "2026-01-03T18:56:45+00:00",
+      "published": "2026-01-04T16:25:18+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs"
@@ -82,47 +119,13 @@
       "curated": true
     },
     {
-      "title": "The blackout in Venezuela was likely caused by a cyber offense",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1q30xw2/the_blackout_in_venezuela_was_likely_caused_by_a/",
-      "source": "/r/cybersecurity",
-      "published": "2026-01-03T17:46:41+00:00",
+      "title": "Illinois Department of Human Services tightens map security after data incident",
+      "link": "https://databreaches.net/2026/01/04/illinois-department-of-human-services-tightens-map-security-after-data-incident/?pk_campaign=feed&pk_kwd=illinois-department-of-human-services-tightens-map-security-after-data-incident",
+      "source": "DataBreaches.net",
+      "published": "2026-01-04T16:24:50+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Looking for free grc courses.",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1q30638/looking_for_free_grc_courses/",
-      "source": "/r/cybersecurity",
-      "published": "2026-01-03T17:17:09+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "12 years experience and can't even land an interview lol. Help!",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1q2z6wl/12_years_experience_and_cant_even_land_an/",
-      "source": "/r/cybersecurity",
-      "published": "2026-01-03T16:40:14+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "RondoDox Botnet is Using React2Shell to Hijack Thousands of Unpatched Devices",
-      "link": "https://hackread.com/rondodox-botnet-react2shell-hijack-unpatched-devices/",
-      "source": "HackRead",
-      "published": "2026-01-03T14:59:09+00:00",
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC",
-        "Malware / Payloads"
       ],
       "curated": true
     }
