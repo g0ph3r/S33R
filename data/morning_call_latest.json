@@ -1,89 +1,95 @@
 {
-  "generated_at": "2026-01-06T06:52:12.080640+00:00",
-  "analysis_date": "2026-01-06",
+  "generated_at": "2026-01-07T06:51:27.803345+00:00",
+  "analysis_date": "2026-01-07",
   "model": "gpt-5.1",
   "window_hours": 24,
   "source_file": "data/news_recent.json",
-  "source_generated_at": "2026-01-06T05:53:09.954851+00:00",
+  "source_generated_at": "2026-01-07T05:52:22.832386+00:00",
   "source_days_back": 30,
-  "source_total_items": 6462,
-  "total_items_in_window_all": 356,
-  "total_items_in_window_curated": 59,
-  "morning_call_markdown": "### Executive Summary\n\n- Active exploitation of perimeter and collaboration tech continues: FortiWeb, legacy firewalls, and a critical Zoom for Windows flaw are all being targeted.\n- Multiple botnets and RATs (GravityRAT, RondoDox, Kimwolf, Sliver C2) are expanding via known CVEs, increasing risk of covert persistence and proxy infrastructure inside our network.\n- Data exposure and metadata leaks (Ledger/Global-e, WhatsApp) reinforce the need for stricter vendor monitoring and detection of exfiltration and abuse of “benign” app features.\n\n---\n\n### High-priority items (immediate attention)\n\n- **Critical Zoom for Windows vulnerability actively exploited**\n  - What happened: A critical Zoom flaw affecting Windows clients is being exploited in the wild.  \n  - Why it matters: Zoom is common in financial environments; compromise of user endpoints via meetings/chat can bypass traditional email/web controls.  \n  - Recommended immediate actions for the SOC today:  \n    - Verify Zoom client patch levels on corporate endpoints; flag outdated versions via EDR/software inventory.  \n    - Add detections for Zoom spawning unusual child processes, PowerShell, cmd, or script interpreters (T1204, T1059).  \n\n- **FortiWeb exploitation to deploy Sliver C2**\n  - What happened: Threat actors are exploiting FortiWeb appliances to install Sliver C2 for persistent access.  \n  - Why it matters: Financial orgs frequently use Fortinet appliances; compromise means stealthy, long-term access from our perimeter into internal networks.  \n  - Recommended immediate actions for the SOC today:  \n    - Confirm our exposure: identify any FortiWeb/Fortinet WAF assets; check patch/config status and admin access logs.  \n    - Hunt for Sliver-like C2 patterns (mutual TLS, domain fronting, long-lived low-volume beaconing) from those devices and adjacent subnets (T1071, T1090).  \n\n- **Large population of internet-facing firewalls still vulnerable to “old” CVEs**\n  - What happened: Reporting that ~10,000 firewalls remain unpatched against a long-known critical vulnerability.  \n  - Why it matters: This is a reminder that attackers are reliably exploiting old, not new, bugs at the edge; any similar exposure for us is a likely entry point.  \n  - Recommended immediate actions for the SOC today:  \n    - Cross-check perimeter asset list against vendor security advisories and CISA KEV; highlight any firewalls or VPNs with outstanding critical CVEs.  \n    - Increase scrutiny of inbound/outbound traffic on those devices (unusual admin logins, config changes, new VPN users, T1133, T1190).  \n\n- **Botnets and RATs expanding via known vulnerabilities (RondoDox, Kimwolf, GravityRAT, Sliver)**\n  - What happened: New/updated botnets and RATs are exploiting web and IoT/edge CVEs to build proxy infrastructure and gain cross-platform remote access.  \n  - Why it matters: These families can turn our endpoints or exposed devices into C2 nodes or pivots into more sensitive networks, potentially supporting ransomware or data theft.  \n  - Recommended immediate actions for the SOC today:  \n    - Run short hunts in EDR and proxy/DNS logs for unusual outbound connections from low-profile devices (kiosks, ATMs, appliances, test VMs).  \n    - Review any recent “generic trojan” or “backdoor” detections for overlaps with Sliver/Kimwolf/GravityRAT behaviors and escalate for deeper triage (T1105, T1571).  \n\n- **Persistent claims/breaches in vendor and SaaS ecosystems (Ledger/Global‑e breach, NordVPN Salesforce claims, WhatsApp metadata leak)**\n  - What happened: Confirmed third‑party breach affecting Ledger’s commerce provider, unconfirmed claims against NordVPN’s Salesforce environment, and a WhatsApp metadata leak being patched.  \n  - Why it matters: Reinforces risk from our vendors’ SaaS and from employees using consumer apps; also risk of look‑alike phishing using breach narratives.  \n  - Recommended immediate actions for the SOC today:  \n    - Add temporary monitoring rules for spikes in phishing using “Ledger”, “NordVPN”, “Salesforce account verification”, “WhatsApp security” keywords in mail and web filters (T1566).  \n    - Review SaaS access logs (especially Salesforce/CRM and e‑commerce integrations) for anomalous logins, new API tokens, mass data exports (T1530, T1567).  \n\n---\n\n### Monitoring & detection recommendations\n\n- **Zoom + collaboration exploitation**\n  - Log sources: EDR, Windows event logs, proxy/DNS.  \n  - Hunt for Zoom (and other meeting clients) spawning shells, scripting engines, or writing binaries to temp/Downloads (T1204, T1059).\n\n- **Perimeter appliance exploitation (FortiWeb, legacy firewalls, VPNs, Eaton/NVA appliances)**\n  - Log sources: Firewall/WAF logs, VPN logs, Azure/GCP network virtual appliance logs.  \n  - Monitor for new/unknown admin logins, config changes outside change windows, and HTTP requests to management URIs from the internet (T1190, T1133).\n\n- **C2/botnet activity (Sliver, Kimwolf, RondoDox, generic RATs)**\n  - Log sources: EDR, network sensors, proxy/DNS.  \n  - Look for: periodic low‑volume HTTPS beacons to rare domains/IPs, high failed connections, connections from atypical segments (ATMs, lab, printers) to the internet (T1071, T1105).\n\n- **Remote access trojans & stealers (GravityRAT, VVS stealer)**\n  - Log sources: EDR, email gateway, web proxy.  \n  - Monitor for suspicious archive/executable downloads from newly registered or low‑reputation domains, and processes accessing credential stores/browsers/Discord (T1555, T1552).\n\n- **Data exfiltration and metadata abuse (Ledger/Global‑e, WhatsApp)**\n  - Log sources: DLP, proxy, CASB, SaaS logs (e.g., Salesforce, file sharing).  \n  - Alert on large exports, abnormal report/API pulls, or unusual hours/countries; correlate with new device fingerprints for the same account (T1567, T1041).\n\n- **Account takeover & insider-style campaigns (Microsoft “Jasper Sleet” insider access case)**\n  - Log sources: IdP, M365/AAD, Okta, HR systems.  \n  - Detect impossible travel, sudden privilege escalations, new MFA enrollments, or access from unmanaged devices to sensitive apps (T1078, T1098).\n\n- **IoT/OT and power/UPS devices (Eaton CVEs, botnets on IoT)**\n  - Log sources: Network flows, OT monitoring, SNMP/syslog from facility/UPS devices.  \n  - Watch for new outbound connections from OT segments to the internet and any HTTP/SSH access to those devices from user subnets (T1190, T1040).\n\n- **Red‑team/dual‑use tooling (ProfileHound, GHOSTCREW, Sliver)**\n  - Log sources: EDR, AV, admin tool logs.  \n  - Flag unauthorized execution of penetration tools, scanners, or frameworks from non‑security admin accounts and from servers where they are not expected (T1587, T1087, T1046).\n\n---\n\n### Medium-term follow-ups\n\n- **Perimeter and VPN patching review**\n  - Perform a full review of firewall/VPN/WAF patch levels versus CISA KEV and vendor advisories; schedule remediation for any legacy or “accepted” exposures.\n\n- **Zoom and collaboration app hardening**\n  - Coordinate with IT to enforce auto‑updates, restrict risky plug‑ins, and limit external meeting sharing for high‑risk roles; update hardening baselines.\n\n- **SaaS and third‑party risk controls**\n  - Validate logging and alerting coverage for key SaaS platforms (Salesforce, payments, CRM) and critical vendors; ensure vendor contracts include security event notification SLAs.\n\n- **Enhance C2/botnet detection**\n  - Tune and formalize anomaly‑based network detections (beaconing, rare destinations); incorporate Sliver/Kimwolf/RAT TTPs into hunting runbooks.\n\n- **Ransomware and data pipeline resilience**\n  - Review backup and restore processes for core data pipelines, AI/analytics platforms, and payment systems; test at least one recovery scenario this quarter.\n\n- **Analyst training & playbook updates**\n  - Refresh playbooks for: perimeter device compromise, SaaS account breach, and collaboration‑app exploitation; brief SOC on new red‑team/AI tool abuse patterns to reduce “tool” false negatives.",
+  "source_total_items": 6643,
+  "total_items_in_window_all": 247,
+  "total_items_in_window_curated": 62,
+  "morning_call_markdown": "### Executive Summary\n- Active exploitation of legacy D-Link DSL routers and an unfixed TOTOLINK EX200 flaw highlight continued targeting of edge/consumer networking gear that may sit near or behind our perimeter.\n- Multiple critical software vulnerabilities (IBM API Connect, n8n, AdonisJS, macOS TCC bypass, Android Dolby codec) could impact internet-facing services, internal automation, and endpoints if in use.\n- Phishing and social-engineering campaigns (fake DocuSign, fake BSOD/DCRat, commodity loaders, Office Assistant/plugin abuse, AI-driven identity attacks) remain high-velocity and increasingly sophisticated.\n\n---\n\n### High-priority items (immediate attention)\n\n- **Legacy SOHO router exploits (D-Link DSL, TOTOLINK EX200)**\n  - What happened: Critical RCE in legacy D-Link DSL routers is under active exploitation; CERT/CC warns TOTOLINK EX200 has an unpatched full-takeover flaw.\n  - Why it matters operationally: Exposed small-office/branch/remote-worker devices can be converted into footholds or proxy nodes into our environment and used to blend malicious traffic.\n  - Recommended immediate actions:  \n    - Inventory and confirm we do NOT rely on these devices for branches, vendors, home-employee gateways; if found, treat as compromised-by-default and plan replacement/segmentation.  \n    - On perimeter sensors, flag inbound connections that appear to originate from consumer D-Link/TOTOLINK IP ranges for extra scrutiny and possible throttling.\n\n- **Critical IBM API Connect vulnerability (CVE-2025-13915)**\n  - What happened: Singapore’s cyber agency warned of a critical IBM API Connect flaw with exploit details available.\n  - Why it matters operationally: API gateways are Tier-0 for our digital banking/partner APIs; compromise can lead to auth bypass, data exfiltration, or traffic manipulation.\n  - Recommended immediate actions:  \n    - Confirm with infra/app teams whether IBM API Connect is in use (on-prem or cloud); if yes, verify patch level vs. CVE-2025-13915 and exposure to the internet.  \n    - Until confirmed patched/mitigated, increase monitoring on API Connect hosts (WAF/NGFW logs, unusual admin logins, config changes, spikes in 5xx/4xx).\n\n- **Automation platform and web framework RCEs (n8n & AdonisJS)**\n  - What happened: New critical vulnerabilities in n8n (automation/workflow tool) and AdonisJS (Node.js framework) allow arbitrary command execution and file writes on servers.\n  - Why it matters operationally: These tools, if used by dev/ops or for internal integrations, can provide easy server takeover and lateral movement under application context.\n  - Recommended immediate actions:  \n    - Ask DevOps/platform teams to urgently confirm any deployed n8n and AdonisJS-based apps; if found, check vendor advisories for fixed versions and schedule emergency patching.  \n    - Until patched, restrict network access (IP allowlists/VPN-only), increase logging, and monitor for suspicious child processes spawned by Node.js (bash/powershell/curl/wget).\n\n- **Endpoint exploitation risks: macOS TCC bypass + Android Dolby codec RCE**\n  - What happened: New macOS TCC bypass allows access to protected user data; Android January patch fixes critical Dolby codec remote code execution flaw.\n  - Why it matters operationally: Compromise of exec/staff mobile and macOS endpoints can lead to credential theft and sensitive data leakage used for fraud or business email compromise.\n  - Recommended immediate actions:  \n    - For managed macOS: confirm latest OS/security updates are enforced; monitor EDR for apps unexpectedly requesting/accessing contacts, calendars, and files (esp. non-corporate apps).  \n    - For Android corporate fleet: ensure January security update rollout is tracked and enforced for high-risk roles; emphasize no sideloading of media apps/codecs.\n\n- **Phishing + malware delivery campaigns (fake DocuSign, fake BSOD/DCRat, commodity loaders, Office Assistant abuse)**\n  - What happened: Multiple campaigns use fake DocuSign + identity theft forms, fake booking emails leading to BSOD pages dropping DCRat, commodity loaders in targeted emails, and Office Assistant abused to push a malicious browser plugin.\n  - Why it matters operationally: These represent current TTPs used to gain initial access and establish RAT/persistence, likely to be re-themed for financial services users (invoices, statements, HR docs).\n  - Recommended immediate actions:  \n    - Tune email security to aggressively inspect DocuSign-style, hotel/booking, and “IT support/BSOD” themed emails with links to external sites; block HTML attachments where feasible.  \n    - For today’s hunts, pivot in EDR for DCRat or generic RAT behaviors (new persistence entries, suspicious browser extensions, PowerShell spawned from Office/email clients).\n\n---\n\n### Monitoring & detection recommendations\n\n- **Network edge & suspicious source infrastructure (SOHO routers, residential proxies, botnets like Kimwolf) – T1090, T1133**\n  - Firewall/NGFW and proxy logs: flag inbound traffic and authentication attempts from consumer ISP broadband ranges and residential proxy networks, especially repeated login failures or scanning.\n\n- **API and web-tier exploitation (IBM API Connect, n8n, AdonisJS, Open WebUI bug) – T1190, T1199**\n  - WAF, reverse proxies, web server logs: look for spikes in unusual HTTP verbs, serialized object payloads, long query strings, or new error patterns (500/403) on admin/API endpoints.  \n  - Monitor for unexpected new admin accounts/API keys or configuration changes on API gateways and automation platforms.\n\n- **Email-borne loaders, DCRat, and fake BSOD campaigns – T1566.002, T1204, T1055**\n  - Email gateway + EDR: hunt for recent emails with themes “DocuSign”, “booking/Hotel”, “invoice”, “IT error/BSOD” followed shortly by execution of scripts (VBS, JS, HTA, PowerShell) from user downloads/temp folders.  \n  - Watch for browser processes spawning non-browser children (cmd, powershell, mshta, wscript).\n\n- **Office/assistant and browser plugin abuse – T1204, T1176, T1059**\n  - Application and EDR logs: alert on Office or helper tools dropping/launching installers or browser extensions, or modifying browser configuration files; monitor for new extensions on corporate browsers outside approved catalog.\n\n- **Identity attacks and AD-focused operations (AI-accelerated identity attacks, Jasper Sleet-style campaigns) – T1110, T1078, T1556**\n  - IdP/AD logs: monitor for password spray/slow bruteforce, anomalous MFA prompts, and logins from atypical geos/devices; correlate with Microsoft guidance on recent insider-access campaigns.  \n  - Focus on privileged groups (Domain Admins, service accounts) for unusual sign-in patterns and group membership changes.\n\n- **macOS TCC bypass and sensitive data access – T1518, T1056, T1552**\n  - macOS EDR/logs: detect non-standard apps accessing contacts, calendar, camera, or documents; alert on new launch agents/daemons created by those apps and on unauthorized access to password/keychain stores.\n\n- **Android ransomware/malware and mobile exploitation – T1476, T1404**\n  - MDM/endpoint telemetry: enforce app allowlisting; flag installation of apps from unknown sources or with newly added media/codec capabilities right before abnormal network connections or SMS activity.\n\n- **Brute-force tool “Brutus” against Fortinet services – T1110.003**\n  - VPN/SSL gateway and firewall logs: increase alerting on repeated failed logins to Fortinet-facing services, especially from new IPs or Tor/hosting providers; rate-limit and temporarily block aggressive sources.\n\n---\n\n### Medium-term follow-ups\n\n- **Comprehensive exposure review for edge and API components**\n  - Conduct an internal census of all API gateways, workflow automation (n8n or equivalents), Node.js frameworks (AdonisJS), and any IBM API Connect instances; align with current patch baselines and hardening standards.\n\n- **SOHO/remote access security policy**\n  - Update remote worker and third-party connectivity standards to prohibit unsupported consumer-grade routers (e.g., legacy D-Link/TOTOLINK) and require ISP router hardening or corporate-managed devices.\n\n- **Email and user awareness refresh for emerging lures**\n  - Update phishing simulations and training content to include DocuSign-style chains, fake booking/BSOD scenarios, and identity-theft “questionnaires”; brief helpdesk to recognize these patterns in user reports.\n\n- **Identity security and AD hardening**\n  - Incorporate insights from AI-driven identity attack research into AD hardening roadmap (tiered admin model, PAWs, strict service-account hygiene, conditional access, and MFA anomalies monitoring).\n\n- **Mobile and macOS endpoint baselines**\n  - Review and, if needed, tighten macOS privacy/TCC policies and mobile OS minimum-version requirements; ensure high-risk staff devices are on fast-track patch groups with clear reporting.\n\n- **CISA KEV expansion alignment**\n  - Map the newly expanded KEV catalog against our asset inventory to prioritize remediation, especially for internet-facing systems and high-value business applications.",
   "highlights": [
     {
-      "title": "Nvidia CEO says demand for computing resources is ‘skyrocketing’",
-      "link": "https://cointelegraph.com/news/computing-resource-demand-skyrocketing-nvidia-ceo?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "published": "2026-01-06T05:08:01+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "New n8n Vulnerability (9.9 CVSS) Lets Authenticated Users Execute System Commands",
-      "link": "https://thehackernews.com/2026/01/new-n8n-vulnerability-99-cvss-lets.html",
-      "source": "The Hacker News",
-      "published": "2026-01-06T05:08:00+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "GravityRAT with Remote Access Capabilities Attacking Windows, Android, and macOS Systems",
-      "link": "https://cybersecuritynews.com/gravityrat-with-remote-access-capabilities/",
-      "source": "Cyber Security News (FeedBurner)",
-      "published": "2026-01-06T04:48:13+00:00",
-      "smart_groups": [
-        "Curated",
-        "Windows / Microsoft",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Check This Out! (CTO!) Guide (December 2025)",
-      "link": "https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/check-this-out-cto-guide-december-2025/ba-p/4483213",
-      "source": "Core Infrastructure and Security Blog",
-      "published": "2026-01-05T22:18:27+00:00",
+      "title": "Identity security planning for 2026 is shifting under pressure",
+      "link": "https://www.helpnetsecurity.com/2026/01/07/identity-security-outlook-2026-report/",
+      "source": "Help Net Security",
+      "published": "2026-01-07T05:00:06+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Windows / Microsoft",
-        "Linux / Unix",
-        "Cloud / SaaS",
-        "Web / API Security",
-        "Network / OT / ICS",
-        "Supply Chain / Software"
+        "Cloud / SaaS"
       ],
       "curated": true
     },
     {
-      "title": "Microsoft Copilot Studio vs. Microsoft Foundry: Building AI Agents and Apps",
-      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-community/microsoft-copilot-studio-vs-microsoft-foundry-building-ai-agents/ba-p/4483160",
+      "title": "Ongoing Attacks Exploiting Critical RCE Vulnerability in Legacy D-Link DSL Routers",
+      "link": "https://thehackernews.com/2026/01/active-exploitation-hits-legacy-d-link.html",
+      "source": "The Hacker News",
+      "published": "2026-01-07T04:31:00+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Cybersecurity hat kein Budget-Problem",
+      "link": "https://www.csoonline.com/article/4107963/cybersecurity-hat-kein-budget-problem.html",
+      "source": "CSO Online",
+      "published": "2026-01-07T04:00:00+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Web / API Security",
+        "Identity / Access"
+      ],
+      "curated": true
+    },
+    {
+      "title": "NordVPN Hack Claim Firmly Refuted by NordVPN",
+      "link": "https://databreaches.net/2026/01/06/nordvpn-hack-claim-firmly-refuted-by-nordvpn/?pk_campaign=feed&pk_kwd=nordvpn-hack-claim-firmly-refuted-by-nordvpn",
+      "source": "DataBreaches.net",
+      "published": "2026-01-07T00:56:14+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "HackerOne 'ghosted' me for months over $8,500 bug bounty, says researcher",
+      "link": "https://go.theregister.com/feed/www.theregister.com/2026/01/07/hackerone_ghosted_researcher/",
+      "source": "The Register - Security",
+      "published": "2026-01-07T00:17:19+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Welcome to the Microsoft Security Community!",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-community/welcome-to-the-microsoft-security-community/ba-p/4471927",
       "source": "Microsoft Security Blog (TechCommunity)",
-      "published": "2026-01-05T21:41:40+00:00",
+      "published": "2026-01-06T23:38:16+00:00",
       "smart_groups": [
         "Curated",
         "Ransomware",
         "Vulnerabilities / CVEs",
-        "Windows / Microsoft",
         "Cloud / SaaS",
-        "Network / OT / ICS",
         "Crypto / Web3"
       ],
       "curated": true
     },
     {
-      "title": "VPN Security Concerns in 2026 | UpGuard",
-      "link": "https://upguard-staging.webflow.io/blog/vpn-risk",
-      "source": "UpGuard Blog",
-      "published": "2026-01-05T21:28:22+00:00",
+      "title": "HIPAA Compliance and Breach Communications: Helpful Tips for SMBs",
+      "link": "https://databreaches.net/2026/01/06/hipaa-compliance-and-breach-communications-helpful-tips-for-smbs/?pk_campaign=feed&pk_kwd=hipaa-compliance-and-breach-communications-helpful-tips-for-smbs",
+      "source": "DataBreaches.net",
+      "published": "2026-01-06T22:44:43+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs"
@@ -91,10 +97,10 @@
       "curated": true
     },
     {
-      "title": "The 5 Biggest Cyber Threats For the Education Sector in 2026 | UpGuard",
-      "link": "https://upguard-staging.webflow.io/blog/cyber-threats-education",
-      "source": "UpGuard Blog",
-      "published": "2026-01-05T21:28:22+00:00",
+      "title": "Flow details December exploit that led to $3.9M in losses due to counterfeit tokens",
+      "link": "https://cointelegraph.com/news/flow-details-december-exploit-3-9m-counterfeit-token-losses?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "published": "2026-01-06T22:05:31+00:00",
       "smart_groups": [
         "Curated",
         "Exploit / PoC"
@@ -102,36 +108,24 @@
       "curated": true
     },
     {
-      "title": "The Ultimate Cybersecurity Guide for Healthcare in 2026 | UpGuard",
-      "link": "https://upguard-staging.webflow.io/blog/ultimate-cybersecurity-guide-for-healthcare",
-      "source": "UpGuard Blog",
-      "published": "2026-01-05T21:28:22+00:00",
+      "title": "When Seeing Isn’t Believing: AI Images, Breaking News and the New Misinformation Playbook",
+      "link": "https://blog.knowbe4.com/when-seeing-isnt-believing-ai-images-breaking-news-and-the-new-misinformation-playbook",
+      "source": "KnowBe4 Blog",
+      "published": "2026-01-06T21:45:00+00:00",
       "smart_groups": [
         "Curated",
-        "Ransomware",
-        "Data Breaches / Leaks"
+        "Vulnerabilities / CVEs"
       ],
       "curated": true
     },
     {
-      "title": "A Data Leak Detection Guide for the Tech Industry in 2026 | UpGuard",
-      "link": "https://upguard-staging.webflow.io/blog/how-tech-companies-can-detect-data-leaks",
-      "source": "UpGuard Blog",
-      "published": "2026-01-05T21:28:22+00:00",
+      "title": "CERT/CC warns of critical, unfixed vulnerability in TOTOLINK EX200",
+      "link": "https://securityaffairs.com/186597/security/cert-cc-warns-of-critical-unfixed-vulnerability-in-totolink-ex200.html",
+      "source": "Security Affairs",
+      "published": "2026-01-06T20:28:03+00:00",
       "smart_groups": [
         "Curated",
-        "Data Breaches / Leaks"
-      ],
-      "curated": true
-    },
-    {
-      "title": "The Ultimate Ransomware Defense Guide (2026) | UpGuard",
-      "link": "https://upguard-staging.webflow.io/blog/protecting-employee-credentials-from-ransomware-compromise",
-      "source": "UpGuard Blog",
-      "published": "2026-01-05T21:28:22+00:00",
-      "smart_groups": [
-        "Curated",
-        "Ransomware"
+        "Vulnerabilities / CVEs"
       ],
       "curated": true
     }
