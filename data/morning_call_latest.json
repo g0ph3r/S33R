@@ -1,21 +1,65 @@
 {
-  "generated_at": "2026-01-18T06:47:47.518225+00:00",
-  "analysis_date": "2026-01-18",
+  "generated_at": "2026-01-19T06:57:14.206921+00:00",
+  "analysis_date": "2026-01-19",
   "model": "gpt-5.1",
   "window_hours": 24,
   "source_file": "data/news_recent.json",
-  "source_generated_at": "2026-01-18T05:52:19.488171+00:00",
+  "source_generated_at": "2026-01-19T06:00:56.039889+00:00",
   "source_days_back": 30,
-  "source_total_items": 6462,
-  "total_items_in_window_all": 68,
-  "total_items_in_window_curated": 12,
-  "morning_call_markdown": "### Executive Summary\n- Black Basta leadership targeted by international law enforcement; group likely to react with retaliation and re-org but remains a major ransomware threat to financials.\n- Newly public discussion of potential BitLocker design weaknesses reinforces risk from physical-access attackers and hands-on-keyboard ransomware actors.\n- A privilege escalation flaw in Google Vertex AI highlights ongoing cloud/SaaS identity and role abuse risk; review cloud controls and detections around AI and service agents.\n\n---\n\n### High-priority items (immediate attention)\n\n- **Black Basta law-enforcement action (EU most-wanted + INTERPOL Red Notice)**\n  - What happened: Ukraine/Germany and INTERPOL identified and issued notices for a key Black Basta operator.\n  - Why it matters operationally: Group is likely to fragment, rebrand, or accelerate remaining operations; affiliates may adjust TTPs but continue targeting finance.\n  - Recommended immediate actions for the SOC today: Revalidate existing Black Basta detections (Cobalt Strike/Brute Ratel beacons, SMB lateral movement, domain controller targeting); tighten response to any ransomware precursors (suspicious LSASS access, backup deletion, shadow copy removal).\n\n- **Ransomware ecosystem & data extortion (multiple articles on ransomware/data leaks)**\n  - What happened: Ongoing coverage of ransomware and highly sensitive data leaks (including medical/therapy records) underlines continued focus on exfiltration-before-encryption models.\n  - Why it matters operationally: Our crown jewels (payment data, client records, trading data) are at high risk even without encryption events; quiet exfil is sufficient for major impact.\n  - Recommended immediate actions for the SOC today: Flag and investigate unusual outbound transfers from application/databank subnets and DLP events; enforce strict escalation on any new unauthorized cloud storage or file-sharing destinations from inside the network.\n\n- **BitLocker “design error” discussion (Windows disk encryption)**\n  - What happened: Community debate highlights potential weaknesses in BitLocker’s design/implementation, particularly around key protection and recovery in some configurations.\n  - Why it matters operationally: Ransomware and insider/physical attackers could potentially bypass or weaken at-rest protection on improperly configured endpoints and servers.\n  - Recommended immediate actions for the SOC today: Confirm via existing inventories that critical servers and high-risk endpoints use TPM+PIN (not TPM-only) where feasible; increase scrutiny for attempts to access BitLocker recovery keys, changes to encryption policies, or disk-unlock events from anomalous accounts/locations.\n\n- **Google Vertex AI privilege escalation vulnerability (cloud/SaaS)**\n  - What happened: Reported flaw in Vertex AI allowing low-privilege users to escalate into service agent roles with expanded access.\n  - Why it matters operationally: If we use Google Cloud/Vertex AI directly or via vendors, compromised low-priv accounts could gain broader access to cloud workloads or data.\n  - Recommended immediate actions for the SOC today: Identify any Vertex AI or similar AI service usage in our environment or key vendors; monitor IdP and GCP logs (if in use) for unusual role bindings to service agents and privilege escalation patterns, and alert on new high-priv roles assigned to non-admin users.\n\n---\n\n### Monitoring & detection recommendations\n\n- **Ransomware initial access & lateral movement (Black Basta & others)**\n  - Log sources: EDR, Windows event logs, AD logs, firewall/VPN.\n  - Focus: Excessive RDP/SMB auth failures and new RDP exposure, use of remote admin tools (e.g., PsExec, WMI), creation of new local admins and domain admin group changes.  \n    - MITRE: T1078 (Valid Accounts), T1021 (Remote Services), T1489 (Service Stop).\n\n- **Backup and recovery targeting**\n  - Log sources: EDR, backup platform logs, Windows Security/System logs.\n  - Focus: `vssadmin` or `wbadmin` invocations, stopping of backup/AV services, deletion of backup jobs or repositories outside of change windows.  \n    - MITRE: T1489 (Service Stop), T1490 (Inhibit System Recovery).\n\n- **Data exfiltration and extortion-focused operations**\n  - Log sources: DLP, proxy/firewall, NDR, SaaS logs (M365/Google Workspace), CASB.\n  - Focus: Large uploads to personal cloud storage, anonymous file-sharing sites, or unusual S3/Blob buckets; spikes in e-mailing of large attachments or encrypted archives externally.  \n    - MITRE: T1041 (Exfiltration over C2 Channel), T1567 (Exfiltration to Cloud Storage).\n\n- **BitLocker / disk-encryption related monitoring**\n  - Log sources: Windows event logs (BitLocker/TPM), MDM/endpoint management, EDR.\n  - Focus: Changes to BitLocker policies, suspension of protection, export/access to recovery keys, boot configuration changes, and disk unlocks from atypical accounts/devices.  \n    - MITRE: T1552 (Unsecured Credentials), T1078.\n\n- **Cloud identity and role escalation (Vertex AI and similar)**\n  - Log sources: Cloud audit logs (GCP, Azure, AWS), IdP (Okta/ADFS/AAD), CIEM tooling.\n  - Focus: New role bindings granting service-account/agent privileges; unusual sequences like user → service agent → project/editor roles within short time windows; service accounts authenticating from atypical IPs.  \n    - MITRE: T1098 (Account Manipulation), T1078.\n\n- **Abuse of legitimate remote-management / IT tools**\n  - Log sources: EDR, Sysmon, RMM platform logs, proxy.\n  - Focus: Use of AnyDesk, TeamViewer, remote shells, or RMM agents outside standard admin hosts; unsigned or newly observed binaries being spawned by legitimate IT tools.  \n    - MITRE: T1105 (Ingress Tool Transfer), T1219 (Remote Access Software).\n\n- **Privileged access and policy changes in AD / IdP**\n  - Log sources: AD security logs, IdP audit logs, PAM vault logs.\n  - Focus: New global admin/domain admin assignments, mass group membership changes, MFA disabled or bypassed, conditional access policy changes occurring off-hours.  \n    - MITRE: T1098, T1556 (Modify Authentication Process).\n\n- **Sensitive-app and DB access anomalies**\n  - Log sources: Application logs, DB audit logs, SIEM.\n  - Focus: Large reads/exports of sensitive tables (customer/transaction/credit data), use of generic/shared accounts, queries run from unusual app servers or user locations.\n\n---\n\n### Medium-term follow-ups\n\n- **Ransomware playbook review and exercise**\n  - Rehearse Black Basta-style intrusion flow (valid accounts + RDP + backup destruction); update IR runbooks and test containment/restore timelines with IT.\n\n- **Disk-encryption policy and configuration baseline**\n  - Coordinate with endpoint/server teams to ensure BitLocker (or equivalent) is correctly configured, centrally managed, and logged; enforce strong key-protection (TPM+PIN where feasible).\n\n- **Cloud and AI service risk assessment**\n  - Work with cloud and architecture teams to inventory any use of Google Vertex AI or similar AI platforms (including via vendors); ensure least-privilege roles, logging and alerting for service agents.\n\n- **Data-classification and DLP tuning**\n  - Align DLP rules to financial sector crown jewels (SWIFT messages, payment files, trading reports, PII); refine to reduce false positives while ensuring strict response for exfil indicators.\n\n- **Third-party and supply-chain exposure**\n  - Review critical vendors (especially healthcare/benefits, legal, HR, marketing) for ransomware resilience and incident-notification SLAs, given ongoing extortion/leak trends.\n\n- **Training and awareness for SOC**\n  - Provide a short refresher to analysts on current ransomware affiliate TTPs, recent law-enforcement disruptions and likely attacker adaptations, plus handling of privacy-sensitive breach data.",
+  "source_total_items": 6191,
+  "total_items_in_window_all": 98,
+  "total_items_in_window_curated": 26,
+  "morning_call_markdown": "### Executive Summary\n- New Kerberos relay technique abusing DNS CNAMEs can bypass many existing mitigations and enable stealthy lateral movement in Windows AD environments.\n- GootLoader is adapting with malformed ZIP delivery to evade email and endpoint controls, keeping ransomware initial access risk high.\n- Ongoing ransomware and supply‑chain activity (Black Basta, malicious OSS commits, targeted accounts in Gmail/WhatsApp) reinforces need for stronger identity, supply‑chain and phishing defenses.\n\n---\n\n### High-priority items (immediate attention)\n\n- **Kerberos relay via DNS CNAME (Windows AD)**\n  - What happened: New Kerberos relay method abuses DNS CNAME records to bypass existing defenses/assumptions around SPNs and hostnames.\n  - Why it matters operationally: Increases risk of stealthy privilege escalation and lateral movement in AD; current detections may miss it.\n  - Recommended immediate actions:  \n    - Threat hunt: review Windows event logs (Kerberos, DNS, domain controller security logs) for unusual SPN requests and service tickets to unexpected CNAME targets.  \n    - Validate that hardened Kerberos configs (EPA, SMB signing, LDAP signing, constrained delegation) are enabled on DCs and Tier‑0 servers; escalate gaps.\n\n- **GootLoader using malformed ZIPs (malware → ransomware)**\n  - What happened: GootLoader updated delivery tactic, using malformed ZIP archives to bypass email/content filters and endpoint inspection.\n  - Why it matters operationally: GootLoader often leads to hands‑on intrusion, data theft and ransomware deployment; malformed ZIPs may slip past standard controls.\n  - Recommended immediate actions:  \n    - Tighten email detections for malformed or non‑RFC compliant ZIPs and script payloads (JS, VBS, HTA, MSI) from untrusted senders.  \n    - Run EDR hunt for recent script interpreter abuse (wscript, cscript, mshta, powershell, rundll32) launched from user temp/downloads after opening archives.\n\n- **Black Basta ransomware activity (Ukraine & Germany focus, but globally relevant)**\n  - What happened: Reporting of continued Black Basta operations against European targets, with typical double‑extortion model.\n  - Why it matters operationally: Group has a history of targeting critical infrastructure and enterprises; tradecraft overlaps with common access vectors (phishing, VPN abuse, valid accounts).\n  - Recommended immediate actions:  \n    - Validate that existing ransomware playbooks and blocklists include Black Basta TTPs; confirm EDR ransomware protections are in “block” mode on servers.  \n    - Hunt for known behaviors: domain enumeration, AD CS abuse, backup deletion commands (wbadmin, vssadmin, bcdedit), and mass file encryption patterns on SMB shares.\n\n- **Account‑targeting campaigns (Gmail/WhatsApp; high‑profile users)**\n  - What happened: Documented campaign using phishing/social engineering to compromise high‑value personal and messaging accounts in the Middle East.\n  - Why it matters operationally: Techniques (multi‑channel social engineering, MFA fatigue, session hijack) are applicable to our executives and high‑privilege staff.\n  - Recommended immediate actions:  \n    - Review last 7 days of IdP logs for anomalous access to exec/admin accounts (impossible travel, new devices, atypical geo, repeated MFA prompts).  \n    - Brief on‑call support and VIP support teams to treat messaging‑app/social‑media “support” outreach as suspect and to escalate any MFA fatigue complaints.\n\n- **Supply‑chain / OSS project compromise (long‑running, many commits)**\n  - What happened: Maintainer reported a two‑month malware campaign against an open‑source project, with 270+ malicious commits to appear legitimate.\n  - Why it matters operationally: Demonstrates realistic risk of slow‑burn compromise in OSS dependencies used in internal apps and tooling.\n  - Recommended immediate actions:  \n    - Ask Dev/DevSecOps to confirm SBOM coverage for critical apps and to check for any emergency advisories from key OSS dependencies we rely on.  \n    - For any recently updated third‑party libraries in critical services, ensure runtime monitoring is enabled (e.g., unexpected outbound connections, credential/file access).\n\n---\n\n### Monitoring & detection recommendations\n\n- **Kerberos relay via DNS CNAME (T1558, T1550)**\n  - Log sources: Windows Security/Event logs on DCs (4768–4771, 4769), DNS logs, AD CS if present.  \n  - Hunt: service tickets requested for SPNs where hostname resolves via CNAME to unexpected internal hosts; spikes in TGS requests from single workstation.\n\n- **GootLoader & malformed ZIP delivery (T1566, T1204, T1059)**\n  - Log sources: Secure email gateway, email logs, web proxy, EDR.  \n  - Hunt: attachments with ZIP mimetype but parsing errors; archive opens followed by execution of script interpreters, MSI installers, or unsigned binaries in user temp paths.\n\n- **Ransomware operator behavior (Black Basta and similar) (T1486, T1059, T1047, T1565.001)**\n  - Log sources: EDR, Windows Security (Sysmon if available), backup solution logs, file server logs.  \n  - Hunt: use of vssadmin/wbadmin/bcdedit to delete/modify backups, large volumes of file open/write/rename events with uncommon extensions, PsExec or WMIC use across servers.\n\n- **Identity attacks & MFA fatigue (T1078, T1110, T1621)**\n  - Log sources: IdP (SSO), VPN, CASB, email.  \n  - Hunt: multiple failed then successful logins from new geos/devices, repeated MFA prompts, legacy protocol logins, OAuth consent to new third‑party apps for privileged accounts.\n\n- **Supply‑chain / malicious packages (T1195, T1059)**\n  - Log sources: Code repository logs, CI/CD logs, artifact repositories, EDR on build servers.  \n  - Hunt: unusual commits from new/compromised contributor accounts, changes introducing new external network calls, build agents spawning shells or downloading from unapproved domains.\n\n- **Cloud egress and exfiltration (linked to cloud egress discussions & targeted account campaigns) (T1041, T1530)**\n  - Log sources: Cloud provider flow logs, CASB, DLP, web proxy.  \n  - Hunt: data transfers from cloud storage to rare destinations, spikes in downloads by service accounts, uploads to personal storage/messaging services.\n\n- **Endpoint malware & Trojan activity (Reddit Trojan post, general malware newsletter) (T1204, T1055)**\n  - Log sources: EDR, AV logs, Windows Security.  \n  - Hunt: user‑initiated download then immediate process tree with LOLBins (rundll32, regsvr32, msiexec, powershell with encoded/obfuscated command lines); DLL injection or process hollowing events.\n\n- **Network IDS tuning (Suricata usage)**\n  - Log sources: Suricata/IDS logs, firewall.  \n  - Hunt: ensure active rules for current ransomware, GootLoader, and C2 frameworks; review high‑fidelity alerts with no triage in last 7 days and close tuning gaps (false positives/negatives).\n\n---\n\n### Medium-term follow-ups\n\n- **Kerberos/AD hardening**\n  - Work with AD team to review and implement modern protections: EPA, Kerberos armoring, SMB/LDAP signing, constrained delegation, and secure service account management; document exceptions.\n\n- **Email and attachment policy updates**\n  - Evaluate policies for blocking or sandboxing high‑risk attachment types (scripts, ISO/VHD, macros, malformed archives); ensure safe‑links/safe‑attachments coverage for all users.\n\n- **Ransomware resilience & recovery**\n  - Validate backup/restore testing frequency for Tier‑0/Tier‑1 systems; ensure offline/immutable backups exist; align with updated Allianz/industry reports on ransomware trends.\n\n- **Supply‑chain and third‑party risk**\n  - Enhance third‑party security reviews to include vulnerability/zero‑day response expectations; ensure vendor list cross‑checked against any current breach reports or outages.\n\n- **Cloud egress and data governance**\n  - Collaborate with cloud and network teams to define standard egress patterns for critical workloads; implement stricter egress controls and logging where currently permissive.\n\n- **Targeted user awareness (execs, admins, high‑value staff)**\n  - Refresh training and just‑in‑time guidance on phishing via email/messaging apps, MFA fatigue resistance, and procedures for lost/stolen devices and suspicious account prompts.",
   "highlights": [
     {
-      "title": "Good resources for short term off-hours contract work?",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qfy0hh/good_resources_for_short_term_offhours_contract/",
+      "title": "New Kerberos Relay Technique Exploits DNS CNAMEs to Bypass Existing Defenses",
+      "link": "https://gbhackers.com/new-kerberos-relay-technique-exploits-dns-cnames-to-bypass-existing-defenses/",
+      "source": "GBHackers News",
+      "published": "2026-01-19T05:22:34+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Windows / Microsoft"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Cyber risk keeps winning, even as AI takes over",
+      "link": "https://www.helpnetsecurity.com/2026/01/19/allianz-ai-cyber-risk-report/",
+      "source": "Help Net Security",
+      "published": "2026-01-19T05:00:03+00:00",
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Southeast Asia CISOs Top 13 Predictions for 2026: Securing AI, Centering Identity, and Making Resilience Strategic",
+      "link": "https://www.csoonline.com/article/4117844/southeast-asia-cisos-13-top-predictions-for-2026-securing-ai-centering-identity-and-making-resilience-strategic.html",
+      "source": "CSO Online",
+      "published": "2026-01-19T01:52:00+00:00",
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Cloud / SaaS",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Phishing / Social Engineering",
+        "Crypto / Web3",
+        "Supply Chain / Software"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Leaving the MSSP Space",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1qgqdbq/leaving_the_mssp_space/",
       "source": "/r/cybersecurity",
-      "published": "2026-01-18T03:48:11+00:00",
+      "published": "2026-01-19T01:21:23+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs"
@@ -23,10 +67,34 @@
       "curated": true
     },
     {
-      "title": "Future Certification as Vulnerability Management Analyst",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qfq02g/future_certification_as_vulnerability_management/",
+      "title": "New Bluetooth Headphone Hack",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1qgod1r/new_bluetooth_headphone_hack/",
       "source": "/r/cybersecurity",
-      "published": "2026-01-17T21:52:39+00:00",
+      "published": "2026-01-18T23:53:04+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Trojan virus",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1qgo1yg/trojan_virus/",
+      "source": "/r/cybersecurity",
+      "published": "2026-01-18T23:39:41+00:00",
+      "smart_groups": [
+        "Curated",
+        "Windows / Microsoft",
+        "Malware / Payloads",
+        "Identity / Access"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Seeking Ideas to Improve Third-Party Cyber Risk and Exploited Zero Day Vulnerabilities",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1qghsk6/seeking_ideas_to_improve_thirdparty_cyber_risk/",
+      "source": "/r/cybersecurity",
+      "published": "2026-01-18T19:26:12+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs",
@@ -35,10 +103,10 @@
       "curated": true
     },
     {
-      "title": "US Cyberattack Blacks Out Venezuela, Leads to Maduro’s Capture in 2026",
-      "link": "https://databreaches.net/2026/01/17/us-cyberattack-blacks-out-venezuela-leads-to-maduros-capture-in-2026/?pk_campaign=feed&pk_kwd=us-cyberattack-blacks-out-venezuela-leads-to-maduros-capture-in-2026",
-      "source": "DataBreaches.net",
-      "published": "2026-01-17T20:28:53+00:00",
+      "title": "How to use Suricata more effective",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1qgg754/how_to_use_suricata_more_effective/",
+      "source": "/r/cybersecurity",
+      "published": "2026-01-18T18:27:09+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs"
@@ -46,93 +114,26 @@
       "curated": true
     },
     {
-      "title": "BitLocker's crucial design error?",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qfkz53/bitlockers_crucial_design_error/",
-      "source": "/r/cybersecurity",
-      "published": "2026-01-17T18:33:55+00:00",
+      "title": "GootLoader uses malformed ZIP files to bypass security controls",
+      "link": "https://securityaffairs.com/187037/cyber-crime/gootloader-uses-malformed-zip-files-to-bypass-security-controls.html",
+      "source": "Security Affairs",
+      "published": "2026-01-18T18:22:16+00:00",
       "smart_groups": [
         "Curated",
         "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Windows / Microsoft",
         "Malware / Payloads"
       ],
       "curated": true
     },
     {
-      "title": "Ukraine–Germany operation targets Black Basta, Russian leader wanted",
-      "link": "https://securityaffairs.com/187008/cyber-crime/ukraine-germany-operation-targets-black-basta-russian-leader-wanted.html",
+      "title": "SECURITY AFFAIRS MALWARE NEWSLETTER ROUND 80",
+      "link": "https://securityaffairs.com/187028/uncategorized/security-affairs-malware-newsletter-round-80.html",
       "source": "Security Affairs",
-      "published": "2026-01-17T18:11:08+00:00",
+      "published": "2026-01-18T16:58:59+00:00",
       "smart_groups": [
         "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Threat Actors / APT"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Black Basta Ransomware Leader Added to EU Most Wanted and INTERPOL Red Notice",
-      "link": "https://thehackernews.com/2026/01/black-basta-ransomware-hacker-leader.html",
-      "source": "The Hacker News",
-      "published": "2026-01-17T16:26:00+00:00",
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Threat Actors / APT"
-      ],
-      "curated": true
-    },
-    {
-      "title": "A faceless hacker stole my therapy notes – now my deepest secrets are online forever",
-      "link": "https://databreaches.net/2026/01/17/a-faceless-hacker-stole-my-therapy-notes-now-my-deepest-secrets-are-online-forever/?pk_campaign=feed&pk_kwd=a-faceless-hacker-stole-my-therapy-notes-now-my-deepest-secrets-are-online-forever",
-      "source": "DataBreaches.net",
-      "published": "2026-01-17T15:55:54+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "OCR’s Latest HIPAA Guidance and Common HIPAA Pitfalls",
-      "link": "https://databreaches.net/2026/01/17/ocrs-latest-hipaa-guidance-and-common-hipaa-pitfalls/?pk_campaign=feed&pk_kwd=ocrs-latest-hipaa-guidance-and-common-hipaa-pitfalls",
-      "source": "DataBreaches.net",
-      "published": "2026-01-17T15:55:45+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Pluralistic: The world needs an Ireland for disenshittification (17 Jan 2026)",
-      "link": "https://pluralistic.net/2026/01/17/erin-lets-go/",
-      "source": "https://pluralistic.net/feed/",
-      "published": "2026-01-17T15:18:04+00:00",
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Malware / Payloads",
-        "Identity / Access",
-        "Network / OT / ICS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Judge orders Anna’s Archive to delete scraped data; no one thinks it will comply",
-      "link": "https://databreaches.net/2026/01/17/judge-orders-annas-archive-to-delete-scraped-data-no-one-thinks-it-will-comply/?pk_campaign=feed&pk_kwd=judge-orders-annas-archive-to-delete-scraped-data-no-one-thinks-it-will-comply",
-      "source": "DataBreaches.net",
-      "published": "2026-01-17T14:03:25+00:00",
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs"
+        "Exploit / PoC",
+        "Malware / Payloads"
       ],
       "curated": true
     }
