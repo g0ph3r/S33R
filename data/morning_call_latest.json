@@ -1,56 +1,21 @@
 {
-  "generated_at": "2026-01-20T06:55:31.029393+00:00",
-  "analysis_date": "2026-01-20",
+  "generated_at": "2026-01-21T06:55:56.313648+00:00",
+  "analysis_date": "2026-01-21",
   "model": "gpt-5.1",
   "window_hours": 24,
   "source_file": "data/news_recent.json",
-  "source_generated_at": "2026-01-20T05:57:28.933103+00:00",
+  "source_generated_at": "2026-01-21T06:01:50.743318+00:00",
   "source_days_back": 30,
-  "source_total_items": 6395,
-  "total_items_in_window_all": 255,
-  "total_items_in_window_curated": 72,
-  "morning_call_markdown": "### Executive Summary\n- Active exploitation and PoCs around Cloudflare access-bypass, Windows SMB/AD compromise, and Kerberos relay techniques significantly increase risk to identity and network perimeters.\n- Multiple malware delivery vectors abusing Google Ads, PDF apps, and browser extensions are being used to deploy RATs/backdoors that evade EDR and target enterprise systems.\n- Ransomware operations (including infrastructure leaks and Black Basta law-enforcement activity) highlight continued focus on credential theft, AD abuse, and third-party service providers (e.g., Ingram Micro).\n\n---\n\n### High-priority items (immediate attention)\n\n- **Cloudflare zero-day: access control bypass to “any host globally”**  \n  - What happened: Researchers disclosed and detailed a Cloudflare zero‑day that can bypass protections and reach arbitrary internal hosts behind Cloudflare.  \n  - Why it matters: Any of our internet-facing sites, APIs, or vendor services relying on Cloudflare for access control/WAF could be reachable by attackers despite rules.  \n  - Actions (today):  \n    - Confirm with Infra/Cloud which properties use Cloudflare; request status on mitigations/temporary rules from the write‑up and from Cloudflare advisories.  \n    - Increase WAF/reverse-proxy and web server log scrutiny for unusual origin host access, new paths, or requests bypassing normal headers/IP ranges.\n\n- **Windows SMB client vulnerability enabling full Active Directory compromise (with PoC)**  \n  - What happened: A Windows SMB client bug was detailed that allows attackers to “own AD” from a client compromise, with PoC and exploitation guidance published.  \n  - Why it matters: Fits typical ransomware playbooks—lateral movement and domain dominance from a single compromised workstation/server.  \n  - Actions (today):  \n    - Prioritize hunting for suspicious SMB traffic (non-standard ports, outbound SMB to unusual subnets/hosts, SMB over internet) and anomalous use of `NTLM` over SMB.  \n    - Validate EDR coverage and detections for `lsass` access, AD tools (BloodHound, Mimikatz-like behavior), and mass authentication attempts from a single host.\n\n- **New Kerberos relay attack using DNS CNAME to bypass existing mitigations (PoC released)**  \n  - What happened: Researchers published a new Kerberos relay technique that abuses DNS CNAME records to bypass standard anti‑relay mitigations.  \n  - Why it matters: Direct threat to Windows/AD environments; could be used to escalate privileges or gain service tickets despite protections, again aligned with ransomware TTPs.  \n  - Actions (today):  \n    - Monitor DC logs for anomalous Kerberos service ticket requests (unusual SPNs, volume spikes from single clients).  \n    - Coordinate with AD team to validate enforcement of SMB signing, Extended Protection for Authentication (EPA), and to review high-value SPNs/CNAME usage.\n\n- **Malware via Google Ads & trojanized installers (EndRAT, Remcos, PDFSIDER)**  \n  - What happened: Ongoing campaigns abuse Google Ads and fake tools (PDF editors, converter apps, VeraCrypt installers, PDF24) to deliver RATs/backdoors (EndRAT, Remcos, PDFSIDER) that evade AV/EDR.  \n  - Why it matters: High chance of user-driven compromise in corporate environment, especially developers, finance staff, or admins downloading “utilities” on Windows.  \n  - Actions (today):  \n    - Tighten and monitor web proxy/EDR for downloads of unsigned installers, PDF utilities, and archives from ad‑referrer or newly registered domains; flag and review installs of new PDF/converter tools.  \n    - Run short-term hunts for new or unusual RAT-like processes, scheduled tasks, and outbound C2 from recently provisioned or high-risk endpoints.\n\n- **Malicious browser extensions targeting enterprise (CrashFix / ModeloRAT, HR/ERP extension abuse, sleeper extensions)**  \n  - What happened: Multiple reports of malicious Chrome/Edge/Firefox extensions—fake crash-fix extensions, HR/ERP-targeting extensions, and sleeper spyware extensions—used as enterprise backdoors.  \n  - Why it matters: Bypasses many controls, gives access to corporate web apps (HR, ERP, banking portals, email), and is hard for users to notice.  \n  - Actions (today):  \n    - Pull inventory of corporate-managed browser extensions from endpoint/browse management; alert on non-whitelisted or newly installed extensions, especially with broad permissions.  \n    - Enhance monitoring of unusual login locations or headless-like browser activity against HR/ERP/Banking apps (suspicious user-agents, odd times, rapid data access).\n\n---\n\n### Monitoring & detection recommendations\n\n- **Identity & AD abuse (SMB vuln, Kerberos relay, NTLM cracking, BloodHound discussions)**  \n  - Log sources: Windows Security logs on DCs, AD FS, EDR on domain-joined hosts, DNS logs.  \n  - Focus: T1550/T1557/T1003 – abnormal Kerberos ticket activity, unusual DC authentication spikes, LSASS access, BloodHound/PowerShell AD enumeration, anomalous DNS CNAME queries tied to auth events.\n\n- **Cloudfront/Cloudflare and web perimeter (Cloudflare zero‑day, Azure WAF React RSC CVE)**  \n  - Log sources: Cloudflare/other CDN logs, WAF, origin web server/app logs, API gateway.  \n  - Focus: T1190/T1133 – requests that bypass normal IP ranges, missing customary headers, unusual host headers, surges in 4xx/5xx followed by success, anomalous access to admin/debug endpoints.\n\n- **Malvertising & trojanized installers (Google Ads, converter/PDF tools, VeraCrypt)**  \n  - Log sources: Secure web gateway/proxy, DNS, EDR, email gateway (for link delivery), application whitelisting.  \n  - Focus: T1189/T1204/T1059 – executable/installer downloads from ad-referral chains, newly registered domains, unusual file types (EXE, MSI, ISO) from non-approved repositories, child processes of installers spawning PowerShell/cmd.\n\n- **PDFSIDER / RATs / backdoors on Windows endpoints**  \n  - Log sources: EDR, Windows Sysmon, firewall egress logs.  \n  - Focus: T1105/T1055/T1547 – suspicious DLL/EXE in PDF app directories, processes spawned by `pdf24.exe`/similar, memory-only execution patterns, persistence via Run keys or scheduled tasks, outbound C2 to rare destinations from office endpoints.\n\n- **Malicious browser extensions & credential theft to web apps**  \n  - Log sources: Browser management/MDM, IdP (SSO), SaaS audit logs (HR, ERP, email, CRM).  \n  - Focus: T1185/T1552/T1539 – new extensions with broad permissions, spikes in API calls from browser-based sessions, unusual IPs/ASNs for normal users, impossible travel, multiple parallel sessions using identical user-agent but different IPs.\n\n- **Ransomware ecosystem & third-party risk (Ingram Micro breach, Black Basta raids, leaked infra)**  \n  - Log sources: EDR, VPN, RDP, file servers, backup systems, vendor access gateways.  \n  - Focus: T1486/T1078/T1021 – vendor accounts used at odd hours, lateral RDP/SMB from service accounts, rapid file renames/encryptor-like patterns, unusual access to backup repositories.\n\n- **ServiceNow / AI-integrated SaaS and Gemini calendar data exposure**  \n  - Log sources: SaaS audit logs (ServiceNow, Google Workspace), IdP logs, CASB.  \n  - Focus: T1526/T1087 – abnormal API token usage, large exports of tickets/meeting data, new AI-related integrations or apps created, service accounts accessing data outside normal patterns.\n\n- **Crypto / Web3-related threats (Ethereum dusting/address poisoning)**  \n  - Log sources: Web proxy, DNS, EDR on trading/workstation endpoints.  \n  - Focus: T1565/T1195 – user visits to phishing/“airdrop” sites, clipboard manipulation attempts, suspicious browser extensions on trading desks.\n\n---\n\n### Medium-term follow-ups\n\n- **Coordinate with Infra/Cloud on Cloudflare and WAF posture**  \n  - Verify our use of Cloudflare; ensure vendor guidance is applied and that origin hardening (mTLS, allowlisting) is in roadmap.  \n  - Review WAF rules for React RSC and similar app-layer vulnerabilities.\n\n- **Accelerate AD/Windows hardening roadmap**  \n  - Enforce SMB signing and disable NTLMv1; evaluate NTLM overall reduction per Mandiant guidance.  \n  - Tighten privileged group membership, service account hygiene, and Kerberos constrained delegation; review BloodHound findings conservatively.\n\n- **Browser & extension governance**  \n  - Implement/strengthen allowlist-based extension policies for managed browsers.  \n  - Add user awareness on fake “CrashFix”, PDF editors, and ad-driven download risks; integrate into phishing/safe browsing training.\n\n- **Third-party and supply-chain risk management**  \n  - Review exposure to impacted providers (e.g., Ingram Micro-type distributors, PR/marketing, SaaS vendors with AI integrations).  \n  - Ensure vendor contracts and DDQs include requirements for timely breach notification, EDR on remote access, and MFA.\n\n- **Ransomware playbook refinement using recent leaks/Black Basta intel**  \n  - Update internal threat models and detection content with current TTPs for initial access, lateral movement, and data exfiltrations used by top-tier gangs.  \n  - Validate incident response runbooks (isolation, backups, negotiation policy) against these scenarios.\n\n- **AI and privacy risk posture**  \n  - Work with privacy/compliance to define boundaries for generative AI integrations (ServiceNow, Gemini, others).  \n  - Plan for additional monitoring and DLP controls around AI-related data flows and logs.",
+  "source_total_items": 6713,
+  "total_items_in_window_all": 382,
+  "total_items_in_window_curated": 113,
+  "morning_call_markdown": "### Executive Summary\n- Active phishing and malware campaigns (LinkedIn DLL sideloading, PDFSider, Gootloader, regional spear‑phishing) are targeting enterprises and finance specifically, using low‑detection payloads and EDR evasion.\n- Multiple cloud/AI and infrastructure vulnerabilities (Anthropic MCP Git server, Chainlit, Azure Private Endpoints DoS, Java TLS AIA SSRF/DoS, Oracle CPU, TP‑Link VIGI/other TP‑Link flaws, ICS advisories) raise exposure across web, AI and OT/IoT surfaces.\n- Ransomware groups (Everest, NightSpire, RansomHub) continue to hit large brands and suppliers, underscoring the importance of initial access monitoring, third‑party risk, and rapid containment.\n\n---\n\n### High-priority items (immediate attention)\n\n- **LinkedIn phishing → DLL sideloading → RAT (enterprise exec targeting)**  \n  - What happened: Campaign abuses LinkedIn messages to deliver trojanized installers leveraging DLL sideloading for RAT deployment and potential ransomware staging.  \n  - Why it matters operationally: Likely to bypass email filters (uses LinkedIn messaging, not mail) and abuse legitimate tools/loads, hitting high‑value users (execs, sales, recruiters).  \n  - Recommended immediate actions:  \n    - Enable/harden logging and alerting on new DLL loads by signed apps (Office, Teams, browsers, common enterprise tools) from user‑writable paths (T1574.002).  \n    - Add detections for processes spawned by LinkedIn‑delivered installers (browser → temp folder EXE → suspicious child processes like powershell/cmd, C2 beacons).  \n    - Brief helpdesk to escalate any “LinkedIn file” or “job/meeting invite installer” suspicion from staff.\n\n- **PDFSider & Gootloader: low‑detection loaders used by ransomware groups (finance targeted)**  \n  - What happened: New PDFSider malware (DLL sideloading, AV/EDR evasion) and updated Gootloader variants show low AV/EDR detection and are linked to ransomware operators and finance‑sector targeting.  \n  - Why it matters operationally: These families are often first‑stage loaders preceding hands‑on‑keyboard activity, AD recon and data exfil; detection gaps increase risk of late discovery.  \n  - Recommended immediate actions:  \n    - Prioritize hunts for suspicious PDF‑related processes spawning script interpreters (wscript/cscript, powershell, rundll32, regsvr32) and unusual DLL loading paths on endpoints (EDR telemetry).  \n    - Tighten detections around new scheduled tasks/services created shortly after document opens or archive extraction (T1053, T1543).  \n    - Validate that high‑risk groups (treasury, trading, finance operations) are under stricter EDR policies and not in “monitor only” mode.\n\n- **Cloud & AI framework vulnerabilities (Anthropic Git MCP, Chainlit, Gemini prompt injection, Microsoft/Anthropic MCP RCE)**  \n  - What happened: Multiple vulnerabilities in Anthropic MCP Git server and Chainlit AI dev framework plus Gemini prompt‑injection issues enable file access, RCE and potential cloud takeover; vendors have released fixes.  \n  - Why it matters operationally: Any internal use of these components as automation/orchestration backends or dev tools could be leveraged to pivot into our cloud tenants or source code.  \n  - Recommended immediate actions:  \n    - Confirm with DevOps/AI teams TODAY whether Anthropic MCP Git server, Chainlit, or related MCP services are deployed; if yes, verify patch levels and internet exposure; restrict access via firewall/WAF immediately if unknown.  \n    - Increase monitoring on AI/dev infra: identity events (abnormal logins), cloud logs for unusual service principals, and repo activity (sudden token/secret access, mass clone, new webhooks).\n\n- **Azure Private Endpoint DNS DoS (“DNS overDoS”)**  \n  - What happened: Research highlights that certain Azure Private Endpoint deployments can be abused for DoS via DNS amplification/misconfiguration, potentially impacting internal/private services.  \n  - Why it matters operationally: Misconfigured private endpoints or DNS forwarding rules could allow an attacker or misbehaving host to degrade availability of critical internal apps exposed via Azure PEs.  \n  - Recommended immediate actions:  \n    - Coordinate with cloud team to identify critical banking workloads using Azure Private Endpoints; monitor for high DNS query rates or anomalies from those subnets/log analytics (T1498).  \n    - Add temporary thresholds/alerts for spikes in DNS traffic to private zones/endpoints; ensure NSGs/firewalls block unnecessary external access paths to PE‑attached services.\n\n- **Java TLS AIA SSRF/DoS vulnerability (new Tenable research) + Oracle January CPU**  \n  - What happened: Tenable disclosed an SSRF/DoS issue in Java TLS AIA handling; Oracle CPU fixes 158 CVEs, including remotely exploitable issues in widely used components.  \n  - Why it matters operationally: Any internet‑exposed Java‑based service or Oracle product could be targeted for availability attacks or footholds; exploitation is plausible once PoC spreads.  \n  - Recommended immediate actions:  \n    - With infra/app teams, identify externally exposed Java TLS services (Java‑based gateways, APIs, app servers) and Oracle systems; flag those for accelerated patching and stricter WAF/rate‑limiting.  \n    - Add monitoring for sudden spikes in failed TLS handshakes and anomalous outbound connections from Java processes during handshake (SSRF indicators), and ensure we log these at perimeter and host.\n\n---\n\n### Monitoring & detection recommendations\n\n- **Social engineering & LinkedIn/phishing campaigns (LinkedIn DLL sideloading, Argentine court lure, Ledger‑style phishing)**  \n  - Email/security gateway & proxy logs, LinkedIn traffic where visible, EDR on browsers and Office; hunt for downloads of EXEs/ZIPs immediately preceded by LinkedIn or “legal notice” themed content (T1566.002, T1204).\n\n- **DLL sideloading & loader activity (LinkedIn RAT, PDFSider, Gootloader)**  \n  - EDR: alert on signed binaries loading DLLs from user/profile/temp paths, especially when followed by network connections to rare domains/IPs (T1574.002, T1105); watch rundll32/regsvr32 with non‑system DLL paths.\n\n- **Ransomware staging from loaders (PDFSider/Gootloader link to ransomware)**  \n  - EDR & AD logs: mass enumeration (net.exe, nltest, PowerShell AD modules), sudden creation of local admins, new service accounts, or mass share access (T1069, T1087, T1135); set low thresholds for lateral tool use from newly infected hosts.\n\n- **Cloud AI/dev infra abuse (Anthropic MCP, Chainlit, Gemini)**  \n  - Cloud logs (GCP/Azure/AWS), dev platform logs (Git, CI/CD): monitor for new/modified MCP endpoints, unusual service principal usage, or newly created API tokens; detect outbound connections from AI services to unexpected destinations (T1190, T1552).\n\n- **Java TLS & web app probing (Java AIA SSRF/DoS, WordPress/ACF, Airflow, AI frameworks)**  \n  - WAF, reverse proxy, and app logs: look for spikes in malformed TLS handshakes, unusual AIA/OCSP traffic, or mass requests to plugin/framework endpoints; tune rate‑limiting and identify IPs causing frequent 4xx/5xx during handshakes (T1498).\n\n- **IoT/Camera/OT devices (TP‑Link VIGI, TP‑Link password‑recovery flaw, ICS advisories for Schneider/Rockwell/Delta)**  \n  - Network & device logs: monitor for admin logins from unusual IPs and config changes on cameras/ICS gear; alert on outbound connections from these devices to internet (T1190, T1489).\n\n- **WSL2 and PowerShell abuse (WSL2 covert compromise, PowerShell.Exposed)**  \n  - EDR & Windows event logs: enable and monitor PowerShell Script Block Logging and WSL event visibility; hunt for creation of WSL binaries or scripts followed by lateral movement or credential access (T1059.001, T1059.004, T1569).\n\n- **Browser extension / fake extension attacks (CrashFix/ModelRAT)**  \n  - Proxy and endpoint logs: detect installation of non‑approved browser extensions and sudden connections to new CDNs/domains from browsers after crash events; compare against baseline allowed extensions list (T1176).\n\n---\n\n### Medium-term follow-ups\n\n- **Patch and exposure review for AI/dev tools and cloud components**  \n  - Inventory internal use of Anthropic MCP, Chainlit, Gemini integrations, and similar frameworks; ensure current versions, minimal privileges, network segmentation, and secure secret handling.\n\n- **Comprehensive Java & Oracle patch program**  \n  - Plan phased updates for Java runtimes, Java‑based gateways, and Oracle products prioritizing internet‑facing and critical banking services; incorporate SSRF/DoS protections into web architecture standards.\n\n- **Ransomware readiness and loader‑focused playbooks**  \n  - Update incident runbooks to explicitly cover loader‑first intrusions (PDFSider, Gootloader): early containment criteria, memory forensics, and data theft assessment; test EDR response for finance‑critical endpoints.\n\n- **Third‑party and supply‑chain risk (Luxshare, Hyatt, McDonald’s, Ledger third‑party leak)**  \n  - Review risk posture and monitoring for key vendors and SaaS providers; ensure we have contact paths, security questionnaires, and log/alert sharing where possible; confirm our customer notification and takedown processes around third‑party breaches.\n\n- **OT/IoT hardening (TP‑Link, Schneider, Rockwell, Delta ICS advisories)**  \n  - With facilities/OT, review deployment of cameras and ICS devices; schedule firmware/patch updates, enforce strong auth, disable remote access where not required, and ensure these networks are segmented from core banking systems.\n\n- **Awareness campaigns on social engineering and professional‑network lures**  \n  - Integrate LinkedIn/job‑offer style phishing and “legal/court notice” lures into next awareness wave and phishing simulations, focusing on executives, HR, legal, and front‑office staff.",
   "highlights": [
     {
-      "title": "Privacy teams feel the strain as AI, breaches, and budgets collide",
-      "link": "https://www.helpnetsecurity.com/2026/01/20/isaca-privacy-program-pressures/",
+      "title": "The 2026 State of Pentesting: Why delivery and follow-through matter more than ever",
+      "link": "https://www.helpnetsecurity.com/2026/01/21/plextrac-pentest-programs-reporting/",
       "source": "Help Net Security",
-      "published": "2026-01-20T05:30:11+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "I just completed Moniker Link (CVE-2024-21413) room on TryHackMe! Leak user's credentials using CVE-2024-21413 to bypass Outlook's Protected View.",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qhsgxt/i_just_completed_moniker_link_cve202421413_room/",
-      "source": "/r/cybersecurity",
-      "published": "2026-01-20T05:28:13+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Critical AVEVA Software Flaws Allow Remote Code Execution With SYSTEM Privileges",
-      "link": "https://gbhackers.com/critical-aveva-software-flaws-allow-remote-code-execution/",
-      "source": "GBHackers News",
-      "published": "2026-01-20T05:15:32+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Network / OT / ICS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Google Gemini Flaw Allows Access to Private Meeting Details Through Calendar Events",
-      "link": "https://gbhackers.com/google-gemini-flaw-allows-access-to-private-meeting/",
-      "source": "GBHackers News",
-      "published": "2026-01-20T05:13:53+00:00",
+      "published": "2026-01-21T05:30:35+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs",
@@ -59,63 +24,97 @@
       "curated": true
     },
     {
-      "title": "Google Ads Exploited to Deliver TamperedChef Through Malicious PDF Editor",
-      "link": "https://gbhackers.com/google-ads-exploited/",
-      "source": "GBHackers News",
-      "published": "2026-01-20T05:06:52+00:00",
+      "title": "Curl shutters bug bounty program to remove incentive for submitting AI slop",
+      "link": "https://go.theregister.com/feed/www.theregister.com/2026/01/21/curl_ends_bug_bounty/",
+      "source": "The Register - Security",
+      "published": "2026-01-21T05:29:47+00:00",
       "smart_groups": [
         "Curated",
-        "Exploit / PoC",
-        "Windows / Microsoft",
-        "Malware / Payloads"
+        "Vulnerabilities / CVEs"
       ],
       "curated": true
     },
     {
-      "title": "Ethereum activity surge could be linked to dusting attacks: Researcher",
-      "link": "https://cointelegraph.com/news/address-poisoning-attack-adding-record-ethereum-network-activity-says-researcher?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "published": "2026-01-20T04:59:14+00:00",
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Cloudflare Zero-Day Flaw Allows Attackers to Bypass Security and Access Any Host",
-      "link": "https://gbhackers.com/cloudflare-zero-day-flaw-bypass-security/",
+      "title": "Azure Private Endpoint Deployments Expose Cloud Resources to DoS Attacks",
+      "link": "https://gbhackers.com/azure-private-endpoint-deployments-expose/",
       "source": "GBHackers News",
-      "published": "2026-01-20T04:50:21+00:00",
+      "published": "2026-01-21T05:25:03+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Malware / Payloads",
-        "Web / API Security"
+        "Cloud / SaaS"
       ],
       "curated": true
     },
     {
-      "title": "This Intune update isn’t optional — it’s a kill switch for outdated apps",
-      "link": "https://www.csoonline.com/article/4118902/this-intune-update-isnt-optional-its-a-kill-switch-for-outdated-apps-2.html",
-      "source": "CSO Online",
-      "published": "2026-01-20T03:57:30+00:00",
+      "title": "Everest Ransomware Group Allegedly Claims Breach of McDonald’s India Systems",
+      "link": "https://gbhackers.com/everest-ransomware-group-allegedly-claims-breach/",
+      "source": "GBHackers News",
+      "published": "2026-01-21T05:16:24+00:00",
+      "smart_groups": [
+        "Curated",
+        "Ransomware"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Security leaders push for continuous controls as audits stay manual",
+      "link": "https://www.helpnetsecurity.com/2026/01/21/regscale-continuous-controls-monitoring/",
+      "source": "Help Net Security",
+      "published": "2026-01-21T05:00:41+00:00",
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Threat Actors Exploit LinkedIn for RAT Delivery in Enterprise Networks",
+      "link": "https://gbhackers.com/linkedin-exploited/",
+      "source": "GBHackers News",
+      "published": "2026-01-21T05:00:08+00:00",
       "smart_groups": [
         "Curated",
         "Ransomware",
         "Vulnerabilities / CVEs",
-        "Windows / Microsoft",
+        "Exploit / PoC",
         "Malware / Payloads",
-        "Data Breaches / Leaks"
+        "Phishing / Social Engineering"
       ],
       "curated": true
     },
     {
-      "title": "Google Gemini Privacy Controls Bypassed to Access Private Meeting Data Using Calendar Invite",
-      "link": "https://cybersecuritynews.com/gemini-privacy-controls-bypassed/",
-      "source": "Cyber Security News (FeedBurner)",
-      "published": "2026-01-20T02:40:32+00:00",
+      "title": "Sawasdee Thailand! Google Cloud launches new region in Bangkok",
+      "link": "https://cloud.google.com/blog/products/infrastructure/google-cloud-launches-new-region-in-bangkok-thailand/",
+      "source": "Google Cloud Blog",
+      "published": "2026-01-21T05:00:00+00:00",
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Third Party Risk Management: So vermeiden Sie Compliance-Unheil",
+      "link": "https://www.csoonline.com/article/3495375/third-party-risk-management-so-vermeiden-sie-compliance-unheil.html",
+      "source": "CSO Online",
+      "published": "2026-01-21T04:00:00+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Identity / Access",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Three vulnerabilities in Anthropic Git MCP Server could let attackers tamper with LLMs",
+      "link": "https://www.csoonline.com/article/4119571/three-vulnerabilities-found-in-anthropic-git-mcp-server-could-let-attackers-tamper-with-llms.html",
+      "source": "CSO Online",
+      "published": "2026-01-21T03:41:59+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs",
@@ -124,15 +123,15 @@
       "curated": true
     },
     {
-      "title": "One API to query them all!",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qhij39/one_api_to_query_them_all/",
+      "title": "We’re not experiencing sophisticated AI attacks. We’re watching organizations abandon decades of security wisdom",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1qin05y/were_not_experiencing_sophisticated_ai_attacks/",
       "source": "/r/cybersecurity",
-      "published": "2026-01-19T22:13:03+00:00",
+      "published": "2026-01-21T03:34:42+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs",
-        "Malware / Payloads",
-        "Supply Chain / Software"
+        "Cloud / SaaS",
+        "Web / API Security"
       ],
       "curated": true
     }
