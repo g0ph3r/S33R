@@ -1,131 +1,139 @@
 {
-  "generated_at": "2026-02-02T07:17:28.158245+00:00",
-  "analysis_date": "2026-02-02",
+  "generated_at": "2026-02-03T07:09:16.307930+00:00",
+  "analysis_date": "2026-02-03",
   "model": "gpt-5.1",
   "window_hours": 24,
   "source_file": "data/news_recent.json",
-  "source_generated_at": "2026-02-02T06:35:52.725727+00:00",
+  "source_generated_at": "2026-02-03T06:19:36.960287+00:00",
   "source_days_back": 30,
-  "source_total_items": 8180,
-  "total_items_in_window_all": 104,
-  "total_items_in_window_curated": 25,
-  "morning_call_markdown": "### Executive Summary\n- Multiple software supply-chain issues (Open VSX, Notepad++ updates, eScan AV) underline heightened risk from “trusted” update channels and dev tooling; verify our exposure and tighten update validation.\n- Critical infrastructure/OT risk raised by new Johnson Controls vulns allowing remote SQL injection, relevant to building management / data center environments.\n- Ongoing discussion and early PoCs around AI agents (OpenClaw/Moltbot/ClawdBot) and autonomous adversaries: expect rapid weaponization for phishing, lateral movement and tooling abuse.\n\n---\n\n### High-priority items (immediate attention)\n\n- **Software update & dev-tool supply-chain abuse (Open VSX / Notepad++ / eScan AV)**\n  - What happened: Open VSX extension repo abused to distribute GlassWorm malware; Notepad++ update hijacked by state-backed actors; community claims supply-chain compromise of eScan AV updates.\n  - Why it matters: “Trusted” IDEs, editors and AV updates could deliver malware into dev endpoints and admin workstations, bypassing normal user-download controls.\n  - Recommended immediate actions for the SOC today:  \n    - Identify whether Open VSX, Notepad++ auto-update, or eScan are used on any corporate endpoints/VDIs; if yes, request list of versions and update channels.  \n    - Hunt in EDR for recent new binaries/scripts spawned from these apps (parent process = notepad++.exe, code.exe / IDE processes, eScan processes) and outbound connections to unusual domains.  \n\n- **Johnson Controls critical SQL injection vulns (building / OT systems)**\n  - What happened: Multiple Johnson Controls products reportedly vulnerable to remote SQL injection, enabling unauthenticated control of building/OT systems.\n  - Why it matters: We rely on building management / HVAC / access control in offices and data centers; compromise could enable physical disruption or footholds in adjacent networks.\n  - Recommended immediate actions for the SOC today:  \n    - Coordinate with facilities/OT team to identify any Johnson Controls systems reachable from corporate networks or via VPN; verify internet exposure via perimeter scans.  \n    - Increase monitoring of inbound traffic to these hosts (WAF/firewall logs, anomalous SQL-like patterns, unexpected HTTP POST bursts); consider temporary IP restrictions if internet-exposed.  \n\n- **Autonomous/AI agent RCE (OpenClaw/Moltbot/ClawdBot) + “autonomous adversary” tooling**\n  - What happened: Public claims of 1‑click RCE in popular AI agent frameworks (OpenClaw/Moltbot/ClawdBot) and red-team experiments with autonomous offensive agents.\n  - Why it matters: If any teams experiment with these tools internally (labs, data science, dev), a single malicious prompt or webpage could lead to code execution on corporate endpoints.\n  - Recommended immediate actions for the SOC today:  \n    - Ask dev/data/innovation teams (via security liaison) to disclose any use of these frameworks or similar “autonomous agents” in corporate environments; treat as high‑risk software.  \n    - In EDR, hunt for processes spawned by these agent binaries or containers executing network scanners, credential-dumping tools, or scripting interpreters (PowerShell, Python) unexpectedly.  \n\n- **Ransomware group breaches against major consumer platforms**\n  - What happened: Ransomware group reportedly claims breaches against Match, Hinge, OkCupid, and Panera Bread.\n  - Why it matters: Indicates continued large-scale data theft/extortion operations; TTPs used against large consumer platforms often pivot to financials (credential reuse, phishing, access broker sales).\n  - Recommended immediate actions for the SOC today:  \n    - Watch threat intel feeds for any overlap in infrastructure or tools with known access brokers targeting financials; monitor for logins from IPs tied to recent ransomware infra (if shared by intel).  \n    - Increase sensitivity on detections for early-stage ransomware behavior (suspicious SMB enumeration, mass file rename, shadow copy deletion) in server segments with critical data.  \n\n- **Crypto / cross-chain bridge exploit (CrossCurve)**\n  - What happened: CrossCurve DeFi protocol exploited for ~$3M, with legal dispute over the incident.\n  - Why it matters: Financially motivated attackers and smart contract exploiters may repurpose infrastructure, laundering paths, or phishing themes against traditional financial orgs and clients.\n  - Recommended immediate actions for the SOC today:  \n    - If we operate/partner with any Web3/crypto services, verify monitoring on wallet infrastructure, API gateways, and admin consoles for anomalous transactions or privileged API calls.  \n    - Alert fraud/AML teams to watch for flows referencing CrossCurve or associated tokens; correlate with any unusual customer support contacts or phishing reports referencing this event.  \n\n---\n\n### Monitoring & detection recommendations\n\n- **Supply-chain / dev-tool abuse (Open VSX, Notepad++, eScan)**  \n  - Log sources: EDR, proxy/DNS, endpoint application logs.  \n  - Monitor for: New executables or scripts spawned from IDE/editor/AV processes, unusual child processes (cmd, powershell, mshta, curl, python) and network beacons post-update. (ATT&CK: T1204, T1059, T1105)\n\n- **Malicious update redirections (Notepad++ hijack)**  \n  - Log sources: Proxy, firewall, DNS, TLS inspection.  \n  - Monitor for: Update requests from Notepad++ or similar tools going to non-standard domains, IPs outside vendor ASNs, HTTP 3xx chains to unknown hosts, or unsigned update packages. (T1568, T1195.002)\n\n- **Johnson Controls / OT exposure**  \n  - Log sources: Firewall/WAF, OT network sensors, VPN logs.  \n  - Monitor for: Unexpected external IPs hitting Johnson Controls or BMS URLs, URL parameters with SQL metacharacters (`'`, `;`, `--`), spikes in error 500/400 responses, or scans to OT ports. (T1190, T1046)\n\n- **Autonomous AI agents misused internally**  \n  - Log sources: EDR, command-line logs, Git/repo logs.  \n  - Monitor for: Agent frameworks spawning reconnaissance tooling (nmap, masscan), credentials tooling (mimikatz, lsass access), or automated code commits that introduce obfuscated scripts. (T1087, T1003, T1059)\n\n- **Ransomware early-stage behaviors**  \n  - Log sources: EDR, Windows event logs, file server logs, backup systems.  \n  - Monitor for: Rapid file modifications/renames, use of `vssadmin` or `wbadmin` to delete backups, abnormal Kerberos TGS requests, and lateral use of SMB/RDP from unusual admin accounts. (T1486, T1565.001, T1021)\n\n- **Web3/crypto service abuse (CrossCurve context)**  \n  - Log sources: API gateway logs, web server logs, database/wallet transaction logs, SIEM UEBA.  \n  - Monitor for: Abnormal spikes in contract calls, transfers to new/rarely used destination addresses, high-frequency API calls from single IPs, or admin API use outside normal hours. (T1071, T1608.002)\n\n- **Browser / web app data leaks (Instagram-style HTML exposure)**  \n  - Log sources: Web proxy, DLP, browser telemetry (if available).  \n  - Monitor for: Large HTML downloads from single pages, automated scraping patterns, or extraction of content from authenticated web apps to external destinations. (T1119, T1185)\n\n- **Phishing and social engineering aided by AI agents**  \n  - Log sources: Secure email gateway, M365/Google workspace logs, IdP.  \n  - Monitor for: Increased volume of high-quality, low-typo phishing attempts, lookalike domains, and unusual MFA push fatigue patterns possibly driven by automated campaigns. (T1566, T1078)\n\n---\n\n### Medium-term follow-ups\n\n- **Software update hardening & inventory**\n  - Conduct a review of auto-update policies for editors, IDEs, AV, and admin tools; prefer signed updates over secure channels and centralize updates where possible.\n  - Build/refresh inventory of all third-party code editors, IDEs, and AV products in use on admin and developer endpoints.\n\n- **Supply-chain risk management for dev ecosystems**\n  - Work with DevSecOps to restrict unvetted extension marketplaces (e.g., Open VSX) and enforce allow-lists for extensions and plugins.\n  - Add supply-chain abuse scenarios (malicious extensions, tampered repos) into secure SDLC and threat modeling.\n\n- **OT/Building management segmentation and patching**\n  - With facilities, confirm network segmentation and remote access methods for Johnson Controls/BMS; plan patching/mitigation window and document emergency isolation playbook.\n  - Evaluate whether OT traffic is properly logged and integrated into SIEM for sustained monitoring.\n\n- **AI/agent framework governance**\n  - Define internal policy for experimenting with autonomous AI agents and security tools (sandboxing requirements, network egress rules, secrets handling).\n  - Plan red-team exercises focused on AI-assisted intrusion to test SOC readiness and playbooks.\n\n- **Ransomware resilience review**\n  - Revalidate backups (frequency, isolation, restore tests) for critical financial and customer-facing systems.\n  - Refresh user awareness campaigns around phishing and initial access vectors commonly used by ransomware affiliates.",
+  "source_total_items": 8395,
+  "total_items_in_window_all": 295,
+  "total_items_in_window_curated": 87,
+  "morning_call_markdown": "### Executive Summary\n- State-backed supply-chain compromise of Notepad++ update infrastructure and multiple dev registries (Open VSX, AI tooling) increases risk from “trusted” software channels; check developer endpoints and build systems.\n- A recently patched Microsoft Office vulnerability (CVE-2026-21509) is being actively exploited by APT28/Fancy Bear and others, alongside new PDF/Dropbox phishing; harden and monitor Office/email paths.\n- Ongoing exploitation of exposed databases (MongoDB), cloud ML/AI platforms (OpenClaw, SageMaker SDK), and remote-access products (Ivanti zero-days) underlines need to lock down internet-facing services and cloud identities.\n\n---\n\n### High-priority items (immediate attention)\n\n- **Notepad++ update supply-chain hijack (Lotus Blossom / state-backed)**\n  - What happened: Hosting provider compromise let attackers backdoor Notepad++ update distribution for months, selectively delivering malware to users.\n  - Why it matters: Developer/admin workstations may have silently pulled trojanized updates, giving attackers a foothold in high-privilege environments.\n  - Recommended immediate actions:  \n    - Identify all endpoints with Notepad++ installed; flag those that updated in the last 9–12 months, especially from non-corporate mirrors.  \n    - Run targeted EDR sweeps on those endpoints using vendor IOCs and behavior patterns (new services, unusual outbound to rare domains); block any Notepad++ auto-update to internet until validated.\n\n- **Microsoft Office CVE-2026-21509 exploited by APT28 and others**\n  - What happened: Russia-linked APT28/Fancy Bear and other actors are actively exploiting a recently patched Office bug for initial access via malicious documents.\n  - Why it matters: High likelihood of phishing into our user base with weaponized Office files leading to code execution and follow-on credential theft.\n  - Recommended immediate actions:  \n    - Confirm emergency patch/mitigation status for Office across endpoints; prioritize high-risk users (finance, execs, privileged IT).  \n    - In email and EDR, hunt for recent Office spawning scripting interpreters or LOLBins (wscript, powershell, cmd, mshta, regsvr32) from attachments; tighten Office macro/Protected View policies if possible.\n\n- **New phishing using PDFs and Dropbox for credential theft**\n  - What happened: Campaigns use benign-looking emails with PDFs that link to fake Dropbox login pages to harvest credentials.\n  - Why it matters: Likely to bypass basic URL filters (trusted brand, embedded in PDF) and target corporate/O365/Dropbox accounts used for data sharing.\n  - Recommended immediate actions:  \n    - In email security, flag external PDFs containing embedded URLs to non-Dropbox domains or lookalike Dropbox domains; elevate to sandboxing/manual review.  \n    - In IdP logs, monitor for logins from unusual IPs/devices shortly after email delivery to users who received such PDFs; enable/verify MFA and impossible travel detections.\n\n- **Cloud/AI platform vulnerabilities and data exposure (OpenClaw RCE, 21k exposed instances; SageMaker Python SDK findings; GCP Cloud Monitoring → Cloud Run abuse; Ivanti zero-days)**\n  - What happened: Critical one-click RCE and mass misconfig in OpenClaw AI, security findings in AWS SageMaker SDK, a GCP Cloud Monitoring privilege-escalation path, and actively exploited Ivanti remote access vulnerabilities.\n  - Why it matters: Our ML/AI and remote-access/cloud-monitoring stack could be abused for code execution, lateral movement, or data exfiltration, especially if internet-facing.\n  - Recommended immediate actions:  \n    - Coordinate with cloud/platform teams today to verify: (1) we don’t have exposed OpenClaw or similar AI agents; (2) SageMaker SDK and related components are current; (3) any GCP Cloud Monitoring Uptime Checks→Cloud Run flows align with least-privilege; (4) Ivanti appliances are patched or access-restricted; add compensating WAF/VPN controls where patching lags.\n\n- **Database and Linux/Windows malware activity (MongoDB ransom-wiping, ShadowHS fileless Linux malware, Pulsar RAT on Windows)**\n  - What happened: Attackers are wiping unsecured MongoDB instances and planting ransom notes; new fileless Linux malware (ShadowHS) spreads automatically; Pulsar RAT abuses Windows Run keys for persistence and exfiltration.\n  - Why it matters: Direct risk to any exposed DBs and internet-facing Linux/Windows servers; stealth persistence could bypass basic AV.\n  - Recommended immediate actions:  \n    - Immediately verify no MongoDB instances are publicly exposed without auth; check for recent DB drop/recreate activity and ransom notes.  \n    - For Linux and Windows servers, run hunts for abnormal outbound traffic from system daemons/services, new per-user Run key entries, and shells spawned from web processes; tighten SSH/RDP and patch baseline.\n\n---\n\n### Monitoring & detection recommendations\n\n- **Office 0-day / APT28 phishing (CVE-2026-21509)**\n  - Log sources: Email gateway, EDR, Windows Event Logs, proxy/DNS.  \n  - Hunt: Office processes (WINWORD/EXCEL/POWERPNT) spawning script interpreters or LOLBins (powershell, wscript, mshta, regsvr32, rundll32) – ATT&CK T1203, T1566, T1059.\n\n- **PDF + Dropbox credential phishing**\n  - Log sources: Secure email gateway, web proxy, IdP/M365 audit logs.  \n  - Hunt: PDF attachments with embedded URLs to non-Dropbox domains or typosquats; subsequent logins from new IPs/ASNs to corporate SaaS within 0–2 hours of delivery – T1566.002, T1078.\n\n- **Notepad++ / developer tooling supply-chain compromise**\n  - Log sources: EDR, endpoint software inventory, proxy/DNS logs.  \n  - Hunt: Notepad++ updater or binary making outbound connections to rare domains/IPs; newly created services, scheduled tasks, or persistence set shortly after Notepad++ update events – T1195, T1547.\n\n- **AI/dev registries and Open VSX / MoltBot / Hugging Face abuse**\n  - Log sources: Dev endpoints, CI/CD runners, artifact repositories, EDR, outbound DNS.  \n  - Hunt: Build agents pulling new or recently updated packages/extensions from public registries just before unusual outbound connections or script execution; unsigned binaries in build output – T1195.003, T1505.\n\n- **Cloud platform abuse (OpenClaw, SageMaker, GCP Cloud Monitoring → Cloud Run, non-human identities)**\n  - Log sources: AWS CloudTrail, GCP Audit Logs, IAM/IdP logs, container logs.  \n  - Hunt: Uptime Checks or monitoring service accounts invoking Cloud Run or similar workloads unexpectedly; creation of new API keys/roles for service accounts; abnormal data-transfer volumes from ML/AI workloads – T1078.004, T1098, T1610.\n\n- **MongoDB ransom-wiping & database exposure**\n  - Log sources: MongoDB logs, firewall/WAF, cloud security posture tools.  \n  - Hunt: Anonymous or unknown IPs performing full-collection deletes, mass updates, or dropping databases; spikes in DB errors followed by ransom-note collections – T1485, T1490.\n\n- **Linux ShadowHS & Windows Pulsar RAT / other RATs**\n  - Log sources: EDR on Linux/Windows, syslog, Windows registry auditing, NetFlow.  \n  - Hunt: For Linux – long-lived suspicious processes with network connections to rare external IPs and no on-disk binary; for Windows – new per-user Run entries, RAT-like processes initiating C2 (small, periodic TLS/HTTP beacons) – T1055, T1105, T1547.\n\n- **Abuse of LOLBins across environments (PeckBirdy, general post-exploitation)**\n  - Log sources: EDR, PowerShell logs, Sysmon, command-line telemetry.  \n  - Hunt: LOLBins (certutil, msiexec, bitsadmin, powershell, wmic, rundll32) used to download or execute from external URLs, temp paths, or user-writable directories – T1218, T1105.\n\n---\n\n### Medium-term follow-ups\n\n- **Patch and configuration review for Office, Ivanti, OpenClaw, SageMaker SDK, GCP Monitoring**\n  - Ensure these products are on latest patches; document and close any compensating controls after patching; add them to regular vulnerability scanning coverage.\n\n- **Enterprise-wide software inventory and update control for dev tools**\n  - Build/maintain an authoritative inventory of developer utilities (Notepad++, IDEs, extensions, AI coding agents) and route updates via internal repositories where possible.\n\n- **Hardening of databases and cloud data stores**\n  - Enforce mandatory authentication and network segmentation for MongoDB and other DBs; add guardrails (CSPM policies) to prevent public exposure and default credentials.\n\n- **Identity and access management for non-human identities**\n  - Review service accounts, API tokens, and monitoring agents in cloud/on-prem; enforce least-privilege, regular key rotation, and anomaly detection on their behavior.\n\n- **Email and user awareness refresh**\n  - Update phishing training to include current patterns: Office 0-day docs, PDF→Dropbox scams, AI/crypto-themed lures; rehearse reporting/escalation paths for suspicious messages.\n\n- **Linux and OT/ICS monitoring uplift**\n  - Expand EDR and logging coverage to critical Linux servers and any OT/ICS components in scope; baseline normal services and network flows to better detect wipers or destructive activity.",
   "highlights": [
     {
-      "title": "Pompelmi: Open-source secure file upload scanning for Node.js",
-      "link": "https://www.helpnetsecurity.com/2026/02/02/pompelmi-open-source-secure-file-upload-scanning-node-js/",
+      "title": "Open-source attacks move through normal development workflows",
+      "link": "https://www.helpnetsecurity.com/2026/02/03/open-source-attacks-supply-chain-development-workflows/",
       "source": "Help Net Security",
-      "published": "2026-02-02T06:00:01+00:00",
+      "published": "2026-02-03T06:00:53+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs",
-        "Malware / Payloads"
+        "Malware / Payloads",
+        "Supply Chain / Software"
       ],
       "curated": true
     },
     {
-      "title": "CrossCurve Threatens Legal Action After $3M Cross-Chain Bridge Exploit",
-      "link": "https://decrypt.co/356599/crosscurve-legal-action-3m-cross-chain-bridge-exploit",
-      "source": "Decrypt",
-      "published": "2026-02-02T05:44:16+00:00",
+      "title": "Was tun, wenn die Erpresser kommen?",
+      "link": "https://www.csoonline.com/article/4125456/was-tun-wenn-die-erpresser-kommen.html",
+      "source": "CSO Online",
+      "published": "2026-02-03T06:00:00+00:00",
       "smart_groups": [
         "Curated",
-        "Exploit / PoC",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Web / API Security",
+        "Network / OT / ICS",
+        "Phishing / Social Engineering",
         "Crypto / Web3"
       ],
       "curated": true
     },
     {
-      "title": "Open VSX Supply Chain Attack Used Compromised Dev Account to Spread GlassWorm",
-      "link": "https://thehackernews.com/2026/02/open-vsx-supply-chain-attack-used.html",
+      "title": "Product showcase: 2FAS Auth – Free, open-source 2FA for iOS",
+      "link": "https://www.helpnetsecurity.com/2026/02/03/product-showcase-2fas-auth-free-open-source-2fa-ios/",
+      "source": "Help Net Security",
+      "published": "2026-02-03T05:30:16+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Identity / Access"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Cybersecurity jobs available right now: February 3, 2026",
+      "link": "https://www.helpnetsecurity.com/2026/02/03/cybersecurity-jobs-available-right-now-february-3-2026/",
+      "source": "Help Net Security",
+      "published": "2026-02-03T05:00:58+00:00",
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Notepad++ Hosting Breach Attributed to China-Linked Lotus Blossom Hacking Group",
+      "link": "https://thehackernews.com/2026/02/notepad-hosting-breach-attributed-to.html",
       "source": "The Hacker News",
-      "published": "2026-02-02T05:04:00+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "State-Sponsored Actors Hijacked Notepad++ Update to Redirect Users to Malicious Servers",
-      "link": "https://cybersecuritynews.com/notepad-hijacked/",
-      "source": "Cyber Security News (FeedBurner)",
-      "published": "2026-02-02T03:48:59+00:00",
+      "published": "2026-02-03T04:55:00+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs",
-        "Exploit / PoC"
+        "Malware / Payloads",
+        "Identity / Access"
       ],
       "curated": true
     },
     {
-      "title": "Clawdbot and the First AI Disaster - What Could Go Wrong?",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qtfggd/clawdbot_and_the_first_ai_disaster_what_could_go/",
-      "source": "/r/cybersecurity",
-      "published": "2026-02-02T00:10:31+00:00",
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "IMHO: The \"vibe coding\" on Moltbook is actually just a massive supply chain attack waiting to happen.",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qteu3c/imho_the_vibe_coding_on_moltbook_is_actually_just/",
-      "source": "/r/cybersecurity",
-      "published": "2026-02-01T23:44:34+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Open-source AI is a global security nightmare waiting to happen, say researchers",
-      "link": "https://go.theregister.com/feed/www.theregister.com/2026/02/01/opensource_ai_is_a_global/",
-      "source": "The Register - Security",
-      "published": "2026-02-01T23:40:10+00:00",
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Crypto protocol CrossCurve under attack, $3M reportedly exploited",
-      "link": "https://cointelegraph.com/news/crypto-protocol-crosscurve-exploited-for-3m?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Tether releases open-source operating system for Bitcoin mining",
+      "link": "https://cointelegraph.com/news/tether-releases-open-source-operating-system-for-bitcoin-miners?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "Cointelegraph.com News",
-      "published": "2026-02-01T22:47:14+00:00",
+      "published": "2026-02-03T03:48:14+00:00",
       "smart_groups": [
         "Curated",
-        "Exploit / PoC",
-        "Crypto / Web3"
+        "Vulnerabilities / CVEs"
       ],
       "curated": true
     },
     {
-      "title": "Dockerized CTF Challenge Index with Writeups",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qt9pi6/dockerized_ctf_challenge_index_with_writeups/",
-      "source": "/r/cybersecurity",
-      "published": "2026-02-01T20:25:58+00:00",
+      "title": "New phishing attack leverages PDFs and Dropbox",
+      "link": "https://www.csoonline.com/article/4125990/new-phishing-attack-leverages-pdfs-and-dropbox.html",
+      "source": "CSO Online",
+      "published": "2026-02-03T02:30:44+00:00",
       "smart_groups": [
         "Curated",
         "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Malware / Payloads",
         "Identity / Access",
         "Network / OT / ICS",
-        "Crypto / Web3"
+        "Phishing / Social Engineering"
       ],
       "curated": true
     },
     {
-      "title": "Cybersecurity engineering - Python studying resources",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qt6wm7/cybersecurity_engineering_python_studying/",
-      "source": "/r/cybersecurity",
-      "published": "2026-02-01T18:47:10+00:00",
+      "title": "I didn't trust the 'dog-proof' USB-C cable claim, so I tried something sharper instead",
+      "link": "https://www.zdnet.com/article/galvanox-pet-proof-usb-c-cable-review/",
+      "source": "ZDNet – Security",
+      "published": "2026-02-03T02:15:43+00:00",
       "smart_groups": [
         "Curated",
-        "Vulnerabilities / CVEs",
-        "Network / OT / ICS"
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Notepad++ Hack Detailed Along With the IoCs and Custom Malware Used",
+      "link": "https://cybersecuritynews.com/notepad-hack/",
+      "source": "Cyber Security News (FeedBurner)",
+      "published": "2026-02-03T02:06:58+00:00",
+      "smart_groups": [
+        "Curated",
+        "Malware / Payloads",
+        "Identity / Access"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Tulsa International Airport purportedly compromised by Qilin",
+      "link": "https://www.scworld.com/brief/tulsa-international-airport-purportedly-compromised-by-qilin",
+      "source": "SCM feed for Latest",
+      "published": "2026-02-03T00:33:41+00:00",
+      "smart_groups": [
+        "Curated",
+        "Ransomware"
       ],
       "curated": true
     }
