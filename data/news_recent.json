@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-02-15T14:06:14.926697+00:00",
+  "generated_at": "2026-02-15T14:45:35.052222+00:00",
   "days_back": 30,
-  "total_items": 8279,
+  "total_items": 8264,
   "items": [
     {
       "title": "Secure Your Spot at RSAC 2026 Conference",
@@ -28,6 +28,56 @@
       "curated": false
     },
     {
+      "title": "Update: Changing the Account Name Entity Mapping in Microsoft Sentinel",
+      "summary": "The upcoming update introduces more consistent and predictable entity data across analytics, incidents, and automation by standardizing how the Account Name property is populated when using UPN\u2011based mappings in analytic rules. Going forward, Account Name property will consistently contain only the UPN prefix, with new dedicated fields added for the full UPN and UPN suffix. While this improves consistency and enables more granular automation, customers who rely on specific Account Name values in automation rules or Logic App playbooks may need to take action. Timeline Effective date: July 1, 2026. The change will apply automatically - no opt-in is required. Scope of impact Analytics Rules which include mapping of User Principal Name (UPN) to the Account Name entity field, where the resulting alerts are processed by A utomation Rules or Logic App Playbooks that reference the AccountName property. What\u2019s changing Currently When an Analytic Rule includes mapping of a full UPN (for example: ' user@domain.com' ) to the Account Name field, the resulting input value for the Automation Rule or/and Logic App Playbook is inconsistent . In some cases, it contains only the UPN prefix: ' user' , and in other cases the full UPN (' user@domain.com' ). After July 1, 2026 Account Name property will consistently contain only the UPN prefix The following new fields will be added to the entity object: AccountName (UPN prefix) UPNSuffix UserPrincipalName (full UPN) This change provides an enhanced filtering and automation logic based on these new fields. Example Before Analytics Rule maps: ' user@domain.com' Automation Rule receives: Account Name : ' user' or ' user@domain.com' (inconsistent) After Analytics Rule maps: ' user@domain.com' Automation Rule receives: Account Name : ' user' UPNSuffix : ' domain.com' Logic App Playbook and SecurityAlert table receives: AccountName : ' user' UPNSuffix : ' domain.com' UserPrincipalName : ' user@domain.com' Feature / Location Before After SecurityAlert table Logic App Playbook Entity Why does it matter? If your automation logic relies on exact string comparisons against the full UPN stored in Account Name , those conditions may no longer match after the update. This most commonly affects: Automation Rules using \" Equals\" condition on Account Name Logic App Playbooks comparing entity field ' accountName' to a full UPN value Call to action Avoid strict equality checks against Account Name Use flexible operators such as: Contains Starts with Leverage the new UPNSuffix field for clearer intent Example update Before - Account name will show as 'user' or 'user@domain.com' After - Account Name will show as 'user' Recommended changes : Account Name C ontains/ S tartswith ' user' UPNSuffix E quals/Startswith/C ontains ' domain.com' This approach ensures compatibility both before and after the change takes effect. Where to update Review any filters, conditions, or branching logic that depend on Account Name values. Automation Rules : Use the ' Account name' field Logic App Playbooks : Update conditions referencing the entity: ' accountName' For example: Automation Rule before the change: Automation Rule after the change: Summary A consistency improvement to Account Name mapping is coming on July 1, 2026 The change affects Automation Rules and Logic App Playbooks that rely on UPN to Account Name mappings New UPN related fields provide better structure and control Customers should follow the recommendations above before the effective change date",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/update-changing-the-account-name-entity-mapping-in-microsoft/ba-p/4489040",
+      "source": "Microsoft Sentinel Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-02-15T14:32:23+00:00",
+      "published_ts": 1771165943,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "The best Walmart sales for Presidents' Day",
+      "summary": "Presidents' Day sales are live at Walmart, including deals on everything from top TVs and laptops to everyday essentials.",
+      "link": "https://www.zdnet.com/article/best-walmart-deals-presidents-day-2026/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-15T14:32:13+00:00",
+      "published_ts": 1771165933,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Delhi Police Busts \u20b945 Lakh Fake Stock Trading Scam Network",
+      "summary": "Delhi Police Dismantles Sophisticated Fake Stock Trading Scam A sophisticated fake stock trading scam that... The post Delhi Police Busts \u20b945 Lakh Fake Stock Trading Scam Network appeared first on .",
+      "link": "https://www.news4hackers.com/delhi-police-busts-%e2%82%b945-lakh-fake-stock-trading-scam-network/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-15T14:31:50+00:00",
+      "published_ts": 1771165910,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Finally, a robot vacuum that cleans my dogs' hair reliably well",
+      "summary": "The Mova P50 Ultra is a standout vacuum and mop combo, priced competitively with its latest discount.",
+      "link": "https://www.zdnet.com/article/mova-p50-ultra-robot-vacuum-mop-review/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-15T14:00:55+00:00",
+      "published_ts": 1771164055,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "Product engineering teams must own supply chain risk",
       "summary": "submitted by /u/ArtisticProgrammer11 [link] [comments]",
       "link": "https://www.reddit.com/r/netsec/comments/1r5fa5e/product_engineering_teams_must_own_supply_chain/",
@@ -38,6 +88,22 @@
       "published_ts": 1771163917,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "SECURITY AFFAIRS MALWARE NEWSLETTER ROUND 84",
+      "summary": "Security Affairs Malware newsletter includes a collection of the best articles and research on malware in the international landscape Malware Newsletter Stan Ghouls targeting Russia and Uzbekistan with NetSupport RAT Breaking Down ZeroDayRAT \u2013 New Spyware Targeting Android and iOS Old-School IRC, New Victims: Inside the Newly Discovered SSHStalker Linux Botnet Reynolds: Defense Evasion Capability [\u2026]",
+      "link": "https://securityaffairs.com/188004/malware/security-affairs-malware-newsletter-round-84.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-15T13:57:38+00:00",
+      "published_ts": 1771163858,
+      "smart_groups": [
+        "Curated",
+        "Linux / Unix",
+        "Malware / Payloads"
+      ],
+      "curated": true
     },
     {
       "title": "The best Presidents' Day phone sales live now",
@@ -73,6 +139,21 @@
       "published": "2026-02-15T13:33:04+00:00",
       "published_ts": 1771162384,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Security Affairs newsletter Round 563 by Pierluigi Paganini \u2013 INTERNATIONAL EDITION",
+      "summary": "A new round of the weekly Security Affairs newsletter has arrived! Every week, the best security articles from Security Affairs are free in your email box. Enjoy a new round of the weekly SecurityAffairs newsletter, including the international press. Fintech firm Figure disclosed data breach after employee phishing attack U.S. CISA adds a flaw in [\u2026]",
+      "link": "https://securityaffairs.com/187996/security/security-affairs-newsletter-round-563-by-pierluigi-paganini-international-edition.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-15T13:25:33+00:00",
+      "published_ts": 1771161933,
+      "smart_groups": [
+        "Data Breaches / Leaks",
+        "Phishing / Social Engineering"
+      ],
       "curated": false
     },
     {
@@ -21265,20 +21346,6 @@
       "curated": false
     },
     {
-      "title": "Update: Changing the Account Name Entity Mapping in Microsoft Sentinel",
-      "summary": "The upcoming update introduces more consistent and predictable entity data across analytics, incidents, and automation by standardizing how the Account Name property is populated when using UPN\u2011based mappings in analytic rules. Going forward, Account Name property will consistently contain only the UPN prefix, with new dedicated fields added for the full UPN and UPN suffix. While this improves consistency and enables more granular automation, customers who rely on specific Account Name values in automation rules or Logic App playbooks may need to take action. Timeline Effective date: July 1, 2026. The change will apply automatically - no opt-in is required. Scope of impact Analytics Rules which include mapping of User Principal Name (UPN) to the Account Name entity field, where the resulting alerts are processed by A utomation Rules or Logic App Playbooks that reference the AccountName property. What\u2019s changing Currently When an Analytic Rule includes mapping of a full UPN (for example: ' user@domain.com' ) to the Account Name field, the resulting input value for the Automation Rule or/and Logic App Playbook is inconsistent . In some cases, it contains only the UPN prefix: ' user' , and in other cases the full UPN (' user@domain.com' ). After July 1, 2026 Account Name property will consistently contain only the UPN prefix The following new fields will be added to the entity object: AccountName (UPN prefix) UPNSuffix UserPrincipalName (full UPN) This change provides an enhanced filtering and automation logic based on these new fields. Example Before Analytics Rule maps: ' user@domain.com' Automation Rule receives: Account Name : ' user' or ' user@domain.com' (inconsistent) After Analytics Rule maps: ' user@domain.com' Automation Rule receives: Account Name : ' user' UPNSuffix : ' domain.com' Logic App Playbook and SecurityAlert table receives: AccountName : ' user' UPNSuffix : ' domain.com' UserPrincipalName : ' user@domain.com' Feature / Location Before After SecurityAlert table Logic App Playbook Entity Why does it matter? If your automation logic relies on exact string comparisons against the full UPN stored in Account Name , those conditions may no longer match after the update. This most commonly affects: Automation Rules using \" Equals\" condition on Account Name Logic App Playbooks comparing entity field ' accountName' to a full UPN value Call to action Avoid strict equality checks against Account Name Use flexible operators such as: Contains Starts with Leverage the new UPNSuffix field for clearer intent Example update Before - Account name will show as 'user' or 'user@domain.com' After - Account Name will show as 'user' Recommended changes : Account Name C ontains/ S tartswith ' user' UPNSuffix E quals/Startswith/C ontains ' domain.com' This approach ensures compatibility both before and after the change takes effect. Where to update Review any filters, conditions, or branching logic that depend on Account Name values. Automation Rules : Use the ' Account name' field Logic App Playbooks : Update conditions referencing the entity: ' accountName' For example: Automation Rule before the change: Automation Rule after the change: Summary A consistency improvement to Account Name mapping is coming on July 1, 2026 The change affects Automation Rules and Logic App Playbooks that rely on UPN to Account Name mappings New UPN related fields provide better structure and control Customers should follow the recommendations above before the effective change date",
-      "link": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/update-changing-the-account-name-entity-mapping-in-microsoft/ba-p/4489040",
-      "source": "Microsoft Sentinel Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-02-10T12:25:15+00:00",
-      "published_ts": 1770726315,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
       "title": "APT36 Targets Linux Systems With New Tools Designed to Disrupt Services",
       "summary": "Critical infrastructure worldwide faces mounting threats from sophisticated, state-sponsored \u201cespionage ecosystems.\u201d These well-funded organizations deploy various tools designed to disrupt essential services and gather intelligence. Some launch denial-of-service (DDoS) attacks against transport hubs and supply chains. In contrast, others seek geopolitical advantage by mining sensitive information and bypassing traditional security measures. For over a decade, [\u2026] The post APT36 Targets Linux Systems With New Tools Designed to Disrupt Services appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
       "link": "https://gbhackers.com/apt36-targets-linux/",
@@ -32327,18 +32394,6 @@
       "type_label": "General Security & Blogs",
       "published": "2026-02-06T16:13:00+00:00",
       "published_ts": 1770394380,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "The best Walmart sales for Presidents' Day",
-      "summary": "Early Presidents' Day sales are already live, including deals on everything from top TVs and laptops to everyday essentials.",
-      "link": "https://www.zdnet.com/article/best-walmart-deals-presidents-day-2026/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-06T16:11:32+00:00",
-      "published_ts": 1770394292,
       "smart_groups": [],
       "curated": false
     },
@@ -114690,258 +114745,6 @@
       "published": "2026-01-16T14:21:30+00:00",
       "published_ts": 1768573290,
       "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Canadian investment regulator confirms hackers hit 750,000 investors",
-      "summary": "The nongovernmental Canadian Investment Regulatory Organization, which oversees the country's debt and equity marketplaces as well as some financial institutions, released details about an August 2025 data breach.",
-      "link": "https://therecord.media/canada-ciro-investing-regulator-confirms-data-breach",
-      "source": "The Record \u2013 Cybercrime",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-01-16T14:18:25+00:00",
-      "published_ts": 1768573105,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Google and Mozilla Patch 26 Security Flaws in Chrome 144, Firefox 147",
-      "summary": "Google Chrome 144 and Firefox 147 patch 26 security flaws, including high-severity bugs and sandbox escapes. Here\u2019s what\u2019s fixed and why updates matter. The post Google and Mozilla Patch 26 Security Flaws in Chrome 144, Firefox 147 appeared first on TechRepublic .",
-      "link": "https://www.techrepublic.com/article/news-google-mozilla-patch-26-security-flaws/",
-      "source": "TechRepublic \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-16T14:15:36+00:00",
-      "published_ts": 1768572936,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "CVE-2026-0227: Palo Alto Networks Fixes GlobalProtect DoS Flaw Allowing Remote Firewall Disruption",
-      "summary": "Shortly after Microsoft\u2019s massive January Patch Tuesday release addressing the CVE-2026-20805 zero-day vulnerability in Windows Desktop Window Manager, another technology giant has issued a security fix. This time, Palo Alto Networks has warned of a high-severity flaw affecting its GlobalProtect Gateway and Portal, noting that a proof-of-concept (PoC) exploit is available. GlobalProtect is Palo Alto [\u2026] The post CVE-2026-0227: Palo Alto Networks Fixes GlobalProtect DoS Flaw Allowing Remote Firewall Disruption appeared first on SOC Prime .",
-      "link": "https://socprime.com/blog/cve-2026-0227-vulnerability/",
-      "source": "SOC Prime Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-01-16T14:09:06+00:00",
-      "published_ts": 1768572546,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Windows / Microsoft"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Five Malicious Chrome Extensions Impersonate Workday and NetSuite to Hijack Accounts",
-      "summary": "Cybersecurity researchers have discovered five new malicious Google Chrome web browser extensions that masquerade as human resources (HR) and enterprise resource planning (ERP) platforms like Workday, NetSuite, and SuccessFactors to take control of victim accounts. \"The extensions work in concert to steal authentication tokens, block incident response capabilities, and enable complete account",
-      "link": "https://thehackernews.com/2026/01/five-malicious-chrome-extensions.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-16T14:09:00+00:00",
-      "published_ts": 1768572540,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Morning Minute: Tom Lee Backs Mr. Beast with $200M",
-      "summary": "It's a massive bet on Mr. Beast\u2014but arguably more bullish for the future of BMNR.",
-      "link": "https://decrypt.co/354874/morning-minute-tom-lee-backs-mr-beast-with-200m",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-01-16T14:04:10+00:00",
-      "published_ts": 1768572250,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "how many alerts do you actually look at vs quietly ignore?",
-      "summary": "Our SOC is straight up underwater . Hundreds (sometimes thousands) of alerts a day, small team, zero chance we\u2019re touching everything. We tune, suppress, reprioritise, tweak rules\u2026 and still finish the day knowing a big chunk never even got opened . And honestly? That part stresses me out more than the noise itself. It\u2019s not people being lazy. It\u2019s just reality. There are only so many analysts and only so many hours in a shift. But every ignored alert comes with that little voice like, \u201cyeah but what if that was the one?\u201d Curious how other teams deal with this without losing their minds: -Do you just accept that some alerts will never get looked at? -Do you hard-cap how many investigations happen per day? -Or do you keep pretending everything gets reviewed because that\u2019s what the dashboard says? Not looking for perfect answers as i feel this nuanced how are people handling alert volume without burning out or kidding themselves? submitted by /u/Palmelicangel [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qegs8t/how_many_alerts_do_you_actually_look_at_vs/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-01-16T14:03:24+00:00",
-      "published_ts": 1768572204,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "What should a security person actually do with SonarQube Community Edition",
-      "summary": "Hey folks, I\u2019m working with SonarQube Community Edition hooked into CI/CD (Python, Java, JS) and I\u2019ve got admin access.It runs on every push, no obvious security issues show up, but there are tons of reliability/maintainability findings. I am a beginner and my task here is not defined clearly (I & my role is new here). So my doubt is simple: What\u2019s the right thing to do with SonarQube CE from a security point of view? 1.Tighten security rules / quality gates? 2.Treat it as basic SAST and call out what it doesn\u2019t cover? 3. Only care about non-security issues when they turn into real risk (DoS, crashes, etc.)? How do you folks handle this in real setups without over-selling SonarQube? submitted by /u/Sufficient-Brick1801 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qegrnq/what_should_a_security_person_actually_do_with/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-01-16T14:02:46+00:00",
-      "published_ts": 1768572166,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "From memecoins to machines: Why Web3\u2019s \u2018real economy\u2019 narrative is relevant in 2026",
-      "summary": "As DePIN projects generate revenue and AI agents move onchain, builders are shifting focus from speculation to fundamentals, but questions remain about Web3\u2019s decentralization ethos.",
-      "link": "https://cointelegraph.com/news/from-memecoins-to-machines-why-web3-s-real-economy-narrative-is-back-in-2026?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-01-16T14:00:00+00:00",
-      "published_ts": 1768572000,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "AI System Reduces Attack Reconstruction Time From Weeks to Hours",
-      "summary": "Pacific Northwest National Labs' expert cybersecurity system, ALOHA, can recreate attacks and test them against organizations' infrastructure to bolster defense.",
-      "link": "https://www.darkreading.com/cybersecurity-operations/ai-system-attack-reconstruction-weeks-hours",
-      "source": "darkreading",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-16T14:00:00+00:00",
-      "published_ts": 1768572000,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Astro is joining Cloudflare",
-      "summary": "The Astro Technology Company team \u2014 the creators of the Astro web framework \u2014 is joining Cloudflare. We\u2019re doubling down on making Astro the best framework for content-driven websites, today and in the years to come.",
-      "link": "https://blog.cloudflare.com/astro-joins-cloudflare/",
-      "source": "The Cloudflare Blog",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-16T14:00:00+00:00",
-      "published_ts": 1768572000,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "AI SOC Agents Are Only as Good as the Data They Are Fed",
-      "summary": "Interesting given the buzz around AI SOC agents for triage and what data they actually need to be effective.. submitted by /u/kyle4beantown [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qegone/ai_soc_agents_are_only_as_good_as_the_data_they/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-01-16T13:59:36+00:00",
-      "published_ts": 1768571976,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Ethereum ETF buying outpaces new supply: Will it push ETH price to $4.5K?",
-      "summary": "Renewed spot Ethereum ETF inflows topped $474 million this week while network metrics smashed records, positioning ETH for a rally to $4,500 in the coming weeks.",
-      "link": "https://cointelegraph.com/news/ethereum-etf-buying-outpaces-new-supply-eth-price-4-5k?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-01-16T13:58:15+00:00",
-      "published_ts": 1768571895,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Web3 revenue shifts from blockchains to wallets and DeFi apps",
-      "summary": "A growing amount of the blockchain industry\u2019s fees are captured by DeFi protocols rather than the underlying networks, signaling a potential investor shift to front-end facing applications.",
-      "link": "https://cointelegraph.com/news/defi-apps-capture-more-fees-than-blockchains?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-01-16T13:57:42+00:00",
-      "published_ts": 1768571862,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "romie",
-      "summary": "ROMIE is one of those ideas that feels obvious after you hear it. It\u2019s a portable cloud OS that isn\u2019t tied to any device \u2014 your entire environment (apps, storage, identity, workspace) follows you anywhere, on any hardware, without leaving data behind. Think of it like carrying your own secure computing universe in your pocket, but without the limitations of VDI or traditional remote desktops. What makes it interesting is the modular design. Instead of a bloated OS, ROMIE loads only the components you need, on demand, and everything runs in a secure, isolated environment. It\u2019s basically \u201czero\u2011trust by default\u201d baked into the operating system layer. Use cases range from enterprise security to education to BYOD environments, but the bigger idea is digital freedom: your OS becomes yours, not the device manufacturer\u2019s. If you\u2019re into cloud architecture, security, or next\u2011gen computing models, it\u2019s worth keeping an eye on. It\u2019s one of the few concepts that actually rethinks the OS instead of just reskinning it. submitted by /u/Ill-Mycologist1039 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qegkwo/romie/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-01-16T13:55:17+00:00",
-      "published_ts": 1768571717,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Thoughts?",
-      "summary": "Just saw this article about a suspected North Korean infiltrator getting caught because of a constant 110 ms keystroke latency that didn\u2019t match their claimed location: https://www.tomshardware.com/tech-industry/cyber-security/north-korean-infiltrator-caught-working-in-amazon-it-department-thanks-to-lag-110ms-keystroke-input-raises-red-flags-over-true-location Curious how people would go about detecting something like this in their own environment. submitted by /u/DrGuala420 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qegi1w/thoughts/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-01-16T13:52:04+00:00",
-      "published_ts": 1768571524,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Network enginner interview experience",
-      "summary": "As I get in interview as a fresher I thought the interviewer will asked me about protcols , vlan , subnet and routing protocols but what he ask he deeply asked me about cables , cable lengths , which cable material is used in it and how many type of cables in it , then he ask about TCP and osi but my game is over in cable question \ud83d\ude2d\ud83d\ude2d submitted by /u/shubham_pcap [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qegghs/network_enginner_interview_experience/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-01-16T13:50:22+00:00",
-      "published_ts": 1768571422,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Google Begins Rolling Out Long-Awaited @gmail.com Email Feature to Users",
-      "summary": "Google has initiated a gradual rollout of a highly requested feature that allows users to change their primary Google Account email address from one @gmail.com address to another. The functionality, which has been available in limited scenarios, is now being rolled out to all Google users. However, availability varies as the rollout progresses. How the Feature Works The email change [\u2026] The post Google Begins Rolling Out Long-Awaited @gmail.com Email Feature to Users appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/google-begins-rolling-out-long-awaited-gmail-com/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-16T13:48:56+00:00",
-      "published_ts": 1768571336,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Huione-linked Tudou Guarantee winds down amid $130M USDT refunds: Bitrace",
-      "summary": "The apparent shutdown follows years of scrutiny of one of crypto\u2019s largest fraud marketplaces.",
-      "link": "https://cointelegraph.com/news/huione-tudou-guarantee-shutdown-usdt-refunds?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-01-16T13:46:34+00:00",
-      "published_ts": 1768571194,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Large healthcare vendor suing data brokers posing as fake healthcare entities to sell patient data.",
-      "summary": "\"Epic Systems, which operates the largest electronic health records system in the country, filed a lawsuit in California this week accusing a set of data brokers and other entities of masquerading as medical treatment facilities in order to pull nearly 300,000 patient records. The suit alleges those companies inappropriately monetized the data, for instance, by selling it to attorneys looking for people to join class action lawsuits. The scope of the alleged fraud could actually be much greater. And most patients likely have no idea their data was ever stolen.\" https://www.forbes.com/sites/monicahunter-hart/2026/01/15/your-medical-privacy-could-be-at-risk-a-new-lawsuit-shows Almost certainly, this has been happening for decades at a far greater scale than this single instance. submitted by /u/rogeragrimes [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qega1b/large_healthcare_vendor_suing_data_brokers_posing/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-01-16T13:43:02+00:00",
-      "published_ts": 1768570982,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
       "curated": false
     },
     {
