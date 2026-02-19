@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-02-19T16:05:59.114945+00:00",
+  "generated_at": "2026-02-19T17:08:15.697884+00:00",
   "days_back": 30,
-  "total_items": 9019,
+  "total_items": 9021,
   "items": [
     {
       "title": "Secure Your Spot at RSAC 2026 Conference",
@@ -24,6 +24,359 @@
       "type_label": "General Security & Blogs",
       "published": "2026-03-19T15:00:00+00:00",
       "published_ts": 1773932400,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "How Security Tool Misuse Is Reshaping Cloud Compromise",
+      "summary": "Key Takeaways Cloud Compromise Frequently Starts with Credential Misuse Cloud compromise is increasingly defined by authentication rather than exploitation. Exposed credentials and mismanaged identities now provide a faster path to access than vulnerability chaining. At the same time, legitimate security utilities designed to detect secret leaks are widely available. When used defensively, they reduce exposure. [\u2026]",
+      "link": "https://blog.qualys.com/category/qualys-insights",
+      "source": "Qualys Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-02-19T17:00:00+00:00",
+      "published_ts": 1771520400,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Linux / Unix",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Mapping Deception Solutions With BloodHound OpenGraph\u00a0 \u2013 Configuration Manager",
+      "summary": "TL;DR: At SpecterOps, we look at Attack Path Management from multiple perspectives, including those of identifying areas to implement quality deception solutions. In this blog, I discuss identifying key areas of Configuration Manager (SCCM) infrastructure that defenders can implement for deception solutions. Additionally, I provide practical examples of mapping those key areas in OpenGraph with [\u2026] The post Mapping Deception Solutions With BloodHound OpenGraph \u2013 Configuration Manager appeared first on SpecterOps .",
+      "link": "https://specterops.io/blog/2026/02/19/mapping-deception-solutions-with-bloodhound-opengraph-configuration-manager/",
+      "source": "https://specterops.io/feed/",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T17:00:00+00:00",
+      "published_ts": 1771520400,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Accelerate Your UEBA Journey: Introducing the Microsoft Sentinel Behaviors Workbook",
+      "summary": "In our recent announcement , we introduced the UEBA Behaviors layer - a breakthrough capability that transforms noisy, high-volume security telemetry into clear, human-readable behavioral insights. The Behaviors layer answers the critical question: \"Who did what to whom, and why does it matter?\" by aggregating and sequencing raw events into normalized, MITRE ATT&CK-mapped behaviors. But understanding what behaviors are is just the beginning. The next question for SOC teams is: \"How do I actually use behaviors to get value from day one?\" Today, we announce the Microsoft Sentinel Behaviors Workbook (part of the \u201cUEBA essentials solution\u201d in the content hub) - a purpose-built, interactive analytics workbook that helps you extract maximum value from the Behaviors layer across your investigation, hunting, and detection workflows. Whether you're a SOC manager looking for high-level situational awareness, an analyst triaging an incident, or a threat hunter searching for hidden threats, this workbook provides the insights you need, when you need them. And the best thing? You can always make it your own! Why a Workbook? While the behaviors data is incredibly rich, knowing where to start and what questions to ask can present a learning curve. The UEBA Behaviors Workbook solves this by providing pre-built, validated analytics across three core SOC workflows: Overview : High-level metrics and trends for leadership and SOC managers Investigation : Deep-dive timeline analysis for incident response Hunting : Proactive threat discovery with anomaly detection and attack chain analysis Think of the workbook as your guided tour through the Behaviors layer - it surfaces the most actionable insights automatically, while still giving you the flexibility to drill down and customize as needed. Quick Recap: What Are UEBA Behaviors? Before diving into the workbook, let's briefly recap what makes the Behaviors layer unique: Behaviors are neutral, descriptive observations - they explain what happened , not whether it's malicious. They aggregate and sequence raw events from sources like AWSCloudTrail, GCPAuditLog and CommonSecurityLog data into unified, human-readable summaries. Each behavior is enriched with MITRE ATT&CK mappings, entity roles, and natural-language explanations. They bridge the gap between raw logs and alerts , providing an abstraction layer that makes investigation and detection dramatically faster. In essence: behaviors turn \"what's in the logs\" into \"what actually happened in my environment\" - without requiring deep expertise in every log schema. The Behaviors Workbook: Three Tabs, Three Workflows The Behaviors Workbook is organized into three tabs; each designed for a specific SOC persona and use case. Let's walk through each one. Tab 1: Overview - Situational Awareness at a Glance Who it's for: SOC managers, leadership, and anyone who needs a quick pulse-check on what's happening in the environment. What it provides: The Overview tab delivers high-level metrics and visualizations including key metrics tiles, timeline trend charts, MITRE coverage heatmaps, and behavior type distribution that help you quickly spot spikes, patterns, or anomalies requiring investigation. Use case example: A SOC manager opens the Overview tab and immediately sees an unusual spike in behaviors concentrated in the Defense Evasion and Persistence tactics. The Behavior Type Distribution reveals a surge in \"Failed IAM Identity Provider Configuration Attempts\" and \"AWS EC2 Security Group Rule Modifications Observed\", signaling potential attack preparation that needs immediate triage. Tab 2: Hunting - Proactive Threat Discovery Who it's for: Threat hunters, purple teams, and proactive security analysts. What it does: The Hunting tab empowers hunters to discover emerging threats before they become incidents by surfacing anomalous patterns, rare behaviors, and potential attack chains. Unlike the Investigation tab (which reacts to known incidents), Hunting is about proactive discovery. Key capabilities: Use case example: Rarest Behaviors A threat hunter reviews the \"Rarest Behaviors\" panel, filtered for the past 7 days. They notice a behavior titled \"Inbound remote management session from external address\" that has only occurred 5 times in the entire environment. Pivoting to the BehaviorEntities table, they discover all 5 instances involve Palo Alto firewall logs showing the same external IP targeting different internal management interfaces - a clear sign of targeted reconnaissance. Use case example: Attack Chain Detector The Attack Chain Detector highlights an AWS IAM role (arn:aws:iam::123456789012:role/CompromisedRole) appearing across 5 distinct MITRE tactics : Reconnaissance, Persistence, Defense Evasion, Credential Access, and Impact. Reviewing the associated behaviors reveals: This multi-stage pattern - invisible when looking at individual CloudTrail events - is now crystal clear. The hunter initiates an immediate investigation. Use case example: CyberArk Vault Anomaly The workbook shows that the \"CyberArk Vault CPM Automatic Detection Operations\" behavior had an average of 120 instances per day over the past week, but today it has 1,847 instances - a 15x increase . Drilling into the behaviors reveals that a single service account is performing mass privileged account access operations across multiple safes - potential insider threat or compromised privileged account. This insightful information would have been buried in verbose Vault audit logs, but velocity tracking surfaces it immediately. Tab 3: Investigation - Deep-Dive Analysis for Incident Response Who it's for: SOC analysts, incident responders, and anyone investigating a specific incident or specific entities. What it does: The Investigation tab transforms how analysts respond to incidents by providing comprehensive behavioral context for the entities involved. Instead of manually querying multiple log sources and stitching together timelines, analysts get an automated, pre-correlated view of everything those entities did before, during, and after the incident. How to use it: When investigating an incident, you provide: The entities involved (users, machines, IPs, etc.) The time of incident generation Time range before the first alert (e.g., 24 hours before) Time range after the last alert (e.g., 12 hours after) Use case example: An alert fires for \"Suspicious AWS IAM Activity\" involving IAM user AdminUser123. The analyst opens the Investigation tab, enters the user identity as the entity, sets the incident time, and configures a 24-hour lookback and 12-hour look-forward window. The analyst immediately sees: Before the incident : Normal behaviors like \"AWS EC2 Security Group Information Retrieval\" show routine reconnaissance. During the incident : Multiple instances of \"Failed IAM Identity Provider Configuration Attempts\", indicating the attacker is trying to establish persistence through SAML federation After the incident : \"AWS Resource Deletion Monitoring\" behaviors showing potential attempted cleanup of evidence. This comprehensive view - which would have taken 30+ minutes of manual querying across CloudTrail, VPC Flow Logs, and IAM logs - is now available in seconds and is easily readable and provides rich context. Real Impact on Your SOC The Behaviors Workbook represents a fundamental shift in how SOCs can operate: Investigation time drops from hours to minutes through automated entity-centric behavioral analysis. Threat hunting becomes accessible to junior analysts through pre-built queries that surface rare behaviors and attack chains. Leadership gains visibility into MITRE ATT&CK coverage and behavior trends without needing to know KQL. Detection engineering is faster because rare behaviors and velocity anomalies are automatically surfaced as high-fidelity signals. The workbook doesn't just give you data - it gives you insights you can act on immediately . Getting Started Prerequisites: A Microsoft Sentinel workspace onboarded to the Microsoft Defender portal. The Behaviors layer enabled for your workspace (Settings \u2192 UEBA \u2192 Behaviors layer) and at least one supported data source configured (list is always updated in the documentation ). The Workbook uses the Log Analytics table names, SentinelBehaviorInfo and SentinelBehaviorEntities. The \u201cSentinel\u201d prefix isn\u2019t needed when querying behaviors in Advanced Hunting. Installation: Navigate to Microsoft Sentinel \u2192 Content Hub . Search for the \"UEBA essentials\" solution in the gallery. Click Save to add it to your workspace. One of the content items is the UEBA behaviors workbook (you will also find there a Workbook for UEBA and great hunting queries to get you started with UEBA). Open the workbook and select your time range and parameters. Adjust the queries as needed for your use cases. We Want Your Feedback As you start using the workbook, let us know: Which tab do you find most valuable? What additional visualizations or hunting queries would help your workflow? What should be integrated into the portal, and where? Share your thoughts in the comments below or reach out to our team directly. For more details on the Behaviors layer, see our original announcement blog post and https://learn.microsoft.com/azure/sentinel/behaviors-overview . You will find those links in the \u201cResources\u201d tab of the Workbook for ease of use.",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/accelerate-your-ueba-journey-introducing-the-microsoft-sentinel/ba-p/4488278",
+      "source": "Microsoft Sentinel Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-02-19T17:00:00+00:00",
+      "published_ts": 1771520400,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS",
+        "Identity / Access",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "How Security Tool Misuse Is Reshaping Cloud Compromise",
+      "summary": "Key Takeaways Cloud Compromise Frequently Starts with Credential Misuse Cloud compromise is increasingly defined by authentication rather than exploitation. Exposed credentials and mismanaged identities now provide a faster path to access than vulnerability chaining. At the same time, legitimate security utilities designed to detect secret leaks are widely available. When used defensively, they reduce exposure. [\u2026]",
+      "link": "https://blog.qualys.com/qualys-insights/2026/02/19/how-security-tool-misuse-is-reshaping-cloud-compromise",
+      "source": "Qualys Insights \u2013 Qualys Security Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-02-19T17:00:00+00:00",
+      "published_ts": 1771520400,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Linux / Unix",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "We\u2019re sharing how we kept the Google Play and Android app ecosystems safe in 2025.",
+      "summary": "In 2025, we significantly enhanced the Google Play and Android app ecosystems.",
+      "link": "https://blog.google/products-and-platforms/platforms/google-play/how-we-kept-google-play-safe-in-2025/",
+      "source": "Safety & Security",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-02-19T17:00:00+00:00",
+      "published_ts": 1771520400,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Open source tool for SOC AI Response Maturity Evaluation",
+      "summary": "We built v0.1 of a framework for evaluating AI SOC response capabilities. Need fellow practitioners to help us improve it. Before anything else: this is early. Version 0.1. We know it is incomplete, we know there are gaps, and that is exactly why we are posting here instead of writing a press release. We need people who actually run SOCs, build detections, and deal with these AI tools daily to tell us what we got wrong and what we missed. The problem we are trying to solve: every AI SOC vendor claims they automate response. Nobody measures it the same way. There is no common framework for comparing what Product A can actually do versus Product B. So we built one. The AI Response Maturity Model (ARMM) breaks down 82+ response actions across 6 planes (Identity, Network, Endpoint, Cloud, SaaS, General Options) and scores them against a 4-tier maturity pyramid. Two modes: - Evaluator: simple 0-1-2 scoring per capability. Does the product do this? How automated is it? Built for comparing vendors without losing your mind. - Builder: each action scored across Trust (do you trust the AI?), Complexity (can your team maintain it?), and Impact (what breaks if it goes wrong?). Same action can land in different tiers depending on your org context. Built for product roadmaps and internal SOC programs. We vibe coded a free app where you can score products and export results: arrm.lovable.app Full writeup with methodology, reference tables, and scoring logic: https://www.cybersec-automation.com/p/ai-response-maturity-model Specific things we want feedback on: - Are we missing critical response actions in any of the planes? - Is the 3-axis scoring (Trust/Complexity/Impact) useful or overengineered? - Does the tier placement make sense or did we put something in Explorer that should be Expert or vice versa? - Is the General Options plane too bloated now at 22 capabilities? - What planes are we missing entirely? submitted by /u/Flixterr [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1r947kj/open_source_tool_for_soc_ai_response_maturity/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-02-19T16:44:44+00:00",
+      "published_ts": 1771519484,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "More resilient cryptojacking campaign uncovered",
+      "summary": "New tools and tactics have been harnessed by threat actors to facilitate a more clandestine cryptojacking campaign with optimized Monero mining capabilities, Infosecurity Magazine reports.",
+      "link": "https://www.scworld.com/brief/more-resilient-cryptojacking-campaign-uncovered",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T16:38:10+00:00",
+      "published_ts": 1771519090,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "The AWS Console and Terraform Security Gap",
+      "summary": "AWS assets created with the Terraform provider are falling short on what are considered standard security best practices. Our most recent post highlights the differences between assets created directly in the console vs using the Terraform provider. submitted by /u/IncludeSec [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1r9402h/the_aws_console_and_terraform_security_gap/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-02-19T16:37:02+00:00",
+      "published_ts": 1771519022,
+      "smart_groups": [
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Critical flaw in Grandstream GXP1600 VoIP phones could lead to call eavesdropping",
+      "summary": "The flaw is a stack buffer overflow that could lead to unauthenticated RCE with root privileges.",
+      "link": "https://www.scworld.com/news/critical-flaw-in-grandstream-gxp1600-voip-phones-could-lead-to-call-eavesdropping",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T16:36:03+00:00",
+      "published_ts": 1771518963,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Windows Admin Center Security Flaw Exposed: CVE-2026-26119 Vulnerability",
+      "summary": "A Critical Vulnerability in Windows Admin Center Exposes Organizations to Privilege Escalation Attacks A recently... The post Windows Admin Center Security Flaw Exposed: CVE-2026-26119 Vulnerability appeared first on .",
+      "link": "https://www.news4hackers.com/windows-admin-center-security-flaw-exposed-cve-2026-26119-vulnerability/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T16:32:16+00:00",
+      "published_ts": 1771518736,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft"
+      ],
+      "curated": true
+    },
+    {
+      "title": "One-command SSH hardening script for Debian/Ubuntu \u2013 feedback welcome",
+      "summary": "I kept putting off hardening SSH on new VPS boxes (change port, disable root, set up keys, UFW, fail2ban\u2026) so I wrote a script that does it in one run. **What it does:** - Creates a sudo user (or skips if they already exist \u2013 no password change then) - Moves SSH off port 22 - Disables root login and password auth when you use a key - Optional: UFW (deny by default, allow your SSH port + extras) and Fail2Ban - Detects Debian vs Ubuntu and only runs on that family for now You pass everything as env vars and run with sudo. It asks before changing anything and prints a summary at the end so you can save it (port, user, connect command). **Repo:** https://github.com/spookey007/ssh-hardening Tested on Debian 12. Should work on Ubuntu and similar; other distros get a \u201ccoming soon\u201d message and exit without touching anything. I\u2019d love feedback: what would you add or change? Anything that would make you actually use it (or not use it)? Happy to improve it based on real use cases. submitted by /u/Tricky_Ad_9838 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1r93uai/onecommand_ssh_hardening_script_for_debianubuntu/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-02-19T16:30:58+00:00",
+      "published_ts": 1771518658,
+      "smart_groups": [
+        "Linux / Unix"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Remcos RAT Expands Real-Time Surveillance Capabilities",
+      "summary": "New Remcos RAT variant enhances real-time surveillance and evasion techniques to compromise Windows",
+      "link": "https://www.infosecurity-magazine.com/news/remcos-rat-expands-real-time/",
+      "source": "Infosecurity Magazine \u2013 News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T16:30:00+00:00",
+      "published_ts": 1771518600,
+      "smart_groups": [
+        "Windows / Microsoft"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Report: AI-Driven Fraud Surged by 1200% in December 2025",
+      "summary": "AI-driven fraud attacks spiked by more than 1200% in December 2025, according to a new report by Pindrop Security. Threat actors are using AI to assist in every stage of the attack, from deploying bots to conduct reconnaissance to using deepfakes to trick humans.",
+      "link": "https://blog.knowbe4.com/report-ai-driven-fraud-surged-by-1200-in-december-2025",
+      "source": "KnowBe4 Blog",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T16:30:00+00:00",
+      "published_ts": 1771518600,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "macOS Malware Analysis: Music Plugin DMG Loader",
+      "summary": "On February 4, 2026, security researchers discovered a mass-distributed loader disguised as predominantly cracked music plugin DMGs used to deliver multiple multistage macOS malware, such as Odyssey and MacSyncStealer , in addition to a Mach-O binary containing another loader to an additional payload.",
+      "link": "https://the-sequence.com/macos-malware-loader-music-plugin-dmg",
+      "source": "https://www.kandji.io/blog/rss.xml",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-02-19T16:28:46+00:00",
+      "published_ts": 1771518526,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Running OpenClaw safely: identity, isolation, and runtime risk",
+      "summary": "Self-hosted agents execute code with durable credentials and process untrusted input. This creates dual supply chain risk, where skills and external instructions converge in the same runtime. As OpenClaw-like systems enter enterprises, governance and runtime isolation become critical. The post Running OpenClaw safely: identity, isolation, and runtime risk appeared first on Microsoft Security Blog .",
+      "link": "https://www.microsoft.com/en-us/security/blog/2026/02/19/running-openclaw-safely-identity-isolation-runtime-risk/",
+      "source": "Microsoft Security Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-02-19T16:27:00+00:00",
+      "published_ts": 1771518420,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Microsoft reveals critical Windows Admin Center vulnerability (CVE-2026-26119)",
+      "summary": "Microsoft has disclosed a privilege-escalation vulnerability in Windows Admin Center (WAC), a browser-based platform widely used by IT administrators and infrastructure teams to manage Windows clients, servers, clusters, Hyper-V hosts and virtual machines, as well as Active Directory-joined systems. Although the issue was patched in early December 2025 with the release of Windows Admin Center version 2511, it has only just been publicly acknowledged. The delay in disclosure likely reflects both the nature of the \u2026 More \u2192 The post Microsoft reveals critical Windows Admin Center vulnerability (CVE-2026-26119) appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/02/19/windows-admin-center-cve-2026-26119/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T16:26:26+00:00",
+      "published_ts": 1771518386,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Bitcoin price forecast sees new breakdown as crypto liquidates over $200M",
+      "summary": "Bitcoin fed into \"extreme bearish sentiment\" as a tight BTC price range fueled daily crypto liquidations of over $200 million.",
+      "link": "https://cointelegraph.com/news/bitcoin-price-forecast-sees-new-breakdown-as-crypto-liquidates-200m?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-02-19T16:25:44+00:00",
+      "published_ts": 1771518344,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "The AWS Console and Terraform Security Gap",
+      "summary": "Are you using Terraform to build or configure your AWS environment? You might be surprised by configuration settings that introduce vulnerabilities by default, particularly if you're already familiar with using the AWS or other cloud provider interfaces for asset creation. This post focuses on the slowly growing security divide of AWS asset security settings when created by the Terraform provider vs the AWS UI. The post The AWS Console and Terraform Security Gap appeared first on Include Security Research Blog .",
+      "link": "https://blog.includesecurity.com/2026/02/the-aws-console-and-terraform-security-gap/",
+      "source": "https://blog.includesecurity.com/feed/",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T16:24:34+00:00",
+      "published_ts": 1771518274,
+      "smart_groups": [
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Malicious NPM Package Hides Pulsar .NET Malware Inside PNG Images",
+      "summary": "We recently came across a suspicious NPM package called buildrunner-dev . The package is deceptively simple, containing a package.json with a postinstall hook pointed at an init.js file, but that\u2019s where things got interesting. The postinstall script was triggered upon package installation and dropped a batch file called packageloader.bat . At first glance it looked like pure noise due to thousands of characters that appear to be gibberish; nature-themed REM comments, and variable names that read like a cat walked across someone\u2019s keyboard. But as we started peeling back layer after layer of obfuscation, we uncovered a remarkably well-engineered attack chain that hides its true payloads inside the RGB pixel values of PNG images hosted on a free image service. submitted by /u/QforQ [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1r93m8e/malicious_npm_package_hides_pulsar_net_malware/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-02-19T16:22:45+00:00",
+      "published_ts": 1771518165,
+      "smart_groups": [
+        "Malware / Payloads",
+        "Supply Chain / Software"
+      ],
+      "curated": false
+    },
+    {
+      "title": "AI Under Control: Link11 Launches AI Management Dashboard for Clean Traffic",
+      "summary": "Frankfurt am Main, Germany, February 19th, 2026, CyberNewswire Link11 launches its new \u201cAI Management Dashboard\u201d, closing a critical gap in how companies manage AI traffic. Artificial intelligence is fundamentally changing internet traffic. But while many companies are already feeling the strain of AI crawlers on their infrastructures, they often lack clarity, reliable data, and operational [\u2026] The post AI Under Control: Link11 Launches AI Management Dashboard for Clean Traffic appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/ai-under-control-link11-launches-ai-management-dashboard-for-clean-traffic/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T16:12:52+00:00",
+      "published_ts": 1771517572,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Beyond CVE China\u2019s Dual Vulnerability Databases Reveal a Different Disclosure Timeline",
+      "summary": "The emergence of a distinct vulnerability disclosure ecosystem within China has introduced a complex layer to the global threat landscape. Unlike the centralized CVE system used internationally, China maintains two separate databases\u2014the CNVD and CNNVD\u2014which operate with different disclosure timelines and priorities. This dual structure has allowed for the quiet emergence of vulnerabilities that remain [\u2026] The post Beyond CVE China\u2019s Dual Vulnerability Databases Reveal a Different Disclosure Timeline appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/beyond-cve-chinas-dual-vulnerability-databases/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T16:09:26+00:00",
+      "published_ts": 1771517366,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Splunk security advisory (AV26-147)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/splunk-security-advisory-av26-147",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T16:06:34+00:00",
+      "published_ts": 1771517194,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "What's the Best AI Model to Run Your Business? The One That Lies Best, Apparently",
+      "summary": "GLM-5 beat Claude in business simulation by pretending to be American. Claude fell for it, shared strategies with competitors, and lost. Wall Street's AI deployment just got more complicated.",
+      "link": "https://decrypt.co/358575/best-ai-model-run-business",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-02-19T16:05:15+00:00",
+      "published_ts": 1771517115,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Android malware taps Gemini to navigate infected devices",
+      "summary": "The real deal or another research project overblown? Cybersecurity researchers say they've spotted the first Android malware strain that uses generative AI to improve performance once installed. But it may be only a proof of concept.\u2026",
+      "link": "https://go.theregister.com/feed/www.theregister.com/2026/02/19/genai_malware_android/",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T16:04:52+00:00",
+      "published_ts": 1771517092,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "AI Under Control: Link11 Launches AI Management Dashboard for Clean Traffic",
+      "summary": "Frankfurt am Main, Germany, February 19th, 2026, CyberNewswire Link11 launches its new \u201cAI Management Dashboard\u201d, closing a critical gap in how companies manage AI traffic. Artificial intelligence is fundamentally changing internet traffic. But while many companies are already feeling the strain of AI crawlers on their infrastructures, they often lack clarity, reliable data, and operational [\u2026] The post AI Under Control: Link11 Launches AI Management Dashboard for Clean Traffic appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/ai-under-control-link11-launches-ai-management-dashboard-for-clean-traffic/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T16:01:22+00:00",
+      "published_ts": 1771516882,
       "smart_groups": [],
       "curated": false
     },
@@ -64,6 +417,45 @@
       "curated": true
     },
     {
+      "title": "Introducing Gemini 3.1 Pro on Google Cloud",
+      "summary": "Today, we\u2019re announcing a step forward in core reasoning building on the Gemini 3 series: Gemini 3.1 Pro. What\u2019s new: 3.1 Pro is a noticeably smarter, more capable baseline for complex problem-solving. We\u2019re shipping 3.1 Pro at scale, building upon our goal to help you transform your business for the agentic future. Learn more about the model\u2019s capabilities here . Why it matters for your business: Gemini 3.1 Pro is designed to solve tougher problems, giving you the reasoning depth your business needs. You can bring disparate data into a single view, visualize complex topics, and solve challenges that require deep context and planning. Where you can access Gemini 3.1 Pro: Gemini 3.1 Pro is available starting today in preview in Vertex AI and Gemini Enterprise . Developers can access the model in preview via the Gemini API in Google AI Studio , Android Studio , Google Antigravity , and Gemini CLI . Gemini 3.1 Pro is already helping customers deliver results We\u2019re already seeing progress for businesses across industries \u2013 from clear leaps in quality to excellent execution. \u201cGemini 3.1 Pro represents a clear quality leap in our evaluations. We observed up to 15% improvement over the best Gemini 3 Pro Preview runs. The model is stronger, faster which we deem very important, and more efficient, requiring fewer output tokens while delivering more reliable results. These directly translate into better problem-solving and greater confidence for developers working on complex tasks.\u201d \u2013 Vladislav Tankov, Director of AI, JetBrains \u201cWe\u2019re excited to bring Google\u2019s Gemini 3.1 Pro to Databricks, so teams can build, govern, and operate GenAI applications on their enterprise data with confidence. In our evaluations, Gemini 3.1 Pro has shown impressive reasoning for enterprise-specific tasks, as it achieved best-in-class results on OfficeQA, Databricks' benchmark for grounded reasoning that combines both tabular and unstructured data.\u201d - Hanlin Tang, CTO of Neural Networks, Databricks \"Gemini 3.1 Pro has a substantially improved understanding of 3D transformations. Most models fall over when asked to reason or write code that is slotted into 3D animation pipelines. Google's newest model excels at edge cases and execution. We were able to close a long standing rotation order bug in one of our export pipelines using these tools.\" \u2013 Andrew Carr, Co-Founder & Chief Scientist, Cartwheel \u201cWhat stands out about Gemini 3.1 Pro is how deeply it understands the vibe behind a user's prompt. In Hostinger Horizons \u2014 our vibe-coding product for non-developers \u2014 we see that intelligence translates into code that reflects direction, style, and product intent, not just syntax. The improvement in reasoning is immediately noticeable.\u201d \u2013 Dainius Kavoliunas, Head of Product, Hostinger Horizons",
+      "link": "https://cloud.google.com/blog/products/ai-machine-learning/gemini-3-1-pro-on-gemini-cli-gemini-enterprise-and-vertex-ai/",
+      "source": "Google Cloud Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-02-19T16:00:00+00:00",
+      "published_ts": 1771516800,
+      "smart_groups": [
+        "Cloud / SaaS",
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "I tested Chrome's soon-to-be-released vertical tab feature, and it makes the browser so much better",
+      "summary": "Google is finally making the leap to vertical tabs to catch up with the competition.",
+      "link": "https://www.zdnet.com/article/i-tested-chromes-soon-to-be-released-vertical-tab-feature-and-it-makes-the-browser-so-much-better/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:58:50+00:00",
+      "published_ts": 1771516730,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Every industry has a CDK Global",
+      "summary": "Here\u2019s four ways to prevent the kind of disruption that happened at car dealerships two years ago.",
+      "link": "https://www.scworld.com/perspective/every-industry-has-a-cdk-global",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:53:44+00:00",
+      "published_ts": 1771516424,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "I've used Windows for decades, but I tried Linux to see if it's truly 'easy' now - and one thing surprised me",
       "summary": "Should you switch to Linux? Well, I was pleasantly surprised to find it is a great alternative - for some.",
       "link": "https://www.zdnet.com/article/how-to-replace-windows-with-linux/",
@@ -75,6 +467,32 @@
       "smart_groups": [
         "Windows / Microsoft",
         "Linux / Unix"
+      ],
+      "curated": false
+    },
+    {
+      "title": "GitHub security advisory (AV26-146)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/github-security-advisory-av26-146",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:45:39+00:00",
+      "published_ts": 1771515939,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Figure Data Breach Exposes Nearly 1 Million Customers Online",
+      "summary": "Fintech lender Figure suffered a social-engineering breach that led to a data dump online. Have I Been Pwned found 967,200 exposed email records. The post Figure Data Breach Exposes Nearly 1 Million Customers Online appeared first on TechRepublic .",
+      "link": "https://www.techrepublic.com/article/news-figure-data-breach-967200-email-records/",
+      "source": "TechRepublic \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:45:23+00:00",
+      "published_ts": 1771515923,
+      "smart_groups": [
+        "Data Breaches / Leaks"
       ],
       "curated": false
     },
@@ -203,6 +621,22 @@
       "smart_groups": [
         "Curated",
         "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "University of Mississippi Medical Center closes all clinics in wake of cyberattack",
+      "summary": "Dysruption Hub reports what sounds like a very serious cyberattack affecting the University of Mississippi Medical Center (UMMC): University of Mississippi Medical Center said a cybersecurity attack knocked multiple IT systems offline Thursday, cutting off access to its Epic electronic medical records platform and prompting the Jackson-based system to close clinics and cancel outpatient care.... Source",
+      "link": "https://databreaches.net/2026/02/19/university-of-mississippi-medical-center-closes-all-clinics-in-wake-of-cyberattack/?pk_campaign=feed&pk_kwd=university-of-mississippi-medical-center-closes-all-clinics-in-wake-of-cyberattack",
+      "source": "DataBreaches.net",
+      "type": "cybercrime",
+      "type_label": "Cybercrime, Darknet & Leaks",
+      "published": "2026-02-19T15:29:40+00:00",
+      "published_ts": 1771514980,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Network / OT / ICS"
       ],
       "curated": true
     },
@@ -79923,20 +80357,6 @@
     {
       "title": "ROC vs. CTEM: How a Risk Operations Center Evolves Beyond Continuous Threat Exposure Management in 2026",
       "summary": "Key Takeaways: The Essentials of ROC vs. CTEM Modern enterprises face a constant flood of data from dozens of siloed security tools, creating a fragmented view of risk. Continuous threat exposure management (CTEM) offers a framework to bring exposures together from these tools, and a risk operations center (ROC) provides the operational power to turn [\u2026]",
-      "link": "https://blog.qualys.com/category/qualys-insights",
-      "source": "Qualys Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-01-30T16:52:20+00:00",
-      "published_ts": 1769791940,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "ROC vs. CTEM: How a Risk Operations Center Evolves Beyond Continuous Threat Exposure Management in 2026",
-      "summary": "Key Takeaways: The Essentials of ROC vs. CTEM Modern enterprises face a constant flood of data from dozens of siloed security tools, creating a fragmented view of risk. Continuous threat exposure management (CTEM) offers a framework to bring exposures together from these tools, and a risk operations center (ROC) provides the operational power to turn [\u2026]",
       "link": "https://blog.qualys.com/qualys-insights/2026/01/30/roc-vs-ctem-how-a-risk-operations-center-evolves-beyond-continuous-threat-exposure-management-in-2026",
       "source": "Qualys Insights \u2013 Qualys Security Blog",
       "type": "vendors",
@@ -124926,397 +125346,6 @@
         "Vulnerabilities / CVEs",
         "Cloud / SaaS"
       ],
-      "curated": false
-    },
-    {
-      "title": "Bitcoin Dips Under $90K as Crypto Stocks Plunge Amid Fresh Trump Trade War Turmoil",
-      "summary": "Crypto-focused stocks Strategy and SharpLink Gaming dropped sharply as Bitcoin fell below $90,000 amid Trump's latest tariff threats.",
-      "link": "https://decrypt.co/355133/bitcoin-dips-under-90k-crypto-stocks-plunge-trump-trade-war-turmoil",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-01-20T16:35:12+00:00",
-      "published_ts": 1768926912,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Microsoft tops list of most spoofed brands in phishing attacks",
-      "summary": "The technology sector continues to be the primary target for brand impersonation, with Google, Amazon, and Apple also appearing frequently in phishing campaigns.",
-      "link": "https://www.scworld.com/brief/microsoft-tops-list-of-most-spoofed-brands-in-phishing-attacks",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T16:34:52+00:00",
-      "published_ts": 1768926892,
-      "smart_groups": [
-        "Ransomware",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Thoughts on running a SIEM with alerts only (no raw log ingestion)?",
-      "summary": "I came across approach recently where teams intentionally only send alerts into their SIEM, while leaving raw logs and telemetry at the source. The idea is to: Keep ingestion volumes extremely low Avoid surprise cloud SIEM bills Still have a single place to triage alerts across tools It seems like a pragmatic way to start, especially for teams new to SIEM or trying to control costs. But I\u2019m curious how this holds up longer-term. Once you need investigations, historical lookback, compliance, or to answer questions beyond \u201cwhat alert fired\u201d, do the same ingestion and retention challenges just come back later? For folks running SIEMs at scale today \u2014 have you tried something like this? Did it help, or did it just delay the hard problems? submitted by /u/Machia-vela [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qi5wn5/thoughts_on_running_a_siem_with_alerts_only_no/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-01-20T16:34:37+00:00",
-      "published_ts": 1768926877,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Microsoft PowerToys adds new CursorWrap mouse 'teleport' tool",
-      "summary": "Microsoft has released PowerToys 0.97, with a new mouse utility for multi-monitor setups and significant improvements to the Command Palette quick launcher. [...]",
-      "link": "https://www.bleepingcomputer.com/news/microsoft/microsoft-powertoys-adds-new-cursorwrap-mouse-teleport-tool/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T16:33:30+00:00",
-      "published_ts": 1768926810,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Hacker Pleads Guilty For Stealing Supreme Court Documents and Leaking via Instagram",
-      "summary": "Nicholas Moore, 24, from Springfield, Tennessee, pleaded guilty to unauthorized computer access and fraud, marking a significant case of government cybersecurity breach. Moore hacked multiple U.S. government systems and publicly disclosed sensitive information through social media, exposing critical vulnerabilities in federal digital infrastructure. Between August and October 2023, Moore executed a coordinated series of intrusions [\u2026] The post Hacker Pleads Guilty For Stealing Supreme Court Documents and Leaking via Instagram appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/hacker-pleads-guilty/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T16:30:23+00:00",
-      "published_ts": 1768926623,
-      "smart_groups": [
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Chainlit Security Flaws Highlight Infrastructure Risks in AI Apps",
-      "summary": "2 security vulnerabilities in the Chainlit framework expose risks from web flaws in AI applications",
-      "link": "https://www.infosecurity-magazine.com/news/chainlit-security-flaws-ai-apps/",
-      "source": "Infosecurity Magazine \u2013 News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T16:30:00+00:00",
-      "published_ts": 1768926600,
-      "smart_groups": [
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "WPair \u2013 Scanner Tool to Detect WhisperPair Flaw in Google\u2019s Fast Pair Protocol",
-      "summary": "WPair is an Android application designed to identify and demonstrate the CVE-2025-36911 vulnerability affecting millions of Bluetooth audio devices worldwide. The tool addresses a critical authentication bypass flaw discovered by KU Leuven researchers in Google\u2019s Fast Pair protocol, commonly referred to as WhisperPair.\u200b CVE-2025-36911 represents a systemic failure in Fast Pair implementations across multiple manufacturers [\u2026] The post WPair \u2013 Scanner Tool to Detect WhisperPair Flaw in Google\u2019s Fast Pair Protocol appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/wpair-scanner-tool-to-detect-whisperpair-flaw/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T16:21:34+00:00",
-      "published_ts": 1768926094,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Solana slips below $130, but onchain data suggests SOL remains bullish",
-      "summary": "SOL price slipped under $130, but whale accumulation amid declining supply on exchanges and strengthening on-chain metrics point to a potential for recovery.",
-      "link": "https://cointelegraph.com/news/solana-slips-below-130-but-onchain-data-suggests-sol-remains-bullish?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-01-20T16:20:00+00:00",
-      "published_ts": 1768926000,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Stop chasing rotating IPs: Implementing JA4 Fingerprinting on AWS WAF (Terraform + Athena guide)",
-      "summary": "Hey everyone, I wanted to share a method I\u2019ve been using to stop sophisticated scrapers and botnets that bypass standard IP rate limiting. The Problem: Standard AWS WAF rate-based rules usually key off the IP address. This is useless against modern LLM scrapers or botnets that rotate IPs for every request. You see 10k requests, but they come from 10k different IPs. The Solution: Instead of blocking where they come from (IP), block what they are (TLS Fingerprint). We use JA4 , which is a fingerprint of the TLS ClientHello. While bots rotate IPs cheap/fast, tfar from always change their TLS stack. Implementation Steps: 1. The CloudFront \"Gotcha\" AWS WAF doesn't see the JA4 fingerprint by default. You must configure CloudFront to forward the CloudFront-Viewer-JA4-Fingerprint header. Terraform tip: Use an aws_cloudfront_origin_request_policy with header_behavior = \"allViewerAndWhitelistCloudFront\" . 2. The WAF Rule Once the header is there, you can switch your rate-based rule from \"IP\" to \"Custom Keys\". Terraform # Simplified Terraform logic rate_based_statement { limit = 200 aggregate_key_type = \"CUSTOM_KEYS\" custom_key { ja4_fingerprint { fallback_behavior = \"NO_MATCH\" } } # CRITICAL: Scope down to \"bots\" to avoid false positives on generic browsers scope_down_statement { byte_match_statement { search_string = \"bot\" field_to_match { single_header { name = \"user-agent\" } } } } } 3. Tuning with Athena (Don't guess!) Blocking JA4 blindly causes false positives (many Chrome users share the same hash). You need to find the \"burst rate\" of the fingerprint. I use Amazon Athena to query WAF logs and calculate the p95 of traffic bursts per fingerprint to set the correct threshold. Full Guide: I wrote a deep dive on my blog with the full Terraform code and the specific Athena SQL queries I use to tune this: Part 1: The Initial Setup (Terraform & CloudFront) Part 2: The WAF configuration + Tuning (Athena & Data Analysis) Hope this helps anyone currently fighting the \"Whac-A-Mole\" game with rotating IPs! submitted by /u/sergii-demianchuk [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qi5h3c/stop_chasing_rotating_ips_implementing_ja4/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-01-20T16:18:46+00:00",
-      "published_ts": 1768925926,
-      "smart_groups": [
-        "Cloud / SaaS",
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "New Spear Phishing Attack Leveraging Argentine Federal Court Rulings to Covert RAT for Remote Access",
-      "summary": "A sophisticated spear-phishing campaign has emerged targeting Argentina\u2019s judicial sector, exploiting trust in legitimate court communications to deliver a dangerous Remote Access Trojan. The campaign uses authentic-looking federal court documents about preventive detention reviews to trick legal professionals into downloading malware. Security experts have classified this attack as highly targeted, employing multi-stage infection techniques to [\u2026] The post New Spear Phishing Attack Leveraging Argentine Federal Court Rulings to Covert RAT for Remote Access appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/new-spear-phishing-attack-leveraging-argentine-federal-court-rulings/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T16:14:29+00:00",
-      "published_ts": 1768925669,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC",
-        "Malware / Payloads",
-        "Phishing / Social Engineering"
-      ],
-      "curated": true
-    },
-    {
-      "title": "How a third-party data leak led to phishing attempts against Ledger users",
-      "summary": "A third-party e-commerce breach exposed order data, enabling phishing attempts without compromising Ledger wallets or self-custody systems.",
-      "link": "https://cointelegraph.com/news/how-a-third-party-data-leak-led-to-phishing-attempts-against-ledger-users?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-01-20T16:10:04+00:00",
-      "published_ts": 1768925404,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Data Breaches / Leaks",
-        "Phishing / Social Engineering"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Canadian Investment Regulatory Organization data breach affects 750,000 investors",
-      "summary": "The breach, which CIRO announced on August 18, resulted in the exfiltration of personal information from current and former members.",
-      "link": "https://www.scworld.com/brief/canadian-investment-regulatory-organization-data-breach-affects-750000-investors",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T16:08:52+00:00",
-      "published_ts": 1768925332,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Iran's Badr satellite hacked, state TV airs anti-regime messages",
-      "summary": "Anti-regime activists successfully hacked Iran's Badr satellite on Sunday, briefly hijacking state television channels to broadcast messages from exiled Crown Prince Reza Pahlavi calling for protests against the Islamic Republic, according to Security Affairs.",
-      "link": "https://www.scworld.com/brief/irans-badr-satellite-hacked-state-tv-airs-anti-regime-messages",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T16:07:40+00:00",
-      "published_ts": 1768925260,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Crypto sells off amidst Trump Tariff Turmoil! $Trove falls 90% in awful TGE! Pump Fund announced!",
-      "summary": "Crypto majors are red following Trump\u2019s tariff turmoil; BTC -2% at $91,100; ETH -4% at $3,105, SOL -3% at $129; XRP -2% to $1.93. CC (+12%), MYX (+5%) and SYRUP (+4%) led top movers. The NYSE began preparations for 24/7 tokenized stock and ETF trading. Steak \u2019n Shake revealed roughly $10M in Bitcoin exposure alongside the creation of a corporate BTC strategic reserve. Vitalik Buterin called for more sophisticated DAO governance models to improve accountability, coordination, and long-term sustainability. Bermuda outlined plans for a fully onchain national economy, working with Coinbase and Circle on payments, identity, and tokenized financial infrastructure. In Corporate Treasuries / ETFs. The BTC ETFs saw $394M in net outflows on Friday breaking a 4-day inflow streak; ETH ETFs stayed green with $4.7M in inflows. In Memes / Onchain Movers. Meme majors were red along with majors; Doge -1%, Shiba -1%, PEPE -2%, TRUMP -1%, Bonk -1%, Pengu -4%, SPX -12%, WIF -1% and Fartcoin -8%. USOR (+70%), GSD (+50%), and Eliza Town (+800%) led onchain movers.",
-      "link": "https://decrypt.co/videos/interviews/lokwS0bc/crypto-sells-off-amidst-trump-tariff-turmoil-trove-falls-90-in-awful-tge-pump-fund-announced",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-01-20T16:07:15+00:00",
-      "published_ts": 1768925235,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Bitcoin Is Falling\u2014Strategy Just Spent $2.1 Billion on BTC",
-      "summary": "Strategy just notched its largest Bitcoin purchase in more than nine months, with some help from its STRC preferred shares.",
-      "link": "https://decrypt.co/355136/bitcoin-falling-strategy-spent-2-billion-on-btc",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-01-20T16:03:17+00:00",
-      "published_ts": 1768924997,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "These confirmed Android 17 features make staying on my Pixel phone a no brainer for 2026",
-      "summary": "Android 17, aka 'Cinnamon Bun,' is on the horizon, and there's already a lot of speculation about what it includes. Here's what I want with the next OS.",
-      "link": "https://www.zdnet.com/article/every-android-17-feature-google-confirmed/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T16:00:00+00:00",
-      "published_ts": 1768924800,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Microsoft Purview Data Risk Assessments: M365 vs Fabric",
-      "summary": "Why Data Risk Assessments matter more in the AI era: Generative AI changes the oversharing equation. It can surface data faster, to more people, with less friction, which means existing permission mistakes become more visible, more quickly. Microsoft Purview Data Risk Assessments are designed to identify and help you remediate oversharing risks before (or while) AI experiences like Copilot and analytics copilots accelerate access patterns. Quick Decision Guide: When to use Which? Use Microsoft 365 Data Risk Assessments when: You\u2019re rolling out Microsoft 365 Copilot (or Copilot Chat/agents grounded in SharePoint/OneDrive). Your biggest exposure risk is oversharing SharePoint sites, broad internal access, anonymous links, or unlabeled sensitive files. Use Fabric Data Risk Assessments when: You\u2019re rolling out Copilot in Fabric and want visibility into sensitive data exposure in workspaces and Fabric items (Dashboard, Report, DataExploration, DataPipeline, KQLQuerySet, Lakehouse, Notebook, SQLAnalyticsEndpoint, and Warehouse) Your governance teams need to reduce risk in analytics estates without waiting for a full data governance program to mature. Use both when (most enterprises): Data is spread across collaboration + analytics + AI interactions, and you want a unified posture and remediation motion under DSPM objectives. At a high level: Microsoft 365 Data Risk Assessments focus on oversharing risk in SharePoint and OneDrive content, a primary readiness step for Microsoft 365 Copilot rollouts. Fabric Data Risk Assessments focus on oversharing risk in Microsoft Fabric workspaces and items , especially relevant for Copilot in Fabric and Power BI / Fabric artifacts. Both experiences show up under the newer DSPM (preview) guided objectives (and also remain available via DSPM for AI (classic) paths depending on your tenant rollout). The Differences That Matter NOTE: Assessments are a posture snapshot, not a live feed. Default assessments will automatically re-scan every week while custom assessments need to be manually recreated or duplicated to get a new snapshot. Use them to prioritize remediation and then re-run on a cadence to measure improvement. Scenario M365 Data Risk Assessments Fabric Data Risk Assessments Default scope & frequency Surfaces top 100 most active SharePoint sites (and OneDrives) weekly. Surfaces org-wide oversharing issues in M365 content. Default data risk assessment automatically runs weekly for the top 100 Fabric workspaces based on usage in your organization. Focuses on oversharing in Fabric items. Supported item types SharePoint Online sites (incl. Teams files) & OneDrive documents. Focus on files/folders and their sharing links or permissions. Fabric content: Dashboards, Power BI Reports, Data Explorations, Data Pipelines, KQL Querysets, Lakehouses, Notebooks, SQL Analytics Endpoints, Warehouses (as of preview). Oversharing signals Unprotected sensitive files that don't have sensitivity label that have broad or external access (e.g., \u201ceveryone\u201d or public link sharing). Also flags sites with many active users (high exposure). Unprotected sensitive data in Fabric workspaces. For example, reports or datasets with SITs but no sensitivity label, or Fabric items accessible to many users (or shared externally via link, if applicable) Freshness and re-run behavior Custom assessments can be rerun by duplicating the assessment to create a new run, results can expire after a defined window (30\u2011day expiration and using \u201cduplicate\u201d to re-run). Fabric custom assessments are also active for 30 days and can be duplicated to continue scanning the scoped list of workspaces. To rerun and to see results after the 30-day expiration, use the duplicate option to create a new assessment with the same selections. Setup Requirements For deeper capabilities like M365 item-level scanning in custom assessments requires an Entra app registration with specific Microsoft Graph application permissions + admin consent for your tenant. The Fabric default assessment requires one-time service principal setup and enabling service principal authentication for Fabric admin APIs in the Fabric admin portal. Remediation options Advanced: Item-level scanning identifies potentially overshared files with direct remediation actions (e.g., remove sharing link, apply sensitivity label, notify owner) for SharePoint sites. site-level actions are also available such as enabling default sensitivity labels or configuring DLP policies. Workspace level Purview controls : e.g., create DLP policies, apply default sensitivity labels to new items, or review user access in Entra. (The actual permission changes in Fabric must be done by admins or owners in Fabric.) User experience Default assessment: Site-level insights like label of sites, how many times site was accessed and how many sensitive items were found in the site. Custom Assessments: Site-level and item-level insights if using item-level scan. Shows counts of sensitive files, share links (anyone links, externals), label coverage, last accessed info, etc. And possible remediation actions Results organized by Fabric workspace. Shows counts of sensitive items found and how many are labeled vs unlabeled, broad access indicators (e.g., large viewer counts or \u201canyone link\u201d usage for data in that workspace), plus recommended mitigation (DLP/sensitivity label policies) Licensing DSPM/DSPM for AI M365 features typically require Microsoft 365 E5 / E5 Compliance entitlements for relevant user-based scenarios. Copilot in Fabric governance (starting with Copilot for Power BI) requires E5 licensing and enabling the Fabric tenant option \u201cAllow Microsoft Purview to secure AI interactions\u201d (default enabled) and pay-as-you-go billing for Purview management of those AI interactions. Common pitfalls organizations face when securing Copilot in Fabric (and how to avoid them) Pitfall How to Avoid or Mitigate Not completing prerequisites for Purview to access Fabric environment Example: Skipping the Entra app setup for Fabric assessment scanning. Follow the setup checklist and enable the Purview-Fabric integration . Without it, your Fabric workspaces won\u2019t be scanned for oversharing risk. Dedicate time pre-deployment to configure required roles, app registrations, and settings. Fabric setup stalls due to missing admin ownership Fabric assessments require Entra app admin + Fabric admin collaboration (service principal + tenant settings). Skipping the \u201clabel strategy\u201d and jumping straight to DLP DLP is strongest when paired with a clear sensitivity labeling strategy; labels provide durable semantics across M365 + Fabric. Fragmented labeling strategy Example: Fabric assets have a different or no labeling schema separate from M365. Align on a unified sensitivity label taxonomy across M365 and Fabric. Re-use labels in Fabric via Purview publishing so that classifications mean the same thing everywhere. This ensures consistent DLP and retention behavior across all data locations. Too broad DLP blocks disrupt users Example: Blocking every sharing action involving any internal data causes frustration. Take a risk-based approach: Start with monitor-only DLP rules to gather data, then refine. Focus on high-impact scenarios (for instance, blocking external sharing of highly sensitive data) rather than blanket rules. Use user education (via policy tips) to drive awareness alongside enforcement. Ignoring the human element (owners & users) Example: IT implements controls but doesn\u2019t inform data owners or train users. Involve workspace owners and end-users early. For each high-risk workspace, engage the owner to verify if data is truly sensitive and to help implement least-privilege access. Provide training to users about how Copilot uses data and why labeling & proper sharing are important. This fosters a culture of \u201cshared responsibility\u201d for AI security. No ongoing plan after initial fixes Example: One-time scan and label, but no follow-up, so new issues emerge unchecked. Operationalize the process: Treat this as a continuous cycle. Leverage the \u201cOperate\u201d phase \u2013 schedule regular re-assessments (e.g., monthly Fabric risk scans) and quarterly reviews of Copilot-related incidents. Consider appointing a Copilot Governance Board or expanding an existing data governance committee to include AI oversight, so there\u2019s accountability for long-term upkeep. Resources Prevent oversharing with data risk assessments (DSPM) Prerequisites for Fabric Data risk assessments Fabric: enable service principal authentication for admin APIs Beyond Visibility: new Purview DSPM experience Microsoft Purview licensing guidance New Purview pricing options for protecting AI apps and agents (PAYG context) Acknowledgements Sincere Regards to Sunil Kadam, Principal Squad Leader & Jenny Li, Product Lead, for their review and feedback.",
-      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-community/microsoft-purview-data-risk-assessments-m365-vs-fabric/ba-p/4487222",
-      "source": "Microsoft Security Blog (TechCommunity)",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-01-20T16:00:00+00:00",
-      "published_ts": 1768924800,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Network / OT / ICS",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Cybersecurity Predictions for 2026 Signal the Maturation of Risk-First Security Models",
-      "summary": "Key Takeaways The Signals Are Loud, the Dashboards Are Full, Yet Decisive Action Remains Elusive By the end of 2025, many security leaders reached a quiet conclusion. The challenge was no longer a lack of tools, telemetry, or frameworks. Most enterprises already had all three. What remained unresolved was how reliably cyber risk could be [\u2026]",
-      "link": "https://blog.qualys.com/qualys-insights/2026/01/20/cybersecurity-predictions-2026-risk-first-security",
-      "source": "Qualys Insights \u2013 Qualys Security Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-01-20T16:00:00+00:00",
-      "published_ts": 1768924800,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Delta Electronics DIAView Multiple Vulnerabilities",
-      "summary": "Delta Electronics DIAView Multiple Vulnerabilities CVE-2025-62581 - Hard-coded JWT Secret Key (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H) DIAView uses a hardcoded secret key. CVE-2025-62582 - Unauthenticated Remote Database Access (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H) An unauthenticated remote attacker can access configured databases in a DIAView project. Ben Smith Tue, 01/20/2026 - 10:54",
-      "link": "https://www.tenable.com/security/research/tra-2026-02",
-      "source": "Tenable Research Advisories",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-01-20T15:54:42+00:00",
-      "published_ts": 1768924482,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Network / OT / ICS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Delta Electronics DIAView Multiple Vulnerabilities",
-      "summary": "Delta Electronics DIAView Multiple Vulnerabilities CVE-2025-62581 - Hard-coded JWT Secret Key (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H) DIAView uses a hardcoded secret key. CVE-2025-62582 - Unauthenticated Remote Database Access (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H) An unauthenticated remote attacker can access configured databases in a DIAView project. Ben Smith Tue, 01/20/2026 - 10:54",
-      "link": "http://www.tenable.com/security/research/tra-2026-02",
-      "source": "Tenable Research Advisories",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-01-20T15:54:42+00:00",
-      "published_ts": 1768924482,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Network / OT / ICS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "ADF Launches Refreshed Brand Identity To Celebrate 20 Years Of Innovation",
-      "summary": "ADF Solutions marks its 20th anniversary with a major rebrand\u2014including a new website, logos, and refreshed messaging\u2014reinforcing its commitment to fast, intelligent digital forensic tools for modern law enforcement.",
-      "link": "https://www.forensicfocus.com/news/adf-launches-refreshed-brand-identity-to-celebrate-20-years-of-innovation/",
-      "source": "Forensic Focus",
-      "type": "dfir",
-      "type_label": "DFIR & Forensics",
-      "published": "2026-01-20T15:53:21+00:00",
-      "published_ts": 1768924401,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Google Gemini Flaw Turns Calendar Invites Into Attack Vector",
-      "summary": "The indirect prompt injection vulnerability allows an attacker to weaponize calendar invites to circumvent Google's privacy controls and access private data.",
-      "link": "https://www.darkreading.com/cloud-security/google-gemini-flaw-calendar-invites-attack-vector",
-      "source": "darkreading",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T15:52:35+00:00",
-      "published_ts": 1768924355,
-      "smart_groups": [
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Don't want to update your iPhone to iOS 26? These 4 reasons changed my mind immediately",
-      "summary": "Many iPhone owners may be resisting iOS 26. But this latest version includes important security updates that will keep your phone protected.",
-      "link": "https://www.zdnet.com/article/ios26-upgrade-four-security-reasons/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T15:51:00+00:00",
-      "published_ts": 1768924260,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Microsoft &amp; Anthropic MCP Servers At Risk of RCE, Cloud Takeovers",
-      "summary": "Researchers found the popular model context protocol (MCP) servers, which are integral components of AI services, carry serious vulnerabilities.",
-      "link": "https://www.darkreading.com/application-security/microsoft-anthropic-mcp-servers-risk-takeovers",
-      "source": "darkreading",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T15:47:19+00:00",
-      "published_ts": 1768924039,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "The Right to Remember: Memorializing in Syria",
-      "summary": "Senior researcher Noura Aljizawi speaks with Nalah Ayed from CBC Ideas about her personal experience of returning to Syria to grieve for the first time in 13 years following the fall of the al-Assad regime. Aljizawi recalls how grieving publicly was not allowed in the wake of the 2011 revolution, despite the importance of collective [\u2026] The post The Right to Remember: Memorializing in Syria appeared first on The Citizen Lab .",
-      "link": "https://citizenlab.ca/the-right-to-remember-memorializing-in-syria/",
-      "source": "https://citizenlab.ca/feed/",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T15:47:11+00:00",
-      "published_ts": 1768924031,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "I cracked Hyprland at last - thanks to this Arch-based Linux distro",
-      "summary": "Omarchy isn't for beginners, but it's the best way I've found to use Hyprland and get straight to work.",
-      "link": "https://www.zdnet.com/article/omarchy-linux-distro-makes-hyprland-easy/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T15:44:00+00:00",
-      "published_ts": 1768923840,
-      "smart_groups": [
-        "Linux / Unix"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Tom Lee's BitMine Adds $108 Million in Ethereum, But BMNR Dives Amid Trade War Turmoil",
-      "summary": "Ethereum treasury firm BitMine added $108 million last week, but its stock is down as markets react to President Trump's latest tariff threats.",
-      "link": "https://decrypt.co/355134/tom-lees-bitmine-adds-108-million-ethereum-stock-dives-amid-trade-war-turmoil",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-01-20T15:43:49+00:00",
-      "published_ts": 1768923829,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Embedded Systems Penetration Testing Career Path",
-      "summary": "I have kind of fallen into the realm of penetration testing physical devices. It is both challenging and super interesting. My question is what kind of career trajectory does something like that have and is it so niche that it would be a dead end? At least it seems like it could be AI proof. submitted by /u/I-nigma [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qi4elu/embedded_systems_penetration_testing_career_path/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-01-20T15:40:08+00:00",
-      "published_ts": 1768923608,
-      "smart_groups": [],
       "curated": false
     },
     {
