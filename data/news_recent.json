@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-02-19T14:31:17.827332+00:00",
+  "generated_at": "2026-02-19T16:05:59.114945+00:00",
   "days_back": 30,
-  "total_items": 9007,
+  "total_items": 9019,
   "items": [
     {
       "title": "Secure Your Spot at RSAC 2026 Conference",
@@ -28,6 +28,700 @@
       "curated": false
     },
     {
+      "title": "Data Quality (DQ) for Standalone Data Assets at Microsoft Purview",
+      "summary": "Why is Data Quality for your Data Asset critical today? Many companies today cannot activate their data estate. Our research shows that 75% of the companies today do not even have a data quality program. This is such a major problem because data quality is becoming a major focus of AI. Your AI is only as good as your data. In the old days, when we weren't necessarily content aware, it was fine because human was always in the loop and corrected data as needed, but in the new world right now where the AI looks at the content, not just the structure but the content of the data and if that content of the data is fundamentally off, whether it's misrepresented, inconsistent, illegible, inaccurate, insecure, incompliance, it will make your AI wrong. It will make your AI ugly. And it will impact your company and impact you as an employee building AI and BI/Insights. There is nothing worse than building something that doesn't get used. What Is Data Quality for a Standalone Data Asset? A standalone data asset is a dataset that is not linked to any data product. Data Quality (DQ) for standalone assets enables organizations to measure, monitor, and improve the quality of these datasets independently\u2014without requiring them to be part of a data product. Why This Matters Improve Data Before Linking to a Data Product Users can profile, assess, clean, and standardize data before associating it with a data product. This ensures higher quality at the time of onboarding. Make Better Curation Decisions Understanding the quality of standalone assets helps organizations decide which datasets are suitable for inclusion in governed data products. Support Broader Use Cases Not all datasets are used for analytics. Standalone assets may support: Data monetization AI grounding or training data Operational workloads Unified Data Quality Management Organizations can use a single Purview Data Quality solution to manage both standalone assets and data product\u2013associated assets, including issue remediation. Optimize Storage and Reduce Costs Low-quality or unused datasets can be archived to lower-cost storage or removed using data minimization principles, reducing storage costs and improving ROI. Accelerate Governance Adoption Organizations can start measuring and improving data quality immediately\u2014without waiting for formal data product definitions\u2014helping mature governance practices faster. Measure and Monitor Data Quality for Standalone Assets using Microsoft Purview To start measuring and monitoring the data quality of a standalone data asset, first add the asset from the data map to a governance domain. If a connection to the data source has not already been configured, you must create one for the selected source system. Once the asset is added to the domain and the data source connection is established, select the asset and run data profiling. You can accept the recommended columns or customize the selection by adding or removing columns. After profiling completes, review the results to understand the structure and quality of the data. Based on profiling insights, you can create custom rules, apply out-of-the-box rules, or use AI-enabled rule suggestions. After adding rules to the selected columns, run a data quality scan to generate column-level data quality scores and assess the overall health of the dataset. To continuously measure and improve data quality, configure data quality error record storage and schedule recurring data quality scans. You can also associate a standalone data asset\u2014along with its data quality scores and rules\u2014to a data product. This allows data product owners to reuse rules created for standalone assets. The same data asset can be cloned and associated with multiple data products to support different use cases. Note that the data product must be in Draft state before a standalone asset with a data quality score can be associated with it. Additionally, you can configure alerts to notify your team when a data quality score falls below a defined threshold or when a data quality scan fails. Because Purview uses role-based access control (RBAC), only users with the Data Product Owner role can associate a standalone data asset with a data product. Users must also have access to the relevant governance domain. A Data Product Owner must have a Domain Reader (local or global) or Data Quality Reader role to browse standalone asset DQ pages and associated assets. Summary Data Quality for standalone data assets allows organizations to independently assess, improve, and monitor datasets before or without linking them to data products. This approach increases governance agility, improves decision-making, supports diverse use cases beyond analytics, reduces storage costs, and accelerates enterprise data maturity. References Data Quality Scan for a Data Asset in Unified Catalog (preview) | Microsoft Learn",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-community/data-quality-dq-for-standalone-data-assets-at-microsoft-purview/ba-p/4495338",
+      "source": "Microsoft Security Blog (TechCommunity)",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-02-19T16:00:00+00:00",
+      "published_ts": 1771516800,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Three ways to run KQL on Microsoft Sentinel data lake: Interactive, Async, or Jobs",
+      "summary": "SOC analysts often face complex challenges during investigations. They often need to investigate incidents that span weeks or even months, not just hours or days. This requires correlating multiple high-volume data sources such as sign-ins, network traffic, endpoint activity, and logs. Analysts frequently need to revisit query results throughout an active investigation and must determine whether findings are temporary insights or should evolve into long-term detections. Hunting and anomaly detection, in particular, demand access to months of historical data to uncover patterns and validate threats. With Microsoft Sentinel data lake, you can run KQL directly on data in the lake, unlocking flexibility for investigations and hunting. The key is choosing the right execution model for your scenario. Quick, interactive queries are great for initial exploration but may time out on complex queries or large datasets. Deep investigations require a more robust approach, while operationalized security outcomes call for scheduled jobs. \u201cHow should I run my KQL queries on the data lake to balance between efficiency, and speed?\u201d If you\u2019ve ever run a long query, waited\u2026 waited some more\u2026 and then hit a timeout, you\u2019ve already met the limits of interactive KQL queries. The good news is that Sentinel data lake gives you multiple ways to query large volumes of security data, each designed for a different purpose. In this post, we\u2019ll walk through: When to use interactive KQL queries When to run to KQL Async queries When should you consider using KQL jobs We'll explain how these options work in real SOC workflows and guide you in selecting the right KQL execution mode, so you can avoid unnecessary frustration and re-runs. Understanding the three KQL options for Sentinel data lake When working with Sentinel data lake, you\u2019ll typically choose between three query execution modes: Interactive KQL queries Async KQL queries KQL jobs They all use Kusto Query Language (KQL), but they differ in how long they run , how results are stored , and who they\u2019re best for . Let\u2019s break them down. 1. Interactive KQL queries: Ad-hoc, faster access and temporary results Analysts often begin with interactive queries because they are simple, fast, and ideal for exploring data. When to use interactive queries Use interactive queries when: You\u2019re running queries for ad-hoc investigations You want to a validate a query before putting them in a KQL job for scheduling The dataset is small to moderate You only need to view results once You want immediate feedback Queries that are completed quickly (ideally within 2-3 minutes for an analyst to wait for the results interactively). Common use cases Checking recent network logs or sign-in failures (e.g. last 24 hrs.) Exploring a suspicious IP over a short time window (e.g. last 24 hrs.) Verifying a hypothesis during triage What to expect Designed for quick execution Best for short lookback periods Queries may time out between ~7\u20138 minutes Results do not persist beyond the session Interactive queries are ideal for exploratory analysis, but they may not be ideal for heavy lifting across large datasets or long lookbacks of data in lake. 2. Async queries: Long-running investigations reducing the risk of timeout An Async query is a new feature in data lake where things get interesting, especially for incident investigations involving larger datasets. Instead of waiting for results in real time, Async queries run in the background and a user can check progress in Async tab. Results are in data lake hot cache for quicker retrieval on demand, up to 24 hours after execution. When to use Async queries Async queries are a great fit when: You\u2019re querying larger datasets, or you need to query a longer lookback window. KQL Async queries can run for up to one hour, and you suspect your query would time out interactively A small group of analysts needs fast access to the same results You don\u2019t want to hydrate data into the Analytics tier nor create use a custom table for that You don't need to use the results in your detection rules Common use cases Exploring a suspicious IP over a time window Requiring data from lake for an incident investigation that multiple analysts need to access for a short period of time Key benefits Queries can run for up to one hour Results are stored in data lake hot cache Results remain available for up to 24 hours Multiple users can fetch results Fast re-access without re-running the query on cold storage No need to permanently move data into Analytics tier This makes Async queries especially useful during active incidents, where one or two SOC analysts may need to revisit results multiple times while pivoting their investigation. KQL Jobs: For persistent results or custom detection rules KQL jobs are designed for persistence and reuse. Instead of just querying data, a KQL job hydrates results from the data lake into the Analytics tier , either as a one-time job or on a schedule. When to use KQL jobs Use KQL jobs when: You need the results long-term Data should be available for detections or dashboards You want to schedule recurring queries Multiple teams or detections depend on the output Summarization of logs from data lake into Analytics tier Common use cases One-time: Incident investigations spanning larger datasets from lake Jobs: High volume log summarization, anomaly detection, IoC matching and similar use cases Use Microsoft Sentinel workbooks, building dashboards using data on top of analytics-tier Produce enriched datasets for ongoing monitoring Important considerations KQL jobs can run for up to one hour in the background Results are stored permanently (unless the custom table is deleted) Best when query output becomes part of your proactive hunting process Think of KQL jobs as turning raw lake data into a reusable security asset. Putting it all together: A sample investigation scenario Let\u2019s walk through a realistic SOC scenario to see how these query types work together. Scenario: Suspicious IP activity over 90 days An analyst is investigating a potentially malicious IP address reported by threat intelligence. The IP may have been active over the past 90 days. Step 1: Start Interactive Let\u2019s say you decided to store SecurityEvent logs in lake only mode. An analyst in your team begins with an interactive KQL query on data lake to quickly check recent activity: SecurityEvent | where TimeGenerated > ago(24h) | where IpAddress == \"203.0.113.45\" | summarize count() by EventLevelName This may run quickly and confirm suspicious activity, with a short lookback such as last 24 hours. Step 2: Switch to Async for scale To understand the full scope, the analyst expands the lookback to 90 days and joins multiple data sources for the same IoC. The query is may be too slow for an interactive execution. So they run it as an Async query : union SigninLogs, SecurityEvent, CommonSecurityLog | where TimeGenerated > ago(90d) | where IPAddress == \"203.0.113.45\" | summarize FirstSeen = min(TimeGenerated), LastSeen = max(TimeGenerated), EventCount = count() by IPAddress, Category After providing a name for query, the execution begins: The query runs in the background, and it may take few minute. You can always check the progress In Async queries tab: Once the query completes successfully, the results are cached in data lake. Over the next few hours, the analyst revisits the results multiple times while pivoting to related entities, without having to wait query execution on the cold storage. Step 3: Operationalize with a KQL Job The investigation reveals a recurring attack pattern that leadership wants monitored continuously. A KQL job is created to: Run once or in a schedule (by minutes, daily, weekly, monthly) Hydrate results into a custom Analytics table With results in Analytics tier, power custom detection rules and dashboard Now the insights move from investigation to ongoing defense. Read our previous blog posts on how to run KQL jobs on data lake. How to Choose the Right Option Here\u2019s a simple way to decide: Need quick answers now? \u2192 Use Interactive queries Query is big, slow, or spans long timeframes? \u2192 Use Async queries Results must be reused, scheduled, or used in custom detection rules? \u2192 Use KQL jobs Each option exists to reduce friction at a specific stage of analysis, from curiosity, to investigation, to operationalization. Final thoughts Microsoft Sentinel data lake gives security teams flexibility at scale, when the right query mode is used at the right time. Interactive queries keep investigations fast and exploratory. Async queries unlock deep, long-running analysis with higher time out limits. KQL jobs turn insights into durable security capabilities. Still need to run a query on massive datasets or longer lookback? Try Notebooks capabilities on data lake. Once you choose the right option for your scenarios, querying data in the lake becomes less about limits, and more about possibilities. Happy hunting! Resources Get started with Microsoft Sentinel data lake and KQL today. Microsoft Sentinel data lake overview - Microsoft Security | Microsoft Learn KQL and the Microsoft Sentinel data lake - Microsoft Security | Microsoft Learn Create jobs in the Microsoft Sentinel data lake - Microsoft Security | Microsoft Learn",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/three-ways-to-run-kql-on-microsoft-sentinel-data-lake/ba-p/4494657",
+      "source": "Microsoft Sentinel Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-02-19T16:00:00+00:00",
+      "published_ts": 1771516800,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "I've used Windows for decades, but I tried Linux to see if it's truly 'easy' now - and one thing surprised me",
+      "summary": "Should you switch to Linux? Well, I was pleasantly surprised to find it is a great alternative - for some.",
+      "link": "https://www.zdnet.com/article/how-to-replace-windows-with-linux/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:47:00+00:00",
+      "published_ts": 1771516020,
+      "smart_groups": [
+        "Windows / Microsoft",
+        "Linux / Unix"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Password Requirements of SaaS",
+      "summary": "Hello, On occasion, I stumble upon password requirements of some services that doesn't seem up to date with the latest recommendations. They often limit the number of total characters, the character set to use or even require a password schema. I might be wrong, but my feeling is, that those \"requirements\" in fact create weaker passwords or passwords that are easier to calculate/guess. Last time I encountered these requirements: Min: 12 chars, Max: 16 chars Starting with 5 numbers Must contain at least one uppercase, one special char (from a list of allowed characters) What is obvious to me is that by limiting the number of total characters you limit also the complexity. You also do the same by limiting the set of characters you can use. What I am not sure about is this: If your schema has to start with 5 numerical characters, isn't the total complexity also reduced drastically? I assume with 16 characters you have: First 5 characters must be within [0-9] Next 11 characters must be within [a-z, A-Z, 0-9, some special chars] Is this effectively reducing the complexity to basically 11 characters of a password, because the first 5 numerical characters can be guessed within milliseconds nowadays? How would you rate a password requirement like this? submitted by /u/EarlOfAwesom3 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1r92k3w/password_requirements_of_saas/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-02-19T15:43:36+00:00",
+      "published_ts": 1771515816,
+      "smart_groups": [
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Microsoft 365 Copilot Chat referencing info from sensitive emails",
+      "summary": "https://admin.cloud.microsoft/?#/servicehealth/:/alerts/CW1226324 Issue ID CW1226324 A code issue is allowing items in the Sent items and Draft folders to be picked up by Copilot even though confidential labels are set in place and Copilot DLP policy is configured. Interesting issue posted in 365 Admin Service Health, some pretty serious implications here potentially submitted by /u/Polysphondylium [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1r92jma/microsoft_365_copilot_chat_referencing_info_from/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-02-19T15:43:05+00:00",
+      "published_ts": 1771515785,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Edge just got a useful AI tool that Chrome doesn't have - here's how to try it",
+      "summary": "A new AI-powered feature in Edge uses Copilot to summarize and answer questions about your PDF files directly in the browser.",
+      "link": "https://www.zdnet.com/article/edge-just-got-a-useful-ai-tool-that-chrome-doesnt-have-heres-how-to-try-it/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:42:27+00:00",
+      "published_ts": 1771515747,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "[CVE-2026-0714] TPM-sniffing LUKS Keys on an Embedded Device",
+      "summary": "submitted by /u/AlmondOffSec [link] [comments]",
+      "link": "https://www.reddit.com/r/netsec/comments/1r92evr/cve20260714_tpmsniffing_luks_keys_on_an_embedded/",
+      "source": "/r/netsec",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-02-19T15:38:01+00:00",
+      "published_ts": 1771515481,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "State of cloud native 2026: CNCF CTO\u2019s insights and predictions",
+      "summary": "We\u2019ve just celebrated the 10th anniversary of the Cloud Native Computing Foundation (CNCF), the foundation behind Kubernetes and so many other successful open source projects we all rely on. That alone was a good reason to...",
+      "link": "https://www.cncf.io/blog/2026/02/19/state-of-cloud-native-2026-cncf-ctos-insights-and-predictions/",
+      "source": "https://www.cncf.io/feed/",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:34:46+00:00",
+      "published_ts": 1771515286,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Coffee with the Council Podcast: PCI SSC Publishes First-Ever Annual Report",
+      "summary": "Welcome to our podcast series, Coffee with the Council . I'm Alicia Malone, Director of Communications and Public Relations for the PCI Security Standards Council. Well, it is hard to believe that we are already in February, but as we kick off 2026, we want to take a moment to also acknowledge all that the Council accomplished in 2025, including the recent release of the Council\u2019s first-ever Annual Report. Joining me today to talk about this report and what we can expect in the year ahead is PCI SSC's Executive Director, Gina Gobeyn. Welcome, Gina!",
+      "link": "https://blog.pcisecuritystandards.org/coffee-with-the-council-podcast-pci-ssc-publishes-first-ever-annual-report",
+      "source": "PCI Security Standards Blog",
+      "type": "government",
+      "type_label": "Government, CERT & Advisories",
+      "published": "2026-02-19T15:34:41+00:00",
+      "published_ts": 1771515281,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "CISA Mandates Urgent Patching of Exploited Dell Vulnerability Within 72 Hours",
+      "summary": "US Government Agencies Ordered to Patch Critical Dell Vulnerability The US Cybersecurity and Infrastructure Security... The post CISA Mandates Urgent Patching of Exploited Dell Vulnerability Within 72 Hours appeared first on .",
+      "link": "https://www.news4hackers.com/cisa-mandates-urgent-patching-of-exploited-dell-vulnerability-within-72-hours/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:32:30+00:00",
+      "published_ts": 1771515150,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "CISA orders feds to patch actively exploited Dell flaw within 3 days",
+      "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) ordered government agencies to patch their systems within three days against a maximum-severity Dell vulnerability that has been under active exploitation since mid-2024. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/cisa-orders-feds-to-patch-actively-exploited-dell-flaw-within-3-days/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:30:37+00:00",
+      "published_ts": 1771515037,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Industrial-Scale Fake Coretax Apps Drive $2m Fraud in Indonesia",
+      "summary": "Fraud campaign exploiting Indonesia\u2019s Coretax resulted in $1.5m to $2m in losses via malicious apps",
+      "link": "https://www.infosecurity-magazine.com/news/fake-coretax-apps-fraud-indonesia/",
+      "source": "Infosecurity Magazine \u2013 News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:30:00+00:00",
+      "published_ts": 1771515000,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Apple Pencil Pro vs ESR Geo Pencil: I tested both, here's what I recommend",
+      "summary": "Still deciding whether to go with Apple's Pencil Pro or ESR's cheaper Geo Pencil? I broke down the differences.",
+      "link": "https://www.zdnet.com/article/apple-pencil-pro-vs-esr-geo-pencil/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:27:00+00:00",
+      "published_ts": 1771514820,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Sex toys maker Tenga says hacker stole customer information",
+      "summary": "The Japanese sex toy maker said a hacker broke into an employee's inbox and stole customer names, email addresses, and correspondence, including order details and customer service inquiries.",
+      "link": "https://techcrunch.com/2026/02/19/sex-toys-maker-tenga-says-hacker-stole-customer-information/",
+      "source": "Security News | TechCrunch",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:25:00+00:00",
+      "published_ts": 1771514700,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Mississippi medical center closes clinics amid cyberattack",
+      "summary": "University of Mississippi Medical Center said a cybersecurity attack knocked multiple IT systems offline Thursday, cutting off access to its Epic electronic medical records platform and prompting the Jackson-based system to close clinics and cancel outpatient care. In a Feb. 19 social media post, UMMC said it was responding to a \u201ccybersecurity attack\u201d that left \u201cmany\u201d IT systems down, including Epic. submitted by /u/DysruptionHub [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1r92295/mississippi_medical_center_closes_clinics_amid/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-02-19T15:24:50+00:00",
+      "published_ts": 1771514690,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Dash Evolution chain integrates Zcash Orchard privacy pool",
+      "summary": "Initial features will support basic transfers, setting the stage for subsequent upgrades, including privacy features for tokenized real-world assets.",
+      "link": "https://cointelegraph.com/news/dash-integrates-z-cash-orchard-privacy?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-02-19T15:17:36+00:00",
+      "published_ts": 1771514256,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "U.S. CISA adds Dell RecoverPoint and GitLab flaws to its Known Exploited Vulnerabilities catalog",
+      "summary": "U.S. Cybersecurity and Infrastructure Security Agency (CISA) adds Dell RecoverPoint and GitLab flaws to its Known Exploited Vulnerabilities catalog. The U.S. Cybersecurity and Infrastructure Security Agency (CISA) added Dell RecoverPoint and GitLab flaws to its Known Exploited Vulnerabilities (KEV) catalog. Below are the flaws added to the catalog: The first vulnerability added to the catalog is [\u2026]",
+      "link": "https://securityaffairs.com/188243/hacking/u-s-cisa-adds-dell-recoverpoint-and-gitlab-flaws-to-its-known-exploited-vulnerabilities-catalog.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:16:39+00:00",
+      "published_ts": 1771514199,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "FOSS: Comprehensive Application Security skills and tools for claude-code (SAST/DAST/Secrets/Active Testing)",
+      "summary": "Please try it out we would love your feedback: https://github.com/ghostsecurity/skills The skills leverage 3 OSS tools (golang) we released at the same time: https://github.com/ghostsecurity/poltergeist (A fast secret scanner for source code) https://github.com/ghostsecurity/wraith (A fast vulnerability scanner for package dependencies) https://github.com/ghostsecurity/reaper (Live validation proxy tool for testing web app vulnerabilities) submitted by /u/Striking_Luck_886 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1r91t1n/foss_comprehensive_application_security_skills/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-02-19T15:15:00+00:00",
+      "published_ts": 1771514100,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Simbian AI Pentest Agent: Continuous Context-Aware Penetration Testing and Security",
+      "summary": "Continuous Penetration Testing Gets a Boost with AI-Powered Solution In a significant development for enterprises... The post Simbian AI Pentest Agent: Continuous Context-Aware Penetration Testing and Security appeared first on .",
+      "link": "https://www.news4hackers.com/simbian-ai-pentest-agent-continuous-context-aware-penetration-testing-and-security/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:14:01+00:00",
+      "published_ts": 1771514041,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Unmasking the Dark Web: How Infostealers Convert Stolen Credentials into Real Identities",
+      "summary": "Infostealers\u2019 Sophisticated Credential Theft: Uncovering the Threat to Identity and Access Infostealers have significantly expanded... The post Unmasking the Dark Web: How Infostealers Convert Stolen Credentials into Real Identities appeared first on .",
+      "link": "https://www.news4hackers.com/unmasking-the-dark-web-how-infostealers-convert-stolen-credentials-into-real-identities/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:12:26+00:00",
+      "published_ts": 1771513946,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": ".GridView: AI-Powered Continuous Penetration Testing for Enhanced Security",
+      "summary": "Simbian Launches AI-Powered Penetration Testing Solution A new solution for continuous penetration testing has been... The post .GridView: AI-Powered Continuous Penetration Testing for Enhanced Security appeared first on .",
+      "link": "https://www.news4hackers.com/gridview-ai-powered-continuous-penetration-testing-for-enhanced-security/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:11:15+00:00",
+      "published_ts": 1771513875,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "What is a passkey? The easy explanation - and how they beat passwords",
+      "summary": "Yes, the technology behind passkeys can be confusing. Here's a simple guide to help you ditch passwords today.",
+      "link": "https://www.zdnet.com/article/what-are-passkeys/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:11:00+00:00",
+      "published_ts": 1771513860,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "French Government Confirms Massive Data Breach Exposing 1.2 Million Bank Accounts",
+      "summary": "France Discloses Massive Bank Account Breach Exposing 1.2 Million Records The French Ministry of Economy... The post French Government Confirms Massive Data Breach Exposing 1.2 Million Bank Accounts appeared first on .",
+      "link": "https://www.news4hackers.com/french-government-confirms-massive-data-breach-exposing-1-2-million-bank-accounts-2/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:10:04+00:00",
+      "published_ts": 1771513804,
+      "smart_groups": [
+        "Data Breaches / Leaks"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Simbian AI Pentest Agent: Continuous Context-Aware Penetration Testing and Security Assessment",
+      "summary": "Continuous Penetration Testing Gets a Boost with AI-Powered Solution Enterprises can now benefit from ongoing,... The post Simbian AI Pentest Agent: Continuous Context-Aware Penetration Testing and Security Assessment appeared first on .",
+      "link": "https://www.news4hackers.com/simbian-ai-pentest-agent-continuous-context-aware-penetration-testing-and-security-assessment/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:08:49+00:00",
+      "published_ts": 1771513729,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "French Government Confirms Massive Data Breach Exposing 1.2 Million Bank Accounts",
+      "summary": "France Discloses Massive Bank Account Breach Exposing 1.2 Million Records The French Ministry of Economy... The post French Government Confirms Massive Data Breach Exposing 1.2 Million Bank Accounts appeared first on .",
+      "link": "https://www.news4hackers.com/french-government-confirms-massive-data-breach-exposing-1-2-million-bank-accounts/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:07:14+00:00",
+      "published_ts": 1771513634,
+      "smart_groups": [
+        "Data Breaches / Leaks"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Selective Thread Emulation and Fuzzing Expose DoS Flaws in Socomec DIRIS M-70 IIoT Device",
+      "summary": "Security researchers have uncovered six critical denial-of-service vulnerabilities in the Socomec DIRIS M-70 industrial gateway used for power monitoring and energy management in critical infrastructure. The flaws were discovered through an innovative emulation technique that bypassed hardware debugging limitations by focusing on a single thread handling Modbus protocol communications. The M-70 gateway facilitates data communication [\u2026] The post Selective Thread Emulation and Fuzzing Expose DoS Flaws in Socomec DIRIS M-70 IIoT Device appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/fuzzing-expose-dos-flaws-in-socomec-diris-m-70-iiot-device/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:06:27+00:00",
+      "published_ts": 1771513587,
+      "smart_groups": [
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS",
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Bug in student admissions website exposed children&#8217;s personal information",
+      "summary": "Ravenna Hub, which lets parents apply and track the status of their kids' applications across thousands of schools, allowed any logged-in user to access the personally identifiable data associated with any other user, including their children.",
+      "link": "https://techcrunch.com/2026/02/19/bug-in-student-admissions-website-exposed-childrens-personal-information/",
+      "source": "Security News | TechCrunch",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:05:35+00:00",
+      "published_ts": 1771513535,
+      "smart_groups": [
+        "Identity / Access"
+      ],
+      "curated": false
+    },
+    {
+      "title": "How infostealers turn stolen credentials into real identities",
+      "summary": "Infostealer dumps increasingly tie stolen credentials to real identities, linking usernames, cookies, and behavior across personal and enterprise accounts. Specops explains how analyzing 90,000 dumps shows reuse fuels enterprise risk and how continuous AD scanning disrupts that cycle. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/how-infostealers-turn-stolen-credentials-into-real-identities/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:05:15+00:00",
+      "published_ts": 1771513515,
+      "smart_groups": [
+        "Ransomware",
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "French Government Says 1.2 Million Bank Accounts Exposed in Breach",
+      "summary": "The Ministry of Economy reported discovering unauthorized access to the national bank account registry FICOBA. The post French Government Says 1.2 Million Bank Accounts Exposed in Breach appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/french-government-says-1-2-million-bank-accounts-exposed-in-breach/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:02:58+00:00",
+      "published_ts": 1771513378,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Simbian AI Pentest Agent delivers continuous, context-aware penetration testing",
+      "summary": "Simbian announced the launch of the Simbian AI Pentest Agent, a new solution designed to provide enterprises with ongoing, on-demand penetration testing. Simbian\u2019s AI Pentest Agent is the first automated penetration testing solution to incorporate business context, ensuring that findings are focused on each customer\u2019s specific security risks and priorities. Developed in partnership the leading global risk management partner LRQA, the AI agent allows security teams to move beyond manual, point-in-time assessments to validate their \u2026 More \u2192 The post Simbian AI Pentest Agent delivers continuous, context-aware penetration testing appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/02/19/simbian-ai-pentest-agent/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:02:49+00:00",
+      "published_ts": 1771513369,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Poland Restricts Chinese-Made Vehicles at Military Installations and Secure Sites",
+      "summary": "Poland Bans Chinese-Made Vehicles at Sensitive Military Installations Poland\u2019s military has implemented a ban on... The post Poland Restricts Chinese-Made Vehicles at Military Installations and Secure Sites appeared first on .",
+      "link": "https://www.news4hackers.com/poland-restricts-chinese-made-vehicles-at-military-installations-and-secure-sites/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:02:31+00:00",
+      "published_ts": 1771513351,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Ransomware gang threatens Cheyenne and Arapaho Tribes after shutting down schools",
+      "summary": "The government of the Cheyenne and Arapaho Tribes in Oklahoma is being extorted by cybercriminals after a ransomware attack shut down its schools and critical systems in January.",
+      "link": "https://therecord.media/cheyenne-arapaho-ransomware-rhysida",
+      "source": "The Record \u2013 Cybercrime",
+      "type": "cybercrime",
+      "type_label": "Cybercrime, Darknet & Leaks",
+      "published": "2026-02-19T15:02:27+00:00",
+      "published_ts": 1771513347,
+      "smart_groups": [
+        "Curated",
+        "Ransomware"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Poland restricts Chinese-made cars at protected military sites",
+      "summary": "Poland\u2019s military leadership has decided that cars manufactured in the People\u2019s Republic of China will no longer cross the gates of sensitive military bases. The decision follows a risk analysis focused on the growing integration of digital systems in cars and the potential for uncontrolled acquisition and use of data by those systems. The new rules also prohibit connecting official phones to infotainment systems in China-made cars. They also apply to other motor vehicles equipped \u2026 More \u2192 The post Poland restricts Chinese-made cars at protected military sites appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/02/19/poland-military-chinese-car-ban/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T15:00:39+00:00",
+      "published_ts": 1771513239,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Attackers breach France\u2019s national bank account database",
+      "summary": "A spokesperson for the French government said potentially 1.2 million accounts were impacted by the incident.",
+      "link": "https://therecord.media/attackers-breach-france-national-bank-account-database",
+      "source": "The Record \u2013 Cybercrime",
+      "type": "cybercrime",
+      "type_label": "Cybercrime, Darknet & Leaks",
+      "published": "2026-02-19T14:58:14+00:00",
+      "published_ts": 1771513094,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Is free AI enough? How to choose the right chatbot for you - and when to upgrade",
+      "summary": "You can do a lot with free AI. But you can do even more if you upgrade. Here's how to decide between all your options.",
+      "link": "https://www.zdnet.com/article/how-to-choose-ai-chatbot-when-to-upgrade-from-free/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T14:58:00+00:00",
+      "published_ts": 1771513080,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Dell RecoverPoint Vulnerability Exploited by China-Linked Hackers to Spread GrimBolt Malware",
+      "summary": "A Critical Vulnerability in Dell RecoverPoint Software Exploited by China-Linked Hackers A severe security flaw... The post Dell RecoverPoint Vulnerability Exploited by China-Linked Hackers to Spread GrimBolt Malware appeared first on .",
+      "link": "https://www.news4hackers.com/dell-recoverpoint-vulnerability-exploited-by-china-linked-hackers-to-spread-grimbolt-malware/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T14:57:29+00:00",
+      "published_ts": 1771513049,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "China-Linked Hackers Use Dell RecoverPoint Flaw to Drop GrimBolt Malware",
+      "summary": "Dell warns of a critical security hole in its RecoverPoint software exploited by hackers. Learn how to protect your data from the CVE-2026-22769 vulnerability and the new GrimBolt malware.",
+      "link": "https://hackread.com/china-hackers-dell-recoverpoint-flaw-grimbolt-malware/",
+      "source": "HackRead",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T14:52:22+00:00",
+      "published_ts": 1771512742,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Google Chrome security advisory (AV26-145)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/google-chrome-security-advisory-av26-145",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T14:49:46+00:00",
+      "published_ts": 1771512586,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Critical OpenSSL RCE, Foxit 0-Day Exploits, AI Security Flaws & More: ThreatsDay Bulletin",
+      "summary": "New Threats Emerge as Cybersecurity Landscape Continues to Evolve The cybersecurity threat landscape remains in... The post Critical OpenSSL RCE, Foxit 0-Day Exploits, AI Security Flaws & More: ThreatsDay Bulletin appeared first on .",
+      "link": "https://www.news4hackers.com/critical-openssl-rce-foxit-0-day-exploits-ai-security-flaws-more-threatsday-bulletin-3/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T14:48:41+00:00",
+      "published_ts": 1771512521,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "AI-generated passwords are a security risk",
+      "summary": "AI-generated passwords are \"highly predictable\" and aren\u2019t truly random, making them easier for cybercriminals to crack.",
+      "link": "https://www.malwarebytes.com/blog/news/2026/02/ai-generated-passwords-are-a-security-risk",
+      "source": "Malwarebytes Labs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T14:46:58+00:00",
+      "published_ts": 1771512418,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "I went alpine skiing with this rugged watch and it tracked every slope in detail",
+      "summary": "Amazfit's T-Rex Ultra 2 lets you plot your winter adventures with offline maps and detailed data that outshines expensive competitors.",
+      "link": "https://www.zdnet.com/article/amazfit-t-rex-ultra-2-review/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T14:45:00+00:00",
+      "published_ts": 1771512300,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "PromptSpy \u2013 First Known Android AI Malware Uses Google\u2019s Gemini for Decision-making",
+      "summary": "The first known Android malware family to weaponize a generative AI model, specifically Google\u2019s Gemini, as part of its active execution flow. Discovered in February 2026, the malware represents a significant evolutionary step in mobile threats and follows ESET\u2019s earlier identification of PromptLock, the first AI-powered ransomware, in August 2025. PromptSpy, uncovered by ESET researcher [\u2026] The post PromptSpy \u2013 First Known Android AI Malware Uses Google\u2019s Gemini for Decision-making appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/promptspy-android-ai-malware/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T14:39:42+00:00",
+      "published_ts": 1771511982,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Forescout research points to record number of ICS vulnerabilities in 2025",
+      "summary": "Forescout has released new research warning that industrial control systems (ICS) are facing unprecedented levels of cyber risk, with 2025 marking the highest number of recorded vulnerabilities to date. The report, ICS Cybersecurity in 2026: Vulnerabilities and the Path Forward, reveals that 508 ICS advisories were published in 2025, covering a total of 2,155 vulnerabilities, [\u2026] The post Forescout research points to record number of ICS vulnerabilities in 2025 appeared first on IT Security Guru .",
+      "link": "https://www.itsecurityguru.org/2026/02/19/forescout-research-points-to-record-number-of-ics-vulnerabilities-in-2025/?utm_source=rss&utm_medium=rss&utm_campaign=forescout-research-points-to-record-number-of-ics-vulnerabilities-in-2025",
+      "source": "IT Security Guru",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T14:38:55+00:00",
+      "published_ts": 1771511935,
+      "smart_groups": [
+        "Vulnerabilities / CVEs",
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Data on 1.2 million French bank accounts accessed in registry breach",
+      "summary": "In late January 2026, a malicious intruder accessed France\u2019s national bank account registry, FICOBA, enabling them to view information tied to 1.2 million accounts, the Ministry of the Economy and Finance disclosed on Wednesday. TV5 Monde reported that the perpetrator (or perpetrators) obtained login credentials belonging to a civil cervant authorized to use the database and then used those credentials to explore its contents. They managed to access bank account information and related personal data: \u2026 More \u2192 The post Data on 1.2 million French bank accounts accessed in registry breach appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/02/19/ficoba-data-breach-bank-accounts/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T14:36:08+00:00",
+      "published_ts": 1771511768,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "ThreatsDay Bulletin: OpenSSL RCE, Foxit 0-Days, Copilot Leak, AI Password Flaws & 20+ Stories",
+      "summary": "The cyber threat space doesn\u2019t pause, and this week makes that clear. New risks, new tactics, and new security gaps are showing up across platforms, tools, and industries \u2014 often all at the same time. Some developments are headline-level. Others sit in the background but carry long-term impact. Together, they shape how defenders need to think about exposure, response, and preparedness right now",
+      "link": "https://thehackernews.com/2026/02/threatsday-bulletin-openssl-rce-foxit-0.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T14:35:00+00:00",
+      "published_ts": 1771511700,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Why are Egress training my users to click on dodgy links?",
+      "summary": "One of our well-trained users just forwarded us a suspicious looking email they had received: \"You have received a new SECURE EMAIL Please click on this link labelled 'open secure email' Then follow our instructions\" This email looks dodgy AF and stinks of phishing. Turns out that Egress think it's a useful and sensible way to email invoices and suchlike. Screw you Egress. submitted by /u/Bluecomp [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1r90s12/why_are_egress_training_my_users_to_click_on/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-02-19T14:34:24+00:00",
+      "published_ts": 1771511664,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
+      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-02-19T14:33:50+00:00",
+      "published_ts": 1771511630,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Threat Actors Using Fake Google Forms Site to Harvest Google Logins",
+      "summary": "A new phishing campaign is targeting job seekers through fake Google Forms websites designed to steal login credentials. The campaign uses sophisticated domain impersonation techniques to trick victims into revealing their Google account information. Attackers have registered a fraudulent domain that closely mimics the legitimate Google Forms service. The phishing operation revolves around suspicious URLs [\u2026] The post Threat Actors Using Fake Google Forms Site to Harvest Google Logins appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/threat-actors-using-fake-google-forms-site/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T14:30:35+00:00",
+      "published_ts": 1771511435,
+      "smart_groups": [
+        "Network / OT / ICS",
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "5 surprise products Samsung could unveil at Unpacked - including an ultra wide phone",
+      "summary": "Unpacked 2026 could feature a few curveballs, like a new type of foldable.",
+      "link": "https://www.zdnet.com/article/samsung-unpacked-surprise-announcements-what-to-expect/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T14:28:00+00:00",
+      "published_ts": 1771511280,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "Mobile Hacking Alert: 8th Pay Commission Scam Exposed \u2013 FCRF Issues High-Alert Advisory",
       "summary": "Mobile Malware Campaign Exploits 8th Pay Commission Theme to Target Government Employees A high-alert advisory... The post Mobile Hacking Alert: 8th Pay Commission Scam Exposed \u2013 FCRF Issues High-Alert Advisory appeared first on .",
       "link": "https://www.news4hackers.com/mobile-hacking-alert-8th-pay-commission-scam-exposed-fcrf-issues-high-alert-advisory/",
@@ -42,6 +736,46 @@
         "Malware / Payloads"
       ],
       "curated": true
+    },
+    {
+      "title": "Cloud-native Security for your Windows environment: Announcing the Wiz Runtime Sensor for Windows",
+      "summary": "Secure your Windows fleet without sacrificing performance. Wiz pairs real-time threat detection with a memory-safe architecture that scales efficiently to protect your essential cloud infrastructure.",
+      "link": "https://www.wiz.io/blog/wiz-runtime-sensor-for-your-windows-environment",
+      "source": "https://www.wiz.io/feed/rss.xml",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-02-19T14:21:47+00:00",
+      "published_ts": 1771510907,
+      "smart_groups": [
+        "Windows / Microsoft"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Into The Light Index 2025: What The Global CSAM Findings Mean For Digital Forensic Investigators",
+      "summary": "300 million children are affected by tech-facilitated abuse each year\u2014Paul Gullon-Scott examines what Childlight\u2019s Into the Light Index 2025 findings mean for digital forensic investigators on the frontline of CSAM cases.",
+      "link": "https://www.forensicfocus.com/articles/into-the-light-index-2025-what-the-global-csam-findings-mean-for-digital-forensic-investigators/",
+      "source": "Forensic Focus",
+      "type": "dfir",
+      "type_label": "DFIR & Forensics",
+      "published": "2026-02-19T14:14:19+00:00",
+      "published_ts": 1771510459,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Banks can\u2019t seem to service crypto, even as it goes mainstream",
+      "summary": "Crypto\u2019s reputation is improving, but investors still complain that their banks are blocking their accounts for interacting with digital assets.",
+      "link": "https://cointelegraph.com/news/banks-service-crypto-even-mainstream?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-02-19T14:10:43+00:00",
+      "published_ts": 1771510243,
+      "smart_groups": [],
+      "curated": false
     },
     {
       "title": "Pluralistic: Six Years of Pluralistic (19 Feb 2026)",
@@ -125,6 +859,21 @@
       "curated": false
     },
     {
+      "title": "CISA Warns of Honeywell CCTV Products Vulnerability Leads to Account Takeovers",
+      "summary": "A critical advisory warning regarding a severe vulnerability affecting Honeywell CCTV products, published on February 17, 2026, under advisory ICSA-26-048-04. The alert details a high-severity security flaw that could allow malicious actors to completely hijack user accounts and gain unauthorized access to sensitive camera feeds. The vulnerability has been assigned a CVSS v3 score of [\u2026] The post CISA Warns of Honeywell CCTV Products Vulnerability Leads to Account Takeovers appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/honeywell-cctv-products-vulnerability/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T14:00:56+00:00",
+      "published_ts": 1771509656,
+      "smart_groups": [
+        "Vulnerabilities / CVEs",
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
       "title": "AI Under Control: Link11 Launches AI Management Dashboard for Clean Traffic",
       "summary": "Frankfurt am Main, Germany, 19th February 2026, CyberNewswire",
       "link": "https://hackread.com/ai-under-control-link11-launches-ai-management-dashboard-for-clean-traffic/",
@@ -133,6 +882,18 @@
       "type_label": "General Security & Blogs",
       "published": "2026-02-19T14:00:47+00:00",
       "published_ts": 1771509647,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Voltage rolls out USD-settled Bitcoin Lightning credit line for businesses",
+      "summary": "Voltage has launched a US dollar\u2011settled revolving credit line that plugs directly into Bitcoin and Lightning payment flows, letting businesses send instant, Lightning\u2011style payments.",
+      "link": "https://cointelegraph.com/news/voltage-launches-usd-settled-credit-line-bitcoin?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-02-19T14:00:00+00:00",
+      "published_ts": 1771509600,
       "smart_groups": [],
       "curated": false
     },
@@ -280,6 +1041,22 @@
         "Data Breaches / Leaks"
       ],
       "curated": true
+    },
+    {
+      "title": "Hackers Leveraging nslookup.exe to Stage Payloads via DNS Using Clickfix Attack",
+      "summary": "A sophisticated evolution of the ClickFix social engineering campaign, in which threat actors are now abusing the legitimate Windows utility nslookup.exe to deploy malicious payloads via DNS queries. This technique, noticed by Researcher Muhammad Hassoub, marks a significant shift from traditional attack methods that typically rely on PowerShell commands, making detection more challenging for security teams. [\u2026] The post Hackers Leveraging nslookup.exe to Stage Payloads via DNS Using Clickfix Attack appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/clickfix-attack-using-nslookup/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-19T13:44:42+00:00",
+      "published_ts": 1771508682,
+      "smart_groups": [
+        "Windows / Microsoft",
+        "Identity / Access",
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
     },
     {
       "title": "NVIDIA\u2019s AI Training Stack Just Became Attack Surface",
@@ -3280,6 +4057,36 @@
       "curated": false
     },
     {
+      "title": "Expanding programmatic access to 1Password",
+      "summary": "The era of secrets living in fixed systems and accessed through a handful of workflows is long gone. Modern development is faster, more automated, and increasingly AI-assisted. Developers need access to secrets everywhere their code runs \u2013 across CI/CD pipelines, local environments, and AI-driven workflows. That puts developers in a familiar bind: they need secrets everywhere their code runs, but that can easily introduce more risk or friction into their workflows. That can easily feel like a choice between security that gets in the way and speed that cuts corners. One of our goals at 1Password is to remove that tradeoff by providing trusted, continuous access to secrets without slowing build or deploy cycles. Today, we\u2019re introducing two complementary capabilities to support this model. One focuses on runtime access to secrets, and the other on user-authenticated access for desktop integrations. Together, these releases help you close the gap between security and productivity by integrating secure access into both automated workflows and everyday developer tools. Now in beta: Programmatic, read\u2011only access to 1Password Environments We introduced 1Password Environments last year to give you and other developers a dedicated place to manage application secrets. Early access patterns focused on a narrow set of workflows, such as mounting .env files locally and syncing secrets with Amazon Secrets Manager . This proved powerful in its initial form, particularly for setting up projects, but we always knew this was just the start. CI/CD pipelines, local tooling, and AI-assisted IDEs need secrets at runtime \u2013 not copied into files or preloaded into fixed destinations. Our integration with Cursor demonstrated a better approach: let tools pull secrets exactly when they\u2019re needed, and only for the duration they\u2019re needed. This release follows that same pattern: Secrets can now be fetched programmatically from 1Password Environments at runtime through the CLI and SDKs. Instead of managing .env files or maintaining secret syncs, tools can read secrets directly from 1Password as code runs. Example workflows During a deployment, a GitHub Actions workflow uses a 1Password service account to retrieve and inject environment variables into the build process. A Node.js application running in a Kubernetes pod uses the 1Password SDK with a service account to read database connection strings from a 1Password Environment at startup. While working in an AI\u2011assisted IDE, a developer asks the agent to run a 1Password CLI-powered Makefile command, automatically injecting credentials from 1Password Environments while keeping secrets out of the model's context. A Python script running on a developer's laptop uses the 1Password SDK with local authentication to retrieve API tokens from a 1Password Environment before making requests to a third-party service. Desktop authentication for 1Password SDKs: Now GA (and shaped by developer feedback) Following a four-month beta, SDK\u2011based integrations can now authenticate programmatically through our desktop password manager using biometric or password prompts. This brings the same trusted, user-approved authentication flow developers rely on across 1Password\u2019s local developer tools to native SDK-based integrations. Supporting user-authenticated access unlocks sensitive operations that were previously impossible to offer securely, including one of our most requested capabilities: vault management. With full vault management \u2013 including create, read, update, delete, and list functionalities \u2013 SDK-based integrations can now perform the same high-impact actions developers expect from our other developer tools. This includes managing vault permissions, which lets you programmatically grant and revoke access to vaults \u2013 something that wasn\u2019t possible with service-account\u2013based access. We also heard from enterprise teams managing large numbers of vaults that performance at scale mattered. In response, we introduced batch item operations, reducing overhead and enabling faster, more efficient large-scale vault management. Together, these capabilities empower you to build entirely new classes of trusted, user-approved integrations and workflows. SDK integrations run with a user\u2011authenticated session, inheriting the same account access as the signed\u2011in user. Authorization is time\u2011bound and expires after 10 minutes of inactivity, or when 1Password locks. This enables secure, human\u2011approved workflows and supports more advanced SDK use cases beyond item\u2011level automation, without relying on service accounts or introducing long-lived credentials. Example integrations Desktop productivity tools, such as Postman\u2011 or Raycast\u2011style integrations, that feel native to the 1Password experience. Internal admin tools, like access management or IT operations dashboards, that manage vaults, permissions, and access at scale as a signed-in user. Local AI agents that securely retrieve credentials for some workloads, with user approval via the 1Password desktop app. Securing programmatic access across every development workflow Bringing programmatic access to 1Password Environments allows you to use secrets directly in the tools and workflows where code runs, not just in a fixed set of destinations. Meanwhile, desktop authentication for SDK integrations gives you a simple, secure way to build tools that act with a signed\u2011in user\u2019s session. Together, these capabilities expand how you can access and use 1Password programmatically, whether it\u2019s powering your CI/CD pipelines via user-authenticated sessions or enabling automated AI agents to pull secrets at runtime. 1Password becomes a deeper part of the development workflow, making it easier to secure access to every secret without disrupting how teams work. How to get started To get started, explore the documentation: Get started with 1Password Environments: https://developer.1password.com/docs/environments/ Manage vault permissions with the SDKs: https://developer.1password.com/docs/sdks/vaults/#manage-vault-permissions Build desktop app integrations: https://developer.1password.com/docs/sdks/desktop-app-integrations",
+      "link": "https://1password.com/blog/programmatically-read-environments-sdks-desktop",
+      "source": "https://blog.1password.com/index.xml",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-02-19T00:00:00+00:00",
+      "published_ts": 1771459200,
+      "smart_groups": [
+        "Ransomware",
+        "Cloud / SaaS",
+        "Supply Chain / Software"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Kubernetes project issues warning on Ingress NGINX retirement",
+      "summary": "The Kubernetes project is urging organizations to migrate away from Ingress NGINX before its retirement in March 2026, with new high-severity CVEs underscoring the urgency.",
+      "link": "https://securitylabs.datadoghq.com/articles/kubernetes-ingress-nginx-retirement-warning/",
+      "source": "https://securitylabs.datadoghq.com/rss/feed.xml",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-02-19T00:00:00+00:00",
+      "published_ts": 1771459200,
+      "smart_groups": [
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
       "title": "Adidas investigates third-party data breach after criminals claim they pwned the sportswear giant",
       "summary": "'Potential data protection incident' at an 'independent licensing partner,' we're told Adidas has confirmed it is investigating a third-party breach at one of its partner companies after digital thieves claimed they stole information and technical data from the German sportswear giant.\u2026",
       "link": "https://go.theregister.com/feed/www.theregister.com/2026/02/18/adidas_investigates_thirdparty_data_breach/",
@@ -3629,20 +4436,6 @@
       "published": "2026-02-18T21:25:19+00:00",
       "published_ts": 1771449919,
       "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Here\u2019s what happened in crypto today",
-      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-18T21:24:50+00:00",
-      "published_ts": 1771449890,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
       "curated": false
     },
     {
@@ -17155,21 +17948,6 @@
       "published": "2026-02-16T12:54:00+00:00",
       "published_ts": 1771246440,
       "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "I replaced Windows with Linux, and there's only one feature I miss",
-      "summary": "Switching from Windows to Linux is easy, they say. But here's what they don't tell you.",
-      "link": "https://www.zdnet.com/article/how-to-replace-windows-with-linux/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-16T12:50:42+00:00",
-      "published_ts": 1771246242,
-      "smart_groups": [
-        "Windows / Microsoft",
-        "Linux / Unix"
-      ],
       "curated": false
     },
     {
@@ -124540,590 +125318,6 @@
       "published_ts": 1768923608,
       "smart_groups": [],
       "curated": false
-    },
-    {
-      "title": "My new favorite keychain accessory is this multifunctional tool that costs just $30",
-      "summary": "The K3 Ultramulti EDC keychain tool is highly functional, combining a flashlight, laser pointer, and lighter into one convenient device.",
-      "link": "https://www.zdnet.com/article/k3-ultramulti-keychain-accessory-review/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T15:36:00+00:00",
-      "published_ts": 1768923360,
-      "smart_groups": [
-        "Identity / Access"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Ethereum DeFi Platform Makina Hit by Flash Loan Exploit, Loses $4M in ETH",
-      "summary": "The hacker used a flash loan to inflate prices on Makina\u2019s USD-USDC liquidity pool, and then traded to make over $4 million.",
-      "link": "https://decrypt.co/355132/ethereum-defi-platform-makina-hit-by-flash-loan-exploit-loses-4m-in-eth",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-01-20T15:31:20+00:00",
-      "published_ts": 1768923080,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "The AI Fix #84: A hungry ghost trapped in a jar gains access to the Pentagon&#8217;s network",
-      "summary": "In episode 84 of The AI Fix, Graham and Mark stare straight into the digital abyss and ask the most important question of our age: \"Is AI just a hungry ghost trapped in a jar?\" Also this week, we explore how a shadowy group of disgruntled insiders trying to destroy AI by poisoning its training data, how \"vibe-coding\" has stopped being a joke with even Linus Torvalds joining in, how Google\u2019s AI health advice could have endangered lives, and why simply asking an AI the same question twice can turn it from clueless to near-omniscient. Oh, and AI has managed to crack some famously unsolved maths problems in minutes, and Grok gains access to all of the Pentagon's networks? What could possibly go wrong? All this and much more is discussed in the latest edition of \"The AI Fix\" podcast by Graham Cluley and Mark Stockley.",
-      "link": "https://grahamcluley.com/the-ai-fix-84/",
-      "source": "Graham Cluley",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T15:30:36+00:00",
-      "published_ts": 1768923036,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "New Study Shows GPT-5.2 Can Reliably Develop Zero-Day Exploits at Scale",
-      "summary": "A groundbreaking experiment has revealed that advanced language models can now create working exploits for previously unknown security vulnerabilities. Security researcher Sean Heelan recently tested two sophisticated systems built on GPT-5.2 and Opus 4.5, challenging them to develop exploits for a zero-day flaw in the QuickJS Javascript interpreter. The results point to a significant shift [\u2026] The post New Study Shows GPT-5.2 Can Reliably Develop Zero-Day Exploits at Scale appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/new-study-shows-gpt-5-2-can-reliably/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T15:30:31+00:00",
-      "published_ts": 1768923031,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Offline-verifiable signed receipts for agent actions (Ed25519 + canonical JSON)",
-      "summary": "I built a small integrity primitive for automated workflows / agentic systems: an offline-verifiable receipt for a run. Each run emits a signed receipt (canonical JSON) that captures: - what the agent decided - what it did - what changed (result) Verification is fully offline: no logs, no console, no backend, no network calls. Signature: Ed25519 over a canonicalized byte string (RFC 8785-style JSON canonicalization intent), so signatures don\u2019t break due to key ordering/whitespace. Repo includes: - hn_receipt.json (verifies) - hn_receipt_tampered.json (fails) - verify_receipt.py (standalone verifier) Try: python verify_receipt.py hn_receipt.json python verify_receipt.py hn_receipt_tampered.json Note: this repo intentionally exposes only the minimal, offline-verifiable core; storage, chaining, and orchestration live outside this artifact. Two design questions I\u2019m already tracking: - crash/orphan actions (WAL/intent vs \u201cno receipt == didn\u2019t happen\u201d) - multi-step linking (native chaining/Merkle vs external indexing) Non-goals / assumptions: - integrity/provenance only (not a truth oracle) - confidentiality out of scope Fresh critique I\u2019d value: 1) Key model: embed public_key vs KID + pinned keyset? 2) Domain separation: include a context string to prevent cross-protocol reuse? 3) Canonicalization footguns: Unicode normalization / cross-language JCS edge cases? 4) Schema boundary: what must be inside signed_block vs outside? 5) Closest analogue (DSSE / in-toto / sigstore?) and what I\u2019m missing. submitted by /u/Aromatic_Cold_5439 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qi41oz/offlineverifiable_signed_receipts_for_agent/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-01-20T15:26:48+00:00",
-      "published_ts": 1768922808,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Sprocket Security Appoints Eric Sheridan as Chief Technology Officer",
-      "summary": "Madison, United States, 20th January 2026, CyberNewsWire",
-      "link": "https://hackread.com/sprocket-security-appoints-eric-sheridan-as-chief-technology-officer/",
-      "source": "HackRead",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T15:22:33+00:00",
-      "published_ts": 1768922553,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Microsoft issues emergency patch for latest Windows bugs - grab it ASAP",
-      "summary": "The out-of-band patch fixes a couple of annoying bugs added to Windows 11 and 10 by Microsoft's January update.",
-      "link": "https://www.zdnet.com/article/microsoft-emergency-tuesday-patch/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T15:21:55+00:00",
-      "published_ts": 1768922515,
-      "smart_groups": [
-        "Windows / Microsoft"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Critical TP-Link VIGI camera flaw allowed remote takeover of surveillance systems",
-      "summary": "TP-Link fixed a critical flaw that exposed over 32 VIGI C and VIGI InSight camera models to remote hacking, with over 2,500 internet-exposed devices identified. TP-Link fixed a high-severity flaw, tracked as CVE-2026-0629 (CVSS score 8.7), affecting over 32 VIGI C and VIGI InSight camera models. The vulnerability lets attackers on a local network bypass [\u2026]",
-      "link": "https://securityaffairs.com/187110/hacking/critical-tp-link-vigi-camera-flaw-allowed-remote-takeover-of-surveillance-systems.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T15:20:23+00:00",
-      "published_ts": 1768922423,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Your Bluetooth earbuds are at risk of being hijacked - here's how to prevent it ASAP",
-      "summary": "Google Fast Pair makes pairing easy, but a flawed implementation has created a potential security risk.",
-      "link": "https://www.zdnet.com/article/whisperpair-google-fast-pair-bluetooth-earbuds-attack/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T15:17:00+00:00",
-      "published_ts": 1768922220,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Chainalysis bets on automation to scale onchain investigations beyond developers",
-      "summary": "The feature allows non-technical teams to conduct onchain investigations and compliance analyses without relying on custom code.",
-      "link": "https://cointelegraph.com/news/chainalysis-automation-onchain-investigations-no-code?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-01-20T15:16:38+00:00",
-      "published_ts": 1768922198,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Bitcoin trader keeps $100K BTC target as gold price hits record $4,750",
-      "summary": "Bitcoin sellers entered at the Wall Street open to drive BTC price action below $90,000, but a six-figure price target stayed in play.",
-      "link": "https://cointelegraph.com/news/bitcoin-trader-keeps-100k-btc-target-gold-price-hits-record-4750?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-01-20T15:13:57+00:00",
-      "published_ts": 1768922037,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Building browser security extension - what would make you trust it?",
-      "summary": "I'm researching whether to build a privacy-first browser security extension and want input from cybersecurity professionals before committing to development. **The gap I see:** Current browser security is fragmented. Users need multiple extensions (uBlock + Privacy Badger + HTTPS Everywhere) to cover basics, and most all-in-one options are bloated or have privacy concerns (Norton, Avira requiring accounts/telemetry). **What I'm considering:** - Phishing detection (local heuristics + Safe Browsing API) - HTTPS enforcement - Cookie auto-delete (tracking protection) - Pop-up blocking - Zero data collection, open-source core (MIT license) - Manifest V3 compliant **My questions for :** 1. Is there actually a security gap here, or is the current ecosystem already sufficient? 2. What would make you trust a NEW security extension in 2025? (Open source alone doesn't seem enough - there are sketchy OS extensions too) 3. For phishing protection specifically - do you rely on browser built-ins (Chrome Safe Browsing, Firefox Tracking Protection) or third-party tools? 4. Would Manifest V3's limitations (30k rule limit, webRequest restrictions) be a dealbreaker even for security-focused use cases? 5. Any features you wish existed but don't in current extensions? **Survey (3 min):** https://forms.gle/BjmsxWFSnx7McEo96 Honest feedback appreciated. If this is unnecessary or impossible to do right, I want to know NOW before wasting months building. Thanks! submitted by /u/Big_Driver5912 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qi3lwb/building_browser_security_extension_what_would/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-01-20T15:10:38+00:00",
-      "published_ts": 1768921838,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Network / OT / ICS",
-        "Phishing / Social Engineering"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Cisco patches 10.0 bug in leading AsyncOS email products",
-      "summary": "submitted by /u/NISMO1968 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qi3itt/cisco_patches_100_bug_in_leading_asyncos_email/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-01-20T15:07:35+00:00",
-      "published_ts": 1768921655,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Make Identity Threat Detection your security strategy for 2026",
-      "summary": "Identity-based attacks are one of the primary paths attackers use to breach corporate networks. Tenfold shows how Identity Threat Detection helps spot suspicious account activity before real damage occurs. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/make-identity-threat-detection-your-security-strategy-for-2026/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T15:01:11+00:00",
-      "published_ts": 1768921271,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Prompt Injection Bugs Found in Official Anthropic Git MCP Server",
-      "summary": "Three vulnerabilities in Anthropic's Git server for the MCP can be exploited via prompt injection",
-      "link": "https://www.infosecurity-magazine.com/news/prompt-injection-bugs-anthropic/",
-      "source": "Infosecurity Magazine \u2013 News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T15:01:00+00:00",
-      "published_ts": 1768921260,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "T-Mobile just made AT&T and Verizon look expensive with its new family plan - but read this first",
-      "summary": "T-Mobile's Better Value plan starts at $140 a month for three lines, with a five-year price guarantee. I break down the fine print.",
-      "link": "https://www.zdnet.com/article/t-mobile-better-value-family-phone-plan-deal/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T14:59:00+00:00",
-      "published_ts": 1768921140,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Secure Your Business Traffic With Military-Grade VPN for Only $20",
-      "summary": "This no-logging VPN with AES-256 encryption protects your remote teams and client data for the low price of $19.99 annually. The post Secure Your Business Traffic With Military-Grade VPN for Only $20 appeared first on TechRepublic .",
-      "link": "https://www.techrepublic.com/article/clearvpn-premium-plan-subscription/",
-      "source": "TechRepublic \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T14:53:17+00:00",
-      "published_ts": 1768920797,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Smart home hacking is a serious threat - but here's how experts actually stop it",
-      "summary": "Fewer open entry points mean a more secure smart home. Here's how to keep yours as protected as possible.",
-      "link": "https://www.zdnet.com/article/what-is-smart-home-hacking-expert-prevention-methods/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T14:50:00+00:00",
-      "published_ts": 1768920600,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "HackerOne extends Safe Harbor protections to AI testing",
-      "summary": "HackerOne has unveiled the Good Faith AI Research Safe Harbor, a new industry framework that establishes authorisation and legal protections for researchers testing AI systems in good faith. As AI systems scale rapidly across critical products and services, legal ambiguity around testing can slow responsible research and increase risk. The new safe harbor removes that friction by giving organisations and AI researchers a shared standard to find and fix AI risks faster and with greater \u2026 More \u2192 The post HackerOne extends Safe Harbor protections to AI testing appeared first on Help Net Security .",
-      "link": "https://www.helpnetsecurity.com/2026/01/20/hackerone-good-faith-ai-research-safe-harbor-framework/",
-      "source": "Help Net Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T14:46:36+00:00",
-      "published_ts": 1768920396,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "I discovered a little-known way to power your home during an outage - here's how",
-      "summary": "A major power resource could be sitting in your driveway. Here's how to use it properly.",
-      "link": "https://www.zdnet.com/article/how-to-use-ev-power-home-during-outage/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T14:46:00+00:00",
-      "published_ts": 1768920360,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "New Windows Flaw Lets Attackers Bypass Mark of the Web",
-      "summary": "Microsoft patched a Windows Remote Assistance flaw that lets attackers bypass Mark of the Web, weakening protections against malicious downloads and phishing files. The post New Windows Flaw Lets Attackers Bypass Mark of the Web appeared first on TechRepublic .",
-      "link": "https://www.techrepublic.com/article/news-windows-flaw-bypass-mark-of-the-web/",
-      "source": "TechRepublic \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T14:45:03+00:00",
-      "published_ts": 1768920303,
-      "smart_groups": [
-        "Windows / Microsoft",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Worried about AI privacy? This new tool from Signal's founder adds end-to-end encryption to your chats",
-      "summary": "'Confer can't read them, train on them, or hand them over - because only you have access to them.'",
-      "link": "https://www.zdnet.com/article/signal-founder-debuts-private-ai-chatbot-confer/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T14:42:14+00:00",
-      "published_ts": 1768920134,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "This AirTag alternative has earned a permanent spot in my wallet (and works with Android)",
-      "summary": "Rolling Square's AirCard Pro Dual features one of the loudest trackers I've tested, and has a nifty glow-up feature.",
-      "link": "https://www.zdnet.com/article/rolling-square-aircard-dual-review/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T14:42:00+00:00",
-      "published_ts": 1768920120,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "NCSC Warns of Hacktivist Groups Attacking UK Organisations and Online Services",
-      "summary": "A critical alert issued on January 19, 2026, warned of rising cyber-attacks by Russian-aligned hacktivist groups targeting UK organisations. These state-aligned threat actors are conducting disruptive denial-of-service (DoS) operations against local government authorities. Critical national infrastructure operators are aiming to cripple essential services and turn off public-facing websites. The NCSC emphasizes that while DoS attacks [\u2026] The post NCSC Warns of Hacktivist Groups Attacking UK Organisations and Online Services appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/ncsc-warns-of-hacktivist-groups/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T14:41:13+00:00",
-      "published_ts": 1768920073,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Fake extension crashes browsers to trick users into infecting themselves",
-      "summary": "A fake ad blocker crashes your browser, then uses ClickFix tricks to make you run the malware yourself.",
-      "link": "https://www.malwarebytes.com/blog/news/2026/01/fake-extension-crashes-browsers-to-trick-users-into-infecting-themselves",
-      "source": "Malwarebytes Labs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T14:40:28+00:00",
-      "published_ts": 1768920028,
-      "smart_groups": [
-        "Ransomware",
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Ping Identity launches Universal Services for ongoing identity assurance",
-      "summary": "Ping Identity announced its Universal Services, a set of identity services that enable organizations to move beyond authentication and continuously establish, validate, and protect trust across every digital interaction. As impersonation attacks, synthetic identities, and AI-driven social engineering accelerate, enterprises can no longer rely on authentication alone. Trust established at login quickly erodes across onboarding, account recovery, help desks, and high-risk actions. These are exactly the moments where modern attackers target. At the same time, \u2026 More \u2192 The post Ping Identity launches Universal Services for ongoing identity assurance appeared first on Help Net Security .",
-      "link": "https://www.helpnetsecurity.com/2026/01/20/ping-identity-universal-services/",
-      "source": "Help Net Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T14:38:52+00:00",
-      "published_ts": 1768919932,
-      "smart_groups": [
-        "Ransomware",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "I used Claude Code to vibe code a Mac app in 8 hours, and it was more work than magic",
-      "summary": "The illusion vanished fast once I treated Claude Code like a remote junior developer.",
-      "link": "https://www.zdnet.com/article/i-used-claude-code-to-vibe-code-mac-app/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T14:33:56+00:00",
-      "published_ts": 1768919636,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "SK Telecom files lawsuit to revoke record 135 bln-won fine over data breach",
-      "summary": "Lee Minji reports: SK Telecom Co., South Korea\u2019s largest mobile carrier, has filed a lawsuit seeking to overturn a record 135 billion-won (US$91 million) fine handed down by the state data protection regulator over a massive data leak last year that affected its entire 23 million user base, industry sources said Monday. SK Telecom filed... Source",
-      "link": "https://databreaches.net/2026/01/20/sk-telecom-files-lawsuit-to-revoke-record-135-bln-won-fine-over-data-breach/?pk_campaign=feed&pk_kwd=sk-telecom-files-lawsuit-to-revoke-record-135-bln-won-fine-over-data-breach",
-      "source": "DataBreaches.net",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-01-20T14:31:29+00:00",
-      "published_ts": 1768919489,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Data Breaches / Leaks"
-      ],
-      "curated": true
-    },
-    {
-      "title": "How crypto criminals stole $700 million from people \u2013 often using age-old tricks",
-      "summary": "Joe Tidy reports on the explosion of cryptocurrency thefts and scams over the past few years. There\u2019s a lot of material in the post, but of particular interest to DataBreaches was this part of his report: \u201cData is a common problem as Bitcoin millionaires are becoming so frequent, and there are stolen databases that are... Source",
-      "link": "https://databreaches.net/2026/01/20/how-crypto-criminals-stole-700-million-from-people-often-using-age-old-tricks/?pk_campaign=feed&pk_kwd=how-crypto-criminals-stole-700-million-from-people-often-using-age-old-tricks",
-      "source": "DataBreaches.net",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-01-20T14:31:21+00:00",
-      "published_ts": 1768919481,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "UK: Secret gagging order should not have been used to cover up Afghan data breach, Sir Ben Wallace says",
-      "summary": "Holly Bancroft reports: Sir Ben Wallace has said he would not have backed the use of a secret gagging order to cover-up the catastrophic Afghan data breach that potentially put thousands of Afghans who helped UK forces at risk from the Taliban. The former defence secretary told MPs on Tuesday that he had directed that a time-limited injunction be used to protect... Source",
-      "link": "https://databreaches.net/2026/01/20/uk-secret-gagging-order-should-not-have-been-used-to-cover-up-afghan-data-breach-sir-ben-wallace-says/?pk_campaign=feed&pk_kwd=uk-secret-gagging-order-should-not-have-been-used-to-cover-up-afghan-data-breach-sir-ben-wallace-says",
-      "source": "DataBreaches.net",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-01-20T14:30:28+00:00",
-      "published_ts": 1768919428,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Data Breaches / Leaks"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Cyber Risks Among CEOs\u2019 Top Worries Amid Weak Short Term Growth Outlook",
-      "summary": "PwC\u2019s 29th Global CEO Survey shows cyber risk rising to the top of CEO concerns as confidence in short term business growth weakens",
-      "link": "https://www.infosecurity-magazine.com/news/cyber-risks-among-ceos-top-worries/",
-      "source": "Infosecurity Magazine \u2013 News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T14:30:00+00:00",
-      "published_ts": 1768919400,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "My 6 favorite browsers that can make your old PC run like new again (and they're free)",
-      "summary": "Struggling with a painfully slow PC or internet connection? These tried-and-tested browsers are built to handle it.",
-      "link": "https://www.zdnet.com/article/6-best-browsers-make-pc-feel-new-again/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T14:28:00+00:00",
-      "published_ts": 1768919280,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "I set my thermostat to this temperature and my energy bill dropped (but my comfort didn't)",
-      "summary": "Getting a smart thermostat can bring down your utility bill, but following these steps can save you even more money.",
-      "link": "https://www.zdnet.com/article/best-thermostat-temperature-save-money-comfort/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T14:25:00+00:00",
-      "published_ts": 1768919100,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Smarter searches, faster results: Magnet Review\u2019s latest updates save you time on every case",
-      "summary": "The latest evolution of Magnet Review is here with a powerful new feature to help you and your investigative teams work smarter and faster: Intelligent Search. With Intelligent Search, our new Magnet AI-powered search tool, you can surface more meaningful leads from thousands of media files and chat threads in seconds. Combined with major performance enhancements \u2014 including an 84% boost in ingestion speed! \u2014 you\u2019re sure to spend less time waiting and more time uncovering the truth. The post Smarter searches, faster results: Magnet Review\u2019s latest updates save you time on every case appeared first on Magnet Forensics .",
-      "link": "https://www.magnetforensics.com/blog/smarter-searches-faster-results-magnet-reviews-latest-updates-save-you-time-on-every-case/",
-      "source": "Magnet Forensics",
-      "type": "dfir",
-      "type_label": "DFIR & Forensics",
-      "published": "2026-01-20T14:20:55+00:00",
-      "published_ts": 1768918855,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Will CISSP help me get more interviews in India, or should I focus on a niche like AI Red Teaming?",
-      "summary": "Used Chatgpt for to format the question I\u2019m looking for some career advice from folks working in cybersecurity in India. My background: ~10 years of experience in Vulnerability Assessment & Penetration Testing Currently working as a VAPT Manager / Lead, handling a team Strong hands-on background in Web, API, Network, and Mobile Pentesting OSCP certified Experience with client interactions, RFP/RFI support, and delivery ownership I\u2019m planning my next move and confused between two paths: Option 1: CISSP Seems to be a common requirement for managerial / senior security roles Might help with shortlisting and interviews, especially in MNCs and leadership positions Less hands-on, more governance/management focused Option 2: Niche Skill (AI Red Teaming / AI Security) Learning areas like LLM pentesting, prompt injection, model abuse, AI supply chain risks Feels more future-oriented and differentiated Not sure how much current hiring demand exists in India yet My key question: With my experience and OSCP, will CISSP significantly increase interview calls in India, or is it better to invest time in building a niche like AI Red Teaming to stand out? If you\u2019re a hiring manager, senior security professional, or someone who recently switched roles in India, I\u2019d really appreciate your perspective. Thanks in advance! submitted by /u/NikuBaby [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qi2b5w/will_cissp_help_me_get_more_interviews_in_india/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-01-20T14:19:33+00:00",
-      "published_ts": 1768918773,
-      "smart_groups": [
-        "Vulnerabilities / CVEs",
-        "Web / API Security"
-      ],
-      "curated": false
-    },
-    {
-      "title": "I tested a solid-state portable battery for a week - now lithium-ion feels outdated",
-      "summary": "This wireless power bank uses solid-state batteries instead of lithium-ion, and there's a good reason for it.",
-      "link": "https://www.zdnet.com/article/bmx-solidsafe-5k-power-bank-review/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T14:16:00+00:00",
-      "published_ts": 1768918560,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Chainlit Vulnerabilities May Leak Sensitive Information",
-      "summary": "The two bugs, an arbitrary file read and an SSRF bug, can be exploited without user interaction to leak credentials, databases, and other data. The post Chainlit Vulnerabilities May Leak Sensitive Information appeared first on SecurityWeek .",
-      "link": "https://www.securityweek.com/chainlit-vulnerabilities-may-leak-sensitive-information/",
-      "source": "SecurityWeek",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T14:13:54+00:00",
-      "published_ts": 1768918434,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Juniper Networks security advisory (AV26-041)",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/juniper-networks-security-advisory-av26-041",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T14:12:42+00:00",
-      "published_ts": 1768918362,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "WordPress Plugin Vulnerability Exposes 100,000+ Sites to Privilege Escalation Attacks",
-      "summary": "A critical security flaw in the popular Advanced Custom Fields: Extended WordPress plugin has put more than 100,000 websites at risk of full takeover. The vulnerability, tracked as CVE-2025-14533, affects plugin versions up to and including 0.9.2.1 and carries a CVSS score of 9.8 (Critical). If left unpatched, it allows an unauthenticated attacker to gain [\u2026] The post WordPress Plugin Vulnerability Exposes 100,000+ Sites to Privilege Escalation Attacks appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/wordpress-plugin-vulnerability-5/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T14:12:25+00:00",
-      "published_ts": 1768918345,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "From Detection to Remediation: Wiz in Your JetBrains IDE",
-      "summary": "The Wiz JetBrains IDE plugin is now generally available, enabling developers to fix risks before code leaves their local environment.",
-      "link": "https://www.wiz.io/blog/wiz-plugin-for-jetbrains-ide-available",
-      "source": "https://www.wiz.io/feed/rss.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-01-20T14:08:43+00:00",
-      "published_ts": 1768918123,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "F\u00fcnf Chrome-Erweiterungen, die Unternehmenssitzungen kapern",
-      "summary": "Forscher haben f\u00fcnf b\u00f6sartige Chrome-Erweiterungen entdeckt. T. Schneider \u2013 shutterstock.com Forscher des Security-Anbieters Socket haben eine koordinierte Kampagne entdeckt, die auf b\u00f6sartigen Chrome-Add-ons basiert. Die Angreifer haben die Abwehrmechanismen des Chrome Web Stores umgangen und Erweiterungen als Produktivit\u00e4tswerkzeuge beworben. \u201eDie Erweiterungen arbeiten zusammen, um Authentifizierungs-Token zu stehlen, Incident-Response-Funktionen zu blockieren und durch Session-Hijacking die vollst\u00e4ndige \u00dcbernahme von Konten zu erm\u00f6glichen\u201c, erkl\u00e4ren die Sicherheitsspezialisten in einem Blogbeitrag . Die Hinterm\u00e4nner der Kampagne ver\u00f6ffentlichten f\u00fcnf Chrome-Erweiterungen, die trotz professionellem Branding und scheinbar legitimen Anwendungsf\u00e4llen tief im Inneren der Unternehmens-Workflows b\u00f6sartige Aktionen ausf\u00fchren. Die Installationszahlen deuten darauf hin, dass \u00fcber 2.300 Nutzer dazu verleitet wurden, diese Tools zu installieren. Die Erweiterungen zielen auf Systeme wie Workday, NetSuite und SuccessFactors ab, wo eine einzige gekaperte Sitzung Mitarbeiterdaten, Finanzdaten und interne Arbeitsabl\u00e4ufe offenlegen kann. Getarnte Produktivit\u00e4ts-Tools mit b\u00f6sartigen Codes Die Erweiterungen gaben sich als Produktivit\u00e4ts-Booster oder Sicherheitshelfer f\u00fcr Enterprise-Anwender aus. In den Eintr\u00e4gen zeigten die Angreifer professionell gestaltete Dashboards und versprachen einen vereinfachten Zugriff auf HR- oder ERP-Tools. Die angeforderten Berechtigungen waren dabei \u201eStandard\u201c und umfassten scheinbar harmlose Funktionen wie Cookie-Zugriff oder die Modifikation von Websites. Nach der Installation exfiltrierten jedoch drei der Erweiterungen, darunter DataByCloud Access, Data By Cloud 1 und eine Variante namens Software Access, Session Cookies mit Authentifizierungs-Token an eine vom Angreifer kontrollierte Infrastruktur. Diese Token reichen in vielen Unternehmenssystemen aus, um einen Benutzer ohne Passwort zu authentifizieren. In einigen F\u00e4llen wurden diese Cookies alle 60 Sekunden extrahiert, um aktuelle Anmeldedaten zu gew\u00e4hrleisten. Kompromittierte Sitzungen k\u00f6nnen wie gestohlene Passw\u00f6rter fungieren, da sie bereits die Anmeldeseiten und Multi-Faktor-Pr\u00fcfungen durchlaufen haben und somit einen direkten Zugriff auf ein Konto erm\u00f6glichen, ohne die \u00fcblichen Sicherheitswarnungen auszul\u00f6sen. \u201eAlle f\u00fcnf Erweiterungen werden zum Zeitpunkt der Erstellung dieses Artikels noch untersucht\u201c, so die Forscher. \u201eWir haben bei Googles Sicherheitsteam f\u00fcr den Chrome Web Store Antr\u00e4ge auf Entfernung gestellt.\u201c Blockierte Sicherheitsma\u00dfnahmen und Hijacking von Sitzungen Die Kampagne ging aber \u00fcber den Diebstahl von Anmeldedaten hinaus. Zwei der Erweiterungen, Tool Access 11 und Data By Cloud 2, enthielten DOM-Manipulationsroutinen , die den Zugriff auf Sicherheits- und Verwaltungsseiten innerhalb der Zielplattformen aktiv blockierten. Dadurch Enterprise-Admins selbst dann keine Passw\u00f6rter \u00e4ndern, die Anmeldungshistorie einsehen oder kompromittierte Konten deaktivieren, wenn sie verd\u00e4chtiges Verhalten feststellten. Die technisch fortschrittlichste der f\u00fcnf Erweiterungen, Software Access, bot zus\u00e4tzlich zum Cookie-Diebstahl eine bidirektionale Cookie-Injektion, bei der gestohlene Session-Tokens wieder in einen vom Angreifer kontrollierten Browser eingebracht wurden. Mithilfe von APIs wie \u201echrome.cookies.set()\u201c implantiert diese Funktion g\u00fcltige Authentifizierungs-Cookies direkt und gew\u00e4hrt den Angreifern eine authentifizierte Sitzung, ohne dass ahnungslose Benutzer weitere Ma\u00dfnahmen ergreifen m\u00fcssen. \u201eW\u00e4hrend vier Erweiterungen unter databycloud1104 und die f\u00fcnfte unter einem anderen Markennamen ver\u00f6ffentlicht werden, weisen alle f\u00fcnf identische Infrastrukturmuster auf, was auf eine einzige koordinierte Operation hindeutet\u201c, f\u00fcgen die Forscher hinzu. Tipps zum Schutz Socket r\u00e4t Unternehmen, Browser-Erweiterungen streng zu pr\u00fcfen und zu beschr\u00e4nken, Berechtigungsanfragen genau zu pr\u00fcfen und Add-ons zu entfernen, die unn\u00f6tigerweise auf Cookies oder Enterprise-Websites zugreifen. Zudem empfiehlt der Blog, ungew\u00f6hnliche Session-Aktivit\u00e4ten zu \u00fcberwachen und Tools zu verwenden, die b\u00f6sartiges Verhalten von Erweiterungen erkennen k\u00f6nnen, bevor es die Benutzer erreicht. (jm)",
-      "link": "https://www.csoonline.com/article/4119111/funf-chrome-erweiterungen-die-unternehmenssitzungen-kapern.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T14:07:49+00:00",
-      "published_ts": 1768918069,
-      "smart_groups": [
-        "Identity / Access"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Result of ignored security recommendation",
-      "summary": "I have been in the industry for over a decade and never have experienced such to this extent. Mid sized, late stage start up with a small security team. As with most young companies, the priority is about revenue rather than to protect the revenue stream. Make it make sense, right? The current global company is okay with allowing users to conduct business over an outside app. When this risk was brought to the executives, their stance was, as long as it was not a for the purpose of \u201cofficial business\u201d, and as long as no sensitive information is in the message. Talk about a false sense of trust, knowledge, and care in users. I am at the point where I can only restate the obvious so many times and can only wait for a I told you so incident. My question is, from your experience what was the outcome of your ignored risks? submitted by /u/Hot-Wave-8059 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qi1zez/result_of_ignored_security_recommendation/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-01-20T14:06:15+00:00",
-      "published_ts": 1768917975,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Apache Airflow Vulnerabilities Enables Expose of Sensitive Data",
-      "summary": "Multiple vulnerabilities in Apache Airflow versions prior to 3.1.6 could reveal sensitive authentication credentials and secrets within logs and user interfaces. Both issues stem from inadequate masking of sensitive data during rendering and logging operations, potentially compromising proxy credentials and database secrets in production environments. Proxy Credentials Leak in Task Logs The first vulnerability, CVE-2025-68675, [\u2026] The post Apache Airflow Vulnerabilities Enables Expose of Sensitive Data appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/apache-airflow-vulnerabilities/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-20T14:04:40+00:00",
-      "published_ts": 1768917880,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
