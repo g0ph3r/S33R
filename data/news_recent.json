@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-02-25T16:17:28.939795+00:00",
+  "generated_at": "2026-02-25T17:23:05.531684+00:00",
   "days_back": 30,
-  "total_items": 8839,
+  "total_items": 8841,
   "items": [
     {
       "title": "Secure Your Spot at RSAC 2026 Conference",
@@ -28,19 +28,427 @@
       "curated": false
     },
     {
+      "title": "Authorization and Identity Governance Inside AI Agents",
+      "summary": "Designing Authorization\u2011Aware AI Agents Enforcing Microsoft Entra ID RBAC in Copilot Studio As AI agents move from experimentation to enterprise execution, authorization becomes the defining line between innovation and risk. AI agents are rapidly evolving from experimental assistants into enterprise operators\u2014retrieving user data, triggering workflows, and invoking protected APIs. While many early implementations rely on prompt\u2011level instructions to control access, regulated enterprise environments require authorization to be enforced by identity systems, not language models. This article presents a production\u2011ready, identity\u2011first architecture for building authorization\u2011aware AI agents using Copilot Studio, Power Automate, Microsoft Entra ID, and Microsoft Graph , ensuring every agent action executes strictly within the requesting user\u2019s permissions. Why Prompt\u2011Level Security Is Not Enough Large Language Models interpret intent\u2014they do not enforce policy. Even the most carefully written prompts cannot: Validate Microsoft Entra ID group or role membership Reliably distinguish delegated user identity from application identity Enforce deterministic access decisions Produce auditable authorization outcomes Relying on prompts for authorization introduces silent security failures, over\u2011privileged access, and compliance gaps\u2014particularly in Financial Services, Healthcare, and other regulated industries. Authorization is not a reasoning problem. It is an identity enforcement problem. Common Authorization Anti\u2011Patterns in AI Agents The following patterns frequently appear in early AI agent implementations and should be avoided in enterprise environments: Hard\u2011coded role or group checks embedded in prompts Trusting group names passed as plain\u2011text parameters Using application permissions for user\u2011initiated actions Skipping verification of the user\u2019s Entra ID identity Lacking an auditable authorization decision point These approaches may work in demos, but they do not survive security reviews, compliance audits, or real\u2011world misuse scenarios . Authorization\u2011Aware Agent Architecture In an authorization\u2011aware design, the agent never decides access. Authorization is enforced externally , by identity\u2011aware workflows that sit outside the language model\u2019s reasoning boundary. High\u2011Level Flow The Copilot Studio agent receives a user request The agent passes the User Principal Name (UPN) and intended action A Power Automate flow validates permissions using Microsoft Entra ID via Microsoft Graph Only authorized requests are allowed to proceed Unauthorized requests fail fast with a deterministic outcome Authorization\u2011aware Copilot Studio architecture enforces Entra ID RBAC before executing any business action. The agent orchestrates intent. Identity systems enforce access. Enforcing Entra ID RBAC with Microsoft Graph Power Automate acts as the authorization enforcement layer: Resolve user identity from the supplied UPN Retrieve group or role memberships using Microsoft Graph Normalize and compare memberships against approved RBAC groups Explicitly deny execution when authorization fails This keeps authorization logic: Centralized Deterministic Auditable Independent of the AI model Reference Implementation: Power Automate RBAC Enforcement Flow The following import\u2011ready Power Automate cloud flow demonstrates a secure RBAC enforcement pattern for Copilot Studio agents. It validates Microsoft Entra ID group membership before allowing any business action. Scenario Trigger: User\u2011initiated agent action Identity model: Delegated user identity Input: userUPN, requestedAction Outcome: Authorized or denied based on Entra ID RBAC { \"$schema\": \"https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#\", \"contentVersion\": \"1.0.0.0\", \"triggers\": { \"Copilot_Request\": { \"type\": \"Request\", \"kind\": \"Http\", \"inputs\": { \"schema\": { \"type\": \"object\", \"properties\": { \"userUPN\": { \"type\": \"string\" }, \"requestedAction\": { \"type\": \"string\" } }, \"required\": [ \"userUPN\" ] } } } }, \"actions\": { \"Get_User_Groups\": { \"type\": \"Http\", \"inputs\": { \"method\": \"GET\", \"uri\": \"https://graph.microsoft.com/v1.0/users/@{triggerBody()?['userUPN']}/memberOf?$select=displayName\", \"authentication\": { \"type\": \"ManagedServiceIdentity\" } } }, \"Normalize_Group_Names\": { \"type\": \"Select\", \"inputs\": { \"from\": \"@body('Get_User_Groups')?['value']\", \"select\": { \"groupName\": \"@toLower(item()?['displayName'])\" } }, \"runAfter\": { \"Get_User_Groups\": [ \"Succeeded\" ] } }, \"Check_Authorization\": { \"type\": \"Condition\", \"expression\": \"@contains(body('Normalize_Group_Names'), 'ai-authorized-users')\", \"runAfter\": { \"Normalize_Group_Names\": [ \"Succeeded\" ] }, \"actions\": { \"Authorized_Action\": { \"type\": \"Compose\", \"inputs\": \"User authorized via Entra ID RBAC\" } }, \"else\": { \"actions\": { \"Access_Denied\": { \"type\": \"Terminate\", \"inputs\": { \"status\": \"Failed\", \"message\": \"Access denied. User not authorized via Entra ID RBAC.\" } } } } } } } This pattern enforces authorization outside the agent, aligns with Zero Trust principles, and creates a clear audit boundary suitable for enterprise and regulated environments. Flow Diagram : Agent Integrated with RBAC Authorization Flow and Sample Prompt Execution: Delegated vs Application Permissions Scenario Recommended Permission Model User\u2011initiated agent actions Delegated permissions Background or system automation Application permissions Using delegated permissions ensures agent execution remains strictly within the requesting user\u2019s identity boundary. Auditing and Compliance Benefits Deterministic and explainable authorization decisions Centralized enforcement aligned with identity governance Clear audit trails for security and compliance reviews Readiness for SOC, ISO, PCI, and FSI assessments Enterprise Security Takeaways Authorization belongs in Microsoft Entra ID, not prompts AI agents must respect enterprise identity boundaries Copilot Studio + Power Automate + Microsoft Graph enable secure\u2011by\u2011design AI agents By treating AI agents as first\u2011class enterprise actors and enforcing authorization at the identity layer , organizations can scale AI adoption with confidence, trust, and compliance.",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-community/authorization-and-identity-governance-inside-ai-agents/ba-p/4496977",
+      "source": "Microsoft Security Blog (TechCommunity)",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-02-25T17:15:34+00:00",
+      "published_ts": 1772039734,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Linux / Unix",
+        "Cloud / SaaS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "What AI/Chatbox do you use for CTFs?",
+      "summary": "I was doing a CTF and got stuck asked chat for advice he started to melt down. What are you using for CTFs/Web/General Offensive Labs and so on? submitted by /u/Aji112 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1rej81g/what_aichatbox_do_you_use_for_ctfs/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-02-25T17:12:37+00:00",
+      "published_ts": 1772039557,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Should you buy a Sonos or Samsung sound system? I compared both brands to find out",
+      "summary": "Sonos and Samsung both make superior home theater products, but choosing is about more than chasing an audio experience.",
+      "link": "https://www.zdnet.com/article/sonos-vs-samsung/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-25T17:03:00+00:00",
+      "published_ts": 1772038980,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Samsung Unpacked 2026 live blog: Updates on Galaxy S26 Ultra, preorder deals, and pricing",
+      "summary": "Samsung's February Unpacked event is starting soon, and we're expecting big announcements, a few surprises, and some guest appearances.",
+      "link": "https://www.zdnet.com/article/samsung-unpacked-02-25-2026-live-blog/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-25T17:00:41+00:00",
+      "published_ts": 1772038841,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Chinese cyberspies breached dozens of telecom firms, govt agencies",
+      "summary": "Google's Threat Intelligence Group (GTIG), Mandiant, and partners disrupted a global espionage campaign attributed to a suspected Chinese threat actor that used SaaS API calls to hide malicious traffic in attacks targeting telecom and government networks. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/chinese-cyberspies-breached-dozens-of-telecom-firms-govt-agencies/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-25T17:00:15+00:00",
+      "published_ts": 1772038815,
+      "smart_groups": [
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Nemesis 2.2",
+      "summary": "TL;DR: Nemesis 2.2 introduces a number of powerful new features focusing on large container processing, data processing agents, enhanced DPAPI support, and a host of performance improvements. It\u2019s been several months since we released Nemesis 2.0: our ground-up rewrite of the Nemesis file enrichment project. Since then, @tifkin_ and I have worked hard on another [\u2026] The post Nemesis 2.2 appeared first on SpecterOps .",
+      "link": "https://specterops.io/blog/2026/02/25/nemesis-2-2/",
+      "source": "https://specterops.io/feed/",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-25T17:00:00+00:00",
+      "published_ts": 1772038800,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "A developer's guide to production-ready AI agents",
+      "summary": "Something has shifted in the developer community over the past year. AI agents have moved from \"interesting research concept\" to \"thing my team is actually building.\" The prototypes are working. The demos are impressive. And now comes the harder question: How do we ship this? That question turns out to be a multi-part one. Agents don't behave like traditional software. They reason, act, and adapt, which means they need different approaches to testing, memory, orchestration, and security. The patterns that served us well for deterministic code don't fully translate. To help developers work through these challenges, we've published a collection of guides covering the full agent lifecycle. These resources first appeared during Kaggle\u2019s 5 days of AI Agents Intensive , and they\u2019ve proven so popular and useful, we wanted to make sure a wider audience had access, as well. These guides offer practical frameworks and code samples you can adapt to your own projects. Below, we'll walk through the key concepts \u2014 from agent architecture to production deployment \u2014 so you can decide where to dig deeper. What is an agent? At its core, an agent is an autonomous entity that reasons, takes action, and improves over time. The agent's brain is a large language model \u2014 a cognitive engine that understands tasks, generates responses, and makes decisions based on context. Unlike a static tool, an agent adapts as it works. It follows a recursive loop: Think, then Act, then Observe. Each cycle moves the agent forward, refining its approach as it goes. Surrounding this core is the orchestration layer \u2014 the nervous system that manages communication and data flow. Think of it as a conductor coordinating specialized tools and external services. These include short-term memory (Session State) for immediate recall, long-term memory (Memory Service) for retaining past interactions, information retrieval (RAG), and modules for executing actions in the outside world (Tool Use). A security framework ensures the agent operates safely and within its intended boundaries. The goal of this architecture is to create an intelligent, helpful, and trustworthy assistant. For a deeper exploration of these foundational concepts, see the full Introduction to Agents guide. Tools and interoperability For agents to be truly useful, they need to interact with tools, data sources, and other agents. Two emerging protocols offer standardized approaches to these connections. Anthropic's Model Context Protocol (MCP) gives agents a standardized way to connect with external data sources and stateless tools. Instead of building custom integrations for every service, developers can use MCP's standardized interface to simplify development and improve interoperability. Google's Agent2Agent Protocol (A2A) takes this further by enabling agents to communicate directly with each other, regardless of their underlying frameworks. Agents using A2A can discover each other's capabilities, negotiate how they'll interact, and collaborate on tasks through a secure and structured exchange of messages. Together, these protocols create the foundation for agents that work within a broader ecosystem \u2014 connecting to tools, data, and each other. The Tools and Interoperability with MCP guide explains both protocols in detail with implementation examples. Context engineering If the LLM is the agent's brain, context engineering is the practice of feeding it the right information at the right time. This includes prompt design, retrieval mechanisms, tool selection, and conversation history \u2014 everything that shapes how the agent understands and responds to each request. Context engineering transforms a generic model into a personalized assistant. It determines which memories to retrieve, which tools to offer, and how to frame each interaction. Effective context engineering creates agents that feel coherent and helpful across sessions. Without it, agents forget, repeat themselves, or miss the point entirely. The Context Engineering guide covers context engineering frameworks and practical techniques for implementation. Testing and evaluation Autonomous agents require new approaches to quality assurance. When an agent makes its own decisions, success depends on sound judgment throughout the process, not just correct outputs. Agent evaluation focuses on trajectories \u2014 the full sequence of decisions and actions an agent takes to reach a result, not just the final answer. Two agents might arrive at the same conclusion through very different paths, and understanding those paths matters. Good evaluation examines tool selection, reasoning quality, error recovery, and whether the agent asked clarifying questions when it should have. A practical evaluation approach includes unit tests for individual components, trajectory analysis for multi-step decision sequences, and staged rollouts from sandbox to canary to production. Each stage validates different aspects of agent behavior before you expose it to more users. For detailed evaluation frameworks and testing methodologies, see the Agent Quality guide. Deploying agents to production Moving from prototype to production requires infrastructure designed for agent-specific needs. Traditional deployment patterns need adaptation for systems that maintain state, use tools dynamically, and operate autonomously. Production agents need session management to maintain context across interactions, persistent memory systems for long-term recall, tool integration with appropriate authentication and permissions, and real-time logging to trace agent decisions and actions. Most teams deploy in stages: sandbox for internal testing, canary for limited real-world exposure, and production for full rollout. Each stage validates performance and catches issues before you expand access. The Prototype to Production guide provides architectural guidance and code samples for building production-ready agent infrastructure. Where to start Your starting point depends on where you are in the journey. The Introduction to Agents guides covers foundational concepts, while Tools and Interoperability with MCP and Context Engineering address the practical challenges of building. When you're ready to validate and ship, Agent Quality and Prototype to Production will get you there. The agents space is moving fast, but you don't have to figure it out alone. Pick the resource that matches your current challenge and start building.",
+      "link": "https://cloud.google.com/blog/products/ai-machine-learning/a-devs-guide-to-production-ready-ai-agents/",
+      "source": "Google Cloud Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-02-25T17:00:00+00:00",
+      "published_ts": 1772038800,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Threat actor leveraged Cisco SD-WAN zero-day since 2023 (CVE-2026-20127)",
+      "summary": "A \u201chighly sophisticated\u201d cyber threat actor has been exploiting a zero-day authentication bypass vulnerability (CVE-2026-20127) in Cisco Catalyst SD-WAN Controller (formerly vSmart), Cisco has announced today. The vulnerability was reported by Australian Signals Directorate\u2019s Australian Cyber Security Centre, who said that once the vulnerability was exploited, \u201cthe malicious actors add[ed] a rogue peer, and eventually gain[ed] root access to establish long-term persistence in SD-WANs.\u201d \u201cThis vulnerability exists because the peering authentication mechanism in an affected \u2026 More \u2192 The post Threat actor leveraged Cisco SD-WAN zero-day since 2023 (CVE-2026-20127) appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/02/25/cisco-sd-wan-zero-day-cve-2026-20127/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-25T16:58:31+00:00",
+      "published_ts": 1772038711,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Getting an OpenSSF Baseline Badge with the Best Practices Badge System",
+      "summary": "",
+      "link": "https://openssf.org/blog/2026/02/25/getting-an-openssf-baseline-badge-with-the-best-practices-badge-system/",
+      "source": "Open Source Security Foundation",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-25T16:57:23+00:00",
+      "published_ts": 1772038643,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "Exploitation of Cisco Catalyst SD-WAN",
       "summary": "Agencies strongly encourage immediate investigation of potential compromise of Cisco Catalyst SD-WAN, and full updating and hardening.",
       "link": "https://www.ncsc.gov.uk/news/exploitation-cisco-catalyst-sd-wans",
       "source": "NCSC News Feed",
       "type": "government",
       "type_label": "Government, CERT & Advisories",
-      "published": "2026-02-25T16:06:11+00:00",
-      "published_ts": 1772035571,
+      "published": "2026-02-25T16:56:06+00:00",
+      "published_ts": 1772038566,
       "smart_groups": [
         "Curated",
         "Exploit / PoC"
       ],
       "curated": true
+    },
+    {
+      "title": "Google's Android developer registration plan faces opposition",
+      "summary": "Starting in September 2026, Google will require developers to complete identity checks and pay a one-time $25 fee to register their apps for installation on certified Android devices.",
+      "link": "https://www.scworld.com/brief/googles-android-developer-registration-plan-faces-opposition",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-25T16:55:19+00:00",
+      "published_ts": 1772038519,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Career Path Advise PLEASE!",
+      "summary": "Hey, I graduated in 2021 with a MIS degree. I have not gotten much technical experience persay with my jobs as i was more office/operations roles since graudating. I did use Okta and salesforce heavily when it came to tickets and communication. I started SEC+ and was thinking of doing okta or microsoft 300 on top to maybe get into IAM. I really want to avoid helpdesk or at least get a good start/jump... with my credentials what would you advise the best thing for me to do? (27m) I started sec+ but i want to end up at least in the next 2 years with a hybrid/remote role .. and making at least 80-100k.. .most of the SOC/Help desk jobs i seen at LA was around $20-26/hr :( ... I currently make $23.. and if i get promoted id make about (68k).. but its not in tech at all.. Help please submitted by /u/Conscious-Ear-1238 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1reip7g/career_path_advise_please/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-02-25T16:54:45+00:00",
+      "published_ts": 1772038485,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "PowerSchool, Chicago Public Schools to settle student data privacy lawsuit for $17 million",
+      "summary": "In addition to the $17.25 million payout, which will be split between more than 10 million potential class members, the settlement requires PowerSchool to establish a \u201cweb governance\u201d committee to monitor certain actions.",
+      "link": "https://therecord.media/powerschool-cps-settle-proposed-class-action",
+      "source": "The Record \u2013 Cybercrime",
+      "type": "cybercrime",
+      "type_label": "Cybercrime, Darknet & Leaks",
+      "published": "2026-02-25T16:54:06+00:00",
+      "published_ts": 1772038446,
+      "smart_groups": [
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Fake 'interview' repos lure Next.js devs into running secret-stealing malware",
+      "summary": "Come for the coding test, stay for the C2 traffic Next.js developers are once again in the crosshairs as hackers seed malicious repositories disguised as legitimate projects, according to Microsoft, which said a limited set of those repos were directly tied to observed compromises.\u2026",
+      "link": "https://go.theregister.com/feed/www.theregister.com/2026/02/25/jobseeking_nextjs_devs_attack/",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-25T16:51:54+00:00",
+      "published_ts": 1772038314,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Druva enhances DruAI platform with Deep Analysis Agents for automated investigations",
+      "summary": "The Deep Analysis Agents leverage Druva's Dru MetaGraph foundation to independently run investigations, intelligently connecting signals across various systems.",
+      "link": "https://www.scworld.com/brief/druva-enhances-druai-platform-with-deep-analysis-agents-for-automated-investigations",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-25T16:51:13+00:00",
+      "published_ts": 1772038273,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Accurately detecting US Driver's License Numbers - Microsoft Purview",
+      "summary": "We're in the early stages of setting up Purview, and we're just trying to run Information Protection scans to see where we have PII across our environment. We've found that some SITs seem to work for us out of the box, and others require a lot of tweaking to eliminate false positives. Has anyone had any luck accurately flagging on U.S. Driver's license numbers? So far, I've tried the following things: Create custom SIT that only includes the U.S. states that we care about. Adjusting the confidence level to high, within my SIT. Adding an additional condition, within my sensitivity label, that requires a Full Name to also be present, before any label is recommended. submitted by /u/cheesehead1996 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1reikib/accurately_detecting_us_drivers_license_numbers/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-02-25T16:50:05+00:00",
+      "published_ts": 1772038205,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Employee installed pirated software on work PC, Windows Defender found HackTool:Win32/Keygen, how serious is this?",
+      "summary": "I run a small business and recently found out that one of my employees installed pirated software on their work computer a few weeks ago. They had admin rights and used a keygen tool to activate it. When we scanned the computer, Windows Security detected something called HackTool:Win32/Keygen. All of our computers use Windows 10 Pro. They are all connected on the same network and have SMB file sharing turned on. We don\u2019t use a domain, just a normal workgroup setup. I\u2019m worried about how serious this is. Does this detection usually just mean the keygen itself was flagged, or could there be other hidden malware? Since it was installed weeks ago, is there a chance the other computers on the same network are infected too? Should I completely wipe and reinstall Windows on that machine to be safe? Also, should I assume that passwords or saved logins on that computer might be compromised? So like if there is my personal computer on network with SMB enabled but it has not yet accessed by any other work PCs, may I assume that my personal computer is safe? This was the pirated software he installed - https://getintopc.com/softwares/photo-editing/one-click-pro-free-download-9592983/ I\u2019m trying to understand how bad this situation could be and what the smartest next steps are. Any advice would really help. submitted by /u/Silver-Working2 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1reijxv/employee_installed_pirated_software_on_work_pc/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-02-25T16:49:31+00:00",
+      "published_ts": 1772038171,
+      "smart_groups": [
+        "Windows / Microsoft",
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Tokenized US Treasurys rise by over $1B since start of 2026",
+      "summary": "The tokenized US Treasury market had a market capitalization of under $4 billion at the start of 2025 and has been gradually rising.",
+      "link": "https://cointelegraph.com/news/tokenized-us-treasurys-rise-1b-2026?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-02-25T16:46:07+00:00",
+      "published_ts": 1772037967,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "An idea to change age verification",
+      "summary": "I am thinking, what if there is your digital ID. The website(let's call Gesus) that verified your age and give you an key(like a windows license key). Then you go other sites, they asked you to verify your age, you give the key, they're gonna ask Gesus. He says you're ok. Then they confirmed your account. How about that. There's no your picture in their database it is on in Gesus. So you don't need to worrie about somebody leaking your data from adult website. submitted by /u/Inner-Ratio-873 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1reid0c/an_idea_to_change_age_verification/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-02-25T16:42:39+00:00",
+      "published_ts": 1772037759,
+      "smart_groups": [
+        "Windows / Microsoft"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Malicious Next.js Repos Target Developers Via Fake Job Interviews",
+      "summary": "Linked to North Korean fake job-recruitment campaigns, the poisoned repositories are aimed at establishing persistent access to infected machines.",
+      "link": "https://www.darkreading.com/cyberattacks-data-breaches/malicious-nextjs-repos-developers-fake-job-interviews",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-25T16:42:00+00:00",
+      "published_ts": 1772037720,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "ShinyHunters Claims Odido NL and Ben.nl Breach as Company Confirms Cyberattack",
+      "summary": "ShinyHunters claims 21 million records stolen in Odido NL and Ben.nl data breach as telecom company confirms cyberattack impacting customer contact system data.",
+      "link": "https://hackread.com/shinyhunters-odido-nl-ben-nl-breach-confirm-cyberattack/",
+      "source": "HackRead",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-25T16:40:50+00:00",
+      "published_ts": 1772037650,
+      "smart_groups": [
+        "Data Breaches / Leaks"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Digital Forensics Round-Up, February 25 2026",
+      "summary": "Read the latest DFIR news \u2013 DFRWS EU 2026\u2019s focus on memory forensics, the Into the Light Index 2025 warning of escalating CSAM risks, the House of Lords report urging reform of UK digital forensics, and more.",
+      "link": "https://www.forensicfocus.com/news/digital-forensics-round-up-february-25-2026/",
+      "source": "Forensic Focus",
+      "type": "dfir",
+      "type_label": "DFIR & Forensics",
+      "published": "2026-02-25T16:34:06+00:00",
+      "published_ts": 1772037246,
+      "smart_groups": [
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "The SOC Is Now Agentic \u2014 Introducing the Next Evolution of Cortex",
+      "summary": "Agentic AI security is here. See how AI-powered agents, XDL 2.0 and the new Agentix platform transform the SOC at Cortex Symphony 2026. The post The SOC Is Now Agentic \u2014 Introducing the Next Evolution of Cortex appeared first on Palo Alto Networks Blog .",
+      "link": "https://www.paloaltonetworks.com/blog/2026/02/soc-agentic-next-evolution-cortex/",
+      "source": "Palo Alto Networks Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-02-25T16:30:55+00:00",
+      "published_ts": 1772037055,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "How to remove AI Overviews from Google Search: 4 easy ways",
+      "summary": "Sick of AI summaries? Here's how to hide them on Google and get classic search back on desktop or mobile.",
+      "link": "https://www.zdnet.com/article/how-to-remove-ai-overviews-from-google-search/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-25T16:26:00+00:00",
+      "published_ts": 1772036760,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "1Password hikes its prices: Here's the damage now - and your free or cheap alternatives",
+      "summary": "Prices are rising for 1Password's individual and family plans. Is it time to consider a different and less expensive password manager?",
+      "link": "https://www.zdnet.com/article/1password-price-increase-cheap-free-password-managers/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-25T16:17:00+00:00",
+      "published_ts": 1772036220,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "The Blast Radius Problem: Stolen Credentials are Weaponizing Agentic AI",
+      "summary": "More than half (56%) of the 400,000 vulnerabilities IBM X-Force tracked in 2025 required no authentication before exploitation. The post The Blast Radius Problem: Stolen Credentials are Weaponizing Agentic AI appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/the-blast-radius-problem-stolen-credentials-are-weaponizing-agentic-ai/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-25T16:16:40+00:00",
+      "published_ts": 1772036200,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Fake Zoom meeting leads to silent install of surveillance software",
+      "summary": "Malwarebytes researchers have uncovered a fake (but convincing) Zoom meeting page that downloads surveillance software on Windows computers and tricks users into running it. According to Microsoft MVP Steven Lim, the page has claimed nearly 1,500 victims in 12 days. The trick Potential victims likely visit the page (at uswebzoomus[.]com/zoom/) after getting a meeting invite/link via email or text. The page is made to look like a Zoom waiting room and, once a visitor interacts \u2026 More \u2192 The post Fake Zoom meeting leads to silent install of surveillance software appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/02/25/fake-zoom-meeting-teramind-surveillance-software/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-25T16:16:25+00:00",
+      "published_ts": 1772036185,
+      "smart_groups": [
+        "Windows / Microsoft",
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "MrBeast Employee Fined, Suspended by Kalshi for Insider Trading on YouTube Videos",
+      "summary": "Kalshi revealed its first enforcement actions Wednesday, against a political candidate and an employee of YouTube star MrBeast.",
+      "link": "https://decrypt.co/359113/mrbeast-employee-fined-suspended-kalshi-insider-trading-youtube",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-02-25T16:10:01+00:00",
+      "published_ts": 1772035801,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Solana leads crypto recovery with 10% gain: Is $100 SOL price next?",
+      "summary": "Solana price eyes a potential rise toward the $110-$115 range, according to a confluence of bullish technical and onchain indicators.",
+      "link": "https://cointelegraph.com/news/solana-leads-crypto-recovery-10-percent-100-dollars-sol-price-next?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-02-25T16:08:24+00:00",
+      "published_ts": 1772035704,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "AL26-004 - Critical vulnerability affecting Cisco Catalyst SD-WAN - CVE-2026-20127",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/al26-004-critical-vulnerability-affecting-cisco-catalyst-sd-wan-cve-2026-20127",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-25T16:07:47+00:00",
+      "published_ts": 1772035667,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "One Identity Appoints Michael Henricks as Chief Financial and Operating Officer",
+      "summary": "Alisa Viejo, CA, United States, February 25th, 2026, CyberNewswire One Identity, a trusted leader in identity security, today announced the appointment of Michael Henricks as Chief Financial and Operating Officer. This decision reflects the continued growth of the business and a focus on aligning financial leadership with operational objectives as One Identity scales. \u201cAs One [\u2026] The post One Identity Appoints Michael Henricks as Chief Financial and Operating Officer appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/one-identity-appoints-michael-henricks-as-chief-financial-and-operating-officer/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-25T16:06:45+00:00",
+      "published_ts": 1772035605,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
     },
     {
       "title": "AI-Powered CVE Research: Winning the Race Against Emerging Vulnerabilities",
@@ -57,6 +465,20 @@
         "Exploit / PoC"
       ],
       "curated": true
+    },
+    {
+      "title": "One Identity Appoints Michael Henricks as Chief Financial and Operating Officer",
+      "summary": "Alisa Viejo, CA, United States, February 25th, 2026, CyberNewswire One Identity, a trusted leader in identity security, today announced the appointment of Michael Henricks as Chief Financial and Operating Officer. This decision reflects the continued growth of the business and a focus on aligning financial leadership with operational objectives as One Identity scales. \u201cAs One [\u2026] The post One Identity Appoints Michael Henricks as Chief Financial and Operating Officer appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/one-identity-appoints-michael-henricks-as-chief-financial-and-operating-officer/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-25T16:05:58+00:00",
+      "published_ts": 1772035558,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
     },
     {
       "title": "Google Disrupts Chinese Cyberespionage Campaign Targeting Telecoms, Governments",
@@ -136,18 +558,6 @@
         "Vulnerabilities / CVEs"
       ],
       "curated": true
-    },
-    {
-      "title": "Samsung Unpacked 2026 live blog: Galaxy S26 Ultra specs, Buds 4 Pro, preorder deals, more",
-      "summary": "Samsung's February Unpacked event starts in just a few hours, and we're expecting big announcements, a few surprises, and some guest appearances.",
-      "link": "https://www.zdnet.com/article/samsung-unpacked-02-25-2026-live-blog/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-25T15:44:00+00:00",
-      "published_ts": 1772034240,
-      "smart_groups": [],
-      "curated": false
     },
     {
       "title": "Bitcoin daily gains near 5% as analysis eyes bullish 'rotation' from gold",
@@ -441,6 +851,18 @@
       "type_label": "OSINT, Communities & Subreddits",
       "published": "2026-02-25T14:29:27+00:00",
       "published_ts": 1772029767,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Cisco security advisory (AV26-166)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/cisco-security-advisory-av26-166",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-02-25T14:28:27+00:00",
+      "published_ts": 1772029707,
       "smart_groups": [],
       "curated": false
     },
@@ -1292,6 +1714,35 @@
       "source": "SecurityWeek",
       "type": "general",
       "type_label": "General Security & Blogs",
+      "published": "2026-02-25T12:00:00+00:00",
+      "published_ts": 1772020800,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "CISA and Partners Release Guidance for Ongoing Global Exploitation of Cisco SD-WAN Systems",
+      "summary": "The purpose of this Alert is to provide resources for organizations with Cisco Software-Defined Wide-Area Networking (SD-WAN) systems, including Federal Civilian Executive Branch (FCEB) agencies, to address ongoing exploitation of multiple vulnerabilities. Notably, the Cybersecurity and Infrastructure Security Agency (CISA) has added CVE-2026-20127 and CVE-2022-20775 to its Known Exploited Vulnerabilities (KEV) Catalog on Feb. 25, 2026. As a result of the malicious cyber activity and vulnerabilities involving Cisco SD-WAN systems, CISA has outlined requirements for FCEB agencies in Emergency Directive (ED) 26-03 to inventory Cisco SD-WAN systems, update them, and assess compromise. CISA and partners have observed malicious cyber actors targeting and compromising Cisco SD-WAN systems of organizations, globally. These actors have been observed exploiting a previously undisclosed authentication bypass vulnerability, CVE-2026-20127, for initial access before escalating privileges using CVE-2022-20775 and establishing long-term persistence in Cisco SD-WAN systems. CISA, National Security Agency (NSA), and international partners Australian Signals Directorate\u2019s Australian Cyber Security Centre (ASD\u2019s ACSC), Canadian Centre for Cyber Security (Cyber Centre), New Zealand National Cyber Security Centre (NCSC-NZ), and United Kingdom National Cyber Security Centre (NCSC-UK), hereafter the \u201cauthoring organizations,\u201d strongly urge network defenders to immediately 1) inventory all in-scope Cisco SD-WAN systems, 2) collect artifacts, including virtual snapshots and logs off of SD-WAN systems to support threat hunt activities, 3) fully patch Cisco SD-WAN systems with available updates, 4) hunt for evidence of compromise, and 5) concurrently review Cisco\u2019s latest security advisories, Cisco Catalyst SD-WAN Controller Authentication Bypass Vulnerability and Cisco Catalyst SD-WAN Vulnerabilities , and implement Cisco\u2019s SD-WAN Hardening Guidance . 1 To address malicious activity involving vulnerable Cisco SD-WAN systems, CISA issued Emergency Directive 26-03: Mitigate Vulnerabilities in Cisco SD-WAN Systems , which outlines requirements for FCEB agencies to inventory Cisco SD-WAN systems, update them, and assess compromise. Further, CISA released Supplemental Direction ED 26-03: Hunt and Hardening Guidance for Cisco SD-WAN Systems to provide prescriptive actions for FCEB agencies. Cisco\u2019s Catalyst SD-WAN Hardening Guide recommends that network defenders address: Network perimeter controls : Ensure control components are behind a firewall, isolate virtual private network (VPN) 512 interfaces, and use internet protocol (IP) blocks for manually provisioned edge IPs. SD-WAN manager access : Replace the self-signed certificate for the web user interface. Control and data plane security : Use pairwise keys. Session timeout : Limit to the shortest period possible. Logging : Forward to a remote syslog server. CISA and the authoring organizations are providing the following resources: CISA: Emergency Directive 26-03: Mitigate Vulnerabilities in Cisco SD-WAN Systems CISA: Supplemental Direction ED 26-03: Hunt and Hardening Guidance for Cisco SD-WAN Systems Cisco: Cisco Catalyst SD-WAN Controller Authentication Bypass Vulnerability Cisco: Cisco Catalyst SD-WAN Vulnerabilities Cisco: Cisco Catalyst SD-WAN Hardening Guide ASD\u2019s ACSC: Cisco SD-WAN Threat Hunt Guide , co-sealed by CISA, NSA, Cyber Centre, NCSC-NZ, and NCSC-UK. This guide, based on investigative data, supports network defenders\u2019 detection of and response to the malicious actors\u2019 threat activity Acknowledgements NSA, ASD\u2019s ACSC, Cyber Centre, NCSC-NZ, and NCSC-UK contributed to this alert . Disclaimer The information in this report is being provided \u201cas is\u201d for informational purposes only. CISA does not endorse any commercial entity, product, company, or service, including any entities, products, or services linked within this document. Any reference to specific commercial entities, products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply endorsement, recommendation, or favoring by CISA. Notes 1 Cisco Security, \u201cCisco Catalyst SD-WAN Hardening Guide,\u201d last modified February 9, 2026, https://sec.cloudapps.cisco.com/security/center/resources/Cisco-Catalyst-SD-WAN-HardeningGuide",
+      "link": "https://www.cisa.gov/news-events/alerts/2026/02/25/cisa-and-partners-release-guidance-ongoing-global-exploitation-cisco-sd-wan-systems",
+      "source": "All CISA Advisories",
+      "type": "government",
+      "type_label": "Government, CERT & Advisories",
+      "published": "2026-02-25T12:00:00+00:00",
+      "published_ts": 1772020800,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Immediate Action Required: CISA Issues Emergency Directive to Secure Cisco SD-WAN Systems",
+      "summary": "",
+      "link": "https://www.cisa.gov/news-events/news/immediate-action-required-cisa-issues-emergency-directive-secure-cisco-sd-wan-systems",
+      "source": "CISA News",
+      "type": "government",
+      "type_label": "Government, CERT & Advisories",
       "published": "2026-02-25T12:00:00+00:00",
       "published_ts": 1772020800,
       "smart_groups": [],
@@ -3109,18 +3560,6 @@
       "curated": false
     },
     {
-      "title": "Sonos vs. Samsung: I compared sound systems from both brands, and it's pretty darn close",
-      "summary": "Sonos and Samsung both make superior home theater products, but there's more to choosing than chasing an audio experience.",
-      "link": "https://www.zdnet.com/article/sonos-vs-samsung/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-25T02:10:13+00:00",
-      "published_ts": 1771985413,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
       "title": "Fake Zoom meeting silently installs surveillance software, says Malwarebytes",
       "summary": "The latest fake Zoom meeting scam silently pushes surveillance software onto the Windows computers of unwitting employees. That\u2019s according to researchers at Malwarebytes, who warn that staff falling for the scam land in a convincing imitation of a Zoom video call. Moments later, an automatic \u201cUpdate Available\u201d countdown downloads a malicious installer, without asking permission. The software installed is a covert build of Teramind, a commercial monitoring tool companies use to record what employees do on work computers. Many anti-malware solutions may not catch this because it would look like a legitimate application. But in the hands of a threat actor it\u2019s gold: It logs keystrokes, takes screenshots at regular intervals, records which websites were visited and which applications were opened, captures clipboard contents and tracks email and file activity. Zoom has long been a service that threat actors try to use to their advantage, because employees are used to getting invitations to join a meeting from colleagues, managers, and customers. Fake Zoom meeting scams usually start with phishing emails or text messages, so the first defense CSOs need to deploy is employee security awareness training. \u201cTaking five seconds to confirm a meeting link really leads to zoom.us [instead of an impostor link] is a simple habit that can prevent a serious problem,\u201d Malwarebytes advises. The fake website that victims are sent to in this campaign is uswebzoomus[.]com/zoom/ Roger Grimes , CISO advisor at awareness training provider KnowBe4, said he\u2019s seen many malicious Zoom calls start with meeting invites in both Gmail and Microsoft Outlook. In fact, earlier this month he got one that was automatically added to his online calendar. Like most phishing lures, the calendar notice had a hard-to-miss subject line: \u201cFinal Notice: Payroll Acknowledgement Action Required: Meeting with \u2026\u201d One of the key indicators of a possible phishing lure is a subject line that demands fast action so, hopefully, the target doesn\u2019t think before clicking. Another tip this was likely a fake: It arrived on a Sunday afternoon. Employees must be educated to not trust unexpected calendar invites or Zoom meetings, especially when they include unknown names and email addresses, he said. \u201cThe way to avoid 99% of scams is to be super skeptical of any unexpected incoming message asking you to do something you\u2019ve never done before (for example, install new software while attending a meeting),\u201d he said. \u201cIf you get a message or an invitation including those two traits (they\u2019re unexpected and asking you to do something you\u2019ve never done before), research it using a trusted source outside the message before performing the requested actions.\u201d David Shipley , CEO of awareness training provider Beauceron Security, agreed employee training about fake Zoom invites is essential. \u201cOur research has shown that the two top reasons people click on a phishing link are that it looked legitimate and they were expecting something similar,\u201d he said. \u201cThanks to AI, phishes look better than ever and can be more precisely targeted.\u201d The key when teaching people isn\u2019t just offering the traditional advice around checking the sender, subject line, or link, he added; 40% of people don\u2019t even think before they click. \u201cThe key is teaching people to slow down with e-mail (or any communication tool the outside world can send messages to) and to always ask the following questions: \u2018Do I know who is sending me this? Am I expecting it from this person? Does it feel off?\u2019\u201d The second teaching point, he said, is to remind staff to report if, after clicking on a Zoom email invite, it does something new, like installing software. Warnings about fake Zoom invites are widespread, coming from many sources, from a security vendor to the Pennsylvania Association of Realtors . Last October the association warned that so-called potential buyers are targeting agents with listings on the Multiple Listing Service (MLS), Realtor.com, and Zillow, showing interest in a property. Before submitting an offer, the potential client insists on having a Zoom meeting to discuss the property with the agent. The scammer sends a Zoom link, but when an agent clicks on it, malware is installed on their computer or phone. Similarly, last summer the University at Buffalo warned students and staff that hackers were sending fake \u201cZoom invitation\u201d links to UBmail accounts, with the goal of installing malware. And Zoom itself has blogged on how to avoid being stung by job offer scams. Related content : 7 ways to make Zoom meetings safer How it plays out Malwarebytes didn\u2019t explain how the specific campaign it reports on in the blog is initiated. But if a victim accepts a meeting invite and goes to the fake site, they arrive in what looks like a Zoom waiting room. At the same time, the site quietly sends a message to the attackers letting them know someone has entered. Three scripted fake participants\u2014\u201cMatthew Karlsson,\u201d \u201cJames Whitmore,\u201d and \u201cSarah Chen\u201d\u2014appear to join the call one by one, each announced by a genuine-sounding Zoom join chime. But their conversation audio loops on repeat in the background. Nothing else happens unless the victim tries to interact. Then a permanent \u201cNetwork Issue\u201d warning is displayed over the main video tile, seemingly to explain the choppy audio and lagging video. When an \u201cUpdate Available\u201d prompt appears moments later, Malwarebytes says, it feels like a fix for the problem. At that point there is one chance to stop the attack: The victim has to click on the download for the installation to proceed. Many employees would, for it feels like the natural thing to do, says Stefan Dasic , Malwarebytes manager of research and response. That\u2019s why it\u2019s important that employees be trained to never update Zoom from a link in a message. Updates should only come from the Zoom update within the application. If the victim clicks on the download, a pop-up with no close button takes over, saying: \u201cUpdate Available \u2014 A new version is available for download.\u201d A spinner turns and a counter ticks from five to zero; when the counter hits zero, the browser is instructed to silently download a file. At the same moment, the page switches to what looks like the Microsoft Store, showing \u201cZoom Workplace\u201d mid-installation, spinner and all. While the visitor watches what appears to be a legitimate install resolving the problem, the real installer with the spyware has already landed in their Downloads folder without asking for permission and is compromising their system. The installer contains code to prevent it from being analyzed by anti-malware solutions. \u201cThe attackers did not write custom malware,\u201d the blog points out. \u201cThey deployed a professionally developed commercial product that is designed to run reliably and persist through restarts. That makes it more durable than many traditional malware strains.\u201d This campaign does not rely on technical sophistication, the blog adds. \u201cNo new hacking technique was used. The attacker built a convincing fake Zoom page, set an automatic download to fire before any visitor has a reason to be suspicious, and used a fake Microsoft Store screen to explain it all away. From click to install takes less than thirty seconds. Someone who was expecting a Zoom invite and saw what looked like a Microsoft installation in progress could easily walk away believing nothing unusual had happened.\u201d Malwarebytes advises infosec leaders who learn that an employee visited the uswebzoomus site to treat their computer as compromised.",
       "link": "https://www.csoonline.com/article/4136834/fake-zoom-meeting-silently-installs-surveillance-software-says-malwarebytes.html",
@@ -3451,6 +3890,20 @@
       "published": "2026-02-25T00:03:29+00:00",
       "published_ts": 1771977809,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Why now is the moment to join 1Password Go-To-Market",
+      "summary": "When you build a great company, a few things happen: customers trust you, they stay with you, and they bring you along as they grow. From there, revenue grows, relationships deepen, and you end up with something you can be proud of. That\u2019s the lens I\u2019m bringing into 2026 at 1Password. The opportunity in front of us is bigger than ever. The companies shaping our industries and culture are logging in with 1Password, and they\u2019re trusting us with their most important business interactions. That level of trust, at scale, is what creates durable growth, and we intend to earn more of it. We have big ambitions to develop a world-class team, lead the identity security space, and keep raising the bar on how we show up for customers. We\u2019re building lasting customer relationships Our growth engine is evolving. We\u2019re leaning harder into sales-led growth, partnering across Sales and Marketing to expand relationships through the entire customer lifecycle. That requires a different type of selling: more listening, less talking, and better questions. Sometimes we\u2019ll go slower in the moment so we can go faster over time. We\u2019re investing in deeper discovery, better enablement through tooling and AI, and more in-person experiences for our customers. We're focused on helping customers to see value quickly For many organizations, enterprise password management still gets treated as a nice-to-have. It isn\u2019t. It\u2019s foundational to operating securely, especially as access sprawl increases and AI becomes part of everyday workflows. Early adoption matters. That\u2019s why listening to the voice of the customer is key to reducing friction, making it easy to stick with us, and helping them unlock the full value of 1Password Unified Access . We\u2019re creating a partner-centric ecosystem To scale trust and deliver \u201cbetter together\u201d solutions, we\u2019re going all in with channel partners, resellers, managed service providers, and technology and AI partners. We\u2019re already expanding our ecosystem across major technology and distribution partners, and we\u2019re committed to going further together. We will win together Here\u2019s the one thing all of this has in common: it only works if we work together. That\u2019s what becoming a world-class team means to me \u2014 building one engine where we can be secure in customer handoffs, take care of each other, and achieve our goals. This is our moment If you\u2019re looking for a new Go-To-Market role, 1Password is the place to be. You\u2019re not joining a finished machine. You\u2019re joining a team with strong foundations, real momentum, and the ambition to build for the AI era the right way. Joining us now means you get to continue to build a world-class machine with us. You\u2019ll also see more of us together, in-person. We\u2019re a global team, including an expanded presence in EMEA, and we\u2019re evolving the way our Go-To-Market team gets together. Some of our most important moments happen face-to-face, including onboarding, coaching, and customer experiences, so expect to hear more about this in 2026. Toronto is a major in-person hub for us, and we\u2019re continuing to expand our in-person presence more broadly. In 2026, we\u2019re winning together through stronger relationships, faster time to value, and a partner-centric ecosystem. We're making it happen by equipping teams, clarifying expectations, enabling growth, and setting a high bar on how we collaborate, through the 1Password Behaviors for Success: Take full ownership Proactively contribute Practice a growth mindset Be adaptable and resilient Collaborate effectively We\u2019ve surpassed $400M ARR while staying free cash-flow positive, and we\u2019re fostering a culture where our people can thrive while delivering exceptional outcomes through purpose, performance, and trust . That\u2019s the kind of discipline that creates durable growth. If this sounds like the type of challenge you\u2019re looking for, I\u2019d love for you to explore our open roles . Let\u2019s build durable growth, and a world-class team, the 1Password way.",
+      "link": "https://1password.com/blog/why-now-is-the-moment-to-join-1password-go-to-market",
+      "source": "https://blog.1password.com/index.xml",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-02-25T00:00:00+00:00",
+      "published_ts": 1771977600,
+      "smart_groups": [
+        "Ransomware"
+      ],
       "curated": false
     },
     {
@@ -122296,434 +122749,6 @@
       "smart_groups": [
         "Identity / Access"
       ],
-      "curated": false
-    },
-    {
-      "title": "AI-powered cyberattacks: Google executive warns of future threats",
-      "summary": "As reported by The Register, senior Google executive Heather Adkins has issued a stark warning to CISOs, emphasizing the imminent shift to a landscape where cybercriminals can automate attacks at scale using artificial intelligence.",
-      "link": "https://www.scworld.com/brief/ai-powered-cyberattacks-google-executive-warns-of-future-threats",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-26T16:56:40+00:00",
-      "published_ts": 1769446600,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Ripple partners with Saudi bank unit on blockchain payments, custody",
-      "summary": "Ripple\u2019s agreement with Riyad Bank highlights growing institutional interest in blockchain for payments, custody and tokenization across global financial markets.",
-      "link": "https://cointelegraph.com/news/ripple-saudi-bank-blockchain-payments-custody?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-01-26T16:53:50+00:00",
-      "published_ts": 1769446430,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Hackers hijack Snapcraft apps for crypto theft",
-      "summary": "Attackers are targeting inactive Snapcraft applications by acquiring their expired domain names.",
-      "link": "https://www.scworld.com/brief/hackers-hijack-snapcraft-apps-for-crypto-theft",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-26T16:47:58+00:00",
-      "published_ts": 1769446078,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Microsoft Shared BitLocker Keys With FBI, Raising Privacy Fears",
-      "summary": "Microsoft confirmed it can hand over BitLocker recovery keys stored in the cloud under warrant, reviving debate over who controls encrypted data. The post Microsoft Shared BitLocker Keys With FBI, Raising Privacy Fears appeared first on TechRepublic .",
-      "link": "https://www.techrepublic.com/article/news-microsoft-bitlocker-keys-fbi-privacy/",
-      "source": "TechRepublic \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-26T16:42:13+00:00",
-      "published_ts": 1769445733,
-      "smart_groups": [
-        "Ransomware",
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Why Researchers Are Making AI Models Play Dungeons & Dragons",
-      "summary": "Researchers at UC San Diego, presenting their work at the NeurIPS conference, played some Dungeons & Dragons with large language models. They did this to test how they handle a variety of complex D&D-centric tasks\u2014like creative teamwork, keeping the complex rules in line, and tracking all the consequences that pile up over time rather than [\u2026] The post Why Researchers Are Making AI Models Play Dungeons & Dragons appeared first on VICE .",
-      "link": "https://www.vice.com/en/article/why-researchers-are-making-ai-models-play-dungeons-dragons/",
-      "source": "Motherboard \u2013 Tech",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-26T16:41:20+00:00",
-      "published_ts": 1769445680,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Tax refund and back tax scams target consumers ahead of tax season",
-      "summary": "Cybercriminals are exploiting the tax season to perpetrate scams, primarily through text messages and emails that falsely claim a tax refund is due or that back taxes are owed.",
-      "link": "https://www.scworld.com/brief/tax-refund-and-back-tax-scams-target-consumers-ahead-of-tax-season",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-26T16:40:34+00:00",
-      "published_ts": 1769445634,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Digitale Integrit\u00e4t: Warum Firewall und IDS nicht reichen",
-      "summary": "srcset=\"https://b2b-contenthub.com/wp-content/uploads/2026/01/shutterstock_2727061735.jpg?quality=50&strip=all 800w, https://b2b-contenthub.com/wp-content/uploads/2026/01/shutterstock_2727061735.jpg?resize=300%2C168&quality=50&strip=all 300w, https://b2b-contenthub.com/wp-content/uploads/2026/01/shutterstock_2727061735.jpg?resize=768%2C432&quality=50&strip=all 768w, https://b2b-contenthub.com/wp-content/uploads/2026/01/shutterstock_2727061735.jpg?resize=150%2C84&quality=50&strip=all 150w, https://b2b-contenthub.com/wp-content/uploads/2026/01/shutterstock_2727061735.jpg?resize=640%2C360&quality=50&strip=all 640w, https://b2b-contenthub.com/wp-content/uploads/2026/01/shutterstock_2727061735.jpg?resize=444%2C250&quality=50&strip=all 444w\" width=\"800\" height=\"450\" sizes=\"auto, (max-width: 800px) 100vw, 800px\"> Die systematische Erfassung von Daten \u00fcber Mitarbeiter, Kunden und Gesch\u00e4ftspartner hat eine neue Angriffsfl\u00e4che geschaffen, die von Cyberkriminellen ausgenutzt wird. Digineer Station \u2013 shutterstock.com In einer vernetzten Gesch\u00e4ftswelt stehen Unternehmen vor beispiellosen Cybersicherheits-Herausforderungen. Laut dem IBM Cost of a Data Breach Report 2024 betragen die durchschnittlichen Kosten eines durch Phishing verursachten Datenlecks etwa 4,88 Millionen Dollar. Nach Branchensch\u00e4tzungen werden t\u00e4glich etwa 3,4 Milliarden Phishing-E-Mails verschickt. Gleichzeitig w\u00e4chst die globale Datenh\u00e4ndlerbranche auf gesch\u00e4tzte 280 Milliarden Dollar im Jahr 2024. Diese Branche sammelt systematisch Informationen \u00fcber Mitarbeiter, Kunden und Gesch\u00e4ftspartner \u2013 oft ohne deren Wissen. Traditionelle Sicherheitskonzepte wie Firewalls und Intrusion Detection reichen nicht mehr aus. Die Grenzen von Firewall und Intrusion Detection Eine Firewall ist unverzichtbar, hat jedoch fundamentale Einschr\u00e4nkungen: Sie ist haupts\u00e4chlich reaktiv und auf bekannte Bedrohungen konfiguriert. Bei t\u00e4glich 300.000 neuen Malware- Varianten entstehen erhebliche Sicherheitsl\u00fccken. Zudem konzentriert sie sich prim\u00e4r darauf, dass niemand ins Firmennetzwerk eindringt \u2013 die unkontrollierte \u00dcbertragung sensibler Daten nach au\u00dfen bleibt oft unbemerkt. Intrusion-Detection-Systeme (IDS) wiederum erkennen Eindringlinge erst, wenn diese bereits im System sind \u2013 vergleichbar mit einem Rauchmelder, der vor einem Brand warnt, ihn aber nicht verhindert. Advanced Persistent Threats (APTs) k\u00f6nnen so monatelang unentdeckt in Netzwerken verweilen. Was die Datenindustrie \u00fcber Ihr Unternehmen wei\u00df Data Broker sammeln systematisch Informationen, die weit \u00fcber das hinausgehen, was Unternehmen bewusst ist. Nach Branchenberichten haben f\u00fchrende Data Broker personenbezogene Daten von sch\u00e4tzungsweise 70 Prozent der weltweiten Online-Bev\u00f6lkerung erfasst. Der Marktwert dieser Branche betr\u00e4gt 2024 rund 280 Milliarden Dollar \u2013 gr\u00f6\u00dfer als der globale Cybersicherheitsmarkt. Die gesammelten Daten betreffen nicht nur das Unternehmen selbst, sondern auch Mitarbeiter, Kunden und Gesch\u00e4ftspartner. Das Gef\u00e4hrliche: Diese Daten flie\u00dfen kontinuierlich und unbemerkt ab \u2013 durch allt\u00e4gliche Internetnutzung am Arbeitsplatz. Jeder Webseitenbesuch, jede App-Nutzung, jedes vernetzte Ger\u00e4t wird zum Datenlieferanten. F\u00fcr herk\u00f6mmliche Firewalls ist dieser Datenabfluss unsichtbar, da er als legitimer ausgehender Datenverkehr erscheint. \u00dcber Mitarbeiter erfasst die Datenindustrie umfangreiche Informationen. Standort und Bewegungsmuster werden \u00fcber die IP-Adresse beim Surfen ermittelt. Daraus entstehen detaillierte Profile dar\u00fcber, welche Technologien ein Mitarbeiter recherchiert, an welchen Projekten er arbeitet und welche Wettbewerber er analysiert. Auch die berufliche Rolle und Position werden erfasst: Tracker auf Karriereportalen wie LinkedIn und Xing registrieren Profilbesuche und Interaktionen, w\u00e4hrend Browser-Fingerprinting wiederkehrende Besucher auch ohne Cookies identifiziert. Die Kombination aus Firmendomain, Surfverhalten und Social-Media-Aktivit\u00e4ten erm\u00f6glicht die Zuordnung zu konkreten Personen und ihren Entscheidungsbefugnissen. Hinsichtlich Kommunikationsmuster und Metadaten gilt: Selbst bei verschl\u00fcsselten E-Mails k\u00f6nnen alle Metadaten mitgelesen werden. \u00dcber Kunden und Gesch\u00e4ftspartner werden ebenfalls sensible Informationen gesammelt. Gesch\u00e4ftsbeziehungen lassen sich ermitteln, wenn Mitarbeiter Kunden-Websites besuchen oder Partner- Portale nutzen, da eingebettete Tracker diese Verbindungen erfassen k\u00f6nnen und die H\u00e4ufigkeit der Besuche die Intensit\u00e4t der Gesch\u00e4ftsbeziehung verr\u00e4t. Projektinformationen werden sichtbar, weil Recherchen zu bestimmten Technologien, Branchen oder M\u00e4rkten \u00fcber Browser-Tracking protokolliert werden. Daraus l\u00e4sst sich ableiten, an welchen Projekten gearbeitet wird und welche Investitionen geplant sind. Bei der Nutzung von Cloud-basierten CRM- Systemen, Projektmanagement-Tools oder Collaboration-Plattformen k\u00f6nnen eingebettete Analyse-Skripte zudem Informationen \u00fcber verarbeitete Kundendaten erfassen. Data Broker bieten ihre Datenbanken als legale Dienstleistung an, etwa f\u00fcr Hintergrund\u00fcberpr\u00fcfungen, Marketing oder Kreditw\u00fcrdigkeitspr\u00fcfungen. Das bedeutet: Auch Cyberkriminelle und staatliche Akteure k\u00f6nnen diese Daten problemlos erwerben. Wie Cyberkriminelle diese Daten nutzen Beim CEO Fraud (Chef-Betrug) geben sich Angreifer als Gesch\u00e4ftsf\u00fchrer oder F\u00fchrungskr\u00e4fte aus, um Mitarbeiter zur \u00dcberweisung von Geldern zu verleiten. Laut FBI f\u00fchrten zwischen 2013 und 2023 \u00fcber 305.000 solcher Vorf\u00e4lle zu weltweiten Verlusten von \u00fcber 55 Milliarden Dollar. Die von Data Brokern gesammelten Informationen \u00fcber Position, Reisepl\u00e4ne und aktuelle Projekte machen diese Angriffe erschreckend glaubw\u00fcrdig. 2024 berichteten 64 Prozent der Unternehmen von solchen Angriffen. Spear Phishing zielt im Gegensatz zu breit gestreutem Phishing auf spezifische Mitarbeiter. Mit Wissen \u00fcber deren Rolle, Projekte und Kontakte erstellen Angreifer hochgradig personalisierte Nachrichten. Obwohl Spear-Phishing weniger als 0,1 Prozent des E-Mail-Volumens ausmacht, ist es f\u00fcr 66 Prozent aller Datenpannen verantwortlich. Staatliche Akteure als zus\u00e4tzliche Bedrohung Neben Cyberkriminellen stellen staatlich finanzierte Hackergruppen eine wachsende Bedrohung f\u00fcr Unternehmen dar. Diese sogenannten Nation-State Actors verf\u00fcgen \u00fcber erhebliche Ressourcen und nutzen die von Data Brokern gesammelten Informationen f\u00fcr gezielte Wirtschaftsspionage und Sabotage. Die Zahlen sind alarmierend: Laut CrowdStrike nahmen chinesische Cyber-Spionage-Aktivit\u00e4ten 2024 um 150 Prozent zu, in bestimmten Branchen sogar um bis zu 300 Prozent. Das BSI registrierte 2024 durchschnittlich 309.000 neue Malware-Varianten pro Tag. Nach Angaben von Microsoft sind russische, chinesische, iranische und nordkoreanische Gruppen f\u00fcr den Gro\u00dfteil der staatlich unterst\u00fctzten Cyberangriffe verantwortlich. Allein die bekannten APT-Gruppen (Advanced Persistent Threats) wie APT27, APT28, APT29, APT31, APT41, Lazarus Group und Kimsuky f\u00fchren hunderte aktive Kampagnen gegen westliche Unternehmen durch. Diese Gruppen nutzen die von Data Brokern verf\u00fcgbaren Informationen zur pr\u00e4zisen Zielidentifikation, f\u00fcr Social-Engineering- Angriffe und zur langfristigen, unentdeckten Infiltration von Unternehmensnetzwerken. Die durchschnittliche Verweildauer eines APT in einem kompromittierten Netzwerk betr\u00e4gt mehrere Monate \u2013 Zeit genug, um sensible Gesch\u00e4ftsgeheimnisse zu exfiltrieren. Was digitale Integrit\u00e4t bedeutet Digitale Integrit\u00e4t beschreibt die Unversehrtheit, Korrektheit und Vollst\u00e4ndigkeit von Daten sowie das Recht, die digitale Identit\u00e4t und Kommunikation vor unbefugtem Zugriff zu sch\u00fctzen. F\u00fcr Unternehmen bedeutet dies: Digitale Informationen d\u00fcrfen nicht unbefugt verf\u00e4lscht oder abgefangen werden. Mitarbeiter, Kunden und Gesch\u00e4ftspartner m\u00fcssen darauf vertrauen k\u00f6nnen, dass ihre Daten gesch\u00fctzt sind. Schutzma\u00dfnahmen f\u00fcr Unternehmen Security & Privacy Boxen sind eine Weiterentwicklung von Firewalls, die dazu beitragen k\u00f6nnen, den ungewollten Abfluss von Informationen aus dem Unternehmen deutlich zu reduzieren. Entscheidend ist, dass die L\u00f6sung vertrauensw\u00fcrdig ist: Kein Missbrauch als \u00dcberwachungsinstrument, Tracker k\u00f6nnen sich nicht freikaufen, und der Hersteller muss unabh\u00e4ngig von Werbeeinnahmen und Datenhandel sein. Neben dem Einsatz einer Security & Privacy Box sollten CISOs aber weitere Ma\u00dfnahmen implementieren. Dazu geh\u00f6ren regelm\u00e4\u00dfige Mitarbeiterschulungen zu Phishing und Social Engineering sowie das Eigen-Hosting sensibler Daten statt der Nutzung externer Cloud- Anbieter. Eine Zero-Trust-Architektur nach dem Prinzip \u201aVertraue niemandem, verifiziere alles\u2019 bildet eine wichtige Grundlage. Erg\u00e4nzend sollte regelm\u00e4\u00dfig \u00fcberpr\u00fcft werden, welche Unternehmensdaten \u00f6ffentlich zug\u00e4nglich sind. (jm)",
-      "link": "https://www.csoonline.com/article/4121937/digitale-integritat-warum-firewall-und-ids-nicht-reichen.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-26T16:38:35+00:00",
-      "published_ts": 1769445515,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Threat Actors / APT",
-        "Malware / Payloads",
-        "Identity / Access",
-        "Data Breaches / Leaks",
-        "Phishing / Social Engineering"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Sandworm group linked to major attempted cyberattack on Poland's power system",
-      "summary": "The cybersecurity firm ESET reported that Sandworm deployed a new, undocumented wiper malware named DynoWiper in the attempted disruptive attack on December 29, 2025.",
-      "link": "https://www.scworld.com/brief/sandworm-group-linked-to-major-cyberattack-on-polands-power-system",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-26T16:35:55+00:00",
-      "published_ts": 1769445355,
-      "smart_groups": [
-        "Threat Actors / APT",
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "BlackRock Files With SEC to Launch iShares Bitcoin Premium Income ETF",
-      "summary": "BlackRock filed for a Bitcoin income ETF using an options strategy to generate premium income for investors beyond spot price gains.",
-      "link": "https://decrypt.co/355841/blackrock-files-sec-ishares-bitcoin-premium-income-etf",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-01-26T16:31:32+00:00",
-      "published_ts": 1769445092,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Protecting The Protectors: Applying The ICMEC Framework To Digital Forensics",
-      "summary": "Protecting children online comes at a heavy personal cost for digital forensic investigators. Paul Gullon-Scott examines how the ICMEC framework could help safeguard those on the front lines.",
-      "link": "https://www.forensicfocus.com/articles/protecting-the-protectors-applying-the-icmec-framework-to-digital-forensics/",
-      "source": "Forensic Focus",
-      "type": "dfir",
-      "type_label": "DFIR & Forensics",
-      "published": "2026-01-26T16:30:54+00:00",
-      "published_ts": 1769445054,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "CISA adds Vite, Prettier, Versa, and Zimbra vulnerabilities to KEV catalog",
-      "summary": "The newly cataloged vulnerabilities include an improper access control flaw in Vitejs (CVE-2025-31125), an improper authentication bypass in Versa Concerto SD-WAN (CVE-2025-34026), a supply-chain compromise in eslint-config-prettier (CVE-2025-54313), and a PHP remote file inclusion vulnerability in Synacor Zimbra Collaboration Suite (CVE-2025-68645).",
-      "link": "https://www.scworld.com/brief/cisa-adds-vite-prettier-versa-and-zimbra-vulnerabilities-to-kev-catalog",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-26T16:30:46+00:00",
-      "published_ts": 1769445046,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Driving DevSecOps Standards: Microsoft\u2019s Role in Shaping NIST SP 1800-44 Volume B",
-      "summary": "We are grateful for the opportunity to contribute to the National Institute of Standards and Technology\u2019s (NIST) SP 1800-44 Volume B \u2013 DevSecOps Architecture. This publication represents a significant step forward in defining a reference architecture for secure software development, and we appreciate the collaborative efforts of all involved. Security is woven throughout the development lifecycle, addressing challenges such as open-source risk, software supply chain integrity, Software Bill of Materials (SBOM) requirements, insider threats, and Zero Trust principles. Our team at Microsoft was honored to share frameworks, tools, and expertise to help deploy and configure secure Azure DevOps and GitHub environments. These efforts were complemented by open-source tooling and partner solutions, resulting in CI/CD examples that reflect industry's best practices. Some of the contributions from Microsoft included: OpenSSF Secure Supply Chain Consumption Framework (S2C2F) \u2013 this is a framework of requirements, organized into a maturity model that is hyper-focused on how to securely consume open-source dependencies into the developer\u2019s workflow. Microsoft SBOM tool \u2013 General purpose, cross-platform, open source SBOM generator that produces SPDX SBOMs at build time. Co pacetic \u2013 Open-source tool that automates patching containers at build time. GitHub Advanced Security \u2013 suite of tools available on GitHub and Azure DevOps that perform static code analysis scans, software composition analysis, automated dependency updates, and more. Defender for Cloud DevOps security \u2013 provides a centralized console to empower security teams to protect applications and resources from code to cloud across multi-pipeline environments, including Azure DevOps, GitHub, and GitLab. Volume B also explores how AI can automate requirements management, code generation, vulnerability analysis, and risk mitigation across the software development lifecycle. These AI-assisted capabilities, embedded within a Zero Trust framework, enforce least privilege and continuous validation. With human oversight, transparency, and audit trails, this approach aims to support secure, compliant automation\u2014reflecting our ongoing commitment to trustworthy DevSecOps. This project is a collaborative effort led by the National Cybersecurity Center of Excellence (NCCoE) through the National Cybersecurity Excellence Partnership (NCEP) consortium, with NIST guiding the work. We are one of many contributors, and we value the broader industry partnership that makes this work possible. The NCCoE brings together government, industry, and academia to address critical cybersecurity challenges and develop practical, standards-based solutions. Why NIST\u2019s SP 1800-44 Volume B Matters Volume B provides a practical blueprint for secure development that organizations can adopt with confidence. Many small and medium-sized businesses struggle to understand what a secure DevOps configuration should look like, or how the DevSecOps lifecycle differs from DevOps. The work in Volume B addresses this challenge by describing the industry best practices for the components and activities in each lifecycle phase, mapping them to NIST SP 800-218 Secure Software Development Framework (SSDF) and noting where AI integrates with activities. This work was validated against two reference builds\u2014one exercising Microsoft\u2019s entire developer stack, and a similar industry stack, deployed on the Azure platform\u2014ensuring NIST guidance reflects real-world, proven practices. As Volume B enters its public comment phase, we encourage the community to participate and help shape its future direction. Microsoft\u2019s Contributions Through participation in the NCEP consortium\u2019s work with NCCoE, we have shared solutions that can be adopted across sectors, supporting the nation\u2019s critical infrastructure by fostering innovation and collaboration among stakeholders. Key contributions include: Helping develop the first reference build for NIST\u2019s SP 1800-44 Volume B Supporting the elevation of the SSDF to national and international standards Sharing practical insights from our engineering practices to ensure guidance is actionable and scalable Providing real-world examples of tools and configurations to achieve end-to-end supply chain security, fused with DevSecOps, and extended through deployment into the operational phase in Azure We see our role as both solution builder and platform provider, and we strive to support standards that matter most to customers and regulators. Connecting DevSecOps, Zero Trust, and the Secure Future Initiative While DevSecOps is the focus, for Microsoft it is built on foundational principles: Zero Trust Architecture (ZTA): The security model underpinning modern DevSecOps. Secure Future Initiative (SFI): Microsoft\u2019s implementation of Zero Trust, now mapped to NIST CSF for global alignment. This integration ensures that DevSecOps guidance is secure-by-design and consistent with widely recognized frameworks\u2014boosting customer confidence worldwide. Looking Ahead This is just the beginning. Volume A started the journey, and Volume B continues the momentum, with more volumes to follow. As future volumes roll out, Microsoft will continue to share tools, insights, and best practices to help organizations adopt secure development at scale. By partnering with government institutions and industry participants, we\u2019re shaping the future of cybersecurity\u2014together. Call to Action Engage in the public comment phase for SP 1800-44 Volume B and help define the next generation of secure software development. Learn more about Microsoft Security solutions",
-      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-community/driving-devsecops-standards-microsoft-s-role-in-shaping-nist-sp/ba-p/4468145",
-      "source": "Microsoft Security Blog (TechCommunity)",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-01-26T16:30:00+00:00",
-      "published_ts": 1769445000,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Network / OT / ICS",
-        "Crypto / Web3",
-        "Supply Chain / Software"
-      ],
-      "curated": true
-    },
-    {
-      "title": "US gov\u2018t officials delay market structure markup, SEC-CFTC crypto meeting",
-      "summary": "The delays came amid a massive winter storm that caused the US Senate and other government offices to be closed on Monday.",
-      "link": "https://cointelegraph.com/news/senate-ag-committee-delay-market-structure?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-01-26T16:26:17+00:00",
-      "published_ts": 1769444777,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Judge awards British critic of Saudis $4.1 million, finds the regime hacked his devices",
-      "summary": "A London judge said there was a \"compelling basis\" to conclude that Saudi Arabia was behind spyware infections aimed at YouTuber and regime critic Ghanem Al-Masarir.",
-      "link": "https://therecord.media/london-judge-sides-with-saudi-critic-spyware-case",
-      "source": "The Record",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-26T16:25:58+00:00",
-      "published_ts": 1769444758,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "UK digital veterans ID card sees low adoption, government pushes digital identity",
-      "summary": "The optional digital card, housed within the GOV.UK One Login app, offers limited functionality compared to its physical counterpart.",
-      "link": "https://www.scworld.com/brief/uk-digital-veterans-id-card-sees-low-adoption-government-pushes-digital-identity",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-26T16:25:40+00:00",
-      "published_ts": 1769444740,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "CISA Releases List of Post-Quantum Cryptography Product Categories",
-      "summary": "CISA released initial list of PQC-capable hardware and software to guide companies amid quantum threats",
-      "link": "https://www.infosecurity-magazine.com/news/cisa-post-quantum-cryptography/",
-      "source": "Infosecurity Magazine \u2013 News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-26T16:15:00+00:00",
-      "published_ts": 1769444100,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "CISA to skip RSA Conference",
-      "summary": "The agency's spokesperson, Marci McCarthy, stated that CISA is focusing on its core mission and President Trump's policies for American security.",
-      "link": "https://www.scworld.com/brief/cisa-to-skip-rsa-conference-amid-leadership-changes",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-26T16:14:34+00:00",
-      "published_ts": 1769444074,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "What the CLARITY Act is actually trying to clarify in crypto markets",
-      "summary": "The CLARITY Act aims to address the crypto market structure. See how it approaches token classification, exchanges, disclosures and regulatory oversight.",
-      "link": "https://cointelegraph.com/news/what-the-clarity-act-is-actually-trying-to-clarify-in-crypto-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-01-26T16:13:33+00:00",
-      "published_ts": 1769444013,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Who Operates the Badbox 2.0 Botnet?",
-      "summary": "The cybercriminals in control of Kimwolf -- a disruptive botnet that has infected more than 2 million devices -- recently shared a screenshot indicating they'd compromised the control panel for Badbox 2.0, a vast China-based botnet powered by malicious software that comes pre-installed on many Android TV streaming boxes. Both the FBI and Google say they are hunting for the people behind Badbox 2.0, and thanks to bragging by the Kimwolf botmasters we may now have a much clearer idea about that.",
-      "link": "https://krebsonsecurity.com/2026/01/who-operates-the-badbox-2-0-botnet/",
-      "source": "Krebs on Security",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-01-26T16:11:38+00:00",
-      "published_ts": 1769443898,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Access System Flaws Enabled Hackers to Unlock Doors at Major European Firms",
-      "summary": "More than 20 vulnerabilities were found and patched in Dormakaba physical access control systems. The post Access System Flaws Enabled Hackers to Unlock Doors at Major European Firms appeared first on SecurityWeek .",
-      "link": "https://www.securityweek.com/access-system-flaws-enabled-hackers-to-unlock-doors-at-major-european-firms/",
-      "source": "SecurityWeek",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-26T16:11:08+00:00",
-      "published_ts": 1769443868,
-      "smart_groups": [
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Bitcoin due dollar-fueled macro bottom as traders dismiss $88K bounce",
-      "summary": "Bitcoin price analysis warned that BTC would follow the US dollar toward a long-term bottom next, adding pain for crypto bulls.",
-      "link": "https://cointelegraph.com/news/bitcoin-due-dollar-fueled-macro-bottom-traders-dismiss-88k-bounce?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-01-26T16:10:24+00:00",
-      "published_ts": 1769443824,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "The first big Windows update of 2026 is a glitchy mess - here's the full list of bugs and fixes",
-      "summary": "Some bugs are fixed, but plenty are still frustrating Windows users.",
-      "link": "https://www.zdnet.com/article/windows-11-bug-roundup/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-26T16:09:00+00:00",
-      "published_ts": 1769443740,
-      "smart_groups": [
-        "Windows / Microsoft"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Are fake documents a cyber security problem?",
-      "summary": "I recently handed over a few fake documents we've been getting to our cyber security team and they complained about their (already very heavy to be fair) workload. They said we should have our own fraud or compliance team for this? Is it true? Maybe there's some kind of tooling or role I should implement to handle document intake and these fraud checks? Let me know. I'm worried that this could lead to us onboarding high risk individuals that could end up threatening our customers. submitted by /u/dgregs96 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qnk877/are_fake_documents_a_cyber_security_problem/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-01-26T16:08:21+00:00",
-      "published_ts": 1769443701,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "How to watch Super Bowl 2026: All your streaming options",
-      "summary": "We found the best streaming services available and covered everything you need to know about where to watch the Patriots vs. the Seahawks in Super Bowl in 2026.",
-      "link": "https://www.zdnet.com/article/how-to-watch-the-super-bowl/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-26T16:06:44+00:00",
-      "published_ts": 1769443604,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Alerts: Excessive NXDOMAIN Dns queries has been detected from client IP x.x.x.x",
-      "summary": "Hi, We\u2019re currently trying to tune an alert in our environment, but we\u2019re struggling to understand why it continues to trigger so frequently. We\u2019re seeing roughly 300 alerts per day, with new alerts firing every 15 minutes. We initially suspected vulnerability scanning activity and attempted a DNS server reboot, but this didn\u2019t change the behavior. We also debugged the domain controller associated with the client IP and observed a large volume of NXDOMAIN responses for two main types of queries: 1. .in-addr.arpa reverse lookup requests for internal IP addresses (for example, local workstation lookups). 2. wpad queries, where clients traverse reverse zones under xx.local and then the full domain name. Based on our understanding, both of these appear to be expected Windows/DNS behavior in an Active Directory environment. Has there been a recent change to the detection logic or thresholds for this rule, or is this alert expected to require tuning to account for normal WPAD and reverse DNS traffic? Help appreciated if you have came across this before dm me! submitted by /u/Honest-Exam7756 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qnk3us/alerts_excessive_nxdomain_dns_queries_has_been/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-01-26T16:04:09+00:00",
-      "published_ts": 1769443449,
-      "smart_groups": [
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Windows / Microsoft",
-        "Identity / Access"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Strategy Spends $267 Million on Bitcoin, Issues STRC for Third Straight Week",
-      "summary": "Strategy continued buying Bitcoin last week, but the company\u2019s latest acquisition marked a deceleration from the previous two additions.",
-      "link": "https://decrypt.co/355843/strategy-spends-267-million-bitcoin-issues-strc-third-straight-week",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-01-26T16:03:00+00:00",
-      "published_ts": 1769443380,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Maia 200: The AI accelerator built for inference",
-      "summary": "Today, we\u2019re proud to introduce Maia 200, a breakthrough inference accelerator engineered to dramatically improve the economics of AI token generation. Maia 200 is an AI inference powerhouse: an accelerator built on TSMC\u2019s 3nm process with native FP8/FP4 tensor cores, a redesigned memory system with 216GB HBM3e at 7 TB/s and 272MB of on-chip SRAM, plus... The post Maia 200: The AI accelerator built for inference appeared first on The Official Microsoft Blog .",
-      "link": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
-      "source": "https://blogs.microsoft.com/feed/",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-26T16:00:30+00:00",
-      "published_ts": 1769443230,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Where Partners Build and Scale: Partner-Built Security Copilot Agents in Security Store",
-      "summary": "At Microsoft, we believe that security is a team sport. That\u2019s why we are committed to meeting customers where they are, integrating with the solutions they already use to ensure that everyone can take advantage of the agentic capabilities of Security Copilot. And it\u2019s not just an idea\u2014it\u2019s a reality. We\u2019re excited to share why partners such as BlueVoyant, OneTrust, and Tanium chose to build agents with Security Copilot\u2014and the value this brings to their customers. By watching the videos featuring BlueVoyant, OneTrust, and Tanium, you\u2019ll see firsthand how collaboration drives innovation and empowers security teams to tackle today\u2019s threats with agility and confidence. Together, these partner-built agents show how organizations and partners can transform Security Copilot into an integrated force multiplier\u2014proving that security is a team sport. Partner-built agents power smarter protection BlueVoyant \u2013 Specializing in comprehensive cyber risk management, BlueVoyant provides a suite of services to protect organizations from cyberattacks. In this video, we learn about BlueVoyant Watchtower and how their agents help customers get the most out of their Sentinel and Defender products by using an agent to always review the environment and recommend updated rules, configurations, and policies that catch bad actors Security Copilot gives us the advantage of moving more quickly.\u201d \u2013 Micah Heaton, Executive Director, Microsoft Product & Innovation Strategy at BlueVoyant OneTrust \u2013 OneTrust, a privacy and consent management platform, specializes in helping customers responsibly use data and AI. By partnering with Microsoft\u2014specifically Microsoft\u2019s Sentinel platform\u2014OneTrust is able to provide their customers with a full view of their data estate. The Privacy Breach Response Agent by OneTrust combines the deep privacy and regulatory expertise of OneTrust with the robust generative AI capabilities of Microsoft Security Copilot, automating privacy risk assessments improving their accuracy. Tanium \u2013 Specializing in endpoint management and security, Tanium gives IT teams visibility and control over every device in their environment. Tanium\u2019s partnership with Microsoft provides Tanium with seamless integration into Microsoft\u2019s Security products via Copilot, which combined with Tanium\u2019s real-time environment insights, power powerful end to end workflows across Defender, Entra, Tanium, and Intune. The Security Triage Agent by Tanium accelerates alert triage, providing security teams with the context they need to make informed decisions on Tanium Threat Response alerts swiftly. The work of partners like BlueVoyant, OneTrust, and Tanium is shaping a new security ecosystem\u2014one where the Microsoft Security Store is a launchpad for partner innovation to drive real-world customer impact. The Store turns partner-built agents into enterprise-ready solutions by providing Microsoft-validated certification, high\u2011quality metadata, consistent deployment flows, secure authentication and transactions, and in\u2011product visibility inside Defender, Entra, and Security Copilot. These deployed agents run securely in your Security Copilot zero-trust environment. The power of the Security Store is that it doesn\u2019t just distribute agents\u2014it amplifies them. It gives partners a unified, trusted surface where their solutions are discoverable directly within Microsoft Security products; where customers can compare capabilities through standardized metadata; where installation is guided and repeatable; and where Microsoft\u2019s AI foundation elevates the value of every partner-built capability. For customers, this means direct access to the best of partner-driven security innovation. Partner-built agents deliver value at every stage of the security journey: proactively monitoring sensor health, surfacing actionable insights, accelerating investigations, and automating incident response. These capabilities help organizations strengthen their security posture, respond faster to threats, and stay ahead of attackers. For partners, success begins with identifying the unique value their agent brings to customers and designing real security outcomes\u2014such as improved detection, automated investigations, and measurable risk reduction. As more partners publish agents, the ecosystem expands- unlocking advanced scenarios like phishing and identity alert triage, incident enrichment, policy optimization, and automated remediation. By combining Microsoft\u2019s AI foundation with specialized partner expertise, Security Copilot agents deliver differentiated solutions that address a wide range of security challenges\u2014from privacy and compliance workflows to vulnerability management and forensics\u2014helping customers strengthen their security posture and respond faster to threats. Explore resources and documentation Explore all the partner-built agents in Security Copilot and partner SaaS offerings at the Microsoft Security Store and at the Security Store Learn page Security Store documentation - Security Store | Microsoft Learn . Or read more documentation on Security Copilot agents to learn: What agents are and how they work in Security Copilot How partners build and integrate agents Links to related resources for development and deployment",
-      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-copilot-blog/where-partners-build-and-scale-partner-built-security-copilot/ba-p/4488589",
-      "source": "Security Copilot Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-01-26T16:00:00+00:00",
-      "published_ts": 1769443200,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Windows / Microsoft",
-        "Cloud / SaaS",
-        "Network / OT / ICS",
-        "Phishing / Social Engineering"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Automate deployment of MCP servers to AWS App Runner with CircleCI",
-      "summary": "",
-      "link": "https://circleci.com/blog/deploy-mcp-servers-to-aws-app-runner/",
-      "source": "https://circleci.com/blog/feed.xml",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-01-26T16:00:00+00:00",
-      "published_ts": 1769443200,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Online pentest for fast-moving dev teams. Myth or reality?",
-      "summary": "Our deployment velocity is high, and traditional security penetration testing just can\u2019t keep up. We\u2019ve experimented with pentest tools online, but they\u2019re mostly scans. Is there a real online pentest option that works with agile teams and doesn\u2019t stall releases? submitted by /u/Fresh-Command-4547 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qnjtsm/online_pentest_for_fastmoving_dev_teams_myth_or/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-01-26T15:54:19+00:00",
-      "published_ts": 1769442859,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Tom Lee's BitMine Makes Biggest Ethereum Buy Yet in 2026",
-      "summary": "Publicly traded Ethereum treasury firm BitMine Immersion Technologies added to its stash with its largest ETH acquisition of the year so far.",
-      "link": "https://decrypt.co/355842/tom-lee-bitmine-makes-biggest-ethereum-buy-so-far-2026",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-01-26T15:53:03+00:00",
-      "published_ts": 1769442783,
-      "smart_groups": [],
       "curated": false
     },
     {
