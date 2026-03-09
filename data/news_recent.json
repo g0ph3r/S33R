@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-03-09T22:54:55.964329+00:00",
+  "generated_at": "2026-03-09T23:47:12.982185+00:00",
   "days_back": 30,
-  "total_items": 8380,
+  "total_items": 8385,
   "items": [
     {
       "title": "Secure Your Spot at RSAC 2026 Conference",
@@ -42,6 +42,80 @@
       "curated": false
     },
     {
+      "title": "SecurityClaw - Open-source SOC investigation tool",
+      "summary": "I built a small open-source project called SecurityClaw that lets you investigate security data by simply chatting with it. This has been a few weekend long project. The idea is based on OpenClaw but designed for SOC operations. A major point for me was that I didn't want it to just arbitrarily have access to local files but I wanted it to use skills just like with OpenClaw. So, I tried to keep a lot of the code logic to a minimum and rely on skills and LLM to resolve queries and investigations based on skills. Repo: https://github.com/SecurityClaw/SecurityClaw The idea is simple: instead of manually writing queries and digging through dashboards, you can ask questions about your data and the system figures out how to investigate. How it works Connects to OpenSearch / Elasticsearch Automatically figures out the structure of the data Uses an LLM to generate queries and investigation steps Makes multiple queries and summarizes the results You interact with it through a chat interface It\u2019s data-agnostic , meaning it doesn\u2019t require predefined schemas or detection rules. It looks at the index structure, understands what fields exist, and then performs investigations dynamically. For example you could ask things like: \u201cShow me suspicious login activity\u201d \u201cInvestigate this IP address\u201d \u201cWhat unusual behavior happened in the last 24 hours?\u201d The system then generates the queries, runs them, and explains the findings. Models It works fairly well with local models like Qwen2.5, so you don\u2019t need to rely on external APIs. I put some connectors there for external APIs but haven't tested them yet. Status This is still an early project, but the core idea works and I\u2019m experimenting with how far automated investigations can go. Skills can be cron started and I'd like for it continuously check and report if anything is off. Another skills I want to make is for setting up anomaly detection. Opensearch supports RCF algo, so I wonder if it can setup detection rules automatically based on the records or at least propose. If anyone works in: SOC / security operations detection engineering SIEM tooling I\u2019d love feedback. PS: I've limited its ability to arbitrarily delete Opensearch records but I would still limit the capabilities of the Opensearch user to read any critical indexes and write only for its own (it uses an index to store network behavior embeddings for RAG). submitted by /u/MichaelT- [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1rpgcdh/securityclaw_opensource_soc_investigation_tool/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-09T23:21:38+00:00",
+      "published_ts": 1773098498,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Dutch Intel Warns of Russian Hackers Hijacking Signal, WhatsApp Attacks",
+      "summary": "Dutch intelligence warns Russian hackers are hijacking Signal and WhatsApp accounts using fake support bots and verification code scams targeting officials and journalists.",
+      "link": "https://hackread.com/dutch-intel-russia-hackers-hijack-signal-whatsapp-attacks/",
+      "source": "HackRead",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-09T23:06:05+00:00",
+      "published_ts": 1773097565,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Mississippi hospital system closes all clinics after ransomware attack",
+      "summary": "submitted by /u/PixeledPathogen [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1rpfs8g/mississippi_hospital_system_closes_all_clinics/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-09T22:59:49+00:00",
+      "published_ts": 1773097189,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Microsoft Teams phishing targets employees with backdoors",
+      "summary": "Hackers contacted employees at financial and healthcare organizations over Microsoft Teams to trick them into granting remote access through Quick Assist and deploy a new piece of malware called A0Backdoor. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/microsoft-teams-phishing-targets-employees-with-backdoors/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-09T22:50:38+00:00",
+      "published_ts": 1773096638,
+      "smart_groups": [
+        "Curated",
+        "Malware / Payloads",
+        "Phishing / Social Engineering"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Bitcoin vs gold: ETF flows point to early capital rotation signs",
+      "summary": "Bitcoin ETF inflows have turned positive as gold ETFs see record outflows after a historic rally. Is capital beginning to rotate from gold to Bitcoin?",
+      "link": "https://cointelegraph.com/news/bitcoin-vs-gold-etf-flows-point-to-early-capital-rotation-signs?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-09T22:48:28+00:00",
+      "published_ts": 1773096508,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "Open source tool that catches SQL injection and credential exposure in your codebase before it ships",
       "summary": "SQL injection is still in the OWASP top 10. It's been there for 20 years. The reason it persists is the feedback loop is too slow. Vulnerabilities get introduced in development, survive code review, and get caught in a pentest or worse in production. SlowQL moves that feedback loop to the earliest possible point. It runs against your SQL files statically before anything deploys. No execution, no database connection, no network calls. Just pattern analysis on the query itself. What it catches on the security side: Dynamic SQL built from string concatenation. Tautological WHERE conditions that bypass authentication. Time based injection patterns. Hardcoded credentials in migration files. Privilege escalation through overly broad grants. xp_cmdshell calls. PII columns exposed without access controls. 45 security rules out of 171 total. Works as a pre-commit hook so developers get feedback before code review, not after a pentest. Completely offline, zero network calls, your SQL never leaves your machine. Open source, Apache 2.0, fully auditable. pip install slowql github.com/makroumi/slowql What SQL security patterns do you see most consistently missed in code review? submitted by /u/Anonymedemerde [link] [comments]",
       "link": "https://www.reddit.com/r/cybersecurity/comments/1rpfe5y/open_source_tool_that_catches_sql_injection_and/",
@@ -70,6 +144,37 @@
         "Curated",
         "Exploit / PoC",
         "Windows / Microsoft"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Americans Use AI Every Day\u2014But Most Still Don't Like It, New Poll Shows",
+      "summary": "Americans are increasingly using AI tools even as a majority say the technology\u2019s risks outweigh its benefits.",
+      "link": "https://decrypt.co/360493/americans-ai-every-day-most-still-dont-like-it",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-09T22:34:03+00:00",
+      "published_ts": 1773095643,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "My Really Fun RSA 2026 Presentations!",
+      "summary": "This blog is perhaps a little bit more like an ad, so if you don\u2019t want to check the ads, consider not reading it. a very cyber image (Gemini) But this year at RSA 2026, I\u2019m speaking on three topics: securing AI, using AI for SOC, and sharing lessons about how Google applies AI and other technologies to D&R. Here are these 3 fun things! First, I\u2019m doing a presentation on governing shadow AI agents. Believe it or not, this presentation was created mostly before OpenClaw became a thing (but updated for it!). So you may be surprised how well the content aged (think wine!) Attend this if you are struggling with shadow AI , specifically shadow agents at work. Shadow Agents: A Pragmatist\u2019s Guide to Governing Unsanctioned AI \u2014 [STR-W08] Wednesday, Mar 25 1:15 PM \u2014 2:05 PM PDT It is not the APT! The new threat is the \u201cshadow AI agents\u201d employees already use for work, leaking data and making decisions. Banning them is a losing game. This session will offer a better way: turn this organic behavior into a catalyst for secure progress. Learn to discover, assess, and channel unsanctioned agents into a formal strategy that empowers a team rather than force it underground. The second is probably the most detailed discussion about how we use AI for detection and response at Google. You probably read our blogs and listen to our talks ( especially this ), but this time we are revealing a lot more interesting details about the machinery and also how we arrived at the state we\u2019re in. I promise you this will be fun! And detailed too. This Is How We Do It: Building AI Agents for Cybersecurity and Defense \u2014 [PART3-M07] Monday, Mar 23 2:20 PM \u2014 3:10 PM PDT Presenters will share the playbook for building and scaling AI agents in cybersecurity. Attendees will learn four core lessons: Building trust with the team, prioritizing real problems, measuring value, and establishing solid governance foundations for the agentic SOC. Finally, the third isn\u2019t a presentation but a discussion that would help you understand the real state of AI in security operations / SOC. This would not be about the slides, but about sharing lessons on what works and what doesn\u2019t. AI in SecOps: Sharing Lessons Learned for Adoption Maturity \u2014 [ CXN-R05 ] Thursday, Mar 26 12:20 PM \u2014 1:10 PM PDT Attendees in this peer-led discussion will share stories from the AI-powered SOC trenches. Explore real adoption journeys from manual processes to autonomous agents. Share practical use cases on analyst retraining, workflow auditing, malware analysis, remediation automation, RAG pipelines and more. Trade notes on what\u2019s working, what\u2019s breaking, trust gaps, AI hallucinations, and career redesign. All in all, join me for securing AI and Shadow Agents, learning from Google about detection and response, and comparing the state of practice of AI in the SOC. See you there! P.S. Yes, we will also be podcasting from the show. Related: RSA 2025: AI\u2019s Promise vs. Security\u2019s Past \u2014 A Reality Check\u201d My Really Fun RSA 2026 Presentations! was originally published in Anton on Security on Medium, where people are continuing the conversation by highlighting and responding to this story.",
+      "link": "https://medium.com/anton-on-security/my-really-fun-rsa-2026-presentations-8f65f35cfca5?source=rss----8e8c3ed26c4c---4",
+      "source": "Anton on Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-09T22:28:53+00:00",
+      "published_ts": 1773095333,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Malware / Payloads",
+        "Identity / Access",
+        "Network / OT / ICS"
       ],
       "curated": true
     },
@@ -116458,35 +116563,6 @@
         "Identity / Access"
       ],
       "curated": false
-    },
-    {
-      "title": "Feeling unfulfilled as a new grad",
-      "summary": "Hey all! hope everyone's week is going good. I live in Florida, and I started working as a cybersecurity engineer intern in late 2023 for one of the top 3 defense companies, and after I graduated in May 2025, I accepted a return offer for 90k with good benefits. I have a great team, manager, and WLB, but I can't help but feel empty and wanting more. This is a job that I have essentially been doing since I started working here, and the thing that has stopped me from throwing my resume out there is that I am currently in a cybersecurity engineering position, which is almost impossible as a new grad to obtain, and the job market is trash right now. I have a 1 on 1 with my manager on Monday, and I was planning on bringing up some of my concerns with him about this. During lunch last week, he was asking if I would be interested in doing a more cyber software based role, and I have mentioned to him that I was going to reach out to have a L4 teach me about reverse engineering at work since the company offers hours for training and mentoring. I currently have my sec+ and my job is paying for my MSCS from Georgia Tech, and any certs that I want, and I am trying my best to take advantage of these opportunities, but it currently feels like I have golden handcuffs and I won't really be able to find another similar position without having a massive downgrade in pay or title. Any advice is appreciated! I'm not sure where to really go from here because I know that people would probably kill to be in my position, and it sounds a bit selfish to want more after all that I have been given. I am not solely looking for a pay increase, but I would like work that is more interesting than what i do now. My thinking is that it is best to wait out the job market a bit and see whats out there once I finish my masters in 3 years, since by then I should be a level 2 with 3 YOE. submitted by /u/Effective_Item_1617 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qysfi4/feeling_unfulfilled_as_a_new_grad/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-07T23:09:04+00:00",
-      "published_ts": 1770505744,
-      "smart_groups": [
-        "Web / API Security"
-      ],
-      "curated": false
-    },
-    {
-      "title": "ISC2.org Insight Report on 2025 Cybersecurity Hiring Trends",
-      "summary": "The interesting information in this report inspired me to post to this community. I thought I've been part of this community for years but apparently it was a different community with cybersecurity in the name, I know right. Anyway, for the members with ISC2.org access, here is the source. I'm not sure sure if you need to login or not but it does count as 1 CPE. https://www.isc2.org/Insights/2025/06/cybersecurity-hiring-trends-study The report advises hiring managers to \"hire for attitude, train for aptitude\" and to build resilient teams, these organizations need to implement the followingt: Re-evaluate Job Descriptions: Remove \"nice-to-have\" advanced certifications from \"must-have\" lists to attract capable entry-level talent. Look Beyond IT: 25% of managers are successfully hiring talent from non-technical backgrounds who bring diverse perspectives. These non-IT industries usually require indepth thought but specific processes to adhere to state, federal regulations. Leverage Foundational Certifications: Do not focus solely on higher level certifications like CISA, or CISSP, but rather CySA+, PenTest+ SSCP, and Certified in Cybersecurity (CC) rather than senior-level credentials. Thoughts? My summary doesnt really do it justice. It needs to be read in its entirety to be truly appreciated. submitted by /u/scooter950 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1qys16c/isc2org_insight_report_on_2025_cybersecurity/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-07T22:52:08+00:00",
-      "published_ts": 1770504728,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
