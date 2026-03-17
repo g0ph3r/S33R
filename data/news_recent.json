@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-03-17T14:43:09.025366+00:00",
+  "generated_at": "2026-03-17T16:26:20.555294+00:00",
   "days_back": 30,
-  "total_items": 8223,
+  "total_items": 8270,
   "items": [
     {
       "title": "Secure Your Spot at RSAC 2026 Conference",
@@ -25,6 +25,663 @@
       "published": "2026-03-19T15:00:00+00:00",
       "published_ts": 1773932400,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Action Required: Transition from HTTP Data Collector API in Microsoft Sentinel",
+      "summary": "Microsoft Sentinel continues to evolve to provide more secure, scalable, and reliable data ingestion experiences. As part of this evolution, we want to remind customers and partners of an important upcoming change that may impact custom data ingestion and integrations like detection rules, playbooks etc. HTTP Data Collector API will no longer be eligible for Incident Support after September 2026 Starting September 14, 2026 , connectors and tables that rely on the legacy HTTP Data Collector API will no longer be eligible for incident support in Microsoft Sentinel, consistent with Azure\u2019s 2024 announcement . Any data sources, custom integrations, or connectors that continue to rely on the HTTP Data Collector API beyond this date may experience ingestion issues. We highly recommend customers transition to a supported ingestion alternative before this deadline, to avoid any service interruptions. Who is impacted? You may be impacted by this change if you are using: Custom-built scripts or applications that ingest data using the HTTP Data Collector API. Any custom data connectors (likely built as Azure Functions) with HTTP Collector API. Any data connector from the in-product Content Hub , provided by Microsoft or one of our partner ISVs, that will be rewritten prior to the API deprecation date. Classic custom log tables (usually marked type: Classic) created using HTTP Data Collector API. Recommended migration paths We recommend transitioning to supported, DCR\u2011based ingestion methods. The appropriate path depends on how data is currently ingested. 1. Update to the latest connector version in Content Hub (Recommended for most customers): For customers using Microsoft or partner\u2011provided connectors: Many existing connectors have been released with new versions using modern ingestion and are available as updated versions in the Content Hub. These newer versions use DCR\u2011based ingestion and are fully supported. 1.1 Identify the Connector Go to Microsoft Defender portal Navigate to Content Hub Search for the connector you are currently using, If your existing connector mentions HTTP Data Collector API . 1.2 Install the New CCF Connector Navigate to Content Hub Search for the same connector name Select the version labeled \u201c(via Codeless Connector Framework)\u201d Click Install/Update the CCF connector and complete the setup wizard (authentication, configuration, polling schedule, etc.) Note: As Microsoft Sentinel transitions to the Codeless Connector Framework (CCF) , customers migrating from Azure Functions\u2013based connectors should expect intentional architectural changes. These include new or updated table names and schemas using the Log Ingestion API, and a move to Data Collection Rules (DCRs) and Data Collection Endpoints (DCEs) for modern, governed ingestion. Both connectors may coexist temporarily; installing the CCF connector does not automatically remove the Azure Function connector. 1.3 Validate Data Ingestion Confirm new data is flowing into CCF backed tables. Monitor ingestion for a stabilization period (typically several days). Validate that Logs are flowing as expected, there are no ingestion errors and expected log volume is observed. 1.4 Migrate Dependent Content Update any workloads out of Microsoft provided content types that depend on the old Azure Function\u2013based tables: Analytics rules Hunting queries Workbooks Playbooks / automations Parsers or custom queries 2. Logs Ingestion API (for custom applications and direct ingestion) For customers or ISV partners that ingest data directly into Sentinel tables using custom applications: The Azure Monitor Logs Ingestion API is the supported replacement for the legacy HTTP Data Collector API. Key benefits: Secure, OAuth\u2011based authentication Data Collection Rules (DCRs) for schema control Improved reliability, scalability, and governance Long\u2011term platform support Customers using custom ingestion pipelines should plan to migrate their applications to the Logs Ingestion API prior to the deprecation date. Migration Benefits (Azure Function \u2192 CCF) Lower Total Cost of Ownership (TCO) , no infra : saves compute cost and eliminates infrastructure maintenance. One\u2011time modernization : clean queries (no type suffixes) and one\u2011time migration with no ongoing API churn. Built\u2011in data shaping & quality gates : transformations (filter/modify during ingestion) plus schema validation to enforce ingestion quality. Flexible routing & modern tables : multiple destinations (route to multiple tables) with modern table format for better performance/features. Governed & future\u2011proof ingestion : granular RBAC (DCR + identity control), Sentinel data lake mirroring / lake\u2011only ingestion, and Microsoft\u2019s supported API going forward. Summary The transition from the HTTP Data Collector API to the Azure Monitor Logs Ingestion API is essential to ensure continued data ingestion and improved security. The new API provides key benefits such as OAuth\u2011based authentication, data filtering and transformation during ingestion, and fine\u2011grained RBAC. Organizations are strongly encouraged to migrate to the new API ahead of the September 14, 2026 retirement date. Support Resources: If you are an Independent Software Vendor (ISV) and you encounter any difficulty building your Microsoft Sentinel data connector, Microsoft Security's App Assure program is available to assist. Contact us at AzureSentinelPartner@microsoft.com .",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-community/action-required-transition-from-http-data-collector-api-in/ba-p/4499777",
+      "source": "Microsoft Security Blog (TechCommunity)",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-03-17T16:15:45+00:00",
+      "published_ts": 1773764145,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS",
+        "Identity / Access",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Enhanced AI-Powered Security with Advanced Exposure and Attack Path Visibility for Cyber Threats",
+      "summary": "Advancements in AI Security: Enhanced Visibility and Attack Path Management The rapid adoption of artificial... The post Enhanced AI-Powered Security with Advanced Exposure and Attack Path Visibility for Cyber Threats appeared first on .",
+      "link": "https://www.news4hackers.com/enhanced-ai-powered-security-with-advanced-exposure-and-attack-path-visibility-for-cyber-threats/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T16:11:19+00:00",
+      "published_ts": 1773763879,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Fake Pudgy World site steals your crypto passwords",
+      "summary": "The phishing site it is not affiliated with Igloo Inc or Pudgy Penguins, but is designed to lure fans and steal their crypto passwords.",
+      "link": "https://www.malwarebytes.com/blog/scams/2026/03/fake-pudgy-world-site-steals-your-crypto-passwords",
+      "source": "Malwarebytes Labs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T16:10:42+00:00",
+      "published_ts": 1773763842,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "EndeavorOS Titan stands out among Arch-based Linux distros - here's why",
+      "summary": "EndeavorOS Titan is the latest release in this Arch-based distribution, and it is well worth the update, especially if you depend on a GPU with the proper drivers.",
+      "link": "https://www.zdnet.com/article/endeavoros-titan/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T16:09:00+00:00",
+      "published_ts": 1773763740,
+      "smart_groups": [
+        "Linux / Unix"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Cyberattacks Surge on Banks and Fintech Companies Following Iran Conflict Escalation",
+      "summary": "Cyberattacks on Banks and Fintech Companies Surge Following Iran Conflict The onset of the Iran... The post Cyberattacks Surge on Banks and Fintech Companies Following Iran Conflict Escalation appeared first on .",
+      "link": "https://www.news4hackers.com/cyberattacks-surge-on-banks-and-fintech-companies-following-iran-conflict-escalation/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T16:08:20+00:00",
+      "published_ts": 1773763700,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Credential Guard - Control Validation",
+      "summary": "submitted by /u/netbiosX [link] [comments]",
+      "link": "https://www.reddit.com/r/netsec/comments/1rwauck/credential_guard_control_validation/",
+      "source": "/r/netsec",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-17T16:07:51+00:00",
+      "published_ts": 1773763671,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Amazon launches 1-hour delivery - what it costs and where it's available",
+      "summary": "You can order household essentials to your door in an hour, but delivery might cost as much as the item does.",
+      "link": "https://www.zdnet.com/article/amazon-one-hour-delivery/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T16:07:29+00:00",
+      "published_ts": 1773763649,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Mac Users Warned of ClickFix Attack via Fake Claude Tools Spreading MacSync Malware",
+      "summary": "Malicious Claude AI Campaign Targets Developers with MacSync Malware A sophisticated phishing campaign, dubbed Claude... The post Mac Users Warned of ClickFix Attack via Fake Claude Tools Spreading MacSync Malware appeared first on .",
+      "link": "https://www.news4hackers.com/mac-users-warned-of-clickfix-attack-via-fake-claude-tools-spreading-macsync-malware/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T16:06:17+00:00",
+      "published_ts": 1773763577,
+      "smart_groups": [
+        "Malware / Payloads",
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "UK Companies House Data Leak: Millions of Firms\u2019 Details Exposed",
+      "summary": "Security Vulnerability Discovered in Companies House Web Application A critical vulnerability was discovered in the... The post UK Companies House Data Leak: Millions of Firms\u2019 Details Exposed appeared first on .",
+      "link": "https://www.news4hackers.com/uk-companies-house-data-leak-millions-of-firms-details-exposed/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T16:04:18+00:00",
+      "published_ts": 1773763458,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Data Breaches / Leaks"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Countering Current Geopolitical Cyber Threats Based on CISA Intel With Qualys",
+      "summary": "Summary In response to the latest CISA Cyber Vulnerability Insights Estimate (CVIE) on Iranian-linked threat activity, Qualys has released new intelligence capabilities within Qualys Vulnerability Management, Detection & Response (VMDR) to help organizations immediately assess their exposure. These updates extend the current user experience to surface CVEs identified in the Iranian CVIE, provide rapid visibility [\u2026]",
+      "link": "https://blog.qualys.com/category/product-tech/vulnmgmt-detection-response",
+      "source": "Product and Tech \u2013 Qualys Security Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-03-17T16:03:33+00:00",
+      "published_ts": 1773763413,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Countering Current Geopolitical Cyber Threats Based on CISA Intel With Qualys",
+      "summary": "Summary In response to the latest CISA Cyber Vulnerability Insights Estimate (CVIE) on Iranian-linked threat activity, Qualys has released new intelligence capabilities within Qualys Vulnerability Management, Detection & Response (VMDR) to help organizations immediately assess their exposure. These updates extend the current user experience to surface CVEs identified in the Iranian CVIE, provide rapid visibility [\u2026]",
+      "link": "https://blog.qualys.com/product-tech/2026/03/17/geopolitical-cyber-threats-cisa-cvie-qualys-2026",
+      "source": "Qualys Security Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-03-17T16:03:33+00:00",
+      "published_ts": 1773763413,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Tech Giants Invest $12.5 Million in Open Source Security",
+      "summary": "Anthropic, AWS, Google, Microsoft, and OpenAI fund the Linux Foundation\u2019s long-term security initiatives focused on open source software. The post Tech Giants Invest $12.5 Million in Open Source Security appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/tech-giants-invest-12-5-million-in-open-source-security/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T16:01:00+00:00",
+      "published_ts": 1773763260,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Linux / Unix",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Introducing multi-cluster GKE Inference Gateway: Scale AI workloads around the world",
+      "summary": "The world of artificial intelligence is moving fast, and so is the need to serve models reliably and at scale. Today, we're thrilled to announce the preview of multi-cluster GKE Inference Gateway to enhance the scalability, resilience, and efficiency of your AI/ML inference workloads across multiple Google Kubernetes Engine (GKE) clusters \u2014 even those spanning different Google Cloud regions. Built as an extension of the GKE Gateway API , the multi-cluster Inference Gateway leverages the power of multi-cluster Gateways to provide intelligent, model-aware load balancing for your most demanding AI applications. Why multi-cluster for AI inference? As AI models grow in complexity and users become more global, single-cluster deployments can face limitations: Availability risks: Regional outages or cluster maintenance can impact service. Scalability caps: Hitting hardware limits (GPUs/TPUs) within a single cluster or region. Resource silos: Underutilized accelerator capacity in one cluster can\u2019t be used by another Latency: Users far from your serving cluster may experience higher latency The multi-cluster GKE Inference Gateway addresses these challenges head-on, providing a variety of features and benefits: Enhanced high reliability and fault tolerance: Intelligently route traffic across multiple GKE clusters, including across different regions. If one cluster or region experiences issues, traffic is automatically re-routed, minimizing downtime. Improved scalability and optimized resource usage: Pool and leverage GPU/TPU resources from various clusters. Handle demand spikes by bursting beyond the capacity of a single cluster and efficiently utilize available accelerators across your entire fleet. Globally optimized, model-aware routing: The Inference Gateway can make smart routing decisions using advanced signals. With GCPBackendPolicy , you can configure load balancing based on real-time custom metrics, such as the model server's KV cache utilization metric, so that requests are sent to the best-equipped backend instance. Other modes like in-flight request limits are also supported. Simplified operations: Manage traffic to a globally distributed AI service through a single Inference Gateway configuration in a dedicated GKE \"config cluster,\" while your models run in multiple \"target clusters.\" How it works In GKE Inference Gateway there are two foundational resources, InferencePool and InferenceObjective . An InferencePool acts as a resource group for pods that share the same compute hardware (like GPUs or TPUs) and model configuration, helping to ensure scalable and high-availability serving. An InferenceObjective defines the specific model names and assigns serving priorities, allowing Inference Gateway to intelligently route traffic and multiplex latency-sensitive tasks alongside less urgent workloads. With this release, the system uses Kubernetes Custom Resources to manage your distributed inference service. InferencePool resources in each \"target cluster\" group model-server backends. These backends are exported and become visible as GCPInferencePoolImport resources in the \"config cluster.\" Standard Gateway and HTTPRoute resources in the config cluster define the entry point and routing rules, directing traffic to these imported pools. Fine-grained load-balancing behaviors, such as using CUSTOM_METRICS or IN_FLIGHT requests, are configured using the GCPBackendPolicy resource attached to GCPInferencePoolImport . This architecture enables use cases like global low-latency serving, disaster recovery, capacity bursting, and efficient use of heterogeneous hardware. For more information about GKE Inference Gateway core concepts check out our guide . Get started today As you scale your AI inference serving workloads to more users in more places, we're excited for you to try multi-cluster GKE Inference Gateway. To learn more and get started, check out the documentation: About multi-cluster GKE Inference Gateway Set up multi-cluster GKE Inference Gateway Customize backend configurations with GCPBackendPolicy",
+      "link": "https://cloud.google.com/blog/products/containers-kubernetes/multi-cluster-gke-inference-gateway-helps-scale-ai-workloads/",
+      "source": "Google Cloud Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-03-17T16:00:00+00:00",
+      "published_ts": 1773763200,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS",
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Our latest investment in open source security for the AI era",
+      "summary": "A collage including security icons and photos of hands clasped, a man looking at a computer, and two people pointing at something off camera",
+      "link": "https://blog.google/innovation-and-ai/technology/safety-security/ai-powered-open-source-security/",
+      "source": "Safety & Security",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-03-17T16:00:00+00:00",
+      "published_ts": 1773763200,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "I Investigated a Telegram \u201cYouTube Like\u201d Scam \u2014 What I Found Behind the Fake Website",
+      "summary": "It started with a message on Telegram . Someone offered a simple \u201ctask\u201d: \u2022 Watch a YouTube video \u2022 Like it \u2022 Send a screenshot They even paid $6 for the first task. At first it looked like an easy side gig, but then they asked me to register on a website called avevastore.com . That\u2019s when things started looking suspicious. Instead of continuing normally, I decided to analyze the site from a cybersecurity perspective . What I found raised several red flags: Suspicious backend behavior Poorly secured endpoints Signs of a large scam operation targeting Telegram users I documented the entire process step-by-step to show how these scams work and what people should look out for. The goal is cybersecurity awareness , because many people actually fall for these \u201ctask scams\u201d. Video walkthrough: https://youtu.be/l6jZbO-0q0Y Code and notes: https://github.com/awsdevop183/useful-tips.git Disclaimer: This is shared for educational and cybersecurity awareness purposes only . Curious if anyone else here has encountered these Telegram \u201ctask scams\u201d recently . submitted by /u/awsandevops [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1rwai9h/i_investigated_a_telegram_youtube_like_scam_what/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-17T15:56:15+00:00",
+      "published_ts": 1773762975,
+      "smart_groups": [
+        "Ransomware",
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Stryker says it\u2019s restoring systems after pro-Iran hackers wiped thousands of employee devices",
+      "summary": "The hack, which brought ongoing widespread disruption to the company's operations, is thought to be the first major cyberattack in the United States in response to the Trump administration's war in Iran.",
+      "link": "https://techcrunch.com/2026/03/17/stryker-says-its-restoring-systems-after-pro-iran-hackers-wiped-thousands-of-employee-devices/",
+      "source": "Security News | TechCrunch",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T15:52:50+00:00",
+      "published_ts": 1773762770,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "CMMC CCP AMA",
+      "summary": "Hey everyone, I'm a CCP and consultant in this wonderful CMMC space and today I wanted to help the community by answering as many questions as I can about unique scenarios you may have, general questions about requirements, scoping and the like. Please feel free to ask what you would like and I will do my best to answer with limited context. I ran another ama over in GRC and answered a couple questions feel free to have a look for it ( not sure I am allowed to cross post or link it here ). Happy Tuesday and hope everyone is feeling great! ( Mods this has been pre-approved ) submitted by /u/tothjm [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1rwa89i/cmmc_ccp_ama/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-17T15:46:14+00:00",
+      "published_ts": 1773762374,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "OSCP Voucher as a Beginner",
+      "summary": "So for background, I'm a first year college student with some technical background in software, web, and game development. I also currently hold Sec+, PJPT, as well as the PNPT, and soon, CySA+ (and yes I know, pls dont criticize me for chasing certs, its lowkey one of the things that give me a clear path into pursuing cybersecurity as a whole). Now I've recently seen people pass despite being beginners, and some people saying to take the CPTS first. But as a beginner focused on gettinf the OSCP first rather than spending a couple more getting the CPTS, is it genuinely possible to accomplish the OSCP in just about 3 months? If so, what are the tips for studying thats suggested? Is there any optimal path in going about the course material? I apologize if this is a redundant or reccurring question, but even with research I'm still a bit overwhelmed by a lot of positive or negative impact the certification and course has on people who have taken it, spending months or years just preparing for it alone. submitted by /u/Darkrai0571 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1rwa3d9/oscp_voucher_as_a_beginner/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-17T15:41:16+00:00",
+      "published_ts": 1773762076,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "UK Companies House Exposed Details of Millions of Firms",
+      "summary": "The government agency confirmed the vulnerability could have been exploited to obtain company details and alter records. The post UK Companies House Exposed Details of Millions of Firms appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/uk-companies-house-exposed-details-of-millions-of-firms/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T15:40:25+00:00",
+      "published_ts": 1773762025,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Warlock Ransomware Group Augments Post-Exploitation Activities",
+      "summary": "In a recent attack, the group showcased stealthier cross-network activity, thanks to its use of a new BYOVD technique and other tools.",
+      "link": "https://www.darkreading.com/threat-intelligence/warlock-ransomware-post-exploitation-activities",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T15:36:52+00:00",
+      "published_ts": 1773761812,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Strategy halts Bitcoin buying via STRC: Will BTC price dip again?",
+      "summary": "Strategy often pauses BTC buys when STRC falls below $100, a setup that has previously coincided with 25%\u201340% Bitcoin declines.",
+      "link": "https://cointelegraph.com/news/strategy-halts-bitcoin-buying-via-strc-will-btc-price-dip-again?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-17T15:35:35+00:00",
+      "published_ts": 1773761735,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "ClickFix Attack Targets Devs with MacSync Malware via Fake Claude Tools",
+      "summary": "Cybersecurity researchers at 7AI have revealed a new Claude Fraud campaign in which hackers use fake AI extensions and Google ads to steal data from tech professionals.",
+      "link": "https://hackread.com/clickfix-attack-devs-macsync-malware-fake-claude-tools/",
+      "source": "HackRead",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T15:23:53+00:00",
+      "published_ts": 1773761033,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Intel warns of high-severity vulnerabilities in a swathe of its products, with patches on the way",
+      "summary": "submitted by /u/Fcking_Chuck [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1rw9lcz/intel_warns_of_highseverity_vulnerabilities_in_a/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-17T15:23:06+00:00",
+      "published_ts": 1773760986,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "I tested GPT-5.4 Thinking, and it gave me great answers (until I dove deeper)",
+      "summary": "OpenAI claims GPT-5.4 Thinking can do professional tasks, but I'm not so sure if that's fully accurate.",
+      "link": "https://www.zdnet.com/article/gpt-5-4-thinking-tests-review/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T15:23:00+00:00",
+      "published_ts": 1773760980,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Enhanced AI-Powered Security: Unlocking Exposure and Attack Path Visibility with XM Cyber",
+      "summary": "hi The post Enhanced AI-Powered Security: Unlocking Exposure and Attack Path Visibility with XM Cyber appeared first on .",
+      "link": "https://www.news4hackers.com/enhanced-ai-powered-security-unlocking-exposure-and-attack-path-visibility-with-xm-cyber/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T15:15:58+00:00",
+      "published_ts": 1773760558,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Spring security advisory (AV26-245)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/spring-security-advisory-av26-245",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T15:13:42+00:00",
+      "published_ts": 1773760422,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Real-Time Threat Response for OT Remote Access Sessions with Xona Systems",
+      "summary": "Real-time Threat Response for OT Remote Access Sessions Now a Reality A new capability, Active... The post Real-Time Threat Response for OT Remote Access Sessions with Xona Systems appeared first on .",
+      "link": "https://www.news4hackers.com/real-time-threat-response-for-ot-remote-access-sessions-with-xona-systems/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T15:13:40+00:00",
+      "published_ts": 1773760420,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "AI-Powered Code Analysis: Reducing Software Risk with Trust Agent Technology",
+      "summary": "SCW Trust Agent: AI \u2013 A Governance Solution for AI-Driven Software Development The increasing reliance... The post AI-Powered Code Analysis: Reducing Software Risk with Trust Agent Technology appeared first on .",
+      "link": "https://www.news4hackers.com/ai-powered-code-analysis-reducing-software-risk-with-trust-agent-technology/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T15:11:15+00:00",
+      "published_ts": 1773760275,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Own a Sony TV? I changed 3 settings to noticeably improve the picture quality",
+      "summary": "Sony's various Bravia TVs deliver high-quality picture and sound. With a few simple tweaks, you can push those aspects even further.",
+      "link": "https://www.zdnet.com/article/best-settings-to-change-on-your-sony-bravia-tv/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T15:11:00+00:00",
+      "published_ts": 1773760260,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "OSDA - good for beginner or not as much?",
+      "summary": "As someone that\u2019s never had experience in cybersecurity practically but began doing projects, could OSDA bring me the needed knowledge for my role? I might not plan to be an employee forever so before anything I want to ask if this course truly covers the needs that one analyst should have. Thanks everyone! submitted by /u/Cyb3rLila101101 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1rw97wy/osda_good_for_beginner_or_not_as_much/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-17T15:09:54+00:00",
+      "published_ts": 1773760194,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Measurable Cyber Resilience with CTG\u2019s Cyber Risk Scoring Dashboard",
+      "summary": "New Cyber Resilience Scoring Dashboard Launched A new cyber resilience scoring dashboard has been launched... The post Measurable Cyber Resilience with CTG\u2019s Cyber Risk Scoring Dashboard appeared first on .",
+      "link": "https://www.news4hackers.com/measurable-cyber-resilience-with-ctgs-cyber-risk-scoring-dashboard/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T15:08:36+00:00",
+      "published_ts": 1773760116,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Pluralistic: William Gibson vs Margaret Thatcher (17 Mar 2026)",
+      "summary": "Today's links William Gibson vs Margaret Thatcher: The Street Finds Its Own Alternatives For Things. Hey look at this: Delights to delectate. Object permanence: Prison for spamming; Dotcom layoffs; Ethernet action-figures; UK libel reform; \"Poe's Detective\"; God's customer service center; \"Making Hay\"; Alexa privacy Valdez. Upcoming appearances: Where to find me. Recent appearances: Where I've been. Latest books: You keep readin' em, I'll keep writin' 'em. Upcoming books: Like I said, I'll keep writin' 'em. Colophon: All the rest. William Gibson vs Margaret Thatcher (permalink) William Gibson is one of history's most quotable sf writers: \"The future is here, it's not evenly distributed\"; \"Don't let the little fuckers generation-gap you\"; \"Cyberspace is everting\"; and the immortal: \"The street finds its own uses for things\": https://en.wikiquote.org/wiki/William_Gibson \"The street finds its own uses\" is a surprisingly subtle and liberatory battle-cry. It stakes a claim by technology's users that is separate from the claims asserted by corporations that make technology (often under grotesque and cruel conditions) and market it (often for grotesque and cruel purposes). \"The street finds its own uses\" is a statement about technopolitics. It acknowledges that yes, there are politics embedded in our technology, the blood in the machine, but these politics are neither simple, nor are they immutable. The fact that a technology was born in sin does not preclude it from being put to virtuous ends. A technology's politics are up for grabs. In other words, it's the opposite of Audre Lorde's \"The master's tools will never dismantle the master's house.\" It's an assertion that, in fact, the master's tools have all the driver-bits, hex-keys, and socket sets needed to completely dismantle the master's house, and, moreover, to build something better with the resulting pile of materials. And of course the street finds its own uses for things. Things \u2013 technology \u2013 don't appear out of nowhere. Everything is in a lineage, made from the things that came before it, destined to be transformed by the things that come later. Things can't come into existence until other things already exist. Take the helicopter. Lots of people have observed the action of a screw and the twirling of a maple key as it falls from a tree and thought, perhaps that could be made to fly. Da Vinci was drawing helicopters in the 15th century: https://en.wikipedia.org/wiki/Leonardo%27s_aerial_screw But Da Vinci couldn't build a helicopter. No one could, until they did. To make the first helicopter, you need to observe the action of the screw and the twirling of a maple key, and you need to have lightweight, strong alloys and powerful internal combustion engines. Those other things had to be invented by other people first. Once they were, the next person who thought hard about screws and maple keys was bound to get a helicopter off the ground. That's why things tend to be invented simultaneously, by unrelated parties. TV, radio and the telephone all have multiple inventors, because these people were the cohort that happened to alight upon the insights needed to build these technologies after the adjacent technologies had been made and disseminated. If technopolitics were immutable \u2013 if the original sin of a technology could never be washed away \u2013 then everything is beyond redemption. Somewhere in the history of the lever, the pulley and the wheel are some absolute monsters. Your bicycle's bloodline includes some truly horrible ancestors. The computer is practically a crime against humanity: https://pluralistic.net/2021/10/24/the-traitorous-eight-and-the-battle-of-germanium-valley/ A defining characteristic of purity culture is the belief that things are defined by their origins. An artist who was personally terrible must make terrible art \u2013 even if that art succeeds artistically, even if it moves, comforts and inspires you, it can't ever be separated from the politics of its maker. It is terrible because of its origins, not its merits. If you hate the sinner, you must also hate the sin. \"The street finds its own uses\" counsels us to hate the sinner and love the sin. The indisputable fact that HP Lovecraft was a racist creep is not a reason to write off Cthulhoid mythos \u2013 it's a reason to claim and refashion them: https://pluralistic.net/2021/01/09/the-old-crow-is-getting-slow/#i-love-ny The claim that sin is a kind of forever-chemical contaminant that can't ever be rinsed away is the ideology of Mr Gotcha: We should improve society somewhat. Yet you participate in society. Curious! https://thenib.com/mister-gotcha/ In its right-wing form, it is Margaret Thatcher's \"There is no alternative\": https://pluralistic.net/2024/10/15/piketty-pilled/#tax-justice Thatcher demanded that you accept all the injustices and oppressions of capitalism if you enjoyed its fruits. If capitalism put a roof over your head and groceries in your fridge, you can't complain about the people it hurts. There is no version of society that has the machines and practices that produced those things that does not also produce the injustice. The technological version of this is the one that tech bosses peddle: If you enjoy talking to your friends on Facebook, you can't complain about Mark Zuckerberg listening in on the conversation. There is no alternative. Wanting to talk to your friends out of Zuck's earshot is like wanting water that's not wet. It's unreasonable. But there's a left version of this, its doppelganger: the belief that a technology born in sin can never be redeemed. If you use an LLM running on your computer to find a typo, using an unmeasurably small amount of electricity in the process, you still sin \u2013 not because of anything that happens when you use that LLM, but because of LLMs' \"structural properties,\" \"the way they make it harder to learn and grow,\" \"the way they make products worse,\" the \"emissions, water use and e-waste\": https://tante.cc/2026/02/20/acting-ethical-in-an-imperfect-world/ The facts that finding punctuation errors in your own work using your own computer doesn't make it \"harder to learn and grow,\" doesn't \"make products worse,\" and doesn't add to \"emissions, water use and e-waste\" are irrelevant. The part that matters isn't the use of a technology, it's the origin. The fact that this technology is steeped in indisputable sin means that every use of it is sinful. The street can find as many uses as it likes for things, but it won't matter, because there is no alternative. When radical technologists scheme to liberate technology, they're not hoping to redeem the gadget, they're trying to liberate people. Information doesn't want to be free, because information doesn't and can't want anything. But people want to be free, and liberated access to information technology is a precondition for human liberation itself. Promethean leftists don't reject the master's tools: we seize them. The fact that Unix was born of a convicted monopolist who turned the screws on users at every turn isn't a reason to abandon Unix \u2013 it demands that we reverse-engineer, open, and free Unix: https://pluralistic.net/2025/01/20/capitalist-unrealism/#praxis We don't do this out of moral consideration for Unix. Unix is inert, it warrants no moral consideration. But billions of users of free operating systems that are resistant to surveillance and control are worthy of moral consideration and we set them free by seizing the means of computation. If a technology can do something to further human thriving, then we can love the sin, even as we hate the sinners in its lineage. We seize the means of computation, not because we care about computers, but because we care about people. Artifacts do have politics, but those politics are not immutable. Those politics are ours to seize and refashion: https://faculty.cc.gatech.edu/~beki/cs4001/Winner.pdf \"The purpose of a system is what it does\" (S. Beer). The important fact about a technology is what it does, not how it came about. Does a use of a technology harm someone? Does a use of a technology harm the environment? Does a use of a technology help someone do something that improves their life? Studying the origins of technology is good because it helps us avoid the systems and practices that hurt people. Knowing about the monsters in our technology's lineage helps us avoid repeating their sins. But there will always be sin in our technology's past, because our technology's past is the entire past, because technology is a lineage, not a gadget. If you reject things because of their origins \u2013 and not because of the things they do \u2013 then you'll end up rejecting everything (if you're honest), or twisting yourself into a series of dead-ends as you rationalize reasons that the exceptions you make out of necessity aren't really exceptions. (Image: Dylan Parker, CC BY-SA 2.0, modified) Hey look at this (permalink) Gone (Almost) Phishin\u2019 https://ma.tt/2026/03/gone-almost-phishin/ The Foilies 2026 https://www.eff.org/deeplinks/2026/03/foilies-2026 Why Voters Should Support Senator Klobuchar\u2019s \u2018\u2018Antitrust Accountability and Transparency Act\u2019\u2019 https://www.thesling.org/why-voters-should-support-senator-klobuchars-antitrust-accountability-and-transparency-act/ Bombshell Document Details Watergate-Style Corruption at the Antitrust Division https://www.thebignewsletter.com/p/monopoly-round-up-bombshell-document Sodium-ion batteries hit the Midwestern grid in first-of-its-kind pilot https://electrek.co/2026/03/11/sodium-ion-batteries-hit-the-midwestern-grid-in-first-of-its-kind-pilot (h/t Slashdot) Object permanence (permalink) #25yrsago Prison for spamming https://it.slashdot.org/story/01/03/15/1325251/spammers-face-jail-time #25yrsago 1040 for laid-off dot com workers https://web.archive.org/web/20010603113932/http://www.girlchick.com/erin/Pics/DotCom1040.jpg #25yrsago Sony ships a PalmOS device https://web.archive.org/web/20010331181042/http://www.sony.co.jp/sd/CLIE/index_pc.html #25yrsago \u201cYou Own Your Own Metadata\u201d https://www.feedmag.com/templates/default_a_id-1648 #20yrsago Action-figures made from Ethernet cable https://basik.ru/handmade/2066/ #15yrsago Poor countries have more piracy because media costs too much \u2014 report https://web.archive.org/web/20110310042425/http://piracy.ssrc.org/the-report/ #15yrsago Bahrain\u2019s royals declare martial law https://www.theguardian.com/world/2011/mar/15/bahrain-martial-law-protesters-troops #15yrsago Libel reform in the UK: telling the truth won\u2019t be illegal any longer? https://www.theguardian.com/media/2011/mar/15/libel-law-reforms #15yrsago My weird femur printed in stainless steel https://www.flickr.com/photos/doctorow/tags/femur #15yrsago War on the PC and the network: copyright was just the start https://www.theguardian.com/technology/2011/mar/15/computers-incorporate-spyware-dangers #15yrsago Poe\u2019s Detective: audio editions of Poe\u2019s groundbreaking detective stories https://memex.craphound.com/2011/03/15/poes-detective-audio-editions-of-poes-groundbreaking-detective-stories/ #15yrsago New York slashes hospital spending, but can\u2019t touch multimillion-dollar CEO paychecks https://www.nytimes.com/2011/03/16/nyregion/16about.html?_r=1&amp;hp #10yrsago Leaked memo: Donald Trump volunteers banned from critizing him, for life https://web.archive.org/web/20160315161328/http://www.dailydot.com/politics/donald-trump-volunteer-contract-nda-non-disparagement-clause/ #10yrsago Open letter from virtually every leading UK law light: Snooper\u2019s Charter not fit for purpose https://www.theguardian.com/law/2016/mar/14/investigatory-powers-bill-not-up-to-the-task #10yrsago Life inside God\u2019s customer service prayer call-centre https://web.archive.org/web/20160317153851/http://www.tor.com/2016/03/15/your-orisons-may-be-recorded/ #10yrsago The post-Snowden digital divide: the ability to understand and use privacy tools https://journal.radicallibrarianship.org/index.php/journal/article/view/12/27 #10yrsago Some future for you: the radical rise of hope in the UK https://thebaffler.com/salvos/despair-fatigue-david-graeber #10yrsago America\u2019s universities: Hedge funds saddled with inconvenient educational institutions https://web.archive.org/web/20160309093147/https://www.thenation.com/article/universities-are-becoming-billion-dollar-hedge-funds-with-schools-attached/ #10yrsago Office chairs made out of old Vespa scooters https://belybel.com/ #5yrsago STREAMLINER https://pluralistic.net/2021/03/15/free-markets/#streamliner #5yrsago Free markets https://pluralistic.net/2021/03/15/free-markets/#rent-seeking #5yrsago Making Hay https://pluralistic.net/2021/03/15/free-markets/#making-hay #1yrago Amazon annihilates Alexa privacy settings, turns on continuous, nonconsensual audio uploading https://pluralistic.net/2025/03/15/altering-the-deal/#telescreen Upcoming appearances (permalink) Barcelona: Enshittification with Simona Levi/Xnet (Llibreria Finestres), Mar 20 https://www.llibreriafinestres.com/evento/cory-doctorow/ Berkeley: Bioneers keynote, Mar 27 https://conference.bioneers.org/ Montreal: Bronfman Lecture (McGill), Apr 10 https://www.eventbrite.ca/e/artificial-intelligence-the-ultimate-disrupter-tickets-1982706623885 Montreal: Drawn and Quarterly, Apr 10 https://mtl.drawnandquarterly.com/events/4863920260410 London: Resisting Big Tech Empires (LSBU), Apr 25 https://www.tickettailor.com/events/globaljusticenow/2042691 Berlin: Re:publica, May 18-20 https://re-publica.com/de/news/rp26-sprecher-cory-doctorow Berlin: Enshittification at Otherland Books, May 19 https://www.otherland-berlin.de/de/event-details/cory-doctorow.html Hay-on-Wye: HowTheLightGetsIn, May 22-25 https://howthelightgetsin.org/festivals/hay/big-ideas-2 Recent appearances (permalink) Do you feel screwed over by big tech? (Ontario Today) https://www.cbc.ca/listen/live-radio/1-45-ontario-today/clip/16203024-do-feel-screwed-big-tech Launch for Cindy's Cohn's \"Privacy's Defender\" (City Lights) https://www.youtube.com/watch?v=WuVCm2PUalU Chicken Mating Harnesses (This Week in Tech) https://twit.tv/shows/this-week-in-tech/episodes/1074 The Virtual Jewel Box (U Utah) https://tanner.utah.edu/podcast/enshittification-cory-doctorow-matthew-potolsky/ Tanner Humanities Lecture (U Utah) https://www.youtube.com/watch?v=i6Yf1nSyekI Latest books (permalink) \"Canny Valley\": A limited edition collection of the collages I create for Pluralistic, self-published, September 2025 https://pluralistic.net/2025/09/04/illustrious/#chairman-bruce \"Enshittification: Why Everything Suddenly Got Worse and What to Do About It,\" Farrar, Straus, Giroux, October 7 2025 https://us.macmillan.com/books/9780374619329/enshittification/ \"Picks and Shovels\": a sequel to \"Red Team Blues,\" about the heroic era of the PC, Tor Books (US), Head of Zeus (UK), February 2025 (https://us.macmillan.com/books/9781250865908/picksandshovels). \"The Bezzle\": a sequel to \"Red Team Blues,\" about prison-tech and other grifts, Tor Books (US), Head of Zeus (UK), February 2024 (thebezzle.org). \"The Lost Cause:\" a solarpunk novel of hope in the climate emergency, Tor Books (US), Head of Zeus (UK), November 2023 (http://lost-cause.org). \"The Internet Con\": A nonfiction book about interoperability and Big Tech (Verso) September 2023 (http://seizethemeansofcomputation.org). Signed copies at Book Soup (https://www.booksoup.com/book/9781804291245). \"Red Team Blues\": \"A grabby, compulsive thriller that will leave you knowing more about how the world works than you did before.\" Tor Books http://redteamblues.com. \"Chokepoint Capitalism: How to Beat Big Tech, Tame Big Content, and Get Artists Paid, with Rebecca Giblin\", on how to unrig the markets for creative labor, Beacon Press/Scribe 2022 https://chokepointcapitalism.com Upcoming books (permalink) \"The Reverse-Centaur's Guide to AI,\" a short book about being a better AI critic, Farrar, Straus and Giroux, June 2026 (https://us.macmillan.com/books/9780374621568/thereversecentaursguidetolifeafterai/) \"Enshittification, Why Everything Suddenly Got Worse and What to Do About It\" (the graphic novel), Firstsecond, 2026 \"The Post-American Internet,\" a geopolitical sequel of sorts to Enshittification, Farrar, Straus and Giroux, 2027 \"Unauthorized Bread\": a middle-grades graphic novel adapted from my novella about refugees, toasters and DRM, FirstSecond, 2027 \"The Memex Method,\" Farrar, Straus, Giroux, 2027 Colophon (permalink) Today's top sources: Currently writing: \"The Post-American Internet,\" a sequel to \"Enshittification,\" about the better world the rest of us get to have now that Trump has torched America (1018 words today, 50532 total) \"The Reverse Centaur's Guide to AI,\" a short book for Farrar, Straus and Giroux about being an effective AI critic. LEGAL REVIEW AND COPYEDIT COMPLETE. \"The Post-American Internet,\" a short book about internet policy in the age of Trumpism. PLANNING. A Little Brother short story about DIY insulin PLANNING This work \u2013 excluding any serialized fiction \u2013 is licensed under a Creative Commons Attribution 4.0 license. That means you can use it any way you like, including commercially, provided that you attribute it to me, Cory Doctorow, and include a link to pluralistic.net. https://creativecommons.org/licenses/by/4.0/ Quotations and images are not included in this license; they are included either under a limitation or exception to copyright, or on the basis of a separate license. Please exercise caution. How to get Pluralistic: Blog (no ads, tracking, or data-collection): Pluralistic.net Newsletter (no ads, tracking, or data-collection): https://pluralistic.net/plura-list Mastodon (no ads, tracking, or data-collection): https://mamot.fr/@pluralistic Bluesky (no ads, possible tracking and data-collection): https://bsky.app/profile/doctorow.pluralistic.net Medium (no ads, paywalled): https://doctorow.medium.com/ https://twitter.com/doctorow Tumblr (mass-scale, unrestricted, third-party surveillance and advertising): https://mostlysignssomeportents.tumblr.com/tagged/pluralistic \"When life gives you SARS, you make sarsaparilla\" -Joey \"Accordion Guy\" DeVilla READ CAREFULLY: By reading this, you agree, on behalf of your employer, to release me from all obligations and waivers arising from any and all NON-NEGOTIATED agreements, licenses, terms-of-service, shrinkwrap, clickwrap, browsewrap, confidentiality, non-disclosure, non-compete and acceptable use policies (\"BOGUS AGREEMENTS\") that I have entered into with your employer, its partners, licensors, agents and assigns, in perpetuity, without prejudice to my ongoing rights and privileges. You further represent that you have the authority to release me from any BOGUS AGREEMENTS on behalf of your employer. ISSN: 3066-764X",
+      "link": "https://pluralistic.net/2026/03/17/technopolitics/",
+      "source": "https://pluralistic.net/feed/",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T15:07:57+00:00",
+      "published_ts": 1773760077,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Linux / Unix",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "5 Essential Security Measures CISOs Must Implement to Safeguard AI-Powered Systems and Data",
+      "summary": "Securing Artificial Intelligence Agents: A New Approach As artificial intelligence (AI) agents become increasingly autonomous,... The post 5 Essential Security Measures CISOs Must Implement to Safeguard AI-Powered Systems and Data appeared first on .",
+      "link": "https://www.news4hackers.com/5-essential-security-measures-cisos-must-implement-to-safeguard-ai-powered-systems-and-data/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T15:06:30+00:00",
+      "published_ts": 1773759990,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Announcing Copilot leadership update",
+      "summary": "Satya Nadella, Chairman and CEO, and Mustafa Suleyman, Executive Vice President and CEO of Microsoft AI, shared the below communications with Microsoft employees this morning. SATYA NADELLA MESSAGE I want to share two org changes we\u2019re making to our Copilot org and superintelligence effort. It\u2019s clear a new era of productivity is emerging as AI experiences... The post Announcing Copilot leadership update appeared first on The Official Microsoft Blog .",
+      "link": "https://blogs.microsoft.com/blog/2026/03/17/announcing-copilot-leadership-update/",
+      "source": "https://blogs.microsoft.com/feed/",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T15:04:10+00:00",
+      "published_ts": 1773759850,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Surf AI Secures $57 Million in Funding for Agentic Security Operations Platform",
+      "summary": "A New York-based startup, Surf AI, has emerged from stealth mode with a $57 million... The post Surf AI Secures $57 Million in Funding for Agentic Security Operations Platform appeared first on .",
+      "link": "https://www.news4hackers.com/surf-ai-secures-57-million-in-funding-for-agentic-security-operations-platform/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T15:03:58+00:00",
+      "published_ts": 1773759838,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "GlassWorm Part 4 -- 24h after samples made live: DLL injection, Chrome hijacking via COM abuse, and the full supply chain loop confirmed",
+      "summary": "Find further break-down on linked files within submitted by /u/Willing_Monitor5855 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1rw91i2/glassworm_part_4_24h_after_samples_made_live_dll/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-17T15:03:41+00:00",
+      "published_ts": 1773759821,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "RondoDox botnet expands arsenal targeting 174 flaws, and hits 15,000 daily exploit attempts",
+      "summary": "RondoDox botnet targets 174 flaws, reaching 15,000 daily exploit attempts in a more focused and strategic campaign. RondoDox botnet is ramping up attacks, targeting 174 vulnerabilities with up to 15,000 daily exploitation attempts in a more focused and strategic campaign, Bitsight reported. \u201cWe gathered all these exploit attempts (identifiable by indicators like the User-Agent and [\u2026]",
+      "link": "https://securityaffairs.com/189569/malware/rondodox-botnet-expands-arsenal-targeting-174-flaws-and-hits-15000-daily-exploit-attempts.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T15:01:52+00:00",
+      "published_ts": 1773759712,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Cloud / SaaS",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Sam Altman\u2019s World Taps Coinbase\u2019s Open Protocol to Verify Humans Behind AI Agents",
+      "summary": "A new toolkit aims to allow AI agents to prove that a real person stands behind them when interacting online.",
+      "link": "https://decrypt.co/361323/altman-world-coinbase-open-protocol-verify-humans-ai",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-17T15:01:03+00:00",
+      "published_ts": 1773759663,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "GlassWorm Part 4 -- 24h after samples made live: DLL injection, Chrome hijacking via COM abuse, and the full supply chain loop confirmed",
+      "summary": "See linked files on same repo for further details submitted by /u/Willing_Monitor5855 [link] [comments]",
+      "link": "https://www.reddit.com/r/netsec/comments/1rw8yqk/glassworm_part_4_24h_after_samples_made_live_dll/",
+      "source": "/r/netsec",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-17T15:00:59+00:00",
+      "published_ts": 1773759659,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "The New Era of Application Security: Reasoning-Based Agents, Runtime Reality, and Risk Intelligence",
+      "summary": "Key Takeaways Introduction Application security is entering a new phase. It is now an AI problem, an API problem, and a runtime risk problem. Artificial intelligence in application security is reshaping the category from both directions. It is improving how teams detect vulnerabilities through code reasoning, automated analysis, and faster testing. At the same time, [\u2026]",
+      "link": "https://blog.qualys.com/category/product-tech",
+      "source": "Product and Tech \u2013 Qualys Security Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-03-17T15:00:00+00:00",
+      "published_ts": 1773759600,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "'CursorJack\u2019 Attack Path Exposes Code Execution Risk in AI Development Environment",
+      "summary": "CursorJack shows how malicious MCP deeplinks in Cursor IDE can trigger user-approved code execution",
+      "link": "https://www.infosecurity-magazine.com/news/cursor-jack-attack-path-ai/",
+      "source": "Infosecurity Magazine \u2013 News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T15:00:00+00:00",
+      "published_ts": 1773759600,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Announcing native MCP Server in SonarQube Cloud",
+      "summary": "The rise of AI-assisted software development has introduced a new bottleneck: code verification. While AI can generate code at unprecedented speeds, manually verifying that code for quality and security often breaks a software developer's flow.",
+      "link": "https://www.sonarsource.com/blog/announcing-native-mcp-server-in-sonarqube-cloud/",
+      "source": "https://www.sonarsource.com/blog/rss.xml",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-03-17T15:00:00+00:00",
+      "published_ts": 1773759600,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "The New Era of Application Security: Reasoning-Based Agents, Runtime Reality, and Risk Intelligence",
+      "summary": "Key Takeaways Introduction Application security is entering a new phase. It is now an AI problem, an API problem, and a runtime risk problem. Artificial intelligence in application security is reshaping the category from both directions. It is improving how teams detect vulnerabilities through code reasoning, automated analysis, and faster testing. At the same time, [\u2026]",
+      "link": "https://blog.qualys.com/product-tech/2026/03/17/new-era-application-security-reasoning-agents-runtime-risk-2026",
+      "source": "Qualys Security Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-03-17T15:00:00+00:00",
+      "published_ts": 1773759600,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "I tested Samsung's new Galaxy Buds 4 Pro - it's not the design downgrade that I expected",
+      "summary": "A new look might be the most interesting thing about the Galaxy Buds 4 Pro, but their audio upgrades don't go unnoticed.",
+      "link": "https://www.zdnet.com/article/samsung-galaxy-buds-4-review/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T14:53:10+00:00",
+      "published_ts": 1773759190,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "The AI Exchange: Innovators in Payment Security Featuring Toast, Inc.",
+      "summary": "Welcome to the PCI Security Standards Council\u2019s blog series, The AI Exchange: Innovators in Payment Security. This special, ongoing feature of our PCI Perspectives blog offers a resource for payment security industry stakeholders to exchange information about how they are adopting and implementing artificial intelligence (AI) into their organizations.",
+      "link": "https://blog.pcisecuritystandards.org/the-ai-exchange-innovators-in-payment-security-featuring-toast-inc",
+      "source": "PCI Security Standards Blog",
+      "type": "government",
+      "type_label": "Government, CERT & Advisories",
+      "published": "2026-03-17T14:43:40+00:00",
+      "published_ts": 1773758620,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "CTG unveils cyber resilience scoring dashboard for measurable risk reduction",
+      "summary": "CTG has announced the launch of a cyber resilience scoring dashboard that helps organizations quantify risk, prioritize remediation, and track measurable improvement over time. The dashboard is part of the Group\u2019s Cegeka Security Advisory Framework (CSAF), a modular approach that combines assessments and advisory services to help organizations continuously improve their security strategy. By translating assessment outcomes into a single score and clear trends, the dashboard provides immediate visibility into cyber risk, program maturity, and \u2026 More \u2192 The post CTG unveils cyber resilience scoring dashboard for measurable risk reduction appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/03/17/ctg-cyber-resilience-scoring-dashboard/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T14:42:25+00:00",
+      "published_ts": 1773758545,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "LeakNet Ransomware Uses ClickFix via Hacked Sites, Deploys Deno In-Memory Loader",
+      "summary": "The ransomware operation known as LeakNet has adopted the ClickFix social engineering tactic delivered through compromised websites as an initial access method. The use of ClickFix, where users are tricked into manually running malicious commands to address non-existent errors, is a departure from relying on traditional methods for obtaining initial access, such as through stolen credentials",
+      "link": "https://thehackernews.com/2026/03/leaknet-ransomware-uses-clickfix-via.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T14:34:00+00:00",
+      "published_ts": 1773758040,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Malware / Payloads",
+        "Phishing / Social Engineering"
+      ],
+      "curated": true
+    },
+    {
+      "title": "XRP holders hit a record 7.7M: Will price break through $1.60 next?",
+      "summary": "XRP\u2019s road to recovery will pick up momentum if network usage continues rising and bulls push the price above the $1.60 resistance.",
+      "link": "https://cointelegraph.com/news/xrp-holders-hit-record-7-7m-will-price-break-1-60?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-17T14:31:47+00:00",
+      "published_ts": 1773757907,
+      "smart_groups": [
+        "Ransomware"
+      ],
       "curated": false
     },
     {
@@ -71,6 +728,34 @@
       "curated": false
     },
     {
+      "title": "Here\u2019s what happened in crypto today",
+      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
+      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-17T14:26:58+00:00",
+      "published_ts": 1773757618,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Microsoft Confirms Windows 11 Bug Crippling PCs, Blocking Access to Core Drive",
+      "summary": "Microsoft says a Windows 11 issue tied to Samsung Galaxy Connect can block access to the C: drive and prevent key apps from opening. The post Microsoft Confirms Windows 11 Bug Crippling PCs, Blocking Access to Core Drive appeared first on TechRepublic .",
+      "link": "https://www.techrepublic.com/article/news-windows-11-bug-c-drive-access-denied-samsung-fix/",
+      "source": "TechRepublic \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T14:26:09+00:00",
+      "published_ts": 1773757569,
+      "smart_groups": [
+        "Windows / Microsoft"
+      ],
+      "curated": false
+    },
+    {
       "title": "SCW Trust Agent: AI tracks AI influence in code to reduce software risk",
       "summary": "Secure Code Warrior has announced SCW Trust Agent: AI, a governance solution designed to make AI influence in software development visible, attributable, and enforceable at the point of commit, enabling enterprises to scale AI coding tools with measurable control over software risk. Organizations can trace which AI models influenced specific commits, correlate that influence with vulnerability exposure, and take corrective action before insecure code reaches production. According to Sonar\u2019s 2026 State of Code Developer Survey, \u2026 More \u2192 The post SCW Trust Agent: AI tracks AI influence in code to reduce software risk appeared first on Help Net Security .",
       "link": "https://www.helpnetsecurity.com/2026/03/17/secure-code-warrior-trust-agent-ai-governance/",
@@ -84,6 +769,21 @@
         "Vulnerabilities / CVEs"
       ],
       "curated": true
+    },
+    {
+      "title": "Kubernetes CSI Driver for NFS Vulnerability Lets Attackers Delete or Modify NFS Server Directories",
+      "summary": "A path traversal vulnerability has been identified in the Kubernetes Container Storage Interface (CSI) Driver for NFS, potentially allowing attackers to delete or modify unintended directories on NFS servers. The flaw stems from insufficient validation of the subDir parameter in volume identifiers, exposing clusters that permit users to create PersistentVolumes referencing the NFS CSI driver. [\u2026] The post Kubernetes CSI Driver for NFS Vulnerability Lets Attackers Delete or Modify NFS Server Directories appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/kubernetes-csi-driver-nfs-vulnerability/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T14:24:27+00:00",
+      "published_ts": 1773757467,
+      "smart_groups": [
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": false
     },
     {
       "title": "Surf AI Raises $57 Million for Agentic Security Operations Platform",
@@ -109,6 +809,18 @@
       "smart_groups": [
         "Network / OT / ICS"
       ],
+      "curated": false
+    },
+    {
+      "title": "Mastercard agrees to acquire BVNK in $1.8B stablecoin deal",
+      "summary": "Mastercard agreed to acquire BVNK for up to $1.8 billion as it expands further into stablecoin and blockchain-based payments.",
+      "link": "https://cointelegraph.com/news/mastercard-to-acquire-bvnk-in-1-8b-stablecoin-deal?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-17T14:13:15+00:00",
+      "published_ts": 1773756795,
+      "smart_groups": [],
       "curated": false
     },
     {
@@ -142,6 +854,20 @@
       "curated": false
     },
     {
+      "title": "New Windows 11 25H2/24H2 Update Fixes Bluetooth Devices Visibility Issues",
+      "summary": "Microsoft has rolled out an out-of-band update for Windows 11 users to address a frustrating interface bug affecting Bluetooth device visibility. Released on March 16, 2026, this emergency patch resolves a software glitch in which connected wireless peripherals mysteriously disappeared from the operating system\u2019s settings menus. While Microsoft typically issues security and performance fixes on [\u2026] The post New Windows 11 25H2/24H2 Update Fixes Bluetooth Devices Visibility Issues appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/windows-11-bluetooth-visibility-bug/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T14:03:44+00:00",
+      "published_ts": 1773756224,
+      "smart_groups": [
+        "Windows / Microsoft"
+      ],
+      "curated": false
+    },
+    {
       "title": "Orchid Security Recognized by Gartner\u00ae as a Representative Vendor of Guardian Agents",
       "summary": "New York, United States, March 17th, 2026, CyberNewswire Unleash AI adoption securely: discover, attribute, and govern AI agents throughout the enterprise Orchid Security, the company bringing clarity and control to the complexity of enterprise identity, today announced it has been recognized as a Representative Vendor in Gartner\u2019s Market Guide for Guardian Agents, as a vendor [\u2026] The post Orchid Security Recognized by Gartner\u00ae as a Representative Vendor of Guardian Agents appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
       "link": "https://gbhackers.com/orchid-security-recognized-by-gartner-as-a-representative-vendor-of-guardian-agents/",
@@ -165,6 +891,34 @@
       "smart_groups": [
         "Linux / Unix"
       ],
+      "curated": false
+    },
+    {
+      "title": "Angular XSS Vulnerability Exposes Thousands of web Applications to XSS Attacks",
+      "summary": "A high-severity Cross-Site Scripting (XSS) vulnerability has been discovered in the widely used Angular framework. Tracked as CVE-2026-32635 and categorized under CWE-79, this flaw affects both the @angular/compiler and @angular/core packages. Because Angular powers countless enterprise and consumer web applications worldwide, this vulnerability potentially exposes a massive attack surface to threat actors. The vulnerability stems from how Angular handles [\u2026] The post Angular XSS Vulnerability Exposes Thousands of web Applications to XSS Attacks appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/angular-xss-vulnerability-xss-attacks/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T14:00:55+00:00",
+      "published_ts": 1773756055,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Web / API Security"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Orchid Security Recognized by Gartner\u00ae as a Representative Vendor of Guardian Agents",
+      "summary": "New York, United States, March 17th, 2026, CyberNewswire Unleash AI adoption securely: discover, attribute, and govern AI agents throughout the enterprise Orchid Security, the company bringing clarity and control to the complexity of enterprise identity, today announced it has been recognized as a Representative Vendor in Gartner\u2019s Market Guide for Guardian Agents, as a vendor [\u2026] The post Orchid Security Recognized by Gartner\u00ae as a Representative Vendor of Guardian Agents appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/orchid-security-recognized-by-gartner-as-a-representative-vendor-of-guardian-agents/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T14:00:54+00:00",
+      "published_ts": 1773756054,
+      "smart_groups": [],
       "curated": false
     },
     {
@@ -200,6 +954,32 @@
       "type_label": "General Security & Blogs",
       "published": "2026-03-17T13:59:12+00:00",
       "published_ts": 1773755952,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "UK\u2019s Companies House WebFiling Flaw Exposed Private Director Data for Five Months",
+      "summary": "UK\u2019s Companies House, the government\u2019s official register of businesses, has revealed a significant security flaw in its WebFiling service. The vulnerability exposed sensitive director data and potentially allowed unauthorized changes to company records for roughly five months. Andy King, Chief Executive of Companies House, confirmed the incident in a public statement on March 16, 2026. [\u2026] The post UK\u2019s Companies House WebFiling Flaw Exposed Private Director Data for Five Months appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/uks-companies-house-webfiling-flaw/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T13:57:52+00:00",
+      "published_ts": 1773755872,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "GitGuardian Reports an 81% Surge of AI-Service Leaks as 29M Secrets Hit Public GitHub",
+      "summary": "New York, NY, March 17th, 2026, CyberNewswire In 2025, Developer Commits Using Claude Code Show 3.2% Secret Leak Rate vs. 1.5% Baseline. The Human Factor Remains Critical GitGuardian, the security leader behind GitHub\u2019s most installed application, today released the 5th edition of its \u201cState of Secrets Sprawl\u201d report, documenting how mainstream AI adoption in 2025 [\u2026] The post GitGuardian Reports an 81% Surge of AI-Service Leaks as 29M Secrets Hit Public GitHub appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/gitguardian-ai-service-leaks-github/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T13:57:50+00:00",
+      "published_ts": 1773755870,
       "smart_groups": [],
       "curated": false
     },
@@ -280,6 +1060,22 @@
       "published_ts": 1773755580,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "CISA Warns of Wing FTP Server Vulnerability Exploited in Attacks",
+      "summary": "A high-priority alert has been issued for a critical vulnerability in Wing FTP Server, added to the Known Exploited Vulnerabilities (KEV) catalog on March 16, 2026. This addition confirms that malicious actors are actively weaponizing the vulnerability in real-world network attacks. Organizations relying on this secure file transfer software are advised to take immediate action [\u2026] The post CISA Warns of Wing FTP Server Vulnerability Exploited in Attacks appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/wing-ftp-server-vulnerability-exploited-2/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T13:50:18+00:00",
+      "published_ts": 1773755418,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
     },
     {
       "title": "Reversing the FT100 BLE fitness bracelet",
@@ -562,6 +1358,21 @@
       "published_ts": 1773752803,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "6 Malicious Packagist Themes Ship Trojanized jQuery in OphimCMS Supply Chain Attack",
+      "summary": "A new supply chain attack has targeted OphimCMS, a Vietnamese-language Laravel content management system widely used for building movie streaming websites. Six malicious Composer packages were published on Packagist under the ophimcms namespace, carefully disguised as legitimate themes for the platform. Each package carries trojanized JavaScript assets \u2014 primarily fake jQuery libraries \u2014 designed to redirect visitors, [\u2026] The post 6 Malicious Packagist Themes Ship Trojanized jQuery in OphimCMS Supply Chain Attack appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/6-malicious-packagist-themes-ship-trojanized-jquery/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T13:04:33+00:00",
+      "published_ts": 1773752673,
+      "smart_groups": [
+        "Curated",
+        "Malware / Payloads"
+      ],
+      "curated": true
     },
     {
       "title": "Cango reports $285M Q4 loss as Bitcoin mining costs surge in 2025",
@@ -990,6 +1801,22 @@
       "curated": false
     },
     {
+      "title": "Linux Foundation Announces $12.5 Million in Grant Funding from Leading Organizations to Advance Open Source Security",
+      "summary": "",
+      "link": "https://openssf.org/press-release/2026/03/17/linux-foundation-announces-12-5-million-in-grant-funding-from-leading-organizations-to-advance-open-source-security/",
+      "source": "Open Source Security Foundation",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T12:00:51+00:00",
+      "published_ts": 1773748851,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Linux / Unix"
+      ],
+      "curated": true
+    },
+    {
       "title": "GitGuardian Reports an 81% Surge of AI-Service Leaks as 29M Secrets Hit Public GitHub",
       "summary": "New York, NY, 17th March 2026, CyberNewswire",
       "link": "https://hackread.com/gitguardian-reports-an-81-surge-of-ai-service-leaks-as-29m-secrets-hit-public-github/",
@@ -1257,6 +2084,24 @@
         "Curated",
         "Vulnerabilities / CVEs",
         "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Security Stack Recommendations for a Mid-Size Dev Company",
+      "summary": "Looking for practical security tool recommendations for a software product development org with ~500 employees, 60% Linux / 40% Windows endpoints, 100% BYOD mobile phones, and multiple office locations + remote users. Current posture is basic \u2014 standard firewall, VPN, some open-source tools, no mature EDR, limited centralized logging, and no device compliance enforcement. We're maturing our security architecture incrementally without killing developer productivity. Seeking advice across six areas: Endpoint Security \u2014 EDR/XDR for mixed Linux + Windows environments, open-source or cost-effective options BYOD Mobile \u2014 MDM vs. MAM-only approaches, work profiles, conditional access, company-data-only wipe Identity & Access \u2014 MFA everywhere, SSO, conditional access across Linux-heavy dev environments Monitoring & Detection \u2014 Centralized logging, lightweight SIEM alternatives, Linux-friendly visibility Developer Workflow Security \u2014 Git/CI-CD pipeline security, secrets management, dependency scanning Network Security \u2014 Zero Trust alternatives to traditional VPN, multi-location segmentation Key constraints: must support Linux properly, avoid slowing developers down, prefer open-source/cost-efficient tools, and support remote/multi-location work. What stack would you prioritize first? Real-world experiences welcome! submitted by /u/linuxad [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1rw39t3/security_stack_recommendations_for_a_midsize_dev/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-17T10:56:24+00:00",
+      "published_ts": 1773744984,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Linux / Unix",
+        "Identity / Access"
       ],
       "curated": true
     },
@@ -3167,20 +4012,6 @@
       "published_ts": 1773697969,
       "smart_groups": [
         "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Here\u2019s what happened in crypto today",
-      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-03-16T21:37:58+00:00",
-      "published_ts": 1773697078,
-      "smart_groups": [
-        "Crypto / Web3"
       ],
       "curated": false
     },
@@ -23546,18 +24377,6 @@
       "curated": false
     },
     {
-      "title": "From Shadow Models to Audit-Ready AI Security: A Practical Path with Qualys TotalAI",
-      "summary": "Key Takeaways Governing AI Adoption as It Outpaces Security Frameworks AI adoption inside enterprises is moving faster than governance. Models get embedded into apps, copilots, and internal workflows. Endpoints get spun up in cloud consoles. MCP servers get connected \u201cjust to test something,\u201d then quietly become a production dependency. That is how AI risk shows [\u2026]",
-      "link": "https://blog.qualys.com/category/product-tech",
-      "source": "Product and Tech \u2013 Qualys Security Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-10T15:00:00+00:00",
-      "published_ts": 1773154800,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
       "title": "Ericsson Breach Exposes Data of 15k Employees and Customers",
       "summary": "Ericsson data breach affects 15k employees/customers after third-party service provider compromise",
       "link": "https://www.infosecurity-magazine.com/news/ericsson-breach-exposes-data-15k/",
@@ -26972,18 +27791,6 @@
       "type_label": "Crypto & Blockchain Security",
       "published": "2026-03-10T01:21:36+00:00",
       "published_ts": 1773105696,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "I tried GPT-5.4, and most answers were really good - but a few had me concerned",
-      "summary": "OpenAI claims that GPT-5.4 Thinking can do professional tasks, but I'm not so sure if that's fully accurate.",
-      "link": "https://www.zdnet.com/article/gpt-5-4-thinking-tests-review/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-10T01:15:45+00:00",
-      "published_ts": 1773105345,
       "smart_groups": [],
       "curated": false
     },
@@ -38728,18 +39535,6 @@
       "type_label": "General Security & Blogs",
       "published": "2026-03-06T01:00:00+00:00",
       "published_ts": 1772758800,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Own a Sony TV? Changing these 3 settings will greatly improve its picture quality",
-      "summary": "Sony's various Bravia TVs deliver cinema-quality picture and sound. With a few easy tweaks, you can push them even further.",
-      "link": "https://www.zdnet.com/article/best-settings-to-change-on-your-sony-bravia-tv/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-06T00:56:27+00:00",
-      "published_ts": 1772758587,
       "smart_groups": [],
       "curated": false
     },
@@ -114154,137 +114949,6 @@
       "type_label": "General Security & Blogs",
       "published": "2026-02-15T15:56:40+00:00",
       "published_ts": 1771171000,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Bank Account Misuse Lands Youth in Cyber Fraud Probe, Two Women Booked",
-      "summary": "Complaint Filed Against Two Women for Misusing Bank Account and SIM Card A 26-year-old private... The post Bank Account Misuse Lands Youth in Cyber Fraud Probe, Two Women Booked appeared first on .",
-      "link": "https://www.news4hackers.com/bank-account-misuse-lands-youth-in-cyber-fraud-probe-two-women-booked/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-15T15:51:51+00:00",
-      "published_ts": 1771170711,
-      "smart_groups": [
-        "Linux / Unix"
-      ],
-      "curated": false
-    },
-    {
-      "title": "JUMP INTO CYBERSECURITY",
-      "summary": "I am interested in getting into cybersecurity the cheapest way possible. Any suggestions for like internships or things of that nature. I am pretty good with computers and a fast learner when interested. Thanks in advance. submitted by /u/Richdollars1109 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1r5hhte/jump_into_cybersecurity/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-15T15:33:25+00:00",
-      "published_ts": 1771169605,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Pastebin Comments Expose ClickFix JavaScript Vulnerability in Crypto Swaps",
-      "summary": "New Campaign Targets Cryptocurrency Users with Malicious JavaScript Code A new campaign has been discovered... The post Pastebin Comments Expose ClickFix JavaScript Vulnerability in Crypto Swaps appeared first on .",
-      "link": "https://www.news4hackers.com/pastebin-comments-expose-clickfix-javascript-vulnerability-in-crypto-swaps/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-15T15:31:58+00:00",
-      "published_ts": 1771169518,
-      "smart_groups": [
-        "Vulnerabilities / CVEs",
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "New research shows a strongly likelihood of reaching Q-Day before 2030",
-      "summary": "New quantum research is out ( https://arxiv.org/pdf/2602.11457 ). It says that factoring 2048-bit RSA can be done using fewer than 100K physical qubits. Multiple quantum companies are planning to have that many qubits before 2030, including IONQ ( https://www.ionq.com/blog/demystifying-logical-qubits-and-fault-tolerance ). If this is true, how can NIST/CISA keep the current PQC preparation dates at 2030/2035? submitted by /u/rogeragrimes [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1r5h70v/new_research_shows_a_strongly_likelihood_of/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-15T15:21:03+00:00",
-      "published_ts": 1771168863,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Pastebin comments push ClickFix JavaScript attack to hijack crypto swaps",
-      "summary": "Threat actors are abusing Pastebin comments to distribute a new ClickFix-style attack that tricks cryptocurrency users into executing malicious JavaScript in their browser, allowing attackers to hijack Bitcoin swap transactions and redirect funds to attacker-controlled wallets. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/pastebin-comments-push-clickfix-javascript-attack-to-hijack-crypto-swaps/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-15T15:17:27+00:00",
-      "published_ts": 1771168647,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Jammu and Kashmir: Hub for Digital Hawala Network with Over 8000 Mule Accounts Detected",
-      "summary": "Jammu and Kashmir Becomes Hub for Expanding Digital Money Laundering Network Security agencies have uncovered... The post Jammu and Kashmir: Hub for Digital Hawala Network with Over 8000 Mule Accounts Detected appeared first on .",
-      "link": "https://www.news4hackers.com/jammu-and-kashmir-hub-for-digital-hawala-network-with-over-8000-mule-accounts-detected/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-15T15:11:50+00:00",
-      "published_ts": 1771168310,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Microsoft Warns of DNS-Based ClickFix Attack via Nslookup for Malware Staging and Deployment",
-      "summary": "New Malware Staging Tactic Abuses DNS for Stealthy Payload Delivery A recently discovered variation of... The post Microsoft Warns of DNS-Based ClickFix Attack via Nslookup for Malware Staging and Deployment appeared first on .",
-      "link": "https://www.news4hackers.com/microsoft-warns-of-dns-based-clickfix-attack-via-nslookup-for-malware-staging-and-deployment/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-15T15:07:08+00:00",
-      "published_ts": 1771168028,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "AI Security Challenges from Customer Perspective",
-      "summary": "Do we have any GRC people or CISOs here who can list a few of their challenges with regards to public and private LLM based applications? I am considering a pivot into AI Security after having spent years in traditional cybersecurity vendors like PANW, Crowdstrike etc. and trying to identify the vendor with the best product market fit based on what people need. Eventually it will be you guys, who knows what you need the best. submitted by /u/Kindly-Cream9098 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1r5gmjh/ai_security_challenges_from_customer_perspective/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-15T14:57:29+00:00",
-      "published_ts": 1771167449,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Update: Changing the Account Name Entity Mapping in Microsoft Sentinel",
-      "summary": "The upcoming update introduces more consistent and predictable entity data across analytics, incidents, and automation by standardizing how the Account Name property is populated when using UPN\u2011based mappings in analytic rules. Going forward, Account Name property will consistently contain only the UPN prefix, with new dedicated fields added for the full UPN and UPN suffix. While this improves consistency and enables more granular automation, customers who rely on specific Account Name values in automation rules or Logic App playbooks may need to take action. Timeline Effective date: July 1, 2026. The change will apply automatically - no opt-in is required. Scope of impact Analytics Rules which include mapping of User Principal Name (UPN) to the Account Name entity field, where the resulting alerts are processed by A utomation Rules or Logic App Playbooks that reference the AccountName property. What\u2019s changing Currently When an Analytic Rule includes mapping of a full UPN (for example: ' user@domain.com' ) to the Account Name field, the resulting input value for the Automation Rule or/and Logic App Playbook is inconsistent . In some cases, it contains only the UPN prefix: ' user' , and in other cases the full UPN (' user@domain.com' ). After July 1, 2026 Account Name property will consistently contain only the UPN prefix The following new fields will be added to the entity object: AccountName (UPN prefix) UPNSuffix UserPrincipalName (full UPN) This change provides an enhanced filtering and automation logic based on these new fields. Example Before Analytics Rule maps: ' user@domain.com' Automation Rule receives: Account Name : ' user' or ' user@domain.com' (inconsistent) After Analytics Rule maps: ' user@domain.com' Automation Rule receives: Account Name : ' user' UPNSuffix : ' domain.com' Logic App Playbook and SecurityAlert table receives: AccountName : ' user' UPNSuffix : ' domain.com' UserPrincipalName : ' user@domain.com' Feature / Location Before After SecurityAlert table Logic App Playbook Entity Why does it matter? If your automation logic relies on exact string comparisons against the full UPN stored in Account Name , those conditions may no longer match after the update. This most commonly affects: Automation Rules using \" Equals\" condition on Account Name Logic App Playbooks comparing entity field ' accountName' to a full UPN value Call to action Avoid strict equality checks against Account Name Use flexible operators such as: Contains Starts with Leverage the new UPNSuffix field for clearer intent Example update Before - Account name will show as 'user' or 'user@domain.com' After - Account Name will show as 'user' Recommended changes : Account Name C ontains/ S tartswith ' user' UPNSuffix E quals/Startswith/C ontains ' domain.com' This approach ensures compatibility both before and after the change takes effect. Where to update Review any filters, conditions, or branching logic that depend on Account Name values. Automation Rules : Use the ' Account name' field Logic App Playbooks : Update conditions referencing the entity: ' accountName' For example: Automation Rule before the change: Automation Rule after the change: Summary A consistency improvement to Account Name mapping is coming on July 1, 2026 The change affects Automation Rules and Logic App Playbooks that rely on UPN to Account Name mappings New UPN related fields provide better structure and control Customers should follow the recommendations above before the effective change date",
-      "link": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/update-changing-the-account-name-entity-mapping-in-microsoft/ba-p/4489040",
-      "source": "Microsoft Sentinel Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-02-15T14:32:23+00:00",
-      "published_ts": 1771165943,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Delhi Police Busts \u20b945 Lakh Fake Stock Trading Scam Network",
-      "summary": "Delhi Police Dismantles Sophisticated Fake Stock Trading Scam A sophisticated fake stock trading scam that... The post Delhi Police Busts \u20b945 Lakh Fake Stock Trading Scam Network appeared first on .",
-      "link": "https://www.news4hackers.com/delhi-police-busts-%e2%82%b945-lakh-fake-stock-trading-scam-network/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-15T14:31:50+00:00",
-      "published_ts": 1771165910,
       "smart_groups": [],
       "curated": false
     },
