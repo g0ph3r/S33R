@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-03-18T20:52:58.682649+00:00",
+  "generated_at": "2026-03-18T22:49:41.959985+00:00",
   "days_back": 30,
-  "total_items": 8428,
+  "total_items": 8431,
   "items": [
     {
       "title": "Secure Your Spot at RSAC 2026 Conference",
@@ -28,6 +28,248 @@
       "curated": false
     },
     {
+      "title": "Micropatches released for Microsoft Access Remote Code Execution Vulnerability (CVE-2025-62552)",
+      "summary": "December 2025 Windows Updates brought a patch for CVE-2025-62552 , a remote code execution vulnerability in Microsoft Access that could allow a remote attacker to have their malicious code executed on user's computer upon opening a Word file with an Access database connection. The vulnerability was discovered and reported to Microsoft by security researcher Alberto Bruscino . Alberto subsequently published a detailed article , and shared their POC with us, which allowed us to reproduce the vulnerability and create patches for it. The Vulnerability The vulnerability is in the way Microsoft Access creates a database file in an ODBC connection, whereby a malicious Word file with an Access database connection (such as via the \"mail merge\" functionality) can create an arbitrary Word file in an Office-trusted location, subsequently resulting in attacker's Word macros being executed with user's identity. (See Alberto's article for a detailed process.) Among our security-adopted Office versions, we found this vulnerability to affect not only Office 2016 and 2019 click-to-run, but also Office 2013 and Office 2010. Office 2016 and 2019 volume license received an official patch from Microsoft. Microsoft's Patch Microsoft patched this issue by changing Microsoft Access logic such that using remote database files now also adheres to the already-existing trust model based on Trusted Locations. Various other security decisions have previously been based on the Trusted Locations model, e.g., whether a document opened from a folder is allowed to execute macros, but now the decision to use a remote database file is also included. Note that this change, while needed for security, has negatively affected various use cases, resulting in an \"Operation is not supported\" error when remote database connections were used by Office documents outside of trusted locations: Microsoft Learn: Operation is not supported error in Access and Excel To resolve this error, users had to either move the affected Office documents to a Trusted Location, or (not recommended) disable this enforcement using the AllowQueryRemoteTables registry value as described in this article (see section \"Access Connectivity Engine (ACE)\"). Here is another good article on resolving this error. Our Patch Our patch is logically identical to Microsoft's. This means that - just like with Microsoft's patch - it can break some existing use cases that involve external database references. Should this happen, we recommend the following course of action: Try adding the Office document that produces the error to a Trusted Location (see here for Office 2013 , here for Office 2016 and higher ), either by moving the document to one of existing trusted locations, or adding a new trusted location where the document resides. In the latter case, be careful not to trust a location where an attacker could potentially place their own malicious Office documents. If the above fails, disable all relevant patches for CVE-2025-62552 - in PRO accounts, disable patches in 0patch Console locally on the affected computer; in Enterprise accounts, disable patches in 0patch Central for groups containing affected computers. Let's see our patch in action on a fully updated Office 2019 click-to-run, which we have security-adopted last October when it received its last official security patches. The user opens a malicious clickme.docx document while 0patch is disabled and agrees to have Word use an embedded SQL query and run mail merge operation (both of which should not be considered dangerous per se), which leads to an error message about \"unreadable content\" -- at that time, a malicious file has already been created in an Office-trusted location. With 0patch enabled, the same process produces no file in the Office-trusted location. Micropatch Availability Micropatches were written for the following 32-bit and 64-bit security-adopted Microsoft Office versions: Microsoft Office 2019 click-to-run - updated with all available updates (version 2508, build 19127.20302) Microsoft Office 2016 click-to-run - updated with all available updates (version 2508, build 19127.20302) Microsoft Office 2013 - updated with all available updates Microsoft Office 2010 - updated with all available updates Office 2016 and 2019 volume license received an official patch from Microsoft. Micropatches have already been distributed to, and applied on, all affected online computers with 0patch Agent in PRO or Enterprise accounts (unless Enterprise group settings prevented that). Vulnerabilities like these get discovered on a regular basis, and attackers know about them all. If you're using Windows that aren't receiving official security updates anymore, 0patch will make sure these vulnerabilities won't be exploited on your computers - and you won't even have to know or care about these things. We'd like to thank Alberto Bruscino for sharing vulnerability details and POC, which allowed us to create a patch for this issue and protect our users. If you're new to 0patch , create a free account in 0patch Central , start a free trial, then install and register 0patch Agent. Everything else will happen automatically. No computer reboot will be needed. Did you know 0patch security-adopted Windows 10 and Office 2016 and 2019 when they went out of support in October 2025, allowing you to keep using them for at least 3 more years (5 years for Windows 10)? Read more about it here and here . To learn more about 0patch, please visit our Help Center .",
+      "link": "https://blog.0patch.com/2026/03/micropatches-released-for-microsoft.html",
+      "source": "0patch Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-03-18T22:39:00+00:00",
+      "published_ts": 1773873540,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Windows / Microsoft"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Cybersecurity Advisory. Phishing via messaging apps Signal and WhatsApp",
+      "summary": "submitted by /u/OMiniServer [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1rxi7ty/cybersecurity_advisory_phishing_via_messaging/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-18T22:17:55+00:00",
+      "published_ts": 1773872275,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Want to learn CrowdStrike \u2014 where do I start?",
+      "summary": "Hey everyone, hope you are well. I'm looking to deep-dive into CrowdStrike and eventually become an \"Expert\" on the Falcon platform. I'd love to hear from anyone who's gone down this path. For context: I recently joined as an intern and my company uses CrowdStrike. I have asked the security folks in the company for advice but they weren't too keen. I just got access to CS University. Right now, I'm trying to figure out: where do I start? I looked at certifications: Falcon Administrator Falcon Responder Falcon Hunter SIEM Analyst SIEM Engineer Identity Specialist Cloud Specialist Just not sure if I should do it in any specific order or just get into it. - Are there any resources, blogs, or communities outside of CrowdStrike University that really helped you level up? Any & all advice would be appreciated. Thank you. submitted by /u/Any_Outcome_6152 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1rxhym1/want_to_learn_crowdstrike_where_do_i_start/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-18T22:08:00+00:00",
+      "published_ts": 1773871680,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "seashell-app ondigitalocean.app",
+      "summary": "Lately, I've been seeing many alerts for apps with sea animal names hosted in digital ocean being detected as malicious due to JS files. I have not been able to trace these events back to apps on user workstation due to the connection being intercepted and blocked by Netskope SASE. I have proceeded to block these URLs and wondering what is the background around these connection attempts. Could this be a game users playing on their computers? submitted by /u/dial647 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1rxhouk/seashellapp_ondigitaloceanapp/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-18T21:57:43+00:00",
+      "published_ts": 1773871063,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Payload Claims Data Breach on Royal Bahrain Hospital (RBH) | UpGuard",
+      "summary": "A data breach involving Royal Bahrain Hospital was reported in March 2026. See incident details, impact on customers, and recommended security measures.",
+      "link": "https://www.upguard.comnews/royal-bahrain-hospital-data-breach-2026-03-17",
+      "source": "UpGuard \u2013 News",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-03-18T21:55:57+00:00",
+      "published_ts": 1773870957,
+      "smart_groups": [
+        "Ransomware",
+        "Data Breaches / Leaks"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
+      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-18T21:55:09+00:00",
+      "published_ts": 1773870909,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "C2 Implant 'SnappyClient' Targets Crypto Wallets",
+      "summary": "In addition to enabling remote access, the malware supports a wide range of capabilities, including data theft and spying.",
+      "link": "https://www.darkreading.com/cyberattacks-data-breaches/new-c2-implant-snappyclient-targets-crypto-wallets",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-18T21:49:02+00:00",
+      "published_ts": 1773870542,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "You can now order 1-hour Amazon deliveries across 2,000 cities - is yours on the list?",
+      "summary": "Items, including household essentials, will arrive at your door in an hour, but delivery might cost as much as the item itself.",
+      "link": "https://www.zdnet.com/article/amazon-one-hour-delivery/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-18T21:40:00+00:00",
+      "published_ts": 1773870000,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "State snoops and spyware vendors planting info-stealing malware on iPhones, Google warns",
+      "summary": "Darksword is the second iOS exploit chain in a month A new exploit kit targeting iPhone users and stealing their sensitive data is being abused by \"multiple\" spyware vendors and suspected nation-state goons, security researchers said on Wednesday.\u2026",
+      "link": "https://go.theregister.com/feed/www.theregister.com/2026/03/18/darksword_exploit_kit_steals_iphone/",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-18T21:39:04+00:00",
+      "published_ts": 1773869944,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Found a critical vuln in a Fortune 500, but their VDP says they \"might consider\" not suing me at their \"sole discretion.\"",
+      "summary": "I found some critical vulnerabilities in a Fortune500 company (as part of a wider research). I tried to reach out to people over LinkedIn, but nobody has replied (yet). I found a disclosure form on their site, but their disclosure policy (last updated long time ago) is full of red flags. The problems go beyond my wish to publish the results of the research. Here is the gist of their legal text (paraphrased to protect the company's identity): The \"Maybe\" Safe Harbor: They say if I followed their policy during my research and report the issue to them, they will \"consider\" my research authorized and won't pursue legal action (they literally used this language - if you report, we will consider NOT to sue you...). However, this is \"as determined by us in our sole discretion.\" Basically, they're saying: \"If you report a vulnerability, we might decide not to sue you, but only if we feel like it.\" The Gag Order: By submitting, I have to affirm that I have not disclosed and will not disclose the vulnerability to anyone other than them. Ever. Moving Goalposts: They explicitly state they can change the terms or terminate the program at any time. This is not a bug bounty. I don't expect any money from them, but given what I saw... I'll feel better if I know this is fixed. I don't want to block myself from publishing the research results, and don't want to have troubles like many stories I've seen here (legal threats/actions after disclosure, etc.). What would you do? submitted by /u/PomegranateHungry719 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1rxh4uk/found_a_critical_vuln_in_a_fortune_500_but_their/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-18T21:36:00+00:00",
+      "published_ts": 1773869760,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "A checklist\u00a0for\u00a0building a private-sector digital forensics lab",
+      "summary": "Your organization is coming across more advanced digital investigations than ever, and the time has come to either launch your own digital forensics lab or level up your existing one. The post A checklist for building a private-sector digital forensics lab appeared first on Magnet Forensics .",
+      "link": "https://www.magnetforensics.com/blog/a-checklist-for-building-a-private-sector-digital-forensics-lab/",
+      "source": "Magnet Forensics",
+      "type": "dfir",
+      "type_label": "DFIR & Forensics",
+      "published": "2026-03-18T21:35:43+00:00",
+      "published_ts": 1773869743,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Fed leaves rates unchanged, says geopolitical uncertainty clouds outlook",
+      "summary": "The effect on energy prices from the Iran war will impact the economy, but the size and scope of the macroeconomic shock are still unknown.",
+      "link": "https://cointelegraph.com/news/fed-leaves-rates-unchanged-geopolitical-uncertainty?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-18T21:30:14+00:00",
+      "published_ts": 1773869414,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Computer Vision Frameworks: Features And Future Trends",
+      "summary": "Computer vision frameworks explained, features, types, and future trends. Learn how AI tools process images, train models, and\u2026",
+      "link": "https://hackread.com/computer-vision-frameworks-features-future-trends/",
+      "source": "HackRead",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-18T21:16:11+00:00",
+      "published_ts": 1773868571,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "DarkSword: iPhone Exploit Kit Serves Spies &amp; Thieves Alike",
+      "summary": "A sophisticated iOS exploit chain leverages multiple zero-day vulnerabilities and is targeting users in Saudi Arabia, Turkey, Malaysia, and Ukraine.",
+      "link": "https://www.darkreading.com/threat-intelligence/darksword-iphone-exploit-spies-thieves",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-18T21:15:38+00:00",
+      "published_ts": 1773868538,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "U.S. CISA adds Microsoft SharePoint and Zimbra\u00a0 flaws to its Known Exploited Vulnerabilities catalog",
+      "summary": "U.S. Cybersecurity and Infrastructure Security Agency (CISA) adds SharePoint and Zimbra flaws to its Known Exploited Vulnerabilities catalog. The U.S. Cybersecurity and Infrastructure Security Agency (CISA) added ([1, 2]) SharePoint and Zimbra flaws to its Known Exploited Vulnerabilities (KEV) catalog. Below are the flaws added to the catalog: The first vulnerability added to the catalog, tracked [\u2026]",
+      "link": "https://securityaffairs.com/189628/security/u-s-cisa-adds-microsoft-sharepoint-and-zimbra-flaws-to-its-known-exploited-vulnerabilities-catalog.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-18T21:11:38+00:00",
+      "published_ts": 1773868298,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Kalshi CEO fires back against Arizona criminal charges as \u2018total overstep\u2018",
+      "summary": "The prediction markets co-founder said that the company would \u201cabide by court decisions\u201c but signaled that the charges were based partly on political bias and media attention.",
+      "link": "https://cointelegraph.com/news/kalshi-ceo-arizona-criminal-charges-total-overstep?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-18T21:07:16+00:00",
+      "published_ts": 1773868036,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Algorand Foundation Cuts 25% of Staff as Crypto Industry Layoffs Grow",
+      "summary": "The organization behind layer-1 blockchain Algorand laid off 25% of its staff due to macroeconomic uncertainty and lower crypto prices.",
+      "link": "https://decrypt.co/361625/algorand-foundation-cuts-staff-crypto-industry-layoffs-grow",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-18T21:00:02+00:00",
+      "published_ts": 1773867602,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "Eclypsium Network Solution Brief",
       "summary": "The post Eclypsium Network Solution Brief appeared first on Eclypsium | Supply Chain Security for the Modern Enterprise .",
       "link": "https://eclypsium.com/solution-briefs/eclypsium-network-solution-brief/",
@@ -36,6 +278,32 @@
       "type_label": "Vendors & Product Blogs",
       "published": "2026-03-18T20:46:42+00:00",
       "published_ts": 1773866802,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Can the Samsung Frame Pro replace my TV? My advice after weeks of testing",
+      "summary": "The Frame Pro TV improves on its predecessor by integrating entertainment and home d\u00e9cor. Right now, it's $500 off.",
+      "link": "https://www.zdnet.com/article/samsung-frame-pro-tv-review/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-18T20:46:00+00:00",
+      "published_ts": 1773866760,
+      "smart_groups": [
+        "Identity / Access"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Trump White House Registers Aliens.gov\u2014Is the UFO File Drop Imminent?",
+      "summary": "The White House registered aliens.gov, a month after Trump ordered the release of all government UAP and UFO files following a viral Obama moment.",
+      "link": "https://decrypt.co/361606/trumps-white-house-registers-aliens-gov-ufo-file-drop-imminent",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-18T20:41:27+00:00",
+      "published_ts": 1773866487,
       "smart_groups": [],
       "curated": false
     },
@@ -1574,20 +1842,6 @@
       "curated": false
     },
     {
-      "title": "Here\u2019s what happened in crypto today",
-      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-03-18T14:50:52+00:00",
-      "published_ts": 1773845452,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
       "title": "Mitel security advisory (AV26-250)",
       "summary": "",
       "link": "https://cyber.gc.ca/en/alerts-advisories/mitel-security-advisory-av26-250",
@@ -2662,6 +2916,25 @@
         "Ransomware",
         "Vulnerabilities / CVEs",
         "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "CISA Urges Endpoint Management System Hardening After Cyberattack Against US Organization",
+      "summary": "CISA is aware of malicious cyber activity targeting endpoint management systems of U.S. organizations based on the March 11, 2026 cyberattack against U.S.-based medical technology firm Stryker Corporation, which affected their Microsoft environment. 1 To defend against similar malicious cyber activity, CISA urges organizations to harden endpoint management system configurations using the recommendations and resources provided in this alert. CISA is conducting enhanced coordination with federal partners, including the Federal Bureau of Investigation (FBI), to identify additional threats and determine mitigation actions. To defend against similar malicious activity that misuses legitimate endpoint management software, CISA urges organizations to implement Microsoft\u2019s newly released best practices for securing Microsoft Intune ; the principles of these recommendations can be applied to Intune and more broadly to other endpoint management software: Use principles of least privilege when designing administrative roles. Leverage Microsoft Intune\u2019s role-based access control (RBAC) to assign the minimum permissions necessary to each role for completing day-to-day operations\u2014permissions include what actions the role can take, and what users and devices it can apply that action to. Enforce phishing-resistant multi-factor authentication (MFA) and privileged access hygiene . Use Microsoft Entra ID capabilities (including Conditional Access, MFA, risk signals, and privileged access controls) to block unauthorized access to privileged actions in Microsoft Intune. Configure access policies to require Multi Admin Approval in Microsoft Intune . Set up policies that require a second administrative account\u2019s approval to allow changes to sensitive or high-impact actions (such as device wiping), applications, scripts, RBAC, configurations, etc. Additionally, CISA recommends reviewing the following resources to strengthen defenses against similar malicious cyber activity: Microsoft resources: For recommendations on securing Microsoft Intune, see Best practices for securing Microsoft Intune . For guidance on implementing Multi Admin Approval in Microsoft Intune, see Use Access policies to implement Multi Admin Approval . For recommendations on configuring Microsoft Intune using zero trust principles, see Configure Microsoft Intune for increased security . For guidance on implementing Microsoft Intune RBAC policies, see Role-based access control (RBAC) with Microsoft Intune . For guidance on deploying Privileged Identity Management (PIM) across Microsoft Intune, Entra ID, and other Microsoft software, see Plan a Privileged Identity Management deployment . CISA resources: For guidance on implementing phishing-resistant multifactor authentication (MFA), see Implementing Phishing-Resistant MFA . Disclaimer The information in this report is being provided \u201cas is\u201d for informational purposes only. CISA does not endorse any commercial entity, product, company, or service, including any entities, products, or services linked within this document. Any reference to specific commercial entities, products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply endorsement, recommendation, or favoring by CISA. Acknowledgements Microsoft and Stryker contributed to this alert. Notes 1 For updates from Stryker on the incident, see \u201cCustomer Updates: Stryker Network Disruption,\u201d Stryker, last modified March 15, 2026, https://www.stryker.com/us/en/about/news/2026/a-message-to-our-customers-03-2026.html .",
+      "link": "https://www.cisa.gov/news-events/alerts/2026/03/18/cisa-urges-endpoint-management-system-hardening-after-cyberattack-against-us-organization",
+      "source": "All CISA Advisories",
+      "type": "government",
+      "type_label": "Government, CERT & Advisories",
+      "published": "2026-03-18T12:00:00+00:00",
+      "published_ts": 1773835200,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Linux / Unix",
+        "Identity / Access",
+        "Phishing / Social Engineering"
       ],
       "curated": true
     },
@@ -4133,21 +4406,6 @@
         "Cloud / SaaS"
       ],
       "curated": true
-    },
-    {
-      "title": "Payload Claims Data Breach on Royal Bahrain Hospital (RBH) | UpGuard",
-      "summary": "A data breach involving Royal Bahrain Hospital was reported in March 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.comnews/royal-bahrain-hospital-data-breach-2026-03-17",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-18T07:03:55+00:00",
-      "published_ts": 1773817435,
-      "smart_groups": [
-        "Ransomware",
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
     },
     {
       "title": "MacBook Neo just set a new bar for cheap laptops - and rattled the PC market",
@@ -6697,18 +6955,6 @@
       "type_label": "OSINT, Communities & Subreddits",
       "published": "2026-03-17T16:07:51+00:00",
       "published_ts": 1773763671,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Amazon launches 1-hour delivery - what it costs and where it's available",
-      "summary": "You can order household essentials to your door in an hour, but delivery might cost as much as the item does.",
-      "link": "https://www.zdnet.com/article/amazon-one-hour-delivery/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-17T16:07:29+00:00",
-      "published_ts": 1773763649,
       "smart_groups": [],
       "curated": false
     },
@@ -116922,204 +117168,6 @@
       "smart_groups": [
         "Phishing / Social Engineering"
       ],
-      "curated": false
-    },
-    {
-      "title": "Exploiting Reversing (ER) series | Article 06 | A Deep Dive Into Exploiting a Minifilter Driver (N-day) | Extended Version",
-      "summary": "I am excited to release the extended version of the sixth article in the Exploiting Reversing Series (ERS). Titled \"A Deep Dive Into Exploiting a Minifilter Driver (N-day)\" this 293-page deep dive offers a comprehensive roadmap for vulnerability exploitation: https://exploitreversing.com/2026/02/11/exploiting-reversing-er-series-article-06/ Key updates in this extended edition: [+] Dual Exploit Strategies: Two distinct exploit versions. [+] Exploit ALPC Write Primitive Edition: elevation of privilege of a regular user to SYSTEM. [+] Exploit Parent Process ID Spoofing Edition: elevation of privilege of an administrator to SYSTEM. [+] Solid Reliability: A completely stable and working ALPC write primitive. [+] Optimized Exploit Logic: Significant refinements to the codebase and technical execution for better stability and predictability. For those who have read the original release, whose exploit was working, my strong recommendation is that you adopt this extended edition as definitive. The article guides you through the entire lifecycle of an exploit: from initial reverse engineering and vulnerability analysis to multiple PoC developments and full exploitation. I hope this serves as a definitive resource for your research. If you find it helpful, please feel free to share it or reach out with your feedback! Enjoy your reading and have a great day. submitted by /u/alexandreborges [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1r6nn3c/exploiting_reversing_er_series_article_06_a_deep/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-16T22:10:34+00:00",
-      "published_ts": 1771279834,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "University of Pennsylvania - 623,750 breached accounts",
-      "summary": "In October 2025, the University of Pennsylvania was the victim of a data breach followed by a ransom demand , largely affecting its donor database. After the incident, the attackers sent inflammatory emails to some victims. The data was later published online in February 2026 and included 624k unique email addresses alongside names and physical addresses. For some donor records, additional personal information was exposed, including gender and date of birth. A small subset of records also contained religion, spouse name, estimated income and donation history.",
-      "link": "https://haveibeenpwned.com/Breach/UniversityOfPennsylvania",
-      "source": "Have I Been Pwned \u2013 Latest Breaches",
-      "type": "leaks",
-      "type_label": "Leaks & Breaches",
-      "published": "2026-02-16T21:57:51+00:00",
-      "published_ts": 1771279071,
-      "smart_groups": [
-        "Ransomware",
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "6 Best Courses on Kali Linux in 2026",
-      "summary": "If you\u2019re trying to learn Kali Linux without wasting time on low-quality content, this curated list of 6 courses is a good starting point for 2026. https://share.google/Vv3kcIN09F54yhjkI submitted by /u/Status_Technology510 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1r6n9xq/6_best_courses_on_kali_linux_in_2026/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-16T21:56:57+00:00",
-      "published_ts": 1771279017,
-      "smart_groups": [
-        "Linux / Unix"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Germany\u2018s central bank president touts stablecoin and CBDC benefits for EU",
-      "summary": "Joachim Nagel said euro-pegged stablecoins would offer the bloc more independence from US dollar-pegged coins soon to be allowed under the GENIUS Act.",
-      "link": "https://cointelegraph.com/news/germany-central-bank-president-stablecoins?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-16T21:56:24+00:00",
-      "published_ts": 1771278984,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Cybersecurity as a hobbie",
-      "summary": "In my research into the Cybersecurity field, the consensus seems to be that the field is not in a good place for new candidates and may not be in a good place for the next couple years. This leads to potentially put any aspirations to working in Cybersecurity on hold to see what the future holds. But could Cybersecurity still be explored as a hobby for someone with no technical experience and wants to take a self-learning route over a BS route? Are there programs or resources you'd recommend beyond Tryhackme or Hackthebox that could provide a strong enough foundation in IT Infrastructure and Networking to be able to confidently build the skills up overtime? I'd be looking into volunteer opportunities or ways to look at applying the skills in current and future jobs to ensure I can still build up experience. Just wondering if there's still potential here down the road if I decide to pursue other studies. submitted by /u/SwitchJumpy [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1r6n698/cybersecurity_as_a_hobbie/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-16T21:53:04+00:00",
-      "published_ts": 1771278784,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Frida 17.7.3 Released",
-      "summary": "Quick follow-up release with a handful of Linux syscall-tracer improvements and fixes: syscall-tracer: Decode timespec values. Recognize timespec pointer arguments and decode them into structured values instead of opaque byte arrays. Supports both __kernel_timespec and old_timespec32 layouts. syscall-tracer: Fix raw attachment lifetime. The GVariant was previously created from data freed before return, leaving it with a dangling pointer. syscall-tracer: Fix multi-attachment parsing by encoding how much space is reserved for each attachment.",
-      "link": "https://frida.re/news/2026/02/16/frida-17-7-3-released/",
-      "source": "https://frida.re/feed.xml",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-16T21:45:51+00:00",
-      "published_ts": 1771278351,
-      "smart_groups": [
-        "Linux / Unix"
-      ],
-      "curated": false
-    },
-    {
-      "title": "ETH chart pattern projects rally to $2.5K if key conditions are met: Data",
-      "summary": "Ether is down 20% in February, but a developing bullish setup below $2,000 and growing upside liquidation clusters hint at a quick rebound.",
-      "link": "https://cointelegraph.com/news/eth-chart-pattern-projects-rally-to-dollar2-5k-if-key-conditions-are-met-data?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-16T21:30:00+00:00",
-      "published_ts": 1771277400,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "From Detection to Remediation: It\u2019s Time to Rethink AppSec Around Exploitability and Root Cause Fixes",
-      "summary": "Learn how Wiz is fundamentally changing AppSec by using the Security Graph to connect validated runtime vulnerabilities directly back to source code. Stop chasing alerts and fix what\u2019s truly exploitable.",
-      "link": "https://www.wiz.io/blog/from-detection-to-remediation-it-s-time-to-rethink-appsec-around-exploitability-a",
-      "source": "https://www.wiz.io/feed/rss.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-02-16T21:19:22+00:00",
-      "published_ts": 1771276762,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Washington Hotel in Japan Discloses Ransomware Infection Incident: Cybersecurity Concerns Rise",
-      "summary": "Washington Hotel Discloses Ransomware Infection Incident A prominent Japanese hospitality chain, Washington Hotel, has disclosed... The post Washington Hotel in Japan Discloses Ransomware Infection Incident: Cybersecurity Concerns Rise appeared first on .",
-      "link": "https://www.news4hackers.com/washington-hotel-in-japan-discloses-ransomware-infection-incident-cybersecurity-concerns-rise/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-16T21:16:34+00:00",
-      "published_ts": 1771276594,
-      "smart_groups": [
-        "Curated",
-        "Ransomware"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Washington Hotel in Japan discloses ransomware infection incident",
-      "summary": "The Washington Hotel brand in Japan has announced that that its servers were compromised in a ransomware attack, exposing various business data. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/washington-hotel-in-japan-discloses-ransomware-infection-incident/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-16T21:10:38+00:00",
-      "published_ts": 1771276238,
-      "smart_groups": [
-        "Curated",
-        "Ransomware"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Last chance: one of my favorite ultraportable laptops from 2025 is $500 off",
-      "summary": "The LG gram Pro 17 is a sleek and powerful laptop with a vibrant 2K display. It's built to handle demanding workloads with ease.",
-      "link": "https://www.zdnet.com/article/lg-gram-pro-17-deal-post/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-16T20:40:00+00:00",
-      "published_ts": 1771274400,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Paradigm reframes Bitcoin mining as grid asset, not energy drain",
-      "summary": "The cryptocurrency investment firm says Bitcoin mining is being unfairly lumped with AI data centers, arguing miners act as flexible grid demand, not constant energy drains.",
-      "link": "https://cointelegraph.com/news/paradigm-bitcoin-mining-ai-data-centers-grid-demand?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-16T20:39:29+00:00",
-      "published_ts": 1771274369,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "When Audits Fail Part 2: From Pre-Auth SSRF to RCE in TRUfusion Enterprise",
-      "summary": "submitted by /u/MrTuxracer [link] [comments]",
-      "link": "https://www.reddit.com/r/netsec/comments/1r6l5e3/when_audits_fail_part_2_from_preauth_ssrf_to_rce/",
-      "source": "/r/netsec",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-16T20:36:35+00:00",
-      "published_ts": 1771274195,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Crypto Trading Isn\u2019t Coming to Elon Musk's X (Yet), Says Product Head",
-      "summary": "The company\u2019s \u201cSmart Cashtag\u201d feature is aimed at crypto enthusiasts, but the platform won't facilitate trades directly.",
-      "link": "https://decrypt.co/358229/crypto-trading-isnt-coming-elon-musk-x",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-16T20:27:46+00:00",
-      "published_ts": 1771273666,
-      "smart_groups": [],
       "curated": false
     },
     {
