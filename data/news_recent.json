@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-03-18T19:11:37.751460+00:00",
+  "generated_at": "2026-03-18T20:52:58.682649+00:00",
   "days_back": 30,
-  "total_items": 8425,
+  "total_items": 8428,
   "items": [
     {
       "title": "Secure Your Spot at RSAC 2026 Conference",
@@ -28,6 +28,275 @@
       "curated": false
     },
     {
+      "title": "Eclypsium Network Solution Brief",
+      "summary": "The post Eclypsium Network Solution Brief appeared first on Eclypsium | Supply Chain Security for the Modern Enterprise .",
+      "link": "https://eclypsium.com/solution-briefs/eclypsium-network-solution-brief/",
+      "source": "Eclypsium | Supply Chain Security for the Modern Enterprise",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-03-18T20:46:42+00:00",
+      "published_ts": 1773866802,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Introducing Secret Finder: Finding Real Credentials Where Traditional Tools Fail",
+      "summary": "Secret Finder is an AI-powered capability in Microsoft Security Copilot that detects leaked credentials in unstructured content, such as emails, chat logs, documents, and screenshots, where traditional pattern-matching tools struggle. It relies on a multi\u2011step, multi\u2011agent reasoning workflow rather than a single pass detector. Detection, verification, and contextual analysis are handled by distinct reasoning stages, allowing Secret Finder to find real credentials without flooding users with false positives. Unlike regex-based scanners, Secret Finder uses reasoning to identify not just credentials, but the systems they unlock, helping security teams understand exposure and respond faster. In benchmark testing on synthetic datasets, Secret Finder achieved 98.33% true credential detection with zero false alarms on realistic emails, chats, notes, and documents\u2014while traditional regex scanners detected only about 40% of the same credentials. Secret Finder is now generally available in Security Copilot, supporting 20+ credential types with high precision and actionable context. The Problem: Credentials Hide Where Traditional Tools Can't See When security incidents happen, leaked credentials don't always appear in clean, predictable formats. They show up buried in email threads, pasted into Teams messages, embedded in Word documents, or captured in screenshots of logs and terminals. These are exactly the places where security teams spend the most time and where traditional secret scanning tools fail. Most existing tools rely on regular expressions or simple pattern matching. This works reasonably well for structured environments like source code repositories, where credentials follow predictable formats. But in real-world incidents, secrets look different. A storage key might be split across multiple messages in an email thread. A credential could be reformatted, partially redacted, or embedded alongside explanatory text. In these situations, pattern matching produces two painful outcomes: it misses real credentials because the format doesn\u2019t match a known rule, or it floods analysts with false positives that waste time. Security teams are left manually reviewing content, guessing which findings are real, and piecing together what systems might actually be at risk. In practice, this failure mode has a real human cost that security analysts end up reviewing thousands of alerts, manually inspecting email threads and chat logs, and trying to determine whether a suspicious string actually unlocks a storage account, API, or production service. Teams can spend days reconstructing context across messages and documents just to understand what a credential grants access to, slowing containment and increasing risk during active incidents. This is the gap Secret Finder was built to close. The Solution: Secret Finder Brings Reasoning to Secret Detection Secret Finder approaches secret detection as a reasoning problem, not a string-matching exercise. Instead of asking \"does this text match a pattern?\" It asks human-like questions: Is this text describing a credential or access mechanism? Does the value look real and usable? What system or resource could this access? This shift is subtle but powerful. Secret Finder doesn't just detect credentials, it connects them to doors: the specific targets those credentials unlock, such as API endpoints, storage accounts, applications, or services. This is critical for triage. Instead of stopping at \u201cthis looks like a credential,\u201d Secret Finder tells analysts what that credential actually opens. Without context, a credential triggers manual follow\u2011up. When it\u2019s linked to a specific target, analysts can immediately assess impact and act. By understanding messy, real-world content the way a human investigator would, Secret Finder delivers findings that security teams can trust and act on immediately. It's designed specifically for the unstructured, noisy environments where incidents actually unfold. Why Secret Finder Outperforms Traditional Pattern Matching Traditional secret scanners are built for clean data. Secret Finder is built for reality. Traditional tools struggle when: Credentials appear in natural language descriptions rather than code Context determines whether a string is sensitive or benign Credentials are incomplete, malformed, or partially redacted Secret Finder excels because it: Reasons through context, understanding surrounding text to identify what's truly sensitive Detects credentials and their associated resources together, providing the \"what\" and the \"where\" in a single pass Handles noisy, unstructured inputs like emails, chat logs, documents Assigns confidence scores to help teams prioritize findings and reduce alert fatigue What Secret Finder Can Do Today Secret Finder is now generally available in Microsoft Security Copilot, with capabilities shaped directly by real security workflows across incident response, red teaming, and SOC operations. It detects over 20 major credential categories, spanning cloud provider credentials like Azure Storage Keys and AWS Access Keys, authentication credentials including Microsoft Entra passwords and OAuth tokens, database connection strings, SSH private keys, API keys, and generic secrets that don't fit predefined patterns. This broad coverage means analysts can scan investigation artifacts without worrying whether the secret type is supported. What makes Secret Finder particularly effective is where it works. Email threads where credentials are discussed across multiple messages. Teams chats where credentials are pasted quickly during troubleshooting. Word documents and internal wikis where credentials are documented for operational handoffs. Incident reports and post-mortem notes written under pressure. These are the environments where traditional pattern-matching tools fail, and where Secret Finder delivers the most value. In benchmark evaluations, Secret Finder achieved 100% recall with 0% false positives on synthetic datasets containing embedded Azure Storage credentials, compared to 40% recall from traditional regex\u2011based tools such as CredScan. In more complex scenarios involving multiple credential types and noisy email content, Secret Finder maintained 98.33% recall with 0% false positives. These results were observed on synthetically generated evaluation datasets spanning emails, chats, notes, and documents, designed to reflect how engineers communicate and how credentials may be inadvertently shared in real\u2011world workflows. Scenario Precision Recall Single credential type 100% 100% Complex, multiple credential types 100% 98.33% Secret Finder is currently integrated into Security Copilot, actively supporting incident response workflows, and working toward deeper integrations with developer platforms such as GitHub to bring contextual secret detection to source code analysis at scale. Using Secret Finder in Security Copilot Secret Finder is available as a skill in Microsoft Security Copilot, making credential detection a seamless part of analyst workflows. How to use Secret Finder: Enable the Secret Finder skill in Security Copilot via \"Manage Sources\" \u2192 \"Manage Plugins\" (Figure 1) Select \"FindSecretInText\" from Promptbook (Figure 2) Submit unstructured content directly in the Copilot prompt: paste the text blob that might contain credentials Secret Finder analyzes the content using its multi-agent workflow, detecting credentials and associated doors Review actionable findings with contextual details Figure 1. Enabling the Secret Finder skill in Microsoft Security Copilot (Due to recent naming changes, users might see \"Agentic secret finder\" in Security copilot. Naming changes will reflect in a few weeks) Figure 2. Selecting the FindSecretInText prompt, which invokes Secret Finder\u2019s multi\u2011step credential detection and verification workflow Figure 3. Submitting a text blob containing embedded credentials for analysis (example is synthetic) Figure 4. Secret Finder output with detected credentials and associated doors (example credentials and associated doors are synthetic) What's Next for Secret Finder Secret Finder is a living capability. Over the next six months, we are working towards coverage and deepening integrations: Exploring integrations with GitHub to reduce false positives in secret scanning for code repositories Optimizing for large-scale analysis to handle enterprise-wide scans efficiently with reduced latency Exploring graph-based risk modeling to map relationships between credentials, services, and attack paths Our long-term vision goes beyond detection: we want to help security teams understand how credentials are used, what risks exist if they're exposed, and what the impact of rotation or revocation would be. By moving from \"what's leaked\" to \"what does it mean,\" Secret Finder will enable smarter prioritization, faster response, and more confident decision-making. Acknowledgments Secret Finder has been a cross-team effort over the past year, evolving from early research and prototyping through private preview, public preview, and now general availability. This milestone reflects contributions across many phases from initial system design and technical direction, to evaluation, product integration, and deployment at scale. Contributors include Mariko Wakabayashi leading the early research through production and to the team including Zixiao Chen and Avy Challa for GA improvements and bringing Secret Finder to production readiness. We also appreciate Tony Twum-Barimah, Malachi Jones, and the Security Copilot team, including Austin Trapp and Vinod Jagannathan for their technical and product support throughout the process, as well as Christian Rudnick and Helen Chang for guiding us through the responsible AI reviews before launch. Finally, a huge thanks to the incident responders and security researchers who shared valuable insights along the way. Secret Finder wouldn\u2019t have been possible without their work and feedback.",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-copilot-blog/introducing-secret-finder-finding-real-credentials-where/ba-p/4500983",
+      "source": "Security Copilot Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-03-18T20:27:24+00:00",
+      "published_ts": 1773865644,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS",
+        "Identity / Access",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "From Coinbase to Ripple: The Biggest Crypto Cases Dumped by Trump's SEC",
+      "summary": "Under President Trump, the SEC has backed down from nearly all its fights with crypto firms. These are the biggest cases ended so far.",
+      "link": "https://decrypt.co/308273/trump-sec-ending-crypto-lawsuits-investigations",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-18T20:20:10+00:00",
+      "published_ts": 1773865210,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "SEC Chair explains why NFTs fall outside of securities laws",
+      "summary": "Paul Atkins says nonfungible tokens are typically collectibles, not investment contracts, as the agency outlines new categories of digital assets outside securities laws.",
+      "link": "https://cointelegraph.com/news/sec-chair-nfts-not-securities-explained?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-18T20:19:15+00:00",
+      "published_ts": 1773865155,
+      "smart_groups": [
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Why human validation matters\u2014and why fear\u00a0doesn\u2019t\u00a0help",
+      "summary": "There appears to be a growing tension in digital forensics around artificial intelligence. On one side are people excited by what AI can already do\u2014surface patterns at scale, accelerate triage, highlight anomalies no human would realistically find. On the other side are voices urging extreme caution or outright prohibition, often framed as a need to \u201cprotect the human element.\u201d The post Why human validation matters\u2014and why fear doesn\u2019t help appeared first on Magnet Forensics .",
+      "link": "https://www.magnetforensics.com/blog/why-human-validation-matters-and-why-fear-doesnt-help/",
+      "source": "Magnet Forensics",
+      "type": "dfir",
+      "type_label": "DFIR & Forensics",
+      "published": "2026-03-18T20:12:11+00:00",
+      "published_ts": 1773864731,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "We\u2019re holding AI to a standard to which we\u2019ve never held humans",
+      "summary": "Digital forensic investigators face extreme pressure to deliver accurate results. The stakes in the field are especially high; an error could mean overlooking potential suspects or missing exculpatory evidence . That\u2019s why the use of artificial intelligence in the field isn\u2019t without controversy. Broader societal concerns around the \u201challucinations\u201d and inconsistent results produced by generative AI have raised questions about the use of AI in digital forensic investigations. The post We\u2019re holding AI to a standard to which we\u2019ve never held humans appeared first on Magnet Forensics .",
+      "link": "https://www.magnetforensics.com/blog/were-holding-ai-to-a-standard-to-which-weve-never-held-humans/",
+      "source": "Magnet Forensics",
+      "type": "dfir",
+      "type_label": "DFIR & Forensics",
+      "published": "2026-03-18T20:07:50+00:00",
+      "published_ts": 1773864470,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Shrinking the digital evidence haystack",
+      "summary": "The proliferation of digital data and connected devices has had a profound impact on forensic investigations, straining laboratory resources, pressuring budget-conscious jurisdictions to spend more on technology, and worsening evidence backlogs. The post Shrinking the digital evidence haystack appeared first on Magnet Forensics .",
+      "link": "https://www.magnetforensics.com/blog/shrinking-the-digital-evidence-haystack/",
+      "source": "Magnet Forensics",
+      "type": "dfir",
+      "type_label": "DFIR & Forensics",
+      "published": "2026-03-18T19:59:01+00:00",
+      "published_ts": 1773863941,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "CISA orders feds to patch Zimbra XSS flaw exploited in attacks",
+      "summary": "CISA has ordered U.S. government agencies to secure their servers against an actively exploited vulnerability in the Zimbra Collaboration Suite (ZCS). [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/cisa-orders-feds-to-patch-zimbra-xss-flaw-exploited-in-attacks/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-18T19:57:13+00:00",
+      "published_ts": 1773863833,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Web / API Security"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Is HTB worth-it or actually like real-world?",
+      "summary": "I've been doing HTB labs lately to work on my AD & Windows skills, but I've heard a lot of people saying \"focus on real-world stuff, not labs.\" That makes sense to me for web app sec, I did bug bounty for a month and disclosed two vulnerabilities, and I'm planning to get back into that. But I can't figure out what the \"real-world equivalent\" would be for AD and Windows. I'm doing hard-rated pure AD labs until 28th March, then I'm planning to study from the CAPE (I have CRTP, and completed the penetration tester path) study material available online (until April end), and get back a bit on PortSwigger submitted by /u/adocrox [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1rxecow/is_htb_worthit_or_actually_like_realworld/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-18T19:54:22+00:00",
+      "published_ts": 1773863662,
+      "smart_groups": [
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft"
+      ],
+      "curated": false
+    },
+    {
+      "title": "What insights can you realistically get from AbuseIPDB data?",
+      "summary": "How reliable do you find AbuseIPDB for real-world threat intelligence? Do you actually use it in production or more as a supplementary source? submitted by /u/noble_andre [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1rxeb81/what_insights_can_you_realistically_get_from/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-18T19:52:53+00:00",
+      "published_ts": 1773863573,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "FTX Recovery Trust to distribute $2.2B to creditors in March",
+      "summary": "The fourth round of reimbursements to creditors and former clients of the failed crypto exchange since February 2025 brings the total paid to about $10 billion.",
+      "link": "https://cointelegraph.com/news/ftx-recovery-trust-to-distribute-2-2b-to-creditors-in-march?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-18T19:47:34+00:00",
+      "published_ts": 1773863254,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Russia-linked hackers use advanced iPhone exploit to target Ukrainians",
+      "summary": "The malware, dubbed DarkSword, allows attackers to break into iPhones with little to no user interaction, extract sensitive data within minutes, and then erase traces of the intrusion, researchers at cybersecurity firm Lookout said.",
+      "link": "https://therecord.media/russia-linked-hackers-use-iphone-exploit-ukraine",
+      "source": "The Record \u2013 Cybercrime",
+      "type": "cybercrime",
+      "type_label": "Cybercrime, Darknet & Leaks",
+      "published": "2026-03-18T19:42:00+00:00",
+      "published_ts": 1773862920,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Crypto Fear and Greed rebounds off extreme lows as traders re-enter",
+      "summary": "The Crypto Fear and Greed Index just ended a 48-day stretch in the \u201cextreme fear\u201d zone, signalling improving sentiment among investors. Will fresh capital inflows reignite the bull market?",
+      "link": "https://cointelegraph.com/news/crypto-fear-and-greed-rebounds-off-extreme-lows-as-traders-re-enter?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-18T19:39:49+00:00",
+      "published_ts": 1773862789,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "The Collapse of Predictive Security in the Age of Machine-Speed Attacks",
+      "summary": "With exploitation of vulnerabilities taking just days, preemptive security must be the new model for defenders. The post The Collapse of Predictive Security in the Age of Machine-Speed Attacks appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/the-collapse-of-predictive-security-in-the-age-of-machine-speed-attacks/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-18T19:37:25+00:00",
+      "published_ts": 1773862645,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Call for Hosts: Hacker Jeopardy at DEF CON Singapore",
+      "summary": "We are looking for charismatic, quick-witted, and tech-savvy individuals to take the stage as hosts of DEF CON's Hacker Jeopardy Singapore! If you have a knack for command-line humor, a deep well of cybersecurity trivia, and the ability to keep a rowdy room of hackers entertained, we want to hear from you. This isn't your average trivia night. As a host, you will: Local Presence: Ideally based in or able to travel to Singapore for the event, with a deep understanding of local hacker history and references. Command the Room: Moderate the game with energy, keeping the pace fast and the vibes high. Bring your own flair\u2014whether it's dry wit, high energy, or niche infosec references. Technical Literacy: You should know your nmap from your netcat and your 0-days from your 0ld-days. Use your technical background to judge answers on the fly (and maybe engage in some light-hearted debate over technicalities). Public Speaking & Improv Experience: Comfort behind a microphone and in front of a crowd is essential. The ability to handle technical glitches or spicy contestants with grace and humor. How to Apply If you're ready to be the face of Hacker Jeopardy Singapore, please send us a brief message including: A short \"Elevator Pitch\": Why are you the perfect host? Your \"Technical Niche\": What's the one topic you could write an entire Jeopardy category about? Experience: Any links to previous talks, hostings, or even a 30-second \"demo\" clip of your hosting persona. Deadline: 2026-04-02 Apply at: Contests@defcon.org",
+      "link": "https://defcon.org/html/defcon-singapore/dc-singapore-cfhjh.html",
+      "source": "https://defcon.org/defconrss.xml",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-18T19:30:21+00:00",
+      "published_ts": 1773862221,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "ConnectWise security advisory (AV26-257)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/connectwise-security-advisory-av26-257",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-18T19:27:36+00:00",
+      "published_ts": 1773862056,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "\u2018We are so close this time\u2018 \u2014 Senator Lummis on market structure bill",
+      "summary": "The Wyoming Republican said that the main issue holding up passage of the bill was stablecoin yield, while adding that she believed a provision on DeFi had been \u201dput to bed.\u201d",
+      "link": "https://cointelegraph.com/news/senator-lummis-market-structure-bill-so-close?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-18T19:21:32+00:00",
+      "published_ts": 1773861692,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Best early Amazon Spring Sale Apple deals 2026",
+      "summary": "I've rounded up deals on some of the hottest tech from your favorite tech company.",
+      "link": "https://www.zdnet.com/article/best-amazon-spring-sale-2026-apple-deals/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-18T19:15:00+00:00",
+      "published_ts": 1773861300,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Google Chrome security advisory (AV26-256)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/google-chrome-security-advisory-av26-256",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-18T19:04:37+00:00",
+      "published_ts": 1773860677,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "Building Distributed AI Agents",
       "summary": "Let's be honest: building an AI agent that works once is easy. Building an AI agent that works reliably in production, integrated with your existing React or Node.js application? That's a whole different ball game. (TL;DR: Want to jump straight to the code? Check out the Course Creator Agent Architecture on GitHub .) We've all been there. You have a complex workflow\u2014maybe it's researching a topic, generating content, and then grading it. You shove it all into one massive Python script or a giant prompt. It works on your machine, but the moment you try to hook it up to your sleek frontend, things get messy. Latency spikes, debugging becomes a nightmare, and scaling is impossible without duplicating the entire monolith. But what if you didn't have to rewrite your entire application to accommodate AI? What if you could just... plug it in? In this post, we're going to explore a better way: the orchestrator pattern . Instead of just one powerful agent that does everything, we'll build a team of specialized, distributed microservices. This approach lets you integrate powerful AI capabilities directly into your existing frontend applications without the headache of a monolithic rewrite. We'll use Google's Agent Development Kit (ADK) to build the agents, the Agent-to-Agent (A2A) protocol to connect them and let them communicate with each other, and deploy them as scalable microservices on Cloud Run . Why Distributed Agents? (And Why Your Frontend Team Will Love You) Imagine you have a polished Next.js application. You want to add a \"Course Creator\" feature. If you build a monolithic agent, your frontend has to wait for a single, long-running process to finish everything. If the research part hangs, the whole request times out. Additionally, you won\u2019t have the opportunity to scale separate agents as needed. For example, if your judge agent requires more processing, you\u2019ll have to scale all your agents up, instead of just the judge agent. By adopting a distributed orchestrator pattern, you gain scalability and flexibility: Seamless integration: Your frontend talks to one endpoint (the orchestrator), which manages the chaos behind the scenes. Independent scaling: Is the judge step slow? Scale just that service to 100 instances. Your research service can stay small. Modularity: You can write the high-performance networking parts in Go and the data science parts in Python. They just speak HTTP. The Blueprint: Course Creator App Let's build that course creator system. We'll break it down into three distinct specialists: The researcher : A specialist that digs up information. The judge : A QA specialist that ensures quality. The orchestrator : The manager that coordinates the work and talks to your frontend. Step 1: Hiring the Specialist (The Researcher) First, we need someone to do the legwork. We'll build a focused agent using ADK whose only job is to use Google Search. code_block )])]> See? Simple. It doesn't know about courses or frontends. It just researches. Step 2: The Judge (Structured Output) We can't have our agents rambling. We need strict pass or fail grades so our code can make decisions. We use Pydantic to enforce this contract. code_block )])]> Now, when the judge speaks, it speaks JSON. Your application logic can trust it. Step 3: The Universal Language (A2A Protocol) Here's the magic. We wrap these agents as web services using the A2A Protocol . Think of it as a universal language for agents. It lets them describe what they do ( agent.json ) and talk over standard HTTP. code_block )])]> Now, your researcher is a microservice running on port 8000. It's ready to be called by anyone\u2014including your orchestrator. Step 4: The Orchestrator Pattern This is where it all comes together. The orchestrator is the general contractor. It doesn't do the research; it hires the researcher. It doesn't make judgments; it asks the judge. Crucially, this is the only agent your frontend needs to know about . code_block )])]> The orchestrator handles the complexity\u2014retries, loops, state management\u2014so your frontend stays clean and simple. Deployment: The \"Grocery Store\" Model Deploying this system on Cloud Run gives you what I call the \"grocery store\" model. If the checkout lines (researcher tasks) get long, you don't build a new store. You just open more registers. Cloud Run scales your researcher service independently to handle the load, while your judge service stays lean. Caveats & Security Considerations Of course, with great power comes great responsibility (and security reviews). Authentication : In this demo, agents talk over open HTTP. In production, you must lock this down. Use mTLS, OIDC, or API keys to ensure that only your orchestrator can talk to your researcher. Latency : Every hop adds time. Use this pattern for coarse-grained tasks (like \"research this topic\") rather than chatty, low-level interactions. Error handling : Networks fail. Your orchestrator needs to be robust enough to handle timeouts and retries gracefully. Ready to Build? Stop trying to build one giant agent that does it all. By using the orchestrator pattern and distributed microservices, you can build AI systems that are scalable, maintainable, and\u2014best of all\u2014play nicely with the apps that you already have. Want to see the code? Check out the full Course Creator Agent Architecture on GitHub . And if you're ready to deploy, get started with Cloud Run , ADK , and A2A to bring your agent team to life.",
       "link": "https://cloud.google.com/blog/topics/developers-practitioners/building-distributed-ai-agents/",
@@ -43,6 +312,20 @@
       "curated": true
     },
     {
+      "title": "Shipping-Themed Phishing Scams Target the Middle East and Africa",
+      "summary": "A surge in shipping-related phishing scams is targeting the Middle East and Africa (MEA) region, according to researchers at Group-IB.",
+      "link": "https://blog.knowbe4.com/shipping-themed-phishing-scams-target-the-middle-east-and-africa",
+      "source": "KnowBe4 Blog",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-18T19:00:00+00:00",
+      "published_ts": 1773860400,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
       "title": "How to find and update your TV firmware (and why it's critical to do it properly)",
       "summary": "Updating your TV's software can improve performance and fix those pesky bugs and glitches - even without internet.",
       "link": "https://www.zdnet.com/article/tv-usb-port-update-reset/",
@@ -51,6 +334,18 @@
       "type_label": "General Security & Blogs",
       "published": "2026-03-18T18:58:00+00:00",
       "published_ts": 1773860280,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Jenkins security advisory (AV26-255)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/jenkins-security-advisory-av26-255",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-18T18:52:35+00:00",
+      "published_ts": 1773859955,
       "smart_groups": [],
       "curated": false
     },
@@ -80,6 +375,32 @@
         "Vulnerabilities / CVEs"
       ],
       "curated": true
+    },
+    {
+      "title": "Apple rolls out \u2018Background Security Improvements\u2019 for WebKit browser engine bug",
+      "summary": "Apple shifts to more continuous security patches versus waiting for the next big OS release.",
+      "link": "https://www.scworld.com/news/apple-rolls-out-background-security-improvements-for-webkit-browser-engine-bug",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-18T18:45:54+00:00",
+      "published_ts": 1773859554,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Cisco security advisory (AV26-197) \u2013 Update 1",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/cisco-security-advisory-av26-197",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-18T18:40:07+00:00",
+      "published_ts": 1773859207,
+      "smart_groups": [],
+      "curated": false
     },
     {
       "title": "I tried a highly-customized Hyprland desktop that's meant for Linux pros - and didn't hate it",
@@ -514,20 +835,6 @@
         "Exploit / PoC"
       ],
       "curated": true
-    },
-    {
-      "title": "\u2018We are so close this time\u2018 \u2014 Senator Lummis on market structure bill",
-      "summary": "The Wyoming Republican said that the main issue holding up passage of the bill was stablecoin yield, while adding that she believed a provision on DeFi had been \u201dput to bed.\u201d",
-      "link": "https://cointelegraph.com/news/senator-lummis-market-structure-bill-so-close?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-03-18T16:53:11+00:00",
-      "published_ts": 1773852791,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
     },
     {
       "title": "Bank software vendor Marquis says more than 670,000 impacted by August breach",
@@ -2036,6 +2343,18 @@
       "curated": false
     },
     {
+      "title": "Proofpoint Pursues FedRAMP High Authorization Process for Collaboration Security",
+      "summary": "",
+      "link": "https://www.proofpoint.com/us/newsroom/press-releases/proofpoint-pursues-fedramp-high-authorization-process-collaboration-security",
+      "source": "Proofpoint \u2013 Vendor",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-03-18T12:39:50+00:00",
+      "published_ts": 1773837590,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "Apple Debuts Background Security Improvements With Fresh WebKit Patches",
       "summary": "The lightweight updates are meant to deliver security protections between security updates. The post Apple Debuts Background Security Improvements With Fresh WebKit Patches appeared first on SecurityWeek .",
       "link": "https://www.securityweek.com/apple-debuts-background-security-improvements-with-fresh-webkit-patches/",
@@ -2326,6 +2645,23 @@
         "Vulnerabilities / CVEs",
         "Exploit / PoC",
         "Web / API Security"
+      ],
+      "curated": true
+    },
+    {
+      "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+      "summary": "CISA has added one new vulnerability to its Known Exploited Vulnerabilities (KEV) Catalog , based on evidence of active exploitation. CVE-2026-20963 Microsoft SharePoint Deserialization of Untrusted Data Vulnerability This type of vulnerability is a frequent attack vector for malicious cyber actors and poses significant risks to the federal enterprise. Binding Operational Directive (BOD) 22-01: Reducing the Significant Risk of Known Exploited Vulnerabilities established the KEV Catalog as a living list of known Common Vulnerabilities and Exposures (CVEs) that carry significant risk to the federal enterprise. BOD 22-01 requires Federal Civilian Executive Branch (FCEB) agencies to remediate identified vulnerabilities by the due date to protect FCEB networks against active threats. See the BOD 22-01 Fact Sheet for more information. Although BOD 22-01 only applies to FCEB agencies, CISA strongly urges all organizations to reduce their exposure to cyberattacks by prioritizing timely remediation of KEV Catalog vulnerabilities as part of their vulnerability management practice. CISA will continue to add vulnerabilities to the catalog that meet the specified criteria .",
+      "link": "https://www.cisa.gov/news-events/alerts/2026/03/18/cisa-adds-one-known-exploited-vulnerability-catalog-0",
+      "source": "All CISA Advisories",
+      "type": "government",
+      "type_label": "Government, CERT & Advisories",
+      "published": "2026-03-18T12:00:00+00:00",
+      "published_ts": 1773835200,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
       ],
       "curated": true
     },
@@ -4247,6 +4583,22 @@
       "curated": true
     },
     {
+      "title": "When HttpOnly Isn\u2019t Enough: Chaining XSS and GhostScript for Full RCE Compromise",
+      "summary": "What started as a standard cross-site scripting vulnerability in a document processing platform turned into a full administrative takeover of the application and, ultimately, remote code execution on the underlying server. The HttpOnly flag protected the session cookie from Javascript, but did the application keep it safe? During a recent assessment of a document processing [\u2026] The post When HttpOnly Isn\u2019t Enough: Chaining XSS and GhostScript for Full RCE Compromise appeared first on Praetorian .",
+      "link": "https://www.praetorian.com/blog/httponly-cookie-bypass-xss-ghostscript-rce/",
+      "source": "https://www.praetorian.com/feed/",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-03-18T03:52:52+00:00",
+      "published_ts": 1773805972,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Web / API Security"
+      ],
+      "curated": true
+    },
+    {
       "title": "Microsoft Teams Support Call Leads to Quick Assist Compromise in New Vishing Attack",
       "summary": "Microsoft Detection and Response Team details a sophisticated voice phishing (vishing) campaign that successfully compromised a corporate environment in November 2025. Unlike conventional intrusions that rely on software exploits, this attack weaponized trust, collaboration platforms, and built-in Windows tooling to gain initial access. The threat actor initiated the campaign by impersonating IT support personnel through [\u2026] The post Microsoft Teams Support Call Leads to Quick Assist Compromise in New Vishing Attack appeared first on Cyber Security News .",
       "link": "https://cybersecuritynews.com/microsoft-teams-support-call/",
@@ -4522,6 +4874,32 @@
         "Cloud / SaaS",
         "Network / OT / ICS"
       ],
+      "curated": false
+    },
+    {
+      "title": "SVD-2026-0314: Third-Party Package Updates in Splunk Universal Forwarder - March 2026",
+      "summary": "Splunk remedied common vulnerabilities and exposures (CVEs) in Third Party Packages in Splunk Universal Forwarder versions 10.2.1, 10.0.4 and higher.",
+      "link": "https://advisory.splunk.com//advisories/SVD-2026-0314",
+      "source": "https://advisory.splunk.com/feed.xml",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-18T00:00:00+00:00",
+      "published_ts": 1773792000,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "How to design cloud environments for AI-powered threat analysis",
+      "summary": "Read about what makes AI-powered threat analysis successful in cloud environments.",
+      "link": "https://www.datadoghq.com/blog/ai-powered-threat-analysis/",
+      "source": "https://www.datadoghq.com/blog/index.xml",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-03-18T00:00:00+00:00",
+      "published_ts": 1773792000,
+      "smart_groups": [],
       "curated": false
     },
     {
@@ -4843,6 +5221,18 @@
       "smart_groups": [
         "Malware / Payloads"
       ],
+      "curated": false
+    },
+    {
+      "title": "Clear Communication: The Missing Link in Cybersecurity Success",
+      "summary": "When technical expertise meets clear communication, cybersecurity teams thrive. Learn how to foster trust and collaboration across diverse working groups.",
+      "link": "https://www.darkreading.com/cybersecurity-operations/clear-communication-missing-link-cybersecurity-success",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-17T21:42:46+00:00",
+      "published_ts": 1773783766,
+      "smart_groups": [],
       "curated": false
     },
     {
@@ -51750,18 +52140,6 @@
       "smart_groups": [
         "Ransomware"
       ],
-      "curated": false
-    },
-    {
-      "title": "Cisco security advisory (AV26-197)",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/cisco-security-advisory-av26-197",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-04T19:40:28+00:00",
-      "published_ts": 1772653228,
-      "smart_groups": [],
       "curated": false
     },
     {
@@ -116742,338 +117120,6 @@
       "published": "2026-02-16T20:27:46+00:00",
       "published_ts": 1771273666,
       "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Price predictions 2/16: SPX, DXY, BTC, ETH, BNB, XRP, SOL, DOGE, ADA, BCH",
-      "summary": "The relief rallies in Bitcoin and several major altcoins are stalling near their respective overhead resistance levels, signaling that the bears remain in control.",
-      "link": "https://cointelegraph.com/news/price-predictions-2-16-spx-dxy-btc-eth-bnb-xrp-sol-doge-ada-bch?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-16T20:20:00+00:00",
-      "published_ts": 1771273200,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Cybersecurity in my life plan (I need opinions)",
-      "summary": "I'm planning to get my eJPTv2 certification, learn OSCP immediately while I'm looking for a job (ask my employer to pay for it), and then achieve AWS Cloud Security certification. Perhaps with this approach and perseverance, I can retire in 10 years, but I'd like to hear your thoughts. submitted by /u/lvm0 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1r6khsc/cybersecurity_in_my_life_plan_i_need_opinions/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-16T20:12:13+00:00",
-      "published_ts": 1771272733,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Building an AI-powered defense-in-depth security architecture for serverless microservices",
-      "summary": "Enterprise customers face an unprecedented security landscape where sophisticated cyber threats use artificial intelligence to identify vulnerabilities, automate attacks, and evade detection at machine speed. Traditional perimeter-based security models are insufficient when adversaries can analyze millions of attack vectors in seconds and exploit zero-day vulnerabilities before patches are available. The distributed nature of serverless architectures [\u2026]",
-      "link": "https://aws.amazon.com/blogs/security/building-an-ai-powered-defense-in-depth-security-architecture-for-serverless-microservices/",
-      "source": "AWS Security Blog",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-16T20:10:44+00:00",
-      "published_ts": 1771272644,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Hong Kong regulator adds Victory Fintech to list of approved trading platforms",
-      "summary": "The addition is the first crypto company to be licensed by the Securities and Futures Commission since June 2025, when the regulator approved Hong Kong BGE.",
-      "link": "https://cointelegraph.com/news/victory-fintech-hong-kong-regulatory-approval?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-16T20:07:24+00:00",
-      "published_ts": 1771272444,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "This $25 streaming stick breathed new life into my LG TV",
-      "summary": "Roku or Fire TV stick? This $25 deal made the decision easy for me.",
-      "link": "https://www.zdnet.com/article/roku-streaming-stick-plus-deal/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-16T20:05:00+00:00",
-      "published_ts": 1771272300,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "nono - kernel-enforced capability sandbox for AI agents",
-      "summary": "Sharing a tool I've been building to address the permissions problem with AI agents that often have unfettered shell access. I have been security engineer for a good many years now, previous to this I created sigstore , a project when working at Red Hat's security team in the CTO office, that provides software supply chain security for npm, Pypi, brew, maven and many other artifacts (containers, AI models). The problem: AI coding agents often run with full user permissions. Application-layer filters are bypassable - the LLM context window makes no structural distinction between instructions and data, so prompt injections invariably route around any guardrail that lives in the same process. Agents are goal, driven, so they find shortcuts somehow to achieve a specific outcome. nono enforces restrictions at the kernel level using Landlock (Linux 5.13+) and Seatbelt (macOS). Once applied, restrictions are irreversible from userspace. The model is deny-by-default: Filesystem: all paths blocked except explicit allow list Destructive commands: rm -rf, reboot, dd, chmod blocked unconditionally Sensitive paths: ~/.ssh, ~/.aws, ~/.gnupg, shell configs denied by default Symlink escape prevention: can't follow symlinks out of allowed paths Credential exfiltration mitigation Child process inheritance: everything the agent spawns inherits the same restrictions Agent SSH git commit signing: cryptographic attribution of agent-authored commitsnono run --allow ./project -- claude No containers, no VMs. Uses the OS security primitives directly. Interested in feedback on the threat model and any edge cases I should be thinking about. Repo: github.com/always-further/nono Apache 2.0, early alpha. Luke submitted by /u/DecodeBytes [link] [comments]",
-      "link": "https://www.reddit.com/r/netsec/comments/1r6k4z9/nono_kernelenforced_capability_sandbox_for_ai/",
-      "source": "/r/netsec",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-16T19:59:20+00:00",
-      "published_ts": 1771271960,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Linux / Unix",
-        "Cloud / SaaS",
-        "Supply Chain / Software"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Was CISOs \u00fcber OpenClaw wissen sollten",
-      "summary": "Lesen Sie, welches Sicherheitsrisiko die Verwendung von OpenClaw in Unternehmen mit sich bringt. ackpress \u2013 shutterstock.com Das neue Tool zur Orchestrierung pers\u00f6nlicher KI-Agenten namens OpenClaw \u2013 fr\u00fcher Clawdbot, dann Moltbot genannt \u2013 erfreut sich aktuell gro\u00dfer Beliebtheit. Die Open-Source-Software kann eigenst\u00e4ndig und ger\u00e4te\u00fcbergreifend arbeiten, mit Online-Diensten interagieren und Workflows ausl\u00f6sen \u2013 kein Wunder, dass das Github-Repo in den vergangenen Wochen Millionen von Besuchen und \u00fcber 160.000 Sterne verzeichnet hat. Laut Angaben des Entwicklers hatte das Repo von OpenClaw innerhalb einer einzigen Woche \u00fcber zwei Millionen Besucher. Zudem gibt es rund 1,7 Millionen Agenten, deren menschliche Besitzer sie f\u00fcr die Social-Media-Plattform Moltbook angemeldet haben. Laut Sicherheitsforschern von OX Security liegen die Downloads von OpenClaw derzeit bei 720.000 pro Woche. Was OpenClaw so attraktiv macht, ist, dass es lokal l\u00e4uft und f\u00fcr die Verwendung beliebiger LLM im Backend konfiguriert werden kann. Zudem erm\u00f6glicht es seinen Benutzern, \u00fcber die von ihnen bereits verwendeten Chat-Apps \u2013 WhatsApp, Telegram, Discord, Slack, Teams \u2013 zu kommunizieren. Das Orchestrierungs-Tool verf\u00fcgt zudem \u00fcber vorgefertigte Integrationen mit allen g\u00e4ngigen Betriebssystemen, vielen verschiedenen Smart-Home-Ger\u00e4ten, Produktivit\u00e4ts-Apps, Chrome und Gmail. Doch was ist das Problem bei der Anwendung des KI-Agenten? Lesetipp: Agentic AI \u2013 der neue Horror f\u00fcr Sicherheitsentscheider? Die Cybersicherheitsrisiken von OpenClaw \u201eDas Problem bei der Verwendung solcher Tools ist, dass sie im Grunde alles tun k\u00f6nnen, was ein Benutzer auch tun kann\u201c, erkl\u00e4rt Rich Mogull, Chefanalyst bei der Cloud Security Alliance. Allerdings werden sie extern gesteuert F\u00fcr Unternehmen k\u00f6nnte das ein hohes Risiko darstellen, warnt John Dwyer, stellvertretender CTO bei Binary Defense. \u201eEs gibt zwar einige Schutzma\u00dfnahmen, aber sie sind neu, unerprobt und wurden bereits von Forschern umgangen.\u201c Seine Empfehlung: CISOs sollten die Verwendung dieser Tools g\u00e4nzlich verbieten. \u201eIch freue mich darauf, am Wochenende selbst damit zu experimentieren\u201c, r\u00e4umt Mogull ein. \u201eAber zum jetzigen Zeitpunkt sollte man es nicht zulassen, da es kein Sicherheitsmodell gibt.\u201c Und zwar schnell, denn das Tool wird bereits in einigen Unternehmen eingesetzt. Der Security-Anbieter Token berichtet , dass 22 Prozent seiner Kunden das Tool aktiv nutzen. Die Auswirkungen gehen dabei \u00fcber unmittelbare technische Risiken hinaus. \u201eF\u00fcr Unternehmen k\u00f6nnte dies Geldstrafen, Rechtsstreitigkeiten und Reputationssch\u00e4den bei Kunden und Partnern aufgrund von Verst\u00f6\u00dfen gegen die Vertraulichkeit von Daten nach sich ziehen\u201c, mahnt Georgia Cooke, Analystin bei ABI Research. Dazu geh\u00f6ren personenbezogene Daten, die zu Verst\u00f6\u00dfen gegen die DSGVO und \u00e4hnliche Vorschriften zur Kontrolle personenbezogener Daten f\u00fchren k\u00f6nnten, sowie Unternehmensinformationen, die einer Geheimhaltungsvereinbarung unterliegen. Weitere Risiken sind Wettbewerbsnachteile aufgrund von offengelegten geistigem Eigentum und weitere Angriffe durch zug\u00e4ngliche technische Informationen und Anmeldedaten. Der Sicherheitsforscher Maor Dayan bezeichnet OpenClaw als \u201eden gr\u00f6\u00dften Sicherheitsvorfall in der Geschichte souver\u00e4ner KI\u201c. Seine Untersuchungen haben bereits mehr als 42.000 im Internet exponierte Instanzen identifiziert, wobei 93 Prozent der \u00fcberpr\u00fcften Systeme kritische Schwachstellen zur Umgehung der Authentifizierung aufwiesen. Fr\u00fche Versionen von OpenClaw waren laut Experten standardm\u00e4\u00dfig unsicher. Die rasante virale Verbreitung habe zudem das Sicherheitsbewusstsein der Benutzer \u00fcberfordert, sodass viele Implementierungen schnell wieder aufgegeben wurden und Instanzen mit veraltetem Code zur\u00fcckblieben. Dokumentierte Angriffspfade erm\u00f6glichten den Diebstahl von Anmeldedaten, die Kontrolle \u00fcber den Browser und die potenzielle Ausf\u00fchrung von Remote-Code. Ende Januar warnten Forscher von Gartner bereits, dass OpenClaw \u201eeine starke Nachfrage nach agentenbasierter KI offenbart, aber auch erhebliche Sicherheitsrisiken mit sich bringt\u201d. Dem Analystenhaus zufolge wurden bereits Schwachstellen nachgewiesen, die eine Remote-Codeausf\u00fchrung innerhalb weniger Stunden nach der Bereitstellung erm\u00f6glichen. Auch der ClawHub-Skills-Marktplatz \u2013Ordner mit Anweisungen, Skripten und Ressourcen, die Agenten laut OpenClaw nutzen k\u00f6nnen, um Aufgaben genauer und effizienter zu erledigen, \u2013 birgt kritische Risiken f\u00fcr die Lieferkette. Zugangsdaten werden im Klartext gespeichert, und kompromittierte Hosts legen API-Schl\u00fcssel, OAuth-Token und sensible Konversationen offen. \u201eKI-Agenten enthalten oft Tokens und Geheimnisse in Konfigurationsdateien\u201c, erl\u00e4utert Jeremy Kirk, Director of Threat Intelligence bei Okta. \u201eWenn Benutzer sie falsch konfiguriert haben, werden sie offengelegt. Im Unternehmenskontext ist das problematisch.\u201c Dar\u00fcber hinaus entdeckte Noma Security eine neue Sicherheitsl\u00fccke im Zusammenhang mit OpenClaw: Unternehmensinterne Gruppen auf Discord, Telegram oder WhatsApp. Einer der Gr\u00fcnde, warum OpenClaw f\u00fcr Benutzer so attraktiv ist, ist die M\u00f6glichkeit, \u00fcber mehrere Kan\u00e4le mit dem System zu interagieren. Ist OpenClaw jedoch in einen dieser Gruppenkan\u00e4le eingebunden, behandelt es Anweisungen von anderen Teilnehmern so, als k\u00e4men sie vom eigentlichen Besitzer. Verschafft sich ein Angreifer Zugang zu einem \u00f6ffentlichen Discord-Server, auf dem ein OpenClaw-Agent installiert ist, kann er dem Bot Anweisungen geben. Beispielsweise kann er ihn dazu bringen, einen Cron-Job auszuf\u00fchren und das lokale Dateisystem nach Tokens, Passw\u00f6rtern, API-Schl\u00fcsseln und Krypto-Seed-Phrasen zu durchsuchen. \u201eInnerhalb von 30 Sekunden b\u00fcndelt der Agent die sensiblen Daten und sendet sie direkt an einen vom Angreifer kontrollierten Server\u201c, so die Forscher von Noma. F\u00fcr das Sicherheitsteam des Unternehmens sehe es so aus, als w\u00fcrde der Bot normal funktionieren \u2013 die Sicherheitsverletzung werde erst entdeckt, wenn die gestohlenen Anmeldedaten missbraucht werden. \u201eWenn Social-Media-Teams oder externe Auftragnehmer autonome Agenten wie Clawdbot einsetzen, \u00f6ffnen sie damit praktisch eine dauerhafte und un\u00fcberwachte Hintert\u00fcr zu den lokalen Rechnern, die mit ihrer Unternehmensinfrastruktur in Verbindung stehen.\u201c Und selbst wenn Mitarbeiter das Tool zu Hause auf ihren privaten Rechnern ausf\u00fchren, stellt OpenClaw ein Sicherheitsrisiko dar: \u00dcber Browser-Steuerelemente oder so genannte Skills k\u00f6nnte die Software m\u00f6glicherweise \u00fcber die Anmeldedaten der Benutzer auf Unternehmensanwendungen zugreifen kann. Die Sicherheitsrisiken werden von Tag zu Tag gr\u00f6\u00dfer. Laut Forschern von OX Security ist auch die Entwickler-Community rund um OpenClaw ein gro\u00dfes Risiko. Das Projekt setzt auf vibe-codierte Einreichungen, was die Entwicklung beschleunigt, aber auch erhebliche Sicherheitsrisiken mit sich bringt. OX-Forscher haben mehrere unsichere Codierungsmuster in der Codebasis gefunden \u2013 mit potenziellen Folgen wie Remote-Code-Ausf\u00fchrung, Path-Traversal-Angriffen, DDoS oder Cross-Site-Scripting. \u201eEs gibt keine ausreichenden Schutzvorkehrungen\u201c, betonen die Sicherheitsspezialisten. Sie fanden auch mehrere F\u00e4lle, in denen Fehlerberichte in GitHub ver\u00f6ffentlicht wurden, anstatt in privaten Nachrichten an die Maintainer. \u201eDas gibt dies Angreifern die M\u00f6glichkeit, Schwachstellen schnell auszunutzen, ohne selbst recherchieren oder Penetrationstests durchf\u00fchren zu m\u00fcssen\u201c, hei\u00dft es in ihrem Forschungsbericht. Um noch Salz in die Wunde zu streuen: Es gibt es auch keinen formellen Prozess f\u00fcr Sicherheits-Patches und Updates. Die meisten Benutzer f\u00fchren auch keine Updates durch, sondern bleiben einfach bei der Version, die sie urspr\u00fcnglich heruntergeladen haben. Und dann sind da noch die Skills. Der Sicherheitsforscher und OpenSourceMalware-Gr\u00fcnder Paul McCarty hat etwa 400 verschiedene b\u00f6sartige Skills auf ClawHub, einem zentralen Repository f\u00fcr die OpenClaw-Plattform, identifiziert . Diese Skills sollen bei Aufgaben wie dem Handel mit Kryptow\u00e4hrungen, LinkedIn-Bewerbungen oder dem Herunterladen von YouTube-Video-Thumbnails helfen. Einige haben Tausende von Downloads und geh\u00f6ren zu den am h\u00e4ufigsten heruntergeladenen Skills auf ClawHub. Tats\u00e4chlich verleiten sie den Nutzer jedoch dazu, Malware zu installieren. Um zu demonstrieren, wie einfach es ist, eine b\u00f6sartige Funktion in das OpenClaw-\u00d6kosystem einzuschleusen, entwickelte der Sicherheitsforscher Jamieson O\u2019Reilly selbst eine solche Funktion. Er erh\u00f6hte k\u00fcnstlich die Download-Zahl auf \u00fcber 4.000 \u2013 wodurch sie zur meist heruntergeladenen Funktion auf der Plattform wurde \u2013 und beobachtete, wie Entwickler aus sieben verschiedenen L\u00e4ndern willk\u00fcrliche Befehle auf ihren Rechnern ausf\u00fchrten, in der Annahme, sie h\u00e4tten eine echte Funktion heruntergeladen. \u201eDies war ein Proof of Concept, eine Demonstration dessen, was m\u00f6glich ist\u201c, schrieb er. \u201eIn den H\u00e4nden einer weniger gewissenhaften Person w\u00e4ren diesen Entwicklern ihre SSH-Schl\u00fcssel, AWS-Anmeldedaten und gesamten Codebasen entwendet worden, bevor sie \u00fcberhaupt bemerkt h\u00e4tten, dass etwas nicht stimmt.\u201c OpenClaw deckt Sicherheitsl\u00fccken in Unternehmen auf Die erste wichtige Lehre aus der ganzen OpenClaw-Situation: Unternehmen m\u00fcssen mehr tun, um ihre Sicherheitsgrundlagen zu verbessern. Denn wenn es irgendwo L\u00fccken gibt, werden diese jetzt in beispiellosem Tempo gefunden und ausgenutzt. Im Fall von OpenClaw bedeutet das, die Benutzerrechte auf das absolute Minimum zu beschr\u00e4nken, eine Multi-Faktor-Authentifizierung f\u00fcr alle Konten einzurichten und andere grundlegende Sicherheitsma\u00dfnahmen zu ergreifen. Das l\u00f6st zwar nicht das Problem von OpenClaw \u2013 und all den anderen agentenbasierten KI-Plattformen, die noch auf den Markt kommen werden \u2013, aber es hilft, die Risiken zu begrenzen und den Schaden bei einer Sicherheitsverletzung zu reduzieren. Tipps, um die Risiken einzud\u00e4mmen Zudem gibt es Ma\u00dfnahmen, die Unternehmen ergreifen k\u00f6nnen, um die mit OpenClaw verbundenen Gefahren einzud\u00e4mmen, sagt Kayne McGladrey, Senior Member des IEEE. Zun\u00e4chst einmal k\u00f6nnen Unternehmen die Telemetrie auf Netzwerkebene untersuchen. \u201eWie sieht der Netzwerkverkehr aus, der von einem Ger\u00e4t ausgeht?\u201c, so McGladrey. \u201eVerwendet dieses Ger\u00e4t pl\u00f6tzlich sehr viel KI in raschem Tempo? Gibt es massive Spitzen bei der Token-Nutzung?\u201c Unternehmen k\u00f6nnen auch Tools wie Shodan verwenden, um \u00f6ffentlich zug\u00e4ngliche Instanzen zu finden, f\u00fcgt er hinzu, obwohl interne Firewall-Konfigurationen andere verbergen k\u00f6nnen. F\u00fcr Unternehmen, die Experimente zulassen wollen, anstatt sie komplett zu verbieten, schl\u00e4gt er einen ma\u00dfvollen Ansatz vor. \u201eWir m\u00fcssen \u00fcber schrittweise Pilotprogramme f\u00fcr interessierte Nutzer sprechen.\u201c Beispielsweise k\u00f6nnte es Nutzern gestattet werden, OpenClaw auf verwalteten Endpunkten mit Segmentierungsregeln auszuf\u00fchren, die sie von internen Systemen isolieren, zusammen mit einer starken Telemetrie und kontinuierlicher \u00dcberwachung der Agentenaktivit\u00e4t, des ausgehenden Datenverkehrs und Warnmeldungen bei anomalem Verhalten. (jm)",
-      "link": "https://www.csoonline.com/article/4132781/was-cisos-uber-openclaw-wissen-sollten.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-16T19:41:33+00:00",
-      "published_ts": 1771270893,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Malware / Payloads",
-        "Identity / Access"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Ciberseguridad en mi plan de vida (necesito opiniones)",
-      "summary": "Estoy planeando sacarme la certificacion eJPTv2, aprender inmediatamente OSCP mientras busco empleo, pedir que me lo paguen en el trabajo, y luego alcanzar la certificacion AWS Cloud Security. Quiza asi y con constancia lograre jubilarme en 10 a\u00f1os, pero me gustaria escucharlos. submitted by /u/lvm0 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1r6jkgr/ciberseguridad_en_mi_plan_de_vida_necesito/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-16T19:38:24+00:00",
-      "published_ts": 1771270704,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "This smart sock gave me peace of mind as a new mom",
-      "summary": "If you know a new mom or mom-to-be, the Owlet Dream Sock is a great gift to track their baby's sleep habits and have peace of mind.",
-      "link": "https://www.zdnet.com/article/owlet-dream-sock-review/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-16T19:38:15+00:00",
-      "published_ts": 1771270695,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "TikTok Data Secrets Revealed by Engineer Who Reverse-Analyzed the App",
-      "summary": "submitted by /u/danitashinesqdy [link] [comments]",
-      "link": "https://www.reddit.com/r/netsec/comments/1r6jgqk/tiktok_data_secrets_revealed_by_engineer_who/",
-      "source": "/r/netsec",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-16T19:34:36+00:00",
-      "published_ts": 1771270476,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "A security flaw at DavaIndia Pharmacy allowed attackers to access customers\u2019 data and more",
-      "summary": "A security flaw at DavaIndia Pharmacy exposed customer data and gave outsiders full admin control of its systems. DavaIndia is a large Indian pharmacy retail chain focused on selling affordable generic medicines. Operated by Zota Health Care Ltd., the brand promotes low-cost alternatives to branded drugs to make healthcare more accessible across India. DavaIndia runs [\u2026]",
-      "link": "https://securityaffairs.com/188056/security/a-security-flaw-at-davaindia-pharmacy-allowed-attackers-to-access-customers-data-and-more.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-16T19:22:06+00:00",
-      "published_ts": 1771269726,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Eurail Traveler Data Breach: Stolen Information Sold on Dark Web Marketplace",
-      "summary": "Data Breach at Eurail B.V. Results in Theft of Sensitive Customer Information A data breach... The post Eurail Traveler Data Breach: Stolen Information Sold on Dark Web Marketplace appeared first on .",
-      "link": "https://www.news4hackers.com/eurail-traveler-data-breach-stolen-information-sold-on-dark-web-marketplace/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-16T19:21:33+00:00",
-      "published_ts": 1771269693,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Open source maintainers being targeted by AI agent as part of \u2018reputation farming\u2019",
-      "summary": "AI agents able to submit huge numbers of pull requests (PRs) to open-source project maintainers risk creating the conditions for future supply chain attacks targeting important software projects, developer security company Socket has argued. The warning comes after one of its developers, Nolan Lawson, last week received an email regarding the PouchDB JavaScript database he maintains from an AI agent calling itself \u201cKai Gritun\u201d. \u201cI\u2019m an autonomous AI agent (I can actually write and ship code, not just chat). I have 6+ merged PRs on OpenClaw and am looking to contribute to high-impact projects,\u201d said the email. \u201cWould you be interested in having me tackle some open issues on PouchDB or other projects you maintain? Happy to start small to prove quality.\u201d A background check revealed that the Kai Gritun profile was created on GitHub on February 1, and within days had 103 pull requests (PRs) opened across 95 repositories, resulting in 23 commits across 22 of those projects. Of the 103 projects receiving PRs, many are important to the JavaScript and cloud ecosystem, and count as industry \u201ccritical infrastructure.\u201d Successful commits, or commits being considered, included those for the development tool Nx, the Unicorn static code analysis plugin for ESLint, JavaScript command line interface Clack, and the Cloudflare/workers-sdk software development kit. Importantly, Kai Gritun\u2019s GitHub profile doesn\u2019t identify it as an AI agent, something that only became apparent to Lawson because he received the email. Reputation farming A deeper dive reveals that Kai Gritun advertises paid services that help users set up, manage, and maintain the OpenClaw personal AI agent platform (formerly known as Moltbot and Clawdbot), which in recent weeks has made headlines, not all of them good . According to Socket, this suggests it is deliberately generating activity in a bid to be viewed as trustworthy, a tactic known as \u2018reputation farming.\u2019 It looks busy, while building provenance and associations with well-known projects. The fact that Kai Gritun\u2019s activity was non-malicious and passed human review shouldn\u2019t obscure the wider significance of these tactics, Socket said. \u201cFrom a purely technical standpoint, open source got improvements,\u201d Socket noted. \u201cBut what are we trading for that efficiency? Whether this specific agent has malicious instructions is almost beside the point. The incentives are clear: trust can be accumulated quickly and converted into influence or revenue.\u201d Normally, building trust is a slow process. This gives some insulation against bad actors, with the 2024 XZ-utils supply chain attack , suspected to be the work of nation state, offering a counterintuitive example. Although the rogue developer in that incident, Jia Tan, was eventually able to introduce a backdoor into the utility, it took years to build enough reputation for this to happen. In Socket\u2019s view, the success of Kai Gritun suggests that it is now possible to build the same reputation in far less time, in a way that could help to accelerate supply chain attacks using the same AI agent technology. This isn\u2019t helped by the fact that maintainers have no easy way to distinguish human reputation from an artificially-generated provenance built using agentic AI. They might also find the potentially large numbers of of PRs created by AI agents difficult to process. \u201cThe XZ-Utils backdoor was discovered by accident. The next supply chain attack might not leave such obvious traces,\u201d said Socket. \u201cThe important shift is that software contribution itself is becoming programmable,\u201d commented Eugene Neelou , head of AI security for API security company Wallarm, who also leads the industry Agentic AI Runtime Security and Self\u2011Defense ( A2AS ) project. \u201cOnce contribution and reputation building can be automated, the attack surface moves from the code to the governance process around it. Projects that rely on informal trust and maintainer intuition will struggle, while those with strong, enforceable AI governance and controls will remain resilient,\u201d he pointed out. A better approach is to adapt to this new reality. \u201cThe long-term solution is not banning AI contributors, but introducing machine-verifiable governance around software change, including provenance, policy enforcement, and auditable contributions,\u201d he said. \u201cAI trust needs to be anchored in verifiable controls, not assumptions about contributor intent.\u201d This article originally appeared on InfoWorld .",
-      "link": "https://www.csoonline.com/article/4132870/open-source-maintainers-being-targeted-by-ai-agent-as-part-of-reputation-farming.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-16T19:21:01+00:00",
-      "published_ts": 1771269661,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Malware / Payloads",
-        "Web / API Security",
-        "Identity / Access",
-        "Network / OT / ICS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Bitcoin accumulation wave puts $80K back in play: Analyst",
-      "summary": "Demand from Bitcoin accumulation addresses reached a new high, with analysts citing a futures market CME gap as a prediction point for their higher short-term price targets.",
-      "link": "https://cointelegraph.com/news/bitcoin-accumulation-wave-puts-dollar80k-back-in-play-analyst?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-16T19:20:18+00:00",
-      "published_ts": 1771269618,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Eurail says stolen traveler data now up for sale on dark web",
-      "summary": "Eurail B.V., the operator that provides access to 250,000 kilometers of European railways, confirmed that data stolen in a breach earlier this year is being offered for sale on the dark web. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/eurail-says-stolen-traveler-data-now-up-for-sale-on-dark-web/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-16T19:19:09+00:00",
-      "published_ts": 1771269549,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Man Arrested for Demanding Reward After Accidental Police Data Leak Exposes Personal Info",
-      "summary": "Man Arrested for Attempting to Extort Reward from Police A 40-year-old Dutch man was arrested... The post Man Arrested for Demanding Reward After Accidental Police Data Leak Exposes Personal Info appeared first on .",
-      "link": "https://www.news4hackers.com/man-arrested-for-demanding-reward-after-accidental-police-data-leak-exposes-personal-info/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-16T19:16:34+00:00",
-      "published_ts": 1771269394,
-      "smart_groups": [
-        "Curated",
-        "Data Breaches / Leaks"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Man arrested for demanding reward after accidental police data leak",
-      "summary": "Dutch authorities arrested a 40-year-old man after he downloaded confidential documents that had been mistakenly shared by the police and refused to delete them unless he received \"something in return.\" [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/man-arrested-for-demanding-reward-after-accidental-police-data-leak/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-16T19:13:39+00:00",
-      "published_ts": 1771269219,
-      "smart_groups": [
-        "Curated",
-        "Data Breaches / Leaks"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Bitcoin on Pace for Longest Losing Streak Since 2018 Bear Market",
-      "summary": "The selling simply won't stop. If February closes red, Bitcoin will register five consecutive red months, the longest streak in seven years.",
-      "link": "https://decrypt.co/358184/bitcoin-longest-losing-streak-2018-bear-market",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-16T19:10:17+00:00",
-      "published_ts": 1771269017,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "AL26-003 - Vulnerability affecting BeyondTrust - CVE-2026-1731",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/al26-003-vulnerability-affecting-beyondtrust-cve-2026-1731",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-16T19:05:58+00:00",
-      "published_ts": 1771268758,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "I found the best smart glasses deals right now (like this AR/XR pair for under $200)",
-      "summary": "Shop Presidents' Day sale savings on top smart glasses from brands like Meta, RayNeo, and more.",
-      "link": "https://www.zdnet.com/article/best-presidents-day-smart-glasses-deals/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-16T19:03:27+00:00",
-      "published_ts": 1771268607,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Q-Day: Catastrophic For Businesses Ignoring Quantum-Resistant Encryption",
-      "summary": "#Quantum #CyberSecurity Quantum computing is not merely a frontier of innovation; it is a countdown. Q-Day is the pivotal moment when scalable quantum computers undermine the cryptographic underpinnings of our digital realm. It is approaching more rapidly than many comprehend. For corporations and governmental entities reliant on outdated encryption methods, Q-Day will not herald a [\u2026]",
-      "link": "https://lifeboat.com/blog/2026/02/q-day-catastrophic-for-businesses-ignoring-quantum-resistant-encryption",
-      "source": "Lifeboat \u2013 Cybercrime & Malcode",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-02-16T19:03:27+00:00",
-      "published_ts": 1771268607,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Cloud Password Manager Security Breach: 25 Password Recovery Attacks Exposed",
-      "summary": "Password Recovery Attacks Against Cloud-Based Password Managers A recent study conducted by researchers from ETH... The post Cloud Password Manager Security Breach: 25 Password Recovery Attacks Exposed appeared first on .",
-      "link": "https://www.news4hackers.com/cloud-password-manager-security-breach-25-password-recovery-attacks-exposed-2/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-16T19:03:19+00:00",
-      "published_ts": 1771268599,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Fake CAPTCHA Scam Tricks Windows Users Into Installing Malware",
-      "summary": "A fake CAPTCHA scam is tricking Windows users into running PowerShell commands that install StealC malware and steal passwords, crypto wallets, and more. The post Fake CAPTCHA Scam Tricks Windows Users Into Installing Malware appeared first on TechRepublic .",
-      "link": "https://www.techrepublic.com/article/news-fake-captcha-scam-stealc-malware-windows/",
-      "source": "TechRepublic \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-16T19:02:52+00:00",
-      "published_ts": 1771268572,
-      "smart_groups": [
-        "Windows / Microsoft",
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Cloud Password Manager Security Breach: 25 Password Recovery Attacks Exposed",
-      "summary": "Study Uncovers Vulnerabilities in Cloud-Based Password Managers A recent study conducted by researchers at ETH... The post Cloud Password Manager Security Breach: 25 Password Recovery Attacks Exposed appeared first on .",
-      "link": "https://www.news4hackers.com/cloud-password-manager-security-breach-25-password-recovery-attacks-exposed/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-16T19:01:54+00:00",
-      "published_ts": 1771268514,
-      "smart_groups": [
-        "Vulnerabilities / CVEs"
-      ],
       "curated": false
     },
     {
