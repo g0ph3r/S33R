@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-03-20T20:04:55.557092+00:00",
+  "generated_at": "2026-03-20T20:47:27.932520+00:00",
   "days_back": 30,
-  "total_items": 8301,
+  "total_items": 8300,
   "items": [
     {
       "title": "Secure Your Spot at RSAC 2026 Conference",
@@ -16,6 +16,133 @@
       "curated": false
     },
     {
+      "title": "Agentic Use Cases for Developers on the Microsoft Sentinel Platform",
+      "summary": "Interested in building an agent with Sentinel platform solutions but not sure where to start? This blog will help you understand some common use cases for agent development that we\u2019ve seen across our partner ecosystem. SOC teams don\u2019t need more alerts - they need fast, repeatable investigation and response workflows. Security Copilot agents can help orchestrate the steps analysts perform by correlating across the Sentinel data lake, executing targeted KQL queries, fetching related entities, enriching with context, and producing an evidence-backed decision without forcing analysts to switch tools. Microsoft Sentinel platform is a strong foundation for agentic experiences because it exposes a normalized security data layer, an investigation surface based on incidents and entities, and extensive automation capabilities. An agent can use these primitives to correlate identity, endpoint, cloud, and network telemetry; traverse entity relationships; and recommend remediation actions. In this blog, I will break down common agentic use cases that developers can implement on Sentinel platform, framed in buildable and repeatable patterns: Identify the investigation scenario Understand the required Sentinel data connectors and KQL queries Build enrichment and correlation logic Summarize findings with supporting evidence and recommended remediation steps Use Case 1: Identity & Access Intelligence Investigation Scenario : Is this risky sign-in part of an attack path? Signals Correlated: Identity access telemetry : Source user, IPs, target resources, MFA logs Authentication outcomes and diversity : Success vs. failure, Geographic spread Identity risk posture : User risk level/state Post-auth endpoint execution : Suspicious LOLBins Correlation Logic: An analyst receives a risky sign-in signal for a user and needs to determine whether the activity reflects expected behavior - such as travel, remote access, or MFA friction - or if it signals the early stage of an identity compromise that could escalate into privileged access and downstream workload impact. Practical Example: Silverfort Identity Threat Triage Agent, which is built on a similar framework, takes the user\u2019s UPN as input and builds a bounded, last-24-hour investigation across authentication activity, MFA logs, user risk posture, and post-authentication endpoint behavior. Outcome: By correlating identity risk signals, MFA logs, sign-in success and failure patterns, and suspicious execution activity following authentication, the agent connects the initial risky sign-in to endpoint behavior, enabling the analyst to quickly assess compromise likelihood, identify escalation indicators, and determine appropriate remediation actions. \u201cOur collaboration with Microsoft Sentinel and Security Copilot underscores the central role identity plays across every stage of attack path triage. By integrating Silverfort\u2019s identity risk signals with Microsoft Entra ID and Defender for Endpoint, and sharing rich telemetry across platforms, we enable Security Copilot Agent to distinguish isolated anomalies from true identity-driven intrusions - while dramatically reducing the manual effort traditionally required for incident response and threat hunting. AI-driven agents accelerate analysis, enrich investigative context, reduce dwell time, and speed detection. Instead of relying on complex queries or deep familiarity with underlying data structures, security teams can now perform seamless, identity-centric reasoning within a single interaction.\u201d - Frank Gasparovic, Director of Solution Architecture, Technology Alliances, Silverfort Use Case 2: Cyber Resilience, Backup & Recovery Investigation Scenario: Are the threats detected on a backup indicative of production impact and recovery risk? Signals Correlated: Backup threat telemetry: Backup threat scan alerts, risk analysis events, affected host/workload, detection timestamps Cross-vendor security alerts: Endpoint, network, and cloud security alerts for the same host/workload in the same time window Correlation Logic: The agent correlates threat signals originating from the backup environment with security telemetry associated with same host/workload to validate whether there is corroborating evidence in the production environment and whether activity aligns in time. Practical Example: Commvault Security Investigation Agent, which is built on a similar framework, takes a hostname as input and builds an investigation across Commvault Threat Scan / Risk Analysis events and third-party security telemetry. By correlating backup-originating detections with production security activity for the same host, the agent determines whether the backup threat signal aligns with observable production impact. Outcome: By correlating backup threat detections with endpoint, network, and cloud security telemetry while validating timing alignment, event spikes, and data coverage, the agent connects a backup originating threat signal to production evidence, enabling the analyst to quickly assess impact likelihood and determine appropriate actions such as containment or recovery-point validation. Use Case 3: Network, Exposure & Connectivity Investigation Scenario : Is this activity indicative of legitimate remote access, or does it demonstrate suspicious connectivity and access attempts that increase risk to private applications and internal resources. Signals Correlated: User access telemetry: Source user, source IPs/geo, device/context, destinations Auth and enforcement outcomes: Success vs. failure, MFA allow/block Behavior drift: new/rare IPs/locations, unusual destination/app diversity. Suspicious activity indicators: Risky URLs/categories, known-bad indicators, automated/bot-like patterns, repeated denied private app access attempts Correlation Logic: An analyst receives an alert for a specific user and needs to determine whether the activity reflects expected behavior such as travel, remote work, or VPN usage, or whether it signals the early stages of a compromise that could later extend into private application access. Practical Example: Zscaler ZIA ZPA Correlation Agent starts with a username and builds a bounded, last-24-hour investigation across Zscaler Internet Access and Zscaler Private Access activity. By correlating user internet behavior, access context, and private application interactions, the agent connects the initial Zscaler alert to any downstream access attempts or authentication anomalies, enabling the analyst to quickly assess risk, identify suspicious patterns, and determine whether Zscaler policy adjustments are required. Outcome: Provides a last\u201124\u2011hour verdict on whether the activity reflects expected access patterns or escalation toward private application access, and recommends next actions\u2014such as closing as benign drift, escalating for containment, or tuning access policy\u2014based on correlated evidence. Use Case 4 : Endpoint & Runtime Intelligence Investigation Scenario : Is this process malicious or a legitimate admin action? Signals Correlated: Execution context: Process chain, full command line, signer, unusual path Account & logon: Initiating user, logon type (RDP/service), recent risky sign-ins Tooling & TTPs: LOLBins, credential access hints, lateral movement tooling Network behavior: Suspicious connections, repeated callbacks/beaconing Correlation Logic: A PowerShell alert triggers on a production server. The agent ties the process to its parent (e.g., spawned by a web worker vs. an admin shell), validates the command-line indicators, correlates outbound connections from the same PID to a first-seen destination, and checks for immediate follow-on persistence and any adjacent runtime alerts in the same time window. Outcome: Classifies the activity as malicious vs. admin and produces an evidence pack (process tree, key command indicators, destinations, persistence/tamper artifacts) as well as the recommended containment step (isolate host and revoke/reset initiating credentials). Use Case 5 : Exposure & Exploitability Investigation Scenario : What is the likelihood of exploitation and blast radius? Signals Correlated: Asset exposure: Internet-facing status, exposed services/ports, and identity or network paths required to reach the workload Exploit activity: Defender alerts on the resource, IDS/WAF hits, IOC matches, and first seen exploit or probing attempts Risk amplification signals: Internet communication, high privilege access paths, and indicators that the workload processes PII or sensitive data Blast radius: Downstream reachability to crown jewel systems (e.g., databases, key vaults) and trust relationships that could enable escalation Correlation Logic: An analyst receives a Medium/High Microsoft Defender for Cloud alert on a workload and needs to determine whether it\u2019s a standalone detection or an exploitable exposure that can quickly progress into privilege abuse and data impact. The agent correlates exposure evidence signals such as internet reachability, high-privilege paths, and indicators that workload handles sensitive data by analyzing suspicious network connections in the same bounded time window. Outcome: Produces a resource-specific risk analysis that explains why the Defender for Cloud alert is likely to be exploited, based on asset attack surface and effective privileges, plus any supporting activity in the same 24-hour window. Use Case 6 : Threat Intelligence & Adversary Context Investigation Scenario : Is this activity aligned with known attacker behavior? Signals Correlated: Behavior sequence: ordered events identity \u2192 execution \u2192 network. Technique mapping: MITRE ATT&CK technique IDs, typical progression, and required prerequisites. Threat intel match: campaign/adversary, TTPs, IOCs Correlation Logic: A chain of identity compromise, PowerShell obfuscation, and periodic outbound HTTPS is observed. The agent maps the sequence to ATT&CK techniques and correlates it with threat intel that matches a known adversary campaign. Outcome: Surfaces adversary-aligned behavioral insights and TTP context to help analysts assess intrusion likelihood and guide the next investigation steps. Summary This blog is intended to help developers better understand the key use cases for building agents with Microsoft Sentinel platform along with practical patterns to apply when designing and implementing agent scenarios. Need help? If you have any issues as you work to develop your agent, the App Assure team is available to assist via our Sentinel Advisory Service . Reach out via our intake form . Resources Learn more: For a practical overview of how ISVs can move from Sentinel data lake onboarding to building agents, see the Accelerate Agent Development blog - https://aka.ms/AppAssure_AccelerateAgentDev . Get hands-on: Explore the end-to-end journey from Sentinel data lake onboarding to a working Security Copilot agent through the accompanying lab modules available on GitHub Repo: https://github.com/suchandanreddy/Microsoft-Sentinel-Labs .",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/agentic-use-cases-for-developers-on-the-microsoft-sentinel/ba-p/4503041",
+      "source": "Microsoft Sentinel Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-03-20T20:46:02+00:00",
+      "published_ts": 1774039562,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Windows / Microsoft",
+        "Identity / Access"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Attack surface analysis of 5,121 MCP servers: 555 have toxic data flows where safe tools combine into dangerous paths",
+      "summary": "submitted by /u/Kind-Release-3817 [link] [comments]",
+      "link": "https://www.reddit.com/r/netsec/comments/1rz7g4q/attack_surface_analysis_of_5121_mcp_servers_555/",
+      "source": "/r/netsec",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-20T20:33:06+00:00",
+      "published_ts": 1774038786,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Extending App Assure\u2019s Sentinel Promise through the Sentinel Advisory Service",
+      "summary": "At RSAC last year, we introduced the Microsoft S entinel Promise with a straightforward commitment to our customers: that third-party data ingestion for Sentinel is reliable, predictable, and scalable without the need for complex custom coding and architecting. In other words, your connectors for Sentinel will just work. That promise has guided App Assure\u2019s work ever since, enabling customers to bring data from across their various security solutions into Sentinel to drive clearer insights and stronger protection. Over the past year, that foundation has proven critical. As organizations move from legacy SIEM platforms to Sentinel, consistent access to high-quality third-party data remains essential, not only for detection and response, but increasingly for advanced analytics and AI-driven security experiences. With the introduction of Microsoft Sentinel data lake , customers and partners can now reason over security data cost-effectively and at greater scale. But as many teams are discovering, unlocking those outcomes requires more than simply getting data in the door. At App Assure, we\u2019ve seen a clear pattern emerge. Software companies often revisit connector design and data modeling multiple times as they help our mutual customers move from ingestion to analytics, and then again as they begin building agentic AI solutions, whether through Security Copilot, MCP server integrations, or custom workflows. Each iteration brings new requirements and new questions, often upstream of where teams initially started. That\u2019s why, as an extension of our Sentinel Promise, we\u2019re excited to announce the Sentinel Advisory Service from App Assure. A Natural Evolution The Sentinel Advisory Service builds directly on the work we\u2019ve been doing through the Sentinel Promise and our support for Sentinel data lake. Our commitment to helping customers bring third-party data into the platform remains unchanged. What this new service adds is an expert-guided approach focused on helping software companies design customer solutions and data strategies with downstream outcomes in mind. Rather than addressing ingestion challenges in isolation, the Sentinel Advisory Service is designed to help teams think end-to-end across the Sentinel platform: aligning connector design, data structure, and platform capabilities to support advanced scenarios such as AI agents, analytics jobs, and marketplace-ready solutions. The goal is fewer rebuild cycles, faster progress, and greater confidence as teams move from data ingestion to meaningful security outcomes. What Sentinel Advisory Service Offers The Sentinel Advisory Service is a no-cost program delivered by App Assure in close collaboration with Sentinel engineering to continually make it easier to build and maintain connectors that utilize data lake and facilitate building agentic AI solutions on top of it. Key areas of support include: Technical workshops covering best practices for Sentinel integrations, data lake usage, and agent development Advisory guidance on leveraging Sentinel platform features to support AI-driven security scenarios Code samples and design reviews to unblock development and improve solution quality Break/fix assistance and escalation paths to Microsoft engineers to assist with software development and provide product feedback Early Partner Momentum We\u2019re already seeing strong momentum from software companies participating in early advisory engagements. Partners are working with App Assure to refine Sentinel integrations and explore new agentic AI scenarios built on a solid data foundation. Their work reflects a broader shift across the ecosystem: moving beyond connectivity alone, toward building differentiated, outcome-driven security solutions on Sentinel. Below are some of the partners we\u2019ve already worked with and what they have to say about the experience: Srinivas Chakravarty, VP of Cloud & AI Ecosystem, Gigamon \u201cThrough active collaboration with Microsoft Security Engineering and the App Assure team, we quickly created and published our CCF-Push connector to deliver enriched network-derived telemetry from the Gigamon Deep Observability Pipeline into Sentinel data lake. In a parallel sprint, with the introduction of our initial Security Copilot Agent, security teams can apply AI to this network intelligence within Sentinel to uncover threats hidden in encrypted and lateral traffic that might otherwise go undetected.\u201d Mario Espinoza, Chief Product Officer, Illumio \"Illumio is proud to partner with Microsoft, proving together that cybersecurity can scale. Microsoft's product management teams collaborated closely with Illumio on several integrations, most recently Illumio Insights Agent for Security Copilot and Illumio for Microsoft Sentinel Data Lake Connector. Together, Illumio and Sentinel solutions empower customers to correlate joint security threat findings and ensure breaches don't become disasters.\" Duncan Barnes, Director Global Alliances, RSA \"The partnership between RSA and Microsoft, exemplified by the RSA Advisor for Admin Threats agent, underscores the value of the Sentinel Advisory Service. It highlights how collaborative innovation drives differentiated, outcome-driven security solutions, ensuring customers can migrate with confidence and harness the full potential of agentic AI to find, prioritize, and resolve threats faster and more efficiently.\" Vlad Sushitsky, Research Engineer, Semperis \u201cWe developed a Security Copilot agent that correlates Tier-0 classifications, identity attack paths, and Indicators of Exposure for any given identity. The correlation is powered by Semperis Lightning telemetry, streamed into the Data Lake through our new data connector. What used to take analysts hours of manually pivoting across multiple tables to piece together an identity's risk profile now happens instantly in a single conversation. This gives our joint customers significantly better visibility into identity threats, faster investigations, and substantial cost savings. Developing the agent on Security Copilot was smooth and fast \u2014 thanks to great collaboration with the Microsoft team, we had it up and running in a matter of days.\u201d Harman Kaur, SVP Technology Strategy and AI, Tanium \"This partnership with Microsoft represents a new level of AI and security integration. Through the Microsoft Sentinel Advisory Service, Tanium integrated AI agents into Microsoft Security Copilot, including the recently launched Tanium Security Triage Agent with Identity Insights. By unifying Tanium\u2019s real-time endpoint intelligence with identity information from the Microsoft Sentinel data lake and Entra ID, security analysts gain the speed, precision and confidence needed to stop threats before they escalate.\" Ariel Negrin, Worldwide Head of Partnerships and Alliances, Upwind \"Through the Sentinel Advisory Service and the broader App Assure engineering teams, Microsoft has been side \u2011 by \u2011 side with us, from connector and data model design to advanced AI scenarios, helping us architect for high \u2011 quality ingestion, graph \u2011 aware context, and AI security use cases. That level of hands \u2011 on guidance and roadmap alignment means our joint customers get faster time to value, fewer integration rebuilds, and a more intelligent security experience built on top of the Microsoft security stack they already trust.\" Matthew Payne, Field Engineer, XBOW \"The team worked alongside us from the start, not just on ingestion, but on designing how XBOW's penetration testing data should flow into Sentinel to actually drive downstream outcomes. Their engineering guidance helped us build agents for Security Copilot and a Sentinel data connector that turns validated exploit paths into actionable security telemetry. The result is that joint customers can trigger a pentest, see real findings in Sentinel alongside their existing alerts, and investigate and remediate without leaving the Microsoft security console.\" Paul Lopez, Principal Solutions Architect, Zscaler \"Organizations looking to improve visibility across internet and private access activities benefit from integrating these signals. Through collaboration with Microsoft\u2019s App Assure team, Zscaler\u2019s ZIA\u2013ZPA Correlation Agent for Security Copilot leverages data from the Sentinel Data Lake to deliver a single, cohesive view, simplifying investigations and enabling faster response times.\" Getting Started The Sentinel Advisory Service is available today for developers building on Microsoft Sentinel and Sentinel data lake. If you\u2019re enhancing an existing connector, designing an AI-driven security solution, or planning how to translate data into action on the Sentinel platform, App Assure is here to help. As always, our focus remains on customer confidence, ensuring that as Sentinel evolves, the ecosystem around it can evolve just as reliably. The Sentinel Advisory Service is the next step in delivering on that promise. Reach out to us here .",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/extending-app-assure-s-sentinel-promise-through-the-sentinel/ba-p/4503045",
+      "source": "Microsoft Sentinel Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-03-20T20:23:18+00:00",
+      "published_ts": 1774038198,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Exploit / PoC",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Nevada Becomes First State to Ban Prediction Market Kalshi\u2014At Least for Now",
+      "summary": "Kalshi's sports, politics, and entertainment prediction markets will be banned in Nevada for at least the next 14 days.",
+      "link": "https://decrypt.co/361938/nevada-first-state-ban-prediction-market-kalshi",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-20T20:16:45+00:00",
+      "published_ts": 1774037805,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Google Threat Intel flags 'Ghostblade' crypto-stealing malware",
+      "summary": "Ghostblade is one of six malware tools in the \"DarkSword\" suite of malicious software designed to steal crypto private keys and user data.",
+      "link": "https://cointelegraph.com/news/google-ghostblade-crypto-stealing-malware?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-20T20:10:00+00:00",
+      "published_ts": 1774037400,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Crypto Biz: Institutions aren\u2019t waiting for the bottom",
+      "summary": "Nearly three-quarters of institutional investors plan to increase their digital asset allocations this year, with Bitcoin, Ether, stablecoins and tokenized assets seeing the most interest.",
+      "link": "https://cointelegraph.com/news/crypto-biz-institutional-crypto-demand-stablecoins-abra-spac-listing?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-20T20:00:00+00:00",
+      "published_ts": 1774036800,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Iran Cyber Threat Intel Center",
+      "summary": "Hi everyone, we created an Iran Cyber Threat Intel Center with Threat Actor Profiles (TAPs) and Threat Hunting Guides (THGs) for the main state-sponsored Iranian Threat Groups. We now have 11 Iranian threat groups fully profiled with matching hunting guides: Agrius, Lemon Sandstorm (v1.1 with Fox Kitten), MuddyWater, Handala, APT33/Peach Sandstorm, APT34/OilRig, APT35/Charming Kitten, CyberAv3ngers, Hydro Kitten, Cotton Sandstorm, and FAD Team. 143+ detection queries across all the hunting guides. Ready to run in Splunk, KQL, and Sigma. Plus a v1.4 Situation Report (Day 20) with sector risk assessments, ten threat vectors, and a 14-point action checklist. Everything is free and TLP:CLEAR. No registration. https://intruvent.com/iran-cyber-threat/ I wanted to get this out to everyone so that you can protect your clients from these advanced TAs. Would love any feedback that you all have on the site, content or format of our reports. Thanks! submitted by /u/Intruvent [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1rz6isl/iran_cyber_threat_intel_center/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-20T19:57:26+00:00",
+      "published_ts": 1774036646,
+      "smart_groups": [
+        "Threat Actors / APT"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Ledger hires ex-Circle exec as CFO, opens NYC office to expand US business",
+      "summary": "Ledger names John Andrews as chief financial officer and opens a New York office to expand its US operations and institutional business.",
+      "link": "https://cointelegraph.com/news/ledger-hires-ex-circle-executive-opens-nyc-office?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-20T19:56:52+00:00",
+      "published_ts": 1774036612,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "US, Canada and Germany take down four large DDoS botnets",
+      "summary": "Experts warn that the botnet operators will likely regroup and come back stronger, armed with AI.",
+      "link": "https://www.scworld.com/news/us-canada-and-germany-take-down-four-large-ddos-botnets",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-20T19:54:40+00:00",
+      "published_ts": 1774036480,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
       "title": "Roku's ad-free streaming service was already a great deal - now it's adding Disney movies",
       "summary": "Howdy gets you ad-free viewing for under $3 a month, but is it worth it?",
       "link": "https://www.zdnet.com/article/roku-ad-free-streaming-service-howdy-adds-disney-movies/",
@@ -25,6 +152,20 @@
       "published": "2026-03-20T19:39:03+00:00",
       "published_ts": 1774035543,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
+      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-20T19:30:45+00:00",
+      "published_ts": 1774035045,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
       "curated": false
     },
     {
@@ -56,6 +197,18 @@
         "Exploit / PoC"
       ],
       "curated": true
+    },
+    {
+      "title": "AI is now the decisive factor in cyber conflict",
+      "summary": "AI is reshaping cyber conflict, accelerating attacks and raising global risk.",
+      "link": "https://www.scworld.com/perspective/ai-is-now-the-decisive-factor-in-cyber-conflict",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-20T19:22:43+00:00",
+      "published_ts": 1774034563,
+      "smart_groups": [],
+      "curated": false
     },
     {
       "title": "California city reports ransomware attack as LA transit agency finds \u2018unauthorized activity\u2019",
@@ -128,23 +281,6 @@
         "Data Breaches / Leaks"
       ],
       "curated": false
-    },
-    {
-      "title": "Extending App Assure\u2019s Sentinel Promise through the Sentinel Advisory Service",
-      "summary": "At RSAC last year, we introduced the Microsoft S entinel Promise with a straightforward commitment to our customers: that third-party data ingestion for Sentinel is reliable, predictable, and scalable without the need for complex custom coding and architecting. In other words, your connectors for Sentinel will just work. That promise has guided App Assure\u2019s work ever since, enabling customers to bring data from across their various security solutions into Sentinel to drive clearer insights and stronger protection. Over the past year, that foundation has proven critical. As organizations move from legacy SIEM platforms to Sentinel, consistent access to high-quality third-party data remains essential, not only for detection and response, but increasingly for advanced analytics and AI-driven security experiences. With the introduction of Microsoft Sentinel data lake , customers and partners can now reason over security data cost-effectively and at greater scale. But as many teams are discovering, unlocking those outcomes requires more than simply getting data in the door. At App Assure, we\u2019ve seen a clear pattern emerge. Software companies often revisit connector design and data modeling multiple times as they help our mutual customers move from ingestion to analytics, and then again as they begin building agentic AI solutions, whether through Security Copilot, MCP server integrations, or custom workflows. Each iteration brings new requirements and new questions, often upstream of where teams initially started. That\u2019s why, as an extension of our Sentinel Promise, we\u2019re excited to announce the Sentinel Advisory Service from App Assure. A Natural Evolution The Sentinel Advisory Service builds directly on the work we\u2019ve been doing through the Sentinel Promise and our support for Sentinel data lake. Our commitment to helping customers bring third-party data into the platform remains unchanged. What this new service adds is an expert-guided approach focused on helping software companies design customer solutions and data strategies with downstream outcomes in mind. Rather than addressing ingestion challenges in isolation, the Sentinel Advisory Service is designed to help teams think end-to-end across the Sentinel platform: aligning connector design, data structure, and platform capabilities to support advanced scenarios such as AI agents, analytics jobs, and marketplace-ready solutions. The goal is fewer rebuild cycles, faster progress, and greater confidence as teams move from data ingestion to meaningful security outcomes. What Sentinel Advisory Service Offers The Sentinel Advisory Service is a no-cost program delivered by App Assure in close collaboration with Sentinel engineering to continually make it easier to build and maintain connectors that utilize data lake and facilitate building agentic AI solutions on top of it. Key areas of support include: Technical workshops covering best practices for Sentinel integrations, data lake usage, and agent development Advisory guidance on leveraging Sentinel platform features to support AI-driven security scenarios Code samples and design reviews to unblock development and improve solution quality Break/fix assistance and escalation paths to Microsoft engineers to assist with software development and provide product feedback Early Partner Momentum We\u2019re already seeing strong momentum from software companies participating in early advisory engagements. Partners are working with App Assure to refine Sentinel integrations and explore new agentic AI scenarios built on a solid data foundation. Their work reflects a broader shift across the ecosystem: moving beyond connectivity alone, toward building differentiated, outcome-driven security solutions on Sentinel. Below are some of the partners we\u2019ve already worked with and what they have to say about the experience: Srinivas Chakravarty, VP of Cloud & AI Ecosystem, Gigamon \u201cThrough active collaboration with Microsoft Security Engineering and the App Assure team, we quickly created and published our CCF-Push connector to deliver enriched network-derived telemetry from the Gigamon Deep Observability Pipeline into Sentinel data lake. In a parallel sprint, with the introduction of our initial Security Copilot Agent, security teams can apply AI to this network intelligence within Sentinel to uncover threats hidden in encrypted and lateral traffic that might otherwise go undetected.\u201d Mario Espinoza, Chief Product Officer, Illumio \"Illumio is proud to partner with Microsoft, proving together that cybersecurity can scale. Microsoft's product management teams collaborated closely with Illumio on several integrations, most recently Illumio Insights Agent for Security Copilot and Illumio for Microsoft Sentinel Data Lake Connector. Together, Illumio and Sentinel solutions empower customers to correlate joint security threat findings and ensure breaches don't become disasters.\" Duncan Barnes, Director Global Alliances, RSA \"The partnership between RSA and Microsoft, exemplified by the RSA Advisor for Admin Threats agent, underscores the value of the Sentinel Advisory Service. It highlights how collaborative innovation drives differentiated, outcome-driven security solutions, ensuring customers can migrate with confidence and harness the full potential of agentic AI to find, prioritize, and resolve threats faster and more efficiently.\" Vlad Sushitsky, Research Engineer, Semperis \u201cWe developed a Security Copilot agent that correlates Tier-0 classifications, identity attack paths, and Indicators of Exposure for any given identity. The correlation is powered by Semperis Lightning telemetry, streamed into the Data Lake through our new data connector. What used to take analysts hours of manually pivoting across multiple tables to piece together an identity's risk profile now happens instantly in a single conversation. This gives our joint customers significantly better visibility into identity threats, faster investigations, and substantial cost savings. Developing the agent on Security Copilot was smooth and fast \u2014 thanks to great collaboration with the Microsoft team, we had it up and running in a matter of days.\u201d Harman Kaur, SVP Technology Strategy and AI, Tanium \"This partnership with Microsoft represents a new level of AI and security integration. Through the Microsoft Sentinel Advisory Service, Tanium integrated AI agents into Microsoft Security Copilot, including the recently launched Tanium Security Triage Agent with Identity Insights. By unifying Tanium\u2019s real-time endpoint intelligence with identity information from the Microsoft Sentinel data lake and Entra ID, security analysts gain the speed, precision and confidence needed to stop threats before they escalate.\" Ariel Negrin, Worldwide Head of Partnerships and Alliances, Upwind \"Through the Sentinel Advisory Service and the broader App Assure engineering teams, Microsoft has been side \u2011 by \u2011 side with us, from connector and data model design to advanced AI scenarios, helping us architect for high \u2011 quality ingestion, graph \u2011 aware context, and AI security use cases. That level of hands \u2011 on guidance and roadmap alignment means our joint customers get faster time to value, fewer integration rebuilds, and a more intelligent security experience built on top of the Microsoft security stack they already trust.\" Matthew Payne, Field Engineer, XBOW \"The team worked alongside us from the start, not just on ingestion, but on designing how XBOW's penetration testing data should flow into Sentinel to actually drive downstream outcomes. Their engineering guidance helped us build agents for Security Copilot and a Sentinel data connector that turns validated exploit paths into actionable security telemetry. The result is that joint customers can trigger a pentest, see real findings in Sentinel alongside their existing alerts, and investigate and remediate without leaving the Microsoft security console.\" Paul Lopez, Principal Solutions Architect, Zscaler \"Organizations looking to improve visibility across internet and private access activities benefit from integrating these signals. Through collaboration with Microsoft\u2019s App Assure team, Zscaler\u2019s ZIA\u2013ZPA Correlation Agent for Security Copilot leverages data from the Sentinel Data Lake to deliver a single, cohesive view, simplifying investigations and enabling faster response times.\" Getting Started The Sentinel Advisory Service is available today for developers building on Microsoft Sentinel and Sentinel data lake. If you\u2019re enhancing an existing connector, designing an AI-driven security solution, or planning how to translate data into action on the Sentinel platform, App Assure is here to help. As always, our focus remains on customer confidence, ensuring that as Sentinel evolves, the ecosystem around it can evolve just as reliably. The Sentinel Advisory Service is the next step in delivering on that promise. Reach out to us here .",
-      "link": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/extending-app-assure-s-sentinel-promise-through-the-sentinel/ba-p/4503045",
-      "source": "Microsoft Sentinel Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-20T18:51:09+00:00",
-      "published_ts": 1774032669,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Exploit / PoC",
-        "Network / OT / ICS"
-      ],
-      "curated": true
     },
     {
       "title": "Oracle pushes emergency fix for critical Identity Manager RCE flaw",
@@ -745,24 +881,6 @@
       "curated": false
     },
     {
-      "title": "Agentic Use Cases for Developers on the Microsoft Sentinel Platform",
-      "summary": "Interested in building an agent with Sentinel platform solutions but not sure where to start? This blog will help you understand some common use cases for agent development that we\u2019ve seen across our partner ecosystem. SOC teams don\u2019t need more alerts - they need fast, repeatable investigation and response workflows. Security Copilot agents can help orchestrate the steps analysts perform by correlating across the Sentinel data lake, executing targeted KQL queries, fetching related entities, enriching with context, and producing an evidence-backed decision without forcing analysts to switch tools. Microsoft Sentinel platform is a strong foundation for agentic experiences because it exposes a normalized security data layer, an investigation surface based on incidents and entities, and extensive automation capabilities. An agent can use these primitives to correlate identity, endpoint, cloud, and network telemetry; traverse entity relationships; and recommend remediation actions. In this blog, I will break down common agentic use cases that developers can implement on Sentinel platform, framed in buildable and repeatable patterns: Identify the investigation scenario Understand the required Sentinel data connectors and KQL queries Build enrichment and correlation logic Summarize findings with supporting evidence and recommended remediation steps Use Case 1: Identity & Access Intelligence Investigation Scenario : Is this risky sign-in part of an attack path? Signals Correlated: Identity access telemetry : Source user, IPs, target resources, MFA logs Authentication outcomes and diversity : Success vs. failure, Geographic spread Identity risk posture : User risk level/state Post-auth endpoint execution : Suspicious LOLBins Correlation Logic: An analyst receives a risky sign-in signal for a user and needs to determine whether the activity reflects expected behavior - such as travel, remote access, or MFA friction - or if it signals the early stage of an identity compromise that could escalate into privileged access and downstream workload impact. Practical Example: Silverfort Identity Threat Triage Agent, which is built on a similar framework, takes the user\u2019s UPN as input and builds a bounded, last-24-hour investigation across authentication activity, MFA logs, user risk posture, and post-authentication endpoint behavior. Outcome: By correlating identity risk signals, MFA logs, sign-in success and failure patterns, and suspicious execution activity following authentication, the agent connects the initial risky sign-in to endpoint behavior, enabling the analyst to quickly assess compromise likelihood, identify escalation indicators, and determine appropriate remediation actions. \u201cOur collaboration with Microsoft Sentinel and Security Copilot underscores the central role identity plays across every stage of attack path triage. By integrating Silverfort\u2019s identity risk signals with Microsoft Entra ID and Defender for Endpoint, and sharing rich telemetry across platforms, we enable Security Copilot Agent to distinguish isolated anomalies from true identity-driven intrusions - while dramatically reducing the manual effort traditionally required for incident response and threat hunting. AI-driven agents accelerate analysis, enrich investigative context, reduce dwell time, and speed detection. Instead of relying on complex queries or deep familiarity with underlying data structures, security teams can now perform seamless, identity-centric reasoning within a single interaction.\u201d - Frank Gasparovic, Director of Solution Architecture, Technology Alliances, Silverfort Use Case 2: Cyber Resilience, Backup & Recovery Investigation Scenario: Are the threats detected on a backup indicative of production impact and recovery risk? Signals Correlated: Backup threat telemetry: Backup threat scan alerts, risk analysis events, affected host/workload, detection timestamps Cross-vendor security alerts: Endpoint, network, and cloud security alerts for the same host/workload in the same time window Correlation Logic: The agent correlates threat signals originating from the backup environment with security telemetry associated with same host/workload to validate whether there is corroborating evidence in the production environment and whether activity aligns in time. Practical Example: Commvault Security Investigation Agent, which is built on a similar framework, takes a hostname as input and builds an investigation across Commvault Threat Scan / Risk Analysis events and third-party security telemetry. By correlating backup-originating detections with production security activity for the same host, the agent determines whether the backup threat signal aligns with observable production impact. Outcome: By correlating backup threat detections with endpoint, network, and cloud security telemetry while validating timing alignment, event spikes, and data coverage, the agent connects a backup originating threat signal to production evidence, enabling the analyst to quickly assess impact likelihood and determine appropriate actions such as containment or recovery-point validation. Use Case 3: Network, Exposure & Connectivity Investigation Scenario : Is this activity indicative of legitimate remote access, or does it demonstrate suspicious connectivity and access attempts that increase risk to private applications and internal resources. Signals Correlated: User access telemetry: Source user, source IPs/geo, device/context, destinations Auth and enforcement outcomes: Success vs. failure, MFA allow/block Behavior drift: new/rare IPs/locations, unusual destination/app diversity. Suspicious activity indicators: Risky URLs/categories, known-bad indicators, automated/bot-like patterns, repeated denied private app access attempts Correlation Logic: An analyst receives an alert for a specific user and needs to determine whether the activity reflects expected behavior such as travel, remote work, or VPN usage, or whether it signals the early stages of a compromise that could later extend into private application access. Practical Example: Zscaler ZIA ZPA Correlation Agent starts with a username and builds a bounded, last-24-hour investigation across Zscaler Internet Access and Zscaler Private Access activity. By correlating user internet behavior, access context, and private application interactions, the agent connects the initial Zscaler alert to any downstream access attempts or authentication anomalies, enabling the analyst to quickly assess risk, identify suspicious patterns, and determine whether Zscaler policy adjustments are required. Outcome: Provides a last\u201124\u2011hour verdict on whether the activity reflects expected access patterns or escalation toward private application access, and recommends next actions\u2014such as closing as benign drift, escalating for containment, or tuning access policy\u2014based on correlated evidence. Use Case 4 : Endpoint & Runtime Intelligence Investigation Scenario : Is this process malicious or a legitimate admin action? Signals Correlated: Execution context: Process chain, full command line, signer, unusual path Account & logon: Initiating user, logon type (RDP/service), recent risky sign-ins Tooling & TTPs: LOLBins, credential access hints, lateral movement tooling Network behavior: Suspicious connections, repeated callbacks/beaconing Correlation Logic: A PowerShell alert triggers on a production server. The agent ties the process to its parent (e.g., spawned by a web worker vs. an admin shell), validates the command-line indicators, correlates outbound connections from the same PID to a first-seen destination, and checks for immediate follow-on persistence and any adjacent runtime alerts in the same time window. Outcome: Classifies the activity as malicious vs. admin and produces an evidence pack (process tree, key command indicators, destinations, persistence/tamper artifacts) as well as the recommended containment step (isolate host and revoke/reset initiating credentials). Use Case 5 : Exposure & Exploitability Investigation Scenario : What is the likelihood of exploitation and blast radius? Signals Correlated: Asset exposure: Internet-facing status, exposed services/ports, and identity or network paths required to reach the workload Exploit activity: Defender alerts on the resource, IDS/WAF hits, IOC matches, and first seen exploit or probing attempts Risk amplification signals: Internet communication, high privilege access paths, and indicators that the workload processes PII or sensitive data Blast radius: Downstream reachability to crown jewel systems (e.g., databases, key vaults) and trust relationships that could enable escalation Correlation Logic: An analyst receives a Medium/High Microsoft Defender for Cloud alert on a workload and needs to determine whether it\u2019s a standalone detection or an exploitable exposure that can quickly progress into privilege abuse and data impact. The agent correlates exposure evidence signals such as internet reachability, high-privilege paths, and indicators that workload handles sensitive data by analyzing suspicious network connections in the same bounded time window. Outcome: Produces a resource-specific risk analysis that explains why the Defender for Cloud alert is likely to be exploited, based on asset attack surface and effective privileges, plus any supporting activity in the same 24-hour window. Use Case 6 : Threat Intelligence & Adversary Context Investigation Scenario : Is this activity aligned with known attacker behavior? Signals Correlated: Behavior sequence: ordered events identity \u2192 execution \u2192 network. Technique mapping: MITRE ATT&CK technique IDs, typical progression, and required prerequisites. Threat intel match: campaign/adversary, TTPs, IOCs Correlation Logic: A chain of identity compromise, PowerShell obfuscation, and periodic outbound HTTPS is observed. The agent maps the sequence to ATT&CK techniques and correlates it with threat intel that matches a known adversary campaign. Outcome: Surfaces adversary-aligned behavioral insights and TTP context to help analysts assess intrusion likelihood and guide the next investigation steps. Summary This blog is intended to help developers better understand the key use cases for building agents with Microsoft Sentinel platform along with practical patterns to apply when designing and implementing agent scenarios. Need help? If you have any issues as you work to develop your agent, the App Assure team is available to assist via our Sentinel Advisory Service . Reach out via our intake form . Resources Learn more: For a practical overview of how ISVs can move from Sentinel data lake onboarding to building agents, see the Accelerate Agent Development blog - https://aka.ms/AppAssure_AccelerateAgentDev . Get hands-on: Explore the end-to-end journey from Sentinel data lake onboarding to a working Security Copilot agent through the accompanying lab modules available on GitHub Repo: https://github.com/suchandanreddy/Microsoft-Sentinel-Labs .",
-      "link": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/agentic-use-cases-for-developers-on-the-microsoft-sentinel/ba-p/4503041",
-      "source": "Microsoft Sentinel Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-20T16:01:05+00:00",
-      "published_ts": 1774022465,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Windows / Microsoft",
-        "Identity / Access"
-      ],
-      "curated": true
-    },
-    {
       "title": "Secure agentic AI end-to-end",
       "summary": "In this agentic era, security must be woven into, and around, every layer of the AI estate. At RSAC 2026, we are delivering on that vision with new purpose-built capabilities designed to help organizations secure agents, secure their foundations, and defend using agents and experts. The post Secure agentic AI end-to-end appeared first on Microsoft Security Blog .",
       "link": "https://www.microsoft.com/en-us/security/blog/2026/03/20/secure-agentic-ai-end-to-end/",
@@ -1300,20 +1418,6 @@
       "published": "2026-03-20T14:18:46+00:00",
       "published_ts": 1774016326,
       "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Here\u2019s what happened in crypto today",
-      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-03-20T14:11:32+00:00",
-      "published_ts": 1774015892,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
       "curated": false
     },
     {
@@ -115532,116 +115636,6 @@
       "smart_groups": [
         "Malware / Payloads"
       ],
-      "curated": false
-    },
-    {
-      "title": "AI platforms can be abused for stealthy malware communication",
-      "summary": "AI assistants like Grok and Microsoft Copilot with web browsing and URL-fetching capabilities can be abused to intermediate command-and-control (C2) activity. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/ai-platforms-can-be-abused-for-stealthy-malware-communication/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-18T20:18:24+00:00",
-      "published_ts": 1771445904,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Coinbase-Backed Ethereum Network Base to Dump Optimism Tech as Potential Token Looms",
-      "summary": "Ethereum layer-2 network Base is leaving behind the Optimism technology stack as it seeks faster upgrades and reduced overhead.",
-      "link": "https://decrypt.co/358469/coinbase-ethereum-network-base-dump-optimism-tech-potential-token",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-18T20:17:58+00:00",
-      "published_ts": 1771445878,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Ether 'bear pennant' puts target on $1.1K ETH price: Here\u2019s why",
-      "summary": "Ethereum onchain data and a bear pennant on the daily chart suggest that bears may target the $1,100 level. Would a dip to that zone represent a generational buy opportunity?",
-      "link": "https://cointelegraph.com/news/ether-bear-pennant-puts-target-on-1-1k-eth-price-here-s-why?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-18T20:11:42+00:00",
-      "published_ts": 1771445502,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Paragon spyware, as bad as it gets.",
-      "summary": "submitted by /u/5jane [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1r8dlh9/paragon_spyware_as_bad_as_it_gets/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-18T20:01:32+00:00",
-      "published_ts": 1771444892,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "A Founder's Journey: Transitioning From Founder-led Leadership - Volodymyr Kuznetsov, Nishant Doshi - FS #13",
-      "summary": "",
-      "link": "https://www.scworld.com/podcast-segment/14813-a-founders-journey-transitioning-from-founder-led-leadership-volodymyr-kuznetsov-nishant-doshi-fs-13",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-18T20:00:00+00:00",
-      "published_ts": 1771444800,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Riot Platform\u2018s AI/HPC push could net up to $21B, says activist holder",
-      "summary": "Starboard Value said that \u201ctime is of the essence,\u201d stressing urgency in Riot getting \u201cmore material deals completed\u201d related to AI and HPC.",
-      "link": "https://cointelegraph.com/news/riot-platform-ai-hpc-profit-stockholder?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-18T19:52:53+00:00",
-      "published_ts": 1771444373,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Why your EV's battery will outlive your phone's battery - and by how much",
-      "summary": "Electric car batteries are surprisingly robust, and mileage is not a good indicator of battery wear, according to a new study.",
-      "link": "https://www.zdnet.com/article/ev-battery-will-outlast-your-phone-battery-study/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-18T19:51:26+00:00",
-      "published_ts": 1771444286,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "CNCF Releases 2026 Observability Summit North America Schedule as Cloud Native Observability Adoption Expands",
-      "summary": "Observability Summit North America returns May 21\u201322 in Minneapolis, convening practitioners, contributors, and engineers to advance open observability standards and practices Key Highlights SAN FRANCISCO, Feb. 18, 2026\u2014The Cloud Native Computing Foundation\u00ae (CNCF\u00ae), which builds sustainable...",
-      "link": "https://www.cncf.io/announcements/2026/02/18/cncf-releases-2026-observability-summit-north-america-schedule-as-cloud-native-observability-adoption-expands/",
-      "source": "https://www.cncf.io/feed/",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-18T19:41:59+00:00",
-      "published_ts": 1771443719,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Prevention vs Perfection",
-      "summary": "I had a disagreement with someone recently regarding Discord's upcoming verification policies. Their position was basically \"If you have or had a bank account, social media and so on your data is already 'stolen' so your info is already out there.\" I wasn\u2019t trying to argue whether it\u2019s literally stolen or not. What I wanted to argue is more about prevention vs perfection. Just because your data might already be exposed doesn\u2019t mean you should stop taking steps to protect it? Treating it as \u201calready lost\u201d is basically giving up on your identity.. Even if nothing can ever be 100% secure, we can still make it harder for attackers, minimize what I can and maintain as much control as possible. It doesn't make sense to me to throw out all caution simply because you can't be perfectly secure I'm open to differing opinions or being corrected this is simply what my common sense tells me? (Apologies for the low level question) submitted by /u/Mental-Landscape-618 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1r8crvc/prevention_vs_perfection/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-18T19:31:10+00:00",
-      "published_ts": 1771443070,
-      "smart_groups": [],
       "curated": false
     },
     {
