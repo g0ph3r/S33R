@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-03-21T05:33:02.631408+00:00",
+  "generated_at": "2026-03-21T08:50:11.549337+00:00",
   "days_back": 30,
-  "total_items": 8260,
+  "total_items": 8224,
   "items": [
     {
       "title": "Secure Your Spot at RSAC 2026 Conference",
@@ -13,6 +13,111 @@
       "published": "2026-03-23T11:00:00+00:00",
       "published_ts": 1774263600,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "CTO at NCSC Summary: week ending March 22nd",
+      "summary": "submitted by /u/digicat [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1rzlryp/cto_at_ncsc_summary_week_ending_march_22nd/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-21T07:58:26+00:00",
+      "published_ts": 1774079906,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Trivy Supply Chain Attack Triggers Self-Spreading CanisterWorm Across 47 npm Packages",
+      "summary": "The threat actors behind the supply chain attack targeting the popular Trivy scanner are suspected to be conducting follow-on attacks that have led to the compromise of a large number of npm packages with a previously undocumented self-propagating worm dubbed CanisterWorm. The name is a reference to the fact that the malware uses an ICP canister, which refers to tamperproof smart contracts on",
+      "link": "https://thehackernews.com/2026/03/trivy-supply-chain-attack-triggers-self.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-21T07:28:00+00:00",
+      "published_ts": 1774078080,
+      "smart_groups": [
+        "Curated",
+        "Malware / Payloads",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Aisuru and Kimwolf DDoS Botnets Disrupted in International Operation",
+      "summary": "Authorities said the botnets had compromised more than 3 million devices as of March 2026, including DVRs, cameras, Wi-Fi routers, and other IoT devices. Aisuru has made headlines over the past several months for its massive DDoS attacks. It is tightly connected to Kimwolf, which is essentially Aisuru\u2019s Android-focused successor. The botnet disruption efforts included seizing multiple internet domains, virtual servers, and other infrastructure. submitted by /u/Choobeen [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1rzl3lm/aisuru_and_kimwolf_ddos_botnets_disrupted_in/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-21T07:14:31+00:00",
+      "published_ts": 1774077271,
+      "smart_groups": [
+        "Malware / Payloads",
+        "Identity / Access"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Evaluating AI and ML in Network Security: A Comprehensive Literature Review",
+      "summary": "submitted by /u/dondusi [link] [comments]",
+      "link": "https://www.reddit.com/r/netsec/comments/1rzji68/evaluating_ai_and_ml_in_network_security_a/",
+      "source": "/r/netsec",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-21T05:39:35+00:00",
+      "published_ts": 1774071575,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Trivy vulnerability scanner backdoored with credential stealer in supply chain attack",
+      "summary": "Attackers have compromised the widely used open-source Trivy vulnerability scanner, injecting credential-stealing malware into official releases and GitHub Actions used by thousands of CI/CD workflows. The breach could trigger a cascade of additional supply-chain compromises if impacted projects and organizations don\u2019t rotate their secrets immediately. The attack, disclosed by Trivy maintainers today, results from an earlier compromise announced late last month that also leveraged insecure GitHub Actions and impacted multiple projects. Security firms Socket and Wiz traced the root cause to an incomplete credential rotation after the first breach, allowing the attackers to return to Trivy\u2019s environment and introduce malicious commits. \u201cIf you suspect you were running a compromised version, treat all pipeline secrets as compromised and rotate immediately,\u201d Trivy maintainer Itay Shakury wrote on GitHub . Multiple components backdoored Trivy, developed by Aqua Security, is one of the most widely used open-source vulnerability scanners, with over 32,000 GitHub stars and more than 100 million Docker Hub downloads. Developers use it to detect vulnerabilities and exposed secrets in their CI/CD pipelines and container images. The attackers compromised three components of the Trivy project: trivy-action, the official GitHub Action for running Trivy scans in CI/CD workflows; setup-trivy, a helper action for installing the scanner; and the Trivy binary itself. Backdoored artifacts were published to GitHub releases, Docker Hub, the GitHub Container Registry, and the Amazon Elastic Container Registry. According to Socket, 75 of 76 version tags in trivy-action were overwritten with malicious code, along with seven tags in setup-trivy. The only unaffected trivy-action tag was version 0.35.0. The compromised tags include widely used versions such as 0.34.2, 0.33.0, and 0.18.0. \u201cWhen the malicious binary is executed it starts both the legitimate trivy service and the malicious code in parallel,\u201d Wiz researchers wrote in their analysis of the attack. Attackers look for development secrets On GitHub Actions runners, the credential stealer reads the process memory to extract secrets and searches the filesystem for SSH keys, cloud provider credentials, Kubernetes tokens, Docker registry configurations, and cryptocurrency wallets. The stolen data is encrypted and sent to a typosquatted domain that mimics Aqua Security\u2019s legitimate site. If this fails, the malware falls back to creating a public repository called \u201ctpcp-docs\u201d on the victim\u2019s own GitHub account and uploading the encrypted data there. According to Wiz, the attack also installs a persistent Python dropper on developer machines that connects to an attacker-controlled server every five minutes in search for additional payloads to execute. Stealthy tag manipulation technique bypasses detection Instead of creating new releases, which would trigger notifications, the attackers force-pushed existing version tags to point to new malicious commits. Git tags are pointers that reference a specific commit by its fingerprint. By overwriting where those pointers lead, any workflow referencing the tag begins pulling the attacker\u2019s code. To further avoid detection, the attackers cloned the original commit metadata such as author names, email addresses, timestamps, and messages, making the malicious commits appear identical to the legitimate ones they replaced. The forgery left subtle traces such as missing cryptographic signatures and inconsistent timestamp relationships. The same tag manipulation technique was used in the compromise of the tj-actions/changed-files GitHub Action a year ago which affected 23,000 repositories. A lesson for victims The initial Trivy compromise happened in late February when attackers exploited a misconfigured GitHub Actions workflow that had been present in the repository since October 2025. The workflow, triggered by external pull requests, ran with access to repository secrets, a dangerous pattern in GitHub Actions that has been documented before . The attackers stole a personal access token (PAT) with write permissions and used it to delete releases, rename the repository, and publish a malicious Visual Studio Code extension. The Trivy maintainers rotated their credentials, but it seems the process missed some of them. This failure, especially by a company that is specialized in CI/CD security, should serve as a warning to organizations affected by this new attack, especially because the malware is designed to steal the same type of credentials that could enable supply chain compromises in their own pipelines. A recurring pattern The Trivy compromise is the latest in a growing pattern of attacks targeting GitHub Actions and developers in general . The tj-actions/changed-files compromise last year used the same tag manipulation approach and was later traced to an upstream compromise of the reviewdog/action-setup action. Other incidents in 2025 included the GhostAction campaign, which stole over 3,000 secrets from 327 GitHub users, and an attack on the nx npm package that exploited a vulnerable pull_request_target workflow. GitHub changed the default behavior of pull_request_target workflows in December 2025 to reduce the risk of exploitation, but the vulnerable workflow in the Trivy repository predated that change. Organizations using Trivy should pin GitHub Actions to the full commit SHA hashes rather than version tags to prevent tag manipulation attacks. The safe versions are Trivy v0.69.3, trivy-action tag 0.35.0, and setup-trivy 0.2.6. Security teams should also search their GitHub accounts for repositories named tpcp-docs, which would indicate successful fallback exfiltration, and block the command-and-control domain and its IP address at the network perimeter.",
+      "link": "https://www.csoonline.com/article/4148317/trivy-vulnerability-scanner-backdoored-with-credential-stealer-in-supply-chain-attack.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-21T05:35:56+00:00",
+      "published_ts": 1774071356,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Cloud / SaaS",
+        "Malware / Payloads",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Crypto / Web3",
+        "Supply Chain / Software"
+      ],
+      "curated": true
+    },
+    {
+      "title": "FBI and CISA Flag Russian Cyber Operations Targeting Select Individuals via Signal",
+      "summary": "The Federal Bureau of Investigation (FBI) and the Cybersecurity and Infrastructure Security Agency (CISA) have recently released a joint cybersecurity advisory regarding a widespread phishing campaign. The alert warns that Russian Intelligence Services are actively targeting users of encrypted messaging applications, primarily Signal. The attackers are bypassing the platform\u2019s robust end-to-end encryption by hijacking user [\u2026] The post FBI and CISA Flag Russian Cyber Operations Targeting Select Individuals via Signal appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/fbi-and-cisa-flag-russian-cyber-operations/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-21T05:31:58+00:00",
+      "published_ts": 1774071118,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "FBI, CISA Warn Russian Hackers Are Targeting High-Value Individuals Through Signal",
+      "summary": "The Federal Bureau of Investigation (FBI) and the Cybersecurity and Infrastructure Security Agency (CISA) have recently released a joint cybersecurity advisory regarding a widespread phishing campaign. The alert warns that Russian Intelligence Services are actively targeting users of encrypted messaging applications, primarily Signal. The attackers are bypassing the platform\u2019s robust end-to-end encryption by hijacking user [\u2026] The post FBI, CISA Warn Russian Hackers Are Targeting High-Value Individuals Through Signal appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/fbi-cisa-warn-russian-hackers/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-21T05:21:21+00:00",
+      "published_ts": 1774070481,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
       "curated": false
     },
     {
@@ -3902,6 +4007,36 @@
         "Exploit / PoC"
       ],
       "curated": true
+    },
+    {
+      "title": "Speagle Malware Hijacks Cobra DocGuard to Steal Data via Compromised Servers",
+      "summary": "Speagle malware exploits Cobra DocGuard servers to exfiltrate sensitive data, indicating targeted espionage risks for protected systems.",
+      "link": "https://lifeboat.com/blog/2026/03/speagle-malware-hijacks-cobra-docguard-to-steal-data-via-compromised-servers",
+      "source": "Lifeboat \u2013 Cybercrime & Malcode",
+      "type": "cybercrime",
+      "type_label": "Cybercrime, Darknet & Leaks",
+      "published": "2026-03-20T08:14:47+00:00",
+      "published_ts": 1773994487,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Navia discloses data breach impacting 2.7 million people",
+      "summary": "Navia Benefit Solutions, Inc. (Navia) is informing nearly 2.7 million individuals of a data breach that exposed their sensitive information to attackers. An investigation into the incident revealed that the hackers had access to the organization\u2019s systems between December 22, 2025, and January 15, 2026. However, the company discovered the suspicious activity on January 23. [\u2026]",
+      "link": "https://lifeboat.com/blog/2026/03/navia-discloses-data-breach-impacting-2-7-million-people",
+      "source": "Lifeboat \u2013 Cybercrime & Malcode",
+      "type": "cybercrime",
+      "type_label": "Cybercrime, Darknet & Leaks",
+      "published": "2026-03-20T08:14:37+00:00",
+      "published_ts": 1773994477,
+      "smart_groups": [
+        "Data Breaches / Leaks"
+      ],
+      "curated": false
     },
     {
       "title": "Shrinking the digital evidence haystack",
@@ -9397,6 +9532,38 @@
       "published": "2026-03-19T08:20:25+00:00",
       "published_ts": 1773908425,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Interlock Ransomware Exploits Cisco FMC Zero-Day CVE-2026\u201320131 for Root Access",
+      "summary": "Interlock ransomware is actively exploiting CVE-2026\u201320131 (CVSS 10.0) in Cisco FMC, enabling unauthenticated remote code execution as root.",
+      "link": "https://lifeboat.com/blog/2026/03/interlock-ransomware-exploits-cisco-fmc-zero-day-cve-2026-20131-for-root-access",
+      "source": "Lifeboat \u2013 Cybercrime & Malcode",
+      "type": "cybercrime",
+      "type_label": "Cybercrime, Darknet & Leaks",
+      "published": "2026-03-19T08:18:57+00:00",
+      "published_ts": 1773908337,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Aura confirms data breach exposing 900,000 marketing contacts",
+      "summary": "Identity protection company Aura has confirmed that an unauthorized party gained access to nearly 900,000 customer records containing names and email addresses. The company states that the incident was caused by a voice phishing attack targeting an employee, which exposed the sensitive data of 20,000 current and 15,000 former customers. In a communication this week, [\u2026]",
+      "link": "https://lifeboat.com/blog/2026/03/aura-confirms-data-breach-exposing-900000-marketing-contacts",
+      "source": "Lifeboat \u2013 Cybercrime & Malcode",
+      "type": "cybercrime",
+      "type_label": "Cybercrime, Darknet & Leaks",
+      "published": "2026-03-19T08:18:47+00:00",
+      "published_ts": 1773908327,
+      "smart_groups": [
+        "Data Breaches / Leaks",
+        "Phishing / Social Engineering"
+      ],
       "curated": false
     },
     {
@@ -114410,645 +114577,6 @@
       "published_ts": 1771489322,
       "smart_groups": [],
       "curated": false
-    },
-    {
-      "title": "Intellexa\u2019s Predator spyware infected Angolan journalist\u2019s device, Amnesty reports",
-      "summary": "Amnesty reports Angolan journalist\u2019s iPhone was infected by Intellexa\u2019s Predator spyware via a WhatsApp link in May 2024. Amnesty International reports that in May 2024, Intellexa\u2019s Predator spyware infected the iPhone of Teixeira C\u00e2ndido, an Angolan journalist and press freedom advocate, after he opened a malicious link sent via WhatsApp. This incident highlights how attackers [\u2026]",
-      "link": "https://securityaffairs.com/188215/malware/intellexas-predator-spyware-infected-angolan-journalists-device-amnesty-reports.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T08:17:16+00:00",
-      "published_ts": 1771489036,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Protectt.ai enhances AppProtectt with advanced RASP and AI-driven mobile threat protection",
-      "summary": "Protectt.ai has launched the latest version of AppProtectt, its mobile application security solution featuring advanced Runtime Application Self-Protection (RASP) and AI-led behavioral monitoring. Protectt.ai works with leading banking, financial services, insurance, and digital-first enterprises to secure high-risk mobile applications against fraud, tampering, and emerging cyber threats. The latest release introduces enhanced runtime protection capabilities and intelligent, policy-driven controls designed to help organizations across the Middle East deliver secure, compliant, and resilient mobile app experiences. As \u2026 More \u2192 The post Protectt.ai enhances AppProtectt with advanced RASP and AI-driven mobile threat protection appeared first on Help Net Security .",
-      "link": "https://www.helpnetsecurity.com/2026/02/19/protectt-ai-enhances-appprotectt-with-advanced-rasp-and-ai-driven-mobile-threat-protection/",
-      "source": "Help Net Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T08:16:43+00:00",
-      "published_ts": 1771489003,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "CRESCENTHARVEST Campaign Targets Iran Protest Supporters With RAT Malware",
-      "summary": "Cybersecurity researchers have disclosed details of a new campaign dubbed CRESCENTHARVEST, likely targeting supporters of Iran's ongoing protests to conduct information theft and long-term espionage. The Acronis Threat Research Unit (TRU) said it observed the activity after January 9, with the attacks designed to deliver a malicious payload that serves as a remote access trojan (RAT) and",
-      "link": "https://thehackernews.com/2026/02/crescentharvest-campaign-targets-iran.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T08:13:00+00:00",
-      "published_ts": 1771488780,
-      "smart_groups": [
-        "Curated",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Virtana Expands MCP Server to Bring Full-Stack Enterprise Context to AI Agents",
-      "summary": "Virtana Releases Updated Model Context Protocol Server Virtana has released an updated version of its... The post Virtana Expands MCP Server to Bring Full-Stack Enterprise Context to AI Agents appeared first on .",
-      "link": "https://www.news4hackers.com/virtana-expands-mcp-server-to-bring-full-stack-enterprise-context-to-ai-agents/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T08:07:14+00:00",
-      "published_ts": 1771488434,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "We're building a \"server-blind\" protocol for continuous credential audits. What are we missing?",
-      "summary": "Most organizations screen new passwords against breach lists. But continuous auditing of existing credentials? That's widely considered too tricky and expensive to operationalize. We're building an open protocol called CSP (Credential Shield Protocol) that attempts to solve this with a server-blind cryptographic approach: \u2022 Hash locally with Argon2 \u2192 only the first 4 chars of SHA-512 hash (32-bit prefix) ever leaves your environment \u2022 Server returns all prefix matches (can't be reversed to the original) \u2022 Client verifies locally \u2192 server never learns the password, full hash, or result The goal is foundational infrastructure\u2014not another tool, but a protocol that makes continuous credential hygiene feasible and private. We're pre-funding, pre-prototype, and actively seeking brutal technical feedback from people who've actually implemented credential security in production. What we'd love input on: - Where does this break in real-world deployments? - What operational constraints are we missing? - Has anyone tried similar approaches? What failed? Spec: https://github.com/IAmAxolotl-04/csp-2026 Threat model: https://github.com/IAmAxolotl-04/csp-2026/blob/main/threat_model.md (We're also applying to the CyberSynchrony EU grant and seeking pilot partners. But right now: feedback > promotion.) submitted by /u/Take_A_Shower_7556 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1r8tgj1/were_building_a_serverblind_protocol_for/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-19T08:05:23+00:00",
-      "published_ts": 1771488323,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Virtana expands MCP Server to bring full-stack enterprise context to AI agents",
-      "summary": "Virtana announced the latest version of its Model Context Protocol (MCP) Server, bringing full-stack enterprise visibility directly to AI agents and LLMs so machines can understand enterprise operations as complete systems rather than isolated signals. Opening the Virtana platform to a broad ecosystem of AI agents, automation systems, and large language models (LLMs), such as OpenAI\u2019s ChatGPT, Anthropic\u2019s Claude, Google Gemini, and Microsoft Copilot, enables AI to execute full-stack decisions across end-to-end enterprise environments, advancing \u2026 More \u2192 The post Virtana expands MCP Server to bring full-stack enterprise context to AI agents appeared first on Help Net Security .",
-      "link": "https://www.helpnetsecurity.com/2026/02/19/virtana-mcp-server/",
-      "source": "Help Net Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T08:03:30+00:00",
-      "published_ts": 1771488210,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Hackers Hide Malware in Emoji-Based Code to Bypass Security Defenses",
-      "summary": "Hackers are increasingly abusing emoji and other Unicode tricks to hide malicious code, bypass filters, and evade modern security controls, including AI-powered defenses. This emerging technique, known as emoji or Unicode smuggling, turns harmless-looking characters into stealth carriers for commands, data, and exploit payloads. Emoji smuggling is an obfuscation technique in which attackers encode malicious content using [\u2026] The post Hackers Hide Malware in Emoji-Based Code to Bypass Security Defenses appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/emoji-based-code/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T08:03:09+00:00",
-      "published_ts": 1771488189,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Remote Access Abuse: The Leading Cause of Cybersecurity Breaches",
-      "summary": "2026 Threat Report: Remote Access Tools and Data-Only Extortion on the Rise The majority of... The post Remote Access Abuse: The Leading Cause of Cybersecurity Breaches appeared first on .",
-      "link": "https://www.news4hackers.com/remote-access-abuse-the-leading-cause-of-cybersecurity-breaches-2/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T08:02:14+00:00",
-      "published_ts": 1771488134,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Remote Access Abuse:-packed Cybersecurity Threats Drive Majority of Breaches",
-      "summary": "Arctic Wolf 2026 Threat Report Reveals Trends in Cybersecurity A recent report by Arctic Wolf... The post Remote Access Abuse:-packed Cybersecurity Threats Drive Majority of Breaches appeared first on .",
-      "link": "https://www.news4hackers.com/remote-access-abuse-packed-cybersecurity-threats-drive-majority-of-breaches/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T08:01:18+00:00",
-      "published_ts": 1771488078,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Context-Driven AI for Explainable Compliance Decisions with Compliance Scorecard v10",
-      "summary": "Regulatory Compliance Platform Integrates Explainable AI for Auditable Decision-Making A recent update to a compliance... The post Context-Driven AI for Explainable Compliance Decisions with Compliance Scorecard v10 appeared first on .",
-      "link": "https://www.news4hackers.com/context-driven-ai-for-explainable-compliance-decisions-with-compliance-scorecard-v10/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T07:59:56+00:00",
-      "published_ts": 1771487996,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Remote Access Abuse: The Leading Cause of Cybersecurity Breaches",
-      "summary": "Cyberattack Tactics Shift A significant shift in cyberattack tactics has been observed, with data-only extortion... The post Remote Access Abuse: The Leading Cause of Cybersecurity Breaches appeared first on .",
-      "link": "https://www.news4hackers.com/remote-access-abuse-the-leading-cause-of-cybersecurity-breaches/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T07:58:52+00:00",
-      "published_ts": 1771487932,
-      "smart_groups": [
-        "Ransomware",
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Unlock Explainable Compliance Decisions with Context-Driven AI in Compliance Scorecard v10",
-      "summary": "Compliance Scorecard Platform Released with AI-Powered Compliance Decision-Making A new version of the Compliance Scorecard... The post Unlock Explainable Compliance Decisions with Context-Driven AI in Compliance Scorecard v10 appeared first on .",
-      "link": "https://www.news4hackers.com/unlock-explainable-compliance-decisions-with-context-driven-ai-in-compliance-scorecard-v10/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T07:57:30+00:00",
-      "published_ts": 1771487850,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Compliance Scorecard v10 delivers context-driven AI for explainable compliance decisions",
-      "summary": "Compliance Scorecard announced the release of v10, introducing governed, audit-ready AI designed to support defensible compliance decision-making for managed service providers (MSPs). Compliance Scorecard v10 applies AI only within a structured system of validated context and controls. The platform is built on a simple premise: AI can only be trusted in compliance if the required context already exists. As a result, v10 treats AI as a governed system of decision support, not a conversational interface. \u2026 More \u2192 The post Compliance Scorecard v10 delivers context-driven AI for explainable compliance decisions appeared first on Help Net Security .",
-      "link": "https://www.helpnetsecurity.com/2026/02/19/compliance-scorecard-platform-v10/",
-      "source": "Help Net Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T07:52:35+00:00",
-      "published_ts": 1771487555,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Value chain",
-      "summary": "I\u2019d like to learn more about the software space in cybersecurity. Can anyone tell me what\u2019s the role of distributors now vs. that of SIs? Where\u2019s the value add for pure distributors? submitted by /u/Secret-Audience2845 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1r8t8bs/value_chain/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-19T07:51:45+00:00",
-      "published_ts": 1771487505,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Hackers Abuse nslookup.exe in ClickFix Campaign to Deliver Malware via DNS",
-      "summary": "Social engineering campaigns are becoming increasingly sophisticated, moving beyond simple phishing emails to more complex technical deceptions. The \u201cClickFix\u201d tactic, which typically tricks users into copying and pasting malicious scripts to \u201cfix\u201d a fake browser error, has undergone significant evolution. Security researcher Muhammad Hassoub has observed attackers moving away from high-noise tools that trigger immediate [\u2026] The post Hackers Abuse nslookup.exe in ClickFix Campaign to Deliver Malware via DNS appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/hackers-abuse-nslookup-exe-in-clickfix-campaign/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T07:43:44+00:00",
-      "published_ts": 1771487024,
-      "smart_groups": [
-        "Malware / Payloads",
-        "Identity / Access",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Microsoft Teams to Prompt Mobile Users for Browser Choice with Non-Office and PDF Links",
-      "summary": "Microsoft is rolling out a significant update to Teams Mobile on Android and iOS that changes how non-Office and PDF links are handled within the app. Beginning in late February 2026, users will be presented with a browser selection prompt when tapping links to files that aren\u2019t Office documents (Word, Excel, or PowerPoint) or PDFs. [\u2026] The post Microsoft Teams to Prompt Mobile Users for Browser Choice with Non-Office and PDF Links appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/microsoft-teams-browser-choice/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T07:37:10+00:00",
-      "published_ts": 1771486630,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "MCP Servers can be Exploited to Execute Arbitrary Code and Exfiltrate Sensitive Data",
-      "summary": "The Model Context Protocol (MCP) emerged as a breakthrough standard in November 2024, designed by Anthropic to seamlessly connect AI assistants with external systems and data sources. This innovation allows Large Language Models (LLMs) to interact with tools and repositories, significantly enhancing their utility in complex enterprise environments. However, this interoperability introduces a substantial security [\u2026] The post MCP Servers can be Exploited to Execute Arbitrary Code and Exfiltrate Sensitive Data appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/mcp-servers-can-be-exploited/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T07:36:58+00:00",
-      "published_ts": 1771486618,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Stealthy Crypto-Mining Malware Jumps Air-Gaps, Spreads via External Drives",
-      "summary": "Cryptojacking, the unauthorized use of a victim\u2019s computing resources to mine cryptocurrency, has transitioned from a browser-based nuisance (typified by Coinhive scripts) to a system-level threat utilizing advanced malware techniques. The infection chain starts with a familiar lure: cracked \u201cpremium\u201d productivity suites distributed via pirated software bundles, where the user executes what appears to be [\u2026] The post Stealthy Crypto-Mining Malware Jumps Air-Gaps, Spreads via External Drives appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/crypto-mining-malware-3/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T07:13:28+00:00",
-      "published_ts": 1771485208,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Malware / Payloads",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Bhopal Sees 35 Cyber Attacks in 24 Hours, \u20b91.5 Crore Lost Across 13 Police Stations",
-      "summary": "Cybercrime Wave Hits Bhopal, India, with 35 Attacks in 24 Hours, Resulting in \u20b91.5 Crore... The post Bhopal Sees 35 Cyber Attacks in 24 Hours, \u20b91.5 Crore Lost Across 13 Police Stations appeared first on .",
-      "link": "https://www.news4hackers.com/bhopal-sees-35-cyber-attacks-in-24-hours-%e2%82%b91-5-crore-lost-across-13-police-stations/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T07:07:06+00:00",
-      "published_ts": 1771484826,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "From in-house CISO to consultant. What you need to know before making the leap",
-      "summary": "For Nikoloz Kokhreidze , the move into cybersecurity consulting came gradually through a series of small steps. \u201cI accumulated enough experience across different industries, I started my newsletter, and I realized there\u2019s a community of people interested in what I have to say,\u201d he explains. What ultimately crystallized the decision was the thought that his impact didn\u2019t have to stop at the edge of one organization. \u201cI was solving the same problems repeatedly in one company,\u201d he says, \u201cwhen I could solve them for multiple companies simultaneously, multiplying my impact and helping more businesses grow through pragmatic security leadership.\u201d In August 2025, Kokhreidze launched his consulting business, Mandos. But he\u2019s careful not to romanticize the move. \u201cIt\u2019s important to stay realistic,\u201d he says. Going solo takes time and patience. It means figuring out where you can be most useful. And being willing to stay flexible. \u201cYou have to be ready to pivot when you have new ideas, or when things don\u2019t work out,\u201d he says. Like Kokhreidze, a growing number of CISOs are either moving into consulting roles or seriously considering it. The appeal is easy to see: more flexibility and quicker learning, alongside steady demand for experienced security leaders. Some of these professionals work as virtual CISOs (vCISOs) , advising companies from a distance. Others operate as fractional CISOs, embedding into the organization one or two days a week. \u201cConsulting gives me more autonomy and control over how I work, while still letting me apply the same strategic approach to improving resilience, governance, and practical security execution,\u201d says Antanas Kedys , founder and CEO at ACyber. He made the shift from an in-house CISO role to consulting in 2022, because he wanted to grow and work across different environments. When a CISO transitions into consulting, their role changes in ways that aren\u2019t always obvious at first. The new job means sharpening some skills, building entirely new ones and, perhaps hardest of all, learning to let go of control. \u201cAs a CISO, you can mandate; as a consultant, you can only influence,\u201d says Nigel Gibbons, director and senior advisor at NCC Group. How to prepare to make the leap from security leader to consultant Long before stepping away from a full-time role, Kokhreidze and other security leaders tried to quietly plan ahead. They tested ideas, built visibility, reconnected with old contacts, and began mapping out who their potential clients might be. The list of potential should be a long one, because few conversations tend to turn into actual work. \u201cIf someone is not asking you right now to consult for them, it can take 12-18 months before you land your first client,\u201d says Carlota Sage. She held a part-time CISO role at a nonprofit before transitioning into vCISO work. Later, she went on to found Pocket CISO, which provides cybersecurity services to early-stage startups and small organizations. Kokhreidze agrees with her. For a smoother transition, he suggests CISOs line up their first clients while they\u2019re still employed. Otherwise, he says, it can take a long time to build momentum. And the pressure to make it work can quickly turn into panic. In that moment, security professionals may start \u201cunderpricing themselves because they need money immediately,\u201d he says. Once rates are set out of desperation, they\u2019re often hard to reset without straining the relationship. Other CISOs-turned-consultants also emphasize preparation. Kedys, for instance, stresses the need for a go-to-market focus. \u201cDecide who you want to advise (industry, company size, maturity), what problems you\u2019ll solve, and why you\u2019re credible for that,\u201d he says. \u201cThe combination of strong soft skills and a clear focus \u2014 who, how, and why \u2014 is the best starting point for a successful transition.\u201d Gibbons adds that consulting should grow out of a CISO\u2019s existing experience. He suggests treating that experience as a set of real-world case studies worth talking about, capturing the decisions, the trade-offs, what went wrong and what worked. He also stresses the importance of building relationships beyond the security function, including legal teams, auditors, regulators and investors. \u201cConsulting is ultimately a trust-based profession not a technical one,\u201d he adds. Skills that carry over into consulting Many of the skills CISOs honed inside large organizations translate directly to the new consulting job, while others suddenly matter more than they ever did before. In addition to technical skills, it is often the practical ones that prove most valuable. The ability to prioritize \u2014 sharpened over years in a CISO role \u2014 becomes especially important in consulting. \u201cIt matters more than anything else,\u201d Gibbons argues, because in consulting environments resources are often limited. Consultants are paid not to know everything, but to know what matters most, which risks to tackle first, and which problems can safely wait. Crisis management is another essential skill. Paired with hands-on knowledge of cybersecurity processes and best practices, it gives former CISOs a real advantage as they move into consulting. Kedys highlights stress management: the ability to stay calm, focused and keep execution moving under pressure, which is just as valuable outside the enterprise as it ever was inside. But if there\u2019s one translatable skill that everyone talks about, that skill is communication. \u201cAll of your security and compliance knowledge is wasted if you cannot communicate to a business audience,\u201d Sage says. Kokhreidze agrees. Instead of leading with controls, tools or technical details, he focuses on what CTOs and other business leaders actually care about: outcomes. He talks about how security protects revenue, supports resilience, or builds confidence with regulators. New skills needed in the toolkit As CISOs move into consulting, they quickly discover they need new skills as well, some of which they may have deliberately avoided in their in-house roles. Chief among them is sales. \u201cEighty percent of your work is actually selling yourself,\u201d says Kokhreidze. \u201cYou are first a business, and CISO second.\u201d And being a business is time-consuming. Consultants must juggle personal branding, marketing, accounting, and writing. Writing and online presence, in particular, matter because done well, they signal credibility and give current and future clients a sense of how a CISO thinks. The multiple roles consultants have to play \u2014 switching between delivery, sales, marketing and admin while juggling several clients \u2014 come with a real mental toll. For many former in-house executives, adjusting to that constant context switching is one of the hardest parts of leaving a structured organization behind. \u201cIf you\u2019re running your own consulting firm, context switching can be a struggle,\u201d Sage says. In time, many consultants learn that discipline matters, and that saying no is part of the job. \u201cYou must become comfortable saying no to work that dilutes your positioning or turns you back into an outsourced operator rather than a trusted advisor,\u201d Gibbons says. Setting the right price Many CISOs know their value inside an enterprise but translating that value into a consulting price is a different challenge altogether. It requires a shift from thinking like an employee to thinking like a business. \u201cSkills are not different from a product,\u201d Kedys says. \u201cYou just need to find the right product (in this case, the skill) and wrap it in a way a market will be most likely to take it.\u201d That understanding, he adds, comes from market analysis: observing how executives buy, what they value, and what comparable services cost. Sage agrees with the idea of analyzing the market but says that CISOs coming from large enterprises and targeting small and mid-sized organizations often need to recalibrate their expectations. What feels like a modest rate to a global organization can be misaligned with the realities of smaller clients, particularly those buying advisory services for the first time. When thinking about pricing, Kokhreidze took a two-way approach. He looked at the market and assessed his value. Then he set a realistic income goal and worked backwards, factoring in how many clients he could serve well. The result was a pricing model that favored quality over volume, a trade-off he knew the clients he wanted to work with would resonate with. \u201cB2B companies closing enterprise deals understand that professional security leadership costs far less than losing a single \u20ac10M+ contract to failed security reviews,\u201d Kokhreidze says. When setting prices, one of the most common mistakes is charging for time rather than for the value the consultant brings to the table. Early in his career, Gibbons priced his work by the day instead of by the consequences it helped clients avoid. Over time, he moved toward outcome-based engagements, such as board assurance, regulatory readiness and post-incident recovery, so clients can understand more easily what they\u2019re paying for. \u201cClients are buying judgment, not hours,\u201d Gibbons says. This approach, however, is not universal. Some more traditional organizations remain firmly attached to day rates. In those environments, shifting negotiations can be difficult regardless of the expertise being offered. Potential mistakes to avoid Ask experienced consultants what mistakes newcomers tend to make, and the answers tend to be consistent. The biggest mistakes are rarely about security skills. They tend to cluster around mindset, money, and figuring out how to show up in the market. \u201cThe hardest lesson was realizing that being a great CISO doesn\u2019t guarantee clients at all,\u201d Kokhreidze says. \u201cI quickly learned that professional expertise means nothing without strong sales and qualification skills, because you\u2019ll waste months chasing companies that either don\u2019t have the problem you\u2019re trying to solve or aren\u2019t ready to invest in fixing it.\u201d Gibbons sees a related issue: consultants trying to recreate an in-house role from the outside. They take on operational responsibility, running programs or becoming embedded indefinitely. \u201cThat erodes margins and credibility,\u201d he says. Another common misstep he points to is leading with tools, frameworks or certifications rather than judgment and experience. \u201cClients do not hire former CISOs for policy templates,\u201d he argues. \u201cThey hire them to help make hard decisions with incomplete information.\u201d Even CISOs who plan carefully before making the leap often discover that the freedom of consulting comes with hidden costs. As Sage puts it, \u201cMost CISOs consulting for the first time underestimate how much time and effort go into just managing your own business.\u201d",
-      "link": "https://www.csoonline.com/article/4132950/from-in-house-ciso-to-consultant-what-you-need-to-know-before-making-the-leap.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T07:00:00+00:00",
-      "published_ts": 1771484400,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Identity / Access",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "More Than 40% of South Africans Were Scammed in 2025",
-      "summary": "Survey underscores the reality that scammers follow \"scalable opportunities and low friction,\" rather than rich targets that tend to be better protected.",
-      "link": "https://www.darkreading.com/cybersecurity-analytics/south-africans-scammed-2025",
-      "source": "darkreading",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T07:00:00+00:00",
-      "published_ts": 1771484400,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Why address poisoning works without stealing private keys",
-      "summary": "Address poisoning works by cluttering your transaction history with fake entries, tricking you into sending funds to a scammer\u2019s address by mistake.",
-      "link": "https://cointelegraph.com/news/why-address-poisoning-works-without-stealing-private-keys?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-19T06:55:01+00:00",
-      "published_ts": 1771484101,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Odisha Police Busts \u20b95.27 Crore Interstate Cyber Fraud Racket, Exposing Nationwide Links",
-      "summary": "Law Enforcement Operation Uncovers Extensive Cybercrime Network in India, Seizes \u20b95.27 Crore in Illicit Funds... The post Odisha Police Busts \u20b95.27 Crore Interstate Cyber Fraud Racket, Exposing Nationwide Links appeared first on .",
-      "link": "https://www.news4hackers.com/odisha-police-busts-%e2%82%b95-27-crore-interstate-cyber-fraud-racket-exposing-nationwide-links/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T06:51:54+00:00",
-      "published_ts": 1771483914,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Peer Review for Public Domain Safety Benchmark (2026)",
-      "summary": "submitted by /u/metrobart [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1r8rutt/peer_review_for_public_domain_safety_benchmark/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-19T06:29:08+00:00",
-      "published_ts": 1771482548,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "OpenAI Launches EVMbench: A New Framework to Detect and Exploit Blockchain Vulnerabilities",
-      "summary": "OpenAI has collaborated with crypto investment firm Paradigm to release EVMbench, a new benchmark designed to evaluate how artificial intelligence agents interact with smart contract security. As smart contracts currently secure over $100 billion in open-source crypto assets, the ability of AI to successfully read, write, and audit code is becoming a critical component of [\u2026] The post OpenAI Launches EVMbench: A New Framework to Detect and Exploit Blockchain Vulnerabilities appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/openai-launches-evmbench/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T06:27:27+00:00",
-      "published_ts": 1771482447,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Ethereum Foundation lists \u2018quantum readiness,\u2019 gas limits in 2026 priorities",
-      "summary": "The Ethereum Foundation called 2025 one of its \u201cmost productive years,\u201d highlighting two major network upgrades and the gas limit significantly increasing.",
-      "link": "https://cointelegraph.com/news/ethereum-foundation-quantum-gas-limit-priorities-protocol?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-19T06:23:37+00:00",
-      "published_ts": 1771482217,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Trump family courts TradFi giants at Mar-a-Lago crypto mixer",
-      "summary": "An inaugural event by the Trump family\u2019s crypto platform saw crypto and finance executives flying to Florida to rub shoulders with regulators and members of Congress.",
-      "link": "https://cointelegraph.com/news/crypto-tradfi-execs-mingle-trump-crypto-event?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-19T06:20:31+00:00",
-      "published_ts": 1771482031,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Researchers Expose DigitStealer C2 Infrastructure Targeting macOS Users",
-      "summary": "DigitStealer\u2019s expanding command-and-control (C2) footprint is exposing more of its backend than its operators likely intended, giving defenders fresh opportunities to track and block new infrastructure linked to the macOS\u2011targeting infostealer. Unlike many popular stealers, it does not expose a web panel for affiliates, strongly suggesting a closed-operation rather than a broad malware\u2011as\u2011a\u2011service (MaaS) offering. [\u2026] The post Researchers Expose DigitStealer C2 Infrastructure Targeting macOS Users appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/digitstealer-c2-infrastructure/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T06:12:08+00:00",
-      "published_ts": 1771481528,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Combat Drone Operations: How Public Mobile Networks Are Being Weaponized for Military Advantage",
-      "summary": "Combat Drone Operations Rely on Public Mobile Networks The use of public mobile networks in... The post Combat Drone Operations: How Public Mobile Networks Are Being Weaponized for Military Advantage appeared first on .",
-      "link": "https://www.news4hackers.com/combat-drone-operations-how-public-mobile-networks-are-being-weaponized-for-military-advantage/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T06:02:32+00:00",
-      "published_ts": 1771480952,
-      "smart_groups": [
-        "Exploit / PoC"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Public mobile networks are being weaponized for combat drone operations",
-      "summary": "On June 1, 2025, Ukraine launched a coordinated drone strike on five airfields inside Russia, disabling or destroying aircrafts. The attack involved more than 100 drones carrying explosive payloads and targeting aircraft on the ground. The drones used mobile networks to transmit telemetry, receive instructions, and send back images during the operation, highlighting the integration of civilian mobile networks into combat drone operations. Types of UAV Communication Systems (Source: Enea) Enea researchers examined the progression \u2026 More \u2192 The post Public mobile networks are being weaponized for combat drone operations appeared first on Help Net Security .",
-      "link": "https://www.helpnetsecurity.com/2026/02/19/enea-mobile-connected-drones-report/",
-      "source": "Help Net Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T06:00:33+00:00",
-      "published_ts": 1771480833,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Web / API Security"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Brand Trust as a Weapon: Multi-Brand Impersonation Campaigns Deliver JWrapper Malware",
-      "summary": "Threat actors are abusing trusted brands like DocuSign, Adobe Sign, and Zoom to deliver JWrapper-wrapped malware through convincing phishing emails. This blog details how attackers weaponize legitimate tools like SimpleHelp to establish stealthy, persistent remote access on victim systems. Learn how these campaigns operate, what indicators to watch for, and how Cofense identifies and disrupts malware-driven phishing attacks in the wild.",
-      "link": "https://cofense.com/blog/brand-trust-as-a-weapon-multi-brand-impersonation-campaigns-deliver-jwrapper-malware",
-      "source": "Cofense Intelligence",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-02-19T06:00:00+00:00",
-      "published_ts": 1771480800,
-      "smart_groups": [
-        "Malware / Payloads",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Poland bans camera-packing cars made in China cars from military bases",
-      "summary": "Dell, however, is welcome to help build a local-language LLM Poland\u2019s Ministry of Defence has banned Chinese cars \u2013 and any others include tech to record position, images, or sound \u2013 from entering protected military facilities.\u2026",
-      "link": "https://go.theregister.com/feed/www.theregister.com/2026/02/19/poland_china_car_ban/",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T05:55:25+00:00",
-      "published_ts": 1771480525,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Kementerian Kesehatan RI Suffers Alleged Breach According to Dark Web Reports | UpGuard",
-      "summary": "A data breach involving Kementerian Kesehatan RI was reported in February 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.comnews/kementerian-kesehatan-ri-data-breach-2026-02-18",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-02-19T05:54:25+00:00",
-      "published_ts": 1771480465,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Voney Suffers Alleged Breach According to Dark Web Reports | UpGuard",
-      "summary": "A data breach involving voney.in was reported in February 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.comnews/voney-in-data-breach-2026-02-18",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-02-19T05:45:21+00:00",
-      "published_ts": 1771479921,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Fed minutes suggest rate hikes on table again amid inflation jitters",
-      "summary": "Fed policymakers said easing may not be warranted until there is a clear indication that the progress of disinflation is firmly back on track.",
-      "link": "https://cointelegraph.com/news/fed-sees-possibility-of-upward-adjustments-to-rates-if-inflation-remains-above-target-levels?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-19T05:41:30+00:00",
-      "published_ts": 1771479690,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "New Threat Emerges as Attackers Leverage Grok and Copilot to Evade Security Monitoring",
-      "summary": "Researchers at Check Point Research (CPR) have uncovered a novel technique where cybercriminals utilize popular AI platforms like Grok and Microsoft Copilot to orchestrate covert attacks. This method transforms benign AI web services into proxies for Command and Control (C2) communication. By leveraging the web browsing and URL-fetching capabilities of these assistants, attackers can tunnel [\u2026] The post New Threat Emerges as Attackers Leverage Grok and Copilot to Evade Security Monitoring appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/attackers-leverage-grok-and-copilot/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T05:41:15+00:00",
-      "published_ts": 1771479675,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Lazer Car Services Suffers Alleged Breach According to Dark Web Reports | UpGuard",
-      "summary": "A data breach involving lazerbahrain.com was reported in February 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.comnews/lazerbahrain-com-data-breach-2026-02-18",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-02-19T05:39:36+00:00",
-      "published_ts": 1771479576,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "AI-Powered Debt Collection: Reducing Judgment and Increasing Consumer Comfort",
-      "summary": "Consumers Perceive Less Stigma in AI-Driven Debt Collection Interactions A recent study spanning 11 European... The post AI-Powered Debt Collection: Reducing Judgment and Increasing Consumer Comfort appeared first on .",
-      "link": "https://www.news4hackers.com/ai-powered-debt-collection-reducing-judgment-and-increasing-consumer-comfort/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T05:36:57+00:00",
-      "published_ts": 1771479417,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "AI Disruption Could Cut Creator Earnings by Nearly 25% by 2028, UNESCO Warns",
-      "summary": "A new UNESCO report projects steep revenue losses for music and screen creators as lawyers say the fair use doctrine is buckling under AI\u2019s scale.",
-      "link": "https://decrypt.co/358535/ai-disruption-creator-earnings-unesco",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-19T05:33:39+00:00",
-      "published_ts": 1771479219,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Consumers feel less judged by AI debt collectors",
-      "summary": "Debt collection agencies are starting to use automated voice systems and AI-driven messaging to handle consumer calls. These systems help scale outreach, reduce call center staffing demands, and offer 24/7 service. A new study covering 11 European countries found that this shift changes how consumers emotionally experience debt collection, especially around stigma and empathy. The research evaluated consumer reactions to scripted debt collection phone calls involving either a human representative or an AI voice assistant. \u2026 More \u2192 The post Consumers feel less judged by AI debt collectors appeared first on Help Net Security .",
-      "link": "https://www.helpnetsecurity.com/2026/02/19/consumer-ai-debt-collection/",
-      "source": "Help Net Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T05:30:11+00:00",
-      "published_ts": 1771479011,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Critical MCP Server Enables Arbitrary Code Execution and Sensitive Data Exfiltration",
-      "summary": "MCP servers can silently turn AI assistants into powerful attack platforms, enabling arbitrary code execution, large\u2011scale data exfiltration, and stealthy user manipulation across both local machines and cloud environments. New research and recent real\u2011world incidents show that this emerging ecosystem is already being abused in the wild, including a malicious Postmark MCP server that quietly [\u2026] The post Critical MCP Server Enables Arbitrary Code Execution and Sensitive Data Exfiltration appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/mcp-server-2/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T05:17:33+00:00",
-      "published_ts": 1771478253,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Garden Plan 2026",
-      "summary": "Howdy y\u2019all \ud83e\uddd1\u200d\ud83c\udf3e! Spring is just around the corner and as such, I\u2019ve started thinking about what I\u2019m goin\u2019 to do gardenin\u2019-wise in 2026. Last year was the first time I\u2019ve ever tried to grow anything , so I wasn\u2019t particularly ambitious . I grew some cherokee purple heirloom tomatoes which turned out amazing , and I harvested some blueberries from a bush that was already in the yard from before I bought the house. That\u2019s it though . This year I\u2019m planning on expanding the garden to additional zones and planting a wider variety of things. Exciting! The Plan Last year I used this tiny 3ft-by-8ft ( ish ) area to plant a few tomatoes. This year, I\u2019m looking to expand my usable garden space into a few other zones to accommodate more stuff. But what should I grow? My decision making process here came down to, A. What can I grow in my zone ? ( 7B ), B. what do I and my family like to eat, and C. what isn\u2019t terribly difficult to grow given my space parameters and general skill? So here\u2019s the list of things I came up with that I am going to try and bring to life\u2026 \ud83c\udf31 \ud83c\udf45 Heirloom Tomatoes (e.g. probably those Cherokee Purples again): These were delicious and made for great BLTs and by-the-slice-eatin\u2019. \ud83c\udf52 Cherry Tomatoes : These will be great in a salad or dunked in hummus. If I\u2019m lucky, I might even be able to get my kids to try some. \ud83e\udd52 Cucumbers : I\u2019ve always wanted to grow cucumbers\u2014just like my grandma did when I was growin\u2019 up. I love to dip \u2018em in ranch. \ud83e\udedb Brown crowder peas (i.e. \u201ccowpeas\u201d / \u201cfield peas\u201d): Now here\u2019s a crop I always enjoyed while dining at my grandmas house, but never thought I could grow here. Well it turns out maybe I can! I\u2019m not 100% sure this is the exact variety she used to grow but it looks pretty similar so I plan on giving it a shot. \ud83c\udf50 Pear Tree : I\u2019m not 100% sure on the variety yet, but pear trees are supposed to grow pretty well in this zone and my kids LOVE them. \ud83c\udf51 Peach Tree : Same as the pear tree. \u2b06\ufe0f \ud83e\uded0 Blueberry : I already have one blueberry plant on the side of the house, but I have space for another and have been told that a second variety can help with cross-pollination. One problem though, is I\u2019m not sure of the variety I already have! Oh well , what\u2019re the chances I choose the exact same one?? \ud83e\uded1 Pepper : I might try to sneak a red/green pepper plant in somewhere (as requested by my wife). \ud83c\udf3b Sunflower : Unrelated to the back yard, but I want to plant a sunflower in the front of the house. We had one when we first moved in and loved it! Time to bring it back. Alright , I\u2019ve got a handle on what I want to grow and I have taken some measurements for the areas I plan to grow this stuff in. Doing a little research I found the following recommendations for how much space to give each of these crops\u2026 Cucumbers : Plant them 8-10 inches apart and in rows 3-5 feet apart. Cherry Tomatoes : Plant them 2-3 feet apart. Heirloom Tomatoes : Plant them 3-4 feet apart and 4-5 feet inbetween rows. Field Peas : Plant them 3-6 inches apart and with rows 2-3 feet apart. Fruit Trees (e.g. pear/peach): Plant them with a ~10 foot radius. So with all this together, here\u2019s a concept of how things would look\u2026 In this diagram I consider there to be 4 distinct zones\u2026 Zone 1 : In front of my screened porch is a ~14.5ft-by-6ft area that I plan on making into a net-new garden space. In here I\u2019d like to try planting the cucumbers, cherry tomatoes, field peas and peppers. Zone 2 : In front of the sunroom, where I planted the heirloom tomatoes last year, I plan on doing the same thing this year. Zone 3 : Where I currently have my lone blueberry bush (and fledgling raspberry plant ), I\u2019d like to drop another blueberry bush. (This is on the side of the house) Zone 4 : Further back in the yard (away from the house) is a sunnier, and more spacious area that I\u2019d like to see if I could get some larger fruit trees goin\u2019. There ya have it! A plan is born. Plan Execution They say things are easier said than done, and in this case\u2014that is 100% true. Yeah sure, I grew some delicious tomatoes last year, but that was nothin\u2019 compared to growing all this stuff I want to do this year \ud83d\ude2c. There\u2019s a lot I need to do! I need to acquire the plants, probably grow some of them from seedlings (which requires infrastructure and know-how I don\u2019t yet possess), dig up or otherwise build new garden areas from scratch, and do plenty of research along the way. Phew ! Here\u2019s some random resources I\u2019ve collected that I suspect might help me this year\u2026 Peach Growing Guide Home Gardening Class from the LSU College of Agriculture So yeah , there\u2019s a lot I need to learn, figure out and then ultimately do. I\u2019ll probably get into more of that in future posts. For now though, I\u2019ve got what kinda looks like a plan. Wish me luck!",
-      "link": "https://shellsharks.com/garden-plan-2026",
-      "source": "https://shellsharks.com/feeds/all-feed.xml",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T05:15:00+00:00",
-      "published_ts": 1771478100,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Persistent Security Gaps: Why Attackers Keep Exploiting the Same Vulnerabilities",
-      "summary": "Cyber Attackers Continue to Exploit Well-Known Vulnerabilities Cyber attackers continue to exploit well-known vulnerabilities in... The post Persistent Security Gaps: Why Attackers Keep Exploiting the Same Vulnerabilities appeared first on .",
-      "link": "https://www.news4hackers.com/persistent-security-gaps-why-attackers-keep-exploiting-the-same-vulnerabilities/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T05:08:59+00:00",
-      "published_ts": 1771477739,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Delhi Elderly Woman Loses Lakhs to AI Voice Clone Scam: \u2018Save Me, Mom\u2026",
-      "summary": "A Sophisticated Scam: AI-Generated Voice Clones Target Vulnerable Individuals A recent incident in Delhi highlights... The post Delhi Elderly Woman Loses Lakhs to AI Voice Clone Scam: \u2018Save Me, Mom\u2026 appeared first on .",
-      "link": "https://www.news4hackers.com/delhi-elderly-woman-loses-lakhs-to-ai-voice-clone-scam-save-me-mom/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T05:07:26+00:00",
-      "published_ts": 1771477646,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Instagram Contact Leads to \u20b91.25 Crore Crypto Fraud: A Cautionary Tale of Online Scams",
-      "summary": "A Cryptocurrency Scam Unfolds on Instagram, Resulting in \u20b91.25 Crore Loss A businessman from the... The post Instagram Contact Leads to \u20b91.25 Crore Crypto Fraud: A Cautionary Tale of Online Scams appeared first on .",
-      "link": "https://www.news4hackers.com/instagram-contact-leads-to-%e2%82%b91-25-crore-crypto-fraud-a-cautionary-tale-of-online-scams/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T05:06:09+00:00",
-      "published_ts": 1771477569,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Fake PAN-Aadhaar Loan Racket Busted: Ex-Minister\u2019s Son Duped, Man Arrested for Cheating",
-      "summary": "Loan Fraud Ring Busted by Cyber Crime Police A sophisticated loan fraud ring that used... The post Fake PAN-Aadhaar Loan Racket Busted: Ex-Minister\u2019s Son Duped, Man Arrested for Cheating appeared first on .",
-      "link": "https://www.news4hackers.com/fake-pan-aadhaar-loan-racket-busted-ex-ministers-son-duped-man-arrested-for-cheating/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T05:04:46+00:00",
-      "published_ts": 1771477486,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Fake Bank Accounts Opened in Students\u2019 Names, Crores Routed Through Cyber Fraud; Tutor Absconding",
-      "summary": "A Cybercrime Scheme Exploits Students\u2019 Identities to Launder Funds A recent case of cyber-enabled financial... The post Fake Bank Accounts Opened in Students\u2019 Names, Crores Routed Through Cyber Fraud; Tutor Absconding appeared first on .",
-      "link": "https://www.news4hackers.com/fake-bank-accounts-opened-in-students-names-crores-routed-through-cyber-fraud-tutor-absconding/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-19T05:03:32+00:00",
-      "published_ts": 1771477412,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC"
-      ],
-      "curated": true
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
