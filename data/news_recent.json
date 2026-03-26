@@ -1,8 +1,311 @@
 {
-  "generated_at": "2026-03-26T20:18:11.673357+00:00",
+  "generated_at": "2026-03-26T21:49:30.468710+00:00",
   "days_back": 30,
-  "total_items": 8381,
+  "total_items": 8393,
   "items": [
+    {
+      "title": "From Manual Vetting to Continuous Trust: Automating Publisher Screening with AI",
+      "summary": "Why publisher screening is suddenly a software supply chain problem A single compromised publisher can turn one bad update into a broad incident. In this context, a publisher is an organization or individual account that signs up to a distribution channel (for example, an app store, marketplace, package registry, or extension gallery) and ships software under their name\u2014often by uploading binaries/packages and signing releases. When that update reaches thousands of machines, recovery isn\u2019t just a patch\u2014it\u2019s investigation, containment, customer communication, and remediation at scale. In practice, that recovery almost always costs more than prevention\u2014often far more\u2014because the operational disruption, incident response labor, and downstream customer impact quickly outweigh the ongoing cost of stronger upfront screening. That\u2019s why publisher screening is a high-ROI investment: it reduces the chance that untrusted code ever earns distribution in the first place. Modern software ecosystems depend on third-party publishers\u2014independent developers, tool vendors, and service providers\u2014whose code runs in sensitive environments, so the blast radius can be systemic. At Microsoft, Trust & Security Services runs automated publisher screening and continuous monitoring to help protect Microsoft-operated marketplaces and programs\u2014as well as Microsoft more broadly\u2014from fraudulent or compromised publishers. Impact: Applying AI-driven publisher screening has reduced the total time spent on screening from several days to hours for the programs Trust & Security Services works with\u2014improving reviewer throughput while still escalating the highest-risk or lowest-confidence cases for human judgment. The challenge: manual reviews don\u2019t scale (and static reputation checks miss change) Publisher onboarding is often guarded by paperwork, one-time identity checks, and human review. That can work at small scale, but it breaks down with high submission volumes and fast-evolving attacker tactics. Reviews become slow and inconsistent, while \u201csnapshot\u201d reputation checks miss publishers whose risk changes over time. The approach we employ in Trust & Security Services is an automated, AI-driven system that evaluates trust at two points: during onboarding and after approval as new evidence emerges. We use multiple specialized AI agents (a set of \u201ccheckers\u201d looking at different evidence) and combine results into a calibrated risk score and recommended action\u2014approve, deny, or escalate. Confirmed outcomes feed back into tuning so the system keeps pace with changing ecosystems and attacker behavior. What the system produces (and why \u201cexplainable\u201d matters) For a high-volume platform, the useful output isn\u2019t just a number. AI helps turn many partial signals into operational outputs you can act on: Decision recommendation: approve/deny/escalate. Calibrated risk score: a consistent measure so thresholds mean the same thing over time. Explanation bundle: top contributing factors, supporting evidence, and an audit trail. Why explainability matters: it speeds human review, enables appeals, and supports governance without \u201cmystery model\u201d behavior. In practice, we mix evidence across identity corroboration, ecosystem reputation, and post-approval behavioral monitoring, informed by internal and external threat intelligence. We regularly validate and refresh signals against outcomes so the system stays effective as adversaries adapt. Like other AI\u2011assisted decision support systems, this approach can make mistakes and its outputs depend on the signals and data available at evaluation time. Screening recommendations are designed to support (not replace) policy decisions, so we monitor error rates and reviewer overrides over time, and route low\u2011confidence or high\u2011impact cases for human judgment as part of the AI development and deployment life cycle. Design considerations for real-world deployments False positives vs. throughput: overly aggressive thresholds drown reviewers and frustrate legitimate publishers. Many teams start by escalating uncertain cases, then tighten deny rules only when signals are strong and repeatable. Privacy and data minimization: collect only what you need for a defined purpose, bound retention, and apply strong access controls. Where possible, separate identity artifacts from behavioral analytics, and ensure reviewers can see what influenced a decision. Societal and statistical bias considerations: monitor for uneven error rates across relevant groups and contexts, use defensible risk-relevant features, and keep a human appeal path. AI can help improve consistency in how evidence is summarized and routed, but it can also introduce or amplify errors, so we measure outcomes and adjust thresholds, features, and reviewer guidance over time. Adversarial behavior: attackers adapt to published checks. Mixing independent signals and rotating features reduces single-point gaming. Continuous monitoring: trust can decay after onboarding. Re-score on meaningful events (for example, ownership changes or unusual submission bursts), not just on a fixed schedule. Human-in-the-loop: treat automation as triage. Give reviewers clear reasons and comparable past cases and make overrides easy to feed back into future screening. As the system matures and decision quality improves, the goal is that fewer cases require human input\u2014reserving review capacity for genuinely ambiguous or high-impact decisions. How it works: a practical walkthrough At a high level, the flow runs from an initial publisher application to an automated decision, followed by ongoing re-evaluation as new evidence arrives. Concrete example: A new publisher applied to join one of the programs that Trust & Security Services helps protect, claiming to be an established enterprise vendor. Automated checks found that the publisher\u2019s \u201cofficial\u201d support domain was registered within the last month, the domain ownership/contact details didn\u2019t align with the claimed company identity, and the signing EV certificate chain was newly issued with no prior distribution history on the platform. Individually, any one of these might be benign, but together they indicated elevated risk. Recommendation: Escalate (not an automatic deny) because identity corroboration is weak but not conclusively malicious. Reviewer prompt: request additional proof of organizational control (for example, verified domain control and business documentation) and confirm the relationship between the claimed company and the signing identity. Outcome handling: if verification succeeds, approve and continue monitoring; if verification fails or contradictions persist, deny and use the case to improve future screening. High-level, the flow works as follows: Figure 1: AI-Driven Publisher Screening End-to-End Flow A publisher applies to distribute software through a platform, providing business and operational details (for example, ownership assertions, web presence, support commitments, and compliance attestations). The onboarding request is forwarded to the AI solution for publisher screening. A coordinated set of AI-assisted analyzers (agents) evaluates the publisher. Models combine signals into a recommendation (approve/deny/escalate) and a calibrated risk score that supports consistent triage. The system correlates entities and signals (for example, matching ownership claims, domains, certificates, and accounts across sources), looks for inconsistencies and anomalous patterns, and generates a short reviewer-facing rationale highlighting the strongest contributing factors (without exposing the full detection recipe). The platform enforces the decision, routing borderline cases to human review. The decision is communicated back to the publisher. After approval, the system monitors for change; new evidence can trigger re-evaluation, inform future decisions through outcome-based tuning, and prompt review of similar publishers. What we\u2019ve learned about operating publisher screening at scale Two themes show up repeatedly. First, the best control is rarely a single \u201cperfect\u201d check\u2014it\u2019s complementary signals plus an escalation path that keeps review capacity focused. Second, trust changes over time, including when a legitimate publisher is compromised, so post-approval watchfulness is essential. Using confirmed outcomes to tune screening and policy turns vetting from a gate into an ongoing trust system. Conclusion: trust is a lifecycle, not a checkbox In our experience operating Microsoft marketplaces and programs, publisher vetting can\u2019t be treated as a one-time manual control. At scale, the problem is best modeled as a lifecycle risk system: normalize heterogeneous signals into a calibrated score, map that score to policy thresholds (approve/deny/escalate), and attach an evidence-backed rationale suitable for audit and appeals. After onboarding, trust must be maintained with event-driven re-scoring (for example, ownership changes, unusual submission cadence, or new threat intelligence) and enough telemetry to detect drift and respond quickly. This architecture pushes routine decisions into automation, reserves human review for low-confidence cases, and turns outcomes into feedback for ongoing tuning\u2014while also delivering concrete operational gains (for example, reducing total screening time from several days to hours for the programs Trust & Security Services supports).",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-community/from-manual-vetting-to-continuous-trust-automating-publisher/ba-p/4505695",
+      "source": "Microsoft Security Blog (TechCommunity)",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-03-26T21:32:05+00:00",
+      "published_ts": 1774560725,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Network / OT / ICS",
+        "Crypto / Web3",
+        "Supply Chain / Software"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Secure AI Workloads in Azure: Join Our Next Azure Decoded Session on April 8th",
+      "summary": "AI introduces new risks\u2014like prompt injection, data leakage, and model misuse\u2014which means security teams need visibility and guardrails that extend beyond traditional cloud controls. In our next Azure Decoded session, we\u2019ll focus on securing AI workloads in Azure with Microsoft Defender for Cloud . Register now for the Azure Decoded session on April 8th at 12 PM PST. Bringing AI security architecture to life with Azure Decoded In the Lockdown AI workloads with Microsoft Defender for Cloud session , we move from concepts to implementation and show how these protections appear in the platform. We\u2019ll walk through where Microsoft Defender for Cloud fits into an end-to-end AI security strategy\u2014and how discovery, posture management, and runtime protection work together to secure AI workloads built on Azure. You\u2019ll also see how to connect the dots across the workflow\u2014so signals from AI resources, identity, and data controls roll up into actionable recommendations and alerts. Enable and scope the AI workloads protections in Defender for Cloud Use the Data & AI security dashboard to understand coverage and priority risks Review posture findings (CSPM) and translate them into remediation steps Investigate runtime detections (CWP) and see how they map into Microsoft Defender XDR Our goal isn\u2019t theory for theory\u2019s sake. It\u2019s to help you see how AI security shows up in real architecture and real workflows \u2014so you can apply it confidently in your own environment. Who is this session for? We built this session for practitioners who are actively working with AI in Azure, including: Developers building AI applications and agents Security engineers responsible for protecting AI workloads Cloud architects designing enterprise\u2011ready AI solutions If you\u2019re balancing innovation with security and governance, this session is designed to help you translate AI security concepts into concrete steps in Azure. Before you join: Familiarity with core Azure concepts (subscriptions, resource groups, identity, networking) is helpful. You don\u2019t need to be a machine learning expert\u2014the focus is on securing the cloud resources and workflows that power AI solutions. From AI security concepts to platform protections If you\u2019d like to get the most out of the session, start with the Microsoft Learn module Protect AI workloads with Microsoft Defender for Cloud. It introduces the building blocks of AI workloads in Azure and the security considerations that come with them. In the module, you\u2019ll learn how to: Identify the layers that make up AI workloads in Azure Understand AI-specific risks, including prompt injection, data leakage, and model misuse Use Microsoft Foundry guardrails and observability to monitor and constrain model behavior See how Defender for Cloud, Microsoft Purview, and Microsoft Entra ID work together for defense in depth and governance Think of this as your foundation: it connects AI workload architecture to the controls you\u2019ll configure in Azure, so you can protect inputs and outputs, maintain visibility, and apply governance without slowing delivery. Catch up on the previous Azure Decoded session If you missed the previous Azure Decoded session\u2014or want a refresher\u2014you can watch it on demand on YouTube: \u25b6\ufe0f Watch the previous Azure Decoded session on YouTube It\u2019s a helpful refresher and sets the stage for the April 8 discussion. Turn learning into hands-on skills If you want to move the show, you can do this in your environment. The Microsoft Applied Skills credential, Secure AI Solutions in the Cloud , is a great next step after the Azure Decoded session . You will: Scope and enable protections for AI-related resources and workloads in Azure Validate coverage and prioritize risks using the Data & AI security dashboard Find and remediate posture gaps (CSPM) that increase exposure for AI workloads Investigate runtime detections (CWP) and understand what they mean in the context of AI workload behavior Triage AI-related alerts and incidents in Microsoft Defender XDR and decide on next steps Get started 1\ufe0f\u20e3 Register for Azure Decoded: Lock Down AI Workloads with Microsoft Defender for Cloud 2\ufe0f\u20e3 Watch the previous Azure Decoded session before April 8th (optional refresher) 3\ufe0f\u20e3 Earn the Microsoft Applied Skills: Secure AI Solutions in the Cloud credential to showcase skills. The goal is to leave with something reusable: a practical sequence you can apply to new projects to confirm coverage, reduce posture gaps, and respond quickly when Defender signals suspicious activity tied to AI workloads.",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-community/secure-ai-workloads-in-azure-join-our-next-azure-decoded-session/ba-p/4504207",
+      "source": "Microsoft Security Blog (TechCommunity)",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-03-26T21:23:44+00:00",
+      "published_ts": 1774560224,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Linux / Unix",
+        "Cloud / SaaS",
+        "Data Breaches / Leaks"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Threat hunting command system for agentic IDEs",
+      "summary": "submitted by /u/imdonewiththisshite [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1s4kbjz/threat_hunting_command_system_for_agentic_ides/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-26T21:22:07+00:00",
+      "published_ts": 1774560127,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "What EASM tools are actually working for lean security teams at scale",
+      "summary": "What EASM tools are actually working for lean security teams at scale? submitted by /u/unkempt_organisation [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1s4ka4d/what_easm_tools_are_actually_working_for_lean/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-26T21:20:33+00:00",
+      "published_ts": 1774560033,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "First Sora, Now Sexy Chat? OpenAI Cancels Erotic ChatGPT Mode",
+      "summary": "The reported decision follows earlier promises to introduce adult content features in ChatGPT, and comes amid debate over AI intimacy.",
+      "link": "https://decrypt.co/362525/first-sora-now-sexy-chat-openai-cancels-erotic-chatgpt-mode",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-26T21:15:20+00:00",
+      "published_ts": 1774559720,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "U.S. CISA adds a Langflow flaw to its Known Exploited Vulnerabilities catalog",
+      "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) adds a flaw in Langflow to its Known Exploited Vulnerabilities catalog. The U.S. Cybersecurity and Infrastructure Security Agency (CISA) added a Langflow flaw, tracked as CVE-2026-33017 (CVSS score of 9.3), to its Known Exploited Vulnerabilities (KEV) catalog. Langflow is a popular tool used for building agentic AI workflows. CVE-2026-33017 is a [\u2026]",
+      "link": "https://securityaffairs.com/190018/security/u-s-cisa-adds-a-langflow-flaw-to-its-known-exploited-vulnerabilities-catalog.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-26T21:05:01+00:00",
+      "published_ts": 1774559101,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "MCP for CVE chaining",
+      "summary": "Building a SaaS product that takes only CVEs as input and tries to determine whether they form a meaningful exploit chain . The goal is not just to list vulnerabilities, but to answer: can these CVEs actually connect into a path, and is there a pivot worth paying attention to? At the moment, the system works best on a focused batch of about 10 CVEs at a time. Before I take it further, I\u2019d love input from this group: Who would actually find this useful? Which teams would care most about a 10-CVE chaining view? Does this sound more relevant for VM, pentesting, red team, blue team, or someone else? submitted by /u/Sea_Cable_548 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1s4jv4p/mcp_for_cve_chaining/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-26T21:04:39+00:00",
+      "published_ts": 1774559079,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Internet Yiff Machine: We hacked 93GB of &quot;anonymous&quot; crime tips",
+      "summary": "Ultra-sensitive data may have been hacked.",
+      "link": "https://arstechnica.com/security/2026/03/internet-yiff-machine-we-hacked-93gb-of-anonymous-crime-tips/",
+      "source": "Security \u2013 Ars Technica",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-26T21:04:31+00:00",
+      "published_ts": 1774559071,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Threat Brief: March 2026 Escalation of Cyber Risk Related to Iran (Updated March 26)",
+      "summary": "Unit 42 details recent Iranian cyberattack activity, sharing direct observations of phishing, hacktivist activity and cybercrime. We include recommendations for defenders. The post Threat Brief: March 2026 Escalation of Cyber Risk Related to Iran (Updated March 26) appeared first on Unit 42 .",
+      "link": "https://unit42.paloaltonetworks.com/iranian-cyberattacks-2026/",
+      "source": "https://unit42.paloaltonetworks.com/feed/",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-03-26T21:00:07+00:00",
+      "published_ts": 1774558807,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Scanning The Internet with Linux Tools - PSW #919",
+      "summary": "",
+      "link": "https://www.scworld.com/podcast-segment/14645-scanning-the-internet-with-linux-tools-psw-919",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-26T21:00:00+00:00",
+      "published_ts": 1774558800,
+      "smart_groups": [
+        "Linux / Unix"
+      ],
+      "curated": false
+    },
+    {
+      "title": "OWASP Gen AI Security Project RSAC 2026 - Scott Clinton - RSAC26 #6",
+      "summary": "",
+      "link": "https://www.scworld.com/podcast-segment/15088-owasp-gen-ai-security-project-rsac-2026-scott-clinton-rsac26-6",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-26T21:00:00+00:00",
+      "published_ts": 1774558800,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Scanning The Internet with Linux Tools - PSW #919",
+      "summary": "In this segment, we will explore some pretty awesome tools for scanning the Internet, with a focus on network edge devices. We'll bring it all together with Claude Code and look at some sample results. Tools include: Shodan | Passive recon \u2014 query existing scan data for exposed devices, services, and vulns | Passive (API) | Instant (no packets sent) ZMap | Host discovery \u2014 find live hosts with open ports | L4 (TCP SYN, UDP, ICMP) | Millions of packets/sec ZGrab2 | Application-layer handshakes \u2014 grab banners, certs, headers | L7 (30+ protocol modules) | Thousands of hosts/sec Nerva | Service fingerprinting \u2014 identify 140+ protocols with metadata, CPEs, technology stacks | L7 (TCP, UDP, SCTP) | Fast, concurrent Nuclei | Template-based vulnerability scanning \u2014 default creds, exposed panels, known CVEs | L7 (HTTP, network) | Hundreds of targets/min Shannon | Vulnerability exploitation \u2014 AI-powered whitebox pentesting of web apps | Application | ~1-1.5 hrs per target edgescan.py | Automated pipeline \u2014 orchestrates all tools above into a single command | Orchestration | End-to-end Visit https://www.securityweekly.com/psw for all the latest episodes! Show Notes: https://securityweekly.com/psw-919",
+      "link": "https://podcast.securityweekly.com/scanning-the-internet-with-linux-tools-psw-919",
+      "source": "Security Weekly Podcast Network (Audio)",
+      "type": "podcasts",
+      "type_label": "Podcasts & YouTube",
+      "published": "2026-03-26T21:00:00+00:00",
+      "published_ts": 1774558800,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Linux / Unix"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Bitcoin, Ethereum Slip as Trump Says He's 'Not Desperate' to End Iran War",
+      "summary": "Bitcoin fell alongside stocks as investors weighed conflicting accounts regarding Iran\u2019s willingness to end conflict in the Middle East.",
+      "link": "https://decrypt.co/362516/bitcoin-ethereum-slip-as-trump-says-hes-not-desperate-to-end-iran-war",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-26T20:41:25+00:00",
+      "published_ts": 1774557685,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Ajax football club hack exposed fan data, enabled ticket hijack",
+      "summary": "Dutch professional football club Ajax Amsterdam (AFC Ajax) disclosed that a hacker exploited vulnerabilities in its IT systems and accessed data belonging to a few hundred people. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/ajax-football-club-hack-exposed-fan-data-enabled-ticket-hijack/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-26T20:37:25+00:00",
+      "published_ts": 1774557445,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Twenty One Capital now 2nd-largest publicly traded BTC holder after MARA sale",
+      "summary": "Bitcoin advocate Jack Mallers' Twenty One Capital holds 43,514 BTC in its corporate treasury, now second only to Strategy's 762,099 BTC accumulation.",
+      "link": "https://cointelegraph.com/news/twenty-one-2nd-largest-btc-holder-mara?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-26T20:35:46+00:00",
+      "published_ts": 1774557346,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Coming up with cyber security projects for work",
+      "summary": "Im currently an associate only started working full time a month ago, and my work is pushing me to come up with projects for my soc role or any security role. But the project must contain ai in it. idk what to create. How do i come up with ideas or are there any cool projects i can look into to implement for work? submitted by /u/Black_Satire [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1s4j0f0/coming_up_with_cyber_security_projects_for_work/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-26T20:32:30+00:00",
+      "published_ts": 1774557150,
+      "smart_groups": [
+        "Identity / Access"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Career Advice - Security Engineering",
+      "summary": "Hey guys, I've been an IT generalist for 8 years. Started at help desk and worked my way up to junior sys admin. I realized that I had a thing for securing networks and infrastructures and have been trying to pivot to cybersecurity. At first, I thought I wanted to be a SOC Analyst but quickly realized that the on-calls won't work for me. I'm a more rigid individual who likes to stick to schedules as much as possible. I also might find it boring/redundant after a while as I like to implement security measures. Having been in a junior sys admin role for 6 years, I've managed to do the following; Implementing MFA/2FA RBAC Managed users on Entra ID and Active Directory Managing user access badges Implementing just-in-time accesses Dealt with a ransomware event while keeping management informed about it Managed/deployed various EDRs across the companies I've been in (CrowdStrike Falcon, Malwarebytes, SentinelOne) Managing VLANs and handling network segmentations Trying to get users to have a security-first mindset (basically telling them what to look for in various types of phishing attacks) Implementing zero trust Installing SIEMs Led Windows upgrades (7 to 10, 10 to 11) Been trying to get into security engineering but having a hard time landing interviews. I love the technical side of IT and managing networks and infrastructure. I know the job market is oversaturated but is remote work possible to find still? Is geography a big part in my unsuccessful bid in finding remote work? I've seen job postings saying things like, \"only considering applicants in the lower 48 states,\" or, \"only apply if residing in XYZ states.\" While others have been ambiguous in their \"remote\" options. I honestly don't mind having to fly to the US mainland every now and then to report in. submitted by /u/musubi808 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1s4j02j/career_advice_security_engineering/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-26T20:32:04+00:00",
+      "published_ts": 1774557124,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Windows / Microsoft",
+        "Malware / Payloads",
+        "Identity / Access",
+        "Phishing / Social Engineering"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Browser in the AI Era: Apply Controls Where the Work Happens - Arunesh Chandra - RSAC26 #4",
+      "summary": "",
+      "link": "https://www.scworld.com/podcast-segment/14742-browser-in-the-ai-era-apply-controls-where-the-work-happens-arunesh-chandra-rsac26-4",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-26T20:30:00+00:00",
+      "published_ts": 1774557000,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "PROTOCOLO DELTA SWORD: Full Disclosure de Persist\u00eancia Zero-Day e Omiss\u00e3o Corporativa (Google/Samsung)",
+      "summary": "[IDENTIFICADORES DE CASO - RASTREABILIDADE TOTAL] Google Issue Tracker (Principal): ID 494092970 Google Issue Tracker (Antigo/Refer\u00eancia): ID 486921160 Google Issue Tracker (Tentativa de Duplica\u00e7\u00e3o/Silenciamento): ID 494233438 Samsung Mobile Security: Ticket 1-119703 [RESUMO T\u00c9CNICO] Este dossi\u00ea documenta uma falha cr\u00edtica de seguran\u00e7a (Sandbox Escape & Rootkit Persistence) identificada no Kernel 4.19 do Samsung A04s. A per\u00edcia prova que o ransomware EDWARD mant\u00e9m persist\u00eancia em mem\u00f3ria viva, operando mesmo sob isolamento f\u00edsico de r\u00e1dio (RF-Kill). [EVID\u00caNCIAS E AUDITORIA] AMBIENTE SAMSUNG A04s (Pasta Tracer 2.04): Telemetria de CPU e inje\u00e7\u00e3o de c\u00f3digo que precedem o patch de mar\u00e7o de 2026. AMBIENTE LENOVO (Pasta Lenovo sob RFQ): Auditoria realizada em estado de Air Gap (rfkill block all), provando que o exploit mant\u00e9m rotinas de comunica\u00e7\u00e3o interna sem necessidade de rede externa ativa. [A FRAUDE DO VRP (Vulnerability Reward Program)] A Google e a Samsung utilizaram os 10GB de logs enviados em fevereiro para mitigar a falha silenciosamente no patch SMR-MAR-2026. Ap\u00f3s a corre\u00e7\u00e3o, classificaram os meus reports (IDs citados acima) como \"Invi\u00e1veis\" ou \"Duplicados\" de mim mesmo (ID 494233438), negando a autoria e a transpar\u00eancia p\u00fablica. Exigir que o pesquisador atualize o sistema para \"validar\" o erro \u00e9 uma t\u00e1tica de destrui\u00e7\u00e3o de prova pericial. [CONTEXTO DO PESQUISADOR] Esta investiga\u00e7\u00e3o \u00e9 o resultado da resili\u00eancia de um cidad\u00e3o que, enfrentando press\u00f5es sist\u00eamicas, complexidades familiares e superando cicatrizes de abusos passados, manteve o rigor t\u00e9cnico acima de qualquer adversidade. A verdade n\u00e3o pode ser deletada por um patch silencioso. [ASSINATURAS] Hashes SHA-256 de integridade e logs cronol\u00f3gicos est\u00e3o inclusos no link anexo. https://drive.google.com/drive/folders/1S5BTn5KxTmDEgrkjr2pIk3xanL05C9PG \u200b[CL\u00c1USULA DE RETEN\u00c7\u00c3O T\u00c9CNICA E SEGURAN\u00c7A P\u00daBLICA] \u200bAten\u00e7\u00e3o: Por motivos de seguran\u00e7a cibern\u00e9tica e \u00e9tica profissional, o Protocolo Delta Sword n\u00e3o inclui a divulga\u00e7\u00e3o p\u00fablica dos bin\u00e1rios execut\u00e1veis, c\u00f3digos-fonte do exploit ou dumps de mem\u00f3ria bruta (RAM). \u200bMotivos da Reten\u00e7\u00e3o: \u200bComplexidade e Risco: Os artefatos isolados (Ransomware EDWARD / Persistence Hooks) possuem alta capacidade de replica\u00e7\u00e3o e podem ser transformados em armas digitais se ca\u00edrem em m\u00e3os erradas. \u200bIntegridade da Prova: A documenta\u00e7\u00e3o completa cont\u00e9m dados sens\u00edveis da estrutura do Kernel Samsung/Exynos que, se expostos, poderiam comprometer dispositivos de milh\u00f5es de usu\u00e1rios antes que as corre\u00e7\u00f5es adequadas sejam validadas. \u200bResponsabilidade Civil: Como pesquisador, meu objetivo \u00e9 o Full Disclosure da omiss\u00e3o corporativa, e n\u00e3o facilitar a dissemina\u00e7\u00e3o de malwares. \u200bProtocolo de Acesso: O acesso \u00e0 documenta\u00e7\u00e3o completa, logs de telemetria bruta e bin\u00e1rios para fins de auditoria, jornalismo investigativo ou seguran\u00e7a nacional ser\u00e1 concedido estritamente sob as seguintes condi\u00e7\u00f5es: \u200bPedido Formal: Identifica\u00e7\u00e3o clara da institui\u00e7\u00e3o ou \u00f3rg\u00e3o de imprensa. \u200bReuni\u00e3o T\u00e9cnica: Possibilidade de verifica\u00e7\u00e3o de identidade e alinhamento t\u00e9cnico via videoconfer\u00eancia ou reuni\u00e3o presencial (conforme a sensibilidade do receptor). \u200bCompromisso de Sigilo: Assinatura de termo de responsabilidade sobre o manuseio dos bin\u00e1rios. \u200bPara solicita\u00e7\u00f5es oficiais, utilize o canal de contato direto. A verdade ser\u00e1 compartilhada com quem tem a compet\u00eancia e a \u00e9tica para manuse\u00e1-la. submitted by /u/PastAcanthisitta3863 [link] [comments]",
+      "link": "https://www.reddit.com/r/netsec/comments/1s4irxz/protocolo_delta_sword_full_disclosure_de/",
+      "source": "/r/netsec",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-26T20:23:34+00:00",
+      "published_ts": 1774556614,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Malware / Payloads",
+        "Identity / Access"
+      ],
+      "curated": true
+    },
+    {
+      "title": "OpenAI Is Pulling Back on Its Erotic Chatbot. Here\u2019s Why.",
+      "summary": "For a brief, fleeting moment, one of the biggest names in AI thought they were going to revolutionize the industry with a new, wholly original idea: pornography. Well, erotica, or whatever cleaned-up PR word you want to use to describe AI-generated sex content. You may remember the not-too-distant past when OpenAI, the company behind ChatGPT, [\u2026] The post OpenAI Is Pulling Back on Its Erotic Chatbot. Here\u2019s Why. appeared first on VICE .",
+      "link": "https://www.vice.com/en/article/openai-is-pulling-back-on-its-erotic-chatbot-heres-why/",
+      "source": "Motherboard \u2013 Tech",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-26T20:17:27+00:00",
+      "published_ts": 1774556247,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Spring security advisory (AV26-288)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/spring-security-advisory-av26-288",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-26T20:05:49+00:00",
+      "published_ts": 1774555549,
+      "smart_groups": [],
+      "curated": false
+    },
     {
       "title": "Report: Attackers Can Trick AI Assistants Into Displaying Phishing Messages",
       "summary": "Researchers at Permiso warn that threat actors can plant phishing messages within Copilot AI summaries. Notably, the researchers found that attackers can trick Copilot into including internal information to craft a more targeted message.",
@@ -18,6 +321,94 @@
       "curated": false
     },
     {
+      "title": "HPE security advisory (AV26-287)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/hpe-security-advisory-av26-287",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-26T19:59:55+00:00",
+      "published_ts": 1774555195,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Wikipedia Bans AI-Generated Text in Articles Under New Editing Policy",
+      "summary": "The online encyclopedia bars AI-written content but allows limited AI-assisted copyediting under strict rules.",
+      "link": "https://decrypt.co/362510/wikipedia-bans-ai-articles-new-editing-policy",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-26T19:59:06+00:00",
+      "published_ts": 1774555146,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Bitcoin floor \u2018near $70K\u2019 as TradFi returns: Will war, inflation break their belief?",
+      "summary": "Bitcoin mass adoption by institutional investors has resumed, but global instability and the risk of rising US inflation put a lid on BTC\u2019s breakouts above $70,000.",
+      "link": "https://cointelegraph.com/news/bitcoin-floor-near-dollar70k-as-tradfi-returns-will-war-inflation-break-their-belief?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-26T19:54:48+00:00",
+      "published_ts": 1774554888,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Japan\u2018s financial watchdog flags KuCoin for OTC derivatives transactions",
+      "summary": "The crypto exchange has previously been in the crosshairs of Japanese regulators for offering products and services without the proper registration.",
+      "link": "https://cointelegraph.com/news/japan-fsa-kucoin-otc-derivatives-transactions?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-26T19:52:24+00:00",
+      "published_ts": 1774554744,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Is the FCC's Router Ban the Wrong Fix?",
+      "summary": "The agency put foreign-made consumer routers on its list of prohibited communications devices, but the ban could create more problems down the road.",
+      "link": "https://www.darkreading.com/endpoint-security/fcc-router-ban-wrong-fix",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-26T19:48:32+00:00",
+      "published_ts": 1774554512,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "[Control systems] ABB security advisory (AV26-286)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/control-systems-abb-security-advisory-av26-286",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-26T19:48:24+00:00",
+      "published_ts": 1774554504,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Automotive Cybersecurity Threats Grow in Era of Connected, Autonomous Vehicles",
+      "summary": "More than a decade since the 2015 Jeep hack, the cybersecurity of vehicles remains of the utmost importance.",
+      "link": "https://www.darkreading.com/vulnerabilities-threats/automotive-cybersecurity-threats-grow-connected-autonomous-vehicles",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-26T19:48:21+00:00",
+      "published_ts": 1774554501,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "Venture Firm Founder Offers Bounty to Help Recover $42 Million in Stolen Bitcoin, Crypto",
       "summary": "Fenbushi Capital's Bo Shen is offering a bounty to anyone who can help him recover some of the $42 million that was stolen in 2022.",
       "link": "https://decrypt.co/362482/venture-firm-founder-bounty-help-recover-42-million-stolen-bitcoin-crypto",
@@ -28,6 +419,24 @@
       "published_ts": 1774554426,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "New ClickFix Attack Leverage Windows Run Dialog Box and macOS Terminal to Deploy Malware",
+      "summary": "A social engineering technique called ClickFix has resurfaced with significant force, tricking users on both Windows and macOS into manually executing malicious commands that quietly install malware on their devices. First documented in late 2023, the method has rapidly grown from a niche tactic into one of the most widely adopted initial access strategies across [\u2026] The post New ClickFix Attack Leverage Windows Run Dialog Box and macOS Terminal to Deploy Malware appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/new-clickfix-attack-leverage-windows-run-dialog-box/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-26T19:45:17+00:00",
+      "published_ts": 1774554317,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Malware / Payloads",
+        "Phishing / Social Engineering"
+      ],
+      "curated": true
     },
     {
       "title": "Frida 17.9.0 Released",
@@ -42,6 +451,22 @@
         "Linux / Unix"
       ],
       "curated": false
+    },
+    {
+      "title": "Leak Bazaar Turns Stolen Corporate Data Into a Structured Criminal Marketplace",
+      "summary": "A threat actor known as \u201cSnow\u201d from SnowTeam posted an advertisement on the Russian-speaking TierOne (T1) cybercrime forum on March 25, 2026, introducing a new criminal service called Leak Bazaar. The platform is not a traditional data leak site. Instead, it presents itself as a post-exfiltration processing service \u2014 one that takes raw stolen corporate [\u2026] The post Leak Bazaar Turns Stolen Corporate Data Into a Structured Criminal Marketplace appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/leak-bazaar-turns-stolen-corporate-data/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-26T19:38:53+00:00",
+      "published_ts": 1774553933,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Data Breaches / Leaks"
+      ],
+      "curated": true
     },
     {
       "title": "Grafana security advisory (AV26-285)",
@@ -65,6 +490,21 @@
       "published": "2026-03-26T19:33:40+00:00",
       "published_ts": 1774553620,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "VoidLink Rootkit Uses eBPF and Kernel Modules to Hide Deep Inside Linux Systems",
+      "summary": "A new and technically advanced rootkit called VoidLink has emerged as a serious threat to Linux systems, blending Loadable Kernel Modules (LKMs) with extended Berkeley Packet Filter (eBPF) programs to hide deep inside the operating system\u2019s core. First documented by Check Point Research in January 2026, VoidLink is a cloud-native Linux malware framework written in [\u2026] The post VoidLink Rootkit Uses eBPF and Kernel Modules to Hide Deep Inside Linux Systems appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/voidlink-rootkit-uses-ebpf-and-kernel-modules/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-26T19:26:03+00:00",
+      "published_ts": 1774553163,
+      "smart_groups": [
+        "Linux / Unix",
+        "Malware / Payloads"
+      ],
       "curated": false
     },
     {
@@ -132,6 +572,18 @@
       "curated": false
     },
     {
+      "title": "Fenix24's John Anthony Smith on why more technology hasn\u2019t made us more secure",
+      "summary": "John Anthony Smith argues that complexity, human decision\u2011making, and gaps in execution are what truly empower attackers.",
+      "link": "https://www.scworld.com/resource/fenix24s-john-anthony-smith-on-why-more-technology-hasnt-made-us-more-secure",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-26T19:14:29+00:00",
+      "published_ts": 1774552469,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "Critical Flaw in Langflow AI Platform Under Attack",
       "summary": "Threats actors pounced on the code injection vulnerability within hours of its disclosure, demonstrating that organizations have little time to address critical bugs.",
       "link": "https://www.darkreading.com/vulnerabilities-threats/critical-flaw-langflow-ai-platform-under-attack",
@@ -183,6 +635,18 @@
       "title": "Attack Surface Just Got a Copilot - Rob Juncker - RSAC26 #4",
       "summary": "",
       "link": "https://www.scworld.com/podcast-segment/14739-attack-surface-just-got-a-copilot-rob-juncker-rsac26-4",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-26T19:00:00+00:00",
+      "published_ts": 1774551600,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Securing the Next Billion Users: Why the Browser is the Front Line for Agentic AI - Ramin Farassat - RSAC26 #4",
+      "summary": "",
+      "link": "https://www.scworld.com/podcast-segment/14740-securing-the-next-billion-users-why-the-browser-is-the-front-line-for-agentic-ai-ramin-farassat-rsac26-4",
       "source": "SCM feed for Latest",
       "type": "general",
       "type_label": "General Security & Blogs",
@@ -93588,20 +94052,6 @@
       "curated": false
     },
     {
-      "title": "Threat Brief: March 2026 Escalation of Cyber Risk Related to Iran",
-      "summary": "Unit 42 details recent Iranian cyberattack activity, sharing direct observations of phishing, hacktivist activity and cybercrime. We include recommendations for defenders. The post Threat Brief: March 2026 Escalation of Cyber Risk Related to Iran appeared first on Unit 42 .",
-      "link": "https://unit42.paloaltonetworks.com/iranian-cyberattacks-2026/",
-      "source": "https://unit42.paloaltonetworks.com/feed/",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-03T01:15:07+00:00",
-      "published_ts": 1772500507,
-      "smart_groups": [
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
       "title": "Senate Advances Housing Bill With CBDC Ban, Draws White House Backing",
       "summary": "The vote marks one of the strongest bipartisan showings of this Congress, suggesting the package could clear further procedural hurdles.",
       "link": "https://decrypt.co/359695/senate-advances-housing-bill-cbdc-ban-draws-white-house",
@@ -116406,292 +116856,6 @@
       "published_ts": 1771968462,
       "smart_groups": [
         "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Build Sensitivity Label\u2011Aware, Secure RAG with Azure AI Search and Purview",
-      "summary": "Introduction: Why This Matters Now Most developers building solutions with Azure AI Search haven\u2019t had to think about Microsoft Purview sensitivity labels before. Sensitivity labels are applied at the source\u2014SharePoint, OneLake, OneDrive\u2014and they classify and protect documents through encryption, access rules, and usage rights. As a result, developers often don\u2019t see these labels directly, and many are unaware that labeled or encrypted documents behave differently when used in AI and search workloads. This matters because RAG and Copilot\u2011style applications rely on complete, context\u2011rich data to return accurate answers. If labeled content isn\u2019t accessible to the indexing pipeline\u2014or if Azure AI Search isn\u2019t configured to interpret label metadata\u2014your retrieval layer may unintentionally miss protected documents , leading to incomplete grounding , reduced answer quality, or inconsistent user experiences. For context, Copilot-style apps are context\u2011aware AI applications that combine a large language model (LLM) with enterprise data to help users ask questions, generate content, and complete tasks inside an existing workflow. Historically, search experiences haven\u2019t fully honored Purview label protections. While Azure AI Search can enforce document\u2011level permissions in sources such as SharePoint in Microsoft 365 , ADLS Gen2 , Azure Blob storage (when configured), ACLs only answer who can see the document, whereas sensitivity labels define how the content must be handled once accessed . Also, enterprise security and compliance teams expect label-based access enforcement, when configured. If Purview integration is not enabled, documents with certain label protections\u2014especially encrypted ones\u2014may simply not be indexable , which reduces the corpus available to AI Search. This blog explains how Azure AI Search now integrates with Purview sensitivity labels, why this configuration is increasingly important for secure and complete enterprise RAG, and how to enable it in your environment. What Are Sensitivity Labels & Why They Impact AI Search Microsoft Purview sensitivity labels classify and protect organizational data by applying encryption, access controls, and visual markings across documents, emails, and collaboration spaces. Figure 1: Assigning a sensitivity label to a document When labels are applied, Microsoft Purview governs, among other functionality: Who can read a document Whether it\u2019s encrypted What usage rights apply How the data must be treated Purview sensitivity labels and Azure AI Search Developers often assume these label-based enforcements \u201cjust work,\u201d but unless Azure AI Search is configured to extract and evaluate label metadata, AI systems cannot retrieve protected content and/or enforce the behavior expected of data carrying those labels, leading to incomplete and sometimes insecure RAG answers. Azure AI Search now supports the following actions as part of sensitivity label support in preview: Sensitivity label ingestion at indexing time Label-based document-level access control at query-time What the Integration Enables (And What Happens If You Don\u2019t Turn It On) When purview labels are integrated with AI Search Labeled documents are successfully indexed Label metadata is stored alongside the document Query-time filters enforce Purview EXTRACT rights RAG apps, copilots, and agents return only what a user can access No risk of \u201csilent missing labeled-context\u201d in retrieval Unified Purview governance across Microsoft 365 documents and AI Search Figure 2: Example of an application showing different documents with sensitivity labels assigned and respecting permissions and encryption (if applicable) If You Don\u2019t Enable It Documents with labels with configured protections won\u2019t index , leading to incomplete data available for AI Search, reducing answer quality Search results won\u2019t enforce protections based on labels, impacting user experience End users won't have visibility into labels applied to their documents based on compliance requirements , impacting user experience as well Sources Supported These are the data sources where purview labels are supported in AI Search today: Azure Blob Storage ADLS Gen2 SharePoint (Preview) OneLake End-to-end flow Figure 3: Sensitivity labels flow from documents to RAG / Copilot-style apps end users when using Azure AI Search as data retriever Next steps Follow the documentation and resources below to enable your Azure AI Search indexes with Purview sensitivity labels Documentation : Indexing sensitivity labels in Azure AI Search Query-Time Microsoft Purview Sensitivity Label Enforcement in Azure AI Search Demo app repo : https://aka.ms/Ignite25/aisearch-purview-sensitivity-labels-repo Demo video : Figure 4: Sensitivity labels in Azure AI Search demo",
-      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-community/build-sensitivity-label-aware-secure-rag-with-azure-ai-search/ba-p/4496771",
-      "source": "Microsoft Security Blog (TechCommunity)",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-02-24T21:18:43+00:00",
-      "published_ts": 1771967923,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Lazarus Group Picks a New Poison: Medusa Ransomware",
-      "summary": "The North Korean threat group also leveraged Comebacker backdoor, Blindingcan RAT, and info stealer Infohook in its recent attacks.",
-      "link": "https://www.darkreading.com/cyberattacks-data-breaches/lazarus-group-new-position-medusa-ransomware",
-      "source": "darkreading",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-24T21:18:04+00:00",
-      "published_ts": 1771967884,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Threat Actors / APT",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "After Donating $35 Million to Trump PAC, Crypto.com Scores Wins From Regulators",
-      "summary": "Weeks after giving another $5 million to a pro-Trump PAC, the exchange received lawsuit aid from the CFTC and a bank charter from the Treasury Department.",
-      "link": "https://decrypt.co/359029/after-donating-35-million-trump-pac-crypto-com-scores-wins-regulators",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-24T21:05:23+00:00",
-      "published_ts": 1771967123,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "SolarWinds security advisory (AV26-165)",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/solarwinds-security-advisory-av26-165",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-24T21:04:36+00:00",
-      "published_ts": 1771967076,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Cybersecurity statistics of the week (February 16th - February 22nd)",
-      "summary": "Hi guys, I send out a weekly newsletter with the latest cybersecurity vendor reports and research, and thought you might find it useful, so sharing it here. All the reports and research below were published between February 16th - February 22nd. You can get the below into your inbox every week if you want: https://www.cybersecstats.com/cybersecstatsnewsletter/ Big Picture Reports 2026 Global Incident Response Report (Palo Alto Unit 42) Cyber attacks are getting faster. New incident response data reveals that cyberattacks are now unfolding four times faster than a year ago. You could blame AI, but the gaps letting attackers in are far more basic than most organizations expect. Key stats: In the fastest cases, attackers moved from initial access to data exfiltration in 72 minutes, four times faster than the previous year. Identity weaknesses play a material role in nearly 90% of investigated incidents. Misconfigurations or gaps in security coverage materially enable attacks in over 90% of incidents. Read the full report here . 2026 Global Threat Analysis Report (Radware) DDoS attacks surged to record levels in 2025, with almost twice the traffic as in 2024. Key stats: Network-layer DDoS attacks targeting OSI layers 3 to 4 increased 168.2% year over year. Peak network-layer DDoS attack volumes reached almost 30 Tbps. Web DDoS attacks targeting OSI layer 7 increased by 101.4% compared to 2024. Read the full report here . Ransomware The Managed XDR Global Threat Report (Barracuda) Where does ransomware come from? From the POV of most victims, it\u2019s firewalls, CVEs, and compromised accounts. Key stats: 90% of ransomware incidents exploit firewalls through a CVE or a vulnerable account. The fastest ransomware case observed, involving Akira ransomware, took just three hours from breach to encryption. 66% of incidents involve the supply chain or a third party, up from 45% in 2024. Read the full report here . Ransomware Index Report 2025 (Securin) Encryption is so 2024. Key stats: Qilin claimed the most victims in 2025 (835), followed by Akira (650), Cl0p (517), Play (363), and INC (334). 2025 ransomware market share by group: Qilin (23%), Akira (18%), Cl0p (14%), Play (10%), INC (9%). Ransomware victims by industry: Commercial facilities (997), manufacturing (846), information technology (818), healthcare (473), and financial services (340). Read the full report here . API Security API ThreatStats Report 2026 (Wallarm) APIs emerge as the single most exploited attack surface. Key stats: In 2025, 43% of CISA KEV additions were API-related, making APIs the single largest exploited surface in that dataset. 98% of API vulnerabilities are easy or trivial to exploit. 99% of API vulnerabilities are remotely exploitable. Read the full report here . Application Security The Great AppSec Reality Check: 2026 Survey Report (Rein Security) Good news for Antrophic? 9 out of 10 CISOs are open to buying AI-native application protection. Key stats: Over 75% of security professionals lack the real-time production insight needed to validate risk and understand how their code behaves in real-world environments. 73% of SCA users lack visibility into whether flagged vulnerabilities are exploitable in production. 93% of CISOs and AppSec executives are ready to replace or purchase new AI-native application protection. Read the full report here . Mobile Security 72% of Mobile Apps Experienced a Security Incident Last Year (Guardsquare) Mobile apps are getting uninstalled because end users know they are vulnerable. Key stats: 72% of organizations experienced at least one mobile app security incident in the past year. 81% of developers say AI-generated code has introduced new vulnerabilities. 65% reported customer churn or app uninstalls as a direct result of security issues. Read the full report here . OT & Industrial Security 2026 OT Cybersecurity Year in Review (Dragos) The threat of cyber shutdowns is becoming very real for manufacturing and industrial organizations as attackers switch tactics. Key stats: Manufacturing accounts for more than two-thirds of all ransomware victims. Ransomware attacks against industrial organisations increased by 64% year over year. The average dwell time for ransomware in OT environments is 42 days. Read the full report here . OT/IoT Cybersecurity Trends and Insights 2025 2H Review (Nozomi Networks) The old meme that if you want to avoid getting hacked, make your keyboard Cyrillic is somewhat true. Most ransomware targets English-speaking countries. Key stats: 70% of global ransomware activity targets English-speaking countries. In the second half of 2025, 40% of all ransomware attacks targeted US-based companies. 68% of observed wireless networks in industrial and critical infrastructure environments operate without Management Frame Protection despite using modern encryption. Read the full report here . AI Security and Governance AI Security & Exposure Benchmark 2026 (Pentera) AI is everywhere, but very few CISOs are securing it. Key stats: Only 11% of enterprise CISOs have security tools specifically designed to protect AI systems. Organizations with overprivileged AI systems have a 76% incident rate, compared to 17% for organizations that limit AI to only the privileges needed for the task. 78% of enterprises fund AI security through existing security budgets. Read the full report here . The 2026 Infrastructure Identity Survey: State of AI Adoption (Teleport) More AI means more incidents. Key stats: 70% of security leaders say AI systems have more access than a human in the same role. Enterprises deploying AI systems with excessive permissions experience 4.5x as many security incidents as those that enforce least-privilege controls. 67% of organizations rely on static credentials for AI systems. Read the full report here . Internal Audit and AI-Enabled Fraud (The Internal Audit Foundation and AuditBoard) While internal audit leaders see AI-powered fraud as a rapidly growing threat, most admit their teams aren't yet equipped to catch it. Key stats: Fewer than 40% of internal audit leaders believe their internal audit function is adequately prepared to detect AI-enabled fraud. 88% identify AI-powered phishing attacks as a top risk. 57% identify a lack of appropriate technology or tools as a primary barrier to improving AI-enabled fraud preparedness. Read the full report here . Open Source Security 2026 Open Source Landscape Report (TuxCare) Open-source software in production is a risk people know about, but are rarely able or willing to fix. Key stats: 47.8% of surveyed enterprise open source users said their organization experienced a cybersecurity incident in the past 12 months. Among those reporting incidents, 61.4% indicated that the incident occurred when a patch was available but had not been applied. 92.6% of open-source users reported that their organization was aware it was vulnerable before the cybersecurity incident occurred. Read the full report here . Industry-Specific 2026 Global Automotive and Smart Mobility Cybersecurity Report (Upstream) Ransomware was a headline when it basically bankrupted a major car manufacturer last year, but many other ransomware incidents did not make headlines. Key stats: 44% of attacks in the Automotive and Smart Mobility ecosystem are ransomware-related, more than double the volume in 2024. 67% of incidents involve telematics and cloud systems as attack vectors. 92% of automotive cyberattacks are conducted remotely, of which 86% require no physical proximity to vehicles or systems. Read the full report here . Regional Spotlight Region Report: Latin America (Intel471) Latin America is much more digitally connected than many outside the region realise. The downside is that cyberattacks are growing extremely fast. Key stats: Cyberattacks in LATAM increased from over 250 in 2024 to over 450 in 2025. The number of ransomware variants in LATAM rose from 48 to 79, with the most impactful gangs being Qilin, The Gentlemen, SafePay, Akira, and INC. Brazil accounted for about 30% of ransomware victims in LATAM in 2025, followed by Mexico at about 14% and Argentina at about 13%. Read the full report here . submitted by /u/Narcisians [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rdsog2/cybersecurity_statistics_of_the_week_february/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-24T21:04:26+00:00",
-      "published_ts": 1771967066,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Web / API Security",
-        "Network / OT / ICS",
-        "Phishing / Social Engineering",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "South Korean Man Faces Murder Charge Over Bitcoin Bet Gone Bad",
-      "summary": "Prosecutors in Seoul say a man poisoned his business partner after the colleague mismanaged his Bitcoin investments.",
-      "link": "https://decrypt.co/359004/south-korean-man-murder-charge-bitcoin-bet-gone-bad",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-24T20:49:40+00:00",
-      "published_ts": 1771966180,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "HPE security advisory (AV26-164)",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/hpe-security-advisory-av26-164",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-24T20:47:04+00:00",
-      "published_ts": 1771966024,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Microsoft SOC",
-      "summary": "Are there any SOC training courses available specifically for Microsoft shop SOC\u2019s (specifically Defender and Sentinel)? I\u2019m aware of SC200 but looking for any additional sources for IR and investigations with Microsoft tools. submitted by /u/COPD2323 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rdruw1/microsoft_soc/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-24T20:34:56+00:00",
-      "published_ts": 1771965296,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Phishing operation with links to Russia, Armenia compromised Western cargo companies, researchers find",
-      "summary": "Over a five-month period, the group, dubbed Diesel Vortex, stole more than 1,600 login credentials from accounts at logistics platforms, which allowed thieves to intercept and divert freight shipments and commit check fraud.",
-      "link": "https://therecord.media/phishing-operation-russia-armenia-targeting-us-european-cargo",
-      "source": "The Record \u2013 Cybercrime",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-02-24T20:34:11+00:00",
-      "published_ts": 1771965251,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Network / OT / ICS",
-        "Phishing / Social Engineering"
-      ],
-      "curated": true
-    },
-    {
-      "title": "GitHub Codespaces Copilot Token Leak: RoguePilot Flaw Exploited",
-      "summary": "RoguePilot Vulnerability in GitHub Codespaces A vulnerability in GitHub Codespaces, dubbed RoguePilot, has been discovered... The post GitHub Codespaces Copilot Token Leak: RoguePilot Flaw Exploited appeared first on .",
-      "link": "https://www.news4hackers.com/github-codespaces-copilot-token-leak-roguepilot-flaw-exploited/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-24T20:31:52+00:00",
-      "published_ts": 1771965112,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "[Control systems] ABB security advisory (AV26-163)",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/control-systems-abb-security-advisory-av26-163",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-24T20:30:01+00:00",
-      "published_ts": 1771965001,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "How to schedule a text on Android - it's quick and easy",
-      "summary": "This handy Android feature reduces your worry about waking or interrupting people with a text.",
-      "link": "https://www.zdnet.com/article/how-to-schedule-text-messages-on-android/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-24T20:29:00+00:00",
-      "published_ts": 1771964940,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Key Bitcoin onchain signal may mark BTC\u2019s next demand revival",
-      "summary": "Bitcoin remains pinned below $65,000 as random bouts of intense selling pressure persist, but one onchain indicator has stabilized, providing insight into when spot market demand may return.",
-      "link": "https://cointelegraph.com/news/key-bitcoin-onchain-signal-may-mark-btc-s-next-demand-revival?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-24T20:15:00+00:00",
-      "published_ts": 1771964100,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Polymarket users favor Meteora in bets over ZachXBT crypto takedown",
-      "summary": "Users placed more than $7 million betting on the outcome of the crypto sleuth's investigation, expected to be announced on Thursday.",
-      "link": "https://cointelegraph.com/news/polymarket-bets-zachxbt-insider-trading?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-24T20:14:17+00:00",
-      "published_ts": 1771964057,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Associate Security Engineer Prep",
-      "summary": "I don\u2019t work with any coding/programing languages within my current first role as a SOC analyst and over the next year am wanting to upskill heavily in this area as one of my preparation areas to move into more general security engineering, specifically detection/threat hunting etc. For both passing coding interviews and general learning Python, powershell, bash etc\u2026.where is the best place to learn these things from? There\u2019s ton of resources claiming to be the best and it can get quite overwhelming. Is there a generally accepted \u201cgold standard\u201d to begin. I\u2019m not looking for some easy learn coding quick situation and know I\u2019m signing up for a marathon here, I do better in structured learning through things like courses to start. submitted by /u/theRealCryWolf [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rdr8de/associate_security_engineer_prep/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-24T20:12:29+00:00",
-      "published_ts": 1771963949,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Windows / Microsoft",
-        "Identity / Access"
-      ],
-      "curated": true
-    },
-    {
-      "title": "SolarWinds patches four critical Serv-U flaws enabling root access",
-      "summary": "SolarWinds addressed four critical Serv-U vulnerabilities that could let attackers gain root access to unpatched servers. SolarWinds released updates fixing four critical Serv-U vulnerabilities that allow remote code execution, potentially giving attackers full root access on unpatched servers. Serv-U is a file transfer server software that allows organizations to securely transfer files over networks using [\u2026]",
-      "link": "https://securityaffairs.com/188454/hacking/solarwinds-patches-four-critical-serv-u-flaws-enabling-root-access.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-24T20:07:24+00:00",
-      "published_ts": 1771963644,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Forget Samsung: This Motorola phone I tested is the king of battery life for under $300",
-      "summary": "The 2026 Moto G Power is Motorola's best budget phone yet, with an enduring battery life and a sharp-looking display.",
-      "link": "https://www.zdnet.com/article/motorola-moto-g-power-review/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-24T20:00:51+00:00",
-      "published_ts": 1771963251,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Fake Video Meeting Invites Trick Users Into Installing RMM Tools",
-      "summary": "Threat actors are using phony meeting invites for Zoom, Microsoft Teams, Google Meet, and other video conferencing applications to trick users into installing remote monitoring and management (RMM) tools, according to researchers at Netskope.",
-      "link": "https://blog.knowbe4.com/fake-video-meeting-invites-trick-users-into-installing-rmm-tools",
-      "source": "KnowBe4 Blog",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-24T20:00:00+00:00",
-      "published_ts": 1771963200,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "How we rebuilt Next.js with AI in one week",
-      "summary": "One engineer used AI to rebuild Next.js on Vite in a week. vinext builds up to 4x faster, produces 57% smaller bundles, and deploys to Cloudflare Workers with a single command.",
-      "link": "https://blog.cloudflare.com/vinext/",
-      "source": "The Cloudflare Blog",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-24T20:00:00+00:00",
-      "published_ts": 1771963200,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Patch these 4 critical, make-me-root SolarWinds bugs ASAP",
-      "summary": "SolarWinds + file transfer software = what attackers' dreams are made of If you run SolarWinds\u2019 Serv-U, you should patch promptly. Four critical vulnerabilities in the file transfer software can allow attackers to execute code as root.\u2026",
-      "link": "https://go.theregister.com/feed/www.theregister.com/2026/02/24/patch_these_4_critical_makemeroot/",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-24T19:55:07+00:00",
-      "published_ts": 1771962907,
-      "smart_groups": [
-        "Vulnerabilities / CVEs"
       ],
       "curated": false
     },
