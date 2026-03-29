@@ -1,8 +1,223 @@
 {
-  "generated_at": "2026-03-28T23:50:56.871982+00:00",
+  "generated_at": "2026-03-29T04:57:56.383903+00:00",
   "days_back": 30,
-  "total_items": 7955,
+  "total_items": 7938,
   "items": [
+    {
+      "title": "Preventing Webhook Replay Attacks \u2014 Why HMAC Validation Matters",
+      "summary": "One of the most overlooked webhook risks isn\u2019t duplicates or retries \u2014 it\u2019s replay attacks . Here\u2019s the scenario: An attacker captures a valid webhook request. They resend it multiple times to your endpoint. Without protection, your system processes it as if it were new. This can trigger false updates, duplicate charges, or even data corruption. How to Protect Against Replay Attacks Use HMAC signatures : Providers like Stripe, Razorpay, GitHub send a signature header. Always verify it against your secret key. Check timestamps : Many providers include a timestamp in the signature. Reject requests older than a few minutes. Store event IDs : Keep a record of processed event IDs. If the same ID arrives again, ignore it. Limit retries : Combine with idempotency logic so your system doesn\u2019t break under repeated requests. Example (Node.js): const crypto = require('crypto'); function verifySignature(payload, header, secret) { const hmac = crypto.createHmac('sha256', secret); hmac.update(payload, 'utf8'); const digest = hmac.digest('hex'); return digest === header; } Why This Matters Prevents malicious replays. Protects financial transactions. Builds trust in your webhook system. With Hookmetry (hookmetry.com) , you can capture raw payloads and headers, then replay them intentionally to test your replay\u2011attack defenses before production. Have you implemented replay protection in your webhook systems? Did you rely on HMAC, timestamps, or another trick? Share your approach \u2014 let\u2019s build a best\u2011practice thread together. submitted by /u/Better_Cycle1315 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1s6lvv5/preventing_webhook_replay_attacks_why_hmac/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-29T04:43:28+00:00",
+      "published_ts": 1774759408,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "[SECURITY ALERT] Dropper Malware identified in \"The Coffin of Andy and Leyley\" plugins (Base64/zlib obfuscation)",
+      "summary": "During a technical analysis of mods for personal use, I identified the presence of malicious code structured as a High Severity Dropper within the JavaScript plugins of the game \"The Coffin of Andy and Leyley\". Compromised Files The code is fragmented across several files located in the \\www\\js\\plugins\\ directory: NonCombatMenu.js : Contains 3 functions with Base64 blocks and the injection logic. GALV_RollCredits.js : Contains 1 Base64 block. YEP_SaveEventLocations.js : Contains 2 Base64 blocks. AudioStreaming.js : Responsible for the activation (trigger) of the malicious function at line 637. Technical Operation The malware utilizes four layers of obfuscation to evade standard antivirus detection: Fragmentation : The payload is split into six different functions across multiple files. Base64 : Binary data is encoded into massive strings exceeding 30,000 characters. zlib Compression : The code uses the Node.js zlib module ( inflateSync ) to decompress the payload at runtime. DOM Injection : The final code is injected via document.createElement('script') , ensuring full execution within the NW.js context. Risks and Recommendations Since the game runs on NW.js, the script has complete access to the file system ( fs ) and process execution ( child_process ), enabling data theft, backdoor installation, or unauthorized mining. Immediate recommended actions: Delete the game installation folder immediately. Run a full system scan using professional security tools (e.g., Kaspersky, Malwarebytes). Report the title on Steam for Valve's investigation. submitted by /u/Interesting_Farm_279 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1s6l2p2/security_alert_dropper_malware_identified_in_the/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-29T04:00:17+00:00",
+      "published_ts": 1774756817,
+      "smart_groups": [
+        "Curated",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "top 5 skills for Cloud sec?",
+      "summary": "For the sec engineers that specialise in the cloud\u2026..what are the most important skills that will get you hired and i also wanted to know the importance of Iac?? is it a must have\u2026.. submitted by /u/user23471 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1s6l0pw/top_5_skills_for_cloud_sec/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-29T03:57:23+00:00",
+      "published_ts": 1774756643,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Canada proposes crypto political donation ban over foreign interference fears",
+      "summary": "A similar bill was proposed in 2024 but it failed to advance past the second reading in the House of Commons and ultimately died before it could become law.",
+      "link": "https://cointelegraph.com/news/canada-crypto-donation-deepfake-election-ban?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-29T02:24:30+00:00",
+      "published_ts": 1774751070,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "GRC Tools and Skills to Learn?",
+      "summary": "Currently at it auditor at big 4 still a couple years away from planned exit(When I make senior) but I would like to exit to GRC if possible. Seems like the best combo is to be a bit technical but also a bit business minded like a GRC engineer(hybrid)? I have also seen roles that are GRC but a bit more technical and I would like to be comfortable having the expertise if the role is technical at some orgs? What tools& skills should I learn to be at least decent on the technical side and are their any certs outside of CISA you recommend? submitted by /u/YuriHaThicc [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1s6j1oh/grc_tools_and_skills_to_learn/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-29T02:17:47+00:00",
+      "published_ts": 1774750667,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "For pentest scoping does manual back-and-forth actually lead to better results?",
+      "summary": "I\u2019ve spent years chasing down CIDR ranges and domain lists via email, only to have the scope change mid-test. To fix this, We built a standardized intake dashboard for our clients. Does a structured scoping form help you keep your clients' data organized, or do you find it too restrictive compared to just dumping a CSV into an email? I'm trying to see if \"automation\" here actually solves a pain point for practitioners or if it's just fluff. Anyone else frustrated with this ? submitted by /u/Proof-Chain-1046 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1s6iwx2/for_pentest_scoping_does_manual_backandforth/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-29T02:11:34+00:00",
+      "published_ts": 1774750294,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "First-Year IT Student (Cybersecurity Focus) \u2014 How Should I Build My LinkedIn to Showcase Skills Early?",
+      "summary": "Hi everyone, I\u2019m a first-year IT student aiming to specialize in cybersecurity. I\u2019ve started working in a Linux environment and have a basic foundation (command line, system navigation, some security concepts), but I\u2019m still early in my journey. I want to start building my LinkedIn profile in a way that actually reflects my growth and attracts the right opportunities (internships, connections, learning resources, etc.). For those of you already in cybersecurity or further along: How should I structure my LinkedIn profile at this stage? What kind of projects or content should I showcase as a beginner? Is it better to post regularly about what I\u2019m learning, or focus more on building projects first? Are there specific certifications, tools, or skills I should highlight early? Any common mistakes to avoid when presenting yourself as a cybersecurity student? I\u2019d really appreciate any advice, examples, or even links to good profiles to learn from. Thanks in advance! submitted by /u/Fair-Tailor-3959 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1s6iun8/firstyear_it_student_cybersecurity_focus_how/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-29T02:08:37+00:00",
+      "published_ts": 1774750117,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Linux / Unix"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Husband may have made a mistake causing a security incident at work",
+      "summary": "We are in the process of applying for a loan, and stupidly enough our lender sent us a link through Argyle to automatically verify his employment paystubs through a Workday API integration. I gave them a call to see if this was standard practice and if the email was legit and they said yes. Since he could select his employer on the list in their network I thought it would be ok. His security team is flagging this and asking info about if this is legit and we are terrified. My husband had no idea how much payroll documents this would pull and we have asked our lender to cease use of this company with our file. They are rotating his security keys and we hope that's it. How can my husband best explain this? I feel misled and we are usually good about not falling for \"scams\" but this seems like it is a legit company in the fintech space? submitted by /u/MillennialAesthetics [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1s6iojt/husband_may_have_made_a_mistake_causing_a/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-29T02:00:33+00:00",
+      "published_ts": 1774749633,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "OAuth Consent and Device Code Phishing for Red Teams",
+      "summary": "Due to the increasing trend of OAuth abuse in phishing and most users' lack of understanding between Device Code and OAuth App Consent phishing, I just added them to the PhishU Framework. Now with a quick, two-step process red teams and internal orgs can leverage the templates to train users for this very real-world attack. Check out the blog for details at https://phishu.net/blogs/blog-microsoft-entra-device-code-phishing-phishu-framework.html if interested! submitted by /u/IndySecMan [link] [comments]",
+      "link": "https://www.reddit.com/r/netsec/comments/1s6ig2y/oauth_consent_and_device_code_phishing_for_red/",
+      "source": "/r/netsec",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-29T01:49:17+00:00",
+      "published_ts": 1774748957,
+      "smart_groups": [
+        "Identity / Access",
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Switching to Claude? Here's how to take your ChatGPT memories with you",
+      "summary": "A new Claude AI feature now lets you copy your memories and preferences from another AI so making the change is easier.",
+      "link": "https://www.zdnet.com/article/switch-to-claude-ai-import-memories-preferences/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-29T01:30:40+00:00",
+      "published_ts": 1774747840,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "BSides SF: SaaS, cloud assets vulnerable to identity-based ransomware attacks",
+      "summary": "It's easy to mount ransomware attacks upon SaaS and cloud assets, a researcher said at the BSides SF 2026 hacker conference.",
+      "link": "https://www.scworld.com/news/bsides-sf-saas-cloud-assets-vulnerable-to-identity-based-ransomware-attacks",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-29T01:01:37+00:00",
+      "published_ts": 1774746097,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Apple issues urgent lock screen warnings for unpatched iPhones and iPads",
+      "summary": "Apple is alerting users of outdated iPhones and iPads via lock screen warnings about active web-based exploits, urging immediate software updates. Apple is sending lock screen alerts to users running outdated iOS and iPadOS versions, warning of active web-based attacks targeting their devices. The notifications urge users to install critical updates to stay protected, highlighting [\u2026]",
+      "link": "https://securityaffairs.com/190109/security/apple-issues-urgent-lock-screen-warnings-for-unpatched-iphones-and-ipads.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-29T01:00:49+00:00",
+      "published_ts": 1774746049,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "5 reasons you should be more tight-lipped with your chatbot (and how to fix past mistakes)",
+      "summary": "Your casual conversations with AI chatbots could have some major privacy implications.",
+      "link": "https://www.zdnet.com/article/5-reasons-you-should-be-more-tight-lipped-with-your-chatbot/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-29T01:00:37+00:00",
+      "published_ts": 1774746037,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Dealing with silent robocalls? This is why scam callers keep quiet",
+      "summary": "Answering a silent scam call can mark your number as a high-value target. Here's how to deal with them.",
+      "link": "https://www.zdnet.com/article/why-scammers-call-you-say-nothing-how-to-respond-safely/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-29T00:30:36+00:00",
+      "published_ts": 1774744236,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Wormsign, RSAC 2026: More auto-updating supply-chain attacks on the way",
+      "summary": "The Shai-Hulud worms that exploited automatic updates in open-source software repositories may be only the beginning, two researchers said at RSAC 2026.",
+      "link": "https://www.scworld.com/news/wormsign-rsac-2026-more-auto-updating-supply-chain-attacks-on-the-way",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-29T00:05:08+00:00",
+      "published_ts": 1774742708,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Samsung Galaxy Buds 4 Pro vs. Bose QuietComfort Ultra 2: I tested both, and here's the winner",
+      "summary": "The new Samsung earbuds compete with the flagship Bose QuietComfort Ultra Earbuds 2. Here's how they stack up.",
+      "link": "https://www.zdnet.com/article/samsung-galaxy-buds-4-pro-vs-bose-quietcomfort-ultra-2/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-29T00:01:26+00:00",
+      "published_ts": 1774742486,
+      "smart_groups": [],
+      "curated": false
+    },
     {
       "title": "Unsupervised Learning NO. 522",
       "summary": "RSA Thoughts from the Floor, DisInfo Campaign Compilation, A Chinese Telcom Sleeper Cell, 4 New Essays, and more...",
@@ -89890,18 +90105,6 @@
       "curated": true
     },
     {
-      "title": "How to switch from ChatGPT to Claude: Transferring your memories and settings is easy",
-      "summary": "Claude AI now lets you copy your memories and preferences from another AI via a straightforward prompt. You can also find out everything the AI knows about you. Here's how.",
-      "link": "https://www.zdnet.com/article/switch-to-claude-ai-import-memories-preferences/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-04T18:30:00+00:00",
-      "published_ts": 1772649000,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
       "title": "Made something which cybersec engineers can use for brute forcing or password cracking ( NextPass - An advanced password dictionary generator )",
       "summary": "https://github.com/0xblarky/NextPass I have been working on a Python tool called NextPass for targeted wordlist generation. It takes a JSON file of a target's known details (names, dates, hobbies) and operates in two modes: Normal Mode: A traditional, fast generator that builds passwords based on set fields already defined in the JSON and rules hard-coded in the code. AI Mode: Instead of generating massive, blind combinations, it uses an LLM purely as a logic engine. The script sends only the JSON keys to the AI, which generates highly probable password structures based on human behavior (e.g., [Name][SpecialChar][BirthYear] ). Python then parses those templates and fills in the actual data. This is done to make sure the target's data doesn't get fed to the AI model By offering an AI mode, the tool doesn't just guess blindly\u2014it builds structures a person is actually likely to type, keeping your wordlists efficient and highly targeted. If anybody has used LLMs as logic engines for profiling and wordlist generation, Feel free to share how you did. I am all ears :D The project is open to suggestions and PRs submitted by /u/Blu_PY [link] [comments]",
       "link": "https://www.reddit.com/r/cybersecurity/comments/1rkt9th/made_something_which_cybersec_engineers_can_use/",
@@ -101251,18 +101454,6 @@
       "curated": true
     },
     {
-      "title": "Why scammers say nothing when they call - and how to respond safely",
-      "summary": "There's a reason scammers don't say anything when they call you, at least not right away. Here's how to deal with these sneaky calls.",
-      "link": "https://www.zdnet.com/article/why-scammers-call-you-say-nothing-how-to-respond-safely/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-02T14:34:00+00:00",
-      "published_ts": 1772462040,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
       "title": "12 million IPs exposed sensitive .env files",
       "summary": "Researchers identified approximately 12,088,677 IP addresses serving .env files, which commonly store environment variables for applications.",
       "link": "https://www.scworld.com/brief/mysterium-vpn-12-million-ips-exposed-sensitive-env-files",
@@ -110133,431 +110324,6 @@
       "published": "2026-02-27T04:53:31+00:00",
       "published_ts": 1772168011,
       "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Crypto analyst says Bitcoin selling pressure is nearly exhausted",
-      "summary": "Bitcoin has been given some reprieve to trade sideways for a few weeks, but it likely won\u2019t fully recover until the fourth quarter, says analyst Willy Woo.",
-      "link": "https://cointelegraph.com/news/bearish-bitcoin-selloff-by-investors-is-exhausted-analysts?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-27T04:28:54+00:00",
-      "published_ts": 1772166534,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Ether could stay \u2018subdued\u2019 in the weeks ahead: Analyst",
-      "summary": "Swyftx analyst Pav Hundal says near-term risks are already priced in, and without new catalysts, Ether may trade sideways.",
-      "link": "https://cointelegraph.com/news/ether-price-geopolitical-macro-uncertainty-catalysts-analyst?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-27T04:24:36+00:00",
-      "published_ts": 1772166276,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Physical/Cyber alignment",
-      "summary": "I\u2019m the Physical security manager/Associate security director at a Fortune 200 company and lead the physical security team. We don\u2019t collaborate with cyber as much as we should and I want to make sure my team supports cyber effectively from a physical standpoint and not be dinosoars stuck in an old facilities mindset, which is where we were when I took over. Background: I transitioned from public to private sector in the past 18 months. Military intel, state dept, and major metropolitan area police, specifically in the burglary unit. I hold CPP, PSP, and Security+ certifications. My degree is in cyber security, but that\u2019s only theoretical knowledge I\u2019m by no means a cyber security professional. I\u2019ve taken courses from RTA, CMOE and PACS. Where do physical security teams make the biggest impact for cyber? Are there gaps or blind spots you wish we covered? Do cyber exclusive people do the physical red team or would someone with my skillset do it. I\u2019m by no means trying to step on any toes here so I wanted to temp check it with strangers on the internet before my meeting with the CISO next week. submitted by /u/Privateering_18 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rfvzsh/physicalcyber_alignment/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-27T03:45:26+00:00",
-      "published_ts": 1772163926,
-      "smart_groups": [
-        "Identity / Access"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Ransomware attacks surge 50% in 2025, ransom payments decline",
-      "summary": "A new Chainalysis report suggests ransomware attackers are \u201cworking harder for diminishing returns\u201d as regulatory pressure and refusals to pay have hurt ransom proceeds.",
-      "link": "https://cointelegraph.com/news/ransomware-attacks-rose-50-in-2025-chainalysis?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-27T03:38:44+00:00",
-      "published_ts": 1772163524,
-      "smart_groups": [
-        "Curated",
-        "Ransomware"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Vitalik Buterin outlines quantum resistance roadmap for Ethereum",
-      "summary": "Ethereum\u2019s co-founder says validator signatures, data storage, accounts and proofs must change to prepare for quantum threats.",
-      "link": "https://cointelegraph.com/news/vitalik-proposes-4-fixes-quantum-resistance-roadmap-for-ethereum?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-27T03:05:38+00:00",
-      "published_ts": 1772161538,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "MARA Shares Rise After Bitcoin Miner Strikes AI Data Center Deal",
-      "summary": "The Bitcoin miner moved to convert U.S. sites into AI-ready campuses, though analysts say confirmed tenants will be key.",
-      "link": "https://decrypt.co/359361/mara-shares-rise-bitcoin-miner-strikes-ai-data-center-deal",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-27T03:00:57+00:00",
-      "published_ts": 1772161257,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Bitcoin\u2019s 100 BTC club edges toward 20K wallets in a \u2018bullish sign\u2019",
-      "summary": "The number of wallets holding 100 BTC is close to 20,000, a milestone some analysts view as a sign of improving holder distribution.",
-      "link": "https://cointelegraph.com/news/bitcoin-large-wallet-holders-growing-bullish-santiment?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-27T02:24:37+00:00",
-      "published_ts": 1772159077,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Google API Keys Expose Private Data Silently Through Gemini",
-      "summary": "A critical privilege escalation vulnerability affecting Google Cloud API keys specifically how legacy public-facing keys now silently grant unauthorized access to Google\u2019s Gemini AI endpoints, exposing private files, cached data, and billable AI usage to attackers. For over a decade, Google explicitly instructed developers to embed API keys formatted as AIza... strings directly into client-side [\u2026] The post Google API Keys Expose Private Data Silently Through Gemini appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/google-api-keys-gemini/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-27T02:04:00+00:00",
-      "published_ts": 1772157840,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "ISC Stormcast For Friday, February 27th, 2026 https://isc.sans.edu/podcastdetail/9828, (Fri, Feb 27th)",
-      "summary": "(c) SANS Internet Storm Center. https://isc.sans.edu Creative Commons Attribution-Noncommercial 3.0 United States License.",
-      "link": "https://isc.sans.edu/diary/rss/32752",
-      "source": "SANS Internet Storm Center",
-      "type": "government",
-      "type_label": "Government, CERT & Advisories",
-      "published": "2026-02-27T02:00:02+00:00",
-      "published_ts": 1772157602,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "AI, jailbreaks, and 150GB of unanswered questions",
-      "summary": "A hacker allegedly jailbroke Claude to hack Mexican government agencies, but key details remain unverified. Plus Claude Code and Copilot vulns, and Chinese AI firms stealing Anthropic's model.",
-      "link": "https://www.accidentalrebel.com/ai-jailbreaks-and-150gb-of-unanswered-questions.html",
-      "source": "https://www.accidentalrebel.com/feeds/all.atom.xml",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-27T02:00:00+00:00",
-      "published_ts": 1772157600,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "FTC clarifies COPPA age verification exemption",
-      "summary": "The Federal Trade Commission has announced that it will not enforce Children's Online Privacy Protection Rule penalties against companies that properly use age verification technologies to collect and process personal data, reports The Record, a news site by cybersecurity firm Recorded Future.",
-      "link": "https://www.scworld.com/brief/ftc-clarifies-coppa-age-verification-exemption",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-27T00:41:25+00:00",
-      "published_ts": 1772152885,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Expert: Vulnerability prioritization is a persistent problem",
-      "summary": "VulnCheck Vice President of Security Research Caitlin Condon said that vulnerability management prioritization remains a challenge among defenders, particularly as only 1% of over 40,000 of the disclosed vulnerabilities last year were exploited in the wild, according to CyberScoop.",
-      "link": "https://www.scworld.com/brief/expert-vulnerability-prioritization-is-a-persistent-problem",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-27T00:39:59+00:00",
-      "published_ts": 1772152799,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Cyberattacks driven by vulnerability exploitation, report finds",
-      "summary": "The 2026 IBM X-Force Threat Intelligence Index Report highlighted that vulnerability exploitation was the leading cause of cyberattacks in 2025, responsible for 40% of observed incidents, Infosecurity Magazine reports.",
-      "link": "https://www.scworld.com/brief/cyberattacks-driven-by-vulnerability-exploitation-report-finds",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-27T00:38:17+00:00",
-      "published_ts": 1772152697,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "ID verification leading to mass identity theft",
-      "summary": "Given this push for ID verification on Everything now and legislation being discussed about OS level ID verification makes me worry for the \"new\" internet. Given breeches happen consistently in regards to PII data from these services, this brings a new threat to possibly cause mass identity theft of the new generation. Maybe it's paranoia but this definitely looks like a very interesting future ahead of us. submitted by /u/Melzor33 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rfrtxj/id_verification_leading_to_mass_identity_theft/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-02-27T00:38:10+00:00",
-      "published_ts": 1772152690,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Anthropic Won\u2019t Lift AI Safeguards Amid Ongoing Pentagon Dispute: CEO",
-      "summary": "Anthropic CEO\u2019s said the company will not comply with Defense Department demands as the Pentagon weighs whether to label the company a \u201csupply chain risk.\u201d",
-      "link": "https://decrypt.co/359358/anthropic-wont-lift-ai-safeguards-pentagon-dispute",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-27T00:33:58+00:00",
-      "published_ts": 1772152438,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Unsecured Elasticsearch database leaks Dungeon Crusher players' purchase data",
-      "summary": "Cybernews reports that Dungeon Crusher, a widely played RPG game, had its players' partial purchase data and in-game chats inadvertently leaked by a misconfigured Elasticsearch instance.",
-      "link": "https://www.scworld.com/brief/unsecured-elasticsearch-database-leaks-dungeon-crusher-players-purchase-data",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-27T00:33:57+00:00",
-      "published_ts": 1772152437,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Toll of TriZetto breach surpasses 3M",
-      "summary": "More than 3.4 million individuals were reported by health insurance tech provider TriZetto Provider Solutions, a subsidiary of Cognizant, to have had their sensitive data stolen following a 2024 breach, according to The Record, a news site by cybersecurity firm Recorded Future.",
-      "link": "https://www.scworld.com/brief/toll-of-trizetto-breach-surpasses-3m",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-27T00:28:05+00:00",
-      "published_ts": 1772152085,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Wynn Resorts confirms breach, believes data deletion claims",
-      "summary": "Major luxury hotel and casino operator Wynn Resorts has admitted to the compromise of its employees' data following an attack by the ShinyHunters hacking group, while emphasizing that there has not been any indication of further misuse after hackers claimed to have deleted the stolen information, The Register reports.",
-      "link": "https://www.scworld.com/brief/wynn-resorts-confirms-breach-believes-data-deletion-claims",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-27T00:25:06+00:00",
-      "published_ts": 1772151906,
-      "smart_groups": [
-        "Linux / Unix"
-      ],
-      "curated": false
-    },
-    {
-      "title": "RCE, API credential theft likely with now-patched Claude Code vulnerabilities",
-      "summary": "The Hacker News reports that Anthropic's Claude Code has been impacted by a trio of now-addressed security flaws, which could have been harnessed to enable remote code execution and API credential compromise.",
-      "link": "https://www.scworld.com/brief/rce-api-credential-theft-likely-with-patched-claude-code-vulnerabilities",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-27T00:23:22+00:00",
-      "published_ts": 1772151802,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "OpenAI: ChatGPT weaponized in Chinese influence campaign",
-      "summary": "OpenAI has disclosed that Chinese law enforcement exploited its ChatGPT chatbot to deploy influence operations against Japanese Prime Minister Sanae Takaichi and other Chinese Communist Party critics in October, according to The Register.",
-      "link": "https://www.scworld.com/brief/openai-chatgpt-weaponized-in-chinese-influence-campaign",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-27T00:20:20+00:00",
-      "published_ts": 1772151620,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Network / OT / ICS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Meta\u2019s AI Floods Child Abuse Investigators With 'Junk' Tips, Law Enforcement Officials Claim",
-      "summary": "ICAC officers say AI-generated reports are overwhelming investigators and slowing down cases as Meta disputes the claims.",
-      "link": "https://decrypt.co/359353/metas-ai-child-abuse-investigators-junk-tips",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-27T00:17:10+00:00",
-      "published_ts": 1772151430,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Samsung Galaxy Book 6 Ultra review: A MacBook Pro alternative that truly lasts all day",
-      "summary": "Samsung's Galaxy Book6 Ultra pairs strong multi-core performance with nearly a full day's worth of battery life. It's designed well, too.",
-      "link": "https://www.zdnet.com/article/samsung-galaxy-book6-ultra-review/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-27T00:00:41+00:00",
-      "published_ts": 1772150441,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Suspects Arrested After South Korean Police Mishandle $1.4 Million in Bitcoin: Report",
-      "summary": "Police in South Korea didn't follow proper procedures and lost $1.4 million worth of confiscated Bitcoin, according to a local news report.",
-      "link": "https://decrypt.co/359317/suspects-arrested-south-korean-olice-mishandle-million-bitcoin",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-27T00:00:03+00:00",
-      "published_ts": 1772150403,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Hook, line, and vault: A technical deep dive into the 1Phish kit",
-      "summary": "We analyze the evolution of the 1Phish phishing kit from a basic credential harvester into an MFA-aware, multi-stage phishing kit targeting 1Password users.",
-      "link": "https://securitylabs.datadoghq.com/articles/hook-line-vault-a-deep-dive-into-1phish/",
-      "source": "https://securitylabs.datadoghq.com/rss/feed.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-02-27T00:00:00+00:00",
-      "published_ts": 1772150400,
-      "smart_groups": [
-        "Identity / Access",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Allocating on the Stack",
-      "summary": "A description of some of the recent changes to do allocations on the stack instead of the heap.",
-      "link": "https://go.dev/blog/allocation-optimizations",
-      "source": "https://go.dev/blog/feed.atom",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-27T00:00:00+00:00",
-      "published_ts": 1772150400,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "This Month in Datadog - February 2026",
-      "summary": "Watch February\u2019s This Month in Datadog to learn about Data Observability, AI Guard, Feature Flags, five new Incident Management releases, and more.",
-      "link": "https://www.datadoghq.com/blog/this-month-in-datadog-february-2026/",
-      "source": "https://www.datadoghq.com/blog/index.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-02-27T00:00:00+00:00",
-      "published_ts": 1772150400,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Malicious Next.js repositories target software developers",
-      "summary": "The attackers create fake Next.js projects, a popular JavaScript framework, and host them on platforms like Bitbucket.",
-      "link": "https://www.scworld.com/brief/malicious-next-js-repositories-target-software-developers",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-26T23:55:19+00:00",
-      "published_ts": 1772150119,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Cisco says hackers have been exploiting a critical bug to break into big customer networks since 2023",
-      "summary": "Zack Whittaker reports: Cisco says hackers have been exploiting a bug in one of its popular networking products used by large enterprises for at least three years, prompting the U.S. government and its allies to urge organizations to take action. The bug, which has a maximum-rated vulnerability severity score of 10.0, allows hackers to remotely break... Source",
-      "link": "https://databreaches.net/2026/02/26/cisco-says-hackers-have-been-exploiting-a-critical-bug-to-break-into-big-customer-networks-since-2023/?pk_campaign=feed&pk_kwd=cisco-says-hackers-have-been-exploiting-a-critical-bug-to-break-into-big-customer-networks-since-2023",
-      "source": "DataBreaches.net",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-02-26T23:51:07+00:00",
-      "published_ts": 1772149867,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Vitalik Buterin Maps Quantum Upgrade to Ethereum to Replace Core Cryptography",
-      "summary": "Buterin has outlined a phased roadmap to replace four vulnerable components of Ethereum's cryptographic architecture.",
-      "link": "https://decrypt.co/359352/vitalik-buterin-maps-quantum-upgrade-ethereum",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-02-26T23:42:08+00:00",
-      "published_ts": 1772149328,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Scattered LAPSUS$ Hunters recruit women for vishing attacks",
-      "summary": "SLH, a high-profile supergroup comprising LAPSUS$, Scattered Spider, and ShinyHunters, is known for advanced social engineering tactics.",
-      "link": "https://www.scworld.com/brief/scattered-lapsus-hunters-recruit-women-for-vishing-attacks",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-02-26T23:38:20+00:00",
-      "published_ts": 1772149100,
-      "smart_groups": [
-        "Ransomware",
-        "Network / OT / ICS",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Odido - 688,102 breached accounts",
-      "summary": "In February 2026, Dutch telco Odido was the victim of a data breach and subsequent extortion attempt . Following the incident, 1M records containing 317k unique email addresses were published, with the attackers threatening to leak additional data in the following days. That threat was subsequently carried out, with a further 1M records containing an additional 371k unique email addresses released the next day. The exposed data included names, physical addresses, phone numbers, bank account numbers and notes about customers left by service operators. Odido has published a disclosure notice detailing the extent of the incident and advising that impacted data may also include dates of birth and passport and driver\u2019s licence numbers.",
-      "link": "https://haveibeenpwned.com/Breach/Odido",
-      "source": "Have I Been Pwned \u2013 Latest Breaches",
-      "type": "leaks",
-      "type_label": "Leaks & Breaches",
-      "published": "2026-02-26T23:25:29+00:00",
-      "published_ts": 1772148329,
-      "smart_groups": [
-        "Ransomware",
-        "Data Breaches / Leaks"
-      ],
       "curated": false
     },
     {
