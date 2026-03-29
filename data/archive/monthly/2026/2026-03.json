@@ -7,7 +7,7 @@
     "type": "osint",
     "type_label": "OSINT, Communities & Subreddits",
     "published": null,
-    "published_ts": 1774674231.751322,
+    "published_ts": 1774761664.331901,
     "smart_groups": [
       "Cloud / SaaS"
     ],
@@ -21,11 +21,1490 @@
     "type": "vendors",
     "type_label": "Vendors & Product Blogs",
     "published": null,
-    "published_ts": 1774674231.751311,
+    "published_ts": 1774761664.331893,
     "smart_groups": [
       "Data Breaches / Leaks"
     ],
     "curated": false
+  },
+  {
+    "title": "Preventing Webhook Replay Attacks — Why HMAC Validation Matters",
+    "summary": "One of the most overlooked webhook risks isn’t duplicates or retries — it’s replay attacks . Here’s the scenario: An attacker captures a valid webhook request. They resend it multiple times to your endpoint. Without protection, your system processes it as if it were new. This can trigger false updates, duplicate charges, or even data corruption. How to Protect Against Replay Attacks Use HMAC signatures : Providers like Stripe, Razorpay, GitHub send a signature header. Always verify it against your secret key. Check timestamps : Many providers include a timestamp in the signature. Reject requests older than a few minutes. Store event IDs : Keep a record of processed event IDs. If the same ID arrives again, ignore it. Limit retries : Combine with idempotency logic so your system doesn’t break under repeated requests. Example (Node.js): const crypto = require('crypto'); function verifySignature(payload, header, secret) { const hmac = crypto.createHmac('sha256', secret); hmac.update(payload, 'utf8'); const digest = hmac.digest('hex'); return digest === header; } Why This Matters Prevents malicious replays. Protects financial transactions. Builds trust in your webhook system. With Hookmetry (hookmetry.com) , you can capture raw payloads and headers, then replay them intentionally to test your replay‑attack defenses before production. Have you implemented replay protection in your webhook systems? Did you rely on HMAC, timestamps, or another trick? Share your approach — let’s build a best‑practice thread together. submitted by /u/Better_Cycle1315 [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s6lvv5/preventing_webhook_replay_attacks_why_hmac/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-29T04:43:28+00:00",
+    "published_ts": 1774759408,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "[SECURITY ALERT] Dropper Malware identified in \"The Coffin of Andy and Leyley\" plugins (Base64/zlib obfuscation)",
+    "summary": "During a technical analysis of mods for personal use, I identified the presence of malicious code structured as a High Severity Dropper within the JavaScript plugins of the game \"The Coffin of Andy and Leyley\". Compromised Files The code is fragmented across several files located in the \\www\\js\\plugins\\ directory: NonCombatMenu.js : Contains 3 functions with Base64 blocks and the injection logic. GALV_RollCredits.js : Contains 1 Base64 block. YEP_SaveEventLocations.js : Contains 2 Base64 blocks. AudioStreaming.js : Responsible for the activation (trigger) of the malicious function at line 637. Technical Operation The malware utilizes four layers of obfuscation to evade standard antivirus detection: Fragmentation : The payload is split into six different functions across multiple files. Base64 : Binary data is encoded into massive strings exceeding 30,000 characters. zlib Compression : The code uses the Node.js zlib module ( inflateSync ) to decompress the payload at runtime. DOM Injection : The final code is injected via document.createElement('script') , ensuring full execution within the NW.js context. Risks and Recommendations Since the game runs on NW.js, the script has complete access to the file system ( fs ) and process execution ( child_process ), enabling data theft, backdoor installation, or unauthorized mining. Immediate recommended actions: Delete the game installation folder immediately. Run a full system scan using professional security tools (e.g., Kaspersky, Malwarebytes). Report the title on Steam for Valve's investigation. submitted by /u/Interesting_Farm_279 [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s6l2p2/security_alert_dropper_malware_identified_in_the/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-29T04:00:17+00:00",
+    "published_ts": 1774756817,
+    "smart_groups": [
+      "Curated",
+      "Malware / Payloads"
+    ],
+    "curated": true
+  },
+  {
+    "title": "top 5 skills for Cloud sec?",
+    "summary": "For the sec engineers that specialise in the cloud…..what are the most important skills that will get you hired and i also wanted to know the importance of Iac?? is it a must have….. submitted by /u/user23471 [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s6l0pw/top_5_skills_for_cloud_sec/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-29T03:57:23+00:00",
+    "published_ts": 1774756643,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Canada proposes crypto political donation ban over foreign interference fears",
+    "summary": "A similar bill was proposed in 2024 but it failed to advance past the second reading in the House of Commons and ultimately died before it could become law.",
+    "link": "https://cointelegraph.com/news/canada-crypto-donation-deepfake-election-ban?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-03-29T02:24:30+00:00",
+    "published_ts": 1774751070,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "GRC Tools and Skills to Learn?",
+    "summary": "Currently at it auditor at big 4 still a couple years away from planned exit(When I make senior) but I would like to exit to GRC if possible. Seems like the best combo is to be a bit technical but also a bit business minded like a GRC engineer(hybrid)? I have also seen roles that are GRC but a bit more technical and I would like to be comfortable having the expertise if the role is technical at some orgs? What tools& skills should I learn to be at least decent on the technical side and are their any certs outside of CISA you recommend? submitted by /u/YuriHaThicc [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s6j1oh/grc_tools_and_skills_to_learn/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-29T02:17:47+00:00",
+    "published_ts": 1774750667,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "For pentest scoping does manual back-and-forth actually lead to better results?",
+    "summary": "I’ve spent years chasing down CIDR ranges and domain lists via email, only to have the scope change mid-test. To fix this, We built a standardized intake dashboard for our clients. Does a structured scoping form help you keep your clients' data organized, or do you find it too restrictive compared to just dumping a CSV into an email? I'm trying to see if \"automation\" here actually solves a pain point for practitioners or if it's just fluff. Anyone else frustrated with this ? submitted by /u/Proof-Chain-1046 [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s6iwx2/for_pentest_scoping_does_manual_backandforth/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-29T02:11:34+00:00",
+    "published_ts": 1774750294,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "First-Year IT Student (Cybersecurity Focus) — How Should I Build My LinkedIn to Showcase Skills Early?",
+    "summary": "Hi everyone, I’m a first-year IT student aiming to specialize in cybersecurity. I’ve started working in a Linux environment and have a basic foundation (command line, system navigation, some security concepts), but I’m still early in my journey. I want to start building my LinkedIn profile in a way that actually reflects my growth and attracts the right opportunities (internships, connections, learning resources, etc.). For those of you already in cybersecurity or further along: How should I structure my LinkedIn profile at this stage? What kind of projects or content should I showcase as a beginner? Is it better to post regularly about what I’m learning, or focus more on building projects first? Are there specific certifications, tools, or skills I should highlight early? Any common mistakes to avoid when presenting yourself as a cybersecurity student? I’d really appreciate any advice, examples, or even links to good profiles to learn from. Thanks in advance! submitted by /u/Fair-Tailor-3959 [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s6iun8/firstyear_it_student_cybersecurity_focus_how/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-29T02:08:37+00:00",
+    "published_ts": 1774750117,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Linux / Unix"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Husband may have made a mistake causing a security incident at work",
+    "summary": "We are in the process of applying for a loan, and stupidly enough our lender sent us a link through Argyle to automatically verify his employment paystubs through a Workday API integration. I gave them a call to see if this was standard practice and if the email was legit and they said yes. Since he could select his employer on the list in their network I thought it would be ok. His security team is flagging this and asking info about if this is legit and we are terrified. My husband had no idea how much payroll documents this would pull and we have asked our lender to cease use of this company with our file. They are rotating his security keys and we hope that's it. How can my husband best explain this? I feel misled and we are usually good about not falling for \"scams\" but this seems like it is a legit company in the fintech space? submitted by /u/MillennialAesthetics [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s6iojt/husband_may_have_made_a_mistake_causing_a/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-29T02:00:33+00:00",
+    "published_ts": 1774749633,
+    "smart_groups": [
+      "Network / OT / ICS"
+    ],
+    "curated": false
+  },
+  {
+    "title": "OAuth Consent and Device Code Phishing for Red Teams",
+    "summary": "Due to the increasing trend of OAuth abuse in phishing and most users' lack of understanding between Device Code and OAuth App Consent phishing, I just added them to the PhishU Framework. Now with a quick, two-step process red teams and internal orgs can leverage the templates to train users for this very real-world attack. Check out the blog for details at https://phishu.net/blogs/blog-microsoft-entra-device-code-phishing-phishu-framework.html if interested! submitted by /u/IndySecMan [link] [comments]",
+    "link": "https://www.reddit.com/r/netsec/comments/1s6ig2y/oauth_consent_and_device_code_phishing_for_red/",
+    "source": "/r/netsec",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-29T01:49:17+00:00",
+    "published_ts": 1774748957,
+    "smart_groups": [
+      "Identity / Access",
+      "Phishing / Social Engineering"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Switching to Claude? Here's how to take your ChatGPT memories with you",
+    "summary": "A new Claude AI feature now lets you copy your memories and preferences from another AI so making the change is easier.",
+    "link": "https://www.zdnet.com/article/switch-to-claude-ai-import-memories-preferences/",
+    "source": "ZDNet – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-29T01:30:40+00:00",
+    "published_ts": 1774747840,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "BSides SF: SaaS, cloud assets vulnerable to identity-based ransomware attacks",
+    "summary": "It's easy to mount ransomware attacks upon SaaS and cloud assets, a researcher said at the BSides SF 2026 hacker conference.",
+    "link": "https://www.scworld.com/news/bsides-sf-saas-cloud-assets-vulnerable-to-identity-based-ransomware-attacks",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-29T01:01:37+00:00",
+    "published_ts": 1774746097,
+    "smart_groups": [
+      "Curated",
+      "Ransomware",
+      "Cloud / SaaS"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Apple issues urgent lock screen warnings for unpatched iPhones and iPads",
+    "summary": "Apple is alerting users of outdated iPhones and iPads via lock screen warnings about active web-based exploits, urging immediate software updates. Apple is sending lock screen alerts to users running outdated iOS and iPadOS versions, warning of active web-based attacks targeting their devices. The notifications urge users to install critical updates to stay protected, highlighting […]",
+    "link": "https://securityaffairs.com/190109/security/apple-issues-urgent-lock-screen-warnings-for-unpatched-iphones-and-ipads.html",
+    "source": "Security Affairs",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-29T01:00:49+00:00",
+    "published_ts": 1774746049,
+    "smart_groups": [
+      "Curated",
+      "Exploit / PoC"
+    ],
+    "curated": true
+  },
+  {
+    "title": "5 reasons you should be more tight-lipped with your chatbot (and how to fix past mistakes)",
+    "summary": "Your casual conversations with AI chatbots could have some major privacy implications.",
+    "link": "https://www.zdnet.com/article/5-reasons-you-should-be-more-tight-lipped-with-your-chatbot/",
+    "source": "ZDNet – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-29T01:00:37+00:00",
+    "published_ts": 1774746037,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Dealing with silent robocalls? This is why scam callers keep quiet",
+    "summary": "Answering a silent scam call can mark your number as a high-value target. Here's how to deal with them.",
+    "link": "https://www.zdnet.com/article/why-scammers-call-you-say-nothing-how-to-respond-safely/",
+    "source": "ZDNet – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-29T00:30:36+00:00",
+    "published_ts": 1774744236,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Wormsign, RSAC 2026: More auto-updating supply-chain attacks on the way",
+    "summary": "The Shai-Hulud worms that exploited automatic updates in open-source software repositories may be only the beginning, two researchers said at RSAC 2026.",
+    "link": "https://www.scworld.com/news/wormsign-rsac-2026-more-auto-updating-supply-chain-attacks-on-the-way",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-29T00:05:08+00:00",
+    "published_ts": 1774742708,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Samsung Galaxy Buds 4 Pro vs. Bose QuietComfort Ultra 2: I tested both, and here's the winner",
+    "summary": "The new Samsung earbuds compete with the flagship Bose QuietComfort Ultra Earbuds 2. Here's how they stack up.",
+    "link": "https://www.zdnet.com/article/samsung-galaxy-buds-4-pro-vs-bose-quietcomfort-ultra-2/",
+    "source": "ZDNet – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-29T00:01:26+00:00",
+    "published_ts": 1774742486,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Unsupervised Learning NO. 522",
+    "summary": "RSA Thoughts from the Floor, DisInfo Campaign Compilation, A Chinese Telcom Sleeper Cell, 4 New Essays, and more...",
+    "link": "https://newsletter.danielmiessler.com/p/unsupervised-learning-no-522",
+    "source": "https://rss.beehiiv.com/feeds/gQxaV1KHkQ.xml",
+    "type": "podcasts",
+    "type_label": "Podcasts & YouTube",
+    "published": "2026-03-28T22:58:16+00:00",
+    "published_ts": 1774738696,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "RSA 2026 - Best innovation and product you have seen",
+    "summary": "During this week's RSA, did you find any good security and AI product that would go long way or solving real problem? submitted by /u/dip_ak [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s6e034/rsa_2026_best_innovation_and_product_you_have_seen/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T22:28:19+00:00",
+    "published_ts": 1774736899,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Mac vs gaming pc for cybersecurity",
+    "summary": "This is my last year as a cybersec engineering student i need a new laptop and i need kali linux and virtual machines for labs i want a mac but i was told it's not good is my situation and i wanna know if it's for my best interest to but an M3 macbook pro 14pouce 8CPU 10GPU 1000go 16go Ram or a pc gaming lenovo LOQ i7 11gen 1Tossd 24go RTx nvidia (i'm a girl and i think a gaming pc might be too heavy for me to take everywhere ) i really need your opinion specially those in the field who have mac was that a good idea or not worth the money? submitted by /u/Memo-Present [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s6dq4q/mac_vs_gaming_pc_for_cybersecurity/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T22:16:27+00:00",
+    "published_ts": 1774736187,
+    "smart_groups": [
+      "Linux / Unix"
+    ],
+    "curated": false
+  },
+  {
+    "title": "The Sequels Are Never As Good, But We're Still In Pain (Citrix NetScaler CVE-2026-3055 Memory Overread) - watchTowr Labs",
+    "summary": "submitted by /u/dx7r__ [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s6dnsa/the_sequels_are_never_as_good_but_were_still_in/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T22:13:39+00:00",
+    "published_ts": 1774736019,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Research finds generative AI making frauds a cakewalk for bad actors",
+    "summary": "New research reveals generative AI is making fraud faster and more scalable, turning cybercrime into a 400 billion global problem. submitted by /u/realnarrativenews [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s6dg8g/research_finds_generative_ai_making_frauds_a/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T22:04:53+00:00",
+    "published_ts": 1774735493,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Building on AI, what I actually worry about…",
+    "summary": "I run AppSec at scale: 30,000+ scans a month, SAST, DAST, SCA, the whole kit. This year jiggered together an LLM-assisted triage pipeline on top of our SAST because the noise-to-signal ratio was eating hours that should’ve gone to real problems. It works. That’s not the point of this post. The point is what I think about after it works. The easy concerns – hallucinations, blind trust, job replacement – aren’t what makes my stomach hurt. If you’re at the point where you’re building this stuff, you’ve probably already reasoned past those. The threats worth talking about are the ones that don’t feel like threats. Audit exposure: In a regulated environment, volume-based AI-assisted decisions invite scrutiny regardless of quality. “The model flagged it Not Exploitable” is not a defensible audit position. Your correction logging and comment structure are your evidence of human judgment. Build like someone hostile is going to read them later, because eventually someone will. Organizational dependency: If your pipeline handles the noise floor and you handle the hard cases, the hard-case reasoning lives entirely in your head. The tooling documents the bottom. The top is undocumented institutional knowledge. That’s a bus factor problem dressed up as efficiency. Consensus gravity: This is the one I’d push back on hardest. LLMs are probabilistic consensus machines. They reflect the center of gravity in existing thinking, and they do it fluently enough that it feels like signal. If you consult them enough, the pull toward median framing is real and it accumulates. It doesn’t feel like drift, it feels like clarity. For security practitioners whose edge comes from connecting things that don’t usually get connected, that’s a slow erosion of the specific thing that makes them effective. The countermeasure that actually has teeth: Form your own position before you ask the model anything. Use its output as a check against your framing, not as the framing itself. Small habit, real protective value. I’m not arguing against the tooling. I’m arguing for going in with eyes open about what it costs you quietly. submitted by /u/Idiopathic_Sapien [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s6d00q/building_on_ai_what_i_actually_worry_about/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T21:46:17+00:00",
+    "published_ts": 1774734377,
+    "smart_groups": [
+      "Curated",
+      "Exploit / PoC"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Do you think I am qualified for a security engineer role?",
+    "summary": "I want to be a cybersecurity/cloud security engineer. Work experience : IT support engineer (2 years), SOC analyst (6 months, Microsoft Sentinel, Microsoft Defender 365, Palo Alto Cortex XSOAR/XDR) Certs : CCNA, Security+ and SC-200 Currently working on AZ-500, Should I stay as a SOC analyst or is there a possibility that a company could hire me as their Cybersecurity/cloud security engineer? submitted by /u/gengarInSpace [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s6cpxe/do_you_think_i_am_qualified_for_a_security/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T21:34:45+00:00",
+    "published_ts": 1774733685,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Here’s what happened in crypto today",
+    "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
+    "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-03-28T20:57:05+00:00",
+    "published_ts": 1774731425,
+    "smart_groups": [
+      "Crypto / Web3"
+    ],
+    "curated": false
+  },
+  {
+    "title": "How TeamPCP turned Aqua Security's own Trivy scanner into a weapon against millions of developers",
+    "summary": "submitted by /u/CackleRooster [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s6blcm/how_teampcp_turned_aqua_securitys_own_trivy/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T20:48:33+00:00",
+    "published_ts": 1774730913,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "DoD IT leaders push ‘smarter not harder’ enterprise cyber workforce system | Federal News Network",
+    "summary": "submitted by /u/Dash-Courageous [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s6bh0u/dod_it_leaders_push_smarter_not_harder_enterprise/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T20:43:46+00:00",
+    "published_ts": 1774730626,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "The Sequels Are Never As Good, But We're Still In Pain (Citrix NetScaler CVE-2026-3055 Memory Overread) - watchTowr Labs",
+    "summary": "submitted by /u/dx7r__ [link] [comments]",
+    "link": "https://www.reddit.com/r/netsec/comments/1s6bdxi/the_sequels_are_never_as_good_but_were_still_in/",
+    "source": "/r/netsec",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T20:40:20+00:00",
+    "published_ts": 1774730420,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "The Sequels Are Never As Good, But We're Still In Pain (Citrix NetScaler CVE-2026-3055 Memory Overread)",
+    "summary": "Sequels? Pain? We're obviously talking about Citrix NetScalers, yet again. Welcome back to another watchTowr Labs blog post - pull up a chair, we always welcome new members to our group therapy sessions. If you asked a C programmer what they most dislike doing in life, their answer",
+    "link": "https://labs.watchtowr.com/the-sequels-are-never-as-good-but-were-still-in-pain-citrix-netscaler-cve-2026-3055-memory-overread/",
+    "source": "https://labs.watchtowr.com/rss/",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T20:39:56+00:00",
+    "published_ts": 1774730396,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Kalshi legal woes grow with Washington state gambling suit",
+    "summary": "The Washington attorney general became the latest state authority to sue Kalshi, alleging on Friday that the prediction markets operator violated state regulations.",
+    "link": "https://cointelegraph.com/news/kalshi-legal-woes-grow?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-03-28T20:39:03+00:00",
+    "published_ts": 1774730343,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Suricata + Sysmon + Elastic pipeline working. What do SOC IR reports actually look like in practice?",
+    "summary": "Built a two-node lab over the past few weeks. Kali on a separate OPT1 network, Windows 10 victim on LAN, pfsense doing the segmentation, Suricata watching the boundary, Sysmon and Elastic Agent on the victim feeding into Elasticsearch/Kibana. Both pipelines verified end to end. Running attack simulation this week. Discovery commands, encoded powershell, registry persistence, scheduled tasks, then Kali nmap to trigger Suricata. Plan is to write one IR report per scenario. I know Win10 is past EOS, hardware constraints meant I couldn't go higher. Its intentional for the lab, not ignorance. For people who've actually done this, how do your IR reports look in practice? Curious how much raw log data you include vs just the timeline, whether you write for a technical audience or simulate writing for a SOC lead, and what actually seperates a report that shows real analytical thinking from one that just describes what fired. GitHub in profile if the setup is relevant to anyone. submitted by /u/Fantastic-Average-25 [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s6b3kb/suricata_sysmon_elastic_pipeline_working_what_do/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T20:28:57+00:00",
+    "published_ts": 1774729737,
+    "smart_groups": [
+      "Windows / Microsoft",
+      "Network / OT / ICS"
+    ],
+    "curated": false
+  },
+  {
+    "title": "We Social Engineered Our Own AI",
+    "summary": "submitted by /u/Initial-Return8802 [link] [comments]",
+    "link": "https://www.reddit.com/r/netsec/comments/1s69zbg/we_social_engineered_our_own_ai/",
+    "source": "/r/netsec",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T19:44:39+00:00",
+    "published_ts": 1774727079,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Tokenized platform xStocks brings new private shares fund on-chain",
+    "summary": "The closed-end Fundrise Innovation Fund holds stakes in private technology companies including Anthropic, Databricks and SpaceX, and came public earlier this month.",
+    "link": "https://cointelegraph.com/news/tokeniz?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-03-28T19:43:14+00:00",
+    "published_ts": 1774726994,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "How fun is cybersecurity as a job and question about bug hunting",
+    "summary": "So I`ve always imagined cybersecurity to be very fun and interesting as a career, but is the job truly fun or the opposite ? Im also interested in bug hunting. Is it a career and or can you do it in your freetime to earn more ? Ty for your answers submitted by /u/Connect_Penalty4724 [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s69lo5/how_fun_is_cybersecurity_as_a_job_and_question/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T19:29:25+00:00",
+    "published_ts": 1774726165,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Excited about a role but stuck waiting on scheduling. Is this normal?",
+    "summary": "I don't know if this is a good place to post this but I desperately need some input on this. I am interviewing at a company and I feel that I am good fit for the role. I had a conversation with the hiring manager and a member from the team and they really liked me. Now the issue is the recruiter I am working with has gone OOO till June because of some personal reasons.I got to know this because I sent him an email asking about the next steps, I got a automated reply and he mentioned two emails of people I can reach out to. I reached out to the both of them and none of them replied for two days. So I reached out to the hiring manager asking if he has any information regarding the next steps. After I emailed the hiring manger, one of the two people has replied to my email saying that he will have an update for me soon. one day later he got back to me saying that the team would love to move to the next round of interviews which is a panel interview with 3-4 people. He asked me for my availability for this week and next week. I got this email on thursday, I have a lot of work this week, so i replied immediately giving my availability for the coming week. Since then he didn't give me any reply. I sent him a followup regarding that and still didn't get any reply. One thing I forgot to mention was the person who replied to me is the Talent Acquisition Director. I know he has a lot of things on his hands but I am really excited about this opportunity. Does anyone have any insights into this? submitted by /u/Old-Improvement9055 [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s68ifz/excited_about_a_role_but_stuck_waiting_on/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T18:46:18+00:00",
+    "published_ts": 1774723578,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "We're tracking the best tech deals under $50 during Amazon's Big Spring Sale event",
+    "summary": "Amazon is full of great, affordable gadgets for your day-to-day, from speakers and chargers to streaming sticks and smart home gear. They're even cheaper now, during the retailer's annual sale - act fast.",
+    "link": "https://www.zdnet.com/article/best-deals-under-50-amazon-spring-sale/",
+    "source": "ZDNet – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T18:41:00+00:00",
+    "published_ts": 1774723260,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "ShinyHunters Claims 350GB Data Breach at European Commission",
+    "summary": "ShinyHunters claims it breached European Commission systems, leaking 350GB of data. Officials are investigating, with no independent verification yet.",
+    "link": "https://hackread.com/shinyhunters-350gb-data-breach-european-commission/",
+    "source": "HackRead",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T18:18:07+00:00",
+    "published_ts": 1774721887,
+    "smart_groups": [
+      "Data Breaches / Leaks"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Best Costco deals to compete with Amazon's Big Spring Sale 2026",
+    "summary": "Forget Amazon. These Costco deals will help you save substantially on everything from household goods to Apple devices.",
+    "link": "https://www.zdnet.com/article/best-costco-deals-amazon-big-spring-sale-2026/",
+    "source": "ZDNet – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T18:12:00+00:00",
+    "published_ts": 1774721520,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "pentest-ai - 6 Claude Code subagents for offensive security research (engagement planning, recon analysis, exploit methodology, detection engineering, STIG compliance, report writing)",
+    "summary": "I built a set of Claude Code subagents designed for pentesters and red teamers doing authorized engagements. What it does: You install 6 agent files into Claude Code, and it automatically routes to the right specialist based on what you're working on. Paste Nmap output and it prioritizes attack vectors with follow-up commands. Ask about an AD attack and it gives you the methodology AND the detection perspective. Ask it to write a report finding and it formats it to PTES standards with CVSS scoring. The agents cover: - Engagement planning with MITRE ATT&CK mapping - Recon/scan output analysis (Nmap, Nessus, BloodHound, etc.) - Exploitation methodology with defensive perspective built in - Detection rule generation (Sigma, Splunk SPL, Elastic KQL) - DISA STIG compliance analysis with keep-open justifications - Professional pentest report writing Every technique references ATT&CK IDs, and the exploit guide agent is required to explain what the attack looks like from the blue team side — so it's useful for purple team work too. Repo has example outputs so you can see the quality before installing: https://github.com/0xSteph/pentest-ai/tree/main/examples Open to feedback. If you think an agent is missing or the methodology is off somewhere, PRs are welcome. submitted by /u/stephnot [link] [comments]",
+    "link": "https://www.reddit.com/r/netsec/comments/1s677pu/pentestai_6_claude_code_subagents_for_offensive/",
+    "source": "/r/netsec",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T17:56:12+00:00",
+    "published_ts": 1774720572,
+    "smart_groups": [
+      "Curated",
+      "Exploit / PoC"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Threat hunting projects",
+    "summary": "What sort of threat hunting projects can one do to demonstrate intermediate to advanced skills in the field ? submitted by /u/bodak_yellow [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s66pd8/threat_hunting_projects/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T17:36:22+00:00",
+    "published_ts": 1774719382,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Getting a job in this market - what works and what doesn't?",
+    "summary": "Just curious because it's been hard finding a job in this market . I am based out of the US and have over 6 years of experience in cyber submitted by /u/NothingImpressive587 [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s66jd3/getting_a_job_in_this_market_what_works_and_what/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T17:29:51+00:00",
+    "published_ts": 1774718991,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Why GameStop Put $315 Million in Bitcoin Into a Covered Call Options Strategy",
+    "summary": "GameStop has pledged nearly all of its Bitcoin to a covered call strategy on Coinbase Prime to generate some yield.",
+    "link": "https://decrypt.co/362632/why-gamestop-bitcoin-covered-call-strategy",
+    "source": "Decrypt",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-03-28T16:32:04+00:00",
+    "published_ts": 1774715524,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "A critical Windows security fix puts legacy hardware on borrowed time",
+    "summary": "icrosoft is finally blocking a long-since retired program that it said led to “abuse and credential theft,” yet remained widely trusted for years. Beginning in April, Redmond will remove trust for kernel drivers that haven’t been vetted through its Windows Hardware Compatibility Program (WHCP). The company is specifically targeting kernel drivers signed by the now defunct cross-signed root program. submitted by /u/realnarrativenews [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s64ogq/a_critical_windows_security_fix_puts_legacy/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T16:18:51+00:00",
+    "published_ts": 1774714731,
+    "smart_groups": [
+      "Windows / Microsoft"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Rising Cybercrime Web: ₹4,725 Crore Fraud Prevention Success, 6.27 Million Cases Reported in a Year",
+    "summary": "India’s Cybercrime Landscape: A Growing Threat The Indian government has reported a staggering 6.27 million... The post Rising Cybercrime Web: ₹4,725 Crore Fraud Prevention Success, 6.27 Million Cases Reported in a Year appeared first on .",
+    "link": "https://www.news4hackers.com/rising-cybercrime-web-%e2%82%b94725-crore-fraud-prevention-success-6-27-million-cases-reported-in-a-year/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T16:02:16+00:00",
+    "published_ts": 1774713736,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "You can get a free iPhone 17e at Visible for a limited time - no trade-in required",
+    "summary": "New customers can score the latest iPhone for free with a Visible+ plan. Here's what to know.",
+    "link": "https://www.zdnet.com/article/iphone-17e-deal-visible/",
+    "source": "ZDNet – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T16:00:40+00:00",
+    "published_ts": 1774713640,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "ShinyHunters claims the hack of the European Commission",
+    "summary": "The European Commission has allegedly been breached by ShinyHunters, with reported data dumps including content from mail servers. The European Commission has allegedly been breached by ShinyHunters, with reported data dumps including content from mail servers and internal communications systems. The cybercrime group added the Commission to its Tor data leak site, claiming the theft […]",
+    "link": "https://securityaffairs.com/190095/data-breach/shinyhunters-claims-the-hack-of-the-european-commission.html",
+    "source": "Security Affairs",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T15:58:21+00:00",
+    "published_ts": 1774713501,
+    "smart_groups": [
+      "Curated",
+      "Ransomware",
+      "Data Breaches / Leaks"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Iran-Linked Hackers Breach FBI Director’s Personal Email, Hit Stryker With Wiper Attack",
+    "summary": "Threat actors with ties to Iran successfully broke into the personal email account of Kash Patel, the director of the U.S. Federal Bureau of Investigation (FBI), and leaked a cache of photos and other documents to the internet. Handala Hack Team, which carried out the breach, said on its website that Patel \"will now find his name among the list of successfully hacked victims.\" In a statement",
+    "link": "https://thehackernews.com/2026/03/iran-linked-hackers-breach-fbi.html",
+    "source": "The Hacker News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T15:40:00+00:00",
+    "published_ts": 1774712400,
+    "smart_groups": [
+      "Malware / Payloads"
+    ],
+    "curated": false
+  },
+  {
+    "title": "TeamPCP Supply Chain Campaign: Update 003 - Operational Tempo Shift as Campaign Enters Monetization Phase With No New Compromises in 48 Hours, (Sat, Mar 28th)",
+    "summary": "This is the third update to the TeamPCP supply chain campaign threat intelligence report, \"When the Security Scanner Became the Weapon\" (v3.0, March 25, 2026). Update 002 covered developments through March 27, including the Telnyx PyPI compromise and Vect ransomware partnership. This update covers developments from March 27-28, 2026.",
+    "link": "https://isc.sans.edu/diary/rss/32842",
+    "source": "SANS Internet Storm Center",
+    "type": "government",
+    "type_label": "Government, CERT & Advisories",
+    "published": "2026-03-28T15:09:12+00:00",
+    "published_ts": 1774710552,
+    "smart_groups": [
+      "Curated",
+      "Ransomware"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Cybersecurity Companies’ Stocks Fall as Anthropic Tests Powerful New Model",
+    "summary": "Cybersecurity stocks declined sharply on Friday following revelations that Anthropic has begun testing “Mythos,” an extraordinarily powerful new AI model with advanced vulnerability-discovery capabilities. Anthropic is actively trialing a new tier of artificial intelligence models codenamed “Capybara,” with the flagship model operating under the moniker “Mythos”. Internal documents indicate that Mythos significantly outperforms the company’s […] The post Cybersecurity Companies’ Stocks Fall as Anthropic Tests Powerful New Model appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/cybersecurity-stocks-anthropic/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T15:05:18+00:00",
+    "published_ts": 1774710318,
+    "smart_groups": [
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": false
+  },
+  {
+    "title": "New Mac Malware Threat: ClickFix Lures Used for Data Theft on macOS Devices",
+    "summary": "The Rise of Sophisticated Malware on Mac Systems Retailers have spotted a new type of... The post New Mac Malware Threat: ClickFix Lures Used for Data Theft on macOS Devices appeared first on .",
+    "link": "https://www.news4hackers.com/new-mac-malware-threat-clickfix-lures-used-for-data-theft-on-macos-devices/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T15:02:07+00:00",
+    "published_ts": 1774710127,
+    "smart_groups": [
+      "Malware / Payloads"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Best Amazon Spring Sale Apple deals 2026",
+    "summary": "I've rounded up deals on some of the hottest tech from Apple during Amazon's Big Spring Sale. Shop them this weekend.",
+    "link": "https://www.zdnet.com/article/best-amazon-spring-sale-2026-apple-deals/",
+    "source": "ZDNet – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T14:52:55+00:00",
+    "published_ts": 1774709575,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Best Amazon Big Spring Sale headphone deals 2026",
+    "summary": "Spring has sprung, and an Amazon Big Spring Sale is officially here. Here are the best headphone deals to shop.",
+    "link": "https://www.zdnet.com/article/best-amazon-spring-sale-2026-headphones-deals/",
+    "source": "ZDNet – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T14:39:17+00:00",
+    "published_ts": 1774708757,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "New Infinity Stealer malware grabs macOS data via ClickFix lures",
+    "summary": "A new info-stealing malware named Infinity Stealer is targeting macOS systems with a Python payload packaged as an executable using the open-source Nuitka compiler. [...]",
+    "link": "https://www.bleepingcomputer.com/news/security/new-infinity-stealer-malware-grabs-macos-data-via-clickfix-lures/",
+    "source": "BleepingComputer",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T14:35:10+00:00",
+    "published_ts": 1774708510,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Malware / Payloads"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Save big on Switch 2 consoles, SSDs, and more with these anti-Amazon Spring Sale deals",
+    "summary": "Unimpressed with the Amazon Big Spring Sale gaming deals? Now at Best Buy, you can save hundreds on gaming laptops, consoles, and more.",
+    "link": "https://www.zdnet.com/article/best-buy-gaming-deals-amazon-spring-sale-2026/",
+    "source": "ZDNet – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T14:33:38+00:00",
+    "published_ts": 1774708418,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "European Commission investigating breach after Amazon cloud account hack",
+    "summary": "submitted by /u/rkhunter_ [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s61vui/european_commission_investigating_breach_after/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T14:30:46+00:00",
+    "published_ts": 1774708246,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "CISA Warns of F5 BIG-IP Vulnerability Actively Exploited in Attacks",
+    "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) has added a newly disclosed vulnerability affecting F5 BIG-IP systems to its Known Exploited Vulnerabilities (KEV) catalog, warning that the flaw is being actively leveraged in real-world attacks. The vulnerability, tracked as CVE-2025-53521, was officially listed on March 27, 2026, with a remediation deadline of March 30, […] The post CISA Warns of F5 BIG-IP Vulnerability Actively Exploited in Attacks appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/f5-big-ip-vulnerability-actively-exploited/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T14:26:19+00:00",
+    "published_ts": 1774707979,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Best Amazon Spring Sale robot vacuum deals 2026",
+    "summary": "A reliable robot vacuum is a great way to outsource cleaning your home's biggest messes. Shop the best deals during Amazon's Big Spring Sale.",
+    "link": "https://www.zdnet.com/article/best-amazon-spring-sale-2026-robot-vacuum-deals/",
+    "source": "ZDNet – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T14:24:53+00:00",
+    "published_ts": 1774707893,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Google plans to back $5B data center for Anthropic: Report",
+    "summary": "Google and lenders move to finance a $5 billion Texas data center for Anthropic as a US judge blocks a federal push to restrict the AI firm’s use.",
+    "link": "https://cointelegraph.com/news/google-banks-back-5b-texas-data-center-anthropic?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-03-28T14:14:20+00:00",
+    "published_ts": 1774707260,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Best Amazon Spring Sale tablet deals 2026",
+    "summary": "We found deals on tablets up to $150 off from brands like Apple, Samsung, and more, for Amazon's Big Spring Sale this week. Sales are live now through March 31.",
+    "link": "https://www.zdnet.com/article/best-amazon-spring-sale-2026-tablet-deals/",
+    "source": "ZDNet – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T14:07:07+00:00",
+    "published_ts": 1774706827,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Noida Retrieves ₹68.3 Crores from Cybercrime Scammers",
+    "summary": "Noida Cybercrime Unit Recovers $9 Million for Victims in Large-Scale Digital Scams In a significant... The post Noida Retrieves ₹68.3 Crores from Cybercrime Scammers appeared first on .",
+    "link": "https://www.news4hackers.com/noida-retrieves-%e2%82%b968-3-crores-from-cybercrime-scammers/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T14:06:02+00:00",
+    "published_ts": 1774706762,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "India Agra Cyber Crime Syndicate Utilized 7000 Fake Phone Numbers to Swindle ₹30 Crore",
+    "summary": "Cyber Fraud Ring Uncovered in Agra In a recent operation, authorities in Agra, India, have... The post India Agra Cyber Crime Syndicate Utilized 7000 Fake Phone Numbers to Swindle ₹30 Crore appeared first on .",
+    "link": "https://www.news4hackers.com/india-agra-cyber-crime-syndicate-utilized-7000-fake-phone-numbers-to-swindle-%e2%82%b930-crore/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T14:04:49+00:00",
+    "published_ts": 1774706689,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Himachal Pradesh Sees 585 Cyber Frauds, ₹150 Crore Lost Over Three Years",
+    "summary": "Himachal Pradesh Experiences Significant Rise in Cyber Frauds The state of Himachal Pradesh has seen... The post Himachal Pradesh Sees 585 Cyber Frauds, ₹150 Crore Lost Over Three Years appeared first on .",
+    "link": "https://www.news4hackers.com/himachal-pradesh-sees-585-cyber-frauds-%e2%82%b9150-crore-lost-over-three-years/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T14:03:31+00:00",
+    "published_ts": 1774706611,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Lloyds Bank Settles with 450K Customers Over Mobile Banking App Issues",
+    "summary": "Lloyds Banking Group Exposes Customer Data Due to Software Defect The banking giant Lloyds has... The post Lloyds Bank Settles with 450K Customers Over Mobile Banking App Issues appeared first on .",
+    "link": "https://www.news4hackers.com/lloyds-bank-settles-with-450k-customers-over-mobile-banking-app-issues/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T14:01:57+00:00",
+    "published_ts": 1774706517,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Best Amazon Spring Sale phone deals 2026: 25+ sales out now",
+    "summary": "For Amazon's Big Spring Sale, I've rounded up the best phone deals from major brands like Apple, Samsung, Motorola, and more. Sales are live now, so act fast.",
+    "link": "https://www.zdnet.com/article/best-amazon-big-spring-sale-2026-phone-deals/",
+    "source": "ZDNet – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T14:01:09+00:00",
+    "published_ts": 1774706469,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "How AI agents can reshape arbitrage in prediction markets",
+    "summary": "Arbitrage opportunities in prediction markets often exist for seconds, giving AI-driven systems a structural advantage over humans.",
+    "link": "https://cointelegraph.com/news/ai-agents-can-reshape-arbitrage-prediction-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-03-28T14:00:00+00:00",
+    "published_ts": 1774706400,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "HTB: Browsed",
+    "summary": "Browsed is a Linux box hosting a browser extension repository where uploaded extensions are tested in a headless Chrome instance. I’ll analyze the Chrome debug logs to discover an internal Gitea instance and a Python Flask app running on localhost. By crafting a malicious Chrome extension with a background service worker, I’ll perform SSRF to reach the internal Flask app and exploit a Bash arithmetic evaluation injection in a shell script to get remote code execution. For root, I’ll abuse a world-writable pycache directory to poison a Python bytecode file imported by a sudo-allowed script, getting code execution as root.",
+    "link": "https://0xdf.gitlab.io/2026/03/28/htb-browsed.html",
+    "source": "https://0xdf.gitlab.io/feed.xml",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T13:45:00+00:00",
+    "published_ts": 1774705500,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC",
+      "Linux / Unix"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Lloyds Group to Compensate 450,000 Customers After App Glitch",
+    "summary": "Lloyds Banking Group to compensate 450,000 customers after app glitch exposed data. Find out how the glitch affected…",
+    "link": "https://hackread.com/lloyds-compensate-customers-app-glitch-exposed-data/",
+    "source": "HackRead",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T13:34:26+00:00",
+    "published_ts": 1774704866,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "n8n patched the same Merge node RCE three times and attackers keep finding new ways around it. Why not just rewrite the thing?",
+    "summary": "submitted by /u/vuzumja [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s60295/n8n_patched_the_same_merge_node_rce_three_times/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T13:15:26+00:00",
+    "published_ts": 1774703726,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Chaining file upload bypass and stored XSS to create admin accounts: walkthrough with Docker PoC lab",
+    "summary": "Write up of a vulnerability chain from a recent SaaS pen test. Two medium-severity findings (file upload bypass and stored XSS) chained together for full admin account creation. The target had CSP restricting script sources to self, CORS locked down, and CSRF tokens on forms. All functioning correctly. The chain bypassed everything by staying same-origin the entire way. The file upload had no server-side validation (client-side accept=\".pdf\" only), so we uploaded a JS payload. It got served back from the app's own download endpoint on the same origin. The stored XSS in the admin inbox messaging system loaded it via an handler that fetched the payload and eval'd it. The payload created a backdoor admin account using the admin's session cookie. CSP didn't block it because the script was hosted same-origin via the upload. CORS irrelevant since nothing crossed an origin boundary. CSRF tokens didn't matter because same-origin JS can read the DOM and grab them anyway. Full write up with attack steps, code, and screenshots: https://kurtisebear.com/2026/03/28/chaining-file-upload-xss-admin-compromise/ Also built a Docker lab that reproduces the exact chain with the security controls in place. PHP app, both vulns baked in, admin + user accounts seeded. Clone and docker-compose up : https://github.com/echosecure/vuln-chain-lab submitted by /u/kurtisebear [link] [comments]",
+    "link": "https://www.reddit.com/r/netsec/comments/1s5zzw1/chaining_file_upload_bypass_and_stored_xss_to/",
+    "source": "/r/netsec",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T13:12:34+00:00",
+    "published_ts": 1774703554,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Cloud / SaaS",
+      "Malware / Payloads",
+      "Web / API Security"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Require Ad Block on Corp Devices?",
+    "summary": "Hey Everyone! I'm trying to get a feel for what others in the industry are doing? Right now I'm getting tired of click fix and other drive by spyware/malware coming from user devices & the alerts that are generated from them. We have 6000 endpoints roughly and i want to require an adblocker on them to protect users from accidents while also reducing alert fatigue. Would love to hear your thoughts on why we should or shouldn't. If you are, what are you running? submitted by /u/arcanecolour [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s5ywgp/require_ad_block_on_corp_devices/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T12:22:37+00:00",
+    "published_ts": 1774700557,
+    "smart_groups": [
+      "Ransomware",
+      "Malware / Payloads"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Punjab Police Probe Online Fraud Case Involving Retired ITBP Official",
+    "summary": "Retired ITBP Officer Loses ₹17.52 Lakh in Alleged Online Theft A recent case of online... The post Punjab Police Probe Online Fraud Case Involving Retired ITBP Official appeared first on .",
+    "link": "https://www.news4hackers.com/punjab-police-probe-online-fraud-case-involving-retired-itbp-official/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T12:03:38+00:00",
+    "published_ts": 1774699418,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Telangana Busts ₹138 Crore China-Linked Currency Smuggling Racket, 13 Arrested",
+    "summary": "Operation Crackdown 1.0 Yields Significant Results in Banking and Cyber Fraud Probe In a major... The post Telangana Busts ₹138 Crore China-Linked Currency Smuggling Racket, 13 Arrested appeared first on .",
+    "link": "https://www.news4hackers.com/telangana-busts-%e2%82%b9138-crore-china-linked-currency-smuggling-racket-13-arrested/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T12:02:00+00:00",
+    "published_ts": 1774699320,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Cloudflare ClickFix Malware Attack Exposes Macs to Infiniti Stealer",
+    "summary": "Malware Researchers Discover Novel Clickjacking Technique Dubbed ClickFix Malwarebytes researchers have uncovered a sophisticated clickjacking... The post Cloudflare ClickFix Malware Attack Exposes Macs to Infiniti Stealer appeared first on .",
+    "link": "https://www.news4hackers.com/cloudflare-clickfix-malware-attack-exposes-macs-to-infiniti-stealer/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T11:06:44+00:00",
+    "published_ts": 1774696004,
+    "smart_groups": [
+      "Cloud / SaaS",
+      "Malware / Payloads"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Malicious Browser Extensions Hijack Users’ AI Chats in New “Prompt Poaching” Attack",
+    "summary": "A new wave of malicious browser extensions is quietly harvesting sensitive user interactions with AI tools, in a growing threat now dubbed “prompt poaching.” The rise of AI assistants in everyday browsing has created a usability gap. Most users interact with AI tools in isolated tabs, manually copying and pasting content for analysis or summarization. […] The post Malicious Browser Extensions Hijack Users’ AI Chats in New “Prompt Poaching” Attack appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/malicious-browser-extensions-2/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T10:36:50+00:00",
+    "published_ts": 1774694210,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Warren probes China-based Bitmain over US security concerns: Report",
+    "summary": "US authorities launched the “Operation Red Sunset” probe into Bitmain last year over potential espionage and grid risks.",
+    "link": "https://cointelegraph.com/news/warren-bitmain-us-security-concerns-probe-report?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-03-28T10:35:13+00:00",
+    "published_ts": 1774694113,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Cloudflare-Themed ClickFix Attack Drops Infiniti Stealer on Macs",
+    "summary": "The infection chain includes a fake CAPTCHA page, a Bash script, a Nuitka loader, and the Python-based infostealer. The post Cloudflare-Themed ClickFix Attack Drops Infiniti Stealer on Macs appeared first on SecurityWeek .",
+    "link": "https://www.securityweek.com/cloudflare-themed-clickfix-attack-drops-infiniti-stealer-on-macs/",
+    "source": "SecurityWeek",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T10:30:00+00:00",
+    "published_ts": 1774693800,
+    "smart_groups": [
+      "Cloud / SaaS",
+      "Malware / Payloads"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Iran-linked group Handala hacked FBI Director Kash Patel’s personal email account",
+    "summary": "Iran-linked group Handala claims it hacked FBI Director Kash Patel’s personal email, leaking files. The FBI says no government data was exposed. Iran-linked hacking group Handala claims it breached FBI Director Kash Patel’s personal Gmail account and shared alleged data, including photos and files. The FBI confirmed it is aware of the incident and has […]",
+    "link": "https://securityaffairs.com/190088/intelligence/iran-linked-group-handala-hacked-fbi-director-kash-patels-personal-email-account.html",
+    "source": "Security Affairs",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T10:22:33+00:00",
+    "published_ts": 1774693353,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Big-IP APM Remote Code Execution Vulnerability Exploited by Attackers CVE-2025-53521",
+    "summary": "US Government Warns of Actively Exploited Vulnerability in BIG-IP APM Systems The United States Cybersecurity... The post Big-IP APM Remote Code Execution Vulnerability Exploited by Attackers CVE-2025-53521 appeared first on .",
+    "link": "https://www.news4hackers.com/big-ip-apm-remote-code-execution-vulnerability-exploited-by-attackers-cve-2025-53521/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T10:04:51+00:00",
+    "published_ts": 1774692291,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC"
+    ],
+    "curated": true
+  },
+  {
+    "title": "India Cyber Fraud Case: Bombay High Court Judge Loses Large Sum to Online Scam",
+    "summary": "Mumbai High Court Judge Duped of Rs. 6.02 Lakh by Sophisticated Phishing Scheme A recent... The post India Cyber Fraud Case: Bombay High Court Judge Loses Large Sum to Online Scam appeared first on .",
+    "link": "https://www.news4hackers.com/india-cyber-fraud-case-bombay-high-court-judge-loses-large-sum-to-online-scam/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T10:03:29+00:00",
+    "published_ts": 1774692209,
+    "smart_groups": [
+      "Phishing / Social Engineering"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Planning a Cybersecurity Lab Setup? Experts to Consult",
+    "summary": "Cyber Labs Gain Momentum as Organizations Seek Enhanced Capabilities In today’s fast-paced digital environment, the... The post Planning a Cybersecurity Lab Setup? Experts to Consult appeared first on .",
+    "link": "https://www.news4hackers.com/planning-a-cybersecurity-lab-setup-experts-to-consult/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T10:02:13+00:00",
+    "published_ts": 1774692133,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "MCP (Model Context Protocol) is moving fast — and so are the attackers.",
+    "summary": "Here is a deep-dive on what real MCP security looks like in 2026: not theory, but actual CVE patterns, exploit chains, and how to build policy-as-code defenses for AI tool infrastructure. What's inside: → Real CVEs targeting MCP servers and tool registries → How exploit chains move from prompt injection → tool abuse → lateral movement → Rego/OPA controls you can drop into your CSPM stack today → Where existing cloud security frameworks fall short for AI workloads If you're running AI agents in production — or evaluating whether it's safe to — this is the threat model you need to understand before your next deployment. 🔗 Full post on policyascode.dev (link in comments) #CloudSecurity #AISecuirty #MCP #PolicyAsCode #DevSecOps #OPA #Rego #LLMSecurity submitted by /u/workaholicrohit [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s5vvhy/mcp_model_context_protocol_is_moving_fast_and_so/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T09:32:03+00:00",
+    "published_ts": 1774690323,
+    "smart_groups": [
+      "Curated",
+      "Exploit / PoC"
+    ],
+    "curated": true
+  },
+  {
+    "title": "CTO at NCSC Summary: week ending March 29th",
+    "summary": "submitted by /u/digicat [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s5vo7o/cto_at_ncsc_summary_week_ending_march_29th/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T09:19:02+00:00",
+    "published_ts": 1774689542,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Citrix NetScaler Under Active Recon for CVE-2026-3055 (CVSS 9.3) Memory Overread Bug",
+    "summary": "A recently disclosed critical security flaw impacting Citrix NetScaler ADC and NetScaler Gateway is witnessing active reconnaissance activity, according to Defused Cyber and watchTowr. The vulnerability, CVE-2026-3055 (CVSS score: 9.3), refers to a case of insufficient input validation leading to memory overread, which an attacker could exploit to leak potentially sensitive information. Per",
+    "link": "https://thehackernews.com/2026/03/citrix-netscaler-under-active-recon-for.html",
+    "source": "The Hacker News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T09:11:00+00:00",
+    "published_ts": 1774689060,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Fake Metro Job Website and Social Media Scams Targeting Unemployed Young Adults",
+    "summary": "Fake Recruitment Platforms Pose Risk to Unemployed Youth Unidentified cybercriminals have created fake websites and... The post Fake Metro Job Website and Social Media Scams Targeting Unemployed Young Adults appeared first on .",
+    "link": "https://www.news4hackers.com/fake-metro-job-website-and-social-media-scams-targeting-unemployed-young-adults/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T09:05:17+00:00",
+    "published_ts": 1774688717,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Linked Banking Scams Exposed: ₹590 Crore to ₹160 Crore Frauds Uncovered",
+    "summary": "High-Value Banking Frauds in India Expose Organized Network The Indian authorities are currently investigating a... The post Linked Banking Scams Exposed: ₹590 Crore to ₹160 Crore Frauds Uncovered appeared first on .",
+    "link": "https://www.news4hackers.com/linked-banking-scams-exposed-%e2%82%b9590-crore-to-%e2%82%b9160-crore-frauds-uncovered/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T09:03:58+00:00",
+    "published_ts": 1774688638,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "India ₹2.48 Crore Investment Scam Uncovered: 4 Arrests Made for Promising Unrealistic Returns",
+    "summary": "Investment Scheme Unravels: ₹2.48 Crore Scam Exposes Weaknesses in Regulation The recent uncovering of a... The post India ₹2.48 Crore Investment Scam Uncovered: 4 Arrests Made for Promising Unrealistic Returns appeared first on .",
+    "link": "https://www.news4hackers.com/india-%e2%82%b92-48-crore-investment-scam-uncovered-4-arrests-made-for-promising-unrealistic-returns/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T09:02:21+00:00",
+    "published_ts": 1774688541,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Attackers are exploiting RCE vulnerability in BIG-IP APM systems (CVE-2025-53521)",
+    "summary": "A critical unauthenticated remote code execution vulnerability (CVE-2025-53521) in F5’s BIG-IP Access Policy Manager (APM) solution is under active exploitation, the US Cybersecurity and Infrastructure Security Agency warned on Friday. CISA added the flaw to its Known Exploited Vulnerabilities catalog after F5 updated the related security advisory, The advisory was initially published on October 15, 2025, when F5 confirmed a data breach that resulted in a “highly sophisticated nation-state threat actor” accessing – among other … More → The post Attackers are exploiting RCE vulnerability in BIG-IP APM systems (CVE-2025-53521) appeared first on Help Net Security .",
+    "link": "https://www.helpnetsecurity.com/2026/03/28/big-ip-apm-vulnerability-cve-2025-53521-exploited/",
+    "source": "Help Net Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T09:02:09+00:00",
+    "published_ts": 1774688529,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC",
+      "Data Breaches / Leaks"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Fake Certificate Loader Hides BlankGrabber Malware Chain",
+    "summary": "BlankGrabber’s operators are now abusing a fake “certificate” loader to hide a multi‑stage Rust and Python infection chain, making this commodity stealer significantly harder to spot on Windows endpoints. The new technique relies on built‑in tools such as certutil.exe, heavily obfuscated PyInstaller stubs, and stealthy exfiltration via Telegram and public web services to evade both […] The post Fake Certificate Loader Hides BlankGrabber Malware Chain appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/blankgrabber-malware/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T08:26:55+00:00",
+    "published_ts": 1774686415,
+    "smart_groups": [
+      "Windows / Microsoft",
+      "Malware / Payloads"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Hong Kong Cracks Down on Travelers’ Digital Devices with Strict Password Laws",
+    "summary": "Severe New Rule Imposes Strict Requirements on Travelers’ Digital Devices in Hong Kong The government... The post Hong Kong Cracks Down on Travelers’ Digital Devices with Strict Password Laws appeared first on .",
+    "link": "https://www.news4hackers.com/hong-kong-cracks-down-on-travelers-digital-devices-with-strict-password-laws/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T08:04:17+00:00",
+    "published_ts": 1774685057,
+    "smart_groups": [
+      "Cloud / SaaS"
+    ],
+    "curated": false
+  },
+  {
+    "title": "CBI Cracks Down SIM Box Scam: Directors Behind $100 Million Frauds Arrested",
+    "summary": "The CBI Cracks Down on a Sophisticated SIM Box Racket In a significant development, the... The post CBI Cracks Down SIM Box Scam: Directors Behind $100 Million Frauds Arrested appeared first on .",
+    "link": "https://www.news4hackers.com/cbi-cracks-down-sim-box-scam-directors-behind-100-million-frauds-arrested/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T08:03:02+00:00",
+    "published_ts": 1774684982,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Maldives Consul Credit Card Hacked on Plane: Authorities Investigate Data Theft or Insider Involvement",
+    "summary": "Credit Card Transaction Anomaly Raises Concerns Over Cross-Border Cyber Fraud and Data Security A recent... The post Maldives Consul Credit Card Hacked on Plane: Authorities Investigate Data Theft or Insider Involvement appeared first on .",
+    "link": "https://www.news4hackers.com/maldives-consul-credit-card-hacked-on-plane-authorities-investigate-data-theft-or-insider-involvement/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T08:01:52+00:00",
+    "published_ts": 1774684912,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Potential Bitcoin crash below $60K may delay recovery to 2027: Data",
+    "summary": "Bitcoin's return to an all-time high depends on how deep the current selloff extends, as data shows each new price low adds months to BTC's recovery time.",
+    "link": "https://cointelegraph.com/news/potential-bitcoin-crash-below-dollar60k-may-delay-recovery-to-2027-data?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-03-28T08:00:00+00:00",
+    "published_ts": 1774684800,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Title: Roast my resume– Security Analyst",
+    "summary": "​ Hey all, I’m currently a Cybersecurity Analyst (banking) with ~1 year experience (intern → full-time), working on detection engineering, DLP (Netskope), and threat modeling. Highlight: - Discovered a DLP bypass using PNG + PPTX file nesting (recursion depth limitation) - Proposed detections across SentinelOne + Netskope, including metadata anomaly rules Also built a real-time network threat detection platform (Scapy + Flask + React). --- Looking for: Honest resume feedback Am I market-ready to switch by July 2026? What gaps should I fix in the next few months? Target roles: Detection Engineer / Security Engineer (Blue Team) Appreciate direct feedback 🙏 submitted by /u/kehndi-hundi_si [link] [comments]",
+    "link": "https://www.reddit.com/r/netsec/comments/1s5u3u0/title_roast_my_resume_security_analyst/",
+    "source": "/r/netsec",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T07:41:28+00:00",
+    "published_ts": 1774683688,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "U.S. CISA adds a flaw in F5 BIG-IP AMP to its Known Exploited Vulnerabilities catalog",
+    "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) adds a flaw in F5 BIG-IP AMP to its Known Exploited Vulnerabilities catalog. The U.S. Cybersecurity and Infrastructure Security Agency (CISA) added a flaw in F5 BIG-IP AMP, tracked as CVE-2025-53521 (CVSS ver. 3.1 score of 9.8), to its Known Exploited Vulnerabilities (KEV) catalog. The vulnerability in BIG-IP APM allows […]",
+    "link": "https://securityaffairs.com/190076/uncategorized/u-s-cisa-adds-a-flaw-in-f5-big-ip-amp-to-its-known-exploited-vulnerabilities-catalog.html",
+    "source": "Security Affairs",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T07:33:15+00:00",
+    "published_ts": 1774683195,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Spot Bitcoin ETFs break 4-week inflow streak as capital avoids ‘directional risk’",
+    "summary": "Spot Bitcoin ETFs see $296 million in weekly outflows after a month-long inflow streak, as macro uncertainty keeps capital sidelined.",
+    "link": "https://cointelegraph.com/news/bitcoin-etfs-break-4-week-inflow-streak-outflows-directional-risk?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-03-28T07:30:21+00:00",
+    "published_ts": 1774683021,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "CISA Adds CVE-2025-53521 to KEV After Active F5 BIG-IP APM Exploitation",
+    "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) on Friday added a critical security flaw impacting F5 BIG-IP Access Policy Manager (APM) to its Known Exploited Vulnerabilities (KEV) catalog, citing evidence of active exploitation. The vulnerability in question is CVE-2025-53521 (CVSS v4 score: 9.3), which could allow a threat actor to achieve remote code execution. \"When a",
+    "link": "https://thehackernews.com/2026/03/cisa-adds-cve-2025-53521-to-kev-after.html",
+    "source": "The Hacker News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T07:07:00+00:00",
+    "published_ts": 1774681620,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC"
+    ],
+    "curated": true
+  },
+  {
+    "title": "TA446 Deploys DarkSword iOS Exploit Kit in Targeted Spear-Phishing Campaign",
+    "summary": "Proofpoint has disclosed details of a targeted email campaign in which threat actors with ties to Russia are leveraging the recently disclosed DarkSword exploit kit to target iOS devices. The activity has been attributed with high confidence to the Russian state-sponsored threat group known as TA446, which is also tracked by the broader cybersecurity community under the monikers Callisto,",
+    "link": "https://thehackernews.com/2026/03/ta446-deploys-leaked-darksword-ios.html",
+    "source": "The Hacker News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T07:07:00+00:00",
+    "published_ts": 1774681620,
+    "smart_groups": [
+      "Curated",
+      "Exploit / PoC",
+      "Phishing / Social Engineering"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Telecom Scam Exposed: Fake Exchange in Meerut Steals Crores from International Calls",
+    "summary": "Six Individuals Arrested in Uttar Pradesh for Operating Large-Scale VOIP-Based Telecommunications Racket A joint operation... The post Telecom Scam Exposed: Fake Exchange in Meerut Steals Crores from International Calls appeared first on .",
+    "link": "https://www.news4hackers.com/telecom-scam-exposed-fake-exchange-in-meerut-steals-crores-from-international-calls/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T07:02:14+00:00",
+    "published_ts": 1774681334,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "minfied js blocking pen testing?",
+    "summary": "I'm trying to find xss vulnerabilities on certain websites but the js is bundled and minified. without the .map does that make finding those vulns way more difficult? submitted by /u/Comprehensive_Cut548 [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s5t765/minfied_js_blocking_pen_testing/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T06:46:55+00:00",
+    "published_ts": 1774680415,
+    "smart_groups": [
+      "Vulnerabilities / CVEs",
+      "Web / API Security"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Open VSX Scanner Vulnerability Lets Malicious Extensions Go Live",
+    "summary": "Open VSX, the extension marketplace used by VS Code forks such as Cursor and Windsurf, recently fixed a critical vulnerability in its newly introduced pre-publish scanning pipeline that could allow malicious extensions to bypass security checks and go live undetected. The issue, dubbed “Open Sesame,” stemmed from a fail-open condition in the scanning workflow. While […] The post Open VSX Scanner Vulnerability Lets Malicious Extensions Go Live appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/open-vsx-scanner/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T06:39:20+00:00",
+    "published_ts": 1774679960,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Microsoft Entra Agent ID: A Practical Guide to Blueprints and Agent Identities",
+    "summary": "As AI agents become an increasingly important part of modern work, organizations need a way to govern them with the same level of control and consistency applied to human identities. Microsoft Entra Agent ID is the identity platform purpose-built for AI agents. It extends the security and governance capabilities of Microsoft Entra, including Conditional Access, […]",
+    "link": "https://thalpius.com/2026/03/28/microsoft-entra-agent-id-a-practical-guide-to-blueprints-and-agent-identities/",
+    "source": "https://thalpius.com/feed/",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T06:00:00+00:00",
+    "published_ts": 1774677600,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "XRP risk-reward improves as whale accumulation rises: Will price follow?",
+    "summary": "XRP shows improving risk-adjusted returns alongside rising whale flows, but rising leverage use and repeat liquidations point to a fragile futures market.",
+    "link": "https://cointelegraph.com/news/xrp-risk-reward-improves-as-whale-accumulation-rises-will-price-follow?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-03-28T05:56:37+00:00",
+    "published_ts": 1774677397,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Increased frequency of clickfix attacks in corporate environments",
+    "summary": "I work at a mid-size food company with a somewhat decent security stack that has some decent detection engineering foundations and a pretty well-set up EDR environment. lately, an observation I have seen is the increased presence of ClickFix attacks, specifically targeted against mac users. For confidentiality of business purposes, I cannot go into too much detail or name specific domains, but I comfortably can talk about the clickfix vector I’ve been seeing lately: there would be malicious subdomains set up with domains such as squarespace for instance, and the malicious domain would be set up to match that of a Mac support page, that requests the user to input a curl command containing obfuscated, base64 encoded sequence of characters into their terminal. i.e the command would look something similar to this “echo “curl [base64] | base64 -d”” where the base64 encoded message contains, obviously, a malicious payload in the form of a domain. siem investigation would usually show that the users would be attempting to search some minor fixes, i.e increasing storage space on mac, downloading homebrew, etc. my question is - have other analysts or security personnel been seeing an increase in these attacks? for additional context, our detection engineering has been largely unchanged. this is not to say i have never seen clickfix attacks up until now, i just am surprised at the rate in which i am seeing them, and how most of these appear to be a result of redirects into malicious domains from searches made in Google by our users. any insight is welcome submitted by /u/LumpiaMax [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s5s8dg/increased_frequency_of_clickfix_attacks_in/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T05:51:15+00:00",
+    "published_ts": 1774677075,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Lummis says CLARITY Act will deliver 'strongest' developer protections",
+    "summary": "Crypto lawyer Jake Chervinsky said legislation covering crypto developer protections has been overshadowed by the intense focus on stablecoin yield in the CLARITY Act.",
+    "link": "https://cointelegraph.com/news/lummis-says-clarity-act-offers-strong-defi-protections?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-03-28T05:04:55+00:00",
+    "published_ts": 1774674295,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "European Commission Confirms Cyberattack After AWS Account Breach",
+    "summary": "The European Commission has confirmed a cybersecurity incident affecting its cloud-based infrastructure after attackers gained access to an Amazon Web Services (AWS) account hosting parts of the Europa.eu platform. According to an official statement, the compromised infrastructure supported the Commission’s public-facing web services. Despite the intrusion, authorities reported no disruption to the availability of Europa.eu […] The post European Commission Confirms Cyberattack After AWS Account Breach appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/aws-account-breach/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T04:59:32+00:00",
+    "published_ts": 1774673972,
+    "smart_groups": [
+      "Cloud / SaaS"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Telnyx package on PyPI compromised by TeamPCP. WAV steganography used for payload delivery",
+    "summary": "Malicious versions of the telnyx Python SDK (4.87.1, 4.87.2) were uploaded to PyPI. Code executes directly on import. It works cross-platform. Delivery method is the interesting part. The package fetches a .wav file from C2, reads frame data, base64-decodes it, then XORs using the first few bytes as key to reconstruct the payload. File is valid audio, so it blends in and its pretty hard to detect by traditional methods. Windows path drops msbuild.exe into Startup for persistence. Linux/macOS path uses a staged Python loader → fetch WAV → extract second stage → execute via stdin → AES encrypt + exfil. C2: 83.142.209.203:8080 Endpoints: /hangup.wav, /ringtone.wav If you pulled those versions: downgrade, rotate secrets, and check for outbound traffic to that IP. submitted by /u/raptorhunter22 [link] [comments]",
+    "link": "https://www.reddit.com/r/netsec/comments/1s5qot0/telnyx_package_on_pypi_compromised_by_teampcp_wav/",
+    "source": "/r/netsec",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T04:27:14+00:00",
+    "published_ts": 1774672034,
+    "smart_groups": [
+      "Windows / Microsoft",
+      "Linux / Unix",
+      "Malware / Payloads"
+    ],
+    "curated": false
+  },
+  {
+    "title": "European Commission Confirms Cyberattack Following AWS Account Hack",
+    "summary": "The European Commission has officially confirmed a cyberattack following a targeted cyberattack that compromised its Amazon Web Services (AWS) account. Discovered on March 24, the intrusion specifically affected the external cloud environment that hosts the Commission’s public web presence on the Europa.eu platform. Despite the severity of the unauthorized access, immediate containment procedures ensured that […] The post European Commission Confirms Cyberattack Following AWS Account Hack appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/european-commission-aws-hack/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T03:20:54+00:00",
+    "published_ts": 1774668054,
+    "smart_groups": [
+      "Cloud / SaaS"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Stablecoins will be crypto’s ‘ChatGPT moment’ for businesses: Ripple",
+    "summary": "Ripple’s Brad Garlinghouse noted that stablecoin trading volume soared to over $33 trillion in 2025, while Bloomberg predicted that stablecoin flows would hit $56.6 trillion by 2030.",
+    "link": "https://cointelegraph.com/news/stablecoins-will-be-cryptos-chatgpt-moment-ripple-garlinghouse?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-03-28T03:04:12+00:00",
+    "published_ts": 1774667052,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Enforce RBAC with PAM",
+    "summary": "Hello all Hello All We are currently refining PAM strategy and I’m struggling with the best way to design and enforce RBAC for vaulted accounts. Currently, Delinea PAM solution is working great at rotating credentials and managing sessions. I’d love to hear you are handling this. Specifically: How do you define roles in your PAM tool are they mapped 1:1 to job titles, business functions, or something more granular? Do you create AD groups based on the roles? How do you elevate privilege for Just in Time access? Do you grant local admin access or controls specific commands or permissions? How do you do the Access Reviews to apply RBAC model? Any insights would be hugely appreciated. Thanks submitted by /u/DesperateForever6607 [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1s5oy4j/enforce_rbac_with_pam/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-03-28T03:00:49+00:00",
+    "published_ts": 1774666849,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Crypto / Web3"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Windows 11 and Server 2025 Update to Block Untrusted Cross-Signed Kernel Drivers by Default",
+    "summary": "Microsoft is taking a major step to harden the Windows operating system against kernel-level threats by removing trust for drivers signed by the deprecated cross-signed root program. Starting with the April 2026 update, Windows 11 and Windows Server 2025 will block these untrusted drivers by default. This policy ensures that only drivers certified through the […] The post Windows 11 and Server 2025 Update to Block Untrusted Cross-Signed Kernel Drivers by Default appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/windows-11-and-server-2025-update/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T02:48:00+00:00",
+    "published_ts": 1774666080,
+    "smart_groups": [
+      "Windows / Microsoft"
+    ],
+    "curated": false
+  },
+  {
+    "title": "CISA Adds Aquasecurity Trivy Scanner Vulnerability to KEV Catalog",
+    "summary": "CISA has officially added a critical vulnerability affecting Aquasecurity’s Trivy scanner to its Known Exploited Vulnerabilities (KEV) catalog. Tracked as CVE-2026-33634, this alarming security flaw poses a severe risk to software development pipelines. By exploiting this vulnerability, threat actors can gain unauthorized access to highly sensitive Continuous Integration and Continuous Deployment (CI/CD) environments. Organizations relying […] The post CISA Adds Aquasecurity Trivy Scanner Vulnerability to KEV Catalog appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/aquasecurity-trivy-scanner-vulnerability/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-28T02:24:07+00:00",
+    "published_ts": 1774664647,
+    "smart_groups": [
+      "Curated",
+      "Ransomware",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC"
+    ],
+    "curated": true
   },
   {
     "title": "Low earth orbit satellite telecomm [LEO SATCOM] Security Report - Securing Space",
@@ -579,20 +2058,6 @@
     "curated": false
   },
   {
-    "title": "Here’s what happened in crypto today",
-    "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-    "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-    "source": "Cointelegraph.com News",
-    "type": "crypto",
-    "type_label": "Crypto & Blockchain Security",
-    "published": "2026-03-27T18:56:38+00:00",
-    "published_ts": 1774637798,
-    "smart_groups": [
-      "Crypto / Web3"
-    ],
-    "curated": false
-  },
-  {
     "title": "European Parliament rejects extension of CSAM scanning rules for tech platforms",
     "summary": "The 311 members of Parliament who voted against an extension did so despite strong support from law enforcement, children’s rights groups, German Chancellor Friedrich Merz, several European commissioners and a half dozen big tech companies to allow the scans to continue.",
     "link": "https://therecord.media/eu-parliament-rejects-csam-scanning-extension",
@@ -939,18 +2404,6 @@
     "type_label": "General Security & Blogs",
     "published": "2026-03-27T17:25:16+00:00",
     "published_ts": 1774632316,
-    "smart_groups": [],
-    "curated": false
-  },
-  {
-    "title": "I found the best tech deals under $50 during Amazon's Big Spring Sale event",
-    "summary": "You can find plenty of great, affordable gadgets on Amazon, from speakers and chargers to streaming sticks and smart home gear. Sales are live now, so act fast.",
-    "link": "https://www.zdnet.com/article/best-deals-under-50-amazon-spring-sale/",
-    "source": "ZDNet – Security",
-    "type": "general",
-    "type_label": "General Security & Blogs",
-    "published": "2026-03-27T17:22:10+00:00",
-    "published_ts": 1774632130,
     "smart_groups": [],
     "curated": false
   },
@@ -2030,6 +3483,18 @@
       "Vulnerabilities / CVEs",
       "Web / API Security"
     ],
+    "curated": false
+  },
+  {
+    "title": "How we use Abstract Syntax Trees (ASTs) to turn Workflows code into visual diagrams",
+    "summary": "Workflows are now visualized via step diagrams in the dashboard. Here’s how we translate your TypeScript code into a visual representation of the workflow.",
+    "link": "https://blog.cloudflare.com/workflow-diagrams/",
+    "source": "The Cloudflare Blog",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-03-27T13:00:00+00:00",
+    "published_ts": 1774616400,
+    "smart_groups": [],
     "curated": false
   },
   {
@@ -5020,33 +6485,6 @@
     "curated": true
   },
   {
-    "title": "Best Amazon Spring Sale robot vacuum deals 2026",
-    "summary": "A reliable robot vacuum is a great way to outsource cleaning your home's biggest messes. Shop the best deals during Amazon's Big Spring Sale.",
-    "link": "https://www.zdnet.com/article/best-amazon-spring-sale-2026-robot-vacuum-deals/",
-    "source": "ZDNet – Security",
-    "type": "general",
-    "type_label": "General Security & Blogs",
-    "published": "2026-03-26T16:23:42+00:00",
-    "published_ts": 1774542222,
-    "smart_groups": [
-      "Curated",
-      "Vulnerabilities / CVEs"
-    ],
-    "curated": true
-  },
-  {
-    "title": "Best Amazon Spring Sale phone deals 2026: 20 sales out now",
-    "summary": "For Amazon's Big Spring Sale, I've rounded up the best early phone deals from major brands like Apple, Samsung, Motorola, and more. Sales are live now, so act fast.",
-    "link": "https://www.zdnet.com/article/best-amazon-big-spring-sale-2026-phone-deals/",
-    "source": "ZDNet – Security",
-    "type": "general",
-    "type_label": "General Security & Blogs",
-    "published": "2026-03-26T16:23:30+00:00",
-    "published_ts": 1774542210,
-    "smart_groups": [],
-    "curated": false
-  },
-  {
     "title": "Quish Splash QR Code Phishing Campaign Hits 1.6 Million Users",
     "summary": "7AI research reveals a massive QR code phishing attack that evaded SPF, DKIM, and DMARC. Find out how 1.6 million emails went undetected.",
     "link": "https://hackread.com/quish-splash-qr-code-phishing-hits-users/",
@@ -5508,18 +6946,6 @@
     "curated": false
   },
   {
-    "title": "Best Costco deals to compete with Amazon's Big Spring Sale 2026",
-    "summary": "Forget Amazon. These Costco deals will help you save substantially on everything from household goods to Apple devices.",
-    "link": "https://www.zdnet.com/article/best-costco-deals-amazon-big-spring-sale-2026/",
-    "source": "ZDNet – Security",
-    "type": "general",
-    "type_label": "General Security & Blogs",
-    "published": "2026-03-26T15:27:36+00:00",
-    "published_ts": 1774538856,
-    "smart_groups": [],
-    "curated": false
-  },
-  {
     "title": "Google warns quantum computers could hack encrypted systems by 2029",
     "summary": "Banks, governments and tech providers urged to upgrade security because current systems will soon be obsolete Banks, governments and technology providers need to be prepared for quantum computer hackers capable of breaking most existing encryption systems by 2029, Google has warned. The tech company said in a blogpost that quantum computers would pose a “significant threat to current cryptographic standards” before the end of the decade and urged other companies to follow its lead. Continue reading...",
     "link": "https://www.theguardian.com/technology/2026/mar/26/google-quantum-computers-crack-encryption-2029",
@@ -5799,18 +7225,6 @@
     "type_label": "Crypto & Blockchain Security",
     "published": "2026-03-26T14:43:13+00:00",
     "published_ts": 1774536193,
-    "smart_groups": [],
-    "curated": false
-  },
-  {
-    "title": "Save big on Switch 2 consoles, SSDs, and more with these anti-Amazon Spring Sale deals",
-    "summary": "Unimpressed with the Amazon Big Spring Sale gaming deals? Now at Best Buy, you can save hundreds on gaming laptops, consoles, and more.",
-    "link": "https://www.zdnet.com/article/best-buy-gaming-deals-amazon-spring-sale-2026/",
-    "source": "ZDNet – Security",
-    "type": "general",
-    "type_label": "General Security & Blogs",
-    "published": "2026-03-26T14:43:00+00:00",
-    "published_ts": 1774536180,
     "smart_groups": [],
     "curated": false
   },
@@ -6140,18 +7554,6 @@
     "smart_groups": [
       "Malware / Payloads"
     ],
-    "curated": false
-  },
-  {
-    "title": "Best Amazon Spring Sale tablet deals 2026",
-    "summary": "We found deals on tablets up to $150 off from brands like Apple, Samsung, and more, for Amazon's Big Spring Sale this week. Sales are live now through March 31.",
-    "link": "https://www.zdnet.com/article/best-amazon-spring-sale-2026-tablet-deals/",
-    "source": "ZDNet – Security",
-    "type": "general",
-    "type_label": "General Security & Blogs",
-    "published": "2026-03-26T13:36:00+00:00",
-    "published_ts": 1774532160,
-    "smart_groups": [],
     "curated": false
   },
   {
@@ -14424,18 +15826,6 @@
     "curated": true
   },
   {
-    "title": "Best early Amazon Spring Sale Apple deals 2026",
-    "summary": "I've rounded up deals on some of the hottest tech from your favorite tech company, one day ahead of Amazon's Big Spring Sale.",
-    "link": "https://www.zdnet.com/article/best-amazon-spring-sale-2026-apple-deals/",
-    "source": "ZDNet – Security",
-    "type": "general",
-    "type_label": "General Security & Blogs",
-    "published": "2026-03-24T15:07:09+00:00",
-    "published_ts": 1774364829,
-    "smart_groups": [],
-    "curated": false
-  },
-  {
     "title": "QualDerm Partners December 2025 data breach impacts over 3 Million people",
     "summary": "Over 3.1M people affected as QualDerm Partners suffered a December 2025 breach, exposing personal, medical, and health insurance data. Over 3.1 million people are affected by a December 2025 data breach at QualDerm Partners, where hackers stole personal, medical, and health insurance information from the company’s internal systems. QualDerm Partners is a U.S.-based healthcare management […]",
     "link": "https://securityaffairs.com/189917/data-breach/qualderm-partners-december-2025-data-breach-impacts-over-3-million-people.html",
@@ -15858,18 +17248,6 @@
       "Ransomware"
     ],
     "curated": true
-  },
-  {
-    "title": "Visible will give you the new iPhone 17e for free - here's how to qualify",
-    "summary": "The iPhone 17e has arrived, and new customers can score one for free with a Visible+ plan. Here's what to know.",
-    "link": "https://www.zdnet.com/article/iphone-17e-deal-visible/",
-    "source": "ZDNet – Security",
-    "type": "general",
-    "type_label": "General Security & Blogs",
-    "published": "2026-03-24T11:30:40+00:00",
-    "published_ts": 1774351840,
-    "smart_groups": [],
-    "curated": false
   },
   {
     "title": "Critical Citrix NetScaler Vulnerability Poised for Exploitation, Security Firms Warn",
@@ -88751,18 +90129,6 @@
     "curated": true
   },
   {
-    "title": "How to switch from ChatGPT to Claude: Transferring your memories and settings is easy",
-    "summary": "Claude AI now lets you copy your memories and preferences from another AI via a straightforward prompt. You can also find out everything the AI knows about you. Here's how.",
-    "link": "https://www.zdnet.com/article/switch-to-claude-ai-import-memories-preferences/",
-    "source": "ZDNet – Security",
-    "type": "general",
-    "type_label": "General Security & Blogs",
-    "published": "2026-03-04T18:30:00+00:00",
-    "published_ts": 1772649000,
-    "smart_groups": [],
-    "curated": false
-  },
-  {
     "title": "Made something which cybersec engineers can use for brute forcing or password cracking ( NextPass - An advanced password dictionary generator )",
     "summary": "https://github.com/0xblarky/NextPass I have been working on a Python tool called NextPass for targeted wordlist generation. It takes a JSON file of a target's known details (names, dates, hobbies) and operates in two modes: Normal Mode: A traditional, fast generator that builds passwords based on set fields already defined in the JSON and rules hard-coded in the code. AI Mode: Instead of generating massive, blind combinations, it uses an LLM purely as a logic engine. The script sends only the JSON keys to the AI, which generates highly probable password structures based on human behavior (e.g., [Name][SpecialChar][BirthYear] ). Python then parses those templates and fills in the actual data. This is done to make sure the target's data doesn't get fed to the AI model By offering an AI mode, the tool doesn't just guess blindly—it builds structures a person is actually likely to type, keeping your wordlists efficient and highly targeted. If anybody has used LLMs as logic engines for profiling and wordlist generation, Feel free to share how you did. I am all ears :D The project is open to suggestions and PRs submitted by /u/Blu_PY [link] [comments]",
     "link": "https://www.reddit.com/r/cybersecurity/comments/1rkt9th/made_something_which_cybersec_engineers_can_use/",
@@ -100110,18 +101476,6 @@
       "Threat Actors / APT"
     ],
     "curated": true
-  },
-  {
-    "title": "Why scammers say nothing when they call - and how to respond safely",
-    "summary": "There's a reason scammers don't say anything when they call you, at least not right away. Here's how to deal with these sneaky calls.",
-    "link": "https://www.zdnet.com/article/why-scammers-call-you-say-nothing-how-to-respond-safely/",
-    "source": "ZDNet – Security",
-    "type": "general",
-    "type_label": "General Security & Blogs",
-    "published": "2026-03-02T14:34:00+00:00",
-    "published_ts": 1772462040,
-    "smart_groups": [],
-    "curated": false
   },
   {
     "title": "12 million IPs exposed sensitive .env files",
