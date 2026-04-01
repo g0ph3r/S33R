@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-01T06:50:11.704689+00:00",
+  "generated_at": "2026-04-01T08:44:32.694777+00:00",
   "days_back": 30,
   "total_items": 8236,
   "items": [
@@ -14,6 +14,257 @@
       "published_ts": 1785582000,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "VEN0m Ransomware \u2014 How a BYOVD technique using a signed IObit driver bypasses Defender (and what you can do about it)",
+      "summary": "Hey r/cybersecurity , We published an analysis on our company blog (Nexsys, Italian IT security & training firm) about VEN0m, the Rust-based ransomware that's been getting attention lately. Quick summary of the attack chain: \u2022 BYOVD via IMFForceDelete.sys (IObit Malware Fighter v12.1.0) \u2014 CVE-2025-26125, still not on Microsoft's driver blocklist \u2022 The driver exposes an IOCTL for arbitrary file deletion, used to corrupt AV/EDR processes until they break \u2022 UAC bypass via DLL hijacking of Slui.exe auto-elevation \u2022 Encryption with hardcoded 32-byte key, files renamed to .vnm \u2022 Fully undetected on Windows 11 Pro 24H2 at release (Feb 2026) The key takeaway from our analysis: relying on Defender alone \u2014 even with default settings properly configured \u2014 is not enough when the attacker can kill your AV from kernel level before the payload even drops. We cover detection strategies and hardening steps in the article. Full article (English-friendly, Italian language): https://www.nexsys.it/ven0m-ransomware-punto-debole-defender/ Happy to discuss the technical details here. We work on this stuff daily (hybrid Exchange migrations, M365 security hardening, pen testing training). Disclaimer: this is our company blog \u2014 sharing because we think the content is genuinely useful, not just for traffic. submitted by /u/veronainformatica [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1s9epyv/ven0m_ransomware_how_a_byovd_technique_using_a/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-04-01T08:35:44+00:00",
+      "published_ts": 1775032544,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Something I am building, I hope you guys like it.",
+      "summary": "Feel free to send me any comments/suggestions. I'd love to build something that fellow cyber professionals would like to use as a resource. submitted by /u/GifLurker [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1s9epi3/something_i_am_building_i_hope_you_guys_like_it/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-04-01T08:34:58+00:00",
+      "published_ts": 1775032498,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "UK manufacturers under cyber fire with 80% reporting attacks",
+      "summary": "ESET says factory outages, lost revenue, and supply chain disruption are becoming routine Nearly 80 percent of British manufacturers say they've been hit by a cyber incident in the past year, as new research suggests disruption on the factory floor is no longer an exception but business as usual.\u2026",
+      "link": "https://go.theregister.com/feed/www.theregister.com/2026/04/01/uk_manufacturer_cyberattacks/",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-01T08:30:06+00:00",
+      "published_ts": 1775032206,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Azure Database Security Newsletter - April 2026",
+      "summary": "Welcome to the quarterly edition of Azure Database Platform Security Newsletter. In this newsletter we highlight the importance of strong encryption for data security, and call out recent encryption, key management, and auditing enhancements designed to help you strengthen your security posture while simplifying operational management. Data is one of the most critical assets organizations manage, and protecting it is essential to maintaining trust, resilience, and long\u2011term success. As cyber threats continue to evolve and regulatory expectations increase, strong encryption has become a foundational requirement rather than an optional safeguard. Encryption protects sensitive data across its entire lifecycle. Data is encrypted at rest using Transparent Data Encryption (TDE) to protect stored information, in transit using Transport Layer Security (TLS) to secure data as it moves across your application and server, and in use through Always Encrypted to help ensure data remains protected even from high-privileged users. Together, these capabilities reduce risk and support compliance obligations. Feature highlights \ud83d\udca1 Customer-Managed Keys in Fabric SQL Database Customer-Managed Keys (CMK) are now generally available for Fabric SQL Database , allowing you to use Azure Key Vault keys to encrypt all workspace data, including all SQL Database data. This feature gives organizations greater control over key management and helps meet data governance and encryption requirements. More information on How to encrypt Fabric SQL Database with Customer Managed Keys (Video) . Versionless keys for Transparent Data Encryption in Azure SQL Database Azure SQL Database now lets you use versionless key URIs for Transparent Data Encryption (TDE) with customer-managed keys, automatically applying the latest enabled key from Azure Key Vault or Managed HSM. This update simplifies encryption management. Auditing in Fabric SQL Database Auditing for Fabric SQL Database is now generally available. Organizations can track and log database activities, addressing questions about data access for compliance, threat detection, and forensic analysis. Audit logs are stored in One Lake, and access is controlled by Fabric workspace roles and SQL permissions. Best Practices Corner Retain all historical TDE keys and key versions Always keep all historical Transparent Data Encryption (TDE) keys and their versions. Databases and backups remain encrypted with the key version that was active at the time of encryption. Restoring an older database requires access to the exact key version used. Deleting older keys or versions can make database restore impossible and result in permanent data loss. See Everything you need to know about TDE key management for database restore . Apply the Principle of Least Privilege Always grant users, applications, and services the minimum level of access required to perform their database tasks. Avoid broad administrative or owner-level permissions unless absolutely necessary. Regularly review, restrict, and remove excessive or unused privileges to reduce the attack surface and limit the impact of compromised credentials or configuration errors. This control aligns with established security standards such as NIST SP 800\u201153 (AC\u20116: Least Privilege) , CIS Critical Security Controls , ISO/IEC 27002 , and OWASP database security guidance . Enable Auditing on Azure SQL and SQL Server Always enable auditing on Azure SQL to record database activities for security monitoring, compliance, and forensic investigation. Auditing provides visibility into database access and changes, helping detect unauthorized or suspicious behavior and supporting incident response and regulatory requirements. See Auditing - Azure SQL Database . Blogs and Video Spotlight \ud83c\udd71\ufe0f In the last three months, we've published blog posts on major releases and features. These updates offer practical insights and highlight the latest in data security and database management. Why ledger verification is non-negotiable How to Enable Microsoft Entra ID for Azure Cosmos DB (NoSQL) Why Developers and DBAs love SQL\u2019s Dynamic Data Masking (Series-Part 1) Announcing Preview of bulkadmin role support for SQL Server on Linux Zero Trust for data: Make Microsoft Entra authentication for SQL your policy baseline Community & Events \ud83d\udc65 The data platform security team will be on-site at several upcoming events. Come and say hi! Previous events SQL Konferenz FABCON 26 - Microsoft Fabric Community Conference - FABCON SQLCON - Microsoft SQL Community Conference - SQLCON Upcoming events SQLBits DataGrillen Call to action \ud83d\udce2 Take 15 minutes this week to validate your database encryption posture: confirm TDE is enabled, review your key management plan (including retaining historical key versions), and ensure TLS is enforced for all connections. If you are using Fabric SQL Database, consider enabling Customer-Managed Keys and turning on Auditing to strengthen governance and investigation readiness. Share this newsletter with your security and DBA partners and align on one concrete improvement you can complete.",
+      "link": "https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/azure-database-security-newsletter-april-2026/ba-p/4507226",
+      "source": "Core Infrastructure and Security Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-04-01T08:08:13+00:00",
+      "published_ts": 1775030893,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Linux / Unix",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Closing the Gap by Enhancing Visibility and Mitigating Risks",
+      "summary": "Secure your UK public sector digital estate. Cortex Xpanse delivers active External Attack Surface Management (EASM) with continuous monitoring, NCSC alignment and risk mitigation. The post Closing the Gap by Enhancing Visibility and Mitigating Risks appeared first on Palo Alto Networks Blog .",
+      "link": "https://www.paloaltonetworks.com/blog/2026/04/enhancing-visibility-and-mitigating-risks/",
+      "source": "Palo Alto Networks Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-04-01T08:00:42+00:00",
+      "published_ts": 1775030442,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "North Korean Hackers Breach Axios Package, Target Windows, macOS, and Linux Systems",
+      "summary": "A North Korea\u2013nexus threat actor has hijacked the popular Axios NPM package in a high\u2011impact software supply chain attack that can silently backdoor Windows, macOS, and Linux systems. Between March 31, 2026, 00:21 and 03:20 UTC, attackers used a compromised maintainer account to push backdoored Axios releases 1.14.1 and 0.30.4 to NPM. The attackers changed [\u2026] The post North Korean Hackers Breach Axios Package, Target Windows, macOS, and Linux Systems appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/north-korean-hackers-breach/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-01T07:45:03+00:00",
+      "published_ts": 1775029503,
+      "smart_groups": [
+        "Curated",
+        "Windows / Microsoft",
+        "Linux / Unix",
+        "Malware / Payloads",
+        "Supply Chain / Software"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Google Attributes Axios npm Supply Chain Attack to North Korean Group UNC1069",
+      "summary": "Google has formally attributed the supply chain compromise of the popular Axios npm package to a financially motivated North Korean threat activity cluster tracked as UNC1069. \"We have attributed the attack to a suspected North Korean threat actor we track as UNC1069,\" John Hultquist, chief analyst at Google Threat Intelligence Group (GTIG), told The Hacker News in a statement. \"North Korean",
+      "link": "https://thehackernews.com/2026/04/google-attributes-axios-npm-supply.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-01T07:44:00+00:00",
+      "published_ts": 1775029440,
+      "smart_groups": [
+        "Curated"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Google Addresses Vertex Security Issues After Researchers Weaponize AI Agents",
+      "summary": "Palo Alto Networks has disclosed the details of its analysis of Google Cloud Platform\u2019s Vertex AI. The post Google Addresses Vertex Security Issues After Researchers Weaponize AI Agents appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/google-addresses-vertex-security-issues-after-researchers-weaponize-ai-agent/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-01T07:43:16+00:00",
+      "published_ts": 1775029396,
+      "smart_groups": [
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Free VPNs leak your data while claiming privacy",
+      "summary": "Most free Android VPNs track users, request dangerous permissions, and connect to risky servers, privacy comes at a hidden cost. Free VPN apps are some of the most popular downloads on Android, promising privacy at no cost. But the reality is far from what they advertise. Most users tap \u201cinstall\u201d without a second thought, unaware [\u2026]",
+      "link": "https://securityaffairs.com/190239/security/free-vpns-leak-your-data-while-claiming-privacy.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-01T07:38:33+00:00",
+      "published_ts": 1775029113,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Egnyte expands Content Cloud with AI Governance and built-in Assistant",
+      "summary": "Egnyte has announced two major additions to the Egnyte Content Cloud: AI Safeguards, which give organizations granular control over how AI interacts with sensitive content, and an AI Assistant that acts as a built-in collaborator across Egnyte workspaces. AI Safeguards As organizations accelerate AI adoption, ungoverned access to sensitive content by AI systems represents a growing and underappreciated risk. Egnyte\u2019s AI Safeguards addresses this directly by embedding AI controls into the same platform that already \u2026 More \u2192 The post Egnyte expands Content Cloud with AI Governance and built-in Assistant appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/04/01/egnyte-ai-safeguards-ai-assistant/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-01T07:25:13+00:00",
+      "published_ts": 1775028313,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Diving into the SCIM API available Entra ID",
+      "summary": "Hot off the press \u2013 Entra ID now has SCIM support! \u201cThis is not new\u201d, some may say, and yes \u2013 Entra ID has supported SCIM for outbound provisioning for ages, however, with this new API we can now talk SCIM with Entra ID both for reading and writing data. Let\u2019s check it out! SCIM \u2026 Continue reading Diving into the SCIM API available Entra ID \u2192",
+      "link": "https://goodworkaround.com/2026/04/01/diving-into-the-scim-api-available-entra-id/",
+      "source": "https://goodworkaround.com/feed/",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-01T07:16:25+00:00",
+      "published_ts": 1775027785,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "CrewAI Hit by Critical Vulnerabilities Enabling Sandbox Escape and Host Compromise",
+      "summary": "CrewAI, a prominent tool used by developers to orchestrate multi-agent AI systems, is currently vulnerable to a chain of critical security flaws. By using direct or indirect prompt injection, attackers can manipulate AI agents to escape secure sandboxes and compromise the host machine. The primary threat stems from insecure fallback behaviors and configuration settings within [\u2026] The post CrewAI Hit by Critical Vulnerabilities Enabling Sandbox Escape and Host Compromise appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/crewai-hit-by-critical-vulnerabilities/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-01T07:13:08+00:00",
+      "published_ts": 1775027588,
+      "smart_groups": [
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Workshop Resources: OWASP Threat and Safeguard Matrix (TaSM)",
+      "summary": "submitted by /u/_clickfix_ [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1s9d4rf/workshop_resources_owasp_threat_and_safeguard/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-04-01T06:59:15+00:00",
+      "published_ts": 1775026755,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Im Fokus: IT-Leadership",
+      "summary": "",
+      "link": "https://de.resources.csoonline.com/resources/im-fokus-it-leadership/",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-01T06:58:29+00:00",
+      "published_ts": 1775026709,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Windows 11 Update Fixes Critical Installation Loop Problem",
+      "summary": "Microsoft has rolled out an urgent, out-of-band update to fix a frustrating installation glitch plaguing Windows 11 users. On March 31, 2026, the company released KB5086672 to rescue devices trapped in an update loop caused by the recent March 26 preview release. When users attempted to install that specific package, their systems would abruptly fail [\u2026] The post Windows 11 Update Fixes Critical Installation Loop Problem appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/windows-11-update-fixes-loop-problem/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-01T06:57:43+00:00",
+      "published_ts": 1775026663,
+      "smart_groups": [
+        "Windows / Microsoft"
+      ],
+      "curated": false
+    },
+    {
+      "title": "SUCCESS - 253,510 breached accounts",
+      "summary": "In March 2026, the personal development and achievement media brand SUCCESS suffered a data breach . The incident exposed 250k unique email addresses along with names, IP addresses, phone numbers and, for a limited number of staff members, bcrypt password hashes. The data also included orders containing physical addresses and the payment method used. In SUCCESS' disclosure notice , they advised their system had also been abused to send offensive newsletters with quotes falsely attributed to contributors.",
+      "link": "https://haveibeenpwned.com/Breach/SUCCESS",
+      "source": "Have I Been Pwned \u2013 Latest Breaches",
+      "type": "leaks",
+      "type_label": "Leaks & Breaches",
+      "published": "2026-04-01T06:51:14+00:00",
+      "published_ts": 1775026274,
+      "smart_groups": [
+        "Data Breaches / Leaks"
+      ],
+      "curated": false
+    },
+    {
+      "title": "PyPI Telnyx Python SDK Backdoored to Steal Credentials on Windows, macOS, and Linux",
+      "summary": "Telnyx Python SDK on PyPI, using a multi\u2011stage WAV steganography payload to steal credentials across Windows, macOS, and Linux systems. The backdoor lives in telnyx/_client.py and is triggered at module scope, so simply importing telnyx is enough to execute the payload before any application code runs. The rogue releases remained available for roughly 6.5 hours before PyPI quarantined them [\u2026] The post PyPI Telnyx Python SDK Backdoored to Steal Credentials on Windows, macOS, and Linux appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/pypi-telnyx-python-sdk/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-01T06:43:49+00:00",
+      "published_ts": 1775025829,
+      "smart_groups": [
+        "Curated",
+        "Windows / Microsoft",
+        "Linux / Unix",
+        "Malware / Payloads"
+      ],
+      "curated": true
     },
     {
       "title": "Google Drive ransomware detection now on by default for paying users",
@@ -46,6 +297,18 @@
         "Malware / Payloads"
       ],
       "curated": true
+    },
+    {
+      "title": "Bitcoin\u2019s drawdown is \u2018less dramatic\u2019 this cycle, Fidelity says",
+      "summary": "A shallower Bitcoin drawdown than previous cycles \"indicates a maturing market with reduced volatility and stronger institutional confidence,\" said Nick Ruck, director of LVRG Research.",
+      "link": "https://cointelegraph.com/news/bitcoin-drawdown-much-less-dramatic-this-cycle-fidelity?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-04-01T06:12:45+00:00",
+      "published_ts": 1775023965,
+      "smart_groups": [],
+      "curated": false
     },
     {
       "title": "TrueConf Vulnerability Under Active Exploitation in Southeast Asia Government Attacks",
@@ -87,6 +350,18 @@
       "type_label": "General Security & Blogs",
       "published": "2026-04-01T06:10:00+00:00",
       "published_ts": 1775023800,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Dorsey shares AI-integrated workplace vision weeks after Block\u2019s 40% staff cut",
+      "summary": "Block cut 4,000 of its staff in February as part of its AI-driven pivot. A new post by Block's Jack Dorsey has shed light on how the company and others might operate in the future.",
+      "link": "https://cointelegraph.com/news/block-ai-transform-middle-management-organization-design?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-04-01T06:08:40+00:00",
+      "published_ts": 1775023720,
       "smart_groups": [],
       "curated": false
     },
@@ -542,6 +817,24 @@
       "published_ts": 1775012541,
       "smart_groups": [
         "Windows / Microsoft"
+      ],
+      "curated": false
+    },
+    {
+      "title": "LiteLLM - Click Fix Attacks Surge",
+      "summary": "An explosive supply chain hack in Light LLM nearly unleashed catastrophic malware across millions of AI systems, and it took a coder\u2019s quick thinking to catch it before it snowballed into disaster. \u2022 Will California require Linux to verify its user's age. \u2022 Apple's iOS 26.4 requires UK users to prove their age. \u2022 Russia chooses to use home grown 5G mobile encryption. \u2022 Ukraine knew the webcam was installed by Russian spies. \u2022 Google moves quantum computing \"Q Day\" to 2029. \u2022 At RSA, UK's NCSC CEO warns of vibe-coded SaaS replacements. \u2022 More information about nasty ClickFix campaigns. \u2022 More than one in seven Reddit postings are an AI-bot. \u2022 The story behind the LiteLLM disaster that was averted. Show Notes - https://www.grc.com/sn/SN-1072-Notes.pdf Hosts: Steve Gibson and Leo Laporte Security Now episode 1072 More Info: https://twit.tv/shows/security-now/episodes/1072 Sponsors: \u2022 http://threatlocker.com/twit \u2022 http://adaptivesecurity.com \u2022 http://guardsquare.com \u2022 http://meter.com/securitynow Download or subscribe to Security Now at https://twit.tv/shows/security-now You can submit a question to Security Now at the GRC Feedback Page. For 16kbps versions, transcripts, and notes (including fixes), visit Steve's site: https://grc.com/ also the home of the best disk maintenance and recovery utility ever written Spinrite 6. Join Club TWiT for Ad-Free Podcasts! Support what you love and get ad-free audio and video feeds, a members-only Discord, and exclusive content. Join today: https://twit.tv/clubtwit Products we recommend: https://www.amazon.com/shop/twitnetcastnetwork TWiT may earn commissions on certain products. Follow us: Website: https://twit.tv/ Bluesky: https://bsky.app/profile/twit.tv Mastodon: https://mastodon.social/@TWiT Facebook: https://www.facebook.com/TWiTNetwork Instagram: https://www.instagram.com/twit.tv/ X (Twitter): https://x.com/TWiT TikTok: https://www.tiktok.com/@twittok LinkedIn: https://www.linkedin.com/company/twit-llc About us: TWiT.tv is a technology podcasting network located in the San Francisco Bay Area with the #1 ranked technology podcast This Week in Tech hosted by Leo Laporte. Every week we produce dozens of hours of content on a variety of programs including Tech News Weekly, MacBreak Weekly, Windows Weekly, Security Now, Intelligent Machines, and more.",
+      "link": "https://www.youtube.com/watch?v=WyA9RElZSmI",
+      "source": "Security Now (YouTube Playlist)",
+      "type": "podcasts",
+      "type_label": "Podcasts & YouTube",
+      "published": "2026-04-01T02:46:09+00:00",
+      "published_ts": 1775011569,
+      "smart_groups": [
+        "Ransomware",
+        "Windows / Microsoft",
+        "Linux / Unix",
+        "Cloud / SaaS",
+        "Malware / Payloads"
       ],
       "curated": false
     },
@@ -114384,293 +114677,6 @@
       "smart_groups": [
         "Linux / Unix"
       ],
-      "curated": false
-    },
-    {
-      "title": "From framework to scale: Accelerating autonomous networks at MWC 26",
-      "summary": "Last year, we unveiled our Autonomous Network Operations framework \u2014 a blueprint for Communication Service Providers (CSPs) to move beyond siloed automation toward self-healing, \"zero-touch\" networks. Today, we\u2019re pivoting from networks that merely use AI for insights to intelligent agents capable of sensing, reasoning, and taking autonomous action. As we head into Mobile World Congress (MWC) Barcelona , we\u2019re demonstrating how this shift is becoming a reality. By embedding AI into the heart of operations, companies like Deutsche Telekom and Vodafone are reducing operational complexity and turning connectivity from a utility into a value-creating engine. Product innovation: The engine of the agentic telco A key goal of the industry is to achieve Level 4 to 5 autonomy : a network that identifies, diagnoses, and fixes its own problems without human intervention. To do this, the underlying data platform must be as dynamic as the network itself. Over the last year, we\u2019ve evolved our Cloud Spanner Graph and Vertex AI to handle the \"dual nature\" of telcos: the need for high-speed, real-time response for alarm correlation, combined with deep, historical pattern detection. Today, we\u2019re refining our platform to support these autonomous operations through: The network digital twin: The network digital twin has evolved from a static map into a dynamic, temporal graph that represents the network\u2019s live physical and logical state. It captures real-time performance and fault conditions while allowing agents to query historical states \u2014 such as the network\u2019s appearance five hours or days ago \u2014 to perform instant, accurate root-cause analysis. Unified graph data layer: We\u2019re breaking down the silos between operational and analytical data. By leveraging Spanner Graph for digital twins and federated graph analytics through BigQuery , telcos can interoperate between real-time updates and deep historical analysis without complex, slow ETL (Extract, Transform, Load) processes. Real-time predictions with GNN: Operators can now train Graph Neural Networks (GNNs) on their network digital twin data in Vertex AI. They can then use the trained GNN models, along with Spanner\u2019s ML.PREDICT capability and the real-time data in the network digital twin, to move from monitoring to predicting, mathematically tracking how a failure might propagate, and resolving it before it impacts subscribers. Solution updates: Accelerating time-to-value One of the biggest hurdles to achieving Level 4 to 5 autonomy is manual delays caused by disconnected legacy systems. We\u2019re launching new tools to replace bottlenecks with a unified, automated system: Open-source data foundation: To accelerate adoption, we\u2019re releasing our telco data pipeline and data models source code on GitHub. CSPs can now implement unified industry-standard ontologies without manual schema mapping. New telco agents: In partnership with FutureConnections , we\u2019re launching two new proof-of-value agents: Data steward agent: An agentic workflow that automates data governance to ensure digital twins remain accurate. Autonomous network agents: Currently being trialed by One NZ , these agents manage voice core and OSS networks, moving beyond monitoring to active execution \u2014 like independently rerouting traffic or resetting network settings to restore call quality the moment a drop is detected. Ecosystem momentum: Innovation in action True autonomy requires a vibrant ecosystem. This year, we\u2019re highlighting several key milestones:. MasOrange & NetAI: We\u2019re working with NetAI to deliver GraphML-based AIOps. Together, we\u2019ve launched a pilot project with MasOrange that demonstrates how specialized partner models can run on Google Cloud\u2019s AI stack to resolve network incidents while providing the confidence for autonomous action. Nokia \"Network as Code\": We\u2019re partnering with Nokia to make networks fully programmable by turning complex technical code into AI agents that understand everyday language. This allows telcos to simply ask the network to perform complex tasks \u2014 like prioritizing network resources for critical services like emergency response or remote healthcare \u2014 without needing any manual engineering. Looking ahead The agentic AI era is here. By embedding AI into the fabric of a telco\u2019s network, we\u2019re helping operators transform from connectivity utilities into intelligent service providers that continue to delight customers. Join us at MWC: Visit booth #2H40 in Hall 2 to see these solutions in action, including live demonstrations of multi-agent systems, digital twins, and physical AI robots. You can also dive deeper into our approach by downloading our latest whitepaper .",
-      "link": "https://cloud.google.com/blog/topics/telecommunications/autonomous-networks-at-mwc-2026/",
-      "source": "Google Cloud Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-02T08:05:00+00:00",
-      "published_ts": 1772438700,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Network / OT / ICS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "A week in security (February 23 &#8211; March 1)",
-      "summary": "A list of topics we covered in the week of February 23 to March 1 of 2026",
-      "link": "https://www.malwarebytes.com/blog/news/2026/03/a-week-in-security-february-23-march-1",
-      "source": "Malwarebytes Labs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-02T08:01:00+00:00",
-      "published_ts": 1772438460,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "From Core to Edge: Building Secure, Always-On Infrastructure for Global Mobile Networks",
-      "summary": "Telecom networks face major security risks; Cisco is strengthening infrastructure to make secure operations the default, not the exception.",
-      "link": "https://blogs.cisco.com/security/from-core-to-edge-building-secure-always-on-infrastructure-for-global-mobile-networks/",
-      "source": "Cisco Security Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-02T08:00:38+00:00",
-      "published_ts": 1772438438,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Weekly Update 493",
-      "summary": "The Odido breach leaks were towards the beginning during this week's update. I recorded it the day after the second dump of data had hit, with a third dump coming a few hours later, and a final dump of everything the day after that. From what I hear,",
-      "link": "https://www.troyhunt.com/weekly-update-493/",
-      "source": "Troy Hunt",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-02T07:51:14+00:00",
-      "published_ts": 1772437874,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Pixel Perfect Extension Abuse Enables Covert Script Injection and Security Header Removal",
-      "summary": "A browser extension that once earned a Featured badge from Google quietly turned into a remote code execution tool after its ownership changed hands, exposing thousands of users to covert script injection and full browser security header stripping. The campaign, centered on a legitimate-looking Google Lens wrapper called QuickLens, highlights how even a well-reviewed, functional [\u2026] The post Pixel Perfect Extension Abuse Enables Covert Script Injection and Security Header Removal appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/pixel-perfect-extension-abuse-enables-covert-script-injection/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-02T07:48:51+00:00",
-      "published_ts": 1772437731,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "US Military Reportedly Used Claude in Iran Strikes Despite Trump\u2019s Ban",
-      "summary": "The U.S. Department of Defense deployed Anthropic\u2019s Claude AI during Operation Epic Fury, a joint offensive with Israel against Iran on February 28, just hours after President Trump designated Anthropic as a national security \u201csupply chain risk\u201d and ordered all federal agencies to cease use of its AI systems. On February 28, 2026, American and [\u2026] The post US Military Reportedly Used Claude in Iran Strikes Despite Trump\u2019s Ban appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/us-military-reportedly-used-claude/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-02T07:37:57+00:00",
-      "published_ts": 1772437077,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "What's the most painful thing you did last month related to security/compliance?",
-      "summary": "im a startup founder and looking to create something really usefull for Cybersecurity i want to listen to you guys and find out whats the real painful problems you could pay to get in solved. Im Balakumaran D founder of CYBERCOM CTF could really help some real feedback here. submitted by /u/TrackEquivalent5210 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rimh0c/whats_the_most_painful_thing_you_did_last_month/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-02T07:30:41+00:00",
-      "published_ts": 1772436641,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Lovora - 495,556 breached accounts",
-      "summary": "In February 2026, the couples and relationship app Lovora allegedly suffered a data breach that exposed 496k unique email addresses. The data also included users\u2019 display names and profile photos, along with other personal information collected through use of the app. The app\u2019s maker, Plantake, did not respond to multiple attempts to contact them about the incident.",
-      "link": "https://haveibeenpwned.com/Breach/Lovora",
-      "source": "Have I Been Pwned \u2013 Latest Breaches",
-      "type": "leaks",
-      "type_label": "Leaks & Breaches",
-      "published": "2026-03-02T07:23:06+00:00",
-      "published_ts": 1772436186,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Middle East AWS Outage Sends Shockwaves Through Cloud Infrastructure Service",
-      "summary": "A severe infrastructure incident in the Middle East has triggered a massive Amazon Web Services (AWS) outage, disrupting critical cloud operations across the region. The event, which aggressively impacted the ME-CENTRAL-1 (United Arab Emirates) and ME-SOUTH-1 (Bahrain) regions, left countless organizations unable to access essential compute, networking, and storage resources. Physical Damage Sparks Data Center [\u2026] The post Middle East AWS Outage Sends Shockwaves Through Cloud Infrastructure Service appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/middle-east-aws-outage/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-02T07:10:35+00:00",
-      "published_ts": 1772435435,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Demystifying the Client Repeatable Feature in Edge",
-      "summary": "Autofill behavior in modern browsers can sometimes feel confusing\u2014especially when suggestions suddenly stop appearing even though data is still being entered correctly. In Microsoft Edge, this behavior is often caused by a feature called the Client Repeatable Feature . This article explains how Autofill works in Edge, how Frequently Saved Data (FSD) and Parsable Name are used, why Autofill suggestions get blocked, and how this behavior differs from other Chromium-based browsers like Google Chrome. How Autofill Works in Edge At a basic level, Microsoft Edge stores and reuses form data based on the name of a form field. More precisely, it uses a value called the Parsable Name . If two input fields share the same Parsable Name , Edge assumes they represent the same type of data and will show the same Autofill suggestions for both fields. For example, if a field called EmailAddress exists in two different forms, Edge will show the same Autofill values in both\u2014even if those forms are completely unrelated. This behavior is part of the Frequently Saved Data (FSD) feature. Frequently Saved Data (FSD) and Chromium The Frequently Saved Data (FSD) feature originates from the Chromium project and is used by Microsoft Edge. Because of this, this part of Autofill behavior should be identical to other Chromium-based browsers, such as Google Chrome. An important detail is that FSD works across domains. It is not limited to a specific website or URL. This means that a field with the Parsable Name EmailAddress on www.contoso.com/someform will show the same Autofill suggestions as a field with the same Parsable Name on www.microsoft.com/someotherform. FSD only cares about the Parsable Name , not the website, URL, or form structure. What Is the Client Repeatable Feature? The Client Repeatable Feature is a Microsoft Edge\u2013specific feature. It does not originate from the Chromium project. Because of this, its behavior may differ from what you see in Google Chrome or other Chromium-based browsers. This feature is designed to reduce noisy or repetitive Autofill suggestions. It does this by monitoring how many different values are entered into a field within the same form. When and Why Autofill Gets Blocked If five different values are entered consecutively into the same field within the same form, the Client Repeatable Feature becomes active. When this happens: Autofill suggestions are blocked No suggestion popup is shown New values are still saved internally The key point is that this blocking is form-specific . Edge identifies a form using a hash value called Form SignatureV2 . The Autofill block applies only to the form with that specific Form SignatureV2 . If another form exists with: a different Form SignatureV2 but the same Parsable Name Autofill suggestions will still appear in that other form\u2014until the same five-value rule is triggered there as well. How to Unblock Autofill Suggestions Blocking caused by the Client Repeatable Feature is not permanent. To remove the block, one of the five previously entered values that were stored as Frequently Saved Data (FSD) must be typed again in full. Partial input is not enough. Typing only part of a previously used value will not lift the block. Once a complete previously saved value is entered: Autofill suggestions become visible again All values that were saved during the blocked phase will also appear However, unblocking only resets an internal counter. If five new, different values are entered consecutively again, the block will be reactivated. Clearing Autofill Data via Edge Settings In addition to unblocking Autofill by re-entering a previously saved value, all Autofill suggestions can also be removed manually via the Edge settings . Autofill data can be cleared under: edge://settings/privacy/clearBrowsingData In the Delete browsing data dialog: Set Time range to All time Enable Autofill form data (includes forms and cards) Click Clear now This removes all saved Autofill entries, including data affected by the Client Repeatable Feature . Debugging Autofill Behavior in Edge Microsoft Edge provides a useful debugging option to better understand Autofill behavior. By enabling Show Autofill Predictions under edge://flags you can inspect Autofill metadata directly. After enabling the flag, hovering over a form field will display values such as: Parsable Name Form SignatureV2 This makes it much easier to understand why Autofill suggestions appear\u2014or why they don\u2019t. For hands-on testing, Autofill behavior can also be explored on the Autofill Smoke Test page: https://rsolomakhin.github.io/autofill/ Inspecting Autofill Data on Disk (Advanced) Autofill data in Microsoft Edge is stored locally on disk in a SQLite database file named Web Data . The file can be found at: C:\\Users\\ \\AppData\\Local\\Microsoft\\Edge\\User Data\\ \\Web Data Key details: The file uses SQLite format It contains Autofill-related tables and metadata It can be inspected using common SQLite viewers such as DB Browser for SQLite https://sqlitebrowser.org/dl/ This is useful for advanced debugging scenarios, for example when validating which values are stored internally or confirming that data is still saved even when Autofill suggestions are temporarily blocked. The Last Used Feature For completeness, Edge also includes the Last Used Feature . This feature does not affect the blocking behavior described above and is mentioned here for informational purposes only. Last Used uses information from the entire form\u2014not just the field name\u2014to determine which value was entered most recently. Differences in labels or surrounding text can be enough to distinguish forms. To do this, the feature also relies on Form SignatureV2 . Final Thoughts Understanding the difference between Parsable Name , Frequently Saved Data (FSD) , and the Client Repeatable Feature helps explain many Autofill behaviors that might otherwise look like bugs. In short: FSD is Chromium-based and works across domains Client Repeatable Feature is Edge-specific and form-scoped Autofill blocking is temporary and counter-based Once these concepts are clear, Autofill behavior in Edge becomes far more predictable\u2014and much easier to debug.",
-      "link": "https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/demystifying-the-client-repeatable-feature-in-edge/ba-p/4498346",
-      "source": "Core Infrastructure and Security Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-02T07:09:40+00:00",
-      "published_ts": 1772435380,
-      "smart_groups": [
-        "Web / API Security"
-      ],
-      "curated": false
-    },
-    {
-      "title": "CISA Alerts on RESURGE Malware Exploiting Ivanti Connect Secure Zero-Days",
-      "summary": "The Cybersecurity and Infrastructure Security Agency (CISA) has released a Malware Analysis Report (MAR) detailing a new malware family dubbed RESURGE, which is actively exploiting a zero-day vulnerability in Ivanti Connect Secure devices. According to CISA, RESURGE builds upon the functionality of the earlier SPAWNCHIMERA malware strain, introducing new commands designed to enhance persistence and [\u2026] The post CISA Alerts on RESURGE Malware Exploiting Ivanti Connect Secure Zero-Days appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/ivanti-connect-secure/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-02T07:03:50+00:00",
-      "published_ts": 1772435030,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Data breach reported for Pyramid Advisors Limited Partnership d/b/a Pyramid Global Hospitality | UpGuard",
-      "summary": "A data breach involving Pyramid Global Hospitality was reported in February 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.comnews/pyramid-global-hospitality-data-breach-2026-03-01",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-02T07:01:35+00:00",
-      "published_ts": 1772434895,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "How Qualcomm's new wearables chipset could spell the end of smartphone dominance",
-      "summary": "The new Snapdragon Wear Elite chip could make a big impact on the future of personal computing, from glasses to watches.",
-      "link": "https://www.zdnet.com/article/qualcomm-snapdragon-wear-elite-chip-samsung-google-ai-mwc-2026/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-02T07:00:38+00:00",
-      "published_ts": 1772434838,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Your dependencies are 278 days out of date and your pipelines aren\u2019t protected",
-      "summary": "Applications continue to ship with known weaknesses even as development workflows speed up. A new Datadog State of DevSecOps 2026 report examines how dependency management and pipeline practices are influencing exposure across cloud native environments. Across the environments studied, 87% of organizations run at least one exploitable vulnerability in production services, affecting 40% of those services. This condition points to a persistent accumulation of security debt inside deployed software stacks. Dependency lag continues to grow \u2026 More \u2192 The post Your dependencies are 278 days out of date and your pipelines aren\u2019t protected appeared first on Help Net Security .",
-      "link": "https://www.helpnetsecurity.com/2026/03/02/devsecops-supply-chain-risk-security-debt/",
-      "source": "Help Net Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-02T07:00:06+00:00",
-      "published_ts": 1772434806,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "How CISOs can build a resilient workforce",
-      "summary": "With ongoing skills gaps, AI reshaping roles and workforce stress as standing concerns for many CISOs, ensuring the resilience of the workforce has become top of mind. But due to budget constraints, return to office mandates and teams struggling to keep up with the threat landscape, CISOs are faced with a real challenge. Stephen Ford , VP and CISO at Rockwell Automation, knows what many CISOs face: it\u2019s often difficult to find the properly skilled resources to deliver a strong cybersecurity program and capabilities. \u201cSo, workforce sustainability is an important consideration,\u201d says Ford. Workforce resilience requires data-backed planning, managing the skills mix, and looking after the team as another element of risk management. How CISOs are approaching workforce planning Because the nature of cybersecurity work is unpredictable, Ford actively monitors his team to have a sense of how they\u2019re managing. \u201cThere\u2019s a fair amount of project work, but there\u2019s also a lot of work that\u2019s a reaction to events and depending on how many events or issues we run into, we could easily overwhelm the team,\u201d he says. This concern is well founded, with the 2025 ISC2 Cybersecurity Workforce Study finding 47% of participants report feeling overwhelmed with the workload they\u2019re expected to bear. Jon France, ISC2 CISO, agrees that workforce sustainability \u2014 managing stress, burnout and workload \u2014 is a standing concern, not a side issue. \u201cLooking after the team and leveraging the team without killing them is on our agenda too,\u201d says France. Ford has developed strategies to not only recruit talent but maintain their interests and get them through the ebbs and flows of daily life in cybersecurity. \u201cI put a focus around monitoring the workforce and trying to get a good sense of the workloads that are coming in.\u201d Having a team that\u2019s properly staffed is important and this is where data is helpful to gauge the workload and make the argument to support resourcing. \u201cIt can sometimes be a little difficult to get your arms around it, but the right processes and ability to measure work help to calculate the expected workload and determine an acceptable resource level to support that workload,\u201d Ford says. The challenge of quantifying workload and justifying resourcing decisions is commonplace. Only 55% of respondents believe their organizations have the resources needed to adequately address security incidents over the next two to three years, according to the ISC2 study. Burnout leads to job dissatisfaction Burnout is an ongoing concern for many CISOs and their teams, especially when unpredictable events can trigger workload spikes, burnout can escalate fast. \u201cIt\u2019s something that can overwhelm pretty quickly,\u201d Ford says. Industry surveys continue to flash red on persistent burnout that leads to job dissatisfaction. The ISC2 study found almost half of respondents (48%) saying they felt exhausted trying to keep on top of the latest threats and emerging technology. Ford approaches it as both a leadership and an operating-model issue, keeping in touch with workloads in the team and having a sustainable pipeline of talent to avoid overwhelming them with attrition. \u201cI try to hire good people, empower them to operate, and delegate as much as I can.\u201d While it\u2019s hard to eliminate these issues entirely, using data to inform staffing levels, aiming to balance workloads as much as possible, and paying attention to the culture that surrounds the team are some of Ford\u2019s strategies. \u201cWe spend time building good teams and we need to spend time to understand the challenges, the workload, and how they feel about the work.\u201d AI as a force multiplier, not a headcount strategy Tooling and technology have always reshaped roles, and it\u2019s no different with AI. This time, it\u2019s the scale and speed of adoption, the fear, uncertainty and doubt about what it means for entry-level roles. More than two-thirds (69%) of respondents are on a path towards regular AI use, ISC2 indicates, which includes evaluating, testing and incorporating these tools into their operations. At software vendor Kantata, there\u2019s a shift towards an AI-augmented workforce model that prioritizes automating high-volume tasks and integrating AI co-pilots to act as a force multiplier for team members. This includes high-friction areas like TPRM, security assessments such as RFP/RFI responses, and threat monitoring to significantly reduce operational noise. \u201cBy automating the first pass of data ingestion and alert triaging, our teams can focus on high-fidelity incidents and strategic decision-making rather than repetitive manual tasks,\u201d says Taison Kearney , Kantata\u2019s CISO and DPO. To ensure this doesn\u2019t simply increase the workload, they reinvest the time saved into formalized upskilling, ensuring efficiency gains support team longevity and professional growth. Kearney believes that automation combined with upskilling helps reduce burnout and allows internal expertise to adapt to the threat landscape. \u201cIt secures our long-term sustainability by preserving institutional knowledge and providing our talent with a clear, high-growth career path.\u201d France sees AI changing entry-level work but not erasing it. Citing the example of SOC analysts , he says it\u2019s not going to replace the human in the loop. \u201cBut it\u2019ll get them to a decision quicker, or at least get them to a more accurate picture of what\u2019s going on.\u201d He acknowledges fears about losing foundational experiences, but he believes we\u2019ve been through this with other technical revolutions. \u201cI think it\u2019ll change some roles, but ultimately will not replace them. Coupled with that, it\u2019s an efficiency gain,\u201d France says. Kearney thinks AI is compressing the career ladder by automation of repetitive Tier 1 tasks that traditionally served as an entry-level apprenticeship. Consequently, junior roles are shifting from manual triage towards more complex problem solving \u2014 to the benefit of both employees and organizations. \u201cThis forces new hires to possess architectural and strategic skills much earlier in their career, ultimately potentially driving a higher reliance on AI capabilities for these individuals to be successful,\u201d Kearney says. Staff have dedicated time for training, and the goal is for the team to develop the deep architectural knowledge with \u2018human-in-the-loop\u2019 expertise that\u2019s increasingly required for complex defense. \u201cThis approach transforms the \u2018urge to learn\u2019 into a clear career pathway that values institutional knowledge and continuous professional evolution,\u201d Kearney says. Building the cyber team amid a skill shortage Managing workload is a day-to-day concern but alongside this challenge is the task of building the right cyber team \u2014 using recruitment and developing existing staff. Yet it\u2019s by no means a simple task, almost two-thirds of respondents in the ISC2 survey identified critical or significant skills shortages within their teams, underscoring that the challenge is both staffing and capability. Ford agrees it\u2019s difficult to find top-tier talent across all the different cybersecurity disciplines, especially for a large organization like Rockwell. His strategy entails bringing in a key expert or two in different disciplines with years of experience and adding more junior, early career people. \u201cPairing them with seasoned experts allows you to build an effective, sustainable team over time, and I\u2019ve seen that work extremely well for organizations with early career programs.\u201d He also looks for experts from adjacent disciplines such as infrastructure, the data center space or application development keen to break into cyber. \u201cI\u2019m not recruiting for everyone. I\u2019m recruiting for a few top experts and then building a pipeline either through early career or other similar activities from a technology space to get an effective cyber team,\u201d he says. Rockwell has college intern and early career programs and strong relationships with local universities to bring in early talent and make them part of its projects with hopes of retaining some for full-time employment. The early career people don\u2019t always fully grasp the different disciplines and activities that one can do in cybersecurity and Ford says they focus on helping them learn and gain an interest in cyber. \u201cYou end up with somebody that\u2019s committed through time and a very strong employee and you can start looking at building the pipeline for senior level positions.\u201d Where other organizations may look to fill gaps with external providers like managed service providers, Ford said Rockwell would rather cultivate the talent and expertise in-house. He finds it helps develop staff with an understanding of the critical knowledge about the organization and its operations \u2014 rather than see this valuable \u201cthought leadership\u201d sit outside the building. In some cases, early careers professionals are able to solve complex problems based on them being closer to new technology. \u201cSome of the younger generations are actually more wired and suited to leverage some of the new technologies like AI, whereas some of the older, more seasoned professionals may be more of a traditionalist,\u201d Ford tells CSO. Hiring managers and cybersecurity professionals are closely aligned, with the study showing problem solving, collaboration, communications, willingness to learn, and strategic thinking are the top non-technical skills across both groups. France widens what \u201cgood security talent\u201d looks like, emphasizing communication skills, critical thinking, and curiosity in addition to core technical skills. Approaching it this way there is a broader talent pool to draw from. \u201cYou don\u2019t have to come from a technical background, you can come from adjacent industries and bring those experiences in.\u201d How CISOs can manage workforce planning 1. Bake in human sustainability Treat stress and burnout like any other risk indicator. Design rotations, on\u2011call policies, and staffing to manage workloads. 2. Use AI to redesign roles, not erase them For entry\u2011level roles shift tasks from: \u2013 Manual sifting \u2192 AI\u2011assisted triage and investigation. \u2013 Pure grunt work \u2192 judgment, escalation, and interpretation. Maintain human in the loop in job descriptions and process design. 3. Protect foundational learning in an automated environment Plan structured skills pathways: simulations, labs, red/blue exercises so juniors still learn what AI automates away. Pair juniors with senior analysts to upskill and explain why the tooling is making decisions. 4. Plan skills mix, not just headcount Intentionally recruit for communication, critical thinking, curiosity, not just technical certifications. Map your team to both technical depth and business\u2011risk communication needs. 5. Treat culture as part of resilience Delegate, manage staffing pipeline, and pay attention to team workload and culture. Encourage leaders to plug into peer networks for both intel sharing and emotional support, recognizing that CISO burnout is a systemic risk.",
-      "link": "https://www.csoonline.com/article/4136307/how-cisos-can-build-a-resilient-workforce.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-02T07:00:00+00:00",
-      "published_ts": 1772434800,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Web / API Security"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Security debt is becoming a governance issue for CISOs",
-      "summary": "Application security backlogs keep expanding across large development portfolios. Veracode\u2019s 2026 State of Software Security Report puts numbers behind a familiar operational pattern, fixes lag discovery, and older weaknesses stay open across release cycles. 2026 findings against the 2025 baseline (Source: Veracode) The analysis spans 1.6 million unique applications that underwent static analysis, dynamic analysis, software composition analysis, and manual penetration testing through Veracode\u2019s platform. The scope covers commercial software suppliers, outsourcers, and open source \u2026 More \u2192 The post Security debt is becoming a governance issue for CISOs appeared first on Help Net Security .",
-      "link": "https://www.helpnetsecurity.com/2026/03/02/ciso-security-debt-report/",
-      "source": "Help Net Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-02T06:30:59+00:00",
-      "published_ts": 1772433059,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Hacked Prayer App Used as Cyber Weapon During US-Israel Strikes on Iran",
-      "summary": "As Israeli and US forces launched joint preemptive airstrikes on Tehran, a sophisticated cyber-psychological operation unfolded simultaneously. According to a report by Wired Middle East, millions of Iranian citizens and military personnel were jolted awake not only by explosions but also by unauthorized push notifications from a compromised mobile application. The incident signaled a new [\u2026] The post Hacked Prayer App Used as Cyber Weapon During US-Israel Strikes on Iran appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/hacked-prayer-app/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-02T06:27:42+00:00",
-      "published_ts": 1772432862,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Data breach reported for Madison Square Garden Entertainment Due to Oracle EBS Breach | UpGuard",
-      "summary": "A data breach involving MSG Entertainment was reported in February 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.comnews/msg-entertainment-data-breach-2026-03-01",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-02T06:24:02+00:00",
-      "published_ts": 1772432642,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "One Click to Compromise-Inside a Phishing Attack",
-      "summary": "What really happens when you click a phishing link? In this video, I demonstrate how a single malicious email can deploy malware, create a reverse shell, and give an attacker full remote access to your system. I\u2019ll also show how attackers use persistence techniques to stay connected\u2014even after you think the threat is gone. submitted by /u/Leading_Classroom638 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rilc6h/one_click_to_compromiseinside_a_phishing_attack/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-02T06:23:34+00:00",
-      "published_ts": 1772432614,
-      "smart_groups": [
-        "Malware / Payloads",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Bitcoin to see tailwinds if AI prompts \u2018easier monetary policy\u2019: NYDIG",
-      "summary": "NYDIG\u2019s Greg Cipolaro says AI could be a \u201cgeneral-purpose technology,\u201d and its effects on the economy could be a boon for Bitcoin.",
-      "link": "https://cointelegraph.com/news/bitcoin-tailwinds-ai-prompts-easier-monetary-policy-nydig?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-03-02T06:22:00+00:00",
-      "published_ts": 1772432520,
-      "smart_groups": [],
       "curated": false
     },
     {
