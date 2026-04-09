@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-04-09T22:57:48.444682+00:00",
+  "generated_at": "2026-04-09T23:58:11.984705+00:00",
   "days_back": 30,
-  "total_items": 8041,
+  "total_items": 8043,
   "items": [
     {
       "title": "Black Hat USA",
@@ -12,6 +12,53 @@
       "type_label": "General Security & Blogs",
       "published": "2026-08-01T11:00:00+00:00",
       "published_ts": 1785582000,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "The \"Invisible Middleman\" problem in AI Agent delegation: Why current IETF frameworks (WIMSE/AIP) aren't enough.",
+      "summary": "Most current AI agent architectures rely on a User \u2192 Operator \u2192 Agent flow. We\u2019re spending all our time securing the service-to-agent connection, but we\u2019ve left a massive User-to-Operator trust gap wide open. Right now, the \"Operator\" (the LLM platform or agent host) is a trusted third party with total authority to interpret, expand, or omit user instructions before they reach the execution layer. For any organization with strict compliance requirements (HIPAA, PCI-DSS), this is a \"blind spot\" in the audit trail. The Fix: Hardware-Backed Delegation Receipts I\u2019ve been working on AuthProof.dev, an open-source SDK designed to eliminate the need to trust the operator. It moves the authorization boundary from the server to the user's hardware. How it addresses the \"TTP\" (Trusted Third Party) problem: \u2022 WebAuthn/FIDO2 Anchoring: The user signs a Delegation Receipt using their device\u2019s secure enclave before the operator receives the instruction. The private key never leaves the hardware. \u2022 Static Capability Scoping: Instead of natural language \"permissions,\" it uses an explicit allowlist of resource hashes and Safescript capability signatures. If the agent tries to pivot or escalate privileges, the execution fails the cryptographic check. \u2022 Taint-Analysis Action Logs: It produces a tamper-evident chain of every ingestion and egress event. You don\u2019t have to \"ask\" the operator for logs; you have a signed, client-side proof of exactly what the agent did. Why I\u2019m posting here: I\u2019ve got 573 tests passing and a working implementation of the Batch Receipt logic (ordered hash chains for high-frequency agents), but I want to get this in front of folks who do threat modeling for a living. Is \"cryptographic proof of intent\" the only way to safely deploy autonomous agents in regulated environments, or are we going to keep relying on \"monitoring and observability\" to catch rogue agents after the fact? Links: \u2022 Project: AuthProof.dev \u2022 Repo: github.com/Commonguy25/authproof-sdk \u2022 Spec: WHITEPAPER.md submitted by /u/Yeahbudz_ [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1sh5qnq/the_invisible_middleman_problem_in_ai_agent/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-04-09T23:21:43+00:00",
+      "published_ts": 1775776903,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Hackers have been exploiting an unpatched Adobe Reader vulnerability for months",
+      "summary": "Adobe Reader vulnerabilities have been exploited for decades by threat actors taking advantage of the universal use of the utility to fool employees into downloading infected PDF documents through phishing lures. Now a security researcher says a Reader hole has been quietly exploited by malware for as long as four months, fingerprinting computers to gather information that will allow attackers to steal data and perform further malicious activities. In a blog this week , Haifei Li said that EXPMON, the publicly-available exploit monitor he runs that scans samples to detect file-based zero-day exploits, had found an initial exploit that abuses the vulnerability in a Reader API. JavaScript code in the malware that automatically executes when the infected PDF is opened reads files on the compromised computer, collecting information including language settings, the Adobe Reader version number, the exact OS version, and the local path of the PDF file. It then sends the data to a remote server. This information will be useful to a threat actor planning on launching future attacks, including the installation of remote access tools, Li noted. Li said in his April 7 report that he tested the malware on what was at the time the latest version of Adobe Reader (26.00121367), and it still worked. In an update the next day, Li added that a variant dating back to last November had been found by another researcher, which suggests the malware had been in use at least since then. Adobe was asked for comment on the report, but no reply was received by deadline. It\u2019s not the first time Adobe Reader has been targeted. Vulnerabilities relating to it date back at least to 2007 , when a hole was found in a browser plug-in. Fake Reader updates are another threat actor favorite. User-after-free memory vulnerabilities are also common; researchers at Zeropath last year described one of them , CVE-2025-54257. Traditional tactics In addition to applying patches as soon as they are available, infosec leaders need to ensure employees receive regular security awareness training that includes warnings about opening unexpected PDFs, even those seemingly from trusted sources such as co-workers or managers. Threat actors traditionally use a variety of tactics to trick an employee into opening an email attachment, including using subject lines like \u201cUrgent,\u201d and \u201cInfo on bonus.\u201d The attachment itself may be given a name that conveys importance; in this case, the November variant carried the file name \u201cInvoice504.pdf.\u201d According to a report on this new malware filed with malware scanning site VirusTotal , to which anyone can upload suspicious files for scrutiny, the recipient is to open the attachment specifically with Adobe Acrobat Reader. A high risk exploit Kellman Meghu , chief technology officer at Canadian incident response firm DeepCove Security, called the exploit \u201ca very high risk.\u201d So far it looks as though this particular malware just exfiltrates data, he said. But it implies there is an ability or capability to turn it into a vehicle for remote code execution. \u201cIt is a zero click [vulnerability],\u201d Meghu added, \u201cmeaning just viewing in a browser or email is likely enough to trigger it.\u201d CSOs should meet this threat by disabling Acrobat JavaScript, either by default or until there is a patch, he said. \u201cBut to be honest,\u201d he added, \u201cI think JavaScript execution is generally a bad idea in Adobe Reader,\u201d so it should be disabled. Johannes Ullrich , dean of research at the SANS Institute, noted Adobe Acrobat and Reader have often been the targets of sophisticated exploits. These frequently take advantage of features like JavaScript, or leverage the ability to include, or nest, various document types inside a PDF. Many malware filters will detect and flag these types of documents as malicious, he said. \u201cCSOs should ensure that web proxies and email gateways have filters enabled to not allow PDFs that are not fully standards compliant, and to eliminate PDFs taking advance of known problematic features like JavaScript,\u201d he said. \u201cAny attachment like this should also prominently note that it was received from a source outside the organization.\u201d \u201cSadly,\u201d he added, \u201cPDFs are still very common, and can not be completely eliminated.\u201d Adam Marr\u00e8 , CISO at Arctic Wolf, said that what makes this new vulnerability particularly concerning is that it\u2019s being actively exploited and appears to work even on fully patched systems. That immediately raises the risk profile. \u201cEven without full visibility into the entire attack chain, the fact that initial access can be gained through something as routine as opening a PDF means organizations should treat this as a real and present security event,\u201d he said. \u201cFrom there, the potential impact can range from limited data exposure to follow\u2011on activity if attackers are able to deliver additional payloads.\u201d This becomes a matter of managing risk in real time, he pointed out. \u201cWhen a trusted tool suddenly falls outside an organization\u2019s acceptable risk threshold, the priority shifts to reducing exposure and increasing visibility. That may mean reassessing where the software is truly necessary, tightening how untrusted content is handled, and ensuring monitoring is in place to quickly detect any abnormal behavior,\u201d he said. \u201cJust as important is what happens after containment,\u201d he added. \u201cIncidents like this are an opportunity to evaluate what controls held up, where gaps surfaced, and how to operationalize those lessons. Threats tied to everyday user behavior aren\u2019t going away, so resilience depends on learning quickly and adapting just as fast.\u201d",
+      "link": "https://www.csoonline.com/article/4156854/hackers-have-been-exploiting-an-unpatched-adobe-reader-vulnerability-for-months.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-09T23:00:10+00:00",
+      "published_ts": 1775775610,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Malware / Payloads",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Phishing / Social Engineering"
+      ],
+      "curated": true
+    },
+    {
+      "title": "The case for funding a strong, engaged CISA",
+      "summary": "The U.S. faces a Middle East war and accelerating AI threats, so now\u2019s the worst possible time to cut the agency\u2019s budget.",
+      "link": "https://www.scworld.com/perspective/the-case-for-funding-a-strong-engaged-cisa",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-09T22:53:10+00:00",
+      "published_ts": 1775775190,
       "smart_groups": [],
       "curated": false
     },
@@ -60,6 +107,24 @@
       "curated": false
     },
     {
+      "title": "A developer\u2019s guide to architecting reliable GPU infrastructure at scale",
+      "summary": "Editor\u2019s note : This blog post outlines Google Cloud\u2019s GPU AI/ML infrastructure reliability strategy, and will be updated with links to new community articles as they appear. As we enter the era of multi-trillion parameter models, computational power has transitioned from a utility to a mission-critical strategic asset. To meet relentless training demand, organizations are no longer just building clusters \u2014 they are engineering massive, integrated compute ecosystems comprising hundreds of thousands of high-performance accelerators that are interconnected with an ultra-high-bandwidth networking backplane. At this unprecedented scale, raw performance thrives when it is built upon a foundation of systemic resilience. In \"always-on\" mission-critical environments, the statistical probability of hardware variance becomes a primary constraint for reliability. When thousands of GPUs are operating at peak utilization for months at a time, a 0.01% performance fluctuation can trigger a systemic failure. The cost of training interruptions now measured in millions of dollars and weeks of lost progress, the industry's focus has shifted. The true frontier of training isn't just about the size of the cluster \u2014 it\u2019s about the resilient system architecture that is able to power the next generation of AI workloads. The core challenge for the industry goes beyond simple hardware fixes; it requires the creation of holistic software and infrastructure frameworks designed to withstand the inevitable disruptions of massive-scale computing. In an environment where AI/ML infrastructure represents a major capital expenditure on a company's balance sheet, partnering with a cloud provider that places a premium on infrastructure reliability is paramount. Operational realities of AI at scale The construction of a supercomputer utilizing hundreds of thousands of advanced GPUs involves significant operational complexity. Maintaining optimal utilization over several months to train a single large language Model (LLM) subjects the hardware to high levels of sustained performance that exceed the design parameters of conventional data center equipment. The advent of rackscale GPU architectures, such as the NVIDIA GB200 NVL72 and NVIDIA GB300 NVL72, has shifted the landscape. Considerations now extend beyond individual machines to encompass entire domains, impacting multiple interconnected trays with the potential to require coordinated management for AI/ML workloads to avoid disruptions. The business implications of infrastructure instability For organizations at the forefront of AI innovation, infrastructure reliability poses a significant commercial risk with substantial economic consequences. High cost of failure: A single failure in a massive training job requires restarting from the last checkpoint, wiping out days or even weeks of progress. When infrastructure spend is a big capex, every failure counts. Delayed time-to-market: In the fast-moving AI space, being first matters. Every day spent debugging hardware failures is a day delaying releasing new models while competitors are getting ahead. Reliability issues can directly slow down model iteration cycles, delaying product launches and feature updates. Operational complexities: Manually managing a large GPU cluster is a resource-intensive task. Companies come to the cloud to reduce the cost of managing the infrastructure. Without systemic reliability investments, operations teams can get overwhelmed by a constant stream of alerts, forced to play \"whack-a-mole\" to identify, isolate, and replace faulty nodes thus affecting their time spent on planning for the future capacity and model demands. Expensive workarounds to mitigate failure impact: To achieve a certain level of performance and Goodput , companies can end up needing to buy 10-20% more hardware than they actually need as a buffer. Quantitative assessment: Key reliability metrics Beyond traditional uptime measurements, the primary metrics Google Cloud uses to measure AI infrastructure health and stability are MTBI and Goodput. Mean Time Between Interruption (MTBI): The average time a system runs before encountering an interruption. Includes instance terminations as well as every customer workload interruption that our systems can observe (example GPU XIDs). Goodput: The amount of useful computational work completed per unit time. Google Cloud\u2019s methodology: Engineering systemic resilience The objective has shifted from expecting total hardware perfection to engineering systems that demonstrate inherent resilience. We understand that trust in our infrastructure begins with reliability. Our approach is based on four principles: Proactive prevention: We\u2019ve integrated hardware validation, real-time telemetry, and automated remediation throughout the infrastructure lifecycle. This systemic approach to shift from reactive troubleshooting to proactive management optimizes the reliability of mission-critical GPUs systems at scale. Continuous monitoring and intelligent detection: We have transformed raw data into actionable insights by synthesizing multi-layered telemetry through automated analysis, to proactively identify and resolve anomalies. This data-driven approach shifts our infrastructure from reactive maintenance to an intelligent, self-healing system that helps ensure continuous workload stability. Transparency and control: We empower users with full visibility and control over GPU infrastructure health. We provide a comprehensive suite of observability metrics and direct tools, allowing customers to correlate hardware status with their workload Goodput and report faults. Minimizing disruptions: Our control plane integrates smart scheduling with predictive health signals to enable improved workload migration via maintenance notifications. If unexpected issues arise, customers can enable automated remediations and fast recovery mechanisms to initiate rapid restoration of service. We have covered an in-depth journey into these principles in our technical deep-dive post linked below. We are launching a comprehensive technical deep dive series to explore Google\u2019s approach towards AI/ML infrastructure reliability for Google Cloud GPUs further. Check back here as we add links to learn about: Proactive prevention: Inside Google Cloud's multi-layered GPU qualification process Transparency and Control : Providing Operational Transparency and Management tools to Mitigate GPU Workload Impact (Coming Soon) Continuous monitoring and intelligent detection: Using ML to predict and prevent GPU downtime (coming soon) Minimizing disruptions: Smart scheduling and fast recovery systems for mission-critical GPU clusters (coming soon)",
+      "link": "https://cloud.google.com/blog/products/compute/a-guide-to-architecting-reliable-gpu-infrastructure/",
+      "source": "Google Cloud Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-04-09T22:00:00+00:00",
+      "published_ts": 1775772000,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
       "title": "'AI Should Advance Mankind, Not Destroy It': Why Florida Is Taking Aim at OpenAI",
       "summary": "The Florida attorney general's probe into AI giant OpenAI cites national security and child safety risks tied to ChatGPT.",
       "link": "https://decrypt.co/363880/ai-advance-mankind-not-destroy-why-florida-investigating-openai",
@@ -69,6 +134,34 @@
       "published": "2026-04-09T21:57:09+00:00",
       "published_ts": 1775771829,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Back to the beginning: A new model for secure SaaS access",
+      "summary": "Binding access to devices offers a practical way to secure modern cloud environments.",
+      "link": "https://www.scworld.com/resource/back-to-the-beginning-a-new-model-for-secure-saas-access",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-09T21:50:45+00:00",
+      "published_ts": 1775771445,
+      "smart_groups": [
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
+      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-04-09T21:46:57+00:00",
+      "published_ts": 1775771217,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
       "curated": false
     },
     {
@@ -585,6 +678,18 @@
       "type_label": "Crypto & Blockchain Security",
       "published": "2026-04-09T19:59:27+00:00",
       "published_ts": 1775764767,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Is cyber hiring too dependent on CVs and keyword matching?",
+      "summary": "Hey r/cybersecurity , Curious whether others feel the same way, but I think CVs are a pretty weak way to assess cybersecurity talent. In a field like this, practical capability matters far more than how well someone writes a CV or whether they happen to have the exact keyword matches an ATS is looking for. Yet a lot of hiring still seems built around that. I\u2019ve been exploring a model where cyber professionals are assessed through role-specific challenges instead, across areas like SOC, Red Team, GRC, and AppSec. What I\u2019m trying to work out is: Would practical challenge-based profiles be more useful than CVs? What types of assessments would actually feel credible? Would a ranking system help, or just gamify something that should stay nuanced? What would make something like this trustworthy from an employer or candidate perspective? I\u2019d really like to hear from people in the industry because I think cyber hiring is still pretty broken in a lot of places. Brutally honest views welcome. submitted by /u/buildwithbrett [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1sh0h8z/is_cyber_hiring_too_dependent_on_cvs_and_keyword/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-04-09T19:57:45+00:00",
+      "published_ts": 1775764665,
       "smart_groups": [],
       "curated": false
     },
@@ -1929,20 +2034,6 @@
       "published": "2026-04-09T14:18:00+00:00",
       "published_ts": 1775744280,
       "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Here\u2019s what happened in crypto today",
-      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-09T14:11:08+00:00",
-      "published_ts": 1775743868,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
       "curated": false
     },
     {
@@ -112089,69 +112180,6 @@
         "Cloud / SaaS"
       ],
       "curated": true
-    },
-    {
-      "title": "Microsoft Patch Tuesday security updates for March 2026 fixed 84 bugs",
-      "summary": "Microsoft Patch Tuesday security updates for March 2026 addressed 84 vulnerabilities in its products. None of the flaws are known to be exploited so far. Microsoft Patch Tuesday security updates for March 2026 addressed 84 vulnerabilities across its products. The IT giant addressed flaws across Windows, Office, Edge, Azure, SQL Server, Hyper-V, and ReFS. Including [\u2026]",
-      "link": "https://securityaffairs.com/189266/security/microsoft-patch-tuesday-security-updates-for-march-2026-fixed-84-bugs.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-10T23:29:18+00:00",
-      "published_ts": 1773185358,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Windows / Microsoft",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "PageJack in Action: CVE-2022-0995 exploit",
-      "summary": "PageJack is a Linux kernel exploitation technique useful to generate a Use After Free (UAF) in the page allocator. In this article we provide a detailed example of how to use it to exploit a Linux kernel vulnerability from 2022.",
-      "link": "http://blog.quarkslab.com/pagejack-in-action-cve-2022-0995-exploit.html",
-      "source": "https://blog.quarkslab.com/feeds/all.atom.xml",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-10T23:00:00+00:00",
-      "published_ts": 1773183600,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Linux / Unix"
-      ],
-      "curated": true
-    },
-    {
-      "title": "New \u2018BlackSanta\u2019 EDR killer spotted targeting HR departments",
-      "summary": "For more than a year, a Russian-speaking threat actor targeted human resource (HR) departments with malware that delivers a new EDR killer named BlackSanta. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/new-blacksanta-edr-killer-spotted-targeting-hr-departments/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-10T22:57:54+00:00",
-      "published_ts": 1773183474,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Amazon Wins Court Order Blocking Perplexity AI Shopping Agent",
-      "summary": "The order sides with Amazon\u2019s claim Perplexity accessed password-protected accounts without authorization despite users granting permission.",
-      "link": "https://decrypt.co/360629/amazon-perplexity-comet-court-order-agentic-commerce",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-03-10T22:39:44+00:00",
-      "published_ts": 1773182384,
-      "smart_groups": [],
-      "curated": false
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
