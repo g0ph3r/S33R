@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-04-15T16:31:28.787370+00:00",
+  "generated_at": "2026-04-15T20:34:05.909468+00:00",
   "days_back": 30,
-  "total_items": 8062,
+  "total_items": 8056,
   "items": [
     {
       "title": "Black Hat USA",
@@ -30,6 +30,623 @@
       "curated": false
     },
     {
+      "title": "Enforce Cost Limits on KQL Queries and Notebooks in the Microsoft Sentinel Data Lake",
+      "summary": "Security teams face a constant tension: run the advanced analytics you need to stay ahead of threats, or hold back to keep costs predictable. Until now, Microsoft Sentinel let you set alerts to get notified when data lake usage approached a threshold \u2014 useful for awareness, but not enough to prevent budget overruns. Today, we're excited to announce threshold enforcement for KQL queries and notebooks in the Microsoft Sentinel data lake . With this release, you can go beyond notifications and automatically block new queries and jobs when your configured usage limits are exceeded. Your analysts keep working confidently, and your budgets stay protected. What's new Previously, the Configure Policies experience in Microsoft Sentinel let you set threshold-based alerts for data lake usage. You'd receive an email notification when consumption approached a limit \u2014 but nothing stopped usage from continuing past that point. Now, you can enable enforcement on those same policies. When enforcement is turned on and a threshold is exceeded, Microsoft Sentinel blocks new queries, jobs, and notebook sessions with a clear \"Limit exceeded\" error. No more surprise cost spikes from runaway queries or analysts who mistakenly run heavy workloads against data lake data. Enforcement is supported for two data lake capability categories: Data Lake Query \u2014 interactive KQL queries and KQL jobs (scheduled and ad hoc) Advanced Data Insights \u2014 notebook runs and notebook jobs How it works Consistent controls across KQL queries and notebooks Cost controls are enforced consistently across Sentinel data lake workloads, regardless of how analysts access the data. The same policy applies whether someone is running a quick investigation or executing a long-running job. Controls apply to: Interactive KQL queries in the data lake explorer in the Defender portal KQL jobs, including scheduled and ad-hoc jobs Notebook queries run through the Microsoft Sentinel VS Code extension Notebook jobs running as background or scheduled workloads This ensures advanced analytics remain powerful \u2014 but predictable and governed. Clear enforcement without disruption Enforcement is applied at execution and validation boundaries \u2014 not retroactively. This means: Queries or jobs already running are not interrupted. In-flight work completes normally. New queries, jobs, or notebook sessions are blocked once limits are exceeded. Failures occur early (for example, during validation), avoiding wasted compute. From an analyst's perspective, enforcement is explicit and consistent. Clear messaging appears in query editors, job validation responses, and notebooks when limits are reached \u2014 so your team always understands what happened and what to do next. How to set it up Prerequisites To configure enforcement policies, ensure you have the necessary permissions that are outlined here: Manage and monitor costs for Microsoft Sentinel | Microsoft Learn . Where to access Navigate to Microsoft Sentinel > Cost management > Configure Policies in the Microsoft Defender portal ( https://security.microsoft.com ). Step-by-step configuration In Microsoft Sentinel > Cost management , select Configure Policies . Select the policy you want to edit (Data Lake Query or Advanced Data Insights). Enter the total threshold value for the policy. Enter an alert percentage to receive email notifications before the threshold is reached. Enable the Enforcement toggle to block usage after the threshold is exceeded. Review your settings and select Submit . Once enforcement is active, administrators receive advance notifications as usage approaches the threshold. If circumstances change \u2014 for example, during an active breach \u2014 you can adjust the threshold, disable enforcement temporarily, or modify the policy to give your SOC the room it needs to respond without being blocked. Real-world scenario: Preventing unexpected cost spikes Consider a large SOC that ingests roughly 6 TB of data per day, with 1 TB going to the Sentinel Analytics tier and the remaining 5 TB going to the Sentinel data lake. Analysts are proactively hunting for threats, performing investigations, and running automation. Tier 3 analysts are also running Jupyter Notebooks against the Sentinel data lake to build graphs, execute queries, and automate incident investigation and remediation with code. Last month, the SOC experienced a cost spike after a newly hired analyst ran large, frequent queries against data lake data \u2014 mistakenly thinking it was Analytics tier. The SOC manager needs to prevent this from happening again. With enforcement now available, the SOC manager can navigate to Microsoft Sentinel > Cost management > Configure Policies in the Defender portal and set up two policies: A Data Lake Query policy to cap data processing for KQL queries An Advanced Data Insights policy to cap notebook compute consumption With these policies in place, the SOC manager gets notified in advance when consumption approaches the threshold while having confidence that the thresholds set will be enforced to prevent unexpected consumption and cost. Analysts can continue their day-to-day work without worrying about accidental overages. Should a breach scenario demand more capacity, the SOC manager can quickly adjust or temporarily disable the policies \u2014 keeping the team unblocked while maintaining overall budget governance. Outside of a breach scenario, should the same SOC analyst generate large amounts of data scanned, the threshold will take action and prevent queries from being performed. Learn more With enforceable KQL and notebook guardrails, Microsoft Sentinel data lake helps security teams scale advanced analytics with confidence. You can control usage in production and keep investigations moving \u2014 without tradeoffs between visibility, analytics, and budget. To get started, visit the documentation: Manage and monitor costs for Microsoft Sentinel | Microsoft Learn We'd love to hear your feedback. Share your thoughts in the comments below or reach out through your usual Microsoft support channels.",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/enforce-cost-limits-on-kql-queries-and-notebooks-in-the/ba-p/4511329",
+      "source": "Microsoft Sentinel Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-04-15T20:26:56+00:00",
+      "published_ts": 1776284816,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "NIST to limit work on CVE entries as submissions surge",
+      "summary": "NIST said it will only add details and information to the records of vulnerabilities that meet a certain threshold \u2014 changing a longstanding mission to categorize every CVE, which stands for cybersecurity vulnerabilities and exposures.",
+      "link": "https://therecord.media/nist-to-limit-work-on-cve-entries-surge",
+      "source": "The Record",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T20:11:00+00:00",
+      "published_ts": 1776283860,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Teen arrested in Northern Ireland over cyberattack on school network",
+      "summary": "A 16-year-old boy has been arrested in Northern Ireland after a cyberattack disrupted access to educational systems used by potentially hundreds of thousands of students.",
+      "link": "https://therecord.media/northern-ireland-cyberattack-arrest",
+      "source": "The Record \u2013 Cybercrime",
+      "type": "cybercrime",
+      "type_label": "Cybercrime, Darknet & Leaks",
+      "published": "2026-04-15T19:45:00+00:00",
+      "published_ts": 1776282300,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Google Chrome security advisory (AV26-358)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/google-chrome-security-advisory-av26-358",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T19:39:20+00:00",
+      "published_ts": 1776281960,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Streamlined Mobile Workflows: Magnet One Case Stream for Verakey Early Access",
+      "summary": "In enterprise digital investigations, every minute matters. The ability to work quickly and efficiently can make all the difference in resolving issues and mitigating organizational impact. Organizations are leaning into processes and solutions that prioritize automation for a more streamlined, integrated workflow that enables collaboration across multiple teams and stakeholders. The post Streamlined Mobile Workflows: Magnet One Case Stream for Verakey Early Access appeared first on Magnet Forensics .",
+      "link": "https://www.magnetforensics.com/blog/streamlined-mobile-workflows-magnet-one-case-stream-for-verakey-early-access/",
+      "source": "Magnet Forensics",
+      "type": "dfir",
+      "type_label": "DFIR & Forensics",
+      "published": "2026-04-15T19:34:54+00:00",
+      "published_ts": 1776281694,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Navigating the Unique Security Risks of Asia's Digital Supply Chain",
+      "summary": "Regulatory differences, interconnected digital ecosystems, and the rise of AI have created a complex supply chain Asian organizations must wrangle.",
+      "link": "https://www.darkreading.com/cloud-security/navigating-unique-security-risks-asias-digital-supply-chain",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T19:30:47+00:00",
+      "published_ts": 1776281447,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Drupal core - Moderately critical - Cross-site scripting - SA-CORE-2026-003",
+      "summary": "Project: Drupal core Date: 2026-April-15 Security risk: Moderately critical 13 \u2215 25 AC:Basic/A:User/CI:Some/II:Some/E:Theoretical/TD:Default Vulnerability: Cross-site scripting Affected versions: >= 11.3.0 CVE IDs: CVE-2026-6367 Description: Drupal 11.3 comes with support for completing entity suggestions whilst adding a link to CKEditor 5. The suggestions aren't sufficiently sanitized and a malicious user could trigger a stored cross site scripting attack against another user. Solution: Install the latest version: If you use Drupal 11.3.x, update to Drupal 11.3.7 Drupal versions below 11.3 are not affected by this vulnerability Reported By: cantina_security Dries Buytaert (dries) Shirsendu Mondal Fixed By: Lee Rowlands (larowlan) of the Drupal Security Team Drew Webber (mcdruid) of the Drupal Security Team Mingsong (mingsong) , provisional member of the Drupal Security Team Coordinated By: Damien McKenna (damienmckenna) of the Drupal Security Team Greg Knaddison (greggles) of the Drupal Security Team Lee Rowlands (larowlan) of the Drupal Security Team Juraj Nemec (poker10) of the Drupal Security Team Jess (xjm) of the Drupal Security Team",
+      "link": "https://www.drupal.org/sa-core-2026-003",
+      "source": "Security advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T19:27:21+00:00",
+      "published_ts": 1776281241,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Web / API Security"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Drupal core - Moderately critical - Gadget Chain - SA-CORE-2026-002",
+      "summary": "Project: Drupal core Date: 2026-April-15 Security risk: Moderately critical 14 \u2215 25 AC:Complex/A:Admin/CI:All/II:All/E:Theoretical/TD:Uncommon Vulnerability: Gadget Chain Affected versions: >= 8.0.0 = 10.6.0 = 11.0.0 = 11.3.0 CVE IDs: CVE-2026-6366 Description: Drupal core contains a chain of methods that could be exploitable when an insecure deserialization vulnerability exists on the site. This so-called \"gadget chain\" presents no direct threat, but is a vector that can be used to achieve remote code execution or SQL injection if the application deserializes untrusted data due to another vulnerability. This issue is not directly exploitable. This issue is mitigated by the fact that in order for it to be exploitable, a separate vulnerability must be present to allow an attacker to pass unsafe input to unserialize() . There are no such known exploits in Drupal core. Solution: Install the latest version: If you use Drupal 10.5.x, update to Drupal 10.5.9 . If you use Drupal 10.6.x, update to Drupal 10.6.7 . If you use Drupal 11.2.x, update to Drupal 11.2.11 . If you use Drupal 11.3.x, update to Drupal 11.3.7 . Drupal 11.1.x, Drupal 11.0.x, Drupal 10.4.x, and below are end-of-life and do not receive security coverage. ( Drupal 8 and Drupal 9 have both reached end-of-life.) Reported By: Truong Le (hswww) menon t-chen Fixed By: Benji Fisher (benjifisher) of the Drupal Security Team cilefen (cilefen) of the Drupal Security Team Neil Drumm (drumm) of the Drupal Security Team Greg Knaddison (greggles) of the Drupal Security Team Lee Rowlands (larowlan) of the Drupal Security Team Dave Long (longwave) of the Drupal Security Team Drew Webber (mcdruid) of the Drupal Security Team Ra M\u00e4nd (ram4nd) , provisional member of the Drupal Security Team Jess (xjm) of the Drupal Security Team Coordinated By: Greg Knaddison (greggles) of the Drupal Security Team Lee Rowlands (larowlan) of the Drupal Security Team Dave Long (longwave) of the Drupal Security Team Drew Webber (mcdruid) of the Drupal Security Team Juraj Nemec (poker10) of the Drupal Security Team Jess (xjm) of the Drupal Security Team",
+      "link": "https://www.drupal.org/sa-core-2026-002",
+      "source": "Security advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T19:25:23+00:00",
+      "published_ts": 1776281123,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Web / API Security"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Drupal core - Critical - Cross-site scripting - SA-CORE-2026-001",
+      "summary": "Project: Drupal core Date: 2026-April-15 Security risk: Critical 15 \u2215 25 AC:Complex/A:None/CI:Some/II:Some/E:Theoretical/TD:All Vulnerability: Cross-site scripting Affected versions: >= 8.0.0 = 10.6.0 = 11.0.0 = 11.3.0 CVE IDs: CVE-2026-6365 Description: Drupal core's jQuery integration for AJAX modal dialog boxes does not sufficiently sanitize certain options, which which can lead to a cross-site scripting (XSS) vulnerability. Solution: Install the latest version: If you use Drupal 10.5.x, update to Drupal 10.5.9 . If you use Drupal 10.6.x, update to Drupal 10.6.7 . If you use Drupal 11.2.x, update to Drupal 11.2.11 . If you use Drupal 11.3.x, update to Drupal 11.3.7 . Drupal 11.1.x, Drupal 11.0.x, Drupal 10.4.x, and below are end-of-life and do not receive security coverage. ( Drupal 8 and Drupal 9 have both reached end-of-life.) Reported By: Murat Keki\u00e7 (murat_kekic) Fixed By: Anna Kalata (akalata) of the Drupal Security Team Benji Fisher (benjifisher) of the Drupal Security Team Neil Drumm (drumm) of the Drupal Security Team Lee Rowlands (larowlan) of the Drupal Security Team Michael Hess (mlhess) of the Drupal Security Team James Gilliland (neclimdul) of the Drupal Security Team Joseph Zhao (pandaski) of the Drupal Security Team Juraj Nemec (poker10) of the Drupal Security Team Ra M\u00e4nd (ram4nd) , provisional member of the Drupal Security Team Jess (xjm) of the Drupal Security Team Coordinated By: Greg Knaddison (greggles) of the Drupal Security Team Lee Rowlands (larowlan) of the Drupal Security Team Pierre Rudloff (prudloff) of the Drupal Security Team Jess (xjm) of the Drupal Security Team",
+      "link": "https://www.drupal.org/sa-core-2026-001",
+      "source": "Security advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T19:24:30+00:00",
+      "published_ts": 1776281070,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Web / API Security"
+      ],
+      "curated": true
+    },
+    {
+      "title": "AI on the attack: How defenders turn artificial intelligence against cyber threats",
+      "summary": "The question isn't whether to adopt AI in email security, but how quickly you can do so.",
+      "link": "https://www.scworld.com/resource/ai-on-the-attack-how-defenders-turn-artificial-intelligence-against-cyber-threats",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T19:20:05+00:00",
+      "published_ts": 1776280805,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Stellar Cyber Unveils New Agentic AI Capabilities for the Human-Augmented Autonomous SOC",
+      "summary": "New automation and AI-driven triage capabilities dramatically reduce alert noise and accelerate investigations for modern security teams San Jose, Calif. \u2013 Apr. 15, 2026 As security operations teams struggle to keep pace with escalating alert volumes and increasingly automated attacks, Stellar Cyber just introduced new The post Stellar Cyber Unveils New Agentic AI Capabilities for the Human-Augmented Autonomous SOC appeared first on Cybercrime Magazine .",
+      "link": "https://cybersecurityventures.com/stellar-cyber-unveils-new-agentic-ai-capabilities-for-the-human-augmented-autonomous-soc/",
+      "source": "Cybersecurity Ventures",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T19:07:30+00:00",
+      "published_ts": 1776280050,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Free Qwen Is Dead: Alibaba Shuts Down Qwen Code Free Tier",
+      "summary": "Alibaba shut down Qwen Code's free tier today, following MiniMax's license bait-and-switch. The idea that Chinese labs are the \"open-source good guys\" is crumbling fast.",
+      "link": "https://decrypt.co/364501/alibaba-shuts-down-free-tier-qwen-code",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-04-15T19:01:59+00:00",
+      "published_ts": 1776279719,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Shadow Admins in Active Directory: Hidden Privilege Paths Attackers Exploit",
+      "summary": "What Are Shadow Admins in AD? A common problem we encounter within many customer AD environments are accounts that, at first glance, may appear innocuous, but that actually have hidden administrative privileges equivalent to those of a domain administrator account. We call these accounts shadow admins. They represent one of the most persistent shadow admin [\u2026] The post Shadow Admins in Active Directory: Hidden Privilege Paths Attackers Exploit appeared first on Praetorian .",
+      "link": "https://www.praetorian.com/blog/shadow-admins-active-directory/",
+      "source": "https://www.praetorian.com/feed/",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-04-15T18:57:34+00:00",
+      "published_ts": 1776279454,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC",
+        "Windows / Microsoft"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Price predictions 4/15: BTC, ETH, XRP, BNB, SOL, DOGE, HYPE, ADA, BCH, LINK",
+      "summary": "A Bitcoin daily candlestick close above $76,000 would complete a bullish trend reversal and shift the bulls\u2019 short-term price target to $84,000. Will altcoins follow the rally?",
+      "link": "https://cointelegraph.com/news/price-predictions-4-15-btc-eth-xrp-bnb-sol-doge-hype-ada-bch-link?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-04-15T18:51:43+00:00",
+      "published_ts": 1776279103,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "When the shield becomes the sword: How misconfigured PAM bridges the tiering model",
+      "summary": "In the world of identity security, few tools promise as much peace of mind as Privileged Access Management (PAM). It is often referred to as the \"vault\" that locks away your kingdom's keys. However, in Microsoft Incident Response \u2013 the Detection and Response Team (DART) engagements, we frequently encounter a paradox: the tool used to secure Tier 0 often becomes a quick path for threat actors to compromise it. In a recent DART engagement, a threat actor moved from a compromised helpdesk workstation to full domain compromise in under four hours. They didn't use a zero-day. They used the organization's PAM server. We have seen this story play out in real-time. An organization invests heavily in Active Directory (AD) Tiering and a premium PAM solution. They feel secure. Yet, during an incident, we trace the threat actor\u2019s path and find they didn't burn a zero-day or crack a complex algorithm. They simply walked across a bridge the organization built themselves: a PAM server positioned in Tier 1 that held the keys to Tier 0. This isn't a failure of the product; it's a failure of positioning . This post shares what DART sees on the front lines, why \"intermediaries\" are the most critical link in your chain, and how to deploy PAM without rolling out a red carpet for threat actors. The foundation: A quick refresher on tiering model and PAM, PIM, and PAW concepts Before we dive into the threat actor\u2019s tactics and techniques, let\u2019s revisit the ground rules and define a few key concepts. The Active Directory Tiering Model is built on a simple premise: prevent credential theft propagation ; ensuring that credentials with administrative access to higher-tier systems are never exposed on lower-tier systems where a threat actor may already have a foothold. Tier 0 is your control plane: Domain Controllers, PKI, and the identities that manage your authentication plane. Tier 1 houses your application servers and data. Tier 2 is the high-risk environment : user workstations and devices exposed to the internet. The golden rule of tiering is strictly one-way: higher tier admins must never expose their credentials to lower tier systems, and lower tiers must never have management access to higher tiers. The core purpose of this separation is to ensure that a compromised workstation cannot yield Domain Admin credentials. However, operational tools that bridge these tiers often inadvertently break this definitional boundary. PAM (Privileged Access Management): Solutions designed to securely vault credentials and broker administrative sessions, ensuring access to critical systems is monitored and controlled. PIM (Privileged Identity Management): Tools that manage the lifecycle of elevated roles, typically by enforcing time-bound, Just-In-Time (JIT) access to eliminate standing privileges. PAW (Privileged Access Workstation): Highly hardened, dedicated devices used exclusively for sensitive administrative tasks, physically or logically isolating tier admins from high-risk activities like email and web browsing. Figure 1: Administration with dedicated tiered accounts The front-line reality: the shared intermediary trap Imagine this scenario: A threat actor compromises a standard workstation (Tier 2) through a phishing email. Their goal is the Domain Controller (Tier 0). In a properly tiered environment, this path is blocked; there are no credentials on the workstation to steal, and no direct privilege escalation route to the Domain Controller. But then the threat actor finds an intermediary system. In many environments, we see a single PAM session host used by everyone . The Tier 1 admins use it to manage application servers, and the Tier 0 admins use it to manage Domain Controllers. This convergence creates a \"Shared\" or \"Dirty\" Intermediary . The attack path The foothold: The threat actor compromises a standard Tier 2 workstation. The escalation: The threat actor moves laterally and escalates privileges by exploiting common lower-tier misconfigurations (such as Helpdesk scenarios or exposed privileged service accounts) to compromise a Tier 1 administrator account who has full control over the Tier 1 PAM Host. The pivot: Because the PAM Session Host resides in Tier 1, the threat actor uses those compromised Tier 1 admin rights to seamlessly gain full control of the underlying operating system of the PAM host itself. The compromise: The threat actor simply waits for a Tier 0 admin to initiate a session. Because the threat actor already has full administrative control over the underlying server, it is a given that they can extract the Tier 0 credentials the moment that session begins. Note: A threat actor at this stage does not need to exploit any weakness in the PAM software itself. Because the session host logically resides within the Tier 1 boundary, any identity or system with administrative rights over that tier holds ultimate authority over the host. This administrative control provides the means to modify the host's configuration, bypass security agents, and disable runtime protections before a privileged session ever begins. Once this foundational control is established, credential material processed by the operating system for outbound privileged sessions becomes accessible. This is not a PAM product failure; it is an architectural placement failure Game over: The threat actor replays those credentials to take over the Domain Controller. Here is how that compromise looks architecturally: Figure 2: Single PAM host architecture The core concept: PAM is an intermediary To understand why the scenario above happens, we have to look at how Microsoft defines Privileged Access Intermediaries . As detailed in our Privileged access intermediaries guidance , an intermediary is any system that stands between a user and a target resource. This includes VPNs, Jump Servers, and PAM solutions. The Golden Rule of intermediaries The security assurance of the target is only as good as the security assurance of the intermediary. If you manage a Tier 0 asset (like a Domain Controller) through a PAM server, that PAM server becomes a Tier 0 asset . If that PAM server allows logins from Tier 1 users or is reachable from Tier 2 workstations, you have effectively downgraded your Domain Controllers to the security level of a workstation. You cannot have a \"Tier 1\" server managing \"Tier 0\" assets. The math simply doesn't work. Each type of intermediary serves a different role, so the security controls won\u2019t be identical. However, some basics apply to all of them, like quickly patching appliances, firmware, operating systems, and applications. Figure 3: Security impact of different PAM approaches Third-party PIM/PAM solutions are often deployed on-premises or as a Virtual Machine (VM) in an Infrastructure as a Service (IaaS) environment and are usually reachable only from internal (intranet) systems. Even if they aren\u2019t exposed to the internet, one stolen credential could let a threat actor reach them through VPN or other remote access methods. The hidden risk: the \"master key\" service account The attack path above assumes a threat actor waits for a human administrator to arrive. But there is a second, more direct risk and it doesn\u2019t require patience at all. It\u2019s not just about where users log in; it\u2019s about the power the software holds . Consider the Password Reset scenario. A key feature of PAM is automatically rotating Domain Admin passwords, so human admins never need to know them; credentials are simply injected into the session. However, to perform this action, the PAM Service Account itself requires massive privileges (typically Domain Admin or equivalent) to reset those target passwords. Here is the trap: If your PAM Core or Vault resides in Tier 1 (or is treated as such) but manages Tier 0 credentials, you have effectively granted Domain Admin rights to a Tier 1 asset. A threat actor doesn't even need to wait for a human administrator to log in. If they compromise the underlying server where the PAM service runs, they can extract the Service Account\u2019s credentials. Since this account has the power to reset Domain Admin passwords, the threat actor instantly elevates to Tier 0; no session required, no waiting, no noise . This reinforces the golden rule: If a Service Account manages Tier 0, the system it runs on is Tier 0. The two attack vectors: hijacking a session and stealing the service account. Both stem from the same root cause: architectural misplacement. Fix the placement, and you eliminate both. Practical checklist: are you exposed? In DART engagements, we use this checklist to rapidly assess if a PAM deployment is a security asset or a liability. Use this to validate your own environment: The intermediary check: Does any server used to manage Domain Controllers allow inbound RDP, SMB or other management connections from standard workstations or Tier 1 servers? (If yes, you are bridged). The identity check: Do you use the same \"Admin\" account to log into the PAM portal for both Tier 0 and Tier 1 tasks? (If yes, you are exposing credentials). The reachability check: Can your PAM Vault/Core be reached from the general user network? (It should only be reachable from management zones). The isolation check: Are your Tier 0 Session Hosts logically and technically treated as Tier 0 assets? What good looks like: The tiered PAM architecture How do we fix this? We don't throw away PAM; we align it with the Enterprise Access Model . In DART, we advocate for a t iered PAM deployment . This doesn't necessarily mean buying three different PAM vaults. It means strictly segregating the session hosts and the control plane . The architecture of isolation Tier 0 Control Plane: The core of your PAM (the Vault, the Policy Manager) holds the keys to the kingdom. Therefore, it must be treated as Tier 0. It should only be manageable by Tier 0 admins from Tier 0 workstations. Segregated Session Hosts: You must have separate session host infrastructure for each tier. Tier 1 Session Host: Accessible from Tier 1, manages Tier 1. Blocked from talking to Domain Controllers. Tier 0 Session Host: Accessible only from Tier 0 PAWs, manages Tier 0. Totally isolated from the rest of the network. This diagram illustrates a PAM deployment that respects the tiering model: Figure 4: Separate PAM host architecture F or a deeper dive into reconciling these paradigms, review Intermediaries in Securing Privileged Administration and Microsoft's guide on Partitioning Administrative Privileges . FAQ: Clearing the confusion Q: Does PAM always belong in Tier 0? A: If the PAM system manages Tier 0 credentials or provides access to Tier 0 assets, yes . The components that touch Tier 0 (Vault, Brokers, Session Hosts) must be secured at Tier 0 standards. Q: Can we use a single \"hardened\" session host for all tiers to save costs? A: In DART's experience, no. \"Hardening\" is often a configuration state that drifts or is bypassed by zero-days. Architecture beats configuration. If you bridge the network tiers, a compromised Tier 1 admin account is all a threat actor needs to gain OS-level control of that host and from there, access to Tier 0 sessions is a matter of patience, not sophistication. Q: If we have PAM, do we still need the Tiering Model? A: Absolutely. PAM doesn\u2019t replace Tiering; when implemented correctly, it adds another layer of security and/or governance. Tiering keeps credentials and admin access separated, so threat actors can\u2019t easily move sideways or reuse stolen hashes. PAM provides workflow, rotation, and audit trails. Q: What is the most common mistake you see? A: We frequently see organizations approach PAM as a \"magic stick\", believing it secures everything about credential hygiene. Yet, because they assume the tool secures itself, they treat this critical infrastructure as just another Tier-1 asset. It gets patched like a standard file server and monitored like a print server, rather than being hardened and isolated as a Tier-0 component. This mindset doesn't secure the environment; it creates a fragile bridge that threat actors can easily cross. Q: Our PAM vendor says their session host is hardened out of the box. Why is this still a risk? A: PAM vendors are right that a well-configured session host with Credential Guard enabled, application control enforced, and remote management restricted is considerably harder to exploit than a stock Windows Server. Some vendors use Kerberos constrained delegation with S4U2Proxy, meaning the machine account rather than the Domain Admin\u2019s actual credentials authenticates to the target, which limits direct credential exposure. These are meaningful controls and we don\u2019t dismiss them. However, application-layer hardening is defeated by OS-layer control . If the PAM host is domain-joined and sits in a Tier 1 OU, a Tier 1 Domain Admin has Group Policy, software deployment rights, and Active Directory machine account control over that host. They can push a GPO to disable Credential Guard, deploy a driver via software distribution, or alter the machine\u2019s configuration before the next reboot, all using entirely legitimate AD administration tools. The vendor\u2019s hardening is irrelevant once the threat actor controls the tier the machine lives in. This is precisely why tier placement is not a PAM configuration decision; it is an Active Directory architecture decision. Q: We\u2019re cloud-first and use Entra ID. Does AD Tiering still apply to us? A: The specific tier labels change, but the principle does not. Microsoft\u2019s Enterprise Access Model is the cloud-era evolution of AD Tiering, built around the same core concept: Control Plane (equivalent to Tier 0), Management Plane (Tier 1), and User Access / Data Plane (Tier 2). In an Entra ID environment, your Control Plane includes Global Administrators, Privileged Role Administrators, and the Conditional Access policies that govern them. A PAM or PIM solution managing those identities must be treated with the same isolation discipline. Hybrid environments, where on-premises AD and Entra ID are synchronized, carry the additional risk that a compromise of either plane can propagate to the other through synchronization. If anything, hybrid environments make strict intermediary placement more critical, not less. Conclusion PAM is a powerful tool in the defender\u2019s arsenal; but like any powerful tool, its effectiveness depends entirely on how it is positioned. The threat actors we encounter in DART engagements don\u2019t look for the most sophisticated path to Domain Admin. They look for the most trusted one. A PAM server in the wrong tier isn\u2019t a hardened barrier; it\u2019s a trusted bridge with a gold-plated sign. By aligning your PAM deployment with the principles of Privileged Access Administration , treating session hosts and service accounts as the tier of the assets they manage, not the zone they physically sit in, you close the bridge before a threat actor finds it. Build your architecture like a threat actor will find it. Because they will. Stay secure, stay tiered.",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-experts-blog/when-the-shield-becomes-the-sword-how-misconfigured-pam-bridges/ba-p/4509392",
+      "source": "Microsoft Security Experts",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-04-15T18:34:46+00:00",
+      "published_ts": 1776278086,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Windows / Microsoft",
+        "Cloud / SaaS",
+        "Network / OT / ICS",
+        "Phishing / Social Engineering",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "I tried Google's new desktop app, and I'll never search the old way again",
+      "summary": "Now available to all, the app delivers a faster way to access tools like Gemini, Lens, and Search. See why it's totally worth a download.",
+      "link": "https://www.zdnet.com/article/i-tried-googles-new-desktop-app/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T18:25:00+00:00",
+      "published_ts": 1776277500,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Comcast\u2019s $117.5M Breach Settlement: Up to 30M People May Qualify",
+      "summary": "Comcast customers affected by the 2023 breach may qualify for cash, reimbursement, and identity protection under a proposed $117.5 million settlement. The post Comcast\u2019s $117.5M Breach Settlement: Up to 30M People May Qualify appeared first on TechRepublic .",
+      "link": "https://www.techrepublic.com/article/news-comcast-117-5m-settlement-30m-data-breach/",
+      "source": "TechRepublic \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T18:22:51+00:00",
+      "published_ts": 1776277371,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "CVE-2026-33032: severe nginx-ui bug grants unauthenticated server access",
+      "summary": "An actively exploited critical nginx-ui flaw (CVE-2026-33032) lets attackers bypass authentication and take full control of Nginx servers. A critical vulnerability in nginx-ui, tracked as CVE-2026-33032 (CVSS score of 9.8), is being actively exploited, allowing attackers to bypass authentication and fully take over Nginx servers. The issue stems from improper protection of the /mcp_message endpoint, [\u2026]",
+      "link": "https://securityaffairs.com/190841/hacking/cve-2026-33032-severe-nginx-ui-bug-grants-unauthenticated-server-access.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T18:17:50+00:00",
+      "published_ts": 1776277070,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Try a LattAI? Starbucks Debuts ChatGPT App for AI Drink Suggestions",
+      "summary": "Starbucks\u2019 ChatGPT integration lets customers describe their mood or upload photos to receive AI-generated drink picks.",
+      "link": "https://decrypt.co/364491/starbucks-debuts-chatgpt-app-ai-drink-suggestions",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-04-15T18:04:35+00:00",
+      "published_ts": 1776276275,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Qualys VMDR and TotalCloud\u2122 Now Available on Oracle Cloud Marketplace",
+      "summary": "Key Takeaways As organizations accelerate cloud adoption, security teams are under increasing pressure to gain unified visibility, prioritize risk effectively, and respond faster without adding complexity. We are excited to announce that Qualys VMDR (Vulnerability Management, Detection and Response) and Qualys TotalCloud\u2122 CNAPP are now both available on the Oracle Cloud Marketplace. These Qualys listings enable joint customers to [\u2026]",
+      "link": "https://blog.qualys.com/category/product-tech",
+      "source": "Product and Tech \u2013 Qualys Security Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-04-15T18:02:07+00:00",
+      "published_ts": 1776276127,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Qualys VMDR and TotalCloud\u2122 Now Available on Oracle Cloud Marketplace",
+      "summary": "Key Takeaways As organizations accelerate cloud adoption, security teams are under increasing pressure to gain unified visibility, prioritize risk effectively, and respond faster without adding complexity. We are excited to announce that Qualys VMDR (Vulnerability Management, Detection and Response) and Qualys TotalCloud\u2122 CNAPP are now both available on the Oracle Cloud Marketplace. These Qualys listings enable joint customers to [\u2026]",
+      "link": "https://blog.qualys.com/product-tech/2026/04/15/qualys-vmdr-totalcloud-now-available-oracle-cloud-marketplace",
+      "source": "Qualys Security Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-04-15T18:02:07+00:00",
+      "published_ts": 1776276127,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Microsoft's Windows 11 laptop deal for students comes with a $500 bonus - what's included",
+      "summary": "This Microsoft back-to-school offer gives college students over $500 in subscriptions and perks totally free. Here's what to know.",
+      "link": "https://www.zdnet.com/article/microsoft-back-to-school-laptop-deal/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T18:00:46+00:00",
+      "published_ts": 1776276046,
+      "smart_groups": [
+        "Windows / Microsoft"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Signed software abused to deploy antivirus-killing scripts",
+      "summary": "A digitally signed adware tool has deployed payloads running with SYSTEM privileges that disabled antivirus protections on thousands of endpoints, some in the educational, utilities, government, and healthcare sectors. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/signed-software-abused-to-deploy-antivirus-killing-scripts/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T17:59:30+00:00",
+      "published_ts": 1776275970,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Anthropic Preps Opus 4.7 and Full-Stack AI Studio\u2014While Sitting on Something Much Scarier",
+      "summary": "Leaked models, a new design tool, and an unreleaseable cyber weapon walk into a press cycle.",
+      "link": "https://decrypt.co/364483/anthropic-opus-47-full-stack-ai-studio-mythos",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-04-15T17:55:17+00:00",
+      "published_ts": 1776275717,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "US midterm election mirrors 2024 as crypto PACs move into Ohio races",
+      "summary": "Potential conflicts of interest in the state\u2019s gubernatorial race and a pro-crypto Super PAC endorsing a Republican candidate for Senate could cloud the 2026 race.",
+      "link": "https://cointelegraph.com/news/us-election-mirrors-2024-crypto-ohio?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-04-15T17:52:37+00:00",
+      "published_ts": 1776275557,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Patch these critical Fortinet sandbox bugs that let attackers bypass login, run commands over HTTP",
+      "summary": "No reports of active exploitation (yet) Watch out for more Fortinet vulns! Two critical bugs in Fortinet's sandbox could allow unauthenticated attackers to bypass authentication or execute unauthorized code on vulnerable systems.\u2026",
+      "link": "https://go.theregister.com/feed/www.theregister.com/2026/04/15/critical_fortinet_sandbox_bugs/",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T17:52:31+00:00",
+      "published_ts": 1776275551,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "AI clickbait can turn your notifications into a scam feed",
+      "summary": "A new AI-driven campaign known as Pushpaganda is using clickbait to turn your browser notifications into a stream of scams and fake alerts.",
+      "link": "https://www.malwarebytes.com/blog/news/2026/04/ai-clickbait-can-turn-your-notifications-into-a-scam-feed",
+      "source": "Malwarebytes Labs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T17:43:40+00:00",
+      "published_ts": 1776275020,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "L&G brings \u00a350B liquidity funds onchain via Calastone tokenized network",
+      "summary": "London-based Legal & General Asset Management is the latest global asset manager to expand distribution across blockchain networks and trading models.",
+      "link": "https://cointelegraph.com/news/london-based-legal-general-asset-management-has-made-its-liquidity-funds-available-in-tokenized-form-through-calastone-s-blockchain-based-distribution-network-enabling-investors-to-access-and-transfer-fund-shares-via-digital-infrastructure-rather-than?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-04-15T17:32:53+00:00",
+      "published_ts": 1776274373,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "ETH/BTC ratio hits 10-week high as Ether outpaces Bitcoin: Are new price highs next?",
+      "summary": "Ether looks poised to gain a price advantage over BTC as the ETH/BTC ratio soars to a 10-week high.",
+      "link": "https://cointelegraph.com/news/ethbtc-ratio-hits-10-week-high-as-ether-outpaces-bitcoin-are-new-price-highs-next?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-04-15T17:30:00+00:00",
+      "published_ts": 1776274200,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Cisco security advisory (AV26-357)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/cisco-security-advisory-av26-357",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T17:26:27+00:00",
+      "published_ts": 1776273987,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "RSAC 2026: The AI SOC debate is over \u2013 now comes the reckoning",
+      "summary": "AI SOCs move from hype to reality, reshaping security ops with growing autonomy.",
+      "link": "https://www.scworld.com/perspective/rsac-2026-the-ai-soc-debate-is-over-now-comes-the-reckoning",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T17:19:53+00:00",
+      "published_ts": 1776273593,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Tom Lee's BitMine Posts $3.8 Billion Quarterly Loss Due to Ethereum Price Plunge",
+      "summary": "Leading Ethereum treasury firm BitMine Immersion Technologies posted a major loss thanks to unrealized losses on its ETH.",
+      "link": "https://decrypt.co/364472/tom-lees-bitmine-posts-3-8-billion-loss-ethereum-price-plunge",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-04-15T17:17:41+00:00",
+      "published_ts": 1776273461,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Security Community Spotlight: Fabr\u00edcio Assump\u00e7\u00e3o",
+      "summary": "Meet Fabr\u00edcio Assump\u00e7\u00e3o, a Technical Specialist Architect for a Microsoft Security and Compliance Certified Partner, based in Brazil. Fabr\u00edcio considers his involvement with the Microsoft Security Community defined by a dual approach: architectural innovation and technical enablement. As a Microsoft Certified Trainer (MCT) since 2021, he has been dedicated to bridging the gap between theory and real-world implementation for security professionals globally. What do you find most rewarding about being a member of the Microsoft Security Community? The most rewarding part of being a member of the Microsoft Security Community is the direct access to the pulse of cybersecurity innovation. As a Microsoft Certified Trainer (MCT) and a developer/engineer/architect focused on Cloud Security/M365 Security and SIEM, being in this ecosystem allows me to bridge the gap between complex architectural challenges and AI-driven solutions. Developing security agents for Microsoft Security Copilot is particularly fulfilling because I can see how the community\u2019s collective knowledge shapes the future of automated defense. For me, it\u2019s not just about the tools, but about being part of a global movement that empowers defenders to stay ahead of sophisticated threats through intelligence and automation. How would you describe your Microsoft Community involvement? In my role as a Security Architect and Engineer at adaQuest, I advocate for Microsoft\u2019s vision by designing and deploying complex security infrastructures. My work spans the entire Microsoft Security stack, from high-level XDR (Microsoft Defender) strategies and SIEM (Microsoft Sentinel) deployments to the cutting edge of AI-driven defense. Currently, alongside my other activities, I'm focused on developing custom security agents for Microsoft Security Copilot, a task that allows me to push the boundaries of how automation and AI can empower modern SOCs. While my primary involvement has been focused on technical architecture and developing security Copilot agents, my ideal community experience would be centered on deep-tier technical co-creation. I envision a community space that facilitates direct architectural dialogues between Microsoft product teams and the engineers who are building on top of those platforms. For me, the most valuable community experience is one that prioritizes 'early-access' feedback loops and specialized hackathons where we can stress-test new features\u2014like advanced XDR integrations or AI agent capabilities\u2014before they hit the mainstream. My ideal is a community that functions as a high-octane R&D hub, where the collective expertise of architects and developers directly influences the roadmap of the security tools we use every day Editor\u2019s note: The scenario Fabr\u00edcio describes above is much like the Security Advisors program, which gives you early access to products, features, and private previews. Your feedback to engineering has the power to directly influence Microsoft Security products. If this interests you, consider joining ! How long have you been working with Microsoft Security products? My Microsoft security journey is a story of evolution\u2014from a cloud support engineer resolving complex L3/L4 infrastructure issues to a Security Architect leading global SOC operations. I have spent the last decade mastering the transition to the cloud, starting with identity and endpoint management (Entra ID and Intune) and progressing to end-to-end administration of the Microsoft 365 and Azure security stack. A turning point was joining adaQuest, where I took the lead on SOCaaS and began bridging the gap between governance and hands-on engineering and Sentinel. Today, my journey has reached its most exciting phase: pioneering the use of Generative AI in security to build scalable, automated solutions that protect clients worldwide. What features or products have provided the most impact? Please describe how it has helped you or your customers. The most impactful solution has been the integration of Microsoft Sentinel with Security Copilot through custom-developed security agents. This combination has revolutionized how our customers manage their security posture, allowing them to orchestrate and query the entire Defender XDR, Entra ID, and Purview stack through natural language automation. The most direct benefit for our clients has been a drastic reduction in Mean Time to Respond (MTTR) and a significant increase in operational efficiency, transforming complex security data into proactive defense. This unified approach ensures that our customers maximize their investment in the Microsoft ecosystem while maintaining high-speed resilience against sophisticated threats. You\u2019ve indeed been instrumental in building with Microsoft Security. What can you share with us, and can you tell us about your journey? I am incredibly proud of being a pioneer in the Microsoft Security Copilot ecosystem. In early 2025, before official documentation was fully available or the feature had reached General Availability (GA), I conceptualized and developed six custom security agents designed to enhance automated defense and incident response. These agents were the result of a deep dive into the underlying architecture of AI-driven security, where I had to materialize complex ideas into functional, real-world tools without a predefined roadmap. My work was officially showcased and published during the historic announcement of the Microsoft Security Store in 2025, marking the debut of third-party security agents. Seeing these agents evolve from initial concepts to essential tools for the SOC of the future\u2014enabling faster, more intelligent decision-making\u2014is my most rewarding professional achievement. It represents my commitment to pushing the boundaries. Fabricio\u2019s agents are available in the Microsoft Security Store . Here\u2019s what he\u2019s built ( so far\u2026 ) Admin Guard Insight An agent focused on privileged identity and access analysis. It reviews administrative roles, sensitive changes, and risk signals to identify exposure, misuse of privileges, and opportunities to strengthen security posture. Login Investigator An agent designed to investigate suspicious sign-in activity. It correlates authentication details, IPs, locations, devices, user risk, and related incidents to determine whether a login is legitimate or potentially malicious. Entity Guard An entity-centric investigation agent for users, devices, applications, or service principals. It consolidates signals from multiple sources to enrich entity context and identify abnormal behavior, exposure, and associated risks. Data Leak Agent An agent specialized in investigating potential data leakage and sensitive information exposure. It validates and correlates incidents across Microsoft Defender XDR and Microsoft Sentinel to produce a more reliable and contextualized investigation. L1 SOC Triage An agent built to support first-level SOC alert and incident triage. It helps classify events, enrich context, prioritize severity, and recommend next steps or escalation paths for analysts. Ransomware Kill Chain Investigator An agent focused on ransomware investigations. It correlates evidence and maps observed activity to the ransomware kill chain to help teams understand the attack, impacted assets, and priority response actions. EWS Sunset Readiness Assessor An agent that assesses an organization\u2019s readiness for Exchange Web Services (EWS) deprecation. It identifies application and service principal dependencies and supports planning for migration to more modern and secure alternatives. What impact has integrating with Microsoft Security had on your business or your customers? Integrating with Microsoft Security has had a significant impact on both our business and our customers. For our business, it has enabled us to build higher-value security services and differentiated solutions, such as Security Copilot agents tailored to real operational challenges in identity protection, incident triage, data leakage investigations, ransomware analysis, and legacy dependency assessments. For our customers, the impact has been: improved speed, consistency, and depth in security operations. By leveraging Microsoft Security signals and platforms such as Microsoft Defender, Microsoft Sentinel, and Entra, we help teams investigate incidents faster, reduce manual effort, improve decision-making, and strengthen overall security posture. In practice, this means customers gain more actionable insights, better prioritization, and more efficient use of their security resources. What advice do you have for oth ers who would like to get involved in the Microsoft Community? My advice is to bridge the gap between learning and building. Don\u2019t just consume content; start creating solutions for real-world challenges, such as AI-driven automation in Security Copilot or Microsoft Sentinel. Use your practical experience to help others, and remember that teaching is one of the most powerful ways to contribute. In an era of rapid AI evolution, being a proactive 'early adopter' who shares insights is the best way to grow within the Microsoft Community and help protect the global digital landscape. Fabr\u00edcio beyond Microsoft Security Beyond my technical career, I am a lifelong learner with a deep passion for understanding how the world works, from the complexities of Quantum Computing\u2014which I studied at the University of Coimbra\u2014to the fundamental principles of Physics, Astronomy, and Philosophy. I am currently pursuing two Master\u2019s degrees, as I believe that diverse knowledge fuels creativity. I am also a polyglot at heart, teaching myself Italian, Spanish, Russian, and Chinese using open-source materials. My creative side is expressed through music, as I play both the violin and the piano. In my spare time, I enjoy the discipline of sports; I have a history as both a player and coach of Rugby, and I am a fan of Ice Hockey. My future plans include completing my Doctorate and embracing a nomadic lifestyle to experience different cultures and perspectives. For me, life is about the continuous pursuit of wisdom and the belief that we can always expand the boundaries of our own understanding. Connect with Fabr\u00edcio on LinkedIn . ____________________________________________________________________________________________ Learn and Engage with the Microsoft Security Community Log in and follow this Microsoft Security Community Blog . Follow = Click the heart in the upper right when you're logged in \ud83e\udd0d . Join the Microsoft Security Community and be notified of upcoming events, product feedback surveys, and more. Get early access to Microsoft Security products and provide feedback to engineers by joining the Microsoft Security Advisors. Join the Microsoft Security Community LinkedIn Group and follow the Microsoft Entra Community on LinkedIn",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-community/security-community-spotlight-fabr%C3%ADcio-assump%C3%A7%C3%A3o/ba-p/4511342",
+      "source": "Microsoft Security Blog (TechCommunity)",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-04-15T17:13:44+00:00",
+      "published_ts": 1776273224,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Linux / Unix",
+        "Cloud / SaaS",
+        "Web / API Security",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Data Breaches / Leaks",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "n8n Webhooks Abused Since October 2025 to Deliver Malware via Phishing Emails",
+      "summary": "Threat actors have been observed weaponizing n8n, a popular artificial intelligence (AI) workflow automation platform, to facilitate sophisticated phishing campaigns and deliver malicious payloads or fingerprint devices by sending automated emails. \"By leveraging trusted infrastructure, these attackers bypass traditional security filters, turning productivity tools into delivery",
+      "link": "https://thehackernews.com/2026/04/n8n-webhooks-abused-since-october-2025.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T17:09:00+00:00",
+      "published_ts": 1776272940,
+      "smart_groups": [
+        "Malware / Payloads",
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Why Zorin OS 18.1 is simply the best Linux distro - for anyone",
+      "summary": "Released today, the latest Zorin OS manages to improve upon previous versions - and that's quite an achievement.",
+      "link": "https://www.zdnet.com/article/zorin-os-18-1-release-is-best-linux-distro-for-anyone/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T17:00:45+00:00",
+      "published_ts": 1776272445,
+      "smart_groups": [
+        "Linux / Unix"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Why Netgear just got the first FCC router ban exemption in the US",
+      "summary": "You can keep buying Netgear routers in the US for now. Here's why - and for how long.",
+      "link": "https://www.zdnet.com/article/netgear-is-first-to-win-exemption-from-fcc-router-ban/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T16:58:24+00:00",
+      "published_ts": 1776272304,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Rhadamanthys and the Limits of Private Sector Operations",
+      "summary": "This year I presented at the 2026 SANS CTI Summit on a small, unusual operation from 2022 focused on the Rhadamanthys infostealer. A lot of the cyber operations we talk about publicly are framed around a clean win: infrastructure seized, domains sinkholed, threat actors arrested. This wasn\u2019t that. If you\u2019re looking for a disruption success [\u2026] The post Rhadamanthys and the Limits of Private Sector Operations appeared first on Censys .",
+      "link": "https://censys.com/blog/rhadamanthys-private-sector-ops-limitations/",
+      "source": "https://censys.com/feed/",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-04-15T16:54:50+00:00",
+      "published_ts": 1776272090,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Execution gap plagues enterprise digital resilience",
+      "summary": "A new global study from Economist Impact and Telstra International reveals a dangerous execution gap in enterprise digital resilience, finding that only one in four organizations successfully navigates major disruptions according to plan, with failures rooted less in technological deficits than in fractured governance and insufficient ecosystem coordination, ITPro reports.",
+      "link": "https://www.scworld.com/brief/execution-gap-plagues-enterprise-digital-resilience",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T16:49:03+00:00",
+      "published_ts": 1776271743,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Fake Ledger Live App on Apple Store Linked to $9.5M Crypto Theft",
+      "summary": "Apple approved a fake Ledger Live app on its App Store, allowing scammers to steal $9.5 million from more than 50 users. Did you install this app?",
+      "link": "https://hackread.com/fake-ledger-live-app-apple-store-crypto-theft/",
+      "source": "HackRead",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T16:47:20+00:00",
+      "published_ts": 1776271640,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Sweden Blames Pro-Russian Group for Cyberattack Last Year on Its Energy Infrastructure",
+      "summary": "In what was Sweden\u2019s first public mention of the attack, the country\u2019s minister for civil defense said it targeted a heating plant in western Sweden. The post Sweden Blames Pro-Russian Group for Cyberattack Last Year on Its Energy Infrastructure appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/sweden-blames-pro-russian-group-for-cyberattack-last-year-on-its-energy-infrastructure/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T16:46:48+00:00",
+      "published_ts": 1776271608,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Massive Chrome Extension Scam Exposes 20,000 Users to Data Theft",
+      "summary": "Researchers linked 108 malicious Chrome extensions to a coordinated campaign that exposed about 20,000 users to data theft, backdoors, and ad injection. The post Massive Chrome Extension Scam Exposes 20,000 Users to Data Theft appeared first on TechRepublic .",
+      "link": "https://www.techrepublic.com/article/news-malicious-chrome-extensions-data-theft/",
+      "source": "TechRepublic \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T16:46:46+00:00",
+      "published_ts": 1776271606,
+      "smart_groups": [
+        "Curated",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Manifold Security launches Manifest AI supply chain intelligence platform",
+      "summary": "The growing AI agent ecosystem presents significant supply chain complexity, with each component carrying its own trust assumptions and potential vulnerabilities.",
+      "link": "https://www.scworld.com/brief/manifold-security-launches-manifest-ai-supply-chain-intelligence-platform",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T16:43:54+00:00",
+      "published_ts": 1776271434,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Fake Ledger app on Mac app store scams users out of $9.5 million",
+      "summary": "The fraudulent app, available on Apple's App Store under the publisher name \"Leva Heal Limited,\" tricked users into entering their seed phrases, granting attackers full control of their digital wallets.",
+      "link": "https://www.scworld.com/brief/fake-ledger-app-on-mac-app-store-scams-users-out-of-9-5-million",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T16:40:35+00:00",
+      "published_ts": 1776271235,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "eToro Acquires Self-Custody Crypto Wallet Firm Zengo for $70 Million",
+      "summary": "The deal signals eToro's strategic push into self-custody solutions amid growing demand for non-custodial crypto infrastructure.",
+      "link": "https://decrypt.co/364464/etoro-acquires-self-custody-crypto-wallet-firm-70-million",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-04-15T16:40:20+00:00",
+      "published_ts": 1776271220,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Splunk security advisory (AV26-356)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/splunk-security-advisory-av26-356",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T16:27:08+00:00",
+      "published_ts": 1776270428,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "Microsoft's latest Windows update now confirms if your PC is Secure Boot-protected - how it works",
       "summary": "Beyond fixing a host of security vulnerabilities, the latest Patch Tuesday will display your Secure Boot status to make sure you're fully protected.",
       "link": "https://www.zdnet.com/article/secure-boot-microsoft-april-windows-update/",
@@ -41,6 +658,20 @@
       "smart_groups": [
         "Vulnerabilities / CVEs",
         "Windows / Microsoft"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Microsoft pays $2.3M for cloud and AI flaws at Zero Day Quest",
+      "summary": "Microsoft has awarded $2.3 million to security researchers after receiving nearly 700 submissions during this year's Zero Day Quest hacking contest. [...]",
+      "link": "https://www.bleepingcomputer.com/news/microsoft/microsoft-pays-23-million-for-cloud-and-ai-flaws-at-zero-day-quest/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T16:20:21+00:00",
+      "published_ts": 1776270021,
+      "smart_groups": [
+        "Cloud / SaaS"
       ],
       "curated": false
     },
@@ -58,6 +689,54 @@
         "Ransomware"
       ],
       "curated": true
+    },
+    {
+      "title": "AMD security advisory (AV26-355)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/amd-security-advisory-av26-355",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T16:17:44+00:00",
+      "published_ts": 1776269864,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Bitcoin can grow 'probably a lot bigger' than $30T+ gold market \u2014 Analysis",
+      "summary": "New Bitcoin macro analysis found its \"addressable market\" surpassed the $38 trillion gold market cap, driven by geopolitical instability and financial sanctions.",
+      "link": "https://cointelegraph.com/news/bitcoin-can-grow-probably-a-lot-bigger-than-30t-gold-market-analysis?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-04-15T16:16:54+00:00",
+      "published_ts": 1776269814,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Senator Elizabeth Warren questions Elon Musk about X Money",
+      "summary": "The Massachusetts Democrat has been critical of private companies, including non-bank entities, issuing their own dollar-pegged stablecoins.",
+      "link": "https://cointelegraph.com/news/elizabeth-warren-question-musk-x-money?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-04-15T16:16:35+00:00",
+      "published_ts": 1776269795,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Pakistan Lifts 8-Year Crypto Banking Ban Following Trump Family, Binance Deals",
+      "summary": "Banks in Pakistan can now provide services to registered crypto firms\u2014but not trade crypto themselves\u2014after a 2018 ban was rescinded.",
+      "link": "https://decrypt.co/364463/pakistan-lifts-8-year-crypto-banking-ban-trump-binance-deals",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-04-15T16:15:48+00:00",
+      "published_ts": 1776269748,
+      "smart_groups": [],
+      "curated": false
     },
     {
       "title": "What Claude Mythos signals for AI security\u2019s future",
@@ -206,6 +885,25 @@
       "curated": true
     },
     {
+      "title": "Cool stuff Google Cloud customers built, April edition: BMW big on SLMs, MLB\u2019s Scout Insights AI, personalized resort experiences",
+      "summary": "AI and cloud technology are reshaping every corner of every industry around the world. Without our customers, who are building the future on our platform, there would be no Google Cloud. In this regular round-up , we dive into some of the exciting projects redefining businesses, shaping industries, and creating new categories. For our latest edition, we learn why BMW Group is experimenting with small language models (SLMs); catch AI-powered commentary from Major League Baseball ; hit the slopes with Vail Resort \u2019s AI concierge; build an intelligent grid with CTC Global ; witness how ID.me created secure global scale; and see how Manhattan Associates supply chain tools now handle 1 billion daily API calls. Be sure to check back next month to see how more industry leaders and exciting startups are putting Google Cloud technologies to use. And if you haven\u2019t already, please peruse our list of 1,001 real-world gen AI use cases from our customers. BMW tests the big potential of small models Who: As one of the world\u2019s leading providers of premium cars and motorcycles, BMW Group is always at the forefront of automotive technology. This ethos pushed the company to test what type of AI language models are ideally suited to driving situations, where access to cloud-based LLMs isn\u2019t always possible. What they did: BMW Group wanted to explore the potential of small language models (SLMs) , which could run within the limited hardware on a vehicle. Finding the right trade-off between size and capability requires careful optimization, and the sheer volume of viable combinations renders manual searches for the optimal configuration an incredibly tedious, if not impossible, undertaking. To overcome this challenge, BMW and Google built automated, reproducible workflows through executable pipelines using Vertex AI . Why it matters: The path from a general-purpose LLM to a specialized SLM isn\u2019t straightforward. Every choice \u2014 from type of quantization to characteristics and contents of the fine-tuning domain-specific dataset \u2014 affects the quality and efficiency of the final model. This creates an exponential range of configurations, each with different trade-offs. It\u2019s a great example of using AI to scale an optimization problem for other AI . Learn from us: \u201cWith automated pipelines, we can rapidly adapt models to our domain and rigorously test and evaluate them against domain-specific benchmarks. This allows us to iterate and optimize models in hours rather than days.\u201d \u2013 Dr. C\u00e9line Laurent-Winter , vice president, Connected Vehicle Platforms at BMW Group MLB Scout Insights: AI-powered color commentary Who: Major League Baseball is famous for its colorful announcers. Now, MLB is bringing more baseball color straight to your pocket, and Gemini is helping give it a voice. What they did: Each season, millions of baseball fans use the MLB app and tap over to the Gameday feature for live, up-to-the-pitch action across more than a dozen games. Starting this season, the league launched MLB Scout Insights in Gameday, which uses Gemini models to quickly scan decades of game and player data, cross-references it with situational game scenarios, and then delivers game-relevant context during key matchups. Why it matters: Given the sport\u2019s storied history, 162-game regular season, and global reach, baseball fans are among the most sophisticated and passionate out there. To keep them engaged with Gameday and the MLB app, the league wanted to deliver insights that truly felt meaningful and interesting. Building the tool meant answering a rather squishy question: What makes an insight actually insightful , not just an accurate fact, and how can an AI learn that distinction? The answer came from some clever \u201c surprisal \u201d analysis. Learn from us: \"With Scout Insights, every fan can feel like the smartest person in the stands, at the water cooler, or on the couch. It\u2019s about deepening connections to the game, and sharing that passion with others. That\u2019s the magic of sports, and we\u2019re making more of it possible with the magic of AI.\" \u2013 Josh Frost , senior vice president of product & Matt Graser , director of engineering, Major League Baseball Vail Resorts makes personalized AI assistance easy Who: Vail Resorts operates some of the most iconic and beloved mountain destinations in the world, including Whistler Blackcomb, Park City Mountain, Stowe, and Crested Butte. What they did: Vail Resorts launched My Epic Assistant during the 2024-2025 snow season, and expanded it this year to add even more AI-powered chat features powered by Google\u2019s powerful Gemini models . The result is an agentic guide to the slopes that can help skiers and snowboarders decide on the right season pass, share the latest snow report, check on lesson preparations, or suggest a good stop for cocoa. Why it matters: Vail Resorts wanted more than a chatbot; they wanted a digital concierge that understands the nuance between a powder day at Whistler and a family trip to Beaver Creek. As the company implemented and refined personalization, improved search, summary capabilities, and conversational flow within My Epic Assistant, the app has delivered a 45% reduction in escalation to human agents since launch. Learn from us: \"Utilizing tooling from Google Cloud, we could lean into agentic design patterns that gave us a way to unlock natural, personalized conversations. These boosted customer satisfaction, while reducing the need for manual intent design. These tools also let us combine flexibility and control to enable the assistant to respond fluidly but always within the boundaries of our brand, policies, and product strategy.\u201d \u2014 The Vail Resorts technical team CTC Global turns the smart grid into an intelligent one Who: CTC Global is a leading manufacturer of advanced transmission conductors and power lines. While many nodes in the grid contain IoT sensors, it recognized a literal gap in the transmission lines themselves. What they did: CTC\u2019s new GridVista platform threads fiber-optic cable into its high-strength carbon fiber composite core, and connects these to monitoring technology built with AI and monitoring technology from Google Cloud and Tapestry . With GridVista, CTC can turn every inch of transmission into a smart sensor. Why it matters: GridVista gives CTC grid operators an accurate and reliable view of what\u2019s happening across the entire line \u2014 based on actual, real-time data from the entire length of the conductor, not point estimates from a static model of line conditions or the occasional clamped-on sensor. This means they can significantly improve safety , manage costs , increase the line\u2019s capacity to transmit power, and enhance reliability with more precise insights about events that might trigger an outage. Learn from us: \u201cThis awareness allows for a grid that can truly sense its own health in real time and provide unprecedented awareness of conditions on the entire line. Whether that\u2019s real time storm impacts, ice load, wind load, branches on the wire, or temperatures on or under the line. The GridVista system truly represents next generation capabilities. \u201d \u2014 J.D. Sitton , CEO, CTC Global ID.me reduces risk while scaling past 160 million users Who: ID.me is transforming digital identity security for the modern era, offering a single login that lets you easily prove you\u2019re you across a wide range of platforms and wallets. What they did: ID.me currently serves more than 160 million users, including as many as 40,000 at any time, so they can prove their identity online as easily as flashing their driver\u2019s license in person. Over the last two years, ID.me migrated more than 50 terabytes of data across 15 database instances to Google Cloud with minimal downtime. They also introduced a two-tier architecture with Cloud SQL supporting its smaller and more standard services, while AlloyDB runs heavier workflows that form the backbone of the ID.me platform. Why it matters: AlloyDB AI has allowed ID.me to scale its systems to handle 10X-20X of what was possible before \u2014 and at a lower price to boot. That responsiveness and reliability led the U.S. federal government to recognize ID.me for its role in preventing large-scale fraud within national systems. Learn from us: \"We\u2019ve been able to scale both our infrastructure and trust. With a platform that\u2019s faster, smarter, and built to handle portable identity at massive scale, we\u2019re one step closer to our goal: a secure, digital way to prove who you are, wherever you need it, that works everywhere you need it.\" \u2014 Kevin Liu , Cloud Platform Architect, ID.me Manhattan Associates powers more than a billion daily API calls Who: Manhattan Associates is a global leader in supply chain and omnichannel commerce solutions, offering tools and platforms that reach more than 2 billion people across 20 billion consumer touchpoints. What they did: Manhattan Associates modernized its Manhattan Active SaaS platform by migrating from legacy Oracle and DB2 systems to Google Cloud databases. Each capability of Manhattan Active now runs as an independent, containerized service orchestrated by Google Kubernetes Engine (GKE) . Data flows through Pub/Sub into BigQuery for real-time analytics, while Cloud Logging and Cloud Monitoring deliver observability at scale. Why it matters: With its new microservices-first design, Manhattan gained the agility to evolve faster and the confidence that mission-critical operations would remain resilient across regions. With Cloud SQL and BigQuery, the company now processes more than a billion daily API calls with average response times of less than 150 milliseconds . This evolution supports hundreds of thousands of monthly active users across tens of thousands of stores and distribution centers. The new platform also created the foundation for Manhattan\u2019s Agentic AI suite, which includes prebuilt agents \u2014 like the Intelligent Store Manager and Labor Optimizer \u2014 that coordinate real-time decisions across store and distribution center operations. Learn from us: \"Operationally, the platform has become more elastic and efficient. The system automatically handles hundreds of thousands of scaling events per day, ensuring performance remains consistent during peak surges without expensive overprovisioning.\" \u2014 Narayana Reddy Kothapu , Senior Director, Manhattan Associates & Rajkumar Ramani , Technical Director, Manhattan Associates",
+      "link": "https://cloud.google.com/blog/topics/customers/cool-stuff-google-cloud-customers-built-monthly-round-up/",
+      "source": "Google Cloud Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-04-15T16:00:00+00:00",
+      "published_ts": 1776268800,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
       "title": "Can this $70 Linux app make up for the lack of Photoshop? I tried it to find out",
       "summary": "For those who bemoan the lack of Photoshop on Linux, it's possible that a competitor to GIMP could fill that need\u2026 maybe.",
       "link": "https://www.zdnet.com/article/fogpanther-image-editor-linux-gimp-competitor/",
@@ -218,6 +916,22 @@
         "Linux / Unix"
       ],
       "curated": false
+    },
+    {
+      "title": "Microsoft Issues Massive Windows Patch for 160+ Bugs, Including Two Zero-Days",
+      "summary": "Microsoft\u2019s April 2026 Patch Tuesday fixes 165 vulnerabilities, including two zero-days, in one of the company\u2019s largest monthly security updates. The post Microsoft Issues Massive Windows Patch for 160+ Bugs, Including Two Zero-Days appeared first on TechRepublic .",
+      "link": "https://www.techrepublic.com/article/news-microsoft-windows-165-vulnerabilities-april-2026/",
+      "source": "TechRepublic \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T15:52:14+00:00",
+      "published_ts": 1776268334,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft"
+      ],
+      "curated": true
     },
     {
       "title": "WordPress plugins compromised after acquisition, leading to backdoor installation",
@@ -273,6 +987,18 @@
         "Phishing / Social Engineering"
       ],
       "curated": true
+    },
+    {
+      "title": "Bitcoin falls to lower support as analysts say markets are ignoring key Iran issue",
+      "summary": "Bitcoin paused its rally toward new range highs while the S&P 500 came within an inch of a fresh year-to-date high, leading analysts to warn that traders are overconfident.",
+      "link": "https://cointelegraph.com/news/bitcoin-falls-to-lower-support-as-analysts-say-markets-are-ignoring-key-iran-issue?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-04-15T15:20:00+00:00",
+      "published_ts": 1776266400,
+      "smart_groups": [],
+      "curated": false
     },
     {
       "title": "You can use Linux 7.0 on these 7 distros today - here's what to expect",
@@ -353,6 +1079,23 @@
       "published_ts": 1776265200,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "Guide to prompting Gemini 3.1 Flash TTS (text-to-speech)",
+      "summary": "Today, Gemini 3.1 Flash TTS, our latest text-to-speech model, is available on Google AI Studio and Vertex AI . It delivers precise controllability and expressivity, empowering developers and enterprises to build advanced AI-speech applications. The new TTS model introduces a high level of controllability by allowing you to steer the delivery using 200+ audio tags. We'll share how to get strong results from the model, whether you are building accessible gaming soundtracks, banking systems, or audiobooks. Learn more about the model here . What you will learn: Model overview Voice style instructions The core prompting framework for audio tags Directing expression and pacing Use cases: accessibility and inclusive design, creative and entertainment, enterprise use cases 1. Model overview Gemini 3.1 Flash TTS is available on Google AI Studio and Vertex AI in public preview. The model delivers high-fidelity speech and precise control across 70+ languages. These core optimizations bring advanced control to style, accent, pacing and expressivity to major markets. Audio generated by Gemini 3.1 Flash TTS is watermarked with SynthID, a watermark woven directly into the audio output to help identify AI-generated content. 2. Voice style instructions To begin, choose a baseline voice from the 30 available prebuilt voices and a target language from over 70+ supported options and regional variants. This selection serves as the foundation for your audio output. Once you have your base voice and language, you can use natural language instructions to add stylization. Whether you need a specific regional accent, a professional narrator\u2019s tone, or a more casual, conversational vibe, simply describe the style you want to achieve. Finally, you can now embed audio tags directly into your text prompt to trigger specific pacing and expressiveness to generate your audio. 3. The core prompting framework for audio tags With Gemini 3.1 flash TTS, we are introducing audio tags as an intuitive way to guide vocal style, pace, and delivery. By embedding natural language commands directly into the text input, you can steer AI-speech output with high levels of granularity. The formula: [pacing tag] + spoken text + [expressive tag] + spoken text + [pause tag] + spoken text All inline tags must be enclosed in square brackets, such as [whispers] or [happy] . Insert these tags exactly where you want the transition to occur. Ensure tags are separated by text or punctuation to avoid system errors. Do not place two tags directly next to each other. Accents should be triggered by style prompts, not by the language setting. Gemini 3.1 Flash TTS Please note that the tags are in English only, but English-language tags can be combined with text in other languages. French language example: [cautious] L'ombre avan\u00e7a lentement dans la pi\u00e8ce silencieuse. [whispers] Le document secret devait \u00eatre cach\u00e9 ici. [short pause] Mais o\u00f9? [gasp] Soudain, un bruit sourd r\u00e9sonna dans le couloir [panic] Il fallait sortir d'ici imm\u00e9diatement. 4. Directing expression and pacing Gemini 3.1 flash TTS supports 200+ audio tags to prompt expressive voices. Most commonly used tags include: [determination], [enthusiasm], [adoration], [interest], [awe], [admiration], [nervousness], [frustration], [excitement], [curiosity], [hope], [annoyance], [amusement], [aggression], [tension], [agitation], [confusion], [anger], [positive], [neutral], [negative], [whispers], and [laughs]. Pacing and stylistic controls: you can use pacing tags like [slow] or [fast] to control the speed of the delivery. To pace out your information and let dramatic moments land, use tags like [short pause] or [long pause]. Non-verbal vocalizations: the model can produce realistic non-verbal audio. You can insert tags like [laughs] or [whispers] to add texture to the audio output. Use cases 1. Accessibility and inclusive design Text-to-speech technology plays a vital role in making digital spaces accessible. Gemini 3.1 Flash TTS provides highly contextual, clear audio for individuals who rely on screen readers or augmentative and alternative communication devices. Gaming soundtracks and descriptions For players navigating game menus, audio descriptions need to be clear, inviting, and easy to follow. [enthusiasm] You have selected the twilight forest level. [interest] This area features hidden artifacts and new challenges. It includes an expansive map, challenging puzzles, and a specialized survival kit. Gaming soundtrack using Gemini 3.1 Flash TTS Media and TV audio descriptions When providing audio descriptions for television or film, the synthetic voice can match the energy of the scene, utilizing tags like whispers or sound effects to enhance the experience without distracting from the primary audio. [neutral] The scene fades in on a dimly lit diner. [whispers] A person in a trench coat sits alone in the corner booth, nervously checking their watch. [neutral] They look up sharply as the diner door swings open. Use Gemini 3.1 Flash TTS for media and TV audio descriptions 2. Creative and entertainment use cases For audio publishers and content creators, the model applies context-aware pacing based on the natural flow of the text. You can stack pacing and expressive tags to build suspense and drama in a narrative format. Audiobooks A narrator setting the scene, followed by a character speaking with a distinct style. [cautious] step carefully around the glowing runes on the floor. [anxiety] one wrong move and the entire temple collapses. [relief] we finally found the crystal. [awe] it is more brilliant than the stories described. [alarm] wait, the light inside is turning red. [panic] run for the exit! Use Gemini 3.1 Flash TTS for audiobooks Tip: For long-form content, manual tagging can be inefficient. You can use Gemini 3.1 Flash-Lite to programmatically annotate your text before passing it to the Gemini 3.1 Flash TTS model. Try this demo here . 3. Enterprise and business use cases For enterprise applications, precision and tone are critical. Here is how to use pacing and expressive tags to handle day-to-day business operations. Banking When dealing with sensitive information like credit card fraud alerts, the model can transition from a serious, professional tone to a helpful, positive resolution. [neutral] Hello. This is an automated fraud prevention alert from Horizon bank. [seriousness] We detected unusual activity on your card ending in [slow] 4 3 2 1. [positive] If you recognize a charge of eighty-five dollars at City electronics, please press one. Use Gemini 3.1 Flash TTS for banking use cases Urgent automated notifications Use pacing tags to emphasize the urgency of an action required by the customer. [neutral] Hello. This is an automated message from City airways. [short pause] Your flight, [slow] C A 4 2 7, has been updated. [positive] It is now departing at 8:45 AM from Gate B 12. [fast] Please proceed to the gate immediately, as boarding will begin in five minutes. Use Gemini 3.1 Flash TTS for urgent automated notifications How to get started today You can start building with Gemini 3.1 Flash TTS in our core developer products: Vertex AI : The model is available in preview on Vertex AI. Build Gemini 3.1 Flash TTS into your applications with the scale, security, and enterprise-readiness of Google Cloud. Google AI Studio : For rapid prototyping and experimentation, the model is available in Preview in AI Studio. Explore the new audio playground interface to test the expressive controls. To dive deeper into the best practices, explore the following resources: Developer documentation Voice Director Agent Skill",
+      "link": "https://cloud.google.com/blog/products/ai-machine-learning/gemini-3-1-flash-tts-on-google-cloud/",
+      "source": "Google Cloud Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-04-15T15:00:00+00:00",
+      "published_ts": 1776265200,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS",
+        "Network / OT / ICS"
+      ],
+      "curated": true
     },
     {
       "title": "iPhone charging slowly? 6 quick fixes to try before blaming your battery",
@@ -1539,6 +2282,18 @@
       "curated": false
     },
     {
+      "title": "How the enterprise supply chain has created a global attack surface",
+      "summary": "For years, organisations have treated cyber security as something that happens within their own walls. Protect the network, secure the endpoints, monitor the environment. Job done. Security was architected like a moat and castle, but today the model is no longer effective. Today, the real exposure sits outside the organisation. It sits in third parties, [\u2026] The post How the enterprise supply chain has created a global attack surface appeared first on IT Security Guru .",
+      "link": "https://www.itsecurityguru.org/2026/04/15/how-the-enterprise-supply-chain-has-created-a-global-attack-surface/?utm_source=rss&utm_medium=rss&utm_campaign=how-the-enterprise-supply-chain-has-created-a-global-attack-surface",
+      "source": "IT Security Guru",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T11:28:01+00:00",
+      "published_ts": 1776252481,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "Hackers Abuse Google Cloud Storage to Slip Remcos RAT Past Email Filters",
       "summary": "Hackers are exploiting Google Cloud Storage to bypass email and web filters and deliver Remcos RAT through convincing Google Drive\u2013themed phishing campaigns that blend social engineering with fileless, multi\u2011stage execution chains. Phishing emails link to Google Cloud Storage buckets named \u201ccom-bid\u201d or \u201ccontract-bid-0,\u201d presenting what appears to be a standard Google Drive document access request. [\u2026] The post Hackers Abuse Google Cloud Storage to Slip Remcos RAT Past Email Filters appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
       "link": "https://gbhackers.com/google-cloud-storage-abused/",
@@ -1706,6 +2461,18 @@
       "type_label": "General Security & Blogs",
       "published": "2026-04-15T10:58:12+00:00",
       "published_ts": 1776250692,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Only 16% of Businesses are Fully Compliant with NIS2 Despite 2024 Compliance Deadline",
+      "summary": "New research from CyberSmart has revealed that, despite a compliance deadline that has now passed, only 16% of businesses required to comply with the EU\u2019s Network and Information Security Directive 2 (NIS2) are confident that they are fully compliant. Worryingly, 11% of respondents were unsure what NIS2 is, despite falling within its scope. The CyberSmart [\u2026] The post Only 16% of Businesses are Fully Compliant with NIS2 Despite 2024 Compliance Deadline appeared first on IT Security Guru .",
+      "link": "https://www.itsecurityguru.org/2026/04/15/only-16-of-businesses-are-fully-compliant-with-nis2-despite-2024-compliance-deadline/?utm_source=rss&utm_medium=rss&utm_campaign=only-16-of-businesses-are-fully-compliant-with-nis2-despite-2024-compliance-deadline",
+      "source": "IT Security Guru",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T10:57:09+00:00",
+      "published_ts": 1776250629,
       "smart_groups": [],
       "curated": false
     },
@@ -3267,6 +4034,18 @@
         "Vulnerabilities / CVEs"
       ],
       "curated": true
+    },
+    {
+      "title": "Secure by Design: Building cybersecurity into the foundation",
+      "summary": "An explainer of why this philosophy matters and how it reduces attack surface from the inside Categories: Sophos Insights, Products & Services Tags: Secure by Design, Thought Leadership",
+      "link": "https://www.sophos.com/en-us/blog/building-cybersecurity-into-the-foundation",
+      "source": "Sophos News",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-04-15T00:00:00+00:00",
+      "published_ts": 1776211200,
+      "smart_groups": [],
+      "curated": false
     },
     {
       "title": "Bitcoin shows \u2018bull market behavior\u2019 as chart pattern targets $90K",
@@ -9357,21 +10136,6 @@
       "curated": false
     },
     {
-      "title": "Deep Scan: Expanding Vulnerability Detection Beyond Traditional Boundaries",
-      "summary": "Security teams estimate that a significant percentage of enterprise software is installed outside standard system directories or package-managed locations, creating persistent visibility gaps for traditional vulnerability-scanning methods. As environments become more decentralized, with applications spread across different drives, custom installation locations, and unmanaged folders, organizations require more advanced inspection capabilities to maintain clear and accurate [\u2026]",
-      "link": "https://blog.qualys.com/category/product-tech",
-      "source": "Product and Tech \u2013 Qualys Security Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-04-13T15:00:00+00:00",
-      "published_ts": 1776092400,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
       "title": "Mailbox Rule Abuse Emerges as Stealthy Post-Compromise Threat",
       "summary": "Attackers are abusing Microsoft 365 mailbox rules to hide activity, exfiltrate data and retain access after account compromise, researchers warn",
       "link": "https://www.infosecurity-magazine.com/news/mailbox-rule-abuse-stealthy-post/",
@@ -11639,6 +12403,18 @@
       "type_label": "OSINT, Communities & Subreddits",
       "published": "2026-04-13T00:00:29+00:00",
       "published_ts": 1776038429,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Identity Protection in the AI Era",
+      "summary": "Enterprises aiming to predict and mitigate human, machine, and AI\u2011agent risks at scale demand AI\u2011powered identity\u2011first security without compromise.",
+      "link": "https://www.trendmicro.com/en_us/research/26/d/ai-era-identity-production.html",
+      "source": "Trend Micro Simply Security",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-04-13T00:00:00+00:00",
+      "published_ts": 1776038400,
       "smart_groups": [],
       "curated": false
     },
@@ -111749,860 +112525,6 @@
       "published": "2026-03-16T20:11:48+00:00",
       "published_ts": 1773691908,
       "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Robotics surgical biz Intuitive discloses phishing attack",
-      "summary": "Operations and hospital networks not affected, we're told Robotics-assisted surgical tech firm Intuitive said that unauthorized intruders gained access to some of its internal IT business applications after stealing an employee's credentials during a phishing attack.\u2026",
-      "link": "https://go.theregister.com/feed/www.theregister.com/2026/03/16/robotics_surgical_biz_intuitive_discloses/",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T20:04:08+00:00",
-      "published_ts": 1773691448,
-      "smart_groups": [
-        "Network / OT / ICS",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "OpenAI Pushes Ahead With ChatGPT Erotica Mode Despite 'Sexy Suicide Coach' Warning: WSJ",
-      "summary": "A new report reveals that OpenAI's own team warned the company against its adult mode plans\u2014but the AI giant is still moving forward.",
-      "link": "https://decrypt.co/361279/openai-chatgpt-erotica-mode-sexy-suicide-coach-warning-wsj",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-03-16T20:00:54+00:00",
-      "published_ts": 1773691254,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "My boss wants to leave intune because of Stryker",
-      "summary": "TLDR: CISO comes in on monday. Was reading everything about how the 200k devices including BYOD iphones got wiped by Iran. Wants to switch from intune ASAP since we have everything else on Azure. Super concerned that if we have everything in 1 place and web hosting on AWS like Stryker did, we could get wrecked too. He is quite convinced our people will fall for spearfishing if targeted. Hes super right ngl. We've all seen this a ton by now. What MDM software do you use right now? Specifically for Linux would be interesting. Ideally no custom scripting. Thanks! submitted by /u/Eternal_Phantasm [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rvk7x6/my_boss_wants_to_leave_intune_because_of_stryker/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-16T19:53:32+00:00",
-      "published_ts": 1773690812,
-      "smart_groups": [
-        "Windows / Microsoft",
-        "Linux / Unix",
-        "Cloud / SaaS",
-        "Web / API Security"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Augustus v0.0.9: Multi-Turn Attacks for LLMs That Fight Back",
-      "summary": "Single-turn jailbreaks are getting caught. Guardrails have matured. The easy wins \u2014 \u201cignore previous instructions,\u201d base64-encoded payloads, DAN prompts \u2014 trigger refusals on most production models within milliseconds. But real attackers don\u2019t give up after one message. They have conversations. Augustus v0.0.9 now ships with a unified engine for LLM multi-turn attacks, with four distinct [\u2026] The post Augustus v0.0.9: Multi-Turn Attacks for LLMs That Fight Back appeared first on Praetorian .",
-      "link": "https://www.praetorian.com/blog/llm-multi-turn-attacks-augustus/",
-      "source": "https://www.praetorian.com/feed/",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-16T19:41:44+00:00",
-      "published_ts": 1773690104,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "GlassWorm Attack Uses Stolen GitHub Tokens to Force-Push Malware Into Python Repos",
-      "summary": "The GlassWorm malware campaign is being used to fuel an ongoing attack that leverages the stolen GitHub tokens to inject malware into hundreds of Python repositories. \"The attack targets Python projects \u2014 including Django apps, ML research code, Streamlit dashboards, and PyPI packages \u2014 by appending obfuscated code to files like setup.py, main.py, and app.py,\" StepSecurity said. \"Anyone who runs",
-      "link": "https://thehackernews.com/2026/03/glassworm-attack-uses-stolen-github.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T19:37:00+00:00",
-      "published_ts": 1773689820,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "These $70 headphones are the reason why I take budget options more seriously now",
-      "summary": "The CMF Headphone Pro are my new pick for the best headphones under $100. Here's why they rock.",
-      "link": "https://www.zdnet.com/article/cmf-headphone-pro-review/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T19:35:00+00:00",
-      "published_ts": 1773689700,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Own a Samsung phone? I changed 10 settings to greatly improve its performance",
-      "summary": "Samsung phones have a bevy of useful features - here are a few you should start using.",
-      "link": "https://www.zdnet.com/article/change-samsung-phone-settings-improve-performance/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T19:27:00+00:00",
-      "published_ts": 1773689220,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Android 17 Leaks Reveal Major Redesign, AI Features, and Privacy Upgrades",
-      "summary": "Android 17 beta is here. Here\u2019s what is confirmed so far, what leaks suggest, and which rumored features may arrive later in 2026. The post Android 17 Leaks Reveal Major Redesign, AI Features, and Privacy Upgrades appeared first on TechRepublic .",
-      "link": "https://www.techrepublic.com/article/news-android-17-leaks-features-beta-release-rumors/",
-      "source": "TechRepublic \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T19:23:40+00:00",
-      "published_ts": 1773689020,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "HPE security advisory (AV26-244)",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/hpe-security-advisory-av26-244",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T19:18:53+00:00",
-      "published_ts": 1773688733,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Stryker attack wiped tens of thousands of devices, no malware needed",
-      "summary": "Last week's cyberattack on medical technology giant Stryker was limited to its internal Microsoft environment and remotely wiped tens of thousands of employee devices. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/stryker-attack-wiped-tens-of-thousands-of-devices-no-malware-needed/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T19:17:20+00:00",
-      "published_ts": 1773688640,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Iranian Cyber Threat Evolution: From MBR Wipers to Identity Weaponization",
-      "summary": "The evolution of Iranian cyber operations in broad context: from custom wiper malware to misuse of legitimate admin tools and more. The post Iranian Cyber Threat Evolution: From MBR Wipers to Identity Weaponization appeared first on Unit 42 .",
-      "link": "https://unit42.paloaltonetworks.com/evolution-of-iran-cyber-threats/",
-      "source": "https://unit42.paloaltonetworks.com/feed/",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-16T19:15:43+00:00",
-      "published_ts": 1773688543,
-      "smart_groups": [
-        "Linux / Unix",
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Even some of the best DevSecOps companies are basically saying they can barely fend off new, sophisticated invisible character AI attacks.",
-      "summary": "Look at this blog post, they said the best they can do is about 60% against glass worm like attacks and AI powered bad character attacks.... that's insanely bad. Articles: There Is Code in There, You Just Can't See It. - https://badcharacterscanner.com/blog/there-is-code-in-there-you-just-cant-see-it Glassworm Is Back: A New Wave of Invisible Unicode Attacks Hits Hundreds of Repositories - https://www.aikido.dev/blog/glassworm-returns-unicode-attack-github-npm-vscode submitted by /u/Organic-Taro-2982 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rviz0s/even_some_of_the_best_devsecops_companies_are/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-16T19:09:59+00:00",
-      "published_ts": 1773688199,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "SEC Drops Case Against BitClout Founder Nader Al-Naji",
-      "summary": "The SEC has ended its case against Nader Al-Naji, who was accused of $257 million in unregistered securities sales via the BitClout token.",
-      "link": "https://decrypt.co/361275/sec-drops-case-bitclout-founder-nader-al-naji",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-03-16T19:07:29+00:00",
-      "published_ts": 1773688049,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Standing up for the open Internet: why we appealed Italy\u2019s \"Piracy Shield\" fine",
-      "summary": "Cloudflare is appealing a \u20ac14 million fine from Italian regulators over \"Piracy Shield,\" a system that forces providers to block content without oversight. We are challenging this framework to protect the Internet from disproportionate overblocking and lack of due process.",
-      "link": "https://blog.cloudflare.com/standing-up-for-the-open-internet/",
-      "source": "The Cloudflare Blog",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T19:00:00+00:00",
-      "published_ts": 1773687600,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "CVE-2026-4269 - Improper S3 ownership verification in Bedrock AgentCore Starter Toolkit",
-      "summary": "Bulletin ID: 2026-008-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 2026/03/16 11:15 AM PDT Description: A missing S3 ownership verification in the Bedrock AgentCore Starter Toolkit before version v0.1.13 may allow a remote actor to inject code during the build process, leading to code execution in the AgentCore Runtime. Impacted versions: All versions of Bedrock AgentCore Starter Toolkit versions before v0.1.13. This issue only affects users of the Bedrock AgentCore Starter Toolkit before version v0.1.13 who build the Toolkit after September 24, 2025. Any users on a version >=v0.1.13, and any users on previous versions who built the toolkit before September 24, 2025 are not affected. Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin.",
-      "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-008-aws/",
-      "source": "Latest Bulletins",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-16T18:59:47+00:00",
-      "published_ts": 1773687587,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Qihoo 360's AI Product Leaked the Platform's SSL Key, Issued by Its Own CA Banned for Fraud",
-      "summary": "submitted by /u/LostPrune2143 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rvilqw/qihoo_360s_ai_product_leaked_the_platforms_ssl/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-16T18:57:46+00:00",
-      "published_ts": 1773687466,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "How Can Organizations Improve Threat Detection and Response in Hybrid Cloud Environments?",
-      "summary": "Learn best practices for threat detection in hybrid cloud environments and how organizations can strengthen detection and response across enterprise hybrid cloud infrastructure. The post How Can Organizations Improve Threat Detection and Response in Hybrid Cloud Environments? appeared first on Fidelis Security .",
-      "link": "https://fidelissecurity.com/threatgeek/cloud-security/hybrid-cloud-threat-detection-and-response/",
-      "source": "Fidelis Security",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-16T18:57:15+00:00",
-      "published_ts": 1773687435,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Bitcoin\u2019s push toward $75K revives debate over what drives capital flows",
-      "summary": "Bitcoin chases $75,000 as the return of aggressive spot BTC ETF inflows, billion dollar buys from Strategy and an improvement in investors\u2019 risk appetite propel the crypto market.",
-      "link": "https://cointelegraph.com/news/bitcoin-s-push-toward-75k-revives-debate-over-what-drives-capital-flows?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-03-16T18:54:59+00:00",
-      "published_ts": 1773687299,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Qihoo 360's AI Product Leaked the Platform's SSL Key, Issued by Its Own CA Banned for Fraud",
-      "summary": "submitted by /u/LostPrune2143 [link] [comments]",
-      "link": "https://www.reddit.com/r/netsec/comments/1rviijf/qihoo_360s_ai_product_leaked_the_platforms_ssl/",
-      "source": "/r/netsec",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-16T18:54:42+00:00",
-      "published_ts": 1773687282,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "5 Samsung bloatware apps I always uninstall first (and why you should do the same)",
-      "summary": "Samsung phones come with a lot of apps, but some less-frequented ones can take up valuable storage space. Here are five I'd remove ASAP.",
-      "link": "https://www.zdnet.com/article/uninstall-these-samsung-bloatware-apps/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T18:51:00+00:00",
-      "published_ts": 1773687060,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Cybercrime has skyrocketed 245% since the start of the Iran war",
-      "summary": "Hacktivists use proxy services from Russia, China for 'billions of designed-for-abuse connection attempts' Cybercrime has skyrocketed since the start of the Iran war, according to Akamai, which reports a 245 percent increase in everything from credential harvesting attempts to automated reconnaissance traffic aimed at banks and other critical businesses.\u2026",
-      "link": "https://go.theregister.com/feed/www.theregister.com/2026/03/16/cybercrime_iran_war_245_percent_rise/",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T18:40:30+00:00",
-      "published_ts": 1773686430,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Phishing / Social Engineering"
-      ],
-      "curated": true
-    },
-    {
-      "title": "New Phishing Scam Uses LiveChat to Pose as Amazon and PayPal in Real Time",
-      "summary": "Cofense researchers warn of a phishing scam where attackers use LiveChat to impersonate Amazon and PayPal agents and steal credit card and MFA codes.",
-      "link": "https://hackread.com/phishing-scam-livechat-pose-as-amazon-paypal/",
-      "source": "HackRead",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T18:30:42+00:00",
-      "published_ts": 1773685842,
-      "smart_groups": [
-        "Identity / Access",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "This unassuming amplifier is the one audio upgrade that finally made my speakers sing",
-      "summary": "The Rotel DX-5 integrated amp has an edgy design and a no-fuss setup, with one important caveat.",
-      "link": "https://www.zdnet.com/article/rotel-dx-5-integrated-amp-review/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T18:30:00+00:00",
-      "published_ts": 1773685800,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Industrial Systems Under Siege: 77% of OT Environments Suffer Cyber Breaches",
-      "summary": "Industrial systems face rising cyber threats as OT security lags modernization. A new survey reveals widespread breaches and growing risks to critical infrastructure. The post Industrial Systems Under Siege: 77% of OT Environments Suffer Cyber Breaches appeared first on TechRepublic .",
-      "link": "https://www.techrepublic.com/article/news-industrial-cybersecurity-ot-security-survey/",
-      "source": "TechRepublic \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T18:22:54+00:00",
-      "published_ts": 1773685374,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Ironlight raises $21M to scale marketplace for tokenized securities",
-      "summary": "The Sei Development Foundation joined in the round to support expansion of an SEC-regulated alternative trading system and settlement platform for blockchain-based securities.",
-      "link": "https://cointelegraph.com/news/tokenized-securities-platform-ironlight-raises-21m-series-a-to-expand-regulated-trading-infrastructure?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-03-16T18:21:29+00:00",
-      "published_ts": 1773685289,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Dozens of Global Companies Hacked via Cloud Credentials from Infostealer Infections & More at Risk",
-      "summary": "submitted by /u/OMiniServer [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rvh6y9/dozens_of_global_companies_hacked_via_cloud/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-16T18:08:12+00:00",
-      "published_ts": 1773684492,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Nextcloud: Code smuggling possible through loophole",
-      "summary": "submitted by /u/OMiniServer [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rvh67p/nextcloud_code_smuggling_possible_through_loophole/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-16T18:07:29+00:00",
-      "published_ts": 1773684449,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "3 ways I safely retire every Windows PC - and why you shouldn't skip these critical steps",
-      "summary": "If you're ready to replace your old computer and hand it down to a friend or family member, you'll need to wipe your data and reset it. Here's how to do it properly.",
-      "link": "https://www.zdnet.com/article/how-to-wipe-your-old-windows-pc-properly/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T18:06:00+00:00",
-      "published_ts": 1773684360,
-      "smart_groups": [
-        "Windows / Microsoft"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Unsupervised Learning NO. 520",
-      "summary": "Stryker Still Hobbled, The Personal Drone Threat, RSA Events, Ikigai as Career, A couple new blogs, and more...",
-      "link": "https://newsletter.danielmiessler.com/p/unsupervised-learning-no-520",
-      "source": "https://rss.beehiiv.com/feeds/gQxaV1KHkQ.xml",
-      "type": "podcasts",
-      "type_label": "Podcasts & YouTube",
-      "published": "2026-03-16T18:00:35+00:00",
-      "published_ts": 1773684035,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "CISA flags Wing FTP Server flaw as actively exploited in attacks",
-      "summary": "CISA warned U.S. government agencies to secure their Wing FTP Server instances against an actively exploited vulnerability that may be chained in remote code execution attacks. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/cisa-flags-wing-ftp-server-flaw-as-actively-exploited-in-attacks/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T18:00:22+00:00",
-      "published_ts": 1773684022,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Login Bypass Discovery in a NASA",
-      "summary": "During testing, I discovered that Defender Security ( #CyberSecurity #BugBounty #AppSec #WordPressSecurity #EthicalHacking #InfoSec #Vulnerabilities #NASA #SecurityResearch #Pentesting #Hacker #OWASP https://www.youtube.com/watch?v=yIx0XLx-iRQ submitted by /u/s1kr10s [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rvgpkt/login_bypass_discovery_in_a_nasa/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-16T17:51:45+00:00",
-      "published_ts": 1773683505,
-      "smart_groups": [
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Wing FTP security advisory (AV25-391) - Update 2",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/wing-ftp-security-advisory-av25-391",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T17:48:08+00:00",
-      "published_ts": 1773683288,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "RSA Reddit Meetup - Anyone up for it?",
-      "summary": "Hi all - Seems like we've got a decent amount of folks that will be in SF next week for RSA. Would anyone be down for a good old fashioned Reddit Meetup? I'm suggesting it be Monday, Tues or Wednesday - and we could plan to meet up at a bar near Moscone or near Market St. Any thoughts/suggestions? I think it would be really rad to get the r/Cybersecurity sub together at RSA, it's been awesome to see how much this community has grown over the past several years. LMK what yall think! submitted by /u/QforQ [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rvgkv2/rsa_reddit_meetup_anyone_up_for_it/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-16T17:47:07+00:00",
-      "published_ts": 1773683227,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Luxembourg court overturns $858 million privacy fine against Amazon",
-      "summary": "The case, which had its roots in 2018, originated in the way that Amazon obtained consent from European consumers.",
-      "link": "https://therecord.media/luxembourg-court-overturns-amazon-gdpr-fine",
-      "source": "The Record",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T17:46:00+00:00",
-      "published_ts": 1773683160,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Trump-Backed World Liberty Puts $5.3 Million Price Tag on 'Guaranteed Access' to Team",
-      "summary": "The Trump family's World Liberty Financial approved a measure that lets big-time WLFI investors access members of its team.",
-      "link": "https://decrypt.co/361259/trump-backed-world-liberty-5-million-price-tag-access-team",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-03-16T17:42:45+00:00",
-      "published_ts": 1773682965,
-      "smart_groups": [
-        "Web / API Security"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Free parking in Russia after Distributed Denial-of-Service attack knocks city&#8217;s parking system offline",
-      "summary": "Drivers in the Russian city of Perm have been enjoying an unexpected bonus this week: free parking. Not because the city council suddenly decided to embrace generosity - but rather because hackers succeeded in knocking the city's payment system offline. Read more in my article on the Hot for Security blog.",
-      "link": "https://www.bitdefender.com/en-us/blog/hotforsecurity/free-parking-russia-distributed-denial-of-service-attack-parking-system",
-      "source": "Graham Cluley",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T17:27:34+00:00",
-      "published_ts": 1773682054,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Software Developer To App Sec",
-      "summary": "What would the transition into Application security look like for a C# Net developer with over 4 years of experience? Thoughts ? Advice? submitted by /u/Suspicious-Fault6387 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rvfwmd/software_developer_to_app_sec/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-16T17:23:52+00:00",
-      "published_ts": 1773681832,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Hacked sites deliver Vidar infostealer to Windows users",
-      "summary": "We found fake \u201cverify you are human\u201d pages on hacked WordPress sites that trick Windows users into installing the Vidar infostealer.",
-      "link": "https://www.malwarebytes.com/blog/threat-intel/2026/03/hacked-sites-deliver-vidar-infostealer-to-windows-users",
-      "source": "Malwarebytes Labs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T17:15:10+00:00",
-      "published_ts": 1773681310,
-      "smart_groups": [
-        "Windows / Microsoft",
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Stryker says hospital tools are safe, but digital ordering systems still down after cyberattack",
-      "summary": "Electronic ordering systems belonging to the medical device company Stryker are still down a week after a cyberattack believed to have wiped thousands of company devices of all information. The company said its digital products are safe for use.",
-      "link": "https://therecord.media/stryker-cyberattack-impact-iran",
-      "source": "The Record \u2013 Cybercrime",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-03-16T17:15:00+00:00",
-      "published_ts": 1773681300,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "IBM Uncovers \u2018Slopoly,\u2019 Likely AI-Generated Malware Used in Hive0163 Ransomware Attack",
-      "summary": "A concerning development has emerged in early 2026, as IBM X-Force uncovered a likely AI-generated malware strain they named \u201cSlopoly,\u201d deployed during a ransomware attack by the financially motivated threat group Hive0163. The group is primarily focused on large-scale data theft and ransomware deployments, using a growing arsenal of custom-built tools to stay persistent inside [\u2026] The post IBM Uncovers \u2018Slopoly,\u2019 Likely AI-Generated Malware Used in Hive0163 Ransomware Attack appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/ibm-uncovers-slopoly-likely-ai-generated-malware/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T17:11:43+00:00",
-      "published_ts": 1773681103,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Microsoft Edge security advisory (AV26-243)",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/microsoft-edge-security-advisory-av26-243",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T17:11:23+00:00",
-      "published_ts": 1773681083,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "New Microsoft Purview innovations for Fabric to safely accelerate your AI transformation",
-      "summary": "As organizations adopt AI, security and governance remain core primitives for safe AI transformation and acceleration. The post New Microsoft Purview innovations for Fabric to safely accelerate your AI transformation appeared first on Microsoft Security Blog .",
-      "link": "https://techcommunity.microsoft.com/blog/microsoft-security-blog/new-microsoft-purview-innovations-for-fabric-to-safely-accelerate-your-ai-transf/4502156",
-      "source": "Microsoft Security Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-16T17:10:00+00:00",
-      "published_ts": 1773681000,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "UK\u2019s Companies House confirms security flaw exposed business data",
-      "summary": "Companies House, a British government agency that operates the registry for all U.K. companies, says its WebFiling service is back online after it was closed on Friday to fix a security flaw that exposed companies' information since October 2025. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/uks-companies-house-confirms-security-flaw-exposed-business-data/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T17:07:25+00:00",
-      "published_ts": 1773680845,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "New Microsoft Purview innovations for Fabric to safely accelerate your AI transformation",
-      "summary": "As organizations adopt AI, security and governance remain core primitives for safe AI transformation and acceleration. After all, data leaders are aware of the notion that: Your AI is only as good as your data. Organizations are skeptical about AI transformation due to concerns of sensitive data oversharing and poor data quality. In fact, 86% of organizations lack visibility into AI data flows, operating in darkness about what information employees share with AI systems [1] . Compounding on this challenge, about 67% of executives are uncomfortable using data for AI due to quality concerns [2]. The challenges of data oversharing and poor data quality requires organizations to solve these issues seamlessly for the safe usage of AI. Microsoft Purview offers a modern, unified approach to help organizations secure and govern data across their entire data estate, in particular best in class integrations with M365, Microsoft Fabric, and Azure data estates, streamlining oversight and reducing complexity across the estate. At FabCon Atlanta, we\u2019re announcing new Microsoft Purview innovations for Fabric to help seamlessly secure and confidently activate your data for AI transformation. These updates span data security and data governance, granting Fabric users to both Discover risks and prevent data oversharing in Fabric Improve governance processes and data quality across their data estate 1. Discover risks and prevent data oversharing in Fabric As data volume increases with AI usage, Microsoft Purview secures your data with capabilities such as Information Protection, Data Loss Prevention (DLP), Insider Risk Management (IRM), and Data Security Posture Management (DSPM). These capabilities work together to secure data throughout its lifecycle and now specifically for your Fabric data estate. Here are a few new Purview innovations for your Fabric estate: Microsoft Purview DLP policies to prevent data leakage for Fabric Warehouse and KQL/SQL DBs Now generally available, Microsoft Purview DLP policies allow Fabric admins to prevent data oversharing in Fabric through policy tip triggering when sensitive data is detected in assets uploaded to Warehouses. Additionally, in preview, Purview DLP enables Fabric admins to restrict access to assets with sensitive data in KQL/SQL DBs and Fabric Warehouses to prevent data oversharing. This helps admins limit access to sensitive data detected in these data sources and data stores to just asset owners and allowed collaborators. These DLP innovations expand upon the depth and breadth of existing DLP policies to ensure sensitive data in Fabric is protected. Figure 1. DLP restrict access preventing data oversharing of customer information stored in a KQL database. Microsoft Purview Insider Risk Management (IRM) indicators for Lakehouse, IRM data theft quick policy for Fabric, and IRM pay-as-you-go usage report for Fabric Microsoft Purview Insider Risk Management is now generally available for Microsoft Fabric extending its risk-detection capabilities to Microsoft Fabric lakehouses (in addition to Power BI which is supported today) by offering ready-to-use risk indicators based on risky user activities in Fabric lakehouses, such as sharing data from a Fabric lakehouse with people outside the organization . Additionally, IRM data theft policy is now generally available for security admins to create a data theft policy to detect Fabric data exfiltration, such as exporting Power BI reports. Also, organizations now have visibility into how much they are billed with the IRM pay-as-you-go usage report for Fabric, providing customers with an easy-to-use dashboard to track their consumption and predictability on costs. Figure 2. IRM identifying risky user behavior when handling data in a Fabric Lakehouse. Figure 3. Security admins can create a data theft policy to detect Fabric data exfiltration. Figure 4. Security admins can check the pay-as-you-go usage (processing units) across different workloads and activities such as the downgrading of sensitivity labels of a lakehouse through the usage report. Microsoft Purview for all Fabric Copilots and Agents Microsoft Purview currently provides capabilities in preview for all Copilots and Agents in Fabric. Organizations can: Discover data risks such as sensitive data in user prompts and responses and receive recommended actions to reduce these risks. Detect and remediate oversharing risks with Data Risk Assessments on DSPM, that identify potentially overshared, unprotected, or sensitive Fabric assets, giving teams clear visibility into where data exposure exists and enabling targeted actions\u2014like applying labels or policies\u2014to reduce risk and ensure Fabric data is AI\u2011ready and governed by design. Identify risky AI usage with Microsoft Purview Insider Risk Management to investigate risky AI usage, such as an inadvertent user who has neglected security best practices and shared sensitive data in AI. Govern AI usage with Microsoft Purview Audit, Microsoft Purview eDiscovery, retention policies, and non-compliant usage detection. Figure 5. Purview DSPM provides admins with the ability to discover data risks such as a user\u2019s attempt to obtain historical data within a data agent in the Data Science workload in Fabric. DSPM subsequently provides actions to solve this risk. Now that we\u2019ve covered how Purview helps secure Fabric data and AI, the next focus is ensuring Fabric users can use that data responsibly. 2. Improve governance processes and data quality across their data estate Once an organization\u2019s data is secured for AI, the next challenge is ensuring consumers can easily find and trust the data needed for AI. This is where the Purview Unified Catalog comes in, serving as the foundation for enterprise data governance. Estate-wide data discovery provides a holistic view of the data landscape, helping prevent valuable data from being underutilized. Built-in data quality tools enable teams to measure, monitor, and remediate issues such as incomplete records, inconsistencies, and redundancies, ensuring decisions and AI outcomes are based on trusted, reliable data. Purview provides additional governance capabilities for all data consumers and governance teams and supplement those who utilize the Fabric OneLake catalog. Here are a few new innovations within the Purview Unified Catalog: Publication workflows for data products and glossary terms Now generally available, data owners can leverage Workflows in the Purview Unified Catalog to manage how data products and glossary terms are published. Customizable workflows enable governance teams to work faster to create a well curated catalog, specifically by ensuring that data products and glossary terms are published and governed responsibly. Data consumers can request access to data products and be reassured that the data is held to a certain governance standard by governance teams. Figure 6. Customizing a Workflow for publishing a glossary term in your catalog. Data quality for ungoverned assets in the Unified Catalog, including Fabric data In the Unified Catalog, Data Quality for ungoverned data assets allows organizations to run data quality on data assets, including Fabric assets, without linking them to data products. This approach enables data quality stewards to run data quality at a faster speed and on greater scale, ensuring that their organizations can democratize high quality data for AI use cases. Figure 7. Running data quality on data assets without it being associated with a data product. Looking Forward As organizations accelerate their AI ambitions, data security and governance become essential. Microsoft Purview and Microsoft Fabric deliver an integrated and unified foundation that enables organizations to innovate with confidence, ensuring data is protected, governed, and trusted for responsible AI activation. We\u2019re committed to helping you stay ahead of evolving challenges and opportunities as you unlock more value from your data. Explore these new capabilities and join us on the journey toward a more secure, governed, and AI\u2011ready data future. [1] 2025 AI Security Gap: 83% of Organizations Flying Blind [2] The Importance Of Data Quality: Metrics That Drive Business Success",
-      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-community/new-microsoft-purview-innovations-for-fabric-to-safely/ba-p/4502156",
-      "source": "Microsoft Security Blog (TechCommunity)",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-16T17:00:00+00:00",
-      "published_ts": 1773680400,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Identity / Access",
-        "Network / OT / ICS",
-        "Data Breaches / Leaks"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Qihoo 360 Leaked Its Own Wildcard SSL Private Key Inside Public AI Installer",
-      "summary": "China\u2019s largest cybersecurity firm, Qihoo 360, has inadvertently exposed its own wildcard SSL private key by bundling it directly inside the public installer of its newly launched AI assistant, 360Qihoo (Security Claw). The flaw discovered on March 16, 2026, is a textbook operational security failure from a company trusted by over 461 million users to [\u2026] The post Qihoo 360 Leaked Its Own Wildcard SSL Private Key Inside Public AI Installer appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/qihoo-360-leaked-ssl-private-key/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T16:56:44+00:00",
-      "published_ts": 1773680204,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "'Operation Atlantic': US Secret Service Teams With UK, Canada to Stop Crypto Fraud",
-      "summary": "The Secret Service is working together with U.K. and Canadian law enforcement agencies in a bid to stop crypto fraud schemes.",
-      "link": "https://decrypt.co/361245/operation-atlantic-secret-service-uk-canada-stop-crypto-fraud",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-03-16T16:48:37+00:00",
-      "published_ts": 1773679717,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Fake FileZilla Downloads Lead to RAT Infections Through Stealthy Multi-Stage Loader",
-      "summary": "A new malware campaign has been discovered delivering a Remote Access Trojan through fake websites impersonating the official FileZilla download page. Attackers designed these fraudulent sites to closely mirror the real FileZilla page, tricking users into downloading malicious installer files. The goal is to silently compromise Windows systems while victims believe they are installing a [\u2026] The post Fake FileZilla Downloads Lead to RAT Infections Through Stealthy Multi-Stage Loader appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/fake-filezilla-downloads-lead-to-rat-infections/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T16:48:36+00:00",
-      "published_ts": 1773679716,
-      "smart_groups": [
-        "Curated",
-        "Windows / Microsoft",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "AI finally delivers those elusive productivity gains... for cybercriminals",
-      "summary": "Interpol says fraud schemes using the tech are 4.5x more profitable AI is apparently good for the bottom line if your business is crime. Financial fraud schemes carried out with the help of artificial intelligence are 4.5 times more profitable than those that aren't enhanced, according to Interpol's latest estimates.\u2026",
-      "link": "https://go.theregister.com/feed/www.theregister.com/2026/03/16/interpol_ai_fraud/",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T16:40:06+00:00",
-      "published_ts": 1773679206,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Abra targets Nasdaq listing in $750M deal with New Providence SPAC",
-      "summary": "Crypto wealth manager Abra plans a Nasdaq debut through a SPAC merger, joining a growing wave of digital asset companies tapping public markets for capital.",
-      "link": "https://cointelegraph.com/news/abra-nasdaq-spac-new-providence-crypto-wealth-manager-public-listing?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-03-16T16:38:36+00:00",
-      "published_ts": 1773679116,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "CVE-2026-4270 - AWS API MCP File Access Restriction Bypass",
-      "summary": "Bulletin ID: 2026-007-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 2026/03/16 09:15 AM PDT Description: The AWS API MCP Server is an open source Model Context Protocol (MCP) server that enables AI assistants to interact with AWS services and resources through AWS CLI commands. It provides programmatic access to manage your AWS infrastructure while maintaining proper security controls. This server acts as a bridge between AI assistants and AWS services, allowing you to create, update, and manage AWS resources across all available services. The server includes a configurable file access feature that controls how AWS CLI commands interact with the local file system. By default, file operations are restricted to a designated working directory (workdir), but this can be configured to allow unrestricted file system access (unrestricted) or to block all local file path arguments entirely (no-access). We identified CVE-2026-4270: Improper Protection of Alternate Path exists in the no-access and workdir feature of the AWS API MCP Server versions >= 0.2.14 and Impacted versions: awslabs.aws-api-mcp-server >= 0.2.14, Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin.",
-      "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-007-aws/",
-      "source": "Latest Bulletins",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-16T16:31:30+00:00",
-      "published_ts": 1773678690,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Cyberattack disrupts parking payments in Russian city",
-      "summary": "The Russian city of Perm has restored its parking payment system after a cyberattack knocked the service offline.",
-      "link": "https://therecord.media/cyberattack-russia-parking-system",
-      "source": "The Record",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T16:30:00+00:00",
-      "published_ts": 1773678600,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Companies House Restores WebFiling After Flaw Exposed Director Details",
-      "summary": "Companies House fixed a WebFiling flaw that allowed users to view director details and alter company records before the service was taken offline and restored.",
-      "link": "https://hackread.com/companies-house-webfiling-flaw-director-details/",
-      "source": "HackRead",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T16:29:51+00:00",
-      "published_ts": 1773678591,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Red Hat security advisory (AV26-242)",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/red-hat-security-advisory-av26-242",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T16:25:10+00:00",
-      "published_ts": 1773678310,
-      "smart_groups": [
-        "Linux / Unix"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Crypto Firm Abra to Go Public on Nasdaq in $750 Million SPAC Deal",
-      "summary": "Crypto wealth manager Abra is going public at a $750 million valuation\u2014but regulators have repeatedly taken issue with how it does business.",
-      "link": "https://decrypt.co/361226/crypto-firm-abra-public-nasdaq-750-million-space-deal",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-03-16T16:18:55+00:00",
-      "published_ts": 1773677935,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "[Control systems] CISA ICS security advisories (AV26\u2013241)",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/control-systems-cisa-ics-security-advisories-av26-241",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T16:17:29+00:00",
-      "published_ts": 1773677849,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Zombie ZIP method can fool antivirus during the first scan",
-      "summary": "Researchers published about the Zombie ZIP vulnerability (or not a vulnerability, that's up for debate) that can bypass a first AV inspection.",
-      "link": "https://www.malwarebytes.com/blog/news/2026/03/zombie-zip-method-can-fool-antivirus-during-the-first-scan",
-      "source": "Malwarebytes Labs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T16:09:08+00:00",
-      "published_ts": 1773677348,
-      "smart_groups": [
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": false
-    },
-    {
-      "title": "US, UK, Canada launch joint operation to disrupt crypto fraud",
-      "summary": "Dubbed \u201cOperation Atlantic,\u201c the effort involves law enforcement agencies from the three countries and is aimed at preventing phishing attacks involving cryptocurrencies.",
-      "link": "https://cointelegraph.com/news/us-uk-canada-enforcement-operation-crypto-fraud?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-03-16T16:07:04+00:00",
-      "published_ts": 1773677224,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Phishing / Social Engineering"
-      ],
-      "curated": true
-    },
-    {
-      "title": "How an AI Agent Hacked McKinsey\u2019s AI Platform",
-      "summary": "Understand how an AI agent hacked McKinsey\u2019s internal AI platform \u2018Lilli\u2019, and the lessons organizations should take from this exercise. The post How an AI Agent Hacked McKinsey\u2019s AI Platform appeared first on Outpost24 .",
-      "link": "https://outpost24.com/blog/ai-agent-hacked-mckinsey-ai-platform/",
-      "source": "https://outpost24.com/feed/",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-16T16:05:53+00:00",
-      "published_ts": 1773677153,
-      "smart_groups": [
-        "Identity / Access"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Microsoft Exchange Online outage blocks access to mailboxes",
-      "summary": "Microsoft is working to address an ongoing Exchange Online outage that is preventing customers from accessing their mailboxes and calendars. [...]",
-      "link": "https://www.bleepingcomputer.com/news/microsoft/microsoft-exchange-online-outage-blocks-access-to-mailboxes/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T16:05:02+00:00",
-      "published_ts": 1773677102,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Why I ditched Chrome for Tor Browser on Android - and you should, too",
-      "summary": "If you're looking for the safest way to browse on your Android phone, consider the Tor Browser over more popular options.",
-      "link": "https://www.zdnet.com/article/tor-browser-android/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-16T16:03:00+00:00",
-      "published_ts": 1773676980,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "BigQuery Studio is more useful than ever, with enhanced Gemini assistant",
-      "summary": "Modern data teams dedicate a huge portion of their time to managing analytics overhead rather than just analyzing data. This includes tasks such as identifying necessary data, configuring schedules, or investigating the reasons behind a stalled job. Beyond these operational challenges, they also need an assistant that is versed in their data and has the context of their current work. The latest Gemini-powered assistant in BigQuery Studio, available today, has new capabilities that allow you to interact with your data environment differently, transforming the agent from a code assistant into a fully context-aware analytics partner . Here is a deep dive into the major improvements you can use right now. 1. Context-aware interoperability The query editor tab and chat interface are now highly interoperable. The assistant is now aware of your active and open query tabs. This means you no longer have to copy-paste code snippets or explain your context from scratch. Simply ask questions or request optimizations based on the active query tab, and the assistant intelligently understands exactly what code and resources you are referring to. Advanced SQL generation: Beyond standard queries, the assistant can now generate advanced SQL that utilizes AI operators and federated queries, helping you unlock more complex analytical use cases with simple natural language prompts. Fig 1.1 - Assistant is context-aware of the active tab and what \u201cquery\u201d is being referred to 2. Intelligent resource discovery As organizations grow, data gets scattered across different projects, datasets, and tables. Finding the specific resource you need can feel like finding a needle in a haystack. The assistant in BigQuery Studio now features resource discovery, utilizing Dataplex Universal Catalog search to find resources across single or multiple projects. You can now search for a wide range of BigQuery resources, including datasets, tables, models, saved queries, and even scheduled queries. Now, you can: Ask questions in plain English: You no longer need to remember exact table IDs. You can search using intent-based prompts like \"Where can I find demographics such as age and location for new users?\" or \"Do I have any dataset named ecommerce?\" Deep dive into metadata: Once the assistant finds the right dataset, the conversation doesn't stop. Ask follow-up questions to understand the structure of the data before you even write a line of code, with. Visual schemas: The assistant displays table schemas and dataset details in a user-friendly UI directly within the chat window. Optimized queries: Ask \"Is this table partitioned?\" or \"What\u2019s the clustering on this table?\" so that you write efficient queries from the start. Owner identification: Ask \"Who owns this dataset?\" if you need to request access. Fig 1.2 -Assistant is able to search across projects to list datasets relevant to user prompt Further, this feature respects your organization\u2019s security policies: it only retrieves metadata for resources you actually have permission to view. 3. Instant job analysis and troubleshooting We\u2019ve all been there: a query that usually takes a few seconds is hanging. Or perhaps you received a bill that was higher than expected. Traditionally, this meant digging into information schemas or logs. With the new job analysis capability, the assistant can now search both personal and project job history to provide insights. Debug long-running queries: Instead of guessing why a job is stalling, simply copy the Job ID and ask: \"Why is this job [Job ID] taking so long?\" The agent analyzes the job's status and returns key statistics explaining the delay, such as slot contention, large row scans, or high data volume. Root cause analysis: When a scheduled job fails, perform root cause analysis by asking, \"Why did this scheduled job [Job ID] fail?\" The assistant also provides recommendations on how to fix the problem. Cost control: Audit your resource consumption by asking, \"What are the 3 most expensive queries in the last 2 days?\" The agent returns the right SQL needed to query the Information schema to get this information. Fig 1.3 -Assistant can analyze jobs and provide optimization With these advanced features within the Gemini-powered chat, the BigQuery Studio assistant is evolving into a context-aware, agentic partner that supports your entire data lifecycle. By simplifying resource discovery, automating SQL workflows, and streamlining troubleshooting, these enhancements allow you to focus on high-value insights instead of operational management. To explore the full range of what the assistant can do and how to get started, visit our documentation page .",
-      "link": "https://cloud.google.com/blog/products/data-analytics/gemini-supercharges-the-bigquery-studio-assistant/",
-      "source": "Google Cloud Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-16T16:00:00+00:00",
-      "published_ts": 1773676800,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Network / OT / ICS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Google Cloud and NVIDIA expand AI innovation across industries at GTC 2026",
-      "summary": "The era of agentic AI is fundamentally changing enterprise infrastructure needs. As organizations build systems capable of dynamic reasoning and autonomous execution, the underlying infrastructure must evolve as well. Scaling these agentic workloads alongside massive mixture-of-experts (MoE) architectures demands a deeply optimized co-engineered stack. To meet these demands, we\u2019ve built the Google Cloud AI Hypercomputer, an AI-optimized infrastructure as a service, that integrates performance-optimized hardware, leading software, open frameworks, and flexible consumption models into a single, cohesive system to deliver ultra-low latency, high-throughput, and cost-effective inference. To give our customers even more options within this integrated architecture, we are expanding our partnership with NVIDIA. This week at NVIDIA GTC 2026, Google Cloud and NVIDIA are expanding our partnership with a wave of new announcements, showcasing a co-engineered AI infrastructure foundation: Infrastructure and hardware Strong momentum for Google Cloud G4 VMs, powered by NVIDIA RTX Pro \u2122 6000 Blackwell Server Edition Preview of flexible, fractional G4 VMs using NVIDIA vGPU technology \u2014 a first in the industry for NVIDIA RTX Pro \u2122 6000 Blackwell Server Edition Upcoming support for NVIDIA Vera Rubin NVL72 Platform Software and platform NVIDIA Dynamo integration with GKE Inference Gateway Enhanced NVIDIA support across Vertex AI Training and Model Garden Ecosystem Launch of a dedicated public sector AI startup accelerator program Let\u2019s take a closer look at the announcements. Accelerating AI workloads with G4 VMs G4 VMs, powered by NVIDIA RTX Pro 6000 Blackwell Server Edition GPUs, are built to power a diverse spectrum of high-performance workloads \u2014 from advanced spatial computing to complete AI development lifecycles. For instance, companies like Otto Group One.O and WPP use the G4 to run physically accurate simulations and real-time 3D rendering at scale. Beyond simulation, the G4 also shines in model fine-tuning and inference, particularly for models ranging from 30B to more than 100B parameters. By leveraging 4-bit floating point (FP4) precision and Google\u2019s peer-to-peer (P2P) communication, customers are achieving higher throughput for model serving and considerable latency reductions , enabling a new class of real-time, multimodal AI agents and highly responsive generative AI applications. Here are some examples of how customers are already leveraging the performance and efficiency of G4 VMs to accelerate their most demanding workloads: \u201c Google Cloud\u2019s G4 VMs give us the scalable GPU backbone we need to push billions of miles of photorealistic simulation through our pipeline. The 4x lift in throughput means our ML teams can iterate faster, train on richer data, and validate edge cases long before our models ever see the real world. \u201d \u2013 Sony Mohapatra, Director, AI/ML Engineering, General Motors \u201c Now with G4 VMs powered by NVIDIA Blackwell, we're pushing our multimodal models even further \u2014 faster inference, better reliability, instant replies across languages. The goal stays the same: making voice agents that work at enterprise scale without compromise. We are excited to keep building together and see what our customers deploy with this.\u201d \u2013 Mati Staniszewski, Cofounder, ElevenLabs \u201cGoogle Cloud G4 VMs provide the computational backbone for our Robotic Coordination Layer, allowing us to synchronize autonomous fleets across our logistics centers with millisecond precision. By simulating complex warehouse environments in a high-fidelity digital twin, we can optimize our entire supply chain virtually before a single robot moves on the floor.\u201d \u2013 Dr. Stefan Borsutzky, CEO of Otto Group One.O \u201cAfter transitioning to G4 VMs, we achieved a 50% reduction in processing latency and 6x increase in throughput just by updating our Terraform scripts. It\u2019s rare to get that kind of performance boost for our core workloads without adding any operational overhead.\u201d \u2013 Alfonso Acosta, Head of Engineering, Imgix Introducing fractional G4 VMs We are excited to announce the preview of fractional G4 VMs, providing a highly efficient and cost-effective entry point for AI and graphics workloads. These new configurations, using NVIDIA virtual GPU (vGPU) technology, allow you to leverage the power of the NVIDIA RTX PRO 6000 Blackwell Server Edition GPUs in flexible, smaller increments, so you can right-size your infrastructure to match the specific demands of your applications. \u201cEnterprises need unprecedented flexibility to scale complex, agentic AI workloads. With Google Cloud, we\u2019re introducing fractional G4 VMs powered by NVIDIA RTX PRO 6000 to let customers right\u2011size GPU capacity and maximize ROI. Together with our co\u2011engineered stack \u2013 from NVIDIA NeMo on Vertex AI to NVIDIA Dynamo with GKE \u2013 we\u2019re delivering an open, high\u2011performance platform for next\u2011generation reasoning and MoE models.\u201d \u2013 Ian Buck, VP / General Manager, Hyperscale and HPC, NVIDIA By providing more granular access to advanced hardware, fractional G4 VMs let you optimize resource allocation and reduce overhead without sacrificing performance. You can now select from additional GPU slice sizes for your specific needs: 1/2 GPU: Ideal for more intensive tasks such as LLM inference, robotics sensor simulation, and high-fidelity 3D rendering. 1/4 GPU: Optimized for mainstream workloads, including mid-range creative design, video transcoding, and real-time data visualization. 1/8 GPU: Great for lightweight applications such as remote desktops, productivity tools, and entry-level streaming services. These flexible G4 size portfolio let you: Right-size infrastructure: Precisely match GPU capacity to application demands, ranging from lightweight remote desktops to intensive data processing. Maximize cost efficiency: Lower operational overhead by utilizing \u2014 and paying for \u2014 only the fractional GPU resources you need for specific tasks. Scale diverse workloads: Power a broad spectrum of innovation, from high-fidelity creative design and streaming to complex robotics simulations and real-time inference. These fractional G4 VMs can be managed by Google Kubernetes Engine (GKE), allowing developers to use advanced container binpacking to achieve even higher price-performance and resource utilization. When managed through Dynamic Workload Scheduler, you can set fallback priorities for fractional slices. This significantly improves obtainability by allowing the scheduler to automatically find available GPU configurations for each workload. \u201c The G4 vGPU\u2019s flexible sizing allows us to precisely tailor compute resources to the scale of each molecular simulation, ensuring maximum efficiency across our drug discovery pipeline. This granular control means our researchers can seamlessly pivot between smaller workflows and massive parallel processing without being constrained by fixed hardware configurations. \u201d \u2013 Shane Brauner, EVP, CIO, Schr\u00f6dinger Scaling AI Hypercomputer with NVIDIA Vera Rubin NVL72 Building on our deep engineering partnership with NVIDIA, we\u2019re proud to support the successor to NVIDIA Blackwell architecture, the recently announced NVIDIA Vera Rubin platform. We plan to be among the first cloud providers to offer NVIDIA Vera Rubin NVL72 rack-scale systems in the second half of 2026, integrating them into our AI Hypercomputer architecture to empower the next generation of reasoning and agentic AI. Delivering efficiency across the AI infrastructure stack As part of our commitment to a fully open ecosystem, we are excited to announce the integration of Dynamo and GKE Inference Gateway . This integration provides a modular, open-source control plane across the application layer and the hardware. By combining Dynamo with Inference Gateway on GKE, teams can tailor their infrastructure to their exact needs, allowing them to extract the maximum ROI from accelerators, accelerate time-to-market for new AI models, and future-proof their deployments. You can learn to maximize performance for massive MoE architectures through new advanced scaling recipes for A4X VMs (powered by NVIDIA GB200 NVL72 and Dynamo). These configurations show how to overcome memory and interconnect bottlenecks when running AI inference workloads on AI Hypercomputer. We are also enhancing resource obtainability through the Dynamic Workload Scheduler, with Calendar Mode and Flex Start for A4X and A4X Max (powered by NVIDIA GB300 NVL72), as well as new Flex Start support for G4 VMs. Dynamic Workload Scheduler lets you reserve the precise capacity that you need, or use flexible start windows. Snap, a long-time Google Cloud customer, achieved significant cost savings by migrating two of its primary data processing pipelines to Google Cloud G2 VMs powered by NVIDIA L4 Tensor Core GPUs. This was made possible by leveraging Spark on GKE alongside NVIDIA\u2019s new cuDF libraries, which automated the optimization of its shuffle-heavy workloads for optimal GPU efficiency. Learn more at GTC session S81678. Advancing Vertex AI training and Model Garden We are meeting the demands of next-generation AI with two major infrastructure advancements to Vertex AI training clusters . First, support for A4X VM domains lets you leverage Vertex AI\u2019s managed infrastructure and framework capabilities for massive-scale training on NVIDIA GB200 NVL72 rack-scale systems. To ensure these intensive workloads remain uninterrupted, new hardware resiliency capabilities let you apply configurable, proactive fault detection scans, which identify and mitigate potential hardware issues before they can disrupt critical \u201chero\u201d training runs. These capabilities enable higher goodput and helps ensure that multi-week training jobs stay on track without costly restarts. \u201cWe are setting a new standard for the agentic enterprise \u2014 delivering highly capable, consistent, accurate, and responsive AI agents with Google and NVIDIA. By leveraging Vertex AI training clusters on NVIDIA GB200 NVL72 to power our Agentforce 360 Platform, we\u2019ve eliminated infrastructure bottlenecks to keep our GPUs fully saturated. This high-performance, resilient architecture allows our researchers to focus on innovation at scale, driving substantial gains for our most complex reasoning workloads.\u201d - Silvio Savarese, Chief Scientist, Salesforce At the same time, we continue to broaden Vertex AI Model Garden with support for NVIDIA\u2019s Nemotron 3 family of open models. These include the Nemotron 3 Nano, featuring one-click deployment to simplify integration into private VPCs. We\u2019ve also expanded our catalog to include the NVIDIA Nemotron 3 Super 120B model for immediate access to high-performance, large-scale reasoning. To maximize the value of these models, we\u2019ve integrated NVIDIA\u2019s latest performance libraries directly into Vertex AI to optimize popular open-source models on NVIDIA TensorRT-LLM. Empowering public sector AI startups To foster continued innovation within the ecosystem, Google Public Sector and NVIDIA are launching an AI startup accelerator program. This year-long initiative will support a select cohort of AI-focused Independent Software Vendors (ISVs) building solutions for the public sector. Participants gain dual access to both NVIDIA Inception and Google Cloud\u2019s ISV accelerator resources. Kicking off at GTC and continuing through Google Cloud Next, this joint program will equip emerging technology leaders with the co-engineered infrastructure, technical guidance, and go-to-market support required to scale mission-critical public sector applications. To learn more about the program, please complete the interest form . Additional cohorts will be selected and announced in the future. Co-engineering collaboration powers every layer of the AI stack The transition to complex, agentic AI demands more than just raw compute. It requires a fully optimized, co-engineered stack. By integrating flexible hardware like fractional G4 instances and the upcoming Vera Rubin platform into our AI Hypercomputer architecture, and pairing it with deep software co-engineering, we provide the scale, resilience, and efficiency you need to turn your most ambitious AI visions into reality. Coming to GTC? Stop by booth #513 to learn more and talk to our team. And you can always learn more about our collaboration with NVIDIA at cloud.google.com/NVIDIA .",
-      "link": "https://cloud.google.com/blog/products/compute/google-cloud-ai-infrastructure-at-nvidia-gtc-2026/",
-      "source": "Google Cloud Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-16T16:00:00+00:00",
-      "published_ts": 1773676800,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Windows / Microsoft",
-        "Cloud / SaaS",
-        "Identity / Access",
-        "Network / OT / ICS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Help on the line: How a Microsoft Teams support call led to compromise",
-      "summary": "A DART investigation into a Microsoft Teams voice phishing attack shows how deception and trusted tools can enable identity-led intrusions and how to stop them. The post Help on the line: How a Microsoft Teams support call led to compromise appeared first on Microsoft Security Blog .",
-      "link": "https://www.microsoft.com/en-us/security/blog/2026/03/16/help-on-the-line-how-a-microsoft-teams-support-call-led-to-compromise/",
-      "source": "Microsoft Security Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-16T16:00:00+00:00",
-      "published_ts": 1773676800,
-      "smart_groups": [
-        "Phishing / Social Engineering"
-      ],
       "curated": false
     },
     {
