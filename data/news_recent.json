@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-04-16T08:53:13.915442+00:00",
+  "generated_at": "2026-04-16T10:32:09.059593+00:00",
   "days_back": 30,
-  "total_items": 8021,
+  "total_items": 8016,
   "items": [
     {
       "title": "Black Hat USA",
@@ -14,6 +14,276 @@
       "published_ts": 1785582000,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "Defending Your Enterprise When AI Models Can Find Vulnerabilities Faster Than Ever",
+      "summary": "Introduction Advances in AI model-powered exploitation have demonstrated that general-purpose AI models can excel at vulnerability discovery, even without being purpose-built for the task. Eventually, capabilities such as these will be integrated directly into the development cycle, and code will be more difficult to exploit than ever; however, this transition creates a critical window of risk. As we harden existing software with AI, threat actors will use it to discover and exploit novel vulnerabilities. Faced with this scenario, defenders have two critical tasks: hardening the software we use as rapidly as possible, and preparing to defend systems that have not yet been hardened. As noted in Wiz\u2019s blog post, Claude Mythos: Preparing for a World Where AI Finds and Exploits Vulnerabilities Faster Than Ever , now is the time to strengthen playbooks, reduce exposure, and incorporate AI into security programs. The following blog provides an overview of the evolving attack lifecycle, how threat actors will weaponize these capabilities, and a roadmap for modernizing enterprise defensive strategies . aside_block ), ('btn_text', 'Register now'), ('href', 'https://www.brighttalk.com/webcast/18282/666651?utm_source=gcs-blog&utm_medium=blog&utm_campaign=mythos'), ('image', None)])]> Exploits in the Adversary Lifecycle Historically, the discovery of novel vulnerabilities and the subsequent development of zero-day exploits required significant time, specialized human expertise, and resources. Today, highly capable AI models are increasingly demonstrating the ability to not only identify vulnerabilities but also help generate functional exploits, lowering the barrier to entry for threat actors. Continued advancements in these capabilities will increasingly make exploit development achievable for threat actors of all skill levels, significantly compressing the attack timeline. GTIG has already observed threat actors leveraging LLMs for this purpose as well as the marketing of this capability within AI tools and services advertised in underground forums . A significant shift in the economics of zero-day exploitation will enable mass exploitation campaigns, ransomware and extortion operations, and an increased volume of activity from actors who previously guarded these capabilities and used them sparingly. Accelerated exploit deployment is a trend we\u2019ve already been observing among advanced adversaries. In our 2025 Zero-Days in Review report, we noted that PRC-nexus espionage operators have become increasingly adept at rapidly developing and distributing exploits among otherwise separate threat groups. This has significantly shrunk the historical gap between public vulnerability disclosure and widespread mass exploitation, a trend we expect to continue. This evolving landscape will almost certainly result in meaningful shifts over the coming year: Scaling Defenses for Machine-Speed Threats We have long anticipated that AI models would become capable of vulnerability discovery\u2014which is why we\u2019ve been using AI tools like Big Sleep , CodeMender , and OSS-Fuzz to proactively find and fix vulnerabilities over the years . Now as threat actors leverage AI to significantly multiply their offensive output, enterprise defenders cannot rely on human-speed patching protocols to keep up. When organizations are confronted with an AI-enabled surge in vulnerabilities, traditional security tooling and manual triage will fail to keep pace. Attempting to absorb this exponential increase in workload using legacy processes will result in severe overload and burnout for security and development teams. The question is no longer just about proactive scanning and adherence to traditional patching SLAs; it is about whether organizations are empowering their workforce with the automation needed to eliminate manual toil. To prepare for this reality, organizations must integrate AI defensively, shifting the role of the security practitioner from manual investigator to strategic coordinator. A Modern, AI-Integrated Defensive Roadmap In order to modernize the traditional vulnerability roadmap, organizations must incorporate automation and prioritize resilience. Organizations are no longer defending against purely human-speed exploitation. AI-enabled adversaries can identify, chain, and weaponize weaknesses faster than traditional vulnerability management programs were designed to respond. A modern roadmap should therefore emphasize automation, resilience, and continuous validation. This roadmap is organized in two parts. The first outlines advanced modernization priorities for organizations that are ready to evolve their security programs to achieve defense at AI enabled speeds. The second provides foundational guidance for organizations that are still building core vulnerability management capabilities. Advanced Modernization Priorities Secure Your Code Organizations have historically focused on patching and securing tangible assets like laptops, servers, and network infrastructure. In today\u2019s threat landscape, that same discipline must be applied to source code, code libraries, and the systems used to build and deploy it. Code repository platforms should be tightly protected and accessible only through trusted internal networks, managed identities, or other strongly controlled access paths. Organizations should proactively scan for secrets within their codebase that may be weaponized by adversaries and eliminate any practice of storing sensitive credentials in plaintext. Similarly, organizations are still accountable for vulnerable code from their supply chains, and they must proactively plan for and defend against attacks through exploitation of compromised code libraries. This creates a conflict with updating versions and repositories immediately against holding onto known and trusted versions. Accordingly, security controls should cover build runners, CI/CD pipelines, and other automated execution mechanisms, which are increasingly attractive targets for threat actors. AI-enabled scanning tools can help teams detect critical vulnerabilities faster and uncover groups of weaknesses that may appear minor on their own but could be chained together for exploitation. Organizations should leverage frameworks like Wiz SITF to map their SDLC threat model and identify \"attack chains\" where minor, isolated weaknesses are combined by AI to create a critical breach. Additionally, one-time static or dynamic scanning is no longer sufficient. Organizations should deploy emerging commercial and open-source agentic solutions to review code and mitigate flaws before they can be exploited. Move to Automated Security Operations Traditional dashboards and static detection rules will struggle under the volume of automated attacks. Security operations need to become more dynamic, with a clear path toward an agentic SOC. Legacy models are often reactive and constrained by manual workflows, By deploying specialized AI agents such as Google Cloud\u2019s Triage and Investigation Agent and Gemini in Google Security Operations , teams can automate alert triage, analyze suspicious code without manual reverse engineering, correlate signals across multiple tools, and generate response playbooks in real time. This allows analysts to spend less time on repetitive investigation and more time on high-value decisions, helping the SOC respond to AI-enabled attacks at AI speed. Reduce Attack Surface Organizations should design networks with a zero trust approach and focus first on reducing exposure across internet-facing systems, critical infrastructure, control planes, and trusted service infrastructure. Network segmentation and identity-based access controls should be in place so that if an edge device is compromised through a zero-day exploit, the blast radius is limited and easier to contain. Maintain Continuous Asset Discovery and Posture Management Unidentified assets are a major blindspot for organizations and a critical weakness that AI-enabled threat actors are able to exploit with increasing efficiency. Static spreadsheets and manual asset tracking are no longer a viable and scalable strategy. Security teams need a continuously updated, automated inventory covering endpoints, servers, public-facing systems, network infrastructure, AI systems, cloud environments and ephemeral assets like Kubernetes pods. Dynamic asset discovery is critical for reducing blind spots and shadow AI. The more seamlessly known assets can be fed into downstream security tooling, the more accurate and effective frontline detection and response will be. Expand Automated Scanning Coverage Automated vulnerability scanning should cover every major operating system in use, including Windows, macOS, and Linux, across both endpoints and servers. Reduce blind spots and maintain continuous, comprehensive visibility into vulnerabilities. Where possible, that visibility should feed directly into automated remediation pipelines. Enhance Network Device Patching and Limit Connectivity Organizations need a highly automated, repeatable process for identifying missing firmware and security updates on network devices and for scheduling maintenance efficiently. Network infrastructure has long been a preferred target for sophisticated threat actors, and AI will only accelerate the discovery of weaknesses in these often-overlooked systems. Organizations should use perimeter controls to block unnecessary outbound connections from internal network devices. Any attempt by those devices to communicate externally should be investigated to determine whether it is required for normal operations or signals something more concerning. Proactively, organizations should baseline what outbound connections are normal, in order to alert against anomalies. Formalize Emergency Remediation SLAs AI may help accelerate patching, but emergency response still depends on clear human processes. Organizations should define remediation SLAs based on severity, exposure, and asset criticality, and those expectations should be aligned across security, IT, and business stakeholders. When a vulnerability is being actively exploited in the wild, teams need a pre-approved, low-friction process to apply temporary mitigations, such as restricting public access or isolating affected systems, while permanent fixes are validated. Extremely critical business processes should each have secondary systems that can deliver the same objectives with different underlying technology. By having alternatives and fall backs for these processes, organizations give themselves more options to address emergency remediation while minimizing potential business disruption. Secure AI Agents and Implement SAIF As organizations deploy AI agents, they also create a new attack surface that must be protected. Organizations should adopt frameworks such as Google\u2019s Secure AI Framework (SAIF) to guide the secure deployment of AI models and applications. Tools like Google Cloud Model Armor or similar industry solutions can also serve as a protective layer for large language model environments by screening inputs and outputs for prompt injection, jailbreak attempts, and Google Cloud Sensitive Data Protection can prevent sensitive data leakage. Locking down connections that AI systems can establish such as MCP, with fine grained IAM roles is critical to prevent from insecure plugin use threats. Defensive AI systems cannot become another point of compromise, and they should be secured accordingly. Foundational Vulnerability Management Priorities Not every organization starts from the same baseline. The priorities above assume a relatively mature security program with established tooling, ownership, and operational capacity. For organizations with limited or inconsistent vulnerability management capabilities, the first step is to build a reliable foundation before pursuing advanced AI-enabled operating models. The Current Reality of Vulnerability Management Vulnerability management programs vary widely based on the maturity of an organization\u2019s overall security program. In more mature environments, vulnerability management is highly automated: in-scope vulnerabilities are identified, routed to the appropriate IT, infrastructure, or application owners, and automatically validated once remediation is complete. In less mature environments, the opposite is often true. Vulnerability management may be inconsistent, narrowly scoped, and focused primarily on the highest-profile zero-days. Tracking may still rely on local spreadsheets, systems may be overlooked, and even trusted service infrastructure assets such as Active Directory domain controllers may remain unpatched. Such organizations need to immediately modernize and elevate their vulnerability management programs. Most organizations were already unable to remediate every vulnerability across their technology stack, and the rise of AI-enabled threats worsens that reality, increasing the urgency of building programs that are automated, measurable, tracked, and validated. Achieving that outcome is challenging. It requires coordination across the three foundational pillars of any security program: people, process, and technology. A prioritized and phased approach is outlined as follows. Foundation Step #1 \u2014 Baseline Current State Begin with the tools, processes, and coverage already in place. Scan everything currently in scope, identify Critical and High findings, and remediate them according to agreed urgency and service levels. At the same time, establish a process for tracking vulnerabilities that are being actively exploited in the wild, along with the emergency patching actions they may require. This phase should also confirm that system owners have defined maintenance windows and the operational support needed to meet remediation SLAs. Foundation Step #2 \u2014 Expand System Scanning Coverage Broaden vulnerability scanning across all major operating systems in use, including Windows, macOS, and Linux, for both endpoints and servers. Additionally, expand coverage to include other network attached systems, including the network devices themselves.The objective is to reduce blind spots and ensure vulnerability visibility extends across the environment, rather than covering only isolated segments. Foundation Step #3 \u2014 Confirm Asset Inventory and Ownership Maintain a simple, accurate inventory of key asset classes, including endpoints, servers, public-facing systems, network infrastructure, and specialized devices such as medical equipment where applicable. Every asset should have a clearly defined owner responsible for remediation coordination, exception handling, and lifecycle accountability. Foundation Step #4 \u2014 Establish Standard Program Reporting Create a consistent reporting cadence that gives stakeholders a clear view of program health and risk. Reporting should include scanning coverage by asset class, top Critical and High vulnerabilities, public-facing exposure, patch compliance, SLA performance, and documented exceptions or risk acceptances. The goal is to produce reporting that drives decisions, not just dashboards that provide visibility. Foundation Step #5 \u2014 Prioritize Public-Facing and High-Risk Vulnerabilities Identify the attack surface and prioritize vulnerabilities affecting internet-exposed systems, critical infrastructure, and assets that present the highest likelihood of exploitation or business impact. Remediation should be tracked against defined deadlines, with clear escalation paths when timelines are at risk. Where possible, internet-exposed systems should be engineered for automatic patching. Foundation Step #6 \u2014 Develop a Specialized Process for High-Sensitivity Devices For device classes that require additional coordination, such as medical devices, industrial control systems, or other operational technology, create a streamlined process for identifying vulnerabilities, coordinating with vendors or support teams, and applying compensating controls when patching is not feasible. These assets often require a different remediation model than standard IT systems. Foundation Step #7 \u2014 Formalize Remediation SLAs and Exception Handling Define remediation SLAs based on severity, exposure, and asset criticality, and ensure they are understood across security, IT, and business stakeholders. Just as importantly, establish a formal exception process for situations where remediation cannot be completed within the required timeframe. Exceptions should be documented, risk-assessed, approved by the appropriate stakeholders, and reviewed on a recurring basis. How Google Can Help In today\u2019s cybersecurity landscape, we\u2019re not just defending against human attackers, but also against tactics supercharged by AI tools. To counter these machine-speed threats, Google provides a comprehensive, AI-integrated defensive ecosystem: Google Threat Intelligence: To combat the unprecedented volume of AI-generated exploits, Google Threat Intelligence enables a proactive 'assume breach' mentality. By fusing Mandiant\u2019s codified frontline adversarial behaviors with Google\u2019s global visibility of the threat landscape, security teams can move beyond static indicators to hunt for the subtle, non-linear behaviors characteristic of novel attacks. As both security noise and true threats escalate, the platform helps organizations better prioritize security resources based on active threats. By cutting through this growing noise to focus on what is truly important, security teams save time, ultimately empowering them to disrupt the adversary\u2019s lifecycle long before they can reach their objective. Mandiant Security Consulting Services: Mandiant AI Security Consulting Solutions can help organizations design and operationalize this architecture. This includes helping organizations speed the identification and remediation of vulnerabilities through code reviews, mature their secure software development lifecycles (SSDLCs), and modernize the overall vulnerability management programs to handle the anticipated influx of vulnerabilities with greater efficiency and resilience. Agentic SecOps: Google SecOps provides the foundation for an agentic security operations center. This allows teams to augment workflows with agents, combining dynamic AI with deterministic automation. Users can embed agents like the Triage and Investigation agent directly into workflows to accelerate response times. This agent autonomously investigates alerts, gathers evidence, and provides verdicts with clear explanations. This enables automated decision-making and remediation, freeing analysts to focus on high-priority threats rather than false positives. Orchestrating responses becomes more efficient as friction is reduced. Additionally, customers can build enterprise-ready security agents with remote Model Context Protocol (MCP) server support. Mandiant Threat Defense (MTD): To augment internal teams, Mandiant Threat Defense leverages frontline intelligence and AI-enabled telemetry to proactively hunt for and disrupt advanced, machine-speed threats. Wiz: Organizations can maintain continuous asset discovery and dynamic posture management , ensuring they can rapidly identify and reduce their attack surface across complex, multi-cloud environments.Wiz uses AI agents, powered by environmental context, to democratize security, prioritize remediation, and proactively reduce the attack surface. Wiz continuously integrates the latest AI models to streamline vulnerability detection and response, and its Model Context Protocol (MCP) server enables security teams to use Wiz\u2019s deep context and risk analysis in agentic workflows. The foundational strategy of Wiz connects cloud, code, and runtime, and employs three key agents: Shift Right (Red Agent): Scans the entire attack surface with an AI-powered attacker, using contextual information (cloud, workload, code analysis) to discover immediately exploitable risks. Shift Left (Green Agent): Helps customers identify root causes (cloud-to-code) and automatically deploy fixes using pre-built Wiz skills, and upcoming integrations with CodeMender to self-heal code bases. Detect and respond (Blue Agent): Automates the investigation of AI-enabled attacks at the speed of AI, allowing SOC teams to rapidly triage suspicious behavior and utilize runtime protection tools to detect exploitation. Google Cloud Model Armor: To secure the AI agents organizations deploy, Google Cloud Model Armor acts as a specialized LLM firewall, proactively screening inputs and outputs to block prompt injections and sensitive data leaks. Outlook and Implications The cybersecurity community has the opportunity to serve as the voice of reason: the best response is proactive, disciplined preparation, not panic. While access to the publicly known, most capable frontier models is currently restricted to responsible actors, the availability of these technologies to a broader audience is inevitable. For defenders, this signals a surge in vulnerability management demands. The traditional window between a vulnerability\u2019s disclosure and its active exploitation in the wild has already largely vanished; the primary concern now is the sheer number of exploits organizations will have to defend against simultaneously. Furthermore, the traditional concept of severity is shifting. In a landscape where AI agents can chain together multiple low-level vulnerabilities, the practical impact difference between a remote code execution (RCE) flaw and a seemingly benign local-only exploit is rapidly disappearing. To build on the foundational steps above, organizations can work with Mandiant to plan, prioritize, and implement an AI-enabled cyber defense strategy. AI gives security teams powerful new ways to understand their environments, automate remediation at scale, and strengthen workforce capabilities. By adopting AI-integrated defenses today, organizations can better prepare for the speed, scale, and sophistication of tomorrow\u2019s adversaries.",
+      "link": "https://cloud.google.com/blog/topics/threat-intelligence/defending-enterprise-ai-vulnerabilities/",
+      "source": "Google Cloud Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-04-16T14:00:00+00:00",
+      "published_ts": 1776348000,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Windows / Microsoft",
+        "Linux / Unix",
+        "Cloud / SaaS",
+        "Network / OT / ICS",
+        "Data Breaches / Leaks",
+        "Crypto / Web3",
+        "Supply Chain / Software"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Cisco Patches Critical Vulnerabilities in Webex, ISE",
+      "summary": "The flaws can be exploited remotely to impersonate users or execute arbitrary commands on the underlying OS. The post Cisco Patches Critical Vulnerabilities in Webex, ISE appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/cisco-patches-critical-vulnerabilities-in-webex-ise/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-16T10:04:31+00:00",
+      "published_ts": 1776333871,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Microsoft announces product it doesn't want you to buy: Extended security updates for old Exchange, and Skype for Biz",
+      "summary": "Just migrate already, would you? But if you can't, Redmond will take your cash Microsoft will keep delivering security updates for old versions of Exchange Server and Skype for Business Server, after admitting that some customers aren't ready to make the move to newer products.\u2026",
+      "link": "https://go.theregister.com/feed/www.theregister.com/2026/04/16/microsoft_exchange_skype/",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-16T10:01:08+00:00",
+      "published_ts": 1776333668,
+      "smart_groups": [
+        "Windows / Microsoft"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Insurance carriers quietly back away from covering AI outputs",
+      "summary": "Several major insurance carriers have begun to back away from providing cybersecurity and other insurance to companies using AI to run internal processes, insiders say. While there\u2019s no standard response to customer use of AI in the insurance market, many carriers are now quietly declining to write policies for claims related to AI-generated outputs in cybersecurity and errors and omissions (E&O) coverage, these observers say. Other insurance carriers are jacking up prices to cover AI-related claims, they say. Dozens of insurance carriers appear to be rethinking coverage for mistakes related to AI, says Connor Deeks , CEO of Codestrap, an AI development and consulting firm that works with insurance firms. Many insurance companies aren\u2019t comfortable with covering AI outputs because they can\u2019t track the reasoning path the AI took to come up with a result, he says. \u201cThat\u2019s playing out downstream with insurance companies basically carving out coverage, whether that\u2019s across cybersecurity or E&O,\u201d he says. \u201cAll of these vibe-coded solutions and these AI systems that people have constructed have inherent risk baked into the cake now, and you can\u2019t actually see the full process.\u201d The insurance carrier concerns about AI workloads first surfaced in November 2025, when Financial Times reported that three major carriers, AIG, Great American, and W.R. Berkley, filed requests with US regulators to offer insurance policies that exclude liabilities tied to AI tools such as chatbots and agents. At the time, those requests appeared to be preemptive moves to be allowed to exclude AI mistakes sometime in the future. But now, many carriers seem to be moving forward with plans to exclude AI mistakes from policies, Deeks says. Several carriers he\u2019s been in contact with are moving to limit or end coverage for AI-related business disruptions and liabilities, he adds. The irony is that many insurance carriers are embracing AI for their own internal purposes. Deeks\u2019 company has a vested interest in AI insurance coverage \u2014 Codestrap markets its AI coding platform as traceable and therefore insurable \u2014 but other industry insiders have also seen similar carrier decisions. Carriers find exclusions It\u2019s still unclear how many carriers will refuse to insure AI workloads, but several carriers are now writing insurance policies that exempt coverage for AI-related business chaos, says Jason Bishara , financial practice leader at global carrier NSI Insurance Group. \u201cThe risk appetite is changing among the carriers, and it\u2019s always constantly evolving,\u201d he says. \u201cWith regard to AI, there are carriers that are just removing it from their risk appetite and declining to quote altogether.\u201d While some carriers have declined to cover AI outputs, others are building in rate hikes to cover the increased risk, Bishara says. While he doesn\u2019t have numbers on the extent of the rate hikes, they are significant, he adds. \u201cEvery business has insurance, and every business now is using AI to some extent,\u201d he adds. \u201cAre you seeing those liabilities and exclusions within these policies and an aversion to it from the carriers? The answer is yes.\u201d Carriers are also treating AI vendors differently than AI users, he says. In many cases, carriers are declining to cover AI vendors altogether, while they carve out exceptions in policies against covering AI at companies using the technology. \u201cIf you\u2019re an AI-related company or specifically an AI company, there\u2019s a good chance that you\u2019ll get a declination at this point,\u201d he adds. In recent months, many carriers have been asking detailed questions about how customers are using AI to better understand the risk of insuring potential mishaps, he says. Ultimately, this increased scrutiny will make it more difficult for companies to buy insurance for AI workloads. \u201cFor everybody leveraging AI right now, you\u2019re seeing questions like, \u2018What are your AI policies? What are your procedures? How are you leveraging AI within your business?\u2019\u201d Bishara adds. \u201cWe\u2019re getting a lot of questions from the underwriters on, \u2018How do you leverage AI within your business?\u2019\u201d Coverage in flux Phil Karecki , CTO for the insurance sector at managed services provider Ensono, also sees some carriers backing away from covering AI outputs, although he\u2019s not sure whether it\u2019s a major trend. Insurance carriers continuously experiment with how to provide coverage, he notes. Carriers have tried to separate tightly governed AI deployments from more experimental projects when determining whether to provide coverage, he says. \u201cYou\u2019ve got this bifurcation of AI, the governed generative and the autonomous pieces,\u201d he says. \u201cIt\u2019s no longer, \u2018Are you using AI?\u2019 It\u2019s asking, \u2018Are you using governed AI? How are you governing it? How are you keeping it safe and secure?\u2019\u201d Carriers have been trying to determine whether covering AI workloads can be profitable for them, Karecki adds. Governed AI tools operating in a bounded decision-making process will be more insurable, while experimental AI systems with no monitoring and no easy rollback will be difficult to cover, he notes. \u201cThere\u2019s a repositioning versus a pullback, and that\u2019s very common to the industry, and they will at times open up coverage just to see if it\u2019s this type of insurance that will sell,\u201d he says. \u201cThey will assess the results and what needs to change so they can decide whether to re-enter this marketplace or abandon it completely.\u201d In some cases, whether an AI system is insurable may come down to circumstances at individual insurance customers. Carriers in general don\u2019t want to get out of the business of providing insurance, Karecki says. \u201cWhat they\u2019re working for right now is, \u2018How do I make this profitable, and is this sector insurable?\u2019\u201d he says. \u201cThey make those decisions on every application regardless, but now, depending upon what they\u2019re being asked to insure, the questions will follow. \u2018What are you using AI for? How are you governing it? What risks does that introduce?\u2019\u201d It makes sense that some carriers have begun to question whether to cover AI outputs, given the current level of unreliability of most AI systems, says Dorian Smiley , CTO at Codestrap. \u201cThe math says these models should be deterministic, like given the same input, you should get the same output,\u201d he says. \u201cBut you can get very different output from the same input, and they can\u2019t know if the answer that they\u2019re giving you is actually correct.\u201d In most cases, AI models lack inductive reason and can\u2019t review their own work, but many organizations are talking about deploying hundreds of autonomous agents and treating them like digital employees, he notes. \u201cThe idea that these agents are going to become employees, autonomous people working in your organization, is insane,\u201d he says. \u201cYou would never hire a person that can\u2019t learn new information, can\u2019t reliably retrieve information, or check their own work.\u201d NSI\u2019s Bishara has advice for IT and business leaders looking for insurance coverage for their AI workloads: Be honest about how they\u2019re using AI. If they try to hide their AI risks, they risk having their claims rejected when something goes wrong, he says. \u201cIf you don\u2019t fully disclose these things appropriately in the way in which you\u2019re functioning and operating, it could be utilized as an excuse to deny a claim at a later date,\u201d he says. \u201cYou don\u2019t want a carrier to come back and say, \u2018We didn\u2019t underwrite to that risk. We asked these questions, and you didn\u2019t disclose it.\u2019\u201d",
+      "link": "https://www.csoonline.com/article/4159292/insurance-carriers-quietly-back-away-from-covering-ai-outputs.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-16T10:01:00+00:00",
+      "published_ts": 1776333660,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "This stroller turns into a carry on-suitcase, and I recommend it for traveling parents",
+      "summary": "The TernX aims to make airport travel with a child easier. Here's how to decide if the high price tag is worth it for you.",
+      "link": "https://www.zdnet.com/article/ternx-stroller-suitcase-testimonial/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-16T10:00:43+00:00",
+      "published_ts": 1776333643,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "The Agentic AI Tsunami is Here: Is Your Legacy IAM Sinking or Swimming?",
+      "summary": "AI agents are becoming a new class of enterprise identity\u2014and most platforms weren\u2019t built for them",
+      "link": "https://www.security.com/product-insights/agentic-ai-tsunami",
+      "source": "Broadcom \u2013 Symantec Blogs",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-04-16T10:00:00+00:00",
+      "published_ts": 1776333600,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Human Trust of AI Agents",
+      "summary": "Interesting research: \u201c Humans expect rationality and cooperation from LLM opponents in strategic games .\u201d Abstract: As Large Language Models (LLMs) integrate into our social and economic interactions, we need to deepen our understanding of how humans respond to LLMs opponents in strategic settings. We present the results of the first controlled monetarily-incentivised laboratory experiment looking at differences in human behaviour in a multi-player p-beauty contest against other humans and LLMs. We use a within-subject design in order to compare behaviour at the individual level. We show that, in this environment, human subjects choose significantly lower numbers when playing against LLMs than humans, which is mainly driven by the increased prevalence of \u2018zero\u2019 Nash-equilibrium choices. This shift is mainly driven by subjects with high strategic reasoning ability. Subjects who play the zero Nash-equilibrium choice motivate their strategy by appealing to perceived LLM\u2019s reasoning ability and, unexpectedly, propensity towards cooperation. Our findings provide foundational insights into the multi-player human-LLM interaction in simultaneous choice games, uncover heterogeneities in both subjects\u2019 behaviour and beliefs about LLM\u2019s play when playing against them, and suggest important implications for mechanism design in mixed human-LLM systems...",
+      "link": "https://www.schneier.com/blog/archives/2026/04/human-trust-of-ai-agents.html",
+      "source": "Schneier on Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-16T09:41:24+00:00",
+      "published_ts": 1776332484,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "From clinics to government: UAC-0247 expands cyber campaign across Ukraine",
+      "summary": "CERT-UA reports UAC-0247 targeting Ukrainian clinics and government bodies with malware stealing data from Chromium browsers and WhatsApp. CERT-UA has revealed a cyber campaign by the threat actor UAC-0247 targeting Ukrainian government entities and municipal healthcare facilities, including clinics and emergency hospitals. The operation between March and April 2026, used malware designed to steal sensitive [\u2026]",
+      "link": "https://securityaffairs.com/190875/apt/from-clinics-to-government-uac-0247-expands-cyber-campaign-across-ukraine.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-16T09:36:30+00:00",
+      "published_ts": 1776332190,
+      "smart_groups": [
+        "Malware / Payloads",
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Hackers Exploit n8n Webhooks to Spread Malware",
+      "summary": "A new abuse campaign targeting AI-driven workflow automation platforms particularly n8n that turns legitimate automation tools into powerful malware delivery systems. Between October 2025 and March 2026, security analysts observed a sharp surge in phishing emails that weaponized n8n-generated webhooks to deliver malicious payloads and collect device fingerprints under the guise of trusted infrastructure. AI workflow platforms like n8n and Zapier are [\u2026] The post Hackers Exploit n8n Webhooks to Spread Malware appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/hackers-exploit-n8n/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-16T09:31:11+00:00",
+      "published_ts": 1776331871,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC",
+        "Malware / Payloads",
+        "Phishing / Social Engineering"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Ransomware Hits Automotive Data Expert Autovista",
+      "summary": "The automotive analysis and data company is working with external experts to investigate the attack. The post Ransomware Hits Automotive Data Expert Autovista appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/ransomware-hits-automotive-data-expert-autovista/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-16T09:30:16+00:00",
+      "published_ts": 1776331816,
+      "smart_groups": [
+        "Curated",
+        "Ransomware"
+      ],
+      "curated": true
+    },
+    {
+      "title": "A fake Slack download is giving attackers a hidden desktop on your machine",
+      "summary": "This trojanized Slack installer looks normal, but quietly gives attackers an invisible desktop to access your accounts and data. We take a deep dive into the attack.",
+      "link": "https://www.malwarebytes.com/blog/threat-intel/2026/04/a-fake-slack-download-is-giving-attackers-a-hidden-desktop-on-your-machine",
+      "source": "Malwarebytes Labs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-16T09:26:45+00:00",
+      "published_ts": 1776331605,
+      "smart_groups": [
+        "Curated",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Two U.S. Nationals Sentenced in $5 Million DPRK Remote Worker Laptop Farm Scheme",
+      "summary": "The U.S. Justice Department has sentenced two New Jersey residents, Kejia Wang and Zhenxing Wang, for enabling a massive fraudulent employment operation that generated over $5 million for the Democratic People\u2019s Republic of Korea (DPRK). Kejia Wang received a 108-month prison term, while Zhenxing Wang was sentenced to 92 months in prison. Both defendants were [\u2026] The post Two U.S. Nationals Sentenced in $5 Million DPRK Remote Worker Laptop Farm Scheme appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/two-u-s-nationals-sentenced-in-5-million-dprk/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-16T09:23:32+00:00",
+      "published_ts": 1776331412,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "The best small business VoIP providers of 2026: Expert tested and reviewed",
+      "summary": "We looked at affordable yet feature-rich VoIP providers to help you settle on the perfect phone system. Which service offers the best value for small businesses?",
+      "link": "https://www.zdnet.com/article/best-small-business-voip-providers/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-16T09:01:02+00:00",
+      "published_ts": 1776330062,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "New PoC Exploit Published for Microsoft Defender 0-Day Flaw",
+      "summary": "A security researcher operating under the alias \u201cChaotic Eclipse\u201d has publicly released a proof-of-concept (PoC) exploit for a vulnerability in Microsoft Defender. Published on April 15, 2026, the exploit targets a flaw in CVE-2026-33825, a recently patched vulnerability. The uncoordinated release highlights an escalating conflict between independent security researchers and Microsoft\u2019s vulnerability disclosure programs. Public [\u2026] The post New PoC Exploit Published for Microsoft Defender 0-Day Flaw appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/poc-microsoft-defender-0-day-flaw/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-16T09:00:21+00:00",
+      "published_ts": 1776330021,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "The endless CISO reporting line debate \u2014 and what it says about cybersecurity leadership",
+      "summary": "It is difficult to understand why, in 2026, we are still debating the reporting line of the chief information security officer (CISO). It is one of the first topics I wrote about in 2015 , and after more than two decades of high-profile cyber incidents, sustained regulatory pressure, massive technology investments and the steady elevation of cybersecurity to boardroom agendas, one might reasonably expect that this issue would have been settled long ago. Yet the question persists. And articles like this It\u2019s time to rethink CISO reporting lines show that the debate is still raw. The fact that the debate continues tells us something important. It reveals that many organizations still struggle with a more fundamental question: What exactly is the role of the CISO within the enterprise? The reporting line matters \u2014 but it was never the real question Let me be clear. The reporting line matters. It matters because it defines the authority, visibility and influence of the security function across the organization. It signals internally how seriously cybersecurity is taken and determines how effectively the CISO can engage with the executive leadership team. But the reporting line was never the real question. The real question is whether the CISO has the organizational standing necessary to influence decisions across multiple silos: IT, operations, legal, compliance, HR, procurement, third-party suppliers and increasingly a complex ecosystem of partners and digital platforms. Cybersecurity is one of the very few corporate functions that touch virtually every part of the enterprise. It is therefore inherently cross-functional. Without sufficient authority and visibility, the CISO cannot hope to influence behaviour across the organization, let alone drive meaningful change. If we are still debating the reporting line in 2026, it is largely because many organizations still treat cybersecurity as a technical issue rather than a leadership issue. The governance gap behind the debate The persistence of this debate reflects a broader governance gap. Historically, information security emerged as a technical discipline embedded within IT departments. Early security teams focused primarily on protecting infrastructure: Firewalls, access controls, network monitoring and vulnerability management. In that environment, it was natural for the security function to sit within the IT organization. But the nature of cyber risk has evolved dramatically. Cybersecurity today is not merely about protecting technology infrastructure. It is about protecting digital business models, customer trust, intellectual property, operational resilience and in some sectors even national security interests. In other words, cybersecurity has become a strategic business issue. And yet, in many organizations, the governance structures surrounding cybersecurity have not evolved at the same pace. The continuing debate about the CISO reporting line is therefore less about organizational design and more about whether companies have fully internalised the strategic nature of cyber risk. There is no universal reporting line Another recurring misconception is the search for a universal answer. Every year, surveys attempt to determine the \u201ccorrect\u201d reporting line for the CISO. Some conclude that the CISO should report to the CEO. Others recommend the CRO or the COO. Some insist that independence from IT is essential. In reality, there is no universal model. The reporting line remains a means to an end. Organizations differ widely in their structure, culture, maturity and regulatory environment. What works in one organization may not work in another. In many organizations, the CIO remains the most natural reporting line for the CISO, particularly where technology transformation and digital innovation are core strategic priorities. In others, the COO or the CEO may be better placed to support the operational changes required to embed security across business processes. What matters is not the job title of the executive above the CISO. What matters is whether that individual has the authority, credibility, organizational reach and personal willingness to support the security agenda. Authority matters \u2014 and quite a lot of that is forged in the first 100 days When a new CISO joins an organization, their immediate priority is rarely technical. Instead, it is organizational: Understanding the business, mapping stakeholders, assessing governance structures and identifying the cultural barriers that may hinder security improvements. During those first months, the CISO must build credibility quickly across multiple constituencies. They must engage with senior executives, operational leaders, technology teams and sometimes regulators or external partners. None of this can be done effectively if the CISO lacks organizational authority. A reporting line that leaves the CISO buried several layers below executive leadership severely limits their ability to build the relationships required to succeed. Conversely, a reporting line that provides direct access to senior decision-makers can dramatically accelerate the process. The reporting line, therefore, matters not because it determines technical decisions, but because it determines access, influence and credibility. The illusion of structural solutions At the same time, we should be careful not to overstate the importance of organizational charts. A common mistake is to assume that moving the CISO reporting line will automatically solve cybersecurity challenges. It will not. Cybersecurity failures rarely occur because the organizational chart was incorrect. They occur because of poor governance, weak leadership, unclear accountability or cultural resistance to change. The most effective CISOs succeed not because of perfect reporting structures but because they build trust, credibility and influence across the organization. Which brings us to perhaps the most important factor of all: The relationship between the CISO and their direct superior. Trust matters more than structure In practice, the success of the CISO depends heavily on the quality of the relationship with the executive to whom they report. That relationship must be built on trust, alignment and shared understanding of the organization\u2019s risk appetite and strategic priorities. If the executive above the CISO understands the importance of cybersecurity and is willing to champion the security agenda at the board level and across the firm, the reporting structure can work extremely well. If that support is absent because the business at large does not see the strategic importance of cybersecurity, no reporting line will magically solve the problem. The myth of the CIO\u2013CISO conflict One final argument frequently raised in these discussions is the supposed \u201cconflict of interest\u201d between the CIO and the CISO. According to this theory, the CISO should not report to the CIO because the CIO is responsible for delivering technology projects and operational performance, while the CISO is responsible for enforcing security controls that may slow things down. This argument may have had some relevance 20 years ago, when security functions were primarily responsible for auditing IT operations. But today, it increasingly reflects an outdated understanding of both roles. Modern cybersecurity is deeply intertwined with technology architecture, cloud platforms, DevOps pipelines, digital transformation programs and operational resilience initiatives. Security cannot be treated as an external oversight function policing IT from a distance. It must be embedded within technology strategy itself. Any modern CIO should see it that way. In that environment, close collaboration between the CIO and the CISO is not only desirable \u2014 it is essential. Framing the relationship as a structural budgetary conflict and a source of friction is counterproductive and outdated. The real objective should not be to avoid friction but to engineer alignment: Ensuring that technology leadership and security leadership work together to support the organization\u2019s strategic goals. Moving beyond the debate Ultimately, the continuing debate about the CISO reporting line distracts the security industry from more important questions. What matters far more is whether cybersecurity is integrated into corporate governance, supported by executive leadership and aligned with business strategy. If organizations are still arguing about where the CISO should sit in 2026, it may simply indicate that they have not yet fully accepted the strategic nature of cyber risk. And until that changes, the debate will likely continue. Not because the answer is difficult \u2014 but because the underlying governance challenge remains unresolved. This article is published as part of the Foundry Expert Contributor Network. Want to join?",
+      "link": "https://www.csoonline.com/article/4158505/the-endless-ciso-reporting-line-debate-and-what-it-says-about-cybersecurity-leadership.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-16T09:00:00+00:00",
+      "published_ts": 1776330000,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "South Korea to pilot tokenized deposits for government spending",
+      "summary": "The sandbox will test preset spending limits, timing controls and category restrictions for public sector expense payments.",
+      "link": "https://cointelegraph.com/news/south-korea-pilot-tokenized-deposits-government-spending?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-04-16T08:50:58+00:00",
+      "published_ts": 1776329458,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "New Chrome Privacy Analysis Shows How Fingerprinting and Header Leaks Can Expose Users",
+      "summary": "Google Chrome is the most widely used browser in the world, yet a sweeping new analysis reveals it offers users almost no protection against fingerprinting and data leaks that quietly expose their identity to websites and trackers. Published April 14, 2026, the research shows how everyday Chrome browsing hands over device information and hardware signals [\u2026] The post New Chrome Privacy Analysis Shows How Fingerprinting and Header Leaks Can Expose Users appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/new-chrome-privacy-analysis/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-16T08:36:37+00:00",
+      "published_ts": 1776328597,
+      "smart_groups": [
+        "Curated",
+        "Data Breaches / Leaks"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Automotive Ransomware Attacks Double in a Year",
+      "summary": "Halcyon says ransomware now accounts for more than two-fifths of cyber-attacks targeting carmakers",
+      "link": "https://www.infosecurity-magazine.com/news/automotive-ransomware-attacks/",
+      "source": "Infosecurity Magazine \u2013 News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-16T08:35:00+00:00",
+      "published_ts": 1776328500,
+      "smart_groups": [
+        "Curated",
+        "Ransomware"
+      ],
+      "curated": true
     },
     {
       "title": "Claude Code, Gemini CLI, GitHub Copilot Agents Vulnerable to Prompt Injection via Comments",
@@ -102,6 +372,36 @@
       "published": "2026-04-16T08:00:10+00:00",
       "published_ts": 1776326410,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Splunk Enterprise and Cloud Platform Vulnerability Enables Remote Code Execution Attacks",
+      "summary": "A critical security vulnerability has been officially disclosed, affecting multiple versions of Enterprise and Cloud platforms. Tracked as CVE-2026-20204, this high-severity flaw carries a CVSS score of 7.1 and poses a significant threat to organizational networks. Discovered and reported by Splunk researcher Gabriel Nitu, the vulnerability allows attackers to perform Remote Code Execution (RCE) attacks. [\u2026] The post Splunk Enterprise and Cloud Platform Vulnerability Enables Remote Code Execution Attacks appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/splunk-enterprise-and-cloud-platform-vulnerability/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-16T07:42:51+00:00",
+      "published_ts": 1776325371,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Critical Chrome Vulnerabilities Let Attackers Execute Arbitrary Code \u2013 Update Now!",
+      "summary": "Google has rolled out a crucial security update for its Chrome browser, addressing 31 vulnerabilities that could leave systems exposed to severe cyber threats. Released on April 15, 2026, this Stable Channel update requires immediate attention from users worldwide, as the most severe flaws could allow attackers to execute arbitrary code on targeted machines. The [\u2026] The post Critical Chrome Vulnerabilities Let Attackers Execute Arbitrary Code \u2013 Update Now! appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/chrome-vulnerabilities/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-16T07:40:24+00:00",
+      "published_ts": 1776325224,
+      "smart_groups": [
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
       "curated": false
     },
     {
@@ -733,6 +1033,30 @@
       "type_label": "General Security & Blogs",
       "published": "2026-04-16T00:00:56+00:00",
       "published_ts": 1776297656,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "BlueBrothers: Three New Protocols to Secure Bluetooth",
+      "summary": "",
+      "link": "https://francozappa.github.io/publication/2026/bbro/",
+      "source": "https://francozappa.github.io/index.xml",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-16T00:00:00+00:00",
+      "published_ts": 1776297600,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "HardaBLE: Hardening BLE Against Software Compromise",
+      "summary": "",
+      "link": "https://francozappa.github.io/publication/2026/hardable/",
+      "source": "https://francozappa.github.io/index.xml",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-16T00:00:00+00:00",
+      "published_ts": 1776297600,
       "smart_groups": [],
       "curated": false
     },
@@ -2951,6 +3275,20 @@
       "curated": false
     },
     {
+      "title": "Project Think: building the next generation of AI agents on Cloudflare",
+      "summary": "Announcing a preview of the next edition of the Agents SDK \u2014 from lightweight primitives to a batteries-included platform for AI agents that think, act, and persist.",
+      "link": "https://blog.cloudflare.com/project-think/",
+      "source": "The Cloudflare Blog",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-15T13:01:00+00:00",
+      "published_ts": 1776258060,
+      "smart_groups": [
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
       "title": "Top 10 Best Application Security Testing Companies in 2026",
       "summary": "In the rapidly evolving digital landscape of 2026, applications are the backbone of every enterprise. From customer-facing web portals and mobile apps to intricate internal systems and APIs, software drives business operations, innovation, and customer engagement. However, this ubiquity also makes applications a prime target for cyber attackers. A single vulnerability can lead to devastating [\u2026] The post Top 10 Best Application Security Testing Companies in 2026 appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
       "link": "https://gbhackers.com/application-security-testing-companies/",
@@ -3034,20 +3372,6 @@
       "title": "Register domains wherever you build: Cloudflare Registrar API now in beta",
       "summary": "The Cloudflare Registrar API is now in beta. Developers and AI agents can search, check availability, and register domains at cost directly from their editor, their terminal, or their agent \u2014 without leaving their workflow.",
       "link": "https://blog.cloudflare.com/registrar-api-beta/",
-      "source": "The Cloudflare Blog",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-15T13:00:00+00:00",
-      "published_ts": 1776258000,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Project Think: building the next generation of AI agents on Cloudflare",
-      "summary": "Announcing a preview of the next edition of the Agents SDK \u2014 from lightweight primitives to a batteries-included platform for AI agents that think, act, and persist.",
-      "link": "https://blog.cloudflare.com/project-think/",
       "source": "The Cloudflare Blog",
       "type": "general",
       "type_label": "General Security & Blogs",
@@ -111675,385 +111999,6 @@
         "Crypto / Web3"
       ],
       "curated": true
-    },
-    {
-      "title": "Do Bitcoin halvings matter? Strategy buys outpace new BTC supply by 700%",
-      "summary": "Strategy bought seven weeks of new Bitcoin supply in one week, boosting the case for a $400,000 BTC price target if this pace continues.",
-      "link": "https://cointelegraph.com/news/do-bitcoin-halvings-matter-anymore-if-strategy-s-strc-exists?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-03-17T10:02:04+00:00",
-      "published_ts": 1773741724,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "South Korean Police Accidentally Post Cryptocurrency Wallet Password",
-      "summary": "An expensive mistake : Someone jumped at the opportunity to steal $4.4 million in crypto assets after South Korea\u2019s National Tax Service exposed publicly the mnemonic recovery phrase of a seized cryptocurrency wallet. The funds were stored in a Ledger cold wallet seized in law enforcement raids at 124 high-value tax evaders that resulted in confiscating digital assets worth 8.1 billion won (currently approximately $5.6 million). When announcing the success of the operation, the agency released photos of a Ledger device, a popular hardware wallet for crypto storage and management...",
-      "link": "https://www.schneier.com/blog/archives/2026/03/south-korean-police-accidentally-post-cryptocurrency-wallet-password.html",
-      "source": "Schneier on Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-17T10:01:43+00:00",
-      "published_ts": 1773741703,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Open, Closed and Broken: Prompt Fuzzing Finds LLMs Still Fragile Across Open and Closed Models",
-      "summary": "Unit 42 research unveils LLM guardrail fragility using genetic algorithm-inspired prompt fuzzing. Discover scalable evasion methods and critical GenAI security implications. The post Open, Closed and Broken: Prompt Fuzzing Finds LLMs Still Fragile Across Open and Closed Models appeared first on Unit 42 .",
-      "link": "https://unit42.paloaltonetworks.com/genai-llm-prompt-fuzzing/",
-      "source": "https://unit42.paloaltonetworks.com/feed/",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-17T10:00:38+00:00",
-      "published_ts": 1773741638,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Sears Exposed AI Chatbot Phone Calls and Text Chats to Anyone on the Web",
-      "summary": "Customer conversations with chatbots can include contact information and personal details that make it easier for scammers to launch phishing attacks and commit fraud.",
-      "link": "https://www.wired.com/story/sears-exposed-ai-chatbot-phone-calls-and-text-chats-to-anyone-on-the-web/",
-      "source": "Security News: Cybersecurity, Hacks, Privacy, National Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-17T10:00:00+00:00",
-      "published_ts": 1773741600,
-      "smart_groups": [
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "As Identity Takes Control, Telecom Needs Repatriated IAM Capable of Keeping Up",
-      "summary": "Part 4: AI ratchets up the throughput for telecom",
-      "link": "https://www.security.com/product-insights/repatriating-iam-part-4",
-      "source": "Broadcom \u2013 Symantec Blogs",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-17T10:00:00+00:00",
-      "published_ts": 1773741600,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Google cracks down on Android apps abusing accessibility",
-      "summary": "Malware has been abusing Android\u2019s accessibility features for years. Google just made that a lot harder.",
-      "link": "https://www.malwarebytes.com/blog/mobile/2026/03/google-cracks-down-on-android-apps-abusing-accessibility",
-      "source": "Malwarebytes Labs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-17T09:59:12+00:00",
-      "published_ts": 1773741552,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Konni Deploys EndRAT Through Phishing, Uses KakaoTalk to Propagate Malware",
-      "summary": "North Korean threat actors have been observed sending phishing to compromise targets and obtain access to a victim's KakaoTalk desktop application to distribute malicious payloads to certain contacts. The activity has been attributed by South Korean threat intelligence firm Genians to a hacking group referred to as Konni. \"Initial access was achieved through a spear-phishing email disguised as a",
-      "link": "https://thehackernews.com/2026/03/konni-deploys-endrat-through-spear.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-17T09:53:00+00:00",
-      "published_ts": 1773741180,
-      "smart_groups": [
-        "Malware / Payloads",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Packagist Themes Deliver Trojanized jQuery in OphimCMS Supply Chain Attack",
-      "summary": "A new OphimCMS supply chain attack in which six Packagist themes ship trojanized jQuery and other JavaScript to compromise site visitors rather than servers.\u200b Researchers found six malicious Composer packages under the \u201cophimcms\u201d namespace on Packagist that pretend to be legitimate themes for OphimCMS, a Vietnamese-language Laravel CMS used for movie streaming sites. These packages [\u2026] The post Packagist Themes Deliver Trojanized jQuery in OphimCMS Supply Chain Attack appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/jquery-in-ophimcms/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-17T09:51:52+00:00",
-      "published_ts": 1773741112,
-      "smart_groups": [
-        "Curated",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "A Bank Got Tired of Waiting for Vendors and Built Its Own AI Threat Hunter",
-      "summary": "submitted by /u/Big-Engineering-9365 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rw1yw9/a_bank_got_tired_of_waiting_for_vendors_and_built/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-17T09:41:57+00:00",
-      "published_ts": 1773740517,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "The Register: EU sanctions Iranian cyber front over election meddling, Charlie Hebdo breach",
-      "summary": "Researchers from the likes of Microsoft and Eclypsium previously said that Flax Typhoon mainly focuses its efforts on Taiwan. Its work there also focuses largely on compromising IoT devices to build botnets as a means to quietly gain access to target networks and snoop on their activity. The post The Register: EU sanctions Iranian cyber front over election meddling, Charlie Hebdo breach appeared first on Eclypsium | Supply Chain Security for the Modern Enterprise .",
-      "link": "https://eclypsium.com/news/the-register-eu-sanctions-iranian-cyber-front-over-election-meddling-charlie-hebdo-breach/",
-      "source": "Eclypsium | Supply Chain Security for the Modern Enterprise",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-17T09:36:00+00:00",
-      "published_ts": 1773740160,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Stryker attack wiped tens of thousands of devices, no malware needed",
-      "summary": "A source familiar with the attack told BleepingComputer that the threat actor used the wipe command in Intune, Microsoft\u2019s cloud-based endpoint management service, to erase data from nearly 80,000 devices between 5:00 and 8:00 a.m. UTC on March 11. submitted by /u/rkhunter_ [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rw1trm/stryker_attack_wiped_tens_of_thousands_of_devices/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-17T09:33:00+00:00",
-      "published_ts": 1773739980,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Windows / Microsoft",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Most dark web monitoring alerts are low-signal",
-      "summary": "A lot of vendors describe dark web monitoring as if they\u2019re sitting inside hacker forums watching attacks unfold. That\u2019s not what\u2019s happening. In practice, most of it is ingesting data from semi-public sources and trying to make sense of it after the fact. The high-signal environments are usually trust-gated, so coverage is biased toward what\u2019s already circulating on Telegram or paste sites. But the hard problem isn\u2019t collection, it\u2019s normalization. You\u2019re dealing with compressed stealer logs, inconsistent dump formats, broken encodings, and partial leaks. Most pipelines spend more effort cleaning this data than actually analyzing it. Where it really breaks down is signal quality. For example, in a recent engagement, a \u201cfresh\u201d stealer log was attributed to a high-profile target. After normalization, it turned out to be a recycled combo list from 2018 with timestamps stripped. Without validation, that kind of thing can easily turn into a high-priority alert on something that\u2019s been public for years. Combo lists get recycled constantly, and common domains (like gmail.com) generate so much noise that the alerts become operationally useless. The biggest misconception is that this is proactive threat detection. It isn\u2019t. By the time data shows up here, it\u2019s usually already been circulating privately. Curious if anyone has found a reliable way to handle freshness validation at scale, or if this is still mostly a manual problem. submitted by /u/SilentBreachTeam [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rw1pn9/most_dark_web_monitoring_alerts_are_lowsignal/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-17T09:25:34+00:00",
-      "published_ts": 1773739534,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "CISA Warns of Chrome 0-Day Vulnerabilities Exploited in Attacks",
-      "summary": "An urgent warning regarding two highly critical zero-day vulnerabilities affecting Google Chrome and related products. These flaws have been officially added to CISA\u2019s Known Exploited Vulnerabilities (KEV) catalog, indicating that malicious hackers are actively exploiting them in the wild. With the deadline for federal agencies to apply patches rapidly approaching, organizations and individual users are [\u2026] The post CISA Warns of Chrome 0-Day Vulnerabilities Exploited in Attacks appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/cisa-chrome-0-day-vulnerabilities/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-17T09:20:28+00:00",
-      "published_ts": 1773739228,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "From Windows to macOS: ClickFix attacks shift tactics with ChatGPT-based lures",
-      "summary": "ClickFix campaigns are evolving, with attackers increasingly targeting macOS users and deploying more advanced infostealers, according to Sophos researchers. ClickFix is a growing social engineering technique that tricks users into manually executing malicious commands, bypassing traditional protections. Once mainly targeting Windows, it is now increasingly affecting macOS, with recent campaigns deploying infostealers like AMOS and [\u2026]",
-      "link": "https://securityaffairs.com/189542/cyber-crime/from-windows-to-macos-clickfix-attacks-shift-tactics-with-chatgpt-based-lures.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-17T09:19:49+00:00",
-      "published_ts": 1773739189,
-      "smart_groups": [
-        "Windows / Microsoft",
-        "Malware / Payloads",
-        "Network / OT / ICS",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Attackers Hijacking Legitimate Websites to Attack Microsoft Teams users",
-      "summary": "A multi-vector phishing campaign using compromised WordPress sites to steal login credentials from Microsoft Teams and Xfinity users. By hijacking these trusted sites, attackers can bypass security filters and trick victims into disclosing sensitive information. The threat actors are not relying on a single method to trick their victims. Instead, they are utilizing three distinct [\u2026] The post Attackers Hijacking Legitimate Websites to Attack Microsoft Teams users appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/hijacking-websites-microsoft-teams-users/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-17T09:16:05+00:00",
-      "published_ts": 1773738965,
-      "smart_groups": [
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "The Golden Role How a Simple API Logic Flaw Unlocked an Entire SaaS Platform",
-      "summary": "In a true black-box assessment, the engagement begins with minimal information: a target URL and no prior knowledge of the application\u2019s architecture, credentials, or codebase. During a recent engagement targeting a multi-tenant SaaS platform, our initial objective was to establish initial access through standard user provisioning. Through systematic enumeration of application endpoints, we id...",
-      "link": "https://labs.cognisys.group/posts/The-Golden-Role-How-a-Simple-API-Logic-Flaw-Unlocked-an-Entire-SaaS-Platform/",
-      "source": "https://labs.cognisys.group/feed",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-17T09:10:00+00:00",
-      "published_ts": 1773738600,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "The best business desktops of 2026: Expert tested and reviewed",
-      "summary": "We tested the top business desktops from major brands like Dell, Lenovo, and Apple to find the best PCs for work and play.",
-      "link": "https://www.zdnet.com/article/best-business-desktops/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-17T09:01:01+00:00",
-      "published_ts": 1773738061,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "I replaced my router with a Wi-Fi 7 mesh model, and wondered where my dead zones went",
-      "summary": "TP-Link's Deco 7 Pro is a premium Wi-Fi 7 system with blazing-fast speeds and coverage for very large homes.",
-      "link": "https://www.zdnet.com/article/tp-link-deco-7-pro-review/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-17T09:00:57+00:00",
-      "published_ts": 1773738057,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Too big to ignore, too small to be served: the midmarket security gap",
-      "summary": "Midmarket security leaders aren't as secure as they think, says Intruder's report Partner Content The midmarket matters. JP Morgan estimates approximately 300,000 organizations generating $13T in annual revenue. Yet they occupy an awkward position in the security landscape. They're large enough to be attractive targets with complex digital estates, significant revenue, and valuable data, but not large enough to have the headcount, budget maturity, or tooling sophistication of an enterprise security team.\u2026",
-      "link": "https://go.theregister.com/feed/www.theregister.com/2026/03/17/too_big_ignore_too/",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-17T09:00:16+00:00",
-      "published_ts": 1773738016,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "What is Integrated Cloud Email Security (ICES) and Why do you Need It?",
-      "summary": "Integrated cloud email security (ICES) is a term coined by industry analyst, Gartner, in their 2021 Market Guide for Email Security. The guide was reissued in 2023 and stated that \u2018by 2025, 20% of anti-phishing solutions will be delivered via API integration with the email platform, up from less than 5%\u201d at the time of publication\u2019.",
-      "link": "https://blog.knowbe4.com/what-is-integrated-cloud-email-security-ices-guide",
-      "source": "KnowBe4 Blog",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-17T09:00:00+00:00",
-      "published_ts": 1773738000,
-      "smart_groups": [
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Creating Better Security Guidance and Code with LLMs - Mark Curphey - ASW #374",
-      "summary": "",
-      "link": "https://www.scworld.com/podcast-segment/14403-creating-better-security-guidance-and-code-with-llms-mark-curphey-asw-374",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-17T09:00:00+00:00",
-      "published_ts": 1773738000,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Creating Better Security Guidance and Code with LLMs - Mark Curphey - ASW #374",
-      "summary": "What happens when secure coding guidance goes stale? What happens LLMs write code from scratch? Mark Curphy walks us through his experience updating documentation for writing secure code in Go and recreating one of his own startups. One of the themes of this conversation is how important documentation is, whether it's intended for humans or for prompts to LLMs. Importantly, LLMs don't innovate on their own -- they rely on the data they're trained on. And that means there should be good authoritative sources for what secure code looks like. It also means that instructions to LLMs need to be clear and precise enough to produce something useful. Watch what happens when Mark prompts his agents to run a live demo for us! Visit https://www.securityweekly.com/asw for all the latest episodes! Show Notes: https://securityweekly.com/asw-374",
-      "link": "https://podcast.securityweekly.com/creating-better-security-guidance-and-code-with-llms-mark-curphey-asw-374",
-      "source": "Security Weekly Podcast Network (Audio)",
-      "type": "podcasts",
-      "type_label": "Podcasts & YouTube",
-      "published": "2026-03-17T09:00:00+00:00",
-      "published_ts": 1773738000,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "South Korea police draft crypto seizure rules after custody lapses: Report",
-      "summary": "Local media outlet Asiae reported that the national police aim to select a private custody provider in the first half of 2026.",
-      "link": "https://cointelegraph.com/news/south-korea-police-privacy-coin-seizure-guidelines?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-03-17T08:59:59+00:00",
-      "published_ts": 1773737999,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "ISO 27001 evidence in practice: what did auditors actually ask you to show?",
-      "summary": "Small team working toward ISO 27001. Trying to be brutally practical (less \u201cpolicy theater\u201d, more evidence): scope \u2192 risk \u2192 SoA \u2192 internal audit \u2192 management review. For folks who\u2019ve been through certification: 1) Which *records/evidence* did the auditor actually ask for? 2) What did you wish you had earlier (trackers, checklists, evidence mapping)? Concrete examples welcome (e.g., access reviews, supplier risk, backup restore tests, incident logs, internal audit report, mgmt review minutes). submitted by /u/Fun-Run1495 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rw18or/iso_27001_evidence_in_practice_what_did_auditors/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-17T08:55:42+00:00",
-      "published_ts": 1773737742,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "CISA Issues Alert on Wing FTP Server Vulnerability Used in Attacks",
-      "summary": "The Cybersecurity and Infrastructure Security Agency (CISA) has issued an urgent security alert regarding a critical vulnerability in the Wing FTP Server. On March 16, 2026, the agency officially added this security flaw to its Known Exploited Vulnerabilities (KEV) catalog. This addition serves as a clear warning to network defenders that cybercriminals are actively exploiting [\u2026] The post CISA Issues Alert on Wing FTP Server Vulnerability Used in Attacks appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/cisa-alert-on-wing-ftp-server-vulnerability/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-17T08:48:08+00:00",
-      "published_ts": 1773737288,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Malicious npm Packages Deliver PylangGhost RAT in New Software Supply Chain Campaign",
-      "summary": "A remote access trojan known as PylangGhost has appeared on the npm registry for the first time, concealed inside two malicious JavaScript packages. The malware, first publicly disclosed by Cisco Talos in June 2025 and attributed to the North Korean state-sponsored threat group FAMOUS CHOLLIMA, marks a significant escalation in software supply chain attacks targeting [\u2026] The post Malicious npm Packages Deliver PylangGhost RAT in New Software Supply Chain Campaign appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/malicious-npm-packages-deliver-pylangghost-rat/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-17T08:47:09+00:00",
-      "published_ts": 1773737229,
-      "smart_groups": [
-        "Curated",
-        "Malware / Payloads",
-        "Supply Chain / Software"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Crypto.com taps KG Inicis for tourist crypto payments in South Korea",
-      "summary": "The partnership targets foreign travelers in South Korea, adding real-world merchant access through a major local payments processor.",
-      "link": "https://cointelegraph.com/news/crypto-com-kg-inicis-south-korea-tourist-crypto-payments?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-03-17T08:41:26+00:00",
-      "published_ts": 1773736886,
-      "smart_groups": [
-        "Identity / Access"
-      ],
-      "curated": false
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
