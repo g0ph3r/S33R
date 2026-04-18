@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-04-17T22:56:43.000056+00:00",
+  "generated_at": "2026-04-18T01:50:13.529980+00:00",
   "days_back": 30,
-  "total_items": 7848,
+  "total_items": 7824,
   "items": [
     {
       "title": "Black Hat USA",
@@ -14,6 +14,193 @@
       "published_ts": 1785582000,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "Your old iPad or Android tablet can be your new smart home panel - here's how",
+      "summary": "Do you have an old tablet tucked away in a drawer somewhere? It's easy to turn it into a control panel for your smart home devices.",
+      "link": "https://www.zdnet.com/article/how-to-use-an-old-tablet-as-a-smart-home-control-panel/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-18T01:00:38+00:00",
+      "published_ts": 1776474038,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Worldcoin tanks 13% as World\u2019s iris-scanning tech expands to Zoom, Docusign",
+      "summary": "Most of the integrations are aimed at fighting deepfakes as the rise of AI-generated content makes it increasingly difficult to distinguish humans from AI.",
+      "link": "https://cointelegraph.com/news/worldcoin-falls-13-percent-as-world-iris-scanning-expands-zoom-docusign-tinder?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-04-18T00:49:26+00:00",
+      "published_ts": 1776473366,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Critical sandbox bypass fixed in popular Thymeleaf Java template engine",
+      "summary": "Maintainers of Thymeleaf, a widely used template engine for Java web applications, fixed a rare critical vulnerability that allows unauthenticated attackers to execute malicious code on servers. The vulnerability, tracked as CVE-2026-40478, is rated 9.1 on the CVSS severity scale and is described as a Server-Side Template Injection (SSTI) issue. Thymeleaf has a sandbox-like protection that prevents user input from executing dangerous expressions, but this flaw allows attackers to bypass those protections. \u201cAlthough the library provides mechanisms to prevent expression injection, it fails to properly neutralize specific syntax patterns that allow for the execution of unauthorized expressions,\u201d the developers said in their advisory . \u201cIf an application developer passes unvalidated user input directly to the template engine, an unauthenticated remote attacker can bypass the library\u2019s protections to achieve Server-Side Template Injection (SSTI).\u201d Thymeleaf is the de facto template engine in the Java Spring ecosystem and Spring is the most popular framework for developing web applications in Java. Since Java is still widely used for development in enterprise environments, this vulnerability has the potential to impact numerous business applications. All Thymeleaf versions before 3.1.4.RELEASE are affected and no work-around exists. Companies are advised to identify which of their applications use Thymeleaf and upgrade to 3.1.4.RELEASE as soon as possible. Straightforward exploitation According to researchers from application security testing firm Endor Labs, exploitation is straightforward with no special privileges or conditions required. Attackers just need to control input that reaches Thymeleaf\u2019s expression engine, which is a common pattern in web applications. Endor Labs notes in their report that Thymeleaf has defense-in-depth layers to block dangerous expressions and in this case two of them failed. For example, a string check scanned the expression text for dangerous patterns, such as the new keyword followed by an ASCII space, T (Spring Expression Language type references) and @ (SpEL bean references in some code paths). However, the check only looked for ASCII space 0x20 characters, but the SpEL\u2019s parser also accepts tab (0x09), newline (0x0A), and other control characters between new and the class name. Another policy blocked classes that start with java.* from being used inside T() type references, but did not block types from org.springframework.* , ognl.* , or javax.* . \u201cSince typical Spring applications have spring-core on the classpath, classes like org.springframework.core.io.FileSystemResource were freely constructable, and that class can create arbitrary files on disk,\u201d the researchers said. As such, Endor Labs was able to easily build a proof-of-concept exploit by combining the two: use a tab character after new and calling the org.springframework.core.io.FileSystemResource class to create a file on disk. \u201cWith the right class, an attacker can escalate from file creation to full remote code execution, for example, instantiating a ProcessBuilder wrapper from a third-party library, or leveraging Spring\u2019s own GenericApplicationContext to register and invoke arbitrary beans,\u201d the researchers explained. Vulnerabilities in the Java Spring Framework itself have been exploited in the past to compromise web servers, so it\u2019s likely that an easy-to-exploit flaw such as this one will be quickly adopted by attackers.",
+      "link": "https://www.csoonline.com/article/4160520/critical-sandbox-bypass-fixed-in-popular-thymeleaf-java-template-engine.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-17T23:06:19+00:00",
+      "published_ts": 1776467179,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "US imposes extended jail time on North Korean laptop farm facilitators",
+      "summary": "The U.S. Department of Justice has announced that New Jersey residents Kejia Wang and Zhenxing Wang have been given nine-year and nearly eight-year prison sentences, respectively, over their involvement in running a North Korean laptop farm supporting the regime's fake IT worker scheme that has amassed over $5 million, reports The Record, a news site by cybersecurity firm Recorded Future.",
+      "link": "https://www.scworld.com/brief/us-imposes-extended-jail-time-on-north-korean-laptop-farm-facilitators",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-17T22:53:59+00:00",
+      "published_ts": 1776466439,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Another PoC exploit released by 'BlueHammer' leaker after Microsoft dispute",
+      "summary": "Security researcher Chaotic Eclipse has published a proof-of-concept exploit for a Microsoft Defender zero-day vulnerability dubbed \"RedSun\" over a week after the release of an exploit code for the BlueHammer flaw in Defender, tracked as CVE-2026-33825, GBHackers News reports.",
+      "link": "https://www.scworld.com/brief/another-poc-exploit-released-by-bluehammer-leaker-after-microsoft-dispute",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-17T22:53:04+00:00",
+      "published_ts": 1776466384,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Over 337K affected by Cookeville Regional Medical Center hack",
+      "summary": "Tennessee-based Cookeville Regional Medical Center had information from 337,917 patients compromised following a ransomware attack last July that has been claimed by the Rhysida ransomware-as-a-service operation, according to Infosecurity Magazine.",
+      "link": "https://www.scworld.com/brief/over-337k-affected-by-cookeville-regional-medical-center-hack",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-17T22:51:54+00:00",
+      "published_ts": 1776466314,
+      "smart_groups": [
+        "Curated",
+        "Ransomware"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Customer data-exposing website flaw remediated by clothing retailer Express",
+      "summary": "TechCrunch reports that major U.S. clothing retailer Express has fixed a vulnerability in its website, which exposed at least a dozen customers' sensitive data, including names, email addresses, postal, billing, and delivery addresses, order details, partial card information, and phone numbers, in search engine results.",
+      "link": "https://www.scworld.com/brief/customer-data-exposing-website-flaw-remediated-by-clothing-retailer-express",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-17T22:50:37+00:00",
+      "published_ts": 1776466237,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "ShinyHunters alleges Kemper Corporation hack, exposes over 13M records",
+      "summary": "Major U.S. insurance provider Kemper Corporation had more than 29 GB of data from its Salesforce account claimed to have been stolen by the ShinyHunters hacking group, which leaked more than 13 million records following failed negotiations, reports Cybernews.",
+      "link": "https://www.scworld.com/brief/shinyhunters-alleges-kemper-corporation-hack-exposes-over-13m-records",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-17T22:49:04+00:00",
+      "published_ts": 1776466144,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Ransomware attacks against automotive sector escalate",
+      "summary": "Infosecurity Magazine reports that automotive manufacturers have been subjected to a more than twofold increase in ransomware incidence between 2024 and 2025.",
+      "link": "https://www.scworld.com/brief/ransomware-attacks-against-automotive-sector-escalate",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-17T22:47:00+00:00",
+      "published_ts": 1776466020,
+      "smart_groups": [
+        "Curated",
+        "Ransomware"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Report sheds light on cargo hackers' post-compromise activity",
+      "summary": "Advanced remote access campaigns have been executed by threat actors compromising organizations in the logistics and trucking industry, according to The Record, a news site by cybersecurity firm Recorded Future.",
+      "link": "https://www.scworld.com/brief/report-sheds-light-on-cargo-hackers-post-compromise-activity",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-17T22:45:50+00:00",
+      "published_ts": 1776465950,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Nascent PowMix botnet covertly compromises Czech workforce",
+      "summary": "Newly emergent PowMix botnet has been leveraging randomized command-and-control beaconing intervals to stealthily compromise the Czech Republic's workforce in an attack campaign that has been underway since December, The Hacker News reports.",
+      "link": "https://www.scworld.com/brief/nascent-powmix-botnet-covertly-compromises-czech-workforce",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-17T22:45:08+00:00",
+      "published_ts": 1776465908,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "New Sapphire Sleet attack against macOS users detailed",
+      "summary": "New Sapphire Sleet attack against macOS users detailed The Register reports that North Korean hacking operation Sapphire Sleet, also known as APT38, has sought to compromise macOS users with credential- and cryptocurrency-stealing payloads as part of a new social engineering attack campaign.",
+      "link": "https://www.scworld.com/brief/new-sapphire-sleet-attack-against-macos-users-detailed",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-17T22:43:40+00:00",
+      "published_ts": 1776465820,
+      "smart_groups": [
+        "Phishing / Social Engineering",
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Multiple attacks weaponizing critical Marimo RCE identified",
+      "summary": "Numerous threat actors have launched intrusions abusing the critical remote code execution flaw in the open-source Python notebook Marimo, tracked as CVE-2026-39987, to deploy illicit payloads and compromise data since the vulnerability was first discovered to be harnessed within hours of its disclosure last week, BleepingComputer reports.",
+      "link": "https://www.scworld.com/brief/multiple-attacks-weaponizing-critical-marimo-rce-identified",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-04-17T22:42:03+00:00",
+      "published_ts": 1776465723,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
     },
     {
       "title": "Threat Brief: Escalation of Cyber Risk Related to Iran (Updated April 17)",
@@ -109176,507 +109363,6 @@
       "published_ts": 1773883845,
       "smart_groups": [],
       "curated": false
-    },
-    {
-      "title": "The MacBook Neo just upended the budget laptop market - and it's bad news for PC makers",
-      "summary": "For years, Apple has refused to compete with the makers of cheap laptops - until now. Here's who wins and who loses in the wake of the MacBook Neo.",
-      "link": "https://www.zdnet.com/article/what-macbook-neo-means-to-the-pc-industry/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-19T01:14:00+00:00",
-      "published_ts": 1773882840,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Need some direction/HELP with my career.",
-      "summary": "I have 15 years experience as a data center tech. I have network and DCIM experience bc of the 15 years. And I'm trying maybe go a different path. I recently passed my security+ exam. and I'm not sure what to study next. Any advice?? submitted by /u/OutlandishnessDull26 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rxmif9/need_some_directionhelp_with_my_career/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-19T01:10:51+00:00",
-      "published_ts": 1773882651,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "I see why this Linux distro is the dream pick for gamers and content creators",
-      "summary": "Yes, it was a challenge to install. But then GLF OS took me by surprise - in the best possible way.",
-      "link": "https://www.zdnet.com/article/glf-os-linux-distro-perfect-for-gamers-and-content-creators/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-19T01:01:07+00:00",
-      "published_ts": 1773882067,
-      "smart_groups": [
-        "Linux / Unix"
-      ],
-      "curated": false
-    },
-    {
-      "title": "I didn't think switching to a 4K webcam on my MacBook would make such a big difference",
-      "summary": "The PTZ webcam from Obsbot packs a punch in a tiny form factor. But you'll have to be willing to pay to play.",
-      "link": "https://www.zdnet.com/article/obsbot-tiny-3-review/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-19T01:00:48+00:00",
-      "published_ts": 1773882048,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "How powerful is current SOTA LLM in reverse engineering?",
-      "summary": "I heard some claims that SOTA LLM plugin to IDA was powerful enough to crack open CTF hard reverse engineering problems. This kinda does not align with my experience in sota LLM. I would not doubt it can help, as LLMs knows assembly long time ago, but how good are they is a different question. Anyone has experience in that? Thanks. submitted by /u/Douf_Ocus [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rxm74z/how_powerful_is_current_sota_llm_in_reverse/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-19T00:57:32+00:00",
-      "published_ts": 1773881852,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Fitbit users: You can upload medical records now for AI advice - but is that safe?",
-      "summary": "It'll even analyze your lab results to deliver personalized recommendations. But here's what you need to know first.",
-      "link": "https://www.zdnet.com/article/fitbit-medical-google-ai/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-19T00:54:00+00:00",
-      "published_ts": 1773881640,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "I tried Gemini's Personal Intelligence, and it was accurate in a useful (but unsettling) way",
-      "summary": "I gave Gemini's hyper-personalized mode a test drive and was shocked by how much it knew about me. However, it was surprisingly useful.",
-      "link": "https://www.zdnet.com/article/geminis-personal-intelligence-mode-rolling-out-to-all-users/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-19T00:50:00+00:00",
-      "published_ts": 1773881400,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Why you shouldn't skip your TV's firmware updates - and how to do it on older models",
-      "summary": "Updating your TV's software can dramatically improve performance and fix those pesky bugs and glitches - even without internet.",
-      "link": "https://www.zdnet.com/article/tv-usb-port-update-reset/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-19T00:44:00+00:00",
-      "published_ts": 1773881040,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Interesting Message Stored in Cowrie Logs, (Wed, Mar 18th)",
-      "summary": "This activity was found and reported by BACS student Adam Thorman&#xc2&#x3b;&#xa0&#x3b;as part of one of his assignments which I posted his final paper &#x5b&#x3b; 1 &#x5d&#x3b; last week. This activity appeared to only have occurred on the 19 Feb 2026 where at least 2 sensors detected on the same day by DShield sensor in the cowrie logs an echo command that included: \" MAGIC&#x5f;PAYLOAD&#x5f;KILLER&#x5f;HERE&#x5f;OR&#x5f;LEAVE&#x5f;EMPTY&#x5f;iranbot&#x5f;was&#x5f;here \". My DShield sensor captured activity from source IP 64.89.161.198 between 30 Jan - 22 Feb 2026 that included portscans, a successful login via Telnet (TCP/23) and web access that included all the activity listed below captured by the DShield sensor (cowrie, webhoneypot & iptables logs).",
-      "link": "https://isc.sans.edu/diary/rss/32810",
-      "source": "SANS Internet Storm Center",
-      "type": "government",
-      "type_label": "Government, CERT & Advisories",
-      "published": "2026-03-19T00:38:49+00:00",
-      "published_ts": 1773880729,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Ubtuntu 24.04+ Snapd Local Privilege Escalation (CVE-2026-3888)",
-      "summary": "submitted by /u/si9int [link] [comments]",
-      "link": "https://www.reddit.com/r/netsec/comments/1rxlr0y/ubtuntu_2404_snapd_local_privilege_escalation/",
-      "source": "/r/netsec",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-19T00:38:41+00:00",
-      "published_ts": 1773880721,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Intoxalock cyberattack disrupts calibration service for interlock users",
-      "summary": "A cybersecurity event has disrupted calibration systems at Des Moines, Iowa-based Intoxalock since March 14, leaving some court-ordered ignition-interlock customers unable to complete required service visits and risking compliance penalties, the company said. Intoxalock said it is investigating and posting rolling updates on its public status page. Ignition interlock devices are typically mandated by courts after DWI convictions and require drivers to provide a clean breath test before a vehicle will start. The devices also must be serviced and calibrated on a set schedule, and missed appointments can trigger program consequences in some states. submitted by /u/CatfishEnchiladas [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rxlal6/intoxalock_cyberattack_disrupts_calibration/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-19T00:19:36+00:00",
-      "published_ts": 1773879576,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Smashing Security podcast #459: This clever scam nearly hijacked a tech CEO&#8217;s Apple ID",
-      "summary": "In episode 459 of Smashing Security, we dive into a chillingly clever account takeover attempt targeting WordPress co-founder Matt Mullenweg - involving MFA fatigue, real Apple alerts, a convincing support call, and a phishing page that oh-so-nearly worked. If a famous techie could have this happen to you, can you be sure you're immune? Plus: would you donate your lifetime medical history to science if you were promised anonymity? We unpack serious concerns around UK Biobank, where \u201cde-identified\u201d data may not be as anonymous as you think \u2014 and how surprisingly little information it takes to reveal everything. And! Human-powered \u201cAI\u201d, and a punishment worse than prison: eight hours on the RSA expo floor... All this, and much more, in episode 459 of the \"Smashing Security\" podcast with cybersecurity veteran Graham Cluley, and special guest Paul Ducklin.",
-      "link": "https://grahamcluley.com/smashing-security-podcast-459/",
-      "source": "Graham Cluley",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-19T00:15:54+00:00",
-      "published_ts": 1773879354,
-      "smart_groups": [
-        "Identity / Access",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "CVE-2026-32746 GNU telnetd Buffer Overflow PoC - Critical (9.8)",
-      "summary": "submitted by /u/pwnguide [link] [comments]",
-      "link": "https://www.reddit.com/r/netsec/comments/1rxl75t/cve202632746_gnu_telnetd_buffer_overflow_poc/",
-      "source": "/r/netsec",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-19T00:15:39+00:00",
-      "published_ts": 1773879339,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Streamlining Google\u2019s OSS VRP: Key Rule Updates",
-      "summary": "Read about our updates to the OSS VRP rules which are designed to help us filter out low-quality reports and focus on real-world impact.",
-      "link": "https://bughunters.google.com/blog/ossvrp-rule-updates-2026",
-      "source": "Security Engineering Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-19T00:00:00+00:00",
-      "published_ts": 1773878400,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Label yourself",
-      "summary": "We all take on different roles in relation to our friends, neighbors, family members, and colleagues. Keep those different roles clear in your many Signal group chats by using group member labels, now available in the latest versions of Signal for Android, Desktop, and iOS. Read more...",
-      "link": "https://signal.org/blog/group-member-labels/",
-      "source": "https://signal.org/blog/rss.xml",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-19T00:00:00+00:00",
-      "published_ts": 1773878400,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Android devices ship with firmware-level malware",
-      "summary": "Keenadu malware gives an attacker control over a device but appears to be used primarily to facilitate ad fraud Categories: Threat Research Tags: Android, Keenadu",
-      "link": "https://www.sophos.com/en-us/blog/android-devices-ship-with-firmware-level-malware",
-      "source": "Sophos News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-19T00:00:00+00:00",
-      "published_ts": 1773878400,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Copyright Lures Mask a Multi\u2011Stage PureLog Stealer Attack on Key Industries",
-      "summary": "We look into a stealthy multi\u2011stage attack campaign that delivers PureLog Stealer entirely in memory using encrypted, fileless techniques.",
-      "link": "https://www.trendmicro.com/en_us/research/26/c/copyright-lures-mask-a-multistage-purelog-stealer-attack.html",
-      "source": "Trend Micro Simply Security",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-19T00:00:00+00:00",
-      "published_ts": 1773878400,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "The next layer of AI security",
-      "summary": "Identity establishes trust. The next problem is how that trust is used. In June 2025, Microsoft patched EchoLeak (CVE-2025-32711), a zero-click vulnerability in Microsoft 365 Copilot that allowed an attacker to exfiltrate sensitive enterprise data, including API keys, confidential documents, and internal conversation snippets, without human intervention. The attack was deceptively simple. An attacker sent a normal-looking email with hidden instructions embedded in it. A human would not notice them, but the model could interpret them. The email remained dormant until Copilot later pulled it into context for another task. At that point, the instructions triggered, and the agent used the victim\u2019s existing permissions to retrieve and disclose sensitive information. The specific vulnerability matters, but the broader lesson matters more. A system can authenticate correctly, authorize correctly, and still produce the wrong outcome. Microsoft patched EchoLeak before it was publicly disclosed. Since then, researchers have identified similar patterns across AI-assisted workflows, including additional Copilot-related vulnerabilities in 2026. These are not isolated issues. They point to a broader, repeatable pattern. When AI systems process untrusted content and act with user-level permissions, prompt injection and unintended data access become systemic risks rather than edge cases. This is not a failure of authentication or authorization. It is what happens after both succeed. Systems are behaving exactly as designed, and still producing the wrong outcomes. Prompt injection breaks the execution model Prompt injection isn\u2019t just a model issue. It\u2019s a signal that something is breaking between how systems reason and how they act. The industry sees the same thing. OWASP Top 10 for LLM applications ranks prompt injection as a primary attack vector, and research from OpenAI and others shows that models cannot reliably distinguish between legitimate instructions and malicious ones embedded in external content. Robustness to these attacks remains an open problem. That means even when an agent has the right identity and permissions, it can still be pushed into using them incorrectly. In our AI Agent Security Benchmark , we evaluated how agents behave across common workflows. What emerged consistently was not a failure of login or access control in the traditional sense. Even with valid credentials and permissions, agents routinely acted outside their intended scope, accessing sensitive data, misusing tools, or following manipulated instructions. In one case, models correctly identified a phishing page but still opened it, retrieved credentials, and entered them. The issue wasn\u2019t whether access was allowed; it was how that access was used. This is the access trust gap. Today: Identity and authorization were built for a different world Traditional enterprise security is built around two basic questions: who is this, and what are they allowed to access? Authentication answers the first, and authorization answers the second. That model works when a few assumptions hold: a human is initiating the action, their intent is relatively clear, and everything happens within a defined session. Agent workflows don\u2019t fit that model: a single agent can move across multiple systems, use different credentials, and chain together actions in ways that aren\u2019t always visible to the person who started the task. Intent is no longer fixed at the beginning of the session. It can shift during execution based on how the agent interprets the task, what it encounters, and what untrusted inputs get pulled into the workflow. Identity still matters in this new world. You need to know what the agent is and who it\u2019s acting for. Systems like OAuth and SAML provide that foundation. But identity answers a question that was asked before anything actually happens. It doesn\u2019t tell you whether what\u2019s happening now still makes sense. Authorization has the same limitation. It checks scopes, roles, and whether access is valid. But that only tells you the agent can access something. It doesn\u2019t tell you whether this specific action is appropriate. Pulling model weights into an unmonitored environment, pushing code to a production branch at 2 AM, exporting data to an unknown endpoint. All of these actions can be allowed and still be wrong. Traditional IAM question What it governs What it misses Who is this actor? (Authentication) Identity verification at login Whether the agent\u2019s intent has been manipulated post-authentication What are they allowed to access? (Authorization) Scoped permissions via tokens Whether a specific action is appropriate given the current context How is authority exercised at runtime? Agent actions Whether this action should occur now, based on context and intent This introduces a new control boundary. It\u2019s not just about who has access or what they\u2019re allowed to do. It\u2019s about how that access is actually used when something happens. The gap between what\u2019s allowed and what should happen in the moment is exactly what prompt injection exploits. Identity alone doesn\u2019t close that gap. The future: Dynamic authority and continuous enforcement Instead of making a one-time access decision and assuming it holds, systems need to evaluate access as work unfolds. Dynamic authority: Access issued at execution time This means credentials are short-lived, and access is issued for a specific operation rather than granted as a standing permission. Pattern Example What it does Short-lived cloud credentials AWS STS Issues temporary credentials scoped to a session Token exchange OAuth 2.0 Token Exchange Trades one credential for another with narrower scope Workload identity federation SPIFFE / SPIRE Binds identity to workloads, not static secrets Ephemeral SSH certificates OpenSSH CA Issues certificates that expire after use These patterns reduce standing privilege and narrow scope. But they don\u2019t answer the harder question: should this action happen right now? OpenAI describes similar principles in its system documentation, including the use of key management systems, role-based access controls, and time-bound access to sensitive resources. Continuous, intent-based enforcement The real challenge is deciding what should happen in the moment. Each action needs to be evaluated in context. Access may be valid, but still inappropriate. This is where systems break down. Prompt injection doesn\u2019t bypass access controls; instead, it works within them. The agent has permission, and the system is behaving as designed, but the outcome is still wrong. Suppose an agent is granted read/write access to update customer records. The task is to update addresses. Instead, the agent modifies unrelated records based on flawed reasoning about data consistency. The action is allowed, but wrong in context. When an agent invokes a tool, authenticates to a service, retrieves a credential, or performs an operation, that moment needs to be evaluated: Requirement Purpose Evaluated against policy Does this action comply with current rules? Constrained by context Is this action appropriate given the task, time, and target? Continuously enforced Is the authorization still valid, or has something changed mid-chain? Recorded for audit Can we reconstruct exactly what happened and why? You can already see this in practice. In a recent security advisory on AI-assisted browsing , 1Password highlighted risks that emerge when AI systems operate with user-level permissions over untrusted content. The takeaway is simple: you cannot rely on the model to correctly interpret rules. Controls need to be enforced deterministically. At the browser level, that means domain-bound autofill and explicit confirmation for sensitive actions. The same principle will apply more broadly. Security has to extend beyond login into execution. The path forward The identity layer still matters. You need to know what an agent is, who authorized it, and what it\u2019s allowed to do. But those are starting points, not the full answer. Traditional IAM answers who and what. Agent systems require a third answer: How is authority actually exercised at runtime, and should this action proceed, based on context and intent? That is the next layer of AI security. 1Password Unified Access is built around that layer. It gives teams visibility into where agents and credentials exist across endpoints, browsers, and development environments. It secures that access through centralized governance, vaulting, and just-in-time patterns that reduce standing privilege. And it brings audit context closer to the moment access is exercised. These controls don\u2019t try to predict intent. They establish a foundation for governing how authority is used in practice as agent systems evolve. The credential is the last mile of every agent action. It\u2019s where an abstract permission becomes a real operation in a system. It\u2019s also where trust is either maintained or broken. Identity providers govern the front door. 1Password is building the layer that governs what happens after. Govern access across at runtime See how 1Password\u00ae Unified Access helps secure the next layer of AI security by governing how access is used at runtime. Learn more",
-      "link": "https://1password.com/blog/ai-security-runtime-controls",
-      "source": "https://blog.1password.com/index.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-19T00:00:00+00:00",
-      "published_ts": 1773878400,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Cloud / SaaS",
-        "Identity / Access",
-        "Phishing / Social Engineering",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "FAA seeks info to boost air traffic systems' cyber, quantum defenses",
-      "summary": "FedScoop reports that the Federal Aviation Administration has requested information from potential private-sector partners to help strengthen defenses against cyber and quantum threats, including improving security operations and assessing gaps in the National Airspace System and Air Traffic Control.",
-      "link": "https://www.scworld.com/brief/faa-seeks-info-to-boost-air-traffic-systems-cyber-quantum-defenses",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-18T23:54:04+00:00",
-      "published_ts": 1773878044,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Secure by design AI pushed by US government",
-      "summary": "U.S. National Cyber Director Sean Cairncross has stressed the Trump administration's move to ensure AI's secure by design nature, as the country advances innovation in the technology, reports Cybersecurity Dive.",
-      "link": "https://www.scworld.com/brief/secure-by-design-ai-pushed-by-us-government",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-18T23:52:29+00:00",
-      "published_ts": 1773877949,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Inaugural Energy Department cyber strategy's release imminent",
-      "summary": "The U.S. Department of Energy is set to release its first-ever cybersecurity strategic plan to reinforce the defenses of the country's power grid amid escalating cyber threats, according to The Record, a news site by cybersecurity firm Recorded Future.",
-      "link": "https://www.scworld.com/brief/inaugural-energy-department-cyber-strategys-release-imminent",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-18T23:51:37+00:00",
-      "published_ts": 1773877897,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Significant security flaws flagged in LangSmith, SGLang",
-      "summary": "AI agent development and deployment platform LangSmith and high-performance large language model serving framework SGLang have been impacted by vulnerabilities that could allow attackers to take over accounts and run code remotely, respectively, according to The Hacker News.",
-      "link": "https://www.scworld.com/brief/significant-security-flaws-flagged-in-langsmith-sglang",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-18T23:50:38+00:00",
-      "published_ts": 1773877838,
-      "smart_groups": [
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "VulnCheck: Threat of high-severity Cisco SD-WAN bug potentially missed",
-      "summary": "Cybersecurity Dive reports that organizations' security teams may be disregarding remediation of the high-severity Cisco Catalyst SD-WAN vulnerability, tracked as CVE-2026-20133, after warnings that only emphasized the targeting of the zero-day, tracked as CVE-2026-20127.",
-      "link": "https://www.scworld.com/brief/vulncheck-threat-of-high-severity-cisco-sd-wan-bug-potentially-missed",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-18T23:50:16+00:00",
-      "published_ts": 1773877816,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Major Verizon retailer's customer records reportedly stolen, offered for sale",
-      "summary": "Russell Cellular, which is a leading Verizon authorized retailer in the U.S., had over 6.3 million customer records claimed to be compromised by hackers, who are peddling the dataset for $1,200, Cybernews reports.",
-      "link": "https://www.scworld.com/brief/major-verizon-retailers-customer-records-stolen-offered-for-sale",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-18T23:49:01+00:00",
-      "published_ts": 1773877741,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Medusa ransomware purportedly hits University of Mississippi Medical Center, New Jersey county",
-      "summary": "Separate attacks against the University of Mississippi Medical Center and New Jersey's Passaic County have been claimed by the suspected Russia-based Medusa ransomware-as-a-service operation, reports The Record, a news site by cybersecurity firm Recorded Future.",
-      "link": "https://www.scworld.com/brief/medusa-ransomware-purportedly-hits-university-of-mississippi-medical-center-new-jersey-county",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-18T23:45:19+00:00",
-      "published_ts": 1773877519,
-      "smart_groups": [
-        "Curated",
-        "Ransomware"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Context Drift",
-      "summary": "do you know any tools that Fight context Drift In the AI IDE? submitted by /u/Lumpy_Art_8234 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rxkfru/context_drift/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-18T23:44:46+00:00",
-      "published_ts": 1773877486,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Novel font-rendering attack prevents AI assistants from detecting illicit code",
-      "summary": "BleepingComputer reports that widely used AI assistants, including ChatGPT, Copilot, Claude, Grok, Perplexity, and Gemini, could be compromised with malicious commands concealed within webpages' HTML code in a new font-rendering proof-of-concept attack.",
-      "link": "https://www.scworld.com/brief/novel-font-rendering-attack-prevents-ai-assistants-from-detecting-illicit-code",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-18T23:44:37+00:00",
-      "published_ts": 1773877477,
-      "smart_groups": [
-        "Exploit / PoC"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Mobile payment app takeovers possible with new Android OS-level attack",
-      "summary": "Threat actors could exploit Android's LSPosed framework to alter system-level processes, including the runtime environment, and covertly compromise mobile payment apps, according to Infosecurity Magazine.",
-      "link": "https://www.scworld.com/brief/mobile-payment-app-takeovers-possible-with-new-android-os-level-attack",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-18T23:43:49+00:00",
-      "published_ts": 1773877429,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Increasingly advanced DDoS attacks ramp up amid mounting API, AI targeting",
-      "summary": "SecurityWeek reports that distributed denial-of-service attacks have increased in volume and scale amid the increasing prevalence of API intrusions and AI abuse.",
-      "link": "https://www.scworld.com/brief/increasingly-advanced-ddos-attacks-ramp-up-amid-mounting-api-ai-targeting",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-18T23:43:11+00:00",
-      "published_ts": 1773877391,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Coalition Urges OpenAI to Scrap AI Ballot Measure Over Child Safety Concerns",
-      "summary": "Advocacy groups say the OpenAI-backed measure would limit legal accountability and lock in narrow protections for children.",
-      "link": "https://decrypt.co/361638/coalition-openai-scrap-ai-ballot-measure-child-safety",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-03-18T23:32:31+00:00",
-      "published_ts": 1773876751,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Bitcoin falls under $71K but data shows BTC\u2019s bullish momentum holding",
-      "summary": "Bitcoin dropped below $71,000, but the market\u2019s tilt toward bulls holds as spot ETF inflows and BTC buying from Strategy boost investor sentiment.",
-      "link": "https://cointelegraph.com/news/bitcoin-falls-under-71k-but-data-shows-btc-s-bullish-momentum-holding?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-03-18T23:23:32+00:00",
-      "published_ts": 1773876212,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Okta made a nightmare micromanager for your AI agents",
-      "summary": "Where are you? What are you working on? Why are you doing that? Identity access and management platform Okta announced the general availability of its Okta for AI Agents, which will give customers the ability to do three things: locate agents, see what they\u2019re doing, and shut them down if need be.\u2026",
-      "link": "https://go.theregister.com/feed/www.theregister.com/2026/03/18/okta_agent_micromanager/",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-18T23:05:31+00:00",
-      "published_ts": 1773875131,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "\"I built a professional local web testing framework with Python & Cloudflare tunnels.",
-      "summary": "I built L.O.L (Link-Open-Lab): A Python framework for cloud tunneling & security research. Features: > * Interactive CLI & Live Dashboard Automated PHP backend + Python Proxy Integrated Cloudflare tunnels & Docker support Real-time NDJSON logging Repo: https://github.com/dx0rz/L.O.L submitted by /u/dx0rz [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rxjerp/i_built_a_professional_local_web_testing/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-18T23:03:50+00:00",
-      "published_ts": 1773875030,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Navigating Security Tradeoffs of AI Agents",
-      "summary": "Unit 42 outlines the risks of AI ecosystems and allowing AI agents excessive privileges. Learn how to keep your security strategy up to date with these latest trends. The post Navigating Security Tradeoffs of AI Agents appeared first on Unit 42 .",
-      "link": "https://unit42.paloaltonetworks.com/navigating-security-tradeoffs-ai-agents/",
-      "source": "https://unit42.paloaltonetworks.com/feed/",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-18T23:00:28+00:00",
-      "published_ts": 1773874828,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Aura confirms data breach exposing 900,000 marketing contacts",
-      "summary": "Identity protection company Aura has confirmed that an unauthorized party gained access to nearly 900,000 customer records containing names and email addresses. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/aura-confirms-data-breach-exposing-900-000-marketing-contacts/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-18T22:56:50+00:00",
-      "published_ts": 1773874610,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Critical Unpatched Telnetd Flaw (CVE-2026-32746) Enables Unauthenticated Root RCE",
-      "summary": "submitted by /u/OMiniServer [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rxix32/critical_unpatched_telnetd_flaw_cve202632746/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-18T22:45:05+00:00",
-      "published_ts": 1773873905,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Micropatches released for Microsoft Access Remote Code Execution Vulnerability (CVE-2025-62552)",
-      "summary": "December 2025 Windows Updates brought a patch for CVE-2025-62552 , a remote code execution vulnerability in Microsoft Access that could allow a remote attacker to have their malicious code executed on user's computer upon opening a Word file with an Access database connection. The vulnerability was discovered and reported to Microsoft by security researcher Alberto Bruscino . Alberto subsequently published a detailed article , and shared their POC with us, which allowed us to reproduce the vulnerability and create patches for it. The Vulnerability The vulnerability is in the way Microsoft Access creates a database file in an ODBC connection, whereby a malicious Word file with an Access database connection (such as via the \"mail merge\" functionality) can create an arbitrary Word file in an Office-trusted location, subsequently resulting in attacker's Word macros being executed with user's identity. (See Alberto's article for a detailed process.) Among our security-adopted Office versions, we found this vulnerability to affect not only Office 2016 and 2019 click-to-run, but also Office 2013 and Office 2010. Office 2016 and 2019 volume license received an official patch from Microsoft. Microsoft's Patch Microsoft patched this issue by changing Microsoft Access logic such that using remote database files now also adheres to the already-existing trust model based on Trusted Locations. Various other security decisions have previously been based on the Trusted Locations model, e.g., whether a document opened from a folder is allowed to execute macros, but now the decision to use a remote database file is also included. Note that this change, while needed for security, has negatively affected various use cases, resulting in an \"Operation is not supported\" error when remote database connections were used by Office documents outside of trusted locations: Microsoft Learn: Operation is not supported error in Access and Excel To resolve this error, users had to either move the affected Office documents to a Trusted Location, or (not recommended) disable this enforcement using the AllowQueryRemoteTables registry value as described in this article (see section \"Access Connectivity Engine (ACE)\"). Here is another good article on resolving this error. Our Patch Our patch is logically identical to Microsoft's. This means that - just like with Microsoft's patch - it can break some existing use cases that involve external database references. Should this happen, we recommend the following course of action: Try adding the Office document that produces the error to a Trusted Location (see here for Office 2013 , here for Office 2016 and higher ), either by moving the document to one of existing trusted locations, or adding a new trusted location where the document resides. In the latter case, be careful not to trust a location where an attacker could potentially place their own malicious Office documents. If the above fails, disable all relevant patches for CVE-2025-62552 - in PRO accounts, disable patches in 0patch Console locally on the affected computer; in Enterprise accounts, disable patches in 0patch Central for groups containing affected computers. Let's see our patch in action on a fully updated Office 2019 click-to-run, which we have security-adopted last October when it received its last official security patches. The user opens a malicious clickme.docx document while 0patch is disabled and agrees to have Word use an embedded SQL query and run mail merge operation (both of which should not be considered dangerous per se), which leads to an error message about \"unreadable content\" -- at that time, a malicious file has already been created in an Office-trusted location. With 0patch enabled, the same process produces no file in the Office-trusted location. Micropatch Availability Micropatches were written for the following 32-bit and 64-bit security-adopted Microsoft Office versions: Microsoft Office 2019 click-to-run - updated with all available updates (version 2508, build 19127.20302) Microsoft Office 2016 click-to-run - updated with all available updates (version 2508, build 19127.20302) Microsoft Office 2013 - updated with all available updates Microsoft Office 2010 - updated with all available updates Office 2016 and 2019 volume license received an official patch from Microsoft. Micropatches have already been distributed to, and applied on, all affected online computers with 0patch Agent in PRO or Enterprise accounts (unless Enterprise group settings prevented that). Vulnerabilities like these get discovered on a regular basis, and attackers know about them all. If you're using Windows that aren't receiving official security updates anymore, 0patch will make sure these vulnerabilities won't be exploited on your computers - and you won't even have to know or care about these things. We'd like to thank Alberto Bruscino for sharing vulnerability details and POC, which allowed us to create a patch for this issue and protect our users. If you're new to 0patch , create a free account in 0patch Central , start a free trial, then install and register 0patch Agent. Everything else will happen automatically. No computer reboot will be needed. Did you know 0patch security-adopted Windows 10 and Office 2016 and 2019 when they went out of support in October 2025, allowing you to keep using them for at least 3 more years (5 years for Windows 10)? Read more about it here and here . To learn more about 0patch, please visit our Help Center .",
-      "link": "https://blog.0patch.com/2026/03/micropatches-released-for-microsoft.html",
-      "source": "0patch Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-18T22:39:00+00:00",
-      "published_ts": 1773873540,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Windows / Microsoft"
-      ],
-      "curated": true
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
