@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-04-18T09:08:09.702985+00:00",
+  "generated_at": "2026-04-18T10:04:40.721465+00:00",
   "days_back": 30,
-  "total_items": 7786,
+  "total_items": 7771,
   "items": [
     {
       "title": "Black Hat USA",
@@ -31,6 +31,18 @@
         "Malware / Payloads"
       ],
       "curated": true
+    },
+    {
+      "title": "Spot Bitcoin ETFs attract nearly $1B in weekly inflows as risk sentiment improves",
+      "summary": "Spot Bitcoin ETFs recorded nearly $1 billion in weekly inflows, their strongest performance in over three months amid improving risk sentiment.",
+      "link": "https://cointelegraph.com/news/spot-bitcoin-etfs-1b-weekly-inflows-risk-sentiment?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-04-18T08:28:25+00:00",
+      "published_ts": 1776500905,
+      "smart_groups": [],
+      "curated": false
     },
     {
       "title": "[Webinar] Eliminate Ghost Identities Before They Expose Your Enterprise Data",
@@ -108569,250 +108581,6 @@
         "Phishing / Social Engineering"
       ],
       "curated": true
-    },
-    {
-      "title": "OpenClaw devs targeted by phishing scam promising free \u2018CLAW\u2019 tokens",
-      "summary": "A phishing campaign used fake GitHub posts and a bogus \u201cCLAW\u201d token to lure OpenClaw developers into connecting crypto wallets.",
-      "link": "https://cointelegraph.com/news/openclaw-phishing-scam-free-claw-tokens?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-03-19T09:29:21+00:00",
-      "published_ts": 1773912561,
-      "smart_groups": [
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "How Wildlife Traffickers Are Using Coded Language to Sell Protected Animals On Facebook",
-      "summary": "A Bellingcat investigation has identified nine Facebook groups with a combined membership of more than 70,000 people, in which coded language has helped illegal wildlife dealers evade bans on the platform for years. Facebook says it prohibits any form of animal trading on its platform. Investigating the operators behind all nine groups, Bellingcat identified six [\u2026] The post How Wildlife Traffickers Are Using Coded Language to Sell Protected Animals On Facebook appeared first on bellingcat .",
-      "link": "https://www.bellingcat.com/news/2026/03/19/how-wildlife-traffickers-are-using-coded-language-to-sell-protected-animals-on-facebook/",
-      "source": "Bellingcat",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-19T09:24:54+00:00",
-      "published_ts": 1773912294,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Beyond the Inbox \u2014 Introducing Web Campaigns",
-      "summary": "For over three years, delivr.to has helped security teams answer a deceptively simple question: what actually reaches users\u2019 inboxes? That question hasn\u2019t gone away \u2014 but it\u2019s no longer the only one worth asking. Today, we\u2019re releasing Web Campaigns \u2014 a new campaign type that tests whether payloads are successfully downloaded via web browser, evaluating security controls along the entire download chain: from network proxies to endpoint detection and response, and everything else in between. What Web Campaigns Test To be explicit about the control chain that web campaigns exercise: - DNS filtering and web proxies \u2014 Does the organisation\u2019s network allow the download URL to resolve and connect? - DPI firewalls and network sandboxes \u2014 Is the file inspected and detonated at the network edge? - Browser-native protection \u2014 Does Chrome\u2019s Safe Browsing, Edge\u2019s SmartScreen, or Firefox\u2019s built-in scanner flag the download? - Browser extensions and plugins \u2014 Do any security-focused browser extensions intervene? (e.g. Push Security\u2019s ClickFix detection ) - Endpoint detection and response \u2014 Does the EDR agent quarantine or block the file on write? - Post-download scanning \u2014 Does scheduled or real-time antimalware scanning catch the file after it lands? Each of these layers operates independently, and a failure at any single point means the payload reaches the user. Web campaigns give security teams a structured, repeatable way to identify which layers are working and which are not. Tracking Results When approaching delivr.to web delivery testing, we wanted the same focus on painless but comprehensive results collection that drives our email campaigns. That meant building automated verification directly into the download process \u2014 not just logging access events. Server-side, each download is tracked with timestamp, source IP and user-agent. The results page surfaces these events in real-time, showing user-driven fetches, as well as any potential sandboxing \u2018clicks\u2019 that might occur at the same time. Then, payload delivery is verified at two stages \u2014 from the hosted link to the browser, then from the browser to the endpoint file system. Every download is hash-checked in the browser against an expected value. If it matches, the file made it through any proxy/SWG/network sandboxes intact. This works on all browsers with no configuration. On Chromium browsers with our \u2018Download Monitoring\u2019 feature enabled, payloads are written to a selected folder via the File System Access API. delivr.to confirms a successful file write and also watches for post-write deletions. If Chrome\u2019s Safe Browsing blocks the initial write, the result updates automatically. If an endpoint security solution subsequently acts on the file, this result is captured too. If this Chromium File System Access API sounds familiar, we previously published research on its weaponisation here: FileJacking: Exfiltrating Mapped Drives from the Browser Launching a Campaign Web campaigns follow a workflow that will be familiar to existing delivr.to users. The core concepts are the same \u2014 select payloads, launch a campaign, analyse results \u2014 with the delivery mechanism adapted for web-based testing. Selecting web delivery from the sidebar, payload selection works identically to email campaigns \u2014 choose a template, browse the payload library, toggle individual payloads on or off. Email body-only payloads are naturally filtered out, since web campaigns deliver files via hosted download links, rather than inline email content. Campaign configuration is simplified. There are no recipients, senders, subject lines, or delivery delays. You configure the campaign name, link expiry duration, and whether to receive email results on completion. Web campaigns launch immediately \u2014 there is no scheduled start. On launch, delivr.to generates a unique hosted download link for every selected payload. Links are reusable within the expiry window, allowing repeated testing against the same URLs. The campaign results page displays every payload with its corresponding download link, link expiry time, and access status. Payloads can be downloaded or visited manually one-by-one by clicking the row buttons (e.g. visiting pastejacking sites or fake login portals), or by clicking \u2018 Download All\u2019 to trigger the sequential background download of every payload. This is where the security control chain is exercised. Each download traverses the full stack of web security controls deployed in your environment \u2014 the same path a real end user would follow when downloading a file from a malicious or compromised website. Conclusion Email remains the most common delivery vector for phishing, BEC, and malware distribution \u2014 and delivr.to \u2019s email campaign capabilities continue to expand. But the data increasingly shows that other initial access methods are coming to the fore. Mandiant\u2019s M-Trends 2025 report recorded web compromise as an initial access vector in 9% of incidents, nearly doubling from 5% the prior year. The techniques behind these numbers are well-documented. ClickFix \u2014 where a fake CAPTCHA or error prompt instructs a user to paste a clipboard-hijacked command into Run or Terminal \u2014 surged 517% in the first half of 2025 and was rapidly adopted by several nation-state groups. Its variants continue to evolve, where FileFix moved the interaction to the file explorer address bar, and our recent research into DragFix demonstrated how the HTML Drag and Drop API can smuggle commands via a completely separate data channel, bypassing clipboard monitoring altogether. All of these techniques deliver a payload through the browser. Security teams that only test their email controls are testing half the attack surface. Web campaigns are available now to all delivr.to users at their existing subscription tier, with no additional licensing required. Put your web security controls through their paces \u2014 you might be surprised what reaches disk! delivr.to delivr.to is a platform for validating email and web security controls, through the continuous and automated sending of email attachment and link content. delivr.to has a broad collection of over 800 payload samples, ranging from recreations of threat actor activity, esoteric and weaponisable file formats, and emerging techniques. These are presented in hand-crafted \u2018campaigns\u2019 to provide an evidence-based appraisal of email and web defences and highlight areas for attack surface reduction. delivr.to offers a free 30 day trial, so head over and try it out now!",
-      "link": "https://medium.com/@delivrto/beyond-the-inbox-introducing-web-campaigns-ee137d868dc0?source=rss-1242be189bc------2",
-      "source": "https://blog.delivr.to/feed",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-19T09:23:53+00:00",
-      "published_ts": 1773912233,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Malware / Payloads",
-        "Phishing / Social Engineering"
-      ],
-      "curated": true
-    },
-    {
-      "title": "As a hobbyst Rust user, I've just built my first Network Intrusion Detection Engine(NDE) from scratch using Zig0.15.2 with its interesting C interop.",
-      "summary": "As a part of my hobby projects, this project captures live packets and detects real-world attack patterns in real time \u2014 no external frameworks, just low-level networking and manual parsing with C interop. What it detects: - TCP SYN Flood attacks - ICMP Flood attacks - TCP/UDP Port Scans - Ping of Death - Payload-based attacks (SQL Injection, XSS, Command Injection). Github: https://github.com/siddharth2440/Network-Detection-Engine I want to say Zig is the one of the Best language I ever used.... submitted by /u/PuzzleheadedTower523 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rxvnjw/as_a_hobbyst_rust_user_ive_just_built_my_first/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-19T09:22:33+00:00",
-      "published_ts": 1773912153,
-      "smart_groups": [
-        "Vulnerabilities / CVEs",
-        "Web / API Security"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Interlock group exploiting the CISCO FMC flaw CVE-2026-20131 36 days before disclosure",
-      "summary": "The Interlock ransomware group has exploited a Cisco FMC zero-day RCE vulnerability in attacks since late January. The Interlock ransomware group has been exploiting a critical zero-day RCE vulnerability, tracked as CVE-2026-20131 (CVSS score of 10.0), in Cisco Secure Firewall Management Center (FMC) since late January. The vulnerability is a remote code execution flaw that [\u2026]",
-      "link": "https://securityaffairs.com/189636/malware/interlock-group-exploiting-the-cisco-fmc-flaw-cve-2026-20131-36-days-before-disclosure.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-19T09:22:32+00:00",
-      "published_ts": 1773912152,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "One Commit Away from Theft: When Supply Chain Attacks Hit the Crypto Ecosystem",
-      "summary": "Explore patterns observed across real-world crypto incidents and controlled adversary exercises, along with a containment-first defense roadmap built on lessons learned from those cases. The post One Commit Away from Theft: When Supply Chain Attacks Hit the Crypto Ecosystem appeared first on Sygnia .",
-      "link": "https://www.sygnia.co/blog/one-commit-away-from-theft-when-supply-chain-attacks-hit-the-crypto-ecosystem/",
-      "source": "https://www.sygnia.co/feed/",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-03-19T09:20:12+00:00",
-      "published_ts": 1773912012,
-      "smart_groups": [
-        "Curated",
-        "Identity / Access"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Kanboard Authenticated SQL Injection CVE-2026-33058 Writeup",
-      "summary": "submitted by /u/_cydave [link] [comments]",
-      "link": "https://www.reddit.com/r/netsec/comments/1rxvkva/kanboard_authenticated_sql_injection_cve202633058/",
-      "source": "/r/netsec",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-19T09:18:05+00:00",
-      "published_ts": 1773911885,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Web / API Security"
-      ],
-      "curated": true
-    },
-    {
-      "title": "DarkSword iOS Exploit Kit Uses 6 Flaws, 3 Zero-Days for Full Device Takeover",
-      "summary": "A new exploit kit for Apple iOS devices designed to steal sensitive data from is being wielded by multiple threat actors since at least November 2025, according to reports from Google Threat Intelligence Group (GTIG), iVerify, and Lookout. According to GTIG, multiple commercial surveillance vendors and suspected state-sponsored actors have utilized the full-chain exploit kit, codenamed DarkSword",
-      "link": "https://thehackernews.com/2026/03/darksword-ios-exploit-kit-uses-6-flaws.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-19T09:14:00+00:00",
-      "published_ts": 1773911640,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Hacking Dahua (DHA) security cameras: breaking firmware encryption & exploiting two RCE bugs. \ud83c\udfa5\ud83e\ude9b\ud83d\udce4\ud83e\udeb2\ud83d\udc68\ud83c\udffb\u200d\ud83d\udcbb",
-      "summary": "submitted by /u/NISMO1968 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1rxvel7/hacking_dahua_dha_security_cameras_breaking/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-19T09:07:14+00:00",
-      "published_ts": 1773911234,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "The best web hosting services of 2026: Expert tested and reviewed",
-      "summary": "Looking for a web host for your next project, or hoping to migrate to a new service? Our favorites offer rapid onboarding, affordable plans, reliable hosting, and scalability.",
-      "link": "https://www.zdnet.com/article/best-web-hosting/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-19T09:00:42+00:00",
-      "published_ts": 1773910842,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Your MFA isn\u2019t broken \u2014 it\u2019s being bypassed, and your employees can\u2019t tell the difference",
-      "summary": "Multi-factor authentication was supposed to be the solution. For years, security teams have told employees that MFA would keep them safe. Password stolen? No problem \u2014 attackers still need that second factor. But adversary-in-the-middle (AiTM) phishing has changed everything. These attacks do not try to steal passwords and MFA codes separately. They capture the entire authentication flow in real time, including the session token that proves a user is logged in. The employee does everything right \u2014 checks for HTTPS, verifies the MFA prompt, avoids suspicious attachments \u2014 and still gets compromised. This should concern every security leader. If our training, our MFA and our security awareness programs cannot protect someone who is genuinely trying to be careful, then what exactly are we promising when we tell users MFA will keep them safe? Why this is not the phishing you trained for Traditional phishing meant sloppy fake login pages with typos and dodgy URLs. Those pages could not handle MFA because they had no connection to the real authentication service. Here is what changed, and I wish more security leaders understood this: modern phishing pages are not fake. They are proxies. Tools like Evilginx sit between the user and the legitimate service \u2014 Microsoft, Google, Okta, whatever \u2014 and relay everything in real time. The employee types their password. It goes to Microsoft. Microsoft sends the MFA challenge. It flows back through the proxy to the employee\u2019s phone. The employee approves it. The session cookie \u2014 that golden token proving authentication \u2014 passes right back through the proxy into the attacker\u2019s hands. The employee sees a successful login and gets on with their day. The attacker takes that same session cookie, opens a browser on a completely different machine, and they are in. No password needed. No MFA prompt. Just a clean, authenticated session that belongs to someone else. What bothers me most is how quiet it is. There are no failed login attempts. No MFA fatigue bombing. No brute force alerts. Everything looks normal because, technically, everything was normal. The authentication was real. The attacker just watched it happen. And this is not a nation-state technique anymore. Phishing-as-a-Service platforms \u2014 Tycoon 2FA, Sneaky2FA, FlowerStorm \u2014 have turned this into a commodity. According to Barracuda\u2019s frontline security predictions , over 90 percent of credential compromise attacks are expected to involve sophisticated phishing kits by the end of 2026. A separate Barracuda threat report found that 90 percent of high-volume phishing campaigns in 2025 relied on PhaaS kits, with the number of known kits doubling over the year. You do not need to understand reverse proxies to run this attack. You need a credit card and a subscription. Three failures that keep showing up Through my research into adversary-in-the-middle attacks and reviewing industry incident reports, I have identified three consistent failures that make these attacks successful. 1. We trained our people for the wrong threat Most security awareness programs still teach the same things: Look for misspellings, check the sender address, hover over links. That advice was built for 2015 phishing. In an adversary-in-the-middle attack, there are no misspellings because the page is real \u2014 it is being proxied from the actual service. The SSL certificate is valid because the proxy obtains its own legitimate certificate. The login flow behaves exactly as expected because it is the real login flow, just observed by someone in the middle. Security researchers have tested this extensively. Setting up an Evilginx proxy against a test tenant and sending phishing links to security professionals \u2014 people who know what phishing looks like \u2014 consistently catches a significant number of them. If people whose literal job is spotting these attacks cannot tell the difference, expecting finance or HR staff to do so is unrealistic. Research from Push Security confirms phishing has gone omni-channel, with roughly one in three phishing attacks now delivered outside of email entirely, through channels like LinkedIn DMs and Google Search. 2. We trust session cookies too much Once MFA is completed, most organisations treat the resulting session as sacred. The user proved who they are, so we let them work. But session cookies are bearer tokens \u2014 whoever holds them is the authenticated user. There is no binding between the cookie and the device that generated it. There is no fingerprint. There is no anchor. An attacker who steals a session cookie from London can replay it from an entirely different location, and the identity provider will accept it as the legitimate user. Research from Silverfort demonstrated that even after successful FIDO2 authentication, many identity providers remain vulnerable to session hijacking because the session tokens created after authentication are not adequately protected. 3. We react to credential theft, not session theft Incident response playbooks are built around compromised passwords: Force a reset, revoke tokens, re-enroll MFA. But in an adversary-in-the-middle attack, the password is not the primary concern \u2014 the session is. Industry reports consistently show response teams resetting passwords and considering the case closed, while attackers continue operating on stolen sessions for days. If you are not revoking all active sessions and monitoring for session replay, you are not actually remediating the compromise. What actually works The uncomfortable truth is that traditional MFA \u2014 push notifications, SMS codes, authenticator apps \u2014 cannot defend against adversary-in-the-middle phishing. The authentication succeeds because it is real authentication. The attacker simply observes and copies the result. Here is what actually makes a difference. Deploy phishing-resistant authentication FIDO2 security keys and passkeys bind authentication cryptographically to the specific domain. If the login request comes from a proxy domain instead of the real service, the key refuses to sign the challenge. According to Microsoft\u2019s documentation on passkeys , passkeys use origin-bound public key cryptography, ensuring credentials cannot be replayed or shared with malicious actors. Rolling out hardware keys can be challenging \u2014 budget approvals take time, users need training. But start somewhere. Finance teams, IT admins and executives should be first. The people with the most valuable access need the strongest authentication. It is worth noting that Proofpoint researchers have demonstrated a downgrade attack against FIDO in Microsoft Entra ID by spoofing an unsupported browser, so organisations should also disable fallback authentication methods where possible. Bind sessions to devices Conditional Access policies that require managed, compliant devices create a hardware anchor that cookie replay cannot bypass. If someone steals a session cookie and tries to replay it from an unmanaged machine, the session gets killed. This is one of the most impactful changes organisations can implement. It is not foolproof, but it eliminates the easiest replay vector overnight. Monitor for session anomalies, not just failed logins The adversary-in-the-middle attack does not generate failed logins. It generates perfect-looking successful ones. The signals are in what happens after authentication. Watch for impossible travel between the authentication IP and subsequent session activity. Watch for new MFA device registration within minutes of login. Watch for inbox rule creation. Barracuda\u2019s threat analysis highlights that attackers are increasingly using MFA code theft via relay attacks and targeting MFA recovery flows, making post-authentication monitoring more critical than ever. These are the post-compromise actions that attackers perform consistently, and building detection rules around these patterns catches attempts that traditional monitoring misses entirely. Rebuild your security awareness training Stop teaching people to spot phishing pages \u2014 they cannot, not against modern attacks. Push Security\u2019s analysis notes that the vast majority of phishing attacks today use reverse proxies capable of bypassing most forms of MFA in real time, and that old-school approaches to URL blocking leave defenders two steps behind attackers. Instead, teach employees one simple rule: If you did not initiate the login yourself by typing the URL directly, do not trust it. Do not click login links in emails, even if they look legitimate. Navigate to the service directly. Bookmark your login pages. And give people a simple, frictionless way to report anything that feels wrong, even if they cannot explain why. The uncomfortable conclusion The security industry spent years telling organisations that MFA was the answer. It was \u2014 for the threats we had then. But the threat has evolved, and our defenses have not kept pace. Adversary-in-the-middle phishing does not break MFA. It does not need to. It sits patiently in the middle, watches the authentication happen exactly as designed, and copies the result. Our strongest defence does not fail \u2014 it succeeds, and the attacker benefits anyway. The organisations that recognise this shift and move to phishing-resistant authentication will be protected. The rest are waiting for a breach that will look exactly like a normal Monday morning login \u2014 until it is too late. We told our employees MFA would keep them safe. We owe them a defence that actually does. This article is published as part of the Foundry Expert Contributor Network. Want to join?",
-      "link": "https://www.csoonline.com/article/4147134/your-mfa-isnt-broken-its-being-bypassed-and-your-employees-cant-tell-the-difference.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-19T09:00:00+00:00",
-      "published_ts": 1773910800,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Identity / Access",
-        "Phishing / Social Engineering"
-      ],
-      "curated": true
-    },
-    {
-      "title": "UK: Regulation Drives Cyber Spending for Critical Infrastructure Orgs",
-      "summary": "35% of security leaders working in the UK\u2019s critical infrastructure said regulatory requirements are the primary influence on their security programs",
-      "link": "https://www.infosecurity-magazine.com/news/uk-regulation-drives-cyber/",
-      "source": "Infosecurity Magazine \u2013 News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-19T09:00:00+00:00",
-      "published_ts": 1773910800,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Cisco Firewall Vulnerability Exploited as Zero-Day in Interlock Ransomware Attacks",
-      "summary": "Amazon found evidence that the FMC software vulnerability has been exploited since late January, and found links to Russia. The post Cisco Firewall Vulnerability Exploited as Zero-Day in Interlock Ransomware Attacks appeared first on SecurityWeek .",
-      "link": "https://www.securityweek.com/cisco-firewall-vulnerability-exploited-as-zero-day-in-interlock-ransomware-attacks/",
-      "source": "SecurityWeek",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-19T08:57:59+00:00",
-      "published_ts": 1773910679,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Iran-Linked Botnet Exposed After Open Directory Leak Reveals 15-Node Relay Network",
-      "summary": "A threat actor with ties to Iran has had their entire working infrastructure exposed after carelessly leaving an open directory on their own staging server, handing researchers a rare look into a live botnet operation. The leak revealed a 15-node relay network, a mass SSH deployment framework, DDoS tooling compiled on victim machines, and a [\u2026] The post Iran-Linked Botnet Exposed After Open Directory Leak Reveals 15-Node Relay Network appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/iran-linked-botnet-exposed-after-open-directory-leak/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-19T08:49:01+00:00",
-      "published_ts": 1773910141,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "CVE-2026-22730: SQL Injection in Spring AI\u2019s MariaDB Vector Store",
-      "summary": "submitted by /u/appsec1337 [link] [comments]",
-      "link": "https://www.reddit.com/r/netsec/comments/1rxv3nu/cve202622730_sql_injection_in_spring_ais_mariadb/",
-      "source": "/r/netsec",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-03-19T08:47:35+00:00",
-      "published_ts": 1773910055,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Web / API Security"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Russia establishes Vienna as key western spy hub targeting NATO",
-      "summary": "Russia uses Vienna as its largest Western spy hub, monitoring NATO and other sensitive communications via diplomatic sites and satellite dishes. Western intelligence reports that Russia has transformed Vienna into its largest Western spy hub, steadily expanding surveillance over the past two years. Using diplomatic compounds and rooftop satellite clusters, Russia monitors sensitive communications across [\u2026]",
-      "link": "https://securityaffairs.com/189653/intelligence/russia-establishes-vienna-as-key-western-spy-hub-targeting-nato.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-03-19T08:38:44+00:00",
-      "published_ts": 1773909524,
-      "smart_groups": [],
-      "curated": false
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
