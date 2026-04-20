@@ -7,7 +7,7 @@
     "type": "osint",
     "type_label": "OSINT, Communities & Subreddits",
     "published": null,
-    "published_ts": 1776577011.405976,
+    "published_ts": 1776664145.184374,
     "smart_groups": [
       "Cloud / SaaS"
     ],
@@ -21,10 +21,549 @@
     "type": "vendors",
     "type_label": "Vendors & Product Blogs",
     "published": null,
-    "published_ts": 1776577011.405965,
+    "published_ts": 1776664145.184365,
     "smart_groups": [
       "Data Breaches / Leaks"
     ],
+    "curated": false
+  },
+  {
+    "title": "I hid 4 Bluetooth trackers (including AirTags) to test their reliability - here's how Android rivals compared",
+    "summary": "AirTags were released in April 2021, and since then, it's never been easier to find your lost gear. Years later, here's how they hold up.",
+    "link": "https://www.zdnet.com/article/retested-apple-airtags-after-five-years-how-they-compare/",
+    "source": "ZDNet – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T23:00:43+00:00",
+    "published_ts": 1776639643,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Just like phishing for gullible humans, prompt injecting AIs is here to stay",
+    "summary": "Aren't we all just prompting tokens of linguistic meaning and hoping the other person isn't bullshitting us? kettle It's a week of the year, which means there's been the discovery of yet another prompt injection attack that will force supposedly well-guarded AI bots to spill secrets by asking the right way. …",
+    "link": "https://go.theregister.com/feed/www.theregister.com/2026/04/19/just_like_phishing_for_gullible/",
+    "source": "The Register - Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T23:00:14+00:00",
+    "published_ts": 1776639614,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Phishing / Social Engineering"
+    ],
+    "curated": true
+  },
+  {
+    "title": "CFITSIO Fuzzing: Memory Corruptions and a Codex-Assisted Pipeline",
+    "summary": "Have you ever wondered how those amazing space photos are taken? Are they exclusive to the big telescopes floating in space or can you take one from your backyard? What does it take to extract hydrogen colors out of a seemingly black sky? Those are great questions, but you won’t learn it from here. Instead, I’ll show how I set up and performed fuzzing of the CFITSIO library which is how those space photos are usually processed. I’ll show how the bugs were triaged at scale, and how Codex was used to unblock the fuzzing and to develop the initial security fixes. Note: the work described in this blogpost used the GPT-5-Codex, which was the latest model I had access to at the time. FITS Format The Flexible Image Transport System (FITS) is a data standard created in the late 1970s by NASA, ESA, and the broader astronomy community. It started as a way to exchange telescope imagery across heterogeneous systems, but it evolved into a container for complex datasets: primary images, binary/ASCII tables, compressed tiles, world coordinate metadata, and instrument-specific headers. Today, most observatories, satellite missions, and even backyard observatories output FITS directly, so the ecosystem of tools is rich. Under the hood, FITS is far more than a simple image file - it routinely carries gigabyte-scale mosaics, time-series cubes, and calibration tables. The current FITS standard lives in a dense spec and most of it addresses astronomy beyond typical astrophotography - radio, infrared, X-ray, time-series, and polarization data with all their metadata are first-class in the spec, while backyard imaging uses only a small slice. Once telescopes and CCD cameras got cheap enough for hobbyists, the community needed tooling that already worked, so adopting FITS was the obvious shortcut. The format was battle-tested and carried all the metadata serious imaging needed. Ultimately, hobbyists inherited a rather complex data format that rarely changes because backward compatibility with old files is still mandatory. There are several different libraries that claim to support the FITS format. Usually though, that only means some subset of the spec. CFITSIO is the most complete implementation and the library is used by numerous great pieces of astronomy software , therefore it piqued my interest. For my fuzzing corpus, I’ve used some of my own astrophotos along with several public samples . I’m sure the coverage could be vastly improved with the right set of specialized data. First Round: Generic Fuzzing Initially, I began fuzzing using the standard AFL++ workflow. Harness code, testing corpus, some optimizations, with several sessions running over two weeks. This resulted in a security advisory consisting of six different bugs. It was a quick experiment to see how fruitful the fuzzing could be and how the communication with the NASA team works. Fortunately, the cooperation was great and issues were quickly addressed by the HEASARC team. Second Round: EFS Having the setup ready to go, I decided to give it another shot. Testing was performed against cfitsio-4.6.3 which included fixes to previously reported issues. This time, I focused exclusively on the Extended Filename Syntax (EFS) which got my interest earlier. It’s a set of filters, enclosed in square brackets, that can be used to modify the raw file in various ways before it is opened and read by the application. Although EFS looks like a filename parser on the surface, it’s effectively a mini-language: image slicing, histogram generation, filters, pixel expressions, region filtering, arithmetic expressions, and the entire parser stack behind them. An example FITS filename can look like this: myfile.fits[EVENTS][col Rad = sqrt(X**2 + Y**2)] This opens a FITS file, selects the EVENTS extension, and creates a new column computed from existing data. The library does all of that before the application sees a single byte. The filename alone triggers extension lookup, column arithmetic, and a temporary file copy. Each bracket pair activates a different parser subsystem inside CFITSIO. This represents a very interesting attack surface and it’s exposed in more places than people might think. Many applications accept filenames directly from external callers without realizing that CFITSIO will interpret them through EFS if only the fits_open_file or similar method is called (a non-EFS alternative: fits_open_diskfile also exists). If those filenames come from untrusted input, the attack path is open. This time, as I didn’t have too much dedicated time, I’ve strongly relied on help from the GPT/Codex. First, it generated the harness code and some helpful cleanup utilities. The harness itself is minimal: it reads a filename string from a file, passes it to fits_open_file in read-only mode, then exits. That’s enough to exercise the entire EFS parsing and evaluation pipeline (or most of it, as I learned later), without needing complex application logic. Early fuzzing cycles not only resulted in a lot of crashes, but also unexpected files created all over the filesystem and with the input FITS file being repeatedly destroyed. This wasn’t hard to fix though. I then asked GPT to look at the spec and the code and create a dictionary tailored to EFS tokens. Within hours I had some clean crashes. This was nothing surprising given how much logic CFITSIO runs before it ever opens a file. Some days later, I ran AFLtriage and observed that there are just three different bugs responsible for all crashes I was seeing. The fuzzer couldn’t move on any further and coverage also barely moved. Even relatively simple code paths were unreachable with random mutations constantly hitting the same shallow error paths. To keep going, I had to automate more of the workflow. That’s when I brought in Codex again. Workflow Improvements I loaded the CFITSIO/harness sources into Codex and fed it the crash reports along with the input files. Within seconds, it identified the root cause of each issue. It also gave me correct functions, correct offsets, correct control flow, and assumptions that failed. It pointed to actual logic errors, such as operator-precedence mistakes, unchecked token lengths or unbounded concatenations. I was surprised how fast and accurate the analysis was. The next step involved asking for the patch and applying it. This completely unblocked my fuzzing. I restarted the process using the old output directory with a new harness build and… left it running. Two weeks later, I had to stop the fuzzing and started investigating. AFLtriage again was very useful to quickly identify unique crashes. Learning from past experience, I went with Codex as my assistant again. After a few manual experiments I automated the following pipeline: providing crash context and source code to Codex, applying the proposed patch with a proper commit message, rebuilding CFITSIO (with AFL++ and ASAN instrumentation included), linking my fits-opener harness, re-running the crashing input under ASAN, confirming the fix and absence of regressions (including memory leaks). Some fixes required multiple iterations. A patch that fixed an overflow might introduce a memory leak or leave an error path inconsistent. The automated loop caught those kinds of bugs. With just one verification test, it’s extremely likely that some functional issues were introduced. On the other hand, I skimmed the patches and they looked really solid, so… maybe not? I repeated this process from scratch several times and ended up with 16 unique vulnerabilities, each pretty well understood, reproduced, and isolated. Most of the bugs were from the old-school C string handling meets attacker-controlled input category. Some mismatched size checks on strncat , some stale realloc pointers, and some integer overflows in array math. This led to overflows on the stack and heap. I did not attempt to weaponize any of the findings. CFITSIO might be used on so many platforms that some of them definitely miss even the most basic security mitigations. On the other hand, a quick inspection of stack overflows led me to believe that function frames are enormous and reaching control over RIP, or any function pointer, might be really challenging. Example finding Here is a brief overview of one of the findings ( CFITSIO-EFS-01 ). It’s a typical syntax trap that most people will overlook but fuzzing should easily find. In the Extended Filename Syntax, row filter expressions are encoded inside square brackets, like file.fits[2:f[R:f...] . The function ffifile2 accumulates them into a stack buffer called rowfilterx . Before each concatenation, it checks whether the new chunk would overflow the buffer: if ( strlen ( rowfilterx ) + ( ptr2 - ptr1 + ( * rowfilterx ) ? 4 : 0 ) > FLEN_FILENAME - 1 ) { free ( infile ); return ( * status = URL_PARSE_ERROR ); } Looks reasonable at a glance. There’s even a comment above it: “add extra 4 characters if we have pre-existing expression” . The intent is clear: if rowfilterx already holds something, the code wraps the new piece with ((...)) , so it needs 4 extra bytes. The problem is C operator precedence. The ternary ?: has lower precedence than + , so the expression actually evaluates as: ( strlen ( rowfilterx ) + ( ptr2 - ptr1 + ( * rowfilterx )) ? 4 : 0 ) > FLEN_FILENAME - 1 That whole left side of ? is always non-zero (it’s a positive length sum), so the result is always 4 > FLEN_FILENAME - 1 , which is always false. The if statement is never entered. Crafted filenames bypass it and strncat writes past rowfilterx , corrupting adjacent stack data. The fix is just parentheses: if ( strlen ( rowfilterx ) + ( ptr2 - ptr1 - 1 ) + (( * rowfilterx ) ? 4 : 0 ) > FLEN_FILENAME - 1 ) { This is the kind of bug where the developer clearly knew what they were protecting against. Yet, they got busted. It’s also a perfect example of what makes the Codex-assisted debugging effective. I handed it the crashing input, the ASAN trace, and the source file. Given those, it pinpointed the precedence issue right away. Advisory On November 17, 2025, the complete package — advisory, patches, crash files, and reproduction steps - was sent to the HEASARC/NASA maintainers. All code patches were Codex-generated. Since I don’t have access to a sufficient representation of real-world FITS files, I couldn’t validate functional regressions myself outside of a couple of test cases. Once the security fixes landed in the repository, the team confirmed that the patches were very useful and even in the cases where ultimate fixes differed from the provided patches, they were still helpful to illustrate the problem. Some of them were applied without any changes. The full advisory can be found here . Closing Thoughts Combining AFL++ with automated static guidance and automated fix validation proved to be very effective on a complex, legacy-heavy codebase and saved me a ton of time. I’m also happy that the HEASARC/NASA maintainers found the patches useful. For the time being, I do not intend to continue CFITSIO fuzzing. Sadly, I believe there are still numerous memory issues lurking in old codebases like this. I hope that emerging security-oriented LLMs will be especially useful for identifying and fixing issues in projects appearing to the community as less interesting than the next major browser or CMS. The story is not over yet though. Besides the memory issues presented in this post, separate logical bugs in EFS were discovered and will be soon disclosed. Stay tuned! In other news, I will be presenting more about NASA’s CFITSIO Extended Filename Syntax at BSidesLuxembourg 2026 . See you there!",
+    "link": "https://blog.doyensec.com/2026/04/20/cfitsio-fuzzing.html",
+    "source": "https://blog.doyensec.com/atom.xml",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T22:00:00+00:00",
+    "published_ts": 1776636000,
+    "smart_groups": [
+      "Curated",
+      "Ransomware",
+      "Vulnerabilities / CVEs",
+      "Network / OT / ICS",
+      "Crypto / Web3"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Here’s what happened in crypto today",
+    "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
+    "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-04-19T21:42:19+00:00",
+    "published_ts": 1776634939,
+    "smart_groups": [
+      "Crypto / Web3"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Stablecoins not a threat to banks in the near-term: Moody's analyst",
+    "summary": "A prohibition on yield-bearing stablecoins and robust payments infrastructure in the US means stablecoins will not eat into banks' market share.",
+    "link": "https://cointelegraph.com/news/stablecoins-not-a-threat-to-banking-sector-in-the-near-term-moody-s?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-04-19T21:37:01+00:00",
+    "published_ts": 1776634621,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Kelp DAO Exploit Sparks Aave Liquidity Crunch, $6.2 Billion Withdrawal Panic",
+    "summary": "After attackers drained $291 million in crypto from Kelp DAO-linked infrastructure, DeFi users struggled on Aave to withdraw funds.",
+    "link": "https://decrypt.co/364849/kelp-dao-exploit-aave-liquidity-crunch-6-2-billion-withdrawal-panic",
+    "source": "Decrypt",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-04-19T19:12:20+00:00",
+    "published_ts": 1776625940,
+    "smart_groups": [
+      "Curated",
+      "Exploit / PoC",
+      "Crypto / Web3"
+    ],
+    "curated": true
+  },
+  {
+    "title": "2024 BTC cycle 'dramatically' underperforming previous halvings: Analyst",
+    "summary": "Volatility and upside have been declining with each Bitcoin halving cycle, but the new dynamics may not be permanent, according to Galaxy's Alex Thorn.",
+    "link": "https://cointelegraph.com/news/bitcoin-cycle-dramatically-underperform-halving?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-04-19T18:48:06+00:00",
+    "published_ts": 1776624486,
+    "smart_groups": [
+      "Network / OT / ICS"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Reducing token burn, Anthropic Mythos, How I use AI for pentesting",
+    "summary": "Latest stories on AI, vibe coding, AI security, and AI for security research I recently spoke at the Computer History Museum in Mountain View at AWS [Security] Community Day. That conference has expanded beyond security but it was still heavily security-focused which I love. Thanks so much to @john .varghese and AWS for helping me get back there again. I’ve added a link to my slides on How I Use AI For Penetration Testing here: How I Use AI for Penetration Testing You probably heard all about Mythos from Anthropic if you are even remotely following AI or security topics. I wrote a bit about that here which is that we cannot really know anything about it until we can actually try it. But the larger question I have has to do with the viability of relying on AI models for business given their transient and non-transparent nature. The inability to rely on value per token is a problem. Anthropic Mythos One of the issues I was having related to the whole Anthropic Opus 4.6 meltdown that affected an inconsistent number of people recently — and seems to be heavily skewed to security research users — was implementation of the Yubikey authentication architecture I’ve been working on and wrote about here: Yubikey Push To Run A Lambda Function I dove into some of the details of a Yubikey authentication system in this post: Where are the Private Bits of FIDO2 Compliant Passkey Xtored? I took some time off from working on that hoping Anthropic would figure out whatever nerfed Opus 4.6. Now I’m back at it and have extended my Lambda Troubleshooter in an attempt to quickly resolve problems with this and all future Lambda architectures. The larger point here is how effective use of AI non-deterministic solutions in combination with deterministic solutions can slow your token burn rate and help you achieve ROI with AI solutions. Reducing Token Burn Rate With A Well-Designed Architecture Subscribe on Substack for more posts and more timely updates. Teri Radichel :: Security and Technology Research | Substack — Teri Radichel Reducing token burn, Anthropic Mythos, How I use AI for pentesting was originally published in Cloud Security on Medium, where people are continuing the conversation by highlighting and responding to this story.",
+    "link": "https://medium.com/cloud-security/reducing-token-burn-anthropic-mythos-how-i-use-ai-for-pentesting-2641e69348e7?source=rss-863161906cc5------2",
+    "source": "Medium – @2ndsightlab",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T18:01:32+00:00",
+    "published_ts": 1776621692,
+    "smart_groups": [
+      "Ransomware",
+      "Cloud / SaaS",
+      "Network / OT / ICS"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Vercel confirms breach as hackers claim to be selling stolen data",
+    "summary": "Cloud development platform Vercel has disclosed a security incident after threat actors claimed to have breached its systems and are attempting to sell stolen data. [...]",
+    "link": "https://www.bleepingcomputer.com/news/security/vercel-confirms-breach-as-hackers-claim-to-be-selling-stolen-data/",
+    "source": "BleepingComputer",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T17:32:45+00:00",
+    "published_ts": 1776619965,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "The 10 Public Companies With the Biggest Bitcoin Portfolios",
+    "summary": "Companies like Strategy, Twenty One, and Metaplanet hold billions of dollars' worth of Bitcoin. These are the biggest publicly traded whales.",
+    "link": "https://decrypt.co/47061/public-companies-biggest-bitcoin-portfolios",
+    "source": "Decrypt",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-04-19T16:45:06+00:00",
+    "published_ts": 1776617106,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Kelp exploit highlights problem with non-isolated DeFi lending: Crypto execs",
+    "summary": "The contagion from the Kelp exploit could have been contained, but at the cost of capital efficiency, according to the founder of Curve Finance.",
+    "link": "https://cointelegraph.com/news/kelp-exploit-non-isolated-defi-lending?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-04-19T16:37:32+00:00",
+    "published_ts": 1776616652,
+    "smart_groups": [
+      "Curated",
+      "Exploit / PoC",
+      "Crypto / Web3"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Palantir posts mini-manifesto denouncing inclusivity and ‘regressive’ cultures",
+    "summary": "Palantir's ideological bent has come under more scrutiny as it's worked with ICE and positioned itself as a defender of \"the West.\"",
+    "link": "https://techcrunch.com/2026/04/19/palantir-posts-mini-manifesto-denouncing-regressive-and-harmful-cultures/",
+    "source": "Security News | TechCrunch",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T16:30:00+00:00",
+    "published_ts": 1776616200,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Apple account change alerts abused to send phishing emails",
+    "summary": "Apple account change notifications are being abused to send fake iPhone purchase phishing scams within legitimate emails sent from Apple's servers, increasing legitimacy and potentially allowing them to bypass spam filters. [...]",
+    "link": "https://www.bleepingcomputer.com/news/security/apple-account-change-alerts-abused-to-send-phishing-emails/",
+    "source": "BleepingComputer",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T16:03:01+00:00",
+    "published_ts": 1776614581,
+    "smart_groups": [
+      "Phishing / Social Engineering"
+    ],
+    "curated": false
+  },
+  {
+    "title": "AI Traffic to US Retailers Jumps 393% in Q1 as Agentic Shoppers Outspend Humans",
+    "summary": "AI-driven traffic to U.S. retail sites surged in early 2026, and those visitors are generating more revenue than regular shoppers.",
+    "link": "https://decrypt.co/364733/ai-traffic-us-retailers-jumps-q1-agentic-shoppers-outspend-humans",
+    "source": "Decrypt",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-04-19T16:01:41+00:00",
+    "published_ts": 1776614501,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "I stopped using my iPhone's hotspot after testing this 5G router - and that won't change",
+    "summary": "The Acer Connect M6E mobile hotspot delivers high-speed connectivity without draining your phone's battery. But is it worth it?",
+    "link": "https://www.zdnet.com/article/acer-connect-m6e-mobile-hotspot-review/",
+    "source": "ZDNet – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T16:00:49+00:00",
+    "published_ts": 1776614449,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Cyber attacks fuel surge in cargo theft across logistics industry",
+    "summary": "Hackers infiltrate logistics firms to steal cargo and divert payments, cyberattacks are linked to organized crime and rising losses. Proofpoint researchers observed crooks targeting trucking and logistics companies, running coordinated remote access campaigns to steal cargo and divert payments. These attacks appear to be linked to organized crime. The findings highlight a growing trend of […]",
+    "link": "https://securityaffairs.com/191008/security/cyber-attacks-fuel-surge-in-cargo-theft-across-logistics-industry.html",
+    "source": "Security Affairs",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T14:59:46+00:00",
+    "published_ts": 1776610786,
+    "smart_groups": [
+      "Network / OT / ICS"
+    ],
+    "curated": false
+  },
+  {
+    "title": "NIST to stop rating non-priority flaws due to volume increase",
+    "summary": "The National Institute of Standards and Technology will stop assigning severity scores to lower-priority vulnerabilities due to the growing workload from rising submission volumes. [...]",
+    "link": "https://www.bleepingcomputer.com/news/security/nist-to-stop-rating-non-priority-flaws-due-to-volume-increase/",
+    "source": "BleepingComputer",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T14:17:43+00:00",
+    "published_ts": 1776608263,
+    "smart_groups": [
+      "Vulnerabilities / CVEs",
+      "Cloud / SaaS"
+    ],
+    "curated": false
+  },
+  {
+    "title": "What Changed in RC4 with the January 2026 Windows Update and Why it is Important",
+    "summary": "In case you haven’t heard, RC4 is not secure and has been deprecated. In this article, I will discuss what changed with the January 2026 Windows Update and why it is important to start auditing and remediate RC4 usage is your environment. Starting with the January 13, 2026, Windows security updates , Microsoft began the first official phase of hardening Kerberos authentication by reducing reliance on RC4 encryption . The RC4 change will mainly impact service accounts and accounts that have the attribute msDS-SupportedEncryptionTypes left blank. Why Microsoft Is Targeting RC4 RC4 is considered insecure due to cryptographic flaws that produce biased, non-random output, allowing attackers to recover encrypted data. Despite this, RC4 remains enabled by default in many Active Directory environments for backward compatibility. Microsoft tied the January changes to a Kerberos information disclosure vulnerability tracked as CVE-2026-20833 , using this security update as the entry point to begin the RC4 deprecation process. Update Timeline: From Audit to Full Enforcement Microsoft is rolling out the Kerberos RC4 hardening in well-defined phases throughout 2026 , giving organizations time to identify dependencies and remediate them before enforcement becomes mandatory. Understanding this timeline is critical to avoid outages. Phase 1 – Initial Deployment (January 2026) Starting on January 13, 2026 , Windows security updates introduce the initial deployment phase . This stage is focused on monitoring, not enforcement . Key points of this phase: New Kerberos audit events are logged on Domain Controllers (we will analyze them later in this article) A temporary registry control setting (RC4DefaultDisablementPhase) has been introduced, allowing organizations to optionally enable stricter behavior ahead of time. Mind that this registry key is not created by default, you'll need to create it and set it to 1 to have the new No default behavior changes are applied Phase 2 – Enforcement Enabled by Default (April 2026) Beginning with the April 2026 Windows security update , Microsoft moves to the second deployment phase , where behavior changes start to matter operationally. During this phase: Enforcement mode is enabled by default on all supported Windows Domain Controllers, the default value for DefaultDomainSupportedEncTypes is set to allow AES-SHA1 only: 0x18 This changes the Kerberos KDC default behavior for accounts without an explicit msDS-SupportedEncryptionTypes configuration to allow RC4. RC4 is no longer negotiated implicitly for accounts with a blank msDS-SupportedEncryptionTypes, they will only receive AES encrypted tickets While it is still technically possible to revert to audit behavior temporarily (by changing the value of the registry key mentioned above), it will be important to arrive in this phase with the remediation already completed . Phase 3 – Full Enforcement (July 2026) The final phase begins with the July 2026 security updates and represents the end of the transition period . At this point: Audit‑only mode is removed The temporary RC4DefaultDisablementPhase registry value is no longer read the default value for DefaultDomainSupportedEncTypes is set to AES-SHA1 only (0x18) With this configuration, Kerberos will issue RC4 tickets only if explicitly configured per account using the attribute “msDS-SupportedEncryptionTypes ” Organizations that didn’t address RC4 usage earlier will experience persistent service outages for legacy systems and applications not compatible with AES encryption. How to prepare for the changes It’s tempting to ignore the January changes because “nothing is broken,” but that would be a mistake. The new audit events are here to help you prepare for the changes. Let’s analyze how we can leverage audit data to be ready before April 2026 Audit events After the January Windows security update, some new events will start to appear in the system event log of supported domain controllers if: Your domain controller is receiving Kerberos service ticket requests that require RC4 cipher to be used but the service account has default encryption configuration you have created the registry key RC4DefaultDisablementPhase and set it to 1 Your domain controller has an explicit DefaultDomainSupportedEncTypes configuration to allow RC4 encryption To understand if your environment will be impacted by the change, you’ll need to audit the events 201,202,205,206,207 from the system event log. The events 203,204,208 and 209 will be logged starting from phase 2. See this Microsoft article for more details about the events. These events are designed to help you identify accounts or services still requesting RC4encrypted tickets and clients or applications that do not support AES. This gives administrators a safe discovery phase to identify dependencies before anything stops working. Identify High Risk Dependencies Not all RC4 usage has the same impact. The audit events allow administrators to prioritize remediation by identifying: Service or computer accounts that rely on RC4 due to missing or outdated encryption keys, such as accounts that have not had password reset in years Legacy applications or appliances that cannot negotiate AES Service accounts deserve special attention because they are commonly affected by RC4 dependencies and are high value targets in Kerberoasting scenarios. Validate Kerberos Encryption Configuration One of the most important insights provided by the new events is whether accounts are missing AES‑compatible Kerberos keys (msDS-SupportedEncryptionTypes). In many cases, RC4 usage is not intentional but happens because the account password has never been reset since AES support was introduced or because the encryption types are implicitly inherited rather than explicitly defined. The audit data allows you to confirm which accounts already support AES and which ones will fail once AESonly behavior becomes the default. Main Scenarios Let me list the common scenarios you can find during the auditing phase: RC4/RC4 This is most critical scenario, where both the session and the ticket are encrypted in RC4. The event associated with this scenario are the 201 and 202. The most possible causes are: The account password was never reset, and can request only RC4 keys the client advertises only RC4 the msDS-SupportedEncryptionTypes attribute is not defined Actions: Identify the AD object involved identify the keys available for the account (I recommend the usage of the script List-AccountKeys.ps1, details available here: Detect and Remediate RC4 Usage in Kerberos | Microsoft Learn ) If there no AES keys available, reset the password of the account and check again after a while change the value of the msDS-SupportedEncryptionTypes attribute. You can decide to change it to AES either for testing or because you saw this account is indeed compatible with AES after a password reset or a remediation. The useful value for this attribute in this scenario are: 24 (0x18): The account will only support AES128 and AES256 encryption 56 (0x38): some account may need also the enforcement of the AES session key to abandon the use of RC4 encryption, depending on the application. 28 (0x1C): this value is used to do a rollback for the account. With this value the account will support both RC4 and AES encryption. Note that this is not a recommended action since it will expose the account by the use of a weak encryption algorithm. AES/RC4 in this scenario the ticket is encrypted using AES, while the session still uses RC4. The event usually associated with this scenario is the 206. In this scenario the service may indicates that the client is not advertising for AES encryption. Actions: Investigate the client checking if it's compatible with AES and what the client is advertising Check if there are legacy GPO that enforce RC4 usage for this account For Linux clients or third‑party applications, review krb5.conf, keytabs, and Kerberos libraries RC4/AES this indicates that RC4 is enforced on the KDC side. actions: check the value for the registry key DefaultDomainSupportedEncTypes to ensure that RC4 is not enforced on the DC check the value for the attribute msDS-SupportedEncryptionTypes to ensure that RC4 is not enforced at the account level Establish a Remediation Baseline Before April By the time the April 2026 enforcement phase begins, you should already have: Reviewed Kerberos audit events across all domain controllers Identified all RC4-dependent accounts and services Confirmed AES compatibility where possible Documented any unavoidable legacy dependencies The January audit data is meant to drive these actions early, while remediation can still be planned and tested calmly. Why the January Update Matters (Even If Nothing Breaks Yet) Since the creation of AES-SHA1 tickets has been implemented in Windows Server 2008R2, I’m confident that many organizations won’t have issues with this transition and can use these phases to validate their configurations. If you didn’t have the chance or the time to address the RC4 usage earlier, don’t give into the temptation to ignore the January changes, because that would be unwise. The audit events that have been introduced are your only early warning system to avoid Kerberos authentication failures, problems with legacy applications, and service accounts failing due to missing AES keys. In practice, the January update is the last safe window to: Identify RC4‑only accounts Detect non-AES-capable clients Fix misconfigured Kerberos encryption settings on your terms Organizations that use this phase to audit, remediate, and modernize will transition smoothly. Those who ignore it risk discovering RC4 dependencies only when enforcement is already active .",
+    "link": "https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/what-changed-in-rc4-with-the-january-2026-windows-update-and-why/ba-p/4504732",
+    "source": "Core Infrastructure and Security Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-04-19T14:11:51+00:00",
+    "published_ts": 1776607911,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Windows / Microsoft",
+      "Linux / Unix",
+      "Cloud / SaaS",
+      "Identity / Access",
+      "Crypto / Web3"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Week 16 – 2026",
+    "summary": "Stop scaling headcount. Scale your SecOps.Most security teams don’t have a talent problem, they have a noise problem. Material Security unifies your cloud workspace, providing detection and response across email, files, and accounts. From automating phishing remediation to revoking risky OAuth permissions and auditing file shares, we eliminate manual toil. Stop fighting fragmented consoles. Simplify […]",
+    "link": "https://thisweekin4n6.com/2026/04/19/week-16-2026/",
+    "source": "This Week In 4n6",
+    "type": "dfir",
+    "type_label": "DFIR & Forensics",
+    "published": "2026-04-19T13:05:34+00:00",
+    "published_ts": 1776603934,
+    "smart_groups": [
+      "Identity / Access",
+      "Phishing / Social Engineering"
+    ],
+    "curated": false
+  },
+  {
+    "title": "How I share audio from my Android phone to multiple earbuds (and why it's a big deal)",
+    "summary": "Android's Audio sharing lets two people listen on separate earbuds - so long as your devices support it.",
+    "link": "https://www.zdnet.com/article/how-to-share-audio-from-android-phone-to-multiple-earbuds/",
+    "source": "ZDNet – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T13:00:39+00:00",
+    "published_ts": 1776603639,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "SECURITY AFFAIRS MALWARE NEWSLETTER ROUND 93",
+    "summary": "Security Affairs Malware newsletter includes a collection of the best articles and research on malware in the international landscape CPU-Z / HWMonitor watering hole infection – a copy-pasted attack Fake Claude site installs malware that gives attackers access to your computer Malware Analysis Static SKILL for Codex JanelaRAT: a financial threat targeting users in Latin […]",
+    "link": "https://securityaffairs.com/191001/security/security-affairs-malware-newsletter-round-93.html",
+    "source": "Security Affairs",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T13:00:38+00:00",
+    "published_ts": 1776603638,
+    "smart_groups": [
+      "Malware / Payloads",
+      "Crypto / Web3"
+    ],
+    "curated": false
+  },
+  {
+    "title": "I meant to do that! AI vendors shrug off responsibility for vulns",
+    "summary": "Passing the buck, and the blame, down the road shows lack of AI companies' maturity OPINION AI vendors: \"You need to use AI to fight AI threats (and do everything else in your corporate IT environment).\" Also AI vendors: \"That's not a security flaw; it's working as intended.\"…",
+    "link": "https://go.theregister.com/feed/www.theregister.com/2026/04/19/ai_vendors_response_to_security/",
+    "source": "The Register - Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T11:07:07+00:00",
+    "published_ts": 1776596827,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Aluminum giant Alcoa to sell dormant smelter to Bitcoin miner NYDIG: Report",
+    "summary": "Alcoa is nearing a deal to sell its idle upstate New York Massena East smelter to NYDIG as US industrial sites increasingly shift toward Bitcoin mining and AI data centers.",
+    "link": "https://cointelegraph.com/news/alcoa-sells-massena-smelter-nydig-bitcoin-mining-ai-data-centers?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-04-19T10:19:28+00:00",
+    "published_ts": 1776593968,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Why I'm recommending last year's phones over 2026 models - with one exception",
+    "summary": "Older models, like the Google Pixel 10 and Samsung Galaxy S25 Plus, are now more appealing than ever. Here's why.",
+    "link": "https://www.zdnet.com/article/the-best-phones-you-can-buy-in-2026-are-from-2025/",
+    "source": "ZDNet – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T10:00:58+00:00",
+    "published_ts": 1776592858,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "This powerful Gemini setting made my AI results way more personal and accurate",
+    "summary": "I enabled Personal Intelligence, connected my Google apps, and now Gemini guesses what I want without me saying it.",
+    "link": "https://www.zdnet.com/article/gemini-personal-intelligence-hands-on/",
+    "source": "ZDNet – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T10:00:41+00:00",
+    "published_ts": 1776592841,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "A History of Global Hacking — and Where It’s Going Next",
+    "summary": "In her new book, Code War: How Nations Hack, Spy, and Shape the Digital Battlefield, Allie Mellen provides true stories of the current cyber war and, importantly, what might be ahead.",
+    "link": "https://www.govtech.com/blogs/lohrmann-on-cybersecurity/a-history-of-global-hacking-and-where-its-going-next",
+    "source": "Lohrmann on Cybersecurity",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T09:44:00+00:00",
+    "published_ts": 1776591840,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Security Affairs newsletter Round 573 by Pierluigi Paganini – INTERNATIONAL EDITION",
+    "summary": "A new round of the weekly Security Affairs newsletter has arrived! Every week, the best security articles from Security Affairs are free in your email box. Enjoy a new round of the weekly SecurityAffairs newsletter, including the international press. Hidden VMs: how hackers leverage QEMU to stealthily steal data and spread malware Nexcorium Mirai variant […]",
+    "link": "https://securityaffairs.com/190994/breaking-news/security-affairs-newsletter-round-573-by-pierluigi-paganini-international-edition.html",
+    "source": "Security Affairs",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T09:32:00+00:00",
+    "published_ts": 1776591120,
+    "smart_groups": [
+      "Malware / Payloads"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Update: cut-bytes.py Version 0.0.18",
+    "summary": "This is a fix for escape sequences that trigger warnings in the latest Python versions. cut-bytes_V0_0_18.zip (http)MD5: C5FE455A5371C6675EDF16200D7C5657SHA256: A4F2A2CFE3614F32F9127F1BAA898260B7C3DF6DEA9544513A375519DE7A5595",
+    "link": "https://blog.didierstevens.com/2026/04/19/update-cut-bytes-py-version-0-0-18/",
+    "source": "https://blog.didierstevens.com/feed/",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T09:18:21+00:00",
+    "published_ts": 1776590301,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Critical ShowDoc Vulnerability Allows Hackers to Gain Remote Access, patching crucial for unpatched servers",
+    "summary": "A Critical Vulnerability in ShowDoc Has Been Reexploited A previously patched vulnerability in ShowDoc, a... The post Critical ShowDoc Vulnerability Allows Hackers to Gain Remote Access, patching crucial for unpatched servers appeared first on .",
+    "link": "https://www.news4hackers.com/critical-showdoc-vulnerability-allows-hackers-to-gain-remote-access-patching-crucial-for-unpatched-servers/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T09:01:35+00:00",
+    "published_ts": 1776589295,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC"
+    ],
+    "curated": true
+  },
+  {
+    "title": "How I boosted my portable solar panels' power by up to 30% - 11 expert-approved tips",
+    "summary": "After years of testing portable solar panels, I've found several small adjustments that can yield massive efficiency gains.",
+    "link": "https://www.zdnet.com/article/portable-solar-panels-how-to-get-more-power/",
+    "source": "ZDNet – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T09:00:46+00:00",
+    "published_ts": 1776589246,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Adobe Acrobat Vulnerability Exposed, AI-Powered Tool Capabilities Explored, Security Limits Discussed",
+    "summary": "Emergency Security Update for Adobe Acrobat Reader Adobe has released an emergency security update for... The post Adobe Acrobat Vulnerability Exposed, AI-Powered Tool Capabilities Explored, Security Limits Discussed appeared first on .",
+    "link": "https://www.news4hackers.com/adobe-acrobat-vulnerability-exposed-ai-powered-tool-capabilities-explored-security-limits-discussed/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T08:02:37+00:00",
+    "published_ts": 1776585757,
+    "smart_groups": [
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": false
+  },
+  {
+    "title": "₹70 Crore Digital Scandal Uncovered: Fake Apps, Malicious APKs, and Blackmail Rackets Busted",
+    "summary": "Organized Loan App Scams Expose Dark Side of Instant Loans and Blackmail Networks In a... The post ₹70 Crore Digital Scandal Uncovered: Fake Apps, Malicious APKs, and Blackmail Rackets Busted appeared first on .",
+    "link": "https://www.news4hackers.com/%e2%82%b970-crore-digital-scandal-uncovered-fake-apps-malicious-apks-and-blackmail-rackets-busted/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T08:01:32+00:00",
+    "published_ts": 1776585692,
+    "smart_groups": [
+      "Ransomware"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Week in review: Acrobat Reader flaw exploited, Claude Mythos offensive capabilities and limits",
+    "summary": "Here’s an overview of some of last week’s most interesting news, articles, interviews and videos: Bringing governance and visibility to machine and AI identities In this Help Net Security interview, Archit Lohokare, CEO of AppViewX, explains how the rise of AI marked a turning point where machine and AI agent identities began converging into a single problem. Drawing on his experience across IBM and CyberArk, he describes the shift from human-driven systems to autonomous machines. … More → The post Week in review: Acrobat Reader flaw exploited, Claude Mythos offensive capabilities and limits appeared first on Help Net Security .",
+    "link": "https://www.helpnetsecurity.com/2026/04/19/week-in-review-acrobat-reader-flaw-exploited-claude-mythos-offensive-capabilities-and-limits/",
+    "source": "Help Net Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T08:00:06+00:00",
+    "published_ts": 1776585606,
+    "smart_groups": [
+      "Curated",
+      "Exploit / PoC"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Prompt Injection Attacks: How We Test for Them",
+    "summary": "PENTESTING Prompt Injection Attacks How We Test for Direct and Indirect Prompt Injection 1 Direct Injection Override system instructions 2 Indirect Injection Payloads in retrieved content 3 Jailbreaking Bypass safety guardrails 4 Defence Testing Evaluate mitigation strength Chatbots RAG Systems AI Agents Copilots LLM APIs fortbridge.co.uk Prompt injection is the most significant vulnerability class in The post Prompt Injection Attacks: How We Test for Them appeared first on FORTBRIDGE .",
+    "link": "https://fortbridge.co.uk/pentesting/prompt-injection-attacks-how-we-test/",
+    "source": "https://fortbridge.co.uk/feed/",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T07:44:41+00:00",
+    "published_ts": 1776584681,
+    "smart_groups": [
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": false
+  },
+  {
+    "title": "RaveDAO denies manipulation as Binance, Bitget probe RAVE trading activity",
+    "summary": "RaveDAO denies involvement in RAVE token price surge and crash as Binance and Bitget launch investigations into suspected market manipulation.",
+    "link": "https://cointelegraph.com/news/ravedao-denies-manipulation-binance-bitget-probe-rave-trading?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-04-19T07:19:50+00:00",
+    "published_ts": 1776583190,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "China Link in Bareilly Cyber Scam: Doctor Among Five Arrested for ₹1.55 Crore Fraud",
+    "summary": "Bareilly Police Dismantle Large-Scale Cybercrime Syndicate Linked to China-Based Operators In a significant breakthrough, authorities... The post China Link in Bareilly Cyber Scam: Doctor Among Five Arrested for ₹1.55 Crore Fraud appeared first on .",
+    "link": "https://www.news4hackers.com/china-link-in-bareilly-cyber-scam-doctor-among-five-arrested-for-%e2%82%b91-55-crore-fraud/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T07:01:37+00:00",
+    "published_ts": 1776582097,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Microsoft Teams Right-Click Paste Broken Following Edge Browser Update",
+    "summary": "A confirmed bug in Microsoft Teams desktop client version 26072.519.4556.7438 is disabling the right-click paste option for users on Windows and macOS, with Microsoft attributing the root cause to a code regression introduced in a recent Microsoft Edge browser update. Users across organizations began reporting on April 14, 2026, that the Paste option in the […] The post Microsoft Teams Right-Click Paste Broken Following Edge Browser Update appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/teams-right-click-paste-broken/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T06:48:48+00:00",
+    "published_ts": 1776581328,
+    "smart_groups": [
+      "Windows / Microsoft"
+    ],
+    "curated": false
+  },
+  {
+    "title": "OpenAI Expands Cyber Defense Program With GPT-5.4-Cyber Access for Trusted Organizations",
+    "summary": "OpenAI has officially launched the expanded phase of its Trusted Access for Cyber program. Granting select organizations access to its specialized GPT-5.4-Cyber model to strengthen digital defenses across critical infrastructure, financial services, and open-source security communities. The program operates on a tiered trust model advanced AI cyber capabilities are made broadly available to defenders, but access scales based on […] The post OpenAI Expands Cyber Defense Program With GPT-5.4-Cyber Access for Trusted Organizations appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/gpt-5-4-cyber-defense-program/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-19T06:35:21+00:00",
+    "published_ts": 1776580521,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Network / OT / ICS"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Charles Schwab, Citadel Securities weigh entering prediction markets",
+    "summary": "Charles Schwab and Citadel Securities executives have separately aired interest in prediction markets, but each is looking to steer clear of sports offerings.",
+    "link": "https://cointelegraph.com/news/charles-schwab-citadel-securities-weighing-prediction-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-04-19T05:38:54+00:00",
+    "published_ts": 1776577134,
+    "smart_groups": [],
     "curated": false
   },
   {
@@ -147,20 +686,6 @@
       "Vulnerabilities / CVEs"
     ],
     "curated": true
-  },
-  {
-    "title": "Here’s what happened in crypto today",
-    "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-    "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-    "source": "Cointelegraph.com News",
-    "type": "crypto",
-    "type_label": "Crypto & Blockchain Security",
-    "published": "2026-04-18T22:11:00+00:00",
-    "published_ts": 1776550260,
-    "smart_groups": [
-      "Crypto / Web3"
-    ],
-    "curated": false
   },
   {
     "title": "Kelp restaking platform exploited, $293M drained in attack",
@@ -2233,18 +2758,6 @@
     "curated": false
   },
   {
-    "title": "I retested Apple AirTags after 5 years - how they compare to Bluetooth tracker rivals",
-    "summary": "AirTags were released in April 2021, and since then it's never been easier to find your lost gear. Five years later, here's how they hold up.",
-    "link": "https://www.zdnet.com/article/retested-apple-airtags-after-five-years-how-they-compare/",
-    "source": "ZDNet – Security",
-    "type": "general",
-    "type_label": "General Security & Blogs",
-    "published": "2026-04-17T16:30:38+00:00",
-    "published_ts": 1776443438,
-    "smart_groups": [],
-    "curated": false
-  },
-  {
     "title": "Email-Borne Worm Surge Drives New Threat Wave Across Industrial Control Systems",
     "summary": "A global wave of email-borne worms hit industrial control systems (ICS) in the fourth quarter of 2025, marking one of the most concerning threat shifts seen across operational technology (OT) environments in recent years. The surge was largely tied to a single piece of malware that silently spread through phishing emails, reaching ICS networks in […] The post Email-Borne Worm Surge Drives New Threat Wave Across Industrial Control Systems appeared first on Cyber Security News .",
     "link": "https://cybersecuritynews.com/email-borne-worm-surge-drives-new-threat/",
@@ -2285,18 +2798,6 @@
     "type_label": "Crypto & Blockchain Security",
     "published": "2026-04-17T15:52:26+00:00",
     "published_ts": 1776441146,
-    "smart_groups": [],
-    "curated": false
-  },
-  {
-    "title": "I ditched my iPhone's hotspot for this 5G travel router - and I'm never going back",
-    "summary": "The Acer Connect M6E mobile hotspot is just better in almost every way.",
-    "link": "https://www.zdnet.com/article/acer-connect-m6e-mobile-hotspot-review/",
-    "source": "ZDNet – Security",
-    "type": "general",
-    "type_label": "General Security & Blogs",
-    "published": "2026-04-17T15:47:00+00:00",
-    "published_ts": 1776440820,
     "smart_groups": [],
     "curated": false
   },
@@ -15329,18 +15830,6 @@
     "curated": false
   },
   {
-    "title": "How to share audio from your Android phone to multiple earbuds (and why it's genius)",
-    "summary": "Android's Audio sharing lets two people listen on separate earbuds, if your devices support it.",
-    "link": "https://www.zdnet.com/article/how-to-share-audio-from-android-phone-to-multiple-earbuds/",
-    "source": "ZDNet – Security",
-    "type": "general",
-    "type_label": "General Security & Blogs",
-    "published": "2026-04-14T16:32:00+00:00",
-    "published_ts": 1776184320,
-    "smart_groups": [],
-    "curated": false
-  },
-  {
     "title": "CISA Warns of Microsoft Exchange and Windows CLFS Vulnerabilities Exploited in Attacks",
     "summary": "The Cybersecurity and Infrastructure Security Agency (CISA) has issued an urgent warning to organizations regarding two severe Microsoft vulnerabilities. On April 13, 2026, the agency officially added flaws affecting Microsoft Exchange Server and the Windows Common Log File System (CLFS) Driver to its Known Exploited Vulnerabilities (KEV) catalog. According to CISA’s latest threat intelligence update, […] The post CISA Warns of Microsoft Exchange and Windows CLFS Vulnerabilities Exploited in Attacks appeared first on Cyber Security News .",
     "link": "https://cybersecuritynews.com/microsoft-exchange-and-windows-clfs-vulnerabilities-exploited/",
@@ -20248,18 +20737,6 @@
     "curated": false
   },
   {
-    "title": "How I squeeze more power from my portable solar panels: 11 ways to get up to 30% extra",
-    "summary": "After years of testing portable solar panels, I've found that small adjustments to my setup can yield massive efficiency gains.",
-    "link": "https://www.zdnet.com/article/portable-solar-panels-how-to-get-more-power/",
-    "source": "ZDNet – Security",
-    "type": "general",
-    "type_label": "General Security & Blogs",
-    "published": "2026-04-13T13:35:00+00:00",
-    "published_ts": 1776087300,
-    "smart_groups": [],
-    "curated": false
-  },
-  {
     "title": "Binary Ninja 5.3 (Jotunheim)",
     "summary": "For Binary Ninja 5.3, we’re bringing features and fixes across a number of areas. For improved interoperability, we’ve added Ghidra Export to the existing Ghidra Import code and have improved our IDB Import capability. For new architectures and platforms, we’ve added NDS32 to Ultimate, a new ILP32 ABI for AArch64, and a new set of APIs for “weird” architectures. And of course, we’ve made a number of improvements to the UI including a new Universal Mach-O loader UI, usability improvements to the container browser, and a new “super” command palette! Plus, changes to the debugger, enterprise features, new opt-in crash reporting to help us squash bugs faster, and so much more!",
     "link": "https://binary.ninja/2026/04/13/binary-ninja-5.3-jotunheim.html",
@@ -24742,6 +25219,26 @@
     "published_ts": 1775854800,
     "smart_groups": [],
     "curated": false
+  },
+  {
+    "title": "Building Event-Driven Data Agents with BigQuery, Pub/Sub, and ADK",
+    "summary": "The Need for Real-Time Autonomous Agents Data is only as valuable as your ability to act on it. In the modern enterprise, reacting to events hours—or even minutes—after they occur is often too late. Whether you're dealing with financial fraud or dynamic supply chain disruptions, every second counts. But a lot of systems still rely on slow scheduled batch jobs or fragile microservices that constantly pull for changes. By the time a problem surfaces, it's often too late. That leaves human investigators scrambling to piece things together by digging through logs and database queries. It's a slow, painful process that just doesn't scale. Enter Event-Driven Data Agents What if, instead of waiting for slow pipelines and manual triage, your data platform could instantly push an alert as soon as an anomaly is detected, triggering an autonomous AI agent to investigate and resolve it? This is the promise of the Event-Driven Data Agent architecture. By combining BigQuery continuous queries , Pub/Sub , and the ADK Agents on Vertex AI Agent Engine , you can build a pipeline that triages events in real time and autonomously investigates them. The agent uses advanced reasoning to gather context, analyze the data, and either resolve the issue on the spot or escalate it to a person when human-in-the-loop intervention is needed. The Hybrid Architecture: How it Works This event-driven pipeline leverages three core building blocks: Detection: BigQuery continuous queries monitor live data streams and detect anomalies using a rules-based engine. Routing: Pub/Sub reliably delivers these events, using Single Message Transforms (SMTs) to reshape the payloads into the exact format your AI agents expect, thereby triggering the agentic pipeline to start its investigation. Resolution: A Vertex AI Agent (built with ADK) receives the event, investigates using custom tools, and logs its decision. Let’s dive in and explore each component. To make this concrete, we'll walk through a simple use case: detecting and investigating fraudulent financial transactions in real-time. Part 1: BigQuery Continuous Queries BigQuery continuous queries allow you to build real-time event streams natively using standard SQL. They are persistent SQL queries that run continuously, analyzing incoming data and immediately exporting SQL results to destinations like Pub/Sub. The shift from pulling to pushing streaming events natively in BigQuery means you can detect complex anomalies (like a user transacting in two different countries within a user specified window) within your data warehouse using standard SQL. There’s no need to move your data to a separate streaming analytics engine. This transformation is powered by the launch of BigQuery continuous query stateful data processing in public preview, which introduces native support for stream-to-stream JOINs, windowed aggregations, and tumbling windows. By allowing you to correlate disparate data streams and calculate complex metrics—such as rolling averages or sum totals—directly in BigQuery, we are democratizing stream processing for any SQL user. This eliminates the need for specialized external tools or deep data science expertise to build a real-time 'System of Action' that detects and reacts to events as they happen. This approach also helps manage LLM token costs; by using stateful SQL to filter for specific anomalies, you ensure that your agents only process the exact context they need, rather than overwhelming them with raw data. Implementing this is straightforward. By combining a standard SQL query with an EXPORT DATA statement, you can route matching rows directly into a Pub/Sub topic the second they occur: code_block 1 AS is_impossible_travel,\\r\\n LOGICAL_OR(NOT is_trusted_device) AS has_security_mismatch\\r\\n ) AS logic_signals\\r\\n )) AS data\\r\\n FROM TUMBLE(TABLE TransactionHeuristics, \"bq_changed_ts\", INTERVAL 2 MINUTE)\\r\\n GROUP BY window_start, window_end, user_id\\r\\n HAVING APPROX_COUNT_DISTINCT(location_country) > 1\\r\\n);'), ('language', 'lang-sql'), ('caption', )])]> Part 2: Pub/Sub & Single Message Transforms (SMT) Bridging the schema gap with Pub/Sub. The exported event data from our continuous query is sent directly to a Pub/Sub topic. Before this raw data can be consumed by our AI agent, the payload needs to be transformed to match the schema expected by our agent. Instead of deploying something like a dedicated Cloud Function to reformat these messages, you can handle it entirely within the Pub/Sub subscription using a Single Message Transform (SMT) . SMTs allow you to run lightweight, inline JavaScript User-Defined Functions (UDFs) directly within Pub/Sub to map, reshape, or clean the payload on the fly. For instance, you can define a transform.yaml with a Javascript snippet that intercepts the BigQuery payload and extracts the exact query format our Agent Engine expects: code_block )])]> To configure the routing pipeline , you create a Pub/Sub Push Subscription. This subscription automatically pushes every transformed BigQuery event directly to your AI agent's webhook endpoint: code_block )])]> Notice the push-endpoint parameter above. This webhook URL is generated by our final architectural piece: the AI Agent itself. Part 3: ADK and Vertex AI Agent Engine When an agent is deployed to Vertex AI Agent Engine , the platform automatically provisions a secure streamQuery endpoint specifically designed to receive these incoming events. This is the brain of the operation. Once an anomaly is detected and routed via Pub/Sub, the message triggers an ADK agent deployed on Vertex AI. To implement the reasoning loop, you define your agent, equipped with tools, and deploy it: code_block )])]> Equipped with specific instructions and this custom toolset, the agent autonomously investigates the alert by actively gathering external context. It can query BigQuery for a user’s transaction history, analyze unstructured data like receipts, or ground its findings with Google Search to verify a merchant's reputation. Ultimately, it categorizes the transaction as a FALSE_POSITIVE or flags it as ESCALATION_NEEDED . The Human-in-the-Loop Advantage This approach is central to the architecture's scalability. By effectively filtering out the noise, it dramatically reduces operational overhead and ensures that your investigators only spend their time on the most complex cases. And since ADK offers an impressive array of tools and integrations , you can have your agent escalate events to a wide array of enterprise systems for both human-in-the-loop engagement, or even automate pipelines end-to-end using human-on-the-loop observability. Bringing it All Together: Agent Analytics Once your pipeline is live, the work shifts from building to monitoring. Unlike traditional software, autonomous agents run persistently in the background. Because they operate behind the scenes, having deep observability into what they are doing, how long they take, and how much they cost is critical. By initializing the BigQuery Agent Analytics plugin during deployment, the ADK automatically logs all trace data, tool usage, and execution latency directly into BigQuery: By joining this trace data with the structured decisions output by your agent, you unlock rich analytics. This enables you to build dynamic dashboards and set up custom alerts to monitor your AI workforce in real-time. You can check out this Codelab to learn more about using and the Agent Analytics Plugin. Conclusion The convergence of real-time data streaming and Agentic AI is changing how we handle operational alerts. Detect in real-time with BigQuery continuous queries. Transform and Route with Pub/Sub SMTs. Investigate and Resolve with Vertex AI Agent Engine. Analyze with BigQuery Agent Analytics Plugin This architecture enables you to build a proactive, autonomous workforce capable of handling anomalies the moment they occur—all within a governed, scalable, and serverless Google Cloud environment. Ready to get hands on? Check out our codelab for a step-by-step guide on how to build this Cymbal Bank pipeline from scratch!",
+    "link": "https://cloud.google.com/blog/topics/developers-practitioners/building-event-driven-data-agents-with-bigquery-pubsub-and-adk/",
+    "source": "Google Cloud Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-04-10T21:00:00+00:00",
+    "published_ts": 1775854800,
+    "smart_groups": [
+      "Curated",
+      "Ransomware",
+      "Vulnerabilities / CVEs",
+      "Windows / Microsoft",
+      "Cloud / SaaS",
+      "Network / OT / ICS",
+      "Crypto / Web3"
+    ],
+    "curated": true
   },
   {
     "title": "This 'Space Invaders' Clone Game Pays Real Bitcoin—If You're Skilled, Lucky or Rich",
