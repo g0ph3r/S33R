@@ -1,5 +1,192 @@
 [
   {
+    "title": "Book Review: \"The Infosec Survival Guides\"",
+    "summary": "Welcome back y'all. I recently read all four of the current Black Hills Infosec Survival Guides: The Green (intro), Yellow (meta), Blue (SOC and blue team operations), and Orange (incident response) Books. The following is a quick review of all four, to see if they are right for you. Each book shares the same format: sections running 1-3 pages each, community contributor bylines, Loggy the cartoon log mascot in the margins, and a multi-page Antisyphon course catalog at the back. Once you've seen the pattern in one, you've seen the structural shape of all four. The main differences are in the focus of their contents, which you can see in their individual table of contents below. That said, the articles seem too shallow and unfocused to be practical desk references to me. As I explored all four books, I found them to contain great intro articles, but it didn't feel like they held a ton of value in revisiting. Each article barely has enough time to introduce the subject, then it has time to make about 2-5 points, which come with some heavy assumptions about how the user is operating. The end result is a bunch of introductory articles with essentially a subject intro and 1-2 nuggets of useful information. This actually lends itself best to the early articles in my opinion because it works best as an intro to Security as a whole, as opposed to technical reference or something you will revisit time and time again. The first book in the series is the Green book, which I think was really just their first attempt at trying this, which you can kind of see later refined into the Yellow book material. Let's take a look at the contents of the green book: Choose Wisely Common Cyber Threats How to Set Smart Goals Use Your Home Lab OSINT Understanding GRC Malware Analysis Cloud Security Lead Effective Tabletops Backdoors & Breaches Network Engineering IT Help Desk Hire The Right Person Secure Small Business AI for Good Umm, Actually... Who is BHIS? Antisyphon Course List I think this zine really is a great introduction to information security. Letting people dive into common cyber threats, setting up a home lab, helping them through early career advice is all great stuff. That said I don't think someone should be running malware only several pages after learning what some fundamental infosec threats and risks are. The Malware Analysis article assumes you already understand what a normal execution environment looks like. If you don't know that svchost.exe should always have services.exe as a parent, or why explorer.exe spawning cmd.exe is worth flagging, running a sample in a sandbox just produces output you can't interpret. You'll see registry modifications and process injections and have no baseline to compare them against. The article teaches you that the discipline exists, not how to practice it This isn't the worst if you are just getting introduced to the subject, but it can set you up for a bad time if you are actually trying to execute on these things as a novice practitioner. The OSINT article has the same problem in a different domain. Real OSINT is pivot chains, source corroboration, and knowing when you've actually exhausted a lead versus when you've just hit a wall. Two pages gets you a definition and a tool list. That's not a methodology, and a tool list without methodology is how people spend three hours in Maltego and conclude the subject doesn't exist online. I also think this is a bit of a Black Hills marketing play, as opposed to a real handbook. Don't get me wrong, there is a lot of value in these texts. But the big tell for me is in the page allocation, and we will see this again and again throughout each book. Backdoors & Breaches, a card game BHIS produces and sells, gets as much real estate as any single technical article. Often times it gets almost double the length of a normal article. The Antisyphon course catalog at the back also runs several pages. These aren't editorially neutral inclusions, they're product placements in a format that implies field reference. A real field guide doesn't sell you a companion course. The Yellow Book on the other hand seems to acknowledge this a little bit and be another attempt at tightening the scope. I believe this book is kind of a refinement of the Green book as there is a decent amount of overlap between the two. Each part is about 1-3 pages long: Choose Wisely 5 Phase Plan Quality Training Build a Home Lab To Cert or Not to Cert How to Get a Job Social Engineering Blue Team Security Operations Center (SOC) Threat Hunting Red Team Pentesting Backdoors & Breaches How to Tell a Client No How to Get a Yes Purple Team Incident Response Digital Forensics How to Write Reports Trials and Joys Mental Health Protect Your Privacy How to Put Yourself Out There Who is BHIS? Antisyphon Course List This book honestly still comes off as a little too Black Hills skewed, and frankly a little unfocused. I was never really sure if the guide was on infosec skills, or the meta of the industry, or jobs within the industry. \"How to Get a Job\" and \"Mental Health\" are sitting in the same guide as \"Threat Hunting\" and \"Digital Forensics.\" I suppose what connects them isn't subject matter, it's audience. People new to the industry who want orientation on everything at once. This also creates its own limitations though, the 'Threat Hunting' article can't go deep when the book's implicit audience is someone fresh to the industry. I think if it was more logically organized it would come off as cleaner and easier to grok. That said, I do think it's a strong resource for people who are brand new to the industry. It's a good way to orient oneself and it's a decent primer on some different fields in infosec. This again comes off as if it would be helpful for new people, but I'm not sure it's the desk reference that they were looking to make. By the time you crack open the Blue and Orange books, you've seen the pattern. BHIS has a template for each book that isn't changing. Each article runs 1-3 pages, written by community contributors, doodled over by Loggy the cartoon log mascot, and closed out with a multi-page advertisement for their training catalog and Backdoors & Breaches. These two books are the most technically focused of the series, and that's both their strength and the clearest lens through which their structural problems become visible. They are still going for the desk reference text, like a replacement for the red team or blue team field manual. I just don't think it quite nails the reference text. None of the format really feels like cheat sheets, or things I would reference over time. Rather it still feels like intro material. I think I would get the most value out of it the first time I read it or understood the ideas but not much after that. Let's look at the the Blue Book 's table of contents: One Fight, Many Defenders The Life of a SOC Analyst Threat Hunter Methodology EDR 101 Log Analysis Field Guide SIEM 101 Network Traffic Analysis Cloud Basics and Investigation Backdoors & Breaches Report As You Go SOAR 101 AI in SOC SOC & GRC Detection Engineering Application to Advancement John Strand's 11 Core Skills Who is BHIS? Antisyphon Class List The Blue Book is the most focused of the four guides. The focus is clearly SOC work. It includes topics such as monitoring, detection, triage, and the daily grind of the analyst. If you're new to the field or trying to understand the SOC ecosystem conceptually, this is a genuinely decent orientation. The best articles in this book are the ones where someone sat down and tried to teach a skill rather than describe a role. The Network Traffic Analysis piece by Troy Wojewoda is really solid, sensor placement, flow directionality, east-west traffic as the canary in the coal mine. These are things a working defender actually needs to understand. And John Strand's 11 Core Skills at the tail end is probably the single most condensed piece of useful framing in the book. His point that we're training analysts to find needles in haystacks when they don't know what hay looks like is exactly right, and it's the kind of insight that belongs at page 2, not page 34. But those articles are surrounded by a lot of ambient noise. There's a lot of articles that can be read once or skipped all together. The format forces every article to stay at the same altitude, intro-level, regardless of whether the topic demands more. The biggest structural tell in the Blue Book, again is the page count. Backdoors & Breaches gets four pages, tied with zero other articles for most space. Meanwhile, articles on SIEM, SOAR, cloud security, and detection engineering only get two pages. The card game advertisement gets double the real estate as anything technical in the book. That's not a neutral editorial decision. Further, Backdoors and Breaches is largely a novelty. Don't get me wrong, it's cool they made an interactive card game and made it competitive. This is coming from an avid Magic the Gathering player. That said, I have never once used Backdoors and Breaches in a serious work scenario or in place of a real tabletop exercise. The critique is that a guide for SOC analysts is spending a large chunk of its technical page budget on a self produced novelty rather than a concrete Windows Event ID cheat sheet or an example of a SIEM correlation rule. Again this isn't something RTFM or BTFM would do. Ben Clark's Blue Team Field Manual gave you 180 pages of commands, one-liners, and reference tables. Moving on to The Orange Book 's table of contents: IR Manifesto \"Goldilocks\" Alert Review Your Critical First-Hour Response KAPE 101 A Simple, Useful IR Plan Incident Investigations Hayabusa 101 Know Your Enemy The MITRE ATT&CK® Framework Common IR Findings Backdoors & Breaches Containment & Eradication DeepBlueCLI 101 Forensic Data Business Impact Planning Velociraptor 101 Calling Reinforcements After the Dust Settles… Who is BHIS? Antisyphon Class List The Orange Book is the best guide in the series. It's the one that most closely resembles what these publications were trying to be. The focus is tight, incident response from initial triage through post-incident review and several of the articles here are pretty good. The tool \"101\" articles are where this book earns its keep. KAPE 101, Hayabusa 101, DeepBlueCLI 101, and Velociraptor 101 all follow the same, practical structure. They are solid, usable guides. If you're a junior responder who has never run Velociraptor, you can read that article, download the binary, and run a VQL query against a process list inside of thirty minutes. That is field utility. That is the spirit of a field manual. I do wish these field guides contained more commands and maybe a few tips and tricks, but these articles are the closest thing to it, imo. One of the most shocking parts is the entire book is on the incident response life cycle but never really includes the incident response life cycle in full. There is an early article that shortcuts the lifecycle to 3 stages rather than 6. But I don't think you can teach shortcuts without first teaching the full process, otherwise you are shortcutting the lesson rather than the process. The 'Containment & Eradication' section delivers one of the most honest pieces of IR guidance in either book: disconnect the internet and rotate all credentials. \"Simple doesn't mean easy.\" That framing is correct. Most organizations that get hit with ransomware don't fail because they didn't know these were the right moves. they fail because nobody mapped out the blast radius in advance and nobody practiced what credential rotation at scale actually looks like under pressure. The article drives this home effectively. The First-Hour Response article is the longest piece in the book at four pages (notably, the same as Backdoors & Breaches). It earns those pages. The structure, preserve evidence first, then triage, then communicate, is really good, and the escalation tiers (supervisor, security leadership, exec leadership, legal) are genuinely useful scaffolding for someone who has never run a real incident before. Incident Investigations by Patterson Cake is also strong. The MIND framework (Memory, Identity, Network, Disk) is a clean mental model for attack surface categorization, and the Windows/Linux artifact lists are the kind of concrete reference that belongs in a book like this. \"Prioritize ASEPs, scheduled tasks, the MFT, and event logs\" is something a responder can actually execute on. Compare that to the Blue Book's \"know what's normal\" advice, and the difference in operational altitude is clear. Where the Orange Book stumbles is the same place the Blue Book does, but the failures are more visible because the subject matter demands more depth. The MITRE ATT&CK® Framework gets exactly one page. One page, for a framework that entire training courses are built around. The article correctly identifies ATT&CK as a gap analysis goldmine and gives three full technique examples but then it's over. This is the exact wrong inversion: Backdoors & Breaches gets four pages; the framework that should inform every detection rule and hunting hypothesis gets one. Common IR Findings is also squeezed into a single page. It's structured around the Backdoors and Breaches (B&B) cards: Crisis Management, Isolation, UEBA, Endpoint Analysis, none of which I've ever seen as top level findings in an incident response report. These are like informational things you would bring up w/ the client, not real IR findings (like systemic malware or active attackers) which is a clever idea in theory, but in practice means the article is half-organized around teaching you about B&B rather than about the findings themselves. The marketing apparatus shapes the editorial even when it doesn't intend to. Finally they should just toss the IR Manifesto at the beginning of the book. The IR Manifesto that opens the book is two pages of \"we are incident responders, we are curious, we serve and protect.\" It reads like the kind of thing you read at a conference keynote and then forget on the drive home. It takes up space that could have been a triage checklist. It's largely useless and no one is even remembering it, let alone ever repeating it. The Blue and Orange books are the best two in the BHIS Survival Guide series, which is both a compliment and a qualification. The Orange Book in particular has genuine field value, primarily from the tool 101 articles and the Incident Investigations MIND framework. If you're a junior IR analyst who has never touched KAPE or Velociraptor, this book will save you time. Overall these books are more like intro texts for someone totally new to the topic. The Blue Book is a decent orientation for someone entering the SOC world, but it's more of a career primer than a field guide. John Strand's 11 Core Skills is the article everyone should probably read in my opinion. Neither book is what the RTFM/BTFM was. They don't have the density, the command-line specificity, or the format-as-function that made field manuals like the RTFM genuinely reference-worthy. They're closer to a well-curated blog anthology, which is essentially what they are, because the model is community contributors writing 2-page articles. That's not a bad model for building an audience and generating content at scale. But that model has several drawbacks. The most noticeable drawback to me is there is very little cohesiveness between the articles. Some articles approach the defensive posture like a SOC analyst looking at a well instrumented environment, and other articles approach the subject like a researcher or hobbyist working on single log files or samples. Worth buying at the paper price point for someone new to infosec? Sure, these are good and cheap zines to read if you are new to infosec. Is this worth buying as a desk reference or as a seasoned infosec practitioner? Check out the pdf and you can probably skip the hard copy. Think of them as a well-intentioned sampler platter, it's little nuggets of each idea to expose you to a topic. It's great for new people, but the value rapidly diminishes the longer you've been in the industry.",
+    "link": "http://lockboxx.blogspot.com/2026/04/book-review-infosec-survival-guides.html",
+    "source": "http://feeds.feedburner.com/blogspot/ofozM",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-30T23:55:00+00:00",
+    "published_ts": 1777593300,
+    "smart_groups": [
+      "Curated",
+      "Ransomware",
+      "Vulnerabilities / CVEs",
+      "Windows / Microsoft",
+      "Linux / Unix",
+      "Malware / Payloads",
+      "Identity / Access",
+      "Network / OT / ICS",
+      "Phishing / Social Engineering",
+      "Crypto / Web3"
+    ],
+    "curated": true
+  },
+  {
+    "title": "GoDaddy under fire for alleged unauthorized domain transfer",
+    "summary": "The incident involved a domain belonging to an anonymous American non-profit with 20 locations nationwide.",
+    "link": "https://www.scworld.com/brief/godaddy-under-fire-for-alleged-unauthorized-domain-transfer",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-30T23:53:11+00:00",
+    "published_ts": 1777593191,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "India's cybersecurity watchdog warns of AI-driven cyber threats",
+    "summary": "CERT-In's advisory details how AI is shifting cybercrime from manual intrusion to automated, large-scale attacks.",
+    "link": "https://www.scworld.com/brief/indias-cybersecurity-watchdog-warns-of-ai-driven-cyber-threats",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-30T23:49:44+00:00",
+    "published_ts": 1777592984,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Ukrainian police arrest 3 hackers for hijacking 610,000 Roblox accounts",
+    "summary": "The suspects, including a 19-year-old, allegedly used stolen session cookies to bypass password requirements and access Roblox accounts.",
+    "link": "https://www.scworld.com/brief/ukrainian-police-arrest-three-hackers-for-hijacking-610000-roblox-accounts",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-30T23:46:04+00:00",
+    "published_ts": 1777592764,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Bank regulator sounds warning over cybersecurity threat posed by AI models",
+    "summary": "Frontier AI models inspired by Anthropic’s Claude Mythos could arm attackers with advanced capabilities that the banking sector is ill equipped to cope with, Australia’s financial regulator, the Australian Prudential Regulation Authority (APRA), has warned. In a letter addressed to the country’s financial sector this week, the body lays out how the arrival of Claude Mythos has upended decades-long assumptions about the cybersecurity risk associated with regulated financial services. APRA raises multiple concerns. The biggest is simply that the industry has been caught in the headlights of an unknown risk factor brought about by a model, Claude Mythos, that they have still not been able to examine for themselves. As the technology spreads, threat actors will use similar models to uncover flaws more quickly and easily, potentially overwhelming the speed with which these can be addressed by today’s patching and remediation programs. Governance not keeping up Before drawing its conclusions, APRA had engaged with the industry, finding that governance was failing to keep up with the change in risk that AI is signaling. During that research, the letter said, “APRA observed a tendency to treat AI risk as ‘just another technology’. This misses key differences such as the distinct characteristics of predictive systems, adaptive behaviour in models, ethical considerations such as inherent bias, and privacy and data risks.” The body identifies several areas for improvement. The biggest is the urgent need to more rapidly identify and remediate vulnerabilities, something that would require a major overhaul of current processes. Organizations also needed “robust security testing across AI‑generated code, software components, and libraries,” coupled with deeper assessment of major AI platforms and services. “AI can shorten the attack cycle and increase speed, coordination and impact. At the same time, entities are using AI to improve threat hunting and vulnerability identification, with the challenge being remediating at the speed with which vulnerabilities are identified,” APRA said. Accessing Mythos It’s barely three weeks since Anthropic made Claude Mythos public on April 7 and it’s hard to recall a development that’s caused as much cybersecurity alarm in such a short space of time. Earlier this week, Michael Theurer , the chief supervisor of Bundesbank, Germany’s financial regulator, echoed APRA’s concern, telling Reuters that European banks need access to Claude Mythos to defend themselves against the sort of cyberattacks this type of model could make possible. “I consider ​it necessary that the European Commission and governments in Europe now also approach the company, or rather the United States, to request that the technology be shared. There has to ​be an official request so that we in Europe can also benefit from the insights,” Theurer said. Anthropic has reportedly privately indicated that it will soon give banks outside the US access to Claude Mythos . However, the reference to the US in Theurer’s remarks alludes to the possibility that the timing of this access might be affected by the political relationship between the EU and the Trump administration. Given the interdependence of global banks, it seems unlikely that the US administration would delay wider access to Claude Mythos, even as it negotiates to resolve its recent public spat with Anthropic over the company’s designation as a supply chain risk . However, given recent complaints that only US tech companies have so far been given access via the Claude Mythos industry program, Project Glasswing, it’s clear there is some unease. Targeting will ‘skyrocket’ The underlying worry, of course, is institutional interconnectedness; an attack on one financial organization could easily turn into a wider systemic problem if the flaw is severe enough. According to Joe Brinkley of penetration testing firm Cobalt, “the barrier to entry for state-level cyber capabilities has now been lowered to the cost of an API key.” And given that banks currently take weeks to fix high-severity vulnerabilities, this underscores the need for change, he pointed out. “Organizations that continue to treat offensive security as a periodic check-box exercise rather than a continuous, AI-integrated function are effectively waiting for the inevitable,” Brinkley said. “If the banking sector doesn’t automate its defense to match the speed of the attack, the targeting of financial services will skyrocket as the easy wins become fully automated.” Additionally, according to Steve Tait , CTO at cloud security company Skyhigh Security, AI models such as Claude Mythos represent an opportunity as well as a threat. “Cybersecurity has always been an arms race, and pairing security expertise with advanced AI solutions will help teams fight AI with AI,” he said. “If both attacker and defender have access to the same models, then the playing field will be the same as it is today: broadly equal but moving at a thousand miles an hour.”",
+    "link": "https://www.csoonline.com/article/4165751/bank-regulator-sounds-warning-over-cybersecurity-threat-posed-by-ai-models.html",
+    "source": "CSO Online",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-30T23:36:42+00:00",
+    "published_ts": 1777592202,
+    "smart_groups": [
+      "Ransomware",
+      "Vulnerabilities / CVEs",
+      "Cloud / SaaS",
+      "Identity / Access",
+      "Network / OT / ICS"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Polymarket denies data breach claims by hacker Xorcat",
+    "summary": "Xorcat claimed to exploit several vulnerabilities, including undocumented API endpoints, a pagination bypass on the CLOB trading system by altering code to request nearly a million data points, and a CORS misconfiguration.",
+    "link": "https://www.scworld.com/brief/polymarket-denies-data-breach-claims-by-hacker-xorcat",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-30T23:33:35+00:00",
+    "published_ts": 1777592015,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC",
+      "Data Breaches / Leaks"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Oak Ridge National Laboratory develops advanced GPS interference detector",
+    "summary": "The new device, created by a team led by Austin Albright, can detect both GPS spoofing (the transmission of fake signals) and jamming (the drowning of receivers in noise).",
+    "link": "https://www.scworld.com/brief/oak-ridge-national-laboratory-develops-advanced-gps-interference-detector",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-30T23:30:47+00:00",
+    "published_ts": 1777591847,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Sri Lanka investigates missing $625,000 payment amid hacking concerns",
+    "summary": "The payment to the U.S. Postal Service went missing several weeks ago, according to Sri Lankan officials.",
+    "link": "https://www.scworld.com/brief/sri-lanka-investigates-missing-625000-payment-amid-hacking-concerns",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-30T23:27:58+00:00",
+    "published_ts": 1777591678,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "The never-ending supply chain attacks worm into SAP npm packages, other dev tools",
+    "summary": "Mini Shai-Hulud caught spreading credential-stealing malware The wave of supply chain attacks aimed at security and developer tools has washed up more victims, namely SAP and Intercom npm packages, plus the lightning PyPI package.…",
+    "link": "https://go.theregister.com/feed/www.theregister.com/2026/04/30/supply_chain_attacks_sap_npm_packages/",
+    "source": "The Register - Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-30T23:21:53+00:00",
+    "published_ts": 1777591313,
+    "smart_groups": [
+      "Curated",
+      "Malware / Payloads"
+    ],
+    "curated": true
+  },
+  {
+    "title": "European Commission accuses Meta of DSA violations regarding child safety",
+    "summary": "Meta is accused of not diligently identifying, assessing, and mitigating the risks associated with children under 13 accessing its services.",
+    "link": "https://www.scworld.com/brief/european-commission-accuses-meta-of-dsa-violations-regarding-child-safety",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-30T23:19:42+00:00",
+    "published_ts": 1777591182,
+    "smart_groups": [
+      "Identity / Access"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Lookout launches AI visibility and governance for mobile ecosystem",
+    "summary": "The solution addresses the growing challenge of shadow AI, providing visibility into unauthorized AI activity and agent behavior on mobile devices where traditional security controls may not reach.",
+    "link": "https://www.scworld.com/brief/lookout-launches-ai-visibility-and-governance-for-mobile-ecosystem",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-30T23:17:14+00:00",
+    "published_ts": 1777591034,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Critical cPanel vulnerability actively exploited in the wild",
+    "summary": "The vulnerability stems from a Carriage Return Line Feed (CRLF) injection flaw within the login and session loading processes of cPanel & WHM.",
+    "link": "https://www.scworld.com/brief/critical-cpanel-vulnerability-actively-exploited-in-the-wild",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-30T23:13:00+00:00",
+    "published_ts": 1777590780,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Deepfake incidents targeting US officials rise",
+    "summary": "Research from Cybernews indicates a significant rise in deepfake incidents targeting US officials over the past two years, with 156 recorded cases.",
+    "link": "https://www.scworld.com/brief/deepfake-incidents-targeting-us-officials-rise",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-30T23:10:09+00:00",
+    "published_ts": 1777590609,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
     "title": "Email security help - KnowBe4 vs Abnormal/Sublime?",
     "summary": "Hey everyone, I’m currently in the weeds trying to figure out our next move for email security and could use some advice from folks who have actually been in the trenches with these vendors. We have a Barracuda SEG that we are moving off of, and Microsoft Defender behind that. We still have tons of phishing make it through and this is what we are trying to fix. Monitoring the inbound / what makes it to the inbox. I’m weighing KnowBe4, Sublime, and Abnormal. For those using the API-based stuff like Sublime or Abnormal, how much of a pain is the dwell time? I’m worried about that window between a phish landing and the platform pulling it. Have you guys had users actually click on things before the API caught it? And if you switched from a traditional gateway, did you actually notice a real drop in the garbage hitting users, or is it just different? KnowBe4 offers API-based too, but they push hard to do a SMTP redirect instead. The training side is the other big question. Obviously, KnowBe4 is the go to for training. Is the AI coaching enough from the other vendors enough to keep people sharp, or are you guys still running separate phishing sims? If you were starting from scratch, what would you do? Appreciate any real world insight. submitted by /u/Substantial_Buy6134 [link] [comments]",
     "link": "https://www.reddit.com/r/cybersecurity/comments/1t0b8n6/email_security_help_knowbe4_vs_abnormalsublime/",
@@ -11,6 +198,18 @@
     "smart_groups": [
       "Phishing / Social Engineering"
     ],
+    "curated": false
+  },
+  {
+    "title": "Repeated Bitcoin profit taking near $77K suggests rally is losing steam",
+    "summary": "Short-term traders took profit each time BTC rallied above $77,000, creating overhead sell pressure that has capped BTC’s ability to reach $80,000.",
+    "link": "https://cointelegraph.com/markets/repeat-bitcoin-profit-taking-near-77k-suggests-rally-is-loosing-steam?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-04-30T22:25:10+00:00",
+    "published_ts": 1777587910,
+    "smart_groups": [],
     "curated": false
   },
   {
@@ -206,6 +405,18 @@
     "curated": false
   },
   {
+    "title": "Samsung’s Free Android Upgrade Brings Better Security to Galaxy Phones",
+    "summary": "Samsung’s One UI 8.5 update may bring stronger Galaxy security controls as users report battery drain and overheating after recent patches. The post Samsung’s Free Android Upgrade Brings Better Security to Galaxy Phones appeared first on TechRepublic .",
+    "link": "https://www.techrepublic.com/article/news-samsung-one-ui-8-5-galaxy-security-battery-drain/",
+    "source": "TechRepublic – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-30T20:48:37+00:00",
+    "published_ts": 1777582117,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
     "title": "Another AI-Assisted Software Scan Yields 9-Year-Old Linux Bug",
     "summary": "The proof-of-concept exploit code runs only 10 lines long, but luckily, a patch is already available.",
     "link": "https://www.darkreading.com/vulnerabilities-threats/ai-assisted-software-scan-linux-bug",
@@ -249,6 +460,22 @@
       "Ransomware"
     ],
     "curated": true
+  },
+  {
+    "title": "New Global Scam Uses Fake Meeting Links to Run PowerShell Malware",
+    "summary": "BlueNoroff hackers used fake Zoom calls, ClickFix prompts, and fileless PowerShell malware to steal credentials from Web3 and crypto targets. The post New Global Scam Uses Fake Meeting Links to Run PowerShell Malware appeared first on TechRepublic .",
+    "link": "https://www.techrepublic.com/article/news-lazarus-bluenoroff-fake-video-call-malware/",
+    "source": "TechRepublic – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-30T20:34:22+00:00",
+    "published_ts": 1777581262,
+    "smart_groups": [
+      "Windows / Microsoft",
+      "Malware / Payloads",
+      "Crypto / Web3"
+    ],
+    "curated": false
   },
   {
     "title": "Bitcoin Crash Incoming? April Surge Was Built on Shaky Ground, Analysts Warn",
@@ -369,6 +596,21 @@
       "Curated",
       "Vulnerabilities / CVEs",
       "Exploit / PoC"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Cisco Introduces Model Provenance Kit to Strengthen AI Supply Chain Security",
+    "summary": "Cisco’s open-source Model Provenance Kit helps organizations verify AI model origins, trace lineage, and reduce AI supply chain security risks. The post Cisco Introduces Model Provenance Kit to Strengthen AI Supply Chain Security appeared first on TechRepublic .",
+    "link": "https://www.techrepublic.com/article/news-cisco-model-provenance-kit-ai-supply-chain-security/",
+    "source": "TechRepublic – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-30T19:57:42+00:00",
+    "published_ts": 1777579062,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
     ],
     "curated": true
   },
@@ -626,6 +868,21 @@
     "curated": false
   },
   {
+    "title": "C2PA and media authentication: What you need to know",
+    "summary": "By Brandon Epstein Key insights If you’ve been working in media forensics or the larger digital evidence community in the past six months, chances are you’ve heard about C2PA Content Credentials and their role in authenticating digital media. In this article, we’ll explore what C2PA is, how it works, and its current function within the … Continued The post C2PA and media authentication: What you need to know appeared first on Magnet Forensics .",
+    "link": "https://www.magnetforensics.com/blog/c2pa-and-media-authentication-what-you-need-to-know/",
+    "source": "Magnet Forensics",
+    "type": "dfir",
+    "type_label": "DFIR & Forensics",
+    "published": "2026-04-30T18:54:17+00:00",
+    "published_ts": 1777575257,
+    "smart_groups": [
+      "Ransomware",
+      "Network / OT / ICS"
+    ],
+    "curated": false
+  },
+  {
     "title": "AI Fuels ‘Industrial’ Cybercrime as Time-to-Exploit Shrinks to Hours",
     "summary": "Industrialized cybercrime delivers attacks with greater scale, speed and success. Defenders must match this with use of AI and automation. The post AI Fuels ‘Industrial’ Cybercrime as Time-to-Exploit Shrinks to Hours appeared first on SecurityWeek .",
     "link": "https://www.securityweek.com/ai-fuels-industrial-cybercrime-as-time-to-exploit-shrinks-to-hours/",
@@ -736,6 +993,22 @@
     "published_ts": 1777572298,
     "smart_groups": [],
     "curated": false
+  },
+  {
+    "title": "Enforcing trust and transparency: Open-sourcing the Azure Integrated HSM",
+    "summary": "As cloud workloads become more agentic and AI systems handle increasingly sensitive data, trust must be engineered directly into infrastructure. Azure Integrated HSM brings hardware‑enforced key protection into Azure, extending cryptographic trust from silicon to services through verifiable and transparent design. The post Enforcing trust and transparency: Open-sourcing the Azure Integrated HSM appeared first on Microsoft Azure Blog .",
+    "link": "https://azure.microsoft.com/en-us/blog/enforcing-trust-and-transparency-open-sourcing-the-azure-integrated-hsm/",
+    "source": "Security | Microsoft Azure Blog | Microsoft Azure",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-04-30T18:00:00+00:00",
+    "published_ts": 1777572000,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Cloud / SaaS"
+    ],
+    "curated": true
   },
   {
     "title": "Minimum Viable Company: The fastest path to cyber resilience",
@@ -1487,6 +1760,20 @@
     "published_ts": 1777563037,
     "smart_groups": [
       "Network / OT / ICS"
+    ],
+    "curated": false
+  },
+  {
+    "title": "AL26-010 – Cyber Criminals Social‑Engineering‑Enabled Compromise of Enterprise SaaS Environments",
+    "summary": "",
+    "link": "https://cyber.gc.ca/en/alerts-advisories/al26-010-cyber-criminals-social-engineering-enabled-compromise-enterprise-saas-environments",
+    "source": "Alerts and advisories",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-30T15:28:27+00:00",
+    "published_ts": 1777562907,
+    "smart_groups": [
+      "Cloud / SaaS"
     ],
     "curated": false
   },
@@ -3573,6 +3860,18 @@
     "curated": false
   },
   {
+    "title": "6 Best Enterprise Antivirus Software Choices in 2026",
+    "summary": "We reviewed the leading enterprise antivirus and EDR tools for 2026 and found SentinelOne Singularity to be the best overall, followed closely by Microsoft Defender and CrowdStrike Falcon. The post 6 Best Enterprise Antivirus Software Choices in 2026 appeared first on TechRepublic .",
+    "link": "https://www.techrepublic.com/article/best-antivirus-software/",
+    "source": "TechRepublic – Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-04-30T08:45:41+00:00",
+    "published_ts": 1777538741,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
     "title": "Britain's £6B armoured sickener Ajax cleared for duty despite injuring troops",
     "summary": "Investigation finds no single cause for soldiers falling ill, just bad bolts, cold air, and apparently the soldiers themselves Britain's notorious Ajax armored vehicles are being accepted back from the manufacturer after investigations found no single cause for the symptoms plaguing crews, meaning soldiers will need to grin and bear it.…",
     "link": "https://go.theregister.com/feed/www.theregister.com/2026/04/30/ajax_armored_vehicle_cleared/",
@@ -3875,6 +4174,48 @@
     "curated": false
   },
   {
+    "title": "GitHub fixes RCE flaw that gave access to millions of private repos",
+    "summary": "In early March, GitHub patched a critical remote code execution vulnerability (CVE-2026–3854) that could have allowed attackers to access millions of private repositories. The flaw was reported on March 4, 2026, by researchers at cybersecurity firm Wiz through GitHub’s bug bounty program. GitHub Chief Information Security Officer Alexis Wales said the company’s security team reproduced […]",
+    "link": "https://lifeboat.com/blog/2026/04/github-fixes-rce-flaw-that-gave-access-to-millions-of-private-repos",
+    "source": "Lifeboat – Cybercrime & Malcode",
+    "type": "cybercrime",
+    "type_label": "Cybercrime, Darknet & Leaks",
+    "published": "2026-04-30T07:14:56+00:00",
+    "published_ts": 1777533296,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Popular WordPress redirect plugin hid dormant backdoor for years",
+    "summary": "The Quick Page/Post Redirect plugin, installed on more than 70,000 WordPress sites, had a backdoor added five years ago that allows injecting arbitrary code into users’ sites. The malware was uncovered by Austin Ginder, the founder of WordPress hosting provider Anchor, who found it after 12 infected sites on his fleet triggered a security alert. […]",
+    "link": "https://lifeboat.com/blog/2026/04/popular-wordpress-redirect-plugin-hid-dormant-backdoor-for-years",
+    "source": "Lifeboat – Cybercrime & Malcode",
+    "type": "cybercrime",
+    "type_label": "Cybercrime, Darknet & Leaks",
+    "published": "2026-04-30T07:14:44+00:00",
+    "published_ts": 1777533284,
+    "smart_groups": [
+      "Curated",
+      "Malware / Payloads"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Hackers arrested for hijacking and selling 610,000 Roblox accounts",
+    "summary": "The Ukrainian police have arrested three individuals who hacked more than 610,000 Roblox gaming accounts and sold them for a profit of $225,000. The arrests were made by the police in Lviv after conducting ten searches on targeted locations, seizing $35,000 in cash, 37 mobile phones, 11 desktop computers, seven laptops, five tablets, and four […]",
+    "link": "https://lifeboat.com/blog/2026/04/hackers-arrested-for-hijacking-and-selling-610000-roblox-accounts",
+    "source": "Lifeboat – Cybercrime & Malcode",
+    "type": "cybercrime",
+    "type_label": "Cybercrime, Darknet & Leaks",
+    "published": "2026-04-30T07:14:29+00:00",
+    "published_ts": 1777533269,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
     "title": "New EtherRAT Variant Uses Trojanized Tftpd64 Installer to Bridge Web2 Malware and Web3 Theft",
     "summary": "A new and more dangerous type of malware is quietly targeting Windows users by hiding inside a trusted software installer. Cybercriminals have combined traditional malware tactics with cryptocurrency theft, creating a threat that is harder to detect and far more destructive than what most users expect. For years, traditional malware and crypto-focused attacks operated in […] The post New EtherRAT Variant Uses Trojanized Tftpd64 Installer to Bridge Web2 Malware and Web3 Theft appeared first on Cyber Security News .",
     "link": "https://cybersecuritynews.com/new-etherrat-variant-uses-trojanized-tftpd64-installer/",
@@ -4130,6 +4471,18 @@
       "Phishing / Social Engineering"
     ],
     "curated": true
+  },
+  {
+    "title": "Defending Against CORDIAL SPIDER and SNARKY SPIDER with Falcon Shield",
+    "summary": "",
+    "link": "https://www.crowdstrike.com/en-us/blog/defending-against-cordial-spider-and-snarky-spider-with-falcon-shield/",
+    "source": "CrowdStrike Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-04-30T00:00:00-05:00",
+    "published_ts": 1777525200,
+    "smart_groups": [],
+    "curated": false
   },
   {
     "title": "Twenty One Capital rises on proposed merger with Strike and Elektron",
@@ -4491,6 +4844,21 @@
       "Vulnerabilities / CVEs"
     ],
     "curated": false
+  },
+  {
+    "title": "Bitwarden at Gartner Security and Risk Management Summit 2026",
+    "summary": "AI agents access critical resources, often without approval. This session introduces an open standard for least-privilege agentic access: just-in-time permissions, end-to-end encryption, and human-in-the-loop approvals so agents access only what they need.",
+    "link": "https://bitwarden.com/blog/gartner-security-and-risk-management-summit/",
+    "source": "https://bitwarden.com/blog/feed.xml",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-04-30T00:00:00+00:00",
+    "published_ts": 1777507200,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
   },
   {
     "title": "How to Detect Copy Fail (CVE-2026-31431)",
@@ -7016,6 +7384,18 @@
     "curated": false
   },
   {
+    "title": "Claude Mythos Fears Startle Japan's Financial Services Sector",
+    "summary": "",
+    "link": "https://www.proofpoint.com/us/newsroom/news/claude-mythos-fears-startle-japans-financial-services-sector",
+    "source": "Proofpoint – Vendor",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-04-29T11:59:38+00:00",
+    "published_ts": 1777463978,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
     "title": "Morning Minute: Paul Tudor Jones Calls Bitcoin Strongest Inflation Hedge",
     "summary": "Crypto majors rebound ahead of FOMC, despite oil surging, while Polymarket is making a push to enter the U.S.",
     "link": "https://decrypt.co/365934/morning-minute-paul-tudor-jones-calls-bitcoin-strongest-inflation-hedge",
@@ -7249,6 +7629,50 @@
     "smart_groups": [
       "Ransomware",
       "Data Breaches / Leaks"
+    ],
+    "curated": false
+  },
+  {
+    "title": "VECT 2.0 Ransomware Irreversibly Destroys Files Over 131KB on Windows, Linux, ESXi",
+    "summary": "Threat hunters are warning that the cybercriminal operation known as VECT 2.0 acts more like a wiper than a ransomware due to a critical flaw in its encryption implementation across Windows, Linux, and ESXi variants that renders recovery impossible even for the threat actors. The fact that VECT’s locker permanently destroys large files rather than […]",
+    "link": "https://lifeboat.com/blog/2026/04/vect-2-0-ransomware-irreversibly-destroys-files-over-131kb-on-windows-linux-esxi",
+    "source": "Lifeboat – Cybercrime & Malcode",
+    "type": "cybercrime",
+    "type_label": "Cybercrime, Darknet & Leaks",
+    "published": "2026-04-29T11:14:32+00:00",
+    "published_ts": 1777461272,
+    "smart_groups": [
+      "Curated",
+      "Ransomware",
+      "Windows / Microsoft",
+      "Linux / Unix",
+      "Malware / Payloads"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Brazilian LofyGang Resurfaces After Three Years With Minecraft LofyStealer Campaign",
+    "summary": "LofyGang resurfaces with LofyStealer disguised as Minecraft hack, exfiltrating IBANs and passwords to 24.152.36[.]241, escalating gaming threats.",
+    "link": "https://lifeboat.com/blog/2026/04/brazilian-lofygang-resurfaces-after-three-years-with-minecraft-lofystealer-campaign",
+    "source": "Lifeboat – Cybercrime & Malcode",
+    "type": "cybercrime",
+    "type_label": "Cybercrime, Darknet & Leaks",
+    "published": "2026-04-29T11:13:41+00:00",
+    "published_ts": 1777461221,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "US reportedly charges Scattered Spider hacker arrested in Finland",
+    "summary": "A 19-year-old dual United States and Estonian citizen arrested in Finland earlier this month faces federal charges in the U.S. alleging he was a prolific member of the notorious Scattered Spider hacking collective. According to temporarily unsealed court records obtained by the Chicago Tribune, the suspect (who used the online alias “Bouquet”) helped extort millions […]",
+    "link": "https://lifeboat.com/blog/2026/04/us-reportedly-charges-scattered-spider-hacker-arrested-in-finland",
+    "source": "Lifeboat – Cybercrime & Malcode",
+    "type": "cybercrime",
+    "type_label": "Cybercrime, Darknet & Leaks",
+    "published": "2026-04-29T11:12:39+00:00",
+    "published_ts": 1777461159,
+    "smart_groups": [
+      "Ransomware"
     ],
     "curated": false
   },
@@ -11741,6 +12165,20 @@
       "Cloud / SaaS"
     ],
     "curated": true
+  },
+  {
+    "title": "AI-Era Threats Spread Beyond Email Into SaaS, Collaboration Apps, and AI Assistants",
+    "summary": "",
+    "link": "https://www.proofpoint.com/us/newsroom/news/ai-era-threats-spread-beyond-email-saas-collaboration-apps-and-ai-assistants",
+    "source": "Proofpoint – Vendor",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-04-28T12:01:12+00:00",
+    "published_ts": 1777377672,
+    "smart_groups": [
+      "Cloud / SaaS"
+    ],
+    "curated": false
   },
   {
     "title": "Sevii Launches Cyber Swarm Defense to Make Agentic AI Security Costs Predictable",
@@ -40080,6 +40518,23 @@
     "published_ts": 1776643200,
     "smart_groups": [],
     "curated": false
+  },
+  {
+    "title": "The Vercel Breach: OAuth Supply Chain Attack Exposes the Hidden Risk in Platform Environment Variables",
+    "summary": "An OAuth supply chain compromise at Vercel exposed how trusted third party apps and platform environment variables can bypass traditional defenses and amplify blast radius. This article examines the attack chain, underlying design tradeoffs, and what it reveals about modern PaaS and software supply chain risk.",
+    "link": "https://www.trendmicro.com/en_us/research/26/d/vercel-breach-oauth-supply-chain.html",
+    "source": "Trend Micro Simply Security",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-04-20T00:00:00+00:00",
+    "published_ts": 1776643200,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Identity / Access",
+      "Supply Chain / Software"
+    ],
+    "curated": true
   },
   {
     "title": "I hid 4 Bluetooth trackers (including AirTags) to test their reliability - here's how Android rivals compared",
