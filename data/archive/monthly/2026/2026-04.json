@@ -22352,6 +22352,18 @@
     "curated": true
   },
   {
+    "title": "Introducing ARFBench: A time series question-answering benchmark based on real incidents",
+    "summary": "ARFBench is a time series question-answering benchmark built from real Datadog incidents to evaluate how well AI models can reason about anomalies.",
+    "link": "https://www.datadoghq.com/blog/ai/introducing-arfbench/",
+    "source": "https://www.datadoghq.com/blog/index.xml",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-04-24T00:00:00+00:00",
+    "published_ts": 1776988800,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
     "title": "Bitwarden CLI password manager trojanized in supply chain attack",
     "summary": "Researchers warn of a new software supply chain attack that resulted in a malicious version of Bitwarden CLI, the terminal version of the extremely popular open-source password manager. The attack is believed to be related to the string of recent supply chain compromises attributed to a group called TeamPCP. “The attack appears to have leveraged a compromised GitHub Action in Bitwarden’s CI/CD pipeline, consistent with the pattern seen across other affected repositories in this campaign,” researchers from security firm Socket.dev said in a report . The attackers managed to publish a malicious Bitwarden CLI version 2026.4.0 on the npm registry. The version did not have a corresponding official release on the project’s GitHub repository and was detected and deleted in around 1.5 hours, between 5:57 PM and 7:30 PM ET on April 22. “The investigation found no evidence that end user vault data was accessed or at risk, or that production data or production systems were compromised,” Bitwarden said in a statement on its community forums. “Once the issue was detected, compromised access was revoked, the malicious npm release was deprecated, and remediation steps were initiated immediately.” The attack appears to be related to the recent supply chain compromise that impacted the Docker images and VS Code extensions of the KICS infrastructure-as-code vulnerability scanner from security firm Checkmarx. The group alleged to be involved, TeamPCP, has been responsible for a wave of supply chain attacks that have impacted open-source projects in recent months, including the Trivy security scanner . Luckily the new attack only impacted the CLI version of Bitwarden and not the much more widely used web browser extension and other client applications. Bitwarden is estimated to have over 10 million users, including 50,000 business customers. Attackers target cloud and development credentials The trojanized Bitwarden CLI version 2026.4.0 contained a custom loader called bw_setup.js that checks if the bun package manager is installed and then uses it to execute bw1.js . If bun doesn’t exist, it is downloaded and installed from GitHub. According to an analysis by security firm JFrog, the malicious payload is designed to detect and collect a board range of credentials and access tokens from the filesystem, shell environment variables, and GitHub actions configurations. Targeted credentials include GitHub and npm tokens, AWS and GCP credentials, API keys from MCP and AI agent configurations, Git credentials, SSH keys, and more. If GitHub tokens are found, the malicious code automatically weaponizes them by contacting https://api.github.com/user and trying several escalation paths, including executing GitHub Actions and listing secrets from their workflows. “This is not passive credential theft,” the JFrog researchers said. “It is a secondary access mechanism built to extract more secret material from GitHub-hosted automation environments.” Remediation Users who determined that their Bitwarden CLI installation was updated to the malicious 2026.4.0 version should assume developer and cloud credentials present on their machine have been compromised and should be rotated immediately. The goal of this attacker group is to gather credentials that would enable additional software supply chain attacks. After uninstalling the malicious version, clearing the npm cache, deleting bw1.js and bw_setup.js from the system, the JFrog researchers recommend: Revoking all GitHub PATs present on affected systems Rotating npm tokens and invalidating CI publishing tokens Rotating AWS access keys and reviewing access to SSM and Secrets Manager Reviewing Azure Key Vault audit logs and rotating affected secrets Reviewing GCP Secret Manager access logs and rotating affected secrets Inspecting GitHub Actions workflows and repository artifacts for unauthorized runs or branches Reviewing shell history and AI tooling configuration files for sensitive data leakage Blocking audit[.]checkmarx[.]cx and 94[.]154[.]172[.]43 at network egress points Enforcing npm script controls where possible, including ignore-scripts for untrusted installs",
     "link": "https://www.csoonline.com/article/4162865/bitwarden-cli-password-manager-trojanized-in-supply-chain-attack.html",
@@ -36487,6 +36499,18 @@
     "smart_groups": [
       "Cloud / SaaS"
     ],
+    "curated": false
+  },
+  {
+    "title": "Steganography at scale: Embedding share URLs in Datadog widget screenshots",
+    "summary": "Learn how we embed widget metadata into screenshots using invisible, resilient watermarks, enabling self-describing visualizations at scale.",
+    "link": "https://www.datadoghq.com/blog/engineering/steganography-at-scale/",
+    "source": "https://www.datadoghq.com/blog/index.xml",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-04-21T00:00:00+00:00",
+    "published_ts": 1776729600,
+    "smart_groups": [],
     "curated": false
   },
   {
@@ -84514,6 +84538,18 @@
     "source": "https://opentofu.org/blog/atom.xml",
     "type": "general",
     "type_label": "General Security & Blogs",
+    "published": "2026-04-07T00:00:00+00:00",
+    "published_ts": 1775520000,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "How we built a real-world evaluation platform for autonomous SRE agents at scale",
+    "summary": "Find out how we built a scalable evaluation platform for Datadog's Bits AI SRE agent that replays real incidents, detects regressions, and measures agent performance across production scenarios.",
+    "link": "https://www.datadoghq.com/blog/engineering/bits-ai-eval-platform/",
+    "source": "https://www.datadoghq.com/blog/index.xml",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
     "published": "2026-04-07T00:00:00+00:00",
     "published_ts": 1775520000,
     "smart_groups": [],
