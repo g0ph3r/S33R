@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-05-08T15:38:28.817144+00:00",
+  "generated_at": "2026-05-08T17:27:50.206692+00:00",
   "days_back": 30,
-  "total_items": 7521,
+  "total_items": 7501,
   "items": [
     {
       "title": "Black Hat USA",
@@ -37,6 +37,349 @@
       "curated": true
     },
     {
+      "title": "Poland says hackers breached water treatment plants, and the U.S. is facing the same threat",
+      "summary": "A report by Poland\u2019s top intelligence agency accused Russia of sabotage and hacking activities against the country\u2019s military and civilian infrastructure.",
+      "link": "https://techcrunch.com/2026/05/08/poland-says-hackers-breached-water-treatment-plants-and-the-u-s-is-facing-the-same-threat/",
+      "source": "Security News | TechCrunch",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-08T17:20:37+00:00",
+      "published_ts": 1778260837,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Windows rivals to MacBook Neo are arriving - but can you handle their shortcomings?",
+      "summary": "Budget PCs have a ways to go if they really want to compete with the MacBook Neo. But Chromebooks could have a leg up.",
+      "link": "https://www.zdnet.com/article/windows-rivals-to-macbook-neo-arrive-can-you-handle-shortcomings/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-08T17:00:41+00:00",
+      "published_ts": 1778259641,
+      "smart_groups": [
+        "Windows / Microsoft"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Dirty Frag (CVE-2026-43284, CVE-2026-43500): Frequently asked questions about this Linux kernel privilege escalation vulnerability chain",
+      "summary": "Weeks after the Copy Fail vulnerability was revealed, a new Linux kernel escalation vulnerability has been uncovered. Dubbed \u201cDirty Frag,\u201d this flaw could allow a local user to gain root access on affected Linux distributions. Public exploit code has been released prior to patches being made available. Key takeaways: CVE-2026-43284 and CVE-2026-43500 are a pair of chained vulnerabilities that together create a high severity local privilege escalation vulnerability in the Linux kernel. A public exploit is available which extends the bug class attributed to Copy Fail, another high profile kernel privilege escalation vulnerability. Patched kernel versions expected to be released shortly. Background Tenable's Research Special Operations (RSO) team has compiled this blog to answer Frequently Asked Questions (FAQ) regarding CVE-2026-43284 and CVE-2026-43500, an exploit chain leading to Linux kernel local privilege escalation in an attack known as \"Dirty Frag\" FAQ What is Dirty Frag? Dirty Frag is a local privilege escalation (LPE) vulnerability that allows a local user to escalate their privileges to root. When was Dirty Frag disclosed? According to the disclosure timeline, Dirty Frag was publicly disclosed on May 7 after the vulnerability\u2019s embargo was broken by an unrelated third party. On May 8, a proof-of-concept was released alongside technical details and a timeline of the disclosure events. What CVEs were released? While no CVEs were available at the time of public disclosure, as of May 8, two CVE identifiers have been released to address the two vulnerabilities which encompass Dirty Frag. CVE Description CVSSv3 CVE-2026-43284 Linux Kernel Local Privilege Escalation Vulnerability (xfrm-ESP Page-Cache Write) 7.8 CVE-2026-43500 Linux Kernel Local Privilege Escalation Vulnerability (RxRPC Page-Cache Write) N/A As of the time this blog was published on May 8, no CVE record details have been released for CVE-2026-43500, which was assigned to address the RxRPC Page-Cache Write vulnerability. According to the exploit details that have been released, two vulnerabilities are chained in order to craft the exploit. xfrm-ESP Page-Cache Write provided a 4-byte STORE primitive and RxRPC Page-Cache Write provides the privilege to create the namespace. By chaining these two vulnerabilities, root privileges can be obtained on nearly all major Linux distributions. How does Dirty Frag relate to Copy Fail, Dirty Cow and Dirty Pipe? Dirty Frag was inspired by Copy Fail as the xfrm-ESP Page-Cache Write vulnerability shares the same sink as Copy Fail. However, it can be triggered on systems that have applied the \u201calgif_aead\u201d blacklist as a mitigation strategy. This means that systems that have been mitigated against Copy Fail remain vulnerable to Dirty Frag. With the recent disclosure of Copy Fail, there have been comparisons to other well-known Linux kernel privilege escalation vulnerabilities, including Dirty Cow (CVE-2016-5195) and Dirty Pipe (CVE-2022-0847). Dirty Cow relied on a winning race condition, which meant exploitation was often unreliable. Dirty Pipe had constraints around how data could be written and where in a file it could be modified. As with Copy Fail, Dirty Frag reportedly works consistently across nearly all major Linux distributions. Which Linux distributions are affected by Dirty Frag? According to the technical writeup, the xfrm-ESP Page-Cache Write vulnerability has been in upstream since 2017 and the RxRPC Page-Cache Write vulnerability since 2023. Linux distributions released in the last 9 years are likely affected: Distributions where Dirty Frag has been tested Ubuntu 24.04.4: 6.17.0-23-generic Red Hat Enterprise Linux (RHEL) 10.1: 6.12.0-124.49.1.el10_1.x86_64 openSUSE Tumbleweed: 7.0.2-1-default CentOS Stream 10: 6.12.0-224.el10.x86_64 AlmaLinux 10: 6.12.0-124.52.3.el10_1.x86_64 Fedora 44: 6.19.14-300.fc44.x86_64 Are patches or mitigations available? As of the time this blog was published on May 8, a kernel patch had been published for the xfrm-ESP Page-Cache Write vulnerability (CVE-2026-43284). It also appears that several distributions are beginning to publish security advisories, including Red Hat and Alma Linux , noting that patches are beginning to be released or will be available soon. The technical writeup for Dirty Frag offers a mitigation that can be used to remove the modules that contain these vulnerabilities and clear the page cache. However this could have other impacts and we recommend reviewing the available mitigation suggestions for the Linux distribution that you are using prior to applying the suggested mitigation option below: sh -c \"printf 'install esp4 /bin/false\\ninstall esp6 /bin/false\\ninstall rxrpc /bin/false\\n' > /etc/modprobe.d/dirtyfrag.conf; rmmod esp4 esp6 rxrpc 2>/dev/null; echo 3 > /proc/sys/vm/drop_caches; true\" Is there a proof-of-concept (PoC) available? Yes, a public PoC was released on GitHub which also contains technical details. Additionally, a separate PoC has been released under a different name; Copy Fail 2: Electric Boogaloo . Historical exploitation of Linux kernel vulnerabilities The Linux kernel has a long history as a target for privilege escalation attacks. CISA's KEV catalog contains over 20 entries for Linux kernel flaws, including the recently disclosed Copy Fail vulnerability: CVE Description Date Added to KEV Known Ransomware Use CVE-2016-5195 Linux Kernel Race Condition (Dirty Cow) 2022-03-03 Unknown CVE-2022-0847 Linux Kernel Improper Initialization (Dirty Pipe) 2022-04-25 Unknown CVE-2026-31431 Linux Kernel Local Privilege Escalation Vulnerability (Copy Fail) 2026-05-01 Unknown Has Tenable Research classified this as part of Vulnerability Watch? Yes, we classified both CVE-2026-43284 and CVE-2026-43500 as a Vulnerability of Interest under Vulnerability Watch due to the availability of a public proof-of-concept exploit and historical exploitation of similar Linux kernel vulnerabilities. Has Tenable released any product coverage for this vulnerability? A list of Tenable plugins for this vulnerability can be found on the individual CVE pages for CVE-2026-43284 and CVE-2026-43500 as they're released. This link will display all available plugins for this vulnerability, including upcoming plugins in our Plugins Pipeline . Additionally, customers can utilize Tenable Attack Surface Management to identify public facing assets running Linux Get more information Dirty Frag PoC and technical writeup Red Hat RHSB-2026-003 Security Advisory Alma Linux Blog: Dirty Frag (CVE-2026-43284, CVE-2026-43500) Patches Released Tenable Blog: Copy Fail (CVE-2026-31431): Frequently asked questions about Linux kernel privilege escalation vulnerability Join Tenable's Research Special Operations (RSO) Team on Tenable Connect for further discussions on the latest cyber threats. Learn more about Tenable One , the Exposure Management Platform for the modern attack surface.",
+      "link": "https://www.tenable.com/blog/dirty-frag-cve-2026-43284-cve-2026-43500-frequently-asked-questions-linux-kernel-lpe",
+      "source": "Tenable Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-05-08T16:58:20+00:00",
+      "published_ts": 1778259500,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Linux / Unix",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "US defense contractor who sold hacking tools to Russian broker ordered to pay $10M to former employers",
+      "summary": "Former cybersecurity executive Peter Williams stole several surveillance and hacking tools and sold them for $1.3 million to a Russian broker that works with Putin\u2019s government.",
+      "link": "https://techcrunch.com/2026/05/08/u-s-defense-contractor-who-sold-hacking-tools-to-russian-broker-ordered-to-pay-10-million-to-former-employers/",
+      "source": "Security News | TechCrunch",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-08T16:43:19+00:00",
+      "published_ts": 1778258599,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Flying soon? American Airlines has new portable battery rules - what to know before you go",
+      "summary": "American isn't the first carrier to enforce tighter restrictions on portable power in-flight. Here's what's already changed - and why.",
+      "link": "https://www.zdnet.com/article/american-airlines-new-battery-rules/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-08T16:36:00+00:00",
+      "published_ts": 1778258160,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Analysis reveals concerning features in official White House app",
+      "summary": "A security researcher known as Thereallo has found that the app can inject code into third-party websites, effectively hiding cookie consent banners, GDPR notices, and paywalls.",
+      "link": "https://www.scworld.com/brief/analysis-reveals-concerning-features-in-official-white-house-app",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-08T16:19:40+00:00",
+      "published_ts": 1778257180,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "NVIDIA confirms GeForce NOW data breach affecting Armenian users",
+      "summary": "NVIDIA has confirmed in a statement for BleepingComputer that GeForce NOW user information has been exposed in a data breach. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/nvidia-confirms-geforce-now-data-breach-affecting-armenian-users/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-08T16:18:31+00:00",
+      "published_ts": 1778257111,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Data Breaches / Leaks"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Tanium and ServiceNow partner for autonomous IT operations",
+      "summary": "The collaboration merges Tanium's real-time endpoint intelligence with ServiceNow's workflow orchestration to address the gap between IT visibility and action.",
+      "link": "https://www.scworld.com/brief/tanium-and-servicenow-partner-for-autonomous-it-operations",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-08T16:14:40+00:00",
+      "published_ts": 1778256880,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Fragmented DDoS campaign bypasses defenses with novel 'low and slow' approach",
+      "summary": "The attack, identified by DataDome's Galileo threat research team, utilized a vast infrastructure, distributing traffic across over 1.2 million unique IP addresses and 16,402 distinct Autonomous Systems (ASNs).",
+      "link": "https://www.scworld.com/brief/fragmented-ddos-campaign-bypasses-defenses-with-novel-low-and-slow-approach",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-08T16:11:14+00:00",
+      "published_ts": 1778256674,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Quacc++: Automated Open Source Vulnerability Discovery",
+      "summary": "submitted by /u/somersetrecon [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1t7cfie/quacc_automated_open_source_vulnerability/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-08T16:09:39+00:00",
+      "published_ts": 1778256579,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Apache fixes critical HTTP/2 vulnerability allowing remote code execution",
+      "summary": "The vulnerability, identified as CVE-2026-23918 with a CVSS score of 8.8, is a double-free error within the HTTP/2 implementation.",
+      "link": "https://www.scworld.com/brief/apache-fixes-critical-http-2-vulnerability-allowing-remote-code-execution",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-08T16:08:59+00:00",
+      "published_ts": 1778256539,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Microsoft Edge security advisory (AV26-436)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/microsoft-edge-security-advisory-av26-436",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-08T16:08:21+00:00",
+      "published_ts": 1778256501,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Herd Security raises $3 million for AI-powered security training",
+      "summary": "Founded in 2025, Herd Security provides an agentic AI platform designed for continuous security awareness training.",
+      "link": "https://www.scworld.com/brief/herd-security-raises-3-million-for-ai-powered-security-training",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-08T16:05:17+00:00",
+      "published_ts": 1778256317,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Boost Security acquires 2 startups, raises $4 million for AI defense platform",
+      "summary": "Boost Security has acquired SecureIQx, an MIT-founded startup specializing in software composition analysis reachability, and Korbit Technologies, an AI-driven pull request review platform.",
+      "link": "https://www.scworld.com/brief/boost-security-acquires-two-startups-raises-4-million-for-ai-defense-platform",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-08T16:02:36+00:00",
+      "published_ts": 1778256156,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "What Comes Before Tickets",
+      "summary": "TL;DR: A year ago, my company handed me a project bigger than anything I\u2019d worked on before. The project was OpenGraph, the new extensibility foundation for a cybersecurity tool called BloodHound, and this essay is partly about building it. Mostly it\u2019s about what happens when an engineer leaves the comfortable bounds of individual ownership and [\u2026] The post What Comes Before Tickets appeared first on SpecterOps .",
+      "link": "https://specterops.io/blog/2026/05/08/what-comes-before-tickets/",
+      "source": "https://specterops.io/feed/",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-08T16:00:00+00:00",
+      "published_ts": 1778256000,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "With faster node startup for GKE, say goodbye to cold-start latency",
+      "summary": "We\u2019ve rolled out a significant update to Google Kubernetes Engine (GKE) that solves one of the most annoying problems in cloud infrastructure: cold start latency . GKE now has up to 4x faster node startup times compared to previous versions for qualifying nodes, allowing customers to provision quickly and efficiently. This isn't a setting you have to toggle or a config file you need to patch. It\u2019s an architectural upgrade to how we provision infrastructure, meaning your nodes just start faster, out of the box. This translates directly into enhanced agility and cost-efficiency for your cloud operations with a significant impact on a wide range of use cases, from rapid deployment of models for AI inference to dynamic scaling of accelerated and general-purpose nodes. The problem we set out to tackle: the \"cold start\" tax If you run workloads with fluctuating demand, especially AI inference or batch processing, you know the pain of waiting for a new node to spin up. When demand spikes, your autoscaler requests a node. Then you wait. To avoid that wait, and the resulting latency for your users, many teams resort to over-provisioning, keeping expensive nodes running \"just in case.\" You end up paying for idle compute just to buy yourself insurance against startup lag. That insurance is especially expensive when it comes to scarce accelerators. The solution: a complete rework of node provisioning To address this, we rebuilt the provisioning logic for VMs and GKE nodes. At a high level, we are using a combination of intelligent compute buffers, specially designed fast-starting virtual machines, and a new control plane architecture that allows VMs to resize instantly without rebooting. While the technical details are complex, the benefit to you is simple: your GKE clusters now scale inherently faster and are more efficient, allowing you to shift precious resources to where they are needed. What this means for you Less over-provisioning: Because nodes come online faster, you can trust your autoscaler to react in real-time rather than keeping a buffer of idle nodes. Better AI inference: For models running on GPUs, faster node provisioning reduces the time between a request spike and the model serving traffic. No \"Ops\" overhead: This works automatically. You don't need to change your Terraform or YAML files to take advantage of it. Availability The accelerated provisioning is live right now for workloads running in GKE Autopilot \u2014 including Autopilot workloads running inside Standard clusters \u2014 using the following hardware: NVIDIA L4 (G2 nodes) NVIDIA A100 (A2 nodes) NVIDIA RTXPRO6000 (G4 nodes) NVIDIA H100 (A3 nodes) Autopilot \"General Purpose\" Compute Coming soon, we will continue to roll this out to more machines, including the following, so stay tuned: NVIDIA H200 (A3 ultra nodes) NVIDIA B200 (A4 nodes) Cloud TPUs How to try it If you already use GKE Autopilot on the supported instance types, you\u2019ve probably already noticed the improvement. And if you\u2019re running a GKE Standard cluster, you can now use Autopilot specifically for these workloads without migrating your whole cluster. Just point your Pods to the Autopilot ComputeClass , and they will inherit these startup speeds while living alongside your standard nodes. You can read the full technical documentation on fast-starting nodes here . What's next Learn how you can leverage these new improvements to improve your workload responsiveness with these resources. Quicker workload startup with fast-starting nodes Autopilot container-optimized compute platform Autopilot mode workloads in GKE Standard Autopilot container-optimized compute platform",
+      "link": "https://cloud.google.com/blog/products/containers-kubernetes/gke-node-startup-gets-faster/",
+      "source": "Google Cloud Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-05-08T16:00:00+00:00",
+      "published_ts": 1778256000,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "CISA urges critical infrastructure to plan for prolonged service delivery during emergencies",
+      "summary": "CISA is warning that state-sponsored hackers, specifically Chinese groups known as Salt Typhoon and Volt Typhoon, pose a continuous threat to vital sectors such as electricity, water, and internet services.",
+      "link": "https://www.scworld.com/brief/cisa-urges-critical-infrastructure-to-plan-for-prolonged-service-delivery-during-emergencies",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-08T15:59:44+00:00",
+      "published_ts": 1778255984,
+      "smart_groups": [
+        "Ransomware",
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "India's securities regulator warns of AI-driven cyberattack risks",
+      "summary": "The Indian regulator's advisory specifically addresses the risks posed by AI-driven vulnerability identification tools, such as Claude Mythos.",
+      "link": "https://www.scworld.com/brief/indias-securities-regulator-warns-of-ai-driven-cyberattack-risks",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-08T15:57:13+00:00",
+      "published_ts": 1778255833,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "New Quasar Linux implant targets developers with rootkit and backdoor capabilities",
+      "summary": "QLNX is designed for stealth and long-term persistence, operating in-memory and employing multiple techniques to evade detection, including log wiping, process spoofing, and the use of seven distinct persistence mechanisms.",
+      "link": "https://www.scworld.com/brief/new-quasar-linux-implant-targets-developers-with-rootkit-and-backdoor-capabilities",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-08T15:54:41+00:00",
+      "published_ts": 1778255681,
+      "smart_groups": [
+        "Curated",
+        "Linux / Unix",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Multiple universities forced to reschedule final exams after Canvas cyber incident",
+      "summary": "On Thursday, dozens of students took to social media to say they saw a message from a cybercriminal group as they navigated through Canvas, an educational platform created by Instructure that hosts teaching materials, tests, readings and more.",
+      "link": "https://therecord.media/universities-forced-to-reschedule-exams-canvas-incident",
+      "source": "The Record \u2013 Cybercrime",
+      "type": "cybercrime",
+      "type_label": "Cybercrime, Darknet & Leaks",
+      "published": "2026-05-08T15:48:00+00:00",
+      "published_ts": 1778255280,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "60% of MD5 password hashes are crackable in under an hour",
+      "summary": "submitted by /u/wewewawa [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1t7bpj0/60_of_md5_password_hashes_are_crackable_in_under/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-08T15:43:51+00:00",
+      "published_ts": 1778255031,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "The human factor: Why AI-powered SOCs still need people in charge",
+      "summary": "AI agents shouldn't replace human security analysts but instead augment them.",
+      "link": "https://www.scworld.com/resource/the-human-factor-why-ai-powered-socs-still-need-people-in-charge",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-08T15:42:48+00:00",
+      "published_ts": 1778254968,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "ECB\u2019s Lagarde Pushes Back on Euro Stablecoins, Warns of \u2018Structural Weaknesses\u2019",
+      "summary": "The European Central Bank chief says Europe \"knows which port it is sailing to,\u201d and it's not towards a euro stablecoin.",
+      "link": "https://decrypt.co/367265/ecbs-lagarde-pushes-back-on-euro-stablecoins-warns-of-structural-weaknesses",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-08T15:36:19+00:00",
+      "published_ts": 1778254579,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Bitcoin\u2019s \u2018overbought\u2019 signal flashes price top warning with focus on $78K",
+      "summary": "Bitcoin\u2019s 36% rally from $60,000 resulted in the relative strength index flashing a potential top signal not seen since early 2026.",
+      "link": "https://cointelegraph.com/markets/bitcoin-overbought-signal-flashes-price-top-warning-78k?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-08T15:35:23+00:00",
+      "published_ts": 1778254523,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Coinbase Outage Disrupts Crypto Trading and Transfers Amid Amazon Service Failure",
+      "summary": "Coinbase says Amazon Web Services failures across multiple availability zones caused an extended outage on its platform.",
+      "link": "https://decrypt.co/367268/coinbase-outage-disrupts-crypto-trading-transfers-amazon-failure",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-08T15:33:46+00:00",
+      "published_ts": 1778254426,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "One in eight UK workers has sold their company passwords, and bosses think it&#8217;s fine",
       "summary": "One in eight UK workers admits to selling their company login credentials - or knowing someone who has - in the past 12 months. The really alarming bit? Their bosses are even more relaxed about it. Read more in my article on the Fortra blog.",
       "link": "https://www.fortra.com/blog/one-eight-uk-workers-has-sold-their-company-passwords-and-bosses-think-its-fine",
@@ -45,6 +388,32 @@
       "type_label": "General Security & Blogs",
       "published": "2026-05-08T15:20:45+00:00",
       "published_ts": 1778253645,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
+      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-08T15:16:53+00:00",
+      "published_ts": 1778253413,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "AI Won\u2019t End Human Work, Andreessen Horowitz Partner Says",
+      "summary": "a16z partner David George argues AI will reshape work instead of erasing it.",
+      "link": "https://decrypt.co/367222/ai-wont-end-human-work-andreessen-horowitz-partner",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-08T15:14:15+00:00",
+      "published_ts": 1778253255,
       "smart_groups": [],
       "curated": false
     },
@@ -63,6 +432,18 @@
       "curated": false
     },
     {
+      "title": "Fake Call History Apps Stole Payments From Users After 7.3 Million Play Store Downloads",
+      "summary": "Cybersecurity researchers have discovered fraudulent apps on the official Google Play Store for Android that falsely claimed to offer access to call histories for any phone number, only to trick users into joining a subscription that provided fake data and incurred financial loss. The 28 apps have collectively racked up more than 7.3 million downloads, with one of them alone accounting for over",
+      "link": "https://thehackernews.com/2026/05/fake-call-history-apps-stole-payments.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-08T15:08:00+00:00",
+      "published_ts": 1778252880,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "Another Universal Linux Local Privilege Escalation (LPE) Vulnerability: Dirty Frag, (Fri, May 8th)",
       "summary": "Less than two weeks after the public disclosure of the Copy Fail vulnerability (CVE-2026-31431), another local privilege escalation (LPE) vulnerability in the Linux kernel has been revealed. Referred to as \"Dirty Frag,\" this vulnerability was discovered and reported by Hyunwoo Kim (@v4bel) [1]. In this diary, I will provide a brief background on Dirty Frag, and discuss its relationship to Copy Fail. I will then discuss how to mitigate Dirty Frag and outline recommended next steps for system owners.",
       "link": "https://isc.sans.edu/diary/rss/32968",
@@ -75,6 +456,22 @@
         "Curated",
         "Vulnerabilities / CVEs",
         "Linux / Unix"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Kelp DAO exploit prompts DeFi protocols to rethink oracle providers",
+      "summary": "Solv Protocol and other DeFi projects are migrating to Chainlink infrastructure after the $293 million exploit exposed risks in third-party bridge and oracle setups.",
+      "link": "https://cointelegraph.com/news/kelp-dao-exploit-prompts-defi-protocols-rethink-oracle-providers?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-08T14:46:49+00:00",
+      "published_ts": 1778251609,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC",
+        "Crypto / Web3"
       ],
       "curated": true
     },
@@ -2710,6 +3107,18 @@
       "curated": false
     },
     {
+      "title": "Diagnose and resolve database performance issues faster with Database Investigator",
+      "summary": "Database Investigator is a feature of Datadog Database Monitoring that uses an agentic approach to surface root causes and remediation steps for database performance issues.",
+      "link": "https://www.datadoghq.com/blog/database-investigator/",
+      "source": "https://www.datadoghq.com/blog/index.xml",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-05-08T00:00:00+00:00",
+      "published_ts": 1778198400,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "Engineering a Zero-Trust Kubernetes SIEM: Bypassing NAT Blindness with eBPF, TC, and Suricata",
       "summary": "Standard Kubernetes network security is fundamentally broken by NAT blindness. When an intrusion alert fires, traditional tools show a physical node IP, leaving you guessing which of the hundreds of ephemeral pods is actually compromised. I engineered a custom SIEM pipeline that uses eBPF and Linux Traffic Control to mirror virtual CNI traffic directly to Suricata. By binding this telemetry to a deterministic O(1) Logstash memory router, the system maps transient IPs to exact pod names and namespaces in under 5 milliseconds. This architecture completely eliminates the Kubernetes blind spot, providing true zero-trust visibility across both kernel execution and East-West lateral network movement. Read the full technical architecture breakdown here: https://medium.com/@mouhamed.yeslem.kh/engineering-a-zero-trust-kubernetes-siem-bypassing-nat-blindness-with-ebpf-tc-and-suricata-767c70a55058 submitted by /u/Southern-Fox4879 [link] [comments]",
       "link": "https://www.reddit.com/r/cybersecurity/comments/1t6rofq/engineering_a_zerotrust_kubernetes_siem_bypassing/",
@@ -4118,20 +4527,6 @@
       "curated": false
     },
     {
-      "title": "Here\u2019s what happened in crypto today",
-      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.",
-      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-07T15:45:00+00:00",
-      "published_ts": 1778168700,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
       "title": "New Cisco Network Vulnerability Let Remote Attacker Cause DoS Attack",
       "summary": "Cisco has issued a critical security advisory regarding a high-severity vulnerability impacting its Crosswork Network Controller (CNC) and Network Services Orchestrator (NSO). Tracked formally as CVE-2026-20188 with a CVSS base score of 7.5, this flaw poses a significant risk to network infrastructure. If successfully exploited, the vulnerability allows unauthenticated, remote attackers to trigger a severe [\u2026] The post New Cisco Network Vulnerability Let Remote Attacker Cause DoS Attack appeared first on Cyber Security News .",
       "link": "https://cybersecuritynews.com/cisco-network-vulnerability-dos-attack/",
@@ -4582,6 +4977,20 @@
         "Malware / Payloads"
       ],
       "curated": true
+    },
+    {
+      "title": "The Economics of XDR: Reducing Costs and Enhancing Efficiency",
+      "summary": "A practical guide to evaluating XDR ROI by analyzing cost savings, operational efficiency, and improved threat response. The post The Economics of XDR: Reducing Costs and Enhancing Efficiency appeared first on Fidelis Security .",
+      "link": "https://fidelissecurity.com/threatgeek/xdr-security/economic-benefits-of-xdr/",
+      "source": "Fidelis Security",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-05-07T14:35:30+00:00",
+      "published_ts": 1778164530,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
     },
     {
       "title": "Americans sentenced for running 'laptop farms' for North Korea",
@@ -104579,714 +104988,6 @@
       "published": "2026-04-08T17:10:00+00:00",
       "published_ts": 1775668200,
       "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Google Cloud named a Leader in The Forrester Wave\u2122: Sovereign Cloud Platforms, Q2 2026",
-      "summary": "In today\u2019s global economy, data is a strategic asset. For many organizations \u2014 particularly those in highly regulated industries and the public sector \u2014 the ability to innovate with AI is often balanced against the rigorous requirements of data sovereignty, residency, and operational autonomy. We are proud to announce that Google Cloud has been named a Leader in The Forrester Wave\u2122: Sovereign Cloud Platforms, Q2 2026. The Forrester Wave\u2122: Sovereign Cloud Platforms, Q2 2026 As organizations move beyond simple data residency toward full digital sovereignty, this report validates our commitment to providing a sovereignty-by-design approach. \"Google is an ideal choice for organizations that need a full range of sovereign cloud options for their deployments,\" Forrester said in their report. Meeting customers where they are: A platform of choice There's no one-size-fits-all approach for achieving digital sovereignty. Our strategy is built on providing a consistent experience, including AI solutions, across three distinct sovereign cloud platforms , so that enterprise and government organizations can innovate and meet their compliance obligations. Google Cloud Data Boundary , delivered with Assured Workloads, provides a sovereign data and access boundary in the public cloud, including controls over data residency, access, and personnel. It\u2019s designed to give you the agility and scale of global infrastructure while enforcing strict rules about where your data lives and who can access it. By using customer-managed encryption keys, external key manager, and localized access policies, administrative actions remain transparent and restricted. This option is a strong fit for commercial enterprises, regulated industries, and public sector organizations that need to meet regional compliance obligations without the complexity of isolated infrastructure and operational sovereignty. Google Cloud Dedicated, designed for organizations seeking a higher level of control, provides complete regional data and operational sovereignty delivered by a regional independent operator \u2014 and is designed to be survivable up to a year even without Google. This environment is managed by a trusted local partner who oversees operations. This creates a functional buffer between your organization and Google, helping ensure that your cloud remains compliant with specific local governance. It is specifically targeted at organizations that require a cloud with operational sovereignty, offering the peace of mind that critical infrastructure can continue to function even if the connection with Google is interrupted. For example, in France, S3NS, a standalone entity, offers PREMI3NS built on Google Cloud Dedicated. PREMI3NS has achieved the SecNumCloud 3.2 qualification from the French National Agency for the Security of Information Systems (ANSSI), one of the most demanding sovereignty standards in the world. Google Distributed Cloud , an on-premises solution offered to organizations with strict compliance, latency, and data sovereignty requirements that prevent public cloud adoption. Designed for maximum flexibility, Google Distributed Cloud (GDC) offers both connected and air-gapped configurations to meet your sovereignty requirements. The fully air-gapped deployment option operates without any external connection to the public internet or the Google network. Because it is physically self-contained in your own facility, it is designed to prevent remote access, updates, and shut downs by Google. This solution is the preferred choice for defense, intelligence, and the most security-conscious customers in highly regulated sectors who cannot risk any external exposure. Sovereign by design One of the key differentiators that Forrester noted is Google Cloud's roadmap, which calls for delivering sovereignty as a standard feature. Forrester said that Google Cloud's roadmap involves delivering sovereignty as a standard feature, ensuring consistency across all three sovereign cloud offerings. This consistency is especially prominent in our AI capabilities. Forrester highlighted that our AI offering is a \"true differentiator\" and that Google Cloud excels \"at AI sovereign development services and applications services across all three sovereign environments.\u201d Looking ahead Being named a Leader in the Forrester Wave\u2122: Sovereign Cloud Platforms, 2026 is a milestone in our journey to help every organization achieve digital autonomy. We remain committed to our partnerships with local players and our \"sovereignty-by-design\" philosophy. Want to dive deeper into the report? Download the full Forrester Wave\u2122: Sovereign Cloud Platforms, Q2 2026 report here .",
-      "link": "https://cloud.google.com/blog/products/identity-security/a-leader-in-forrester-wave-sovereign-cloud-platform-2026/",
-      "source": "Google Cloud Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-04-08T17:00:00+00:00",
-      "published_ts": 1775667600,
-      "smart_groups": [
-        "Ransomware",
-        "Cloud / SaaS",
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Claude Mythos and escaping the sandbox",
-      "summary": "Everyone\u2019s feed has blown up with mythos today and the fact it escaped a designated sandbox and emailed the researcher while he was eating a sandwich\u2026 first off, why won\u2019t they tell us what kind of sandwich?!? But also, it published the exploit to some obscure but public facing websites, rather than reporting it like a sensible red-teamer would do. I think this is a sign of goal-misalignment from RL and that it misinterpreted the \u201ctell me when you\u2019re done\u201d message. If that\u2019s true it\u2019s going to make using really capable models much harder because we\u2019re going to need to be really specific about exactly what we want and how it should be done. Feels like to me the risk could be mythos being released to the world but also that as we\u2019re not really ready to use it either. We like to be lazy and specify as little as possible - being overly verbose doesn\u2019t fit that and as soon as everyone\u2019s boss reads how effective it can be they\u2019ll be thinking how they can replace the expensive red-team guy they need. submitted by /u/Brad19916 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1sfyngq/claude_mythos_and_escaping_the_sandbox/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-04-08T16:57:36+00:00",
-      "published_ts": 1775667456,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "US: Iranian-linked actors are actively exploiting our critical infrastructure",
-      "summary": "Joint advisory says likely targets include the energy, water, and transportation sectors, as well as the defense industrial base.",
-      "link": "https://www.scworld.com/news/us-iranian-linked-actors-are-actively-exploiting-our-critical-infrastructure",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T16:54:46+00:00",
-      "published_ts": 1775667286,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC",
-        "Network / OT / ICS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Hundreds of orgs compromised daily in Microsoft device code phishing attacks",
-      "summary": "submitted by /u/rkhunter_ [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1sfyiu1/hundreds_of_orgs_compromised_daily_in_microsoft/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-04-08T16:53:05+00:00",
-      "published_ts": 1775667185,
-      "smart_groups": [
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Hackers steal and leak sensitive LAPD police documents",
-      "summary": "submitted by /u/Cristiano1 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1sfyf1s/hackers_steal_and_leak_sensitive_lapd_police/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-04-08T16:49:26+00:00",
-      "published_ts": 1775666966,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "The 10 most popular products ZDNET readers bought last month (including a tiny storage option)",
-      "summary": "From phone cases to USB-C gear, these are the top tech gadgets and useful items our readers actually purchased last month.",
-      "link": "https://www.zdnet.com/article/most-popular-products-zdnet-readers-bought-last-month-2026/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T16:49:10+00:00",
-      "published_ts": 1775666950,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Two prominent Egyptian journalists targeted with elaborate spearphishing campaign",
-      "summary": "Digital civil rights nonprofit Access Now released a report on the findings with the mobile security company Lookout on Wednesday, saying they saw evidence the hackers may \u201cuse the methods and infrastructure associated with the attacks to deliver spyware and exfiltrate data.\u201d",
-      "link": "https://therecord.media/two-egyptian-journalists-targeted-spearphishing-campaign",
-      "source": "The Record \u2013 Cybercrime",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-04-08T16:44:00+00:00",
-      "published_ts": 1775666640,
-      "smart_groups": [
-        "Identity / Access",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Glasswing gives 50 companies a 3-month head start on Mythos-class vulnerabilities. What does everyone else do?",
-      "summary": "Been thinking about the structural implications of Project Glasswing beyond the \"Mythos found thousands of zero-days\" headlines. The companies with early access (AWS, Apple, Google, Microsoft, etc.) are patching vulnerabilities right now that nobody outside that group even knows exist. Bugs that survived 27 years of human review. Bugs that automated testing hit five million times without catching. When Mythos-class capabilities eventually go broad, those companies will already be hardened. The rest of us start from zero. Except we won't be the only ones starting from zero. Every attacker with API access will be running the same scans we are, at the same time. Anthropic says they'll publish recommendations within 90 days. That's 90 days of running code with bugs this thing already found. I wrote a longer piece about what this means structurally for the security gap between large and mid-market orgs. For the practitioners here, especially at companies that aren't on that list: what's your realistic plan for the period between \"we know Mythos-class vulnerabilities exist\" and \"we can actually scan for them ourselves\"? Genuinely curious how people are thinking about this. submitted by /u/ConsciousLow9024 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1sfy90j/glasswing_gives_50_companies_a_3month_head_start/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-04-08T16:43:31+00:00",
-      "published_ts": 1775666611,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "How a burner email can protect your inbox - setting one up one is easy and free",
-      "summary": "Using your primary email address everywhere can be risky. A temporary and disposable burner email address offers a safer alternative.",
-      "link": "https://www.zdnet.com/article/burner-email-address-spam-phishing/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T16:42:07+00:00",
-      "published_ts": 1775666527,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Cellebrite Spring Release: New Industry-Leading Device Access And Multi-Cloud Expansion",
-      "summary": "Cellebrite\u2019s Spring 2026 Release expands lawful access across more iOS and Android devices and OS versions, introduces new capabilities like Safeguard Mode and drone forensics, and brings Corellium to Google Cloud in public preview.",
-      "link": "https://www.forensicfocus.com/news/cellebrite-spring-release-new-industry-leading-device-access-and-multi-cloud-expansion/",
-      "source": "Forensic Focus",
-      "type": "dfir",
-      "type_label": "DFIR & Forensics",
-      "published": "2026-04-08T16:40:16+00:00",
-      "published_ts": 1775666416,
-      "smart_groups": [
-        "Cloud / SaaS",
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Masjesu Botnet Emerges as DDoS-for-Hire Service Targeting Global IoT Devices",
-      "summary": "Cybersecurity researchers have lifted the curtain on a stealthy botnet that's designed for distributed denial-of-service (DDoS) attacks. Called Masjesu, the botnet has been advertised via Telegram as a DDoS-for-hire service since it first surfaced in 2023. It's capable of targeting a wide range of IoT devices, such as routers and gateways, spanning multiple architectures. \"Built for",
-      "link": "https://thehackernews.com/2026/04/masjesu-botnet-emerges-as-ddos-for-hire.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T16:30:00+00:00",
-      "published_ts": 1775665800,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "New GKE Cloud Storage FUSE Profiles take the guesswork out of configuring AI storage",
-      "summary": "In the world of AI/ML, data is the fuel that drives training and inference workloads. For Google Kubernetes Engine (GKE) users, Cloud Storage FUSE provides high-performance, scalable access to data stored in Google Cloud Storage. However, we learned from customers that getting the maximum performance out of Cloud Storage FUSE can be complex. Today, we are excited to introduce GKE Cloud Storage FUSE Profiles, a new feature designed to automate performance tuning and accelerate data access for your AI/ML workloads (training, checkpointing, or inference) with minimal operational overhead. With these profiles, tuned for your specific workload needs, you can enjoy high performance of Cloud Storage FUSE out of the box. Before (manual tuning) code_block )])]> After (Cloud Storage FUSE mount options, CSI configs, and file cache medium automatically configured!) code_block )])]> The trouble with optimizing Cloud Storage FUSE Optimizing Cloud Storage FUSE for high-performance workloads is a multi-dimensional problem. Historically, users had to navigate manual configuration guides that could span dozens of pages. And as AI/ML has evolved, Cloud Storage FUSE\u2019s capabilities have also increased, with new mount options available to accelerate your workloads. The \"right\" settings were never static; they depended heavily on a variety of dynamic factors: Bucket characteristics : The total size of your dataset and the number of objects significantly impact metadata and file cache requirements. Infrastructure variability: Optimal configurations change based on whether you are using GPUs, TPUs, or general-purpose compute. Node resources: Available RAM and Local SSD capacity determine how much data can be cached locally to minimize expensive round-trips to Cloud Storage. Workload patterns: A training workload (high-throughput reads of large datasets) requires different tuning than a checkpointing workload (bursty, high-throughput writes) or a serving workload (latency-sensitive model loading). In fact, many customers leave available performance on the table or face reliability issues (e.g., Pod Out-of-Memory kills) due to unoptimized or misconfigured Cloud Storage FUSE settings. Introducing Cloud Storage FUSE Profiles for GKE GKE Cloud Storage FUSE Profiles simplify this complexity with pre-defined, dynamically managed StorageClasses tailored for specific AI/ML patterns. Instead of manually adjusting dozens of mount options, you simply select a profile that matches your workload type. These profiles operate on a layered model. They take the base best practices from Cloud Storage FUSE and add a GKE-specific intelligence layer. When you deploy a Pod using a profile, GKE automatically: Scans your bucket (or a specific directory) to understand its size and object count. Analyzes the target node to check for available RAM, Local SSD, and accelerator types. Calculates optimal cache sizes and selects the best backing medium (RAM or Local SSD) automatically. We are launching with three primary profiles: gcsfusecsi-training : Optimized for high-throughput reads to keep GPUs and TPUs fed with data. gcsfusecsi-serving : Optimized for model loading and inference, with automated Rapid Cache integration. gcsfusecsi-checkpointing : Optimized for fast, reliable writes of large multi-gigabyte checkpoint files. Using GKE Cloud Storage FUSE Profiles delivers several benefits: Simplified tuning: Replace complex, error-prone manual configurations with three simple, purpose-built StorageClasses. Dynamic, resource-aware optimization: The CSI driver automatically adjusts cache sizes based on real-time environment signals, so that you can maximize performance without risking node stability. Accelerated read performance: The serving profile automatically triggers Rapid Cache, placing your data closer to your compute for faster cold-start model loading. Granular performance insights: Gain visibility into automated tuning decisions through structured logs that detail exactly why specific cache sizes and mediums were selected for your Pod. Using GKE Cloud Storage FUSE Profiles inference profile, we were able to reduce model loading time for a Qwen3-235B-A22B workload on TPUs (480GB) from 39 hours to just 14 minutes, helping customers achieve the maximum benefit of Cloud Storage FUSE GCSFuse out-of-the-box. How to use Cloud Storage FUSE Profiles on GKE To get started, ensure your cluster is running GKE version 1.35.1-gke.1616000 or later with the Cloud Storage FUSE CSI driver enabled. 1. Identify the StorageClass GKE comes pre-installed with the profile-based StorageClasses. You can verify them with: code_block )])]> 2. Create your PV and PVC When creating your PersistentVolume, point it to your Cloud Storage bucket. GKE automatically initiates a bucket scan to determine the optimal configuration. code_block )])]> 3. Create your Deployment Once your Persistent Volume Claim (PVC) is bound, simply consume it in your Deployment as you would any other volume. GKE mounts the volume with the precise settings your hardware and dataset require. code_block )])]> After it's deployed, the CSI driver automatically calculates optimal cache sizes and mount options based on your node's resources, such as GPUs or TPUs, memory, Local SSD, the bucket or sub-directory size, and the sidecar resource limits. Get started today GKE Cloud Storage FUSE Profiles remove the guesswork from configuring your cloud storage for high performance. By moving from manual \"knob-turning\" to automated, workload-aware profiles, you can spend less time debugging storage throughput and more time building the next generation of AI. Ready to get started? GKE Cloud Storage FUSE Profiles are generally available in version 1.35.1-gke.1616000. Explore the official documentation to configure Cloud Storage FUSE profiles in GKE for your AI/ML workloads!",
-      "link": "https://cloud.google.com/blog/products/containers-kubernetes/optimize-aiml-workloads-with-gke-cloud-storage-fuse-profiles/",
-      "source": "Google Cloud Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-04-08T16:30:00+00:00",
-      "published_ts": 1775665800,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Network / OT / ICS",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Operation Masquerade: FBI Disrupts Russian Router Hacking Campaign",
-      "summary": "Operation Masquerade: The FBI and DoJ disrupted a Russian GRU campaign that hijacked routers via DNS attacks to spy on users and steal credentials.",
-      "link": "https://hackread.com/operation-masquerade-fbi-russia-router-hacking/",
-      "source": "HackRead",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T16:18:48+00:00",
-      "published_ts": 1775665128,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Partner of Trump-Backed World Liberty Linked to Sanctioned Cambodian Scam Company: Report",
-      "summary": "AB network\u2019s planned \u201cblockchain theme resort\u201d involved individuals sanctioned by the U.S. Treasury over ties to the Prince Group.",
-      "link": "https://decrypt.co/363617/partner-trump-backed-world-liberty-sanctioned-cambodian-scam-company",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-08T16:10:22+00:00",
-      "published_ts": 1775664622,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "hong-kong-encryption-law-national-security",
-      "summary": "The Impact of Hong Kong\u2019s New National Security Law The Hong Kong government has introduced... The post hong-kong-encryption-law-national-security appeared first on .",
-      "link": "https://www.news4hackers.com/hong-kong-encryption-law-national-security/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T16:08:00+00:00",
-      "published_ts": 1775664480,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Outdated Software Risks Security Threats on Macs and Mobile Devices",
-      "summary": "Security Risks Lurk in Outdated Software on Macs and Mobile Devices The security landscape has... The post Outdated Software Risks Security Threats on Macs and Mobile Devices appeared first on .",
-      "link": "https://www.news4hackers.com/outdated-software-risks-security-threats-on-macs-and-mobile-devices/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T16:06:39+00:00",
-      "published_ts": 1775664399,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Acronis Unveils Managed Detection and Response Service for Managed Security Providers",
-      "summary": "Advanced Cybersecurity Solutions for Managed Service Providers As the threat landscape evolves, managed service providers... The post Acronis Unveils Managed Detection and Response Service for Managed Security Providers appeared first on .",
-      "link": "https://www.news4hackers.com/acronis-unveils-managed-detection-and-response-service-for-managed-security-providers/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T16:05:07+00:00",
-      "published_ts": 1775664307,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "PSA: if you're on the receiving end of a red team test, the authorization letter protects you too",
-      "summary": "this doesn't get talked about enough from the blue team side. if a red team engagement is properly authorized, there should be a sealed envelope held by legal that validates the whole thing. if you detect something weird, escalate it, and it turns out to be the red team, the letter protects everyone involved. you did your job by escalating. the red team did their job by testing. but if the letter is vague or missing key sections, things get messy fast. i've seen blue teamers get blamed for \"overreacting\" when they called law enforcement on an unannounced physical test. and i've seen red teamers get in real trouble because the letter didn't cover what they were doing. the authorization letter needs to define what happens at each detection stage: 1/ blue team detects, doesn't escalate - does red team continue? 2/ blue team escalates to CISO (who may not know) - who intervenes? 3/ law enforcement arrives - how is it verified? 4/ successful containment - what's the engagement outcome? solid breakdown of all this here - refer link, if you want the full picture. bottom line: the auth letter isn't just for the red team's protection. it's for yours. submitted by /u/Alternative-Wish9912 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1sfx5nx/psa_if_youre_on_the_receiving_end_of_a_red_team/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-04-08T16:04:57+00:00",
-      "published_ts": 1775664297,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Medusa Ransomware Deployment Tied to Recent Vulnerability Exploitation",
-      "summary": "Medusa Ransomware Deployment Linked to Storm-1175 Group A high-profile cybercriminal outfit known as Storm-1175 has... The post Medusa Ransomware Deployment Tied to Recent Vulnerability Exploitation appeared first on .",
-      "link": "https://www.news4hackers.com/medusa-ransomware-deployment-tied-to-recent-vulnerability-exploitation/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T16:03:51+00:00",
-      "published_ts": 1775664231,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "OpenSSL Data Breach Vulnerability Fixed with Latest Update",
-      "summary": "OpenSSL Patches Critical Data Leakage Vulnerability In a recent update, OpenSSL has patched seven vulnerabilities,... The post OpenSSL Data Breach Vulnerability Fixed with Latest Update appeared first on .",
-      "link": "https://www.news4hackers.com/openssl-data-breach-vulnerability-fixed-with-latest-update/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T16:02:42+00:00",
-      "published_ts": 1775664162,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Data Breaches / Leaks"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Trent AI secures $13 million seed funding to enhance AI cybersecurity",
-      "summary": "Founded by former Amazon Web Services engineers, Trent AI has developed a platform designed to identify cybersecurity vulnerabilities within AI agents and their generated code.",
-      "link": "https://www.scworld.com/brief/trent-ai-secures-13-million-seed-funding-to-enhance-ai-cybersecurity",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T16:00:44+00:00",
-      "published_ts": 1775664044,
-      "smart_groups": [
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Adam Back Denies He's Satoshi Nakamoto After NYT Names Him as Bitcoin Creator",
-      "summary": "John Carreyrou isn\u2019t the first person to link Adam Back and Satoshi Nakamoto based on their writing styles.",
-      "link": "https://decrypt.co/363649/adam-back-denies-bitcoin-creator-satoshi-nakamoto-nyt-expose",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-08T16:00:34+00:00",
-      "published_ts": 1775664034,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Openness without compromises for your Apache Iceberg lakehouse",
-      "summary": "Today, at the Apache Iceberg Summit in San Francisco, we are announcing the preview of read and write interoperability between BigQuery and Iceberg-compatible engines, including Trino, Spark, and others in Apache Iceberg tables in Google-managed Iceberg REST Catalog . With this new capability, you get the benefits of enterprise-grade native storage for your lakehouse without sacrificing Iceberg's openness and flexibility. Why it matters: If you're building a lakehouse today, you're probably using Apache Iceberg, which has gained massive popularity among data platform teams that need to support multiple compute engines (like Spark and BigQuery) that access the same data for different workloads. However, we consistently hear from customers that achieving openness often requires compromises. Compared to using enterprise storage, there\u2019s often price-performance overhead on using Iceberg, wiping out the cost benefits of a single-copy architecture. In order to make Iceberg work for all production use cases, data teams have to invest in custom infrastructure to handle real-time streaming, build complex pipelines to replicate operational data, and navigate fragmented governance across different compute engines. Ultimately, these limitations become bottlenecks to innovation. Over the years, Google has purpose-built storage infrastructure to solve these exact challenges at scale, powered by highly scalable, real-time metadata , unified governance, and deep vertical integration across Cloud Storage, metadata, and various query engines. We are making this infrastructure available directly in Iceberg. This enables access to BigQuery's advanced runtime , automatic table management, partitioning , multi-statement transactions , and change data replication for Google-managed Iceberg REST catalog tables. These features will be available in preview for Google-managed Iceberg REST catalog tables and will be generally available (GA) for BigQuery-managed Iceberg tables, coming next month. Write and read interoperability across engines Previously, customers building lakehouses chose between Iceberg tables in the Google-managed Iceberg REST catalog or tables managed by BigQuery based on their primary ETL engine. That means that customers relying on Apache Spark for ETL to Iceberg REST Catalog tables couldn\u2019t write through BigQuery or use its storage management features. With this preview, you can create, update, and query Iceberg tables in the Google serverless Iceberg REST catalog with BigQuery or other Iceberg-compatible engines such as Spark, Flink, Trino and others. This two-way read and write interoperability enables data teams to implement multi-engine use cases on a single table type in a fully open manner, using native Iceberg libraries. Additionally, Iceberg REST Catalog offers table-level access controls using credential vending for uniform governance across BigQuery, Spark and other compute engines that query or modify your Iceberg tables. Google Cloud also supports a robust ecosystem of partners integrated with the Iceberg REST Catalog across data platforms and engines, transformation and ingestion services, and governance platforms. We work closely with the Iceberg ecosystem to strengthen these partnerships with many more to come. Improved price-performance with BigQuery and Spark Automate table management Achieving strong query performance on Apache Iceberg tables out of the box can be hard. You need to choose the optimal target file size (which tends to be different for different compute engines), data organization strategy (partitioning and sort-order choices have their tradeoffs), and take care of table management to avoid small files problems and metadata bloat. Apache Iceberg lakehouse customers can now offload table maintenance \u2014 compaction and garbage collection \u2014 to Google Cloud BigLake , which optimizes performance for you. In addition to Iceberg tables in BigQuery, it will be available for Google-managed Iceberg REST catalog tables in preview, coming next month. You can opt-in to table management by setting a single property, and improve your BigQuery performance on the industry standard TPC-DS 10T benchmark by ~40%. Improve BigQuery price-performance with advanced runtime BigQuery advanced runtime offers a set of performance enhancements designed to automatically accelerate analytical workloads without requiring user action or code changes. In particular, it extends the vectorized query execution enhancements in BigQuery to open table formats. Advanced runtime will be available in preview for Google-managed Iceberg REST catalog tables and in GA for BigQuery-managed Iceberg tables, coming next month. According to an internal TCP-DS 10T benchmark, advanced runtime can help additionally accelerate BigQuery query performance on Iceberg tables, providing 2x faster performance vs. a self-managed approach based on internal benchmarking. Chart based on benchmarks from internal data and testing. Accelerate Spark performance with Lightning Engine Apache Spark is a leading compute engine for Apache Iceberg lakehouses, for use cases ranging from ETL to feature engineering. However, achieving high performance and cost efficiency for Spark workloads at scale can be challenging. Lightning Engine accelerates Apache Spark query performance by over 4 times compared to open source Spark (based on a TPCH-like benchmark). Optimize table layout with BigQuery partitioning and clustering Many open-source libraries and engines rely on Iceberg table partitioning for effective data pruning. BigQuery time-based partitioning will be available in preview for Google-managed Iceberg REST catalog tables and will be generally available (GA) for BigQuery-managed Iceberg tables, coming next month. Additionally, when you are creating Iceberg tables in BigQuery, you can define clustering columns to organize data in Parquet files, helping to achieve optimal query performance and avoiding common issues with partitioning such as high-cardinality columns, small partition inefficiencies, and multiple filter columns. For example, one common pattern is to combine time-based table partitioning with clustering on other dimensions that are frequently used for query filtering, such as region, store, etc. Advanced analytics with Apache Iceberg Streaming with Apache Iceberg To operationalize real-time analytics with Iceberg, you can leverage BigQuery\u2019s Vortex streaming infrastructure for high-throughput ingestion with zero-read latency. This removes the need for bespoke infrastructure, addresses small file issues, and lets you query data immediately from the streaming buffer to achieve near-zero read latency. This feature is generally available for BigQuery-managed Iceberg tables and will be available in preview for Google-managed Iceberg REST catalog tables, coming next month. Replicate data from operational databases to Iceberg tables with Datastream You can now easily replicate data from a variety of operational datastores, including MySQL , Postgres , SQLserver , Oracle , Salesforce , and MongoDB , into managed Iceberg tables in BigQuery using Datastream integration (GA). Illustration of Datastream creation to replicate MySQL data to managed Iceberg tables in BigQuery. Incremental processing with change data capture ingestion to Iceberg tables The BigQuery storage write API\u2019s change data replication feature lets you stream insert, update, and delete changes from OLTP databases to Iceberg tables in real time, removing the need for complex MERGE-based ETL pipelines. This feature will be available in preview for Google-managed Iceberg REST catalog tables and generally available (GA) for BigQuery-managed Iceberg tables, coming next month. Illustration of change data capture ingestion to a managed Iceberg table in BigQuery. Multi-statement transactions Many analytics workloads require transactions that span multiple tables to commit or roll back changes atomically. This provides consistency across logical groups of tables, synchronizes dimensions and fact tables, and simplifies multi-stage ETLs. You can now leverage BigQuery multi-statement transactions to radically simplify complex multi-table processing with Iceberg. This feature will be available in preview for Google-managed Iceberg REST catalog tables and generally available (GA) for BigQuery-managed Iceberg tables, coming next month. Illustration of a multi-statement transaction in a managed Iceberg table in BigQuery. Get started With bidirectional interoperability across BigQuery and other Iceberg-compatible engines on Google-managed Iceberg REST catalog tables, you can modernize your lakehouse with Apache Iceberg without compromising on performance, governance, or advanced analytics. Ready to start building today? Learn more about our lakehouse capabilities and explore our quickstart guides .",
-      "link": "https://cloud.google.com/blog/products/data-analytics/improved-interoperability-for-your-apache-iceberg-lakehouse/",
-      "source": "Google Cloud Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-04-08T16:00:00+00:00",
-      "published_ts": 1775664000,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Network / OT / ICS",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Hunting Infostealers - Python Stealers",
-      "summary": "In this next part of the \u201cHunting Infostealers\u201d series, we\u2019ll cover Python information stealers. The proliferation of Python stealers over the past year has become an escalating concern in the cybersecurity landscape. This gravitation towards Python is largely driven by the ease of use of the language and the availability of tools and frameworks which allow for quick development, even for individuals with limited knowledge of coding. Typically, Python infostealers are distributed via phishing emails to infiltrate systems. The sensitive information they collect includes, but is not limited to login credentials, session cookies, authentication tokens, credit card numbers, and crypto wallet data. To evade detection, threat actors utilize legitimate services such as Telegram for command-and-control communications, obfuscate their code, and use signed and living off the land binaries. Due to the growing threat of Python-based infostealers, it is important that organizations protect their environment by being aware of the tactics, techniques, and procedures used by the threat actors who deploy this type of malware. One of the most notable Python-based infostealers seen in 2025 was PXA Stealer. It harvests sensitive data from infected systems such as login credentials, financial information, and browser data. It is linked to Vietnamese-speaking threat actors who target government and education entities. It is primarily delivered via phishing campaigns that use social engineering to trick users into downloading malicious files onto their computer. Throughout the blog, we map observed activity to Microsoft Defender XDR coverage and provide actionable guidance to help organizations detect, mitigate, and respond to infostealers operating without borders. PXA Stealer: Campaign 1 In October 2025, Microsoft Defender Experts (DEX) identified a campaign involving PXA Stealer. The attack begins with a phishing email with a malicious URL. Some of the observed URLs contained in the emails were hxxp://concursal[.]macquet[.]de/uid_page=244739642061129 and hxxps://tickets[.]pfoten-prinz[.]de/uid_page=118759991475831. The URLs have the same format, but with different domain names and values for the uid_page key. When the user clicks the URL, they are taken to a blank web page that contains JavaScript to download a ZIP file from a remote location, such as allecos[.]de , once the page is fully loaded. The files contained in the ZIP file that are used to execute the next payload include an executable (renamed WinWord.exe) masquerading as a Word document with the same name as the ZIP file, a malicious DLL named msvcr100.dll , and several files used in a series of commands concatenated with \u201c&&\u201d that ultimately execute an obfuscated Python script that loads PXA Stealer and PureRAT. When the renamed WinWord.exe file is executed, msvcr100.dll is sideloaded which leads to the execution of the concatenated command line via cmd.exe. The command line does the following: opens a benign decoy Word document to delay the users\u2019 suspicion and sandbox analysis, uses certutil.exe to decode a base64-encoded blob hidden in DA \uc131\ud615\uc678\uacfc \uc7ac\ubb34 \ubcf4\uace0\uc11c .pdf which results in a ZIP file named Invoice.pdf (contains Python environment, renamed Python interpreter named svchost.exe , and an obfuscated Python script named images.png ), uses another file named images.png (renamed WinRAR.exe) to extract the contents of Invoice.pdf , deletes Invoices.pdf and the renamed WinRAR file, then uses svchost.exe (renamed pythonw.exe) to execute images.png with a Telegram bot identifier that\u2019s used to fetch and execute the next payload. When images.png is executed, it creates a Registry Run key named Windows Update Service to re-execute itself when the user logs in. The script downloads PXA Stealer from urlvanish[.]com (URL shortener), which redirects to bagumedios[.]cloud , then executes the infostealer in its memory space. Before collecting information, the stealer downloads a DLL from Dropbox. The DLL is injected into a Chrome process to bypass Chrome\u2019s App-Bound Encryption (ABE) so sensitive browser information can be stolen. After that, it collects the installed AV products and browser information such as login credentials, cookies, autofill data, and credit card information. That information is archived into a ZIP file with a file name that follows the format \"[CountryCode_IPAddress] ComputerName.zip\", then it\u2019s exfiltrated using Telegram. Once the exfiltration is complete, images.png downloads another payload from hxxps://bagumedios[.]cloud/assets/media/others/ADN/pure and injects it into cvtres.exe . The payload is a commercially available remote access trojan named PureRAT which proceeds to connect to its command-and-control (C2) server 157.66.27[.]11 (located in Vietnam) over port 56001 after injection. After that, cvtres.exe uses WMI to collect installed AV products, connected cameras, and the Windows OS version. It sends the collected information to its C2 server. PXA Stealer (Campaign 1) Attack Chain PXA Stealer: Campaign 2 In late December 2025, DEX identified another PXA Stealer campaign. This attack also begins with a phishing email that delivers a ZIP archive that masquerades as a PDF, image, or Word document. Some similar TTPs were noted for the second campaign where the use of Living Off-the Land Binaries (LOLBINs) was invoked, such as certutil.exe. The Certutil application is a native Windows application that allows for displaying Certification Authority (CA) configuration information, configure Certificate Services, and backup and restore CA components. The program also verifies certificates, key pairs, and certificate chains. The capability used in Campaign 2 used the decode parameter in Certutil on an encoded PDF. The decoded PDF was then presented to an application with a file extension of \u201c.png\u201d. Further investigation of this application identified command line behavior typical to that of a WinRAR, with a password protected ZIP archive. This obfuscation allowed the application to continue to perform un-archiving steps, ultimately leading to python modules being loaded on the device. Once the Python modules were available, additional activity such as scheduled tasks were created paving the way for update scripts to be deployed on affected hosts. Communication to C2 infrastructure was then initiated through the svchost (Python interpreter) process to connect and transmit data to the attacker via hxxp://195.24.236[.]116/recover/getlink?id=sunset and hxxp://195.24.236[.]116/recover/links/sunset.txt PXA Stealer (Campaign 2) Attack Chain Mitigation and protection guidance Microsoft recommends the following mitigations to reduce the impact of the Python\u2011based infostealers discussed in this report. These recommendations draw from established Defender blog guidance patterns and align with protections offered across Microsoft Defender XDR. Organizations can follow these recommendations to mitigate threats associated with this threat: Strengthen user awareness & execution safeguards Educate users on social\u2011engineering lures , such as phishing emails. Control outbound traffic & staging behavior Inspect network egress for POST requests to newly registered or suspicious domains \u2014a key indicator for Python\u2011based stealer campaigns. Detect transient creation of ZIP archives under ephemeral directories , followed by outbound exfiltration attempts. Block direct access to known C2 infrastructure where possible, informed by your organization\u2019s threat\u2011intelligence sources. Protect against Python\u2011based stealers Harden endpoint defenses around LOLBIN abuse , such as certutil.exe decoding malicious payloads. Evaluate abnormal activity involving known processes and files with suspicious file extensions , such as a Python interpreter masquerading as svchost.exe executing a Python script disguised as a PNG file. Microsoft also recommends the following mitigations to reduce the impact of this threat. Turn on cloud-delivered protection in Microsoft Defender Antivirus or the equivalent for your antivirus product to cover rapidly evolving attacker tools and techniques. Cloud-based machine learning protections block a majority of new and unknown threats. Run EDR in block mode so that Microsoft Defender for Endpoint can block malicious artifacts, even when your non-Microsoft antivirus does not detect the threat or when Microsoft Defender Antivirus is running in passive mode. EDR in block mode works behind the scenes to remediate malicious artifacts that are detected post-breach. Enable network protection and web protection in Microsoft Defender for Endpoint to safeguard against malicious sites and internet-based threats. Encourage users to use Microsoft Edge and other web browsers that support Microsoft Defender SmartScreen, which identifies and blocks malicious websites, including phishing sites, scam sites, and sites that host malware. Allow investigation and remediation in full automated mode to allow Microsoft Defender for Endpoint to take immediate action on alerts to resolve breaches, significantly reducing alert volume. Turn on tamper protection features to prevent attackers from stopping security services. Combine tamper protection with the DisableLocalAdminMerge setting to prevent attackers from using local administrator privileges to set antivirus exclusions. Microsoft Defender XDR customers can also implement the following attack surface reduction rules to harden an environment against LOLBAS techniques used by threat actors: o Block execution of potentially obfuscated scripts o Block executable files from running unless they meet a prevalence, age, or trusted list criterion o Block JavaScript or VBScript from launching downloaded executable content Microsoft Defender XDR detections Microsoft Defender XDR customers can refer to the list of applicable detections below. Microsoft Defender XDR coordinates detection, prevention, investigation, and response across endpoints, identities, email, and apps to provide integrated protection against attacks like the threat discussed in this blog. Customers with provisioned access can also use Microsoft Security Copilot in Microsoft Defender to investigate and respond to incidents, hunt for threats, and protect their organization with relevant threat intelligence. Tactic Observed activity Microsoft Defender coverage Execution - Encoded PowerShell commands downloading payload Microsoft Defender for Endpoint - Suspicious Powershell download or encoded command execution - Suspicious script launched Persistence - Registry Run key created - Scheduled task created for recurring execution Microsoft Defender for Endpoint - Anomaly detected in ASEP registry - Suspicious Scheduled Task Launched Defense Evasion - Unauthorized code execution facilitated by DLL sideloading and process injection - Renamed Python interpreter executes obfuscated Python script - Decode payload with certutil Microsoft Defender for Endpoint - An executable file loaded an unexpected DLL file - A process was injected with potentially malicious code - Suspicious Python binary execution - Suspicious certutil activity Microsoft Defender Antivirus - Obfuse' malware was prevented (Trojan:Script/Obfuse!MSR) Credential Access - Credential and Secret Harvesting Microsoft Defender for Endpoint - Possible theft of passwords and other sensitive web browser information - Suspicious access of sensitive files - Suspicious process collected data from local system Discovery - Information queried using WMI and Python Microsoft Defender for Endpoint - Suspicious System Hardware Discovery - Suspicious Process Discovery - Suspicious Security Software Discovery - Suspicious Peripheral Device Discovery Collection - Sensitive browser information compressed into ZIP file for exfiltration Microsoft Defender for Endpoint - Compression of sensitive data - Suspicious Staging of Data - Suspicious archive creation Threat intelligence reports Microsoft customers can use the following reports in Microsoft products to get the most up-to-date information about the threat actor, malicious activity, and techniques discussed in this blog. These reports provide the intelligence, protection information, and recommended actions to prevent, mitigate, or respond to associated threats found in customer environments. Microsoft Defender XDR Threat analytics Ghost in the Zip | New PXA Stealer and Its Telegram-Powered Ecosystem From Custom Scripts to Commodity RATs: A Threat Actor\u2019s Evolution to PureRAT Hunting queries Microsoft Defender XDR Microsoft Defender XDR customers can run the following queries to find related activity in their networks: Use the following queries to identify activity related to PXA Stealer: Campaign 1 // Identify activity initiated by renamed python binary DeviceProcessEvents | where InitiatingProcessFileName endswith \"svchost.exe\" | where InitiatingProcessVersionInfoOriginalFileName == \"pythonw.exe\" // Identify network connections initiated by renamed python binary DeviceNetworkEvents | where InitiatingProcessFileName endswith \"svchost.exe\" | where InitiatingProcessVersionInfoOriginalFileName == \"pythonw.exe\" Use the following queries to identify activity related to PXA Stealer: Campaign 2 // Identify malicious Process Execution activity DeviceProcessEvents | where ProcessCommandLine has_all (\"-y\",\"x\",@\"C:\",\"Users\",\"Public\", \".pdf\") and ProcessCommandLine has_any (\".jpg\",\".png\") // Identify suspicious process injection activity DeviceProcessEvents | where FileName == \"cvtres.exe\" | where InitiatingProcessFileName has \"svchost.exe\" | where InitiatingProcessFolderPath !contains \"system32\" Indicators of compromise Indicator Type Description 9d867ddb54f37592fa0ba1773323e2ba563f44b894c07ebfab4d0063baa6e777 SHA-256 Payloads related to PXA Stealer: Campaign 1 08a1f4566657a07688b905739055c2e352e316e38049487e5008fc3d1253d03b 5970d564b5b2f5a4723e548374d54b8f04728473a534655e52e5decef920e733 59855f0ec42546ce2b2e81686c1fbc51e90481c42489757ac03428c0daee6dfe a5b19195f61925ede76254aaad942e978464e93c7922ed6f064fab5aad901efc e7237b233fc6fda614e9e3c2eb3e03eeea94f4baf48fe8976dcc4bc9f528429e 59347a8b1841d33afdd70c443d1f3208dba47fe783d4c2015805bf5836cff315 e965eb96df16eac9266ad00d1087fce808ee29b5ee8310ac64650881bc81cf39 hxxps://allecos[.]de/Documentaci\u00f3n_del_expediente_de_derechos_de_autor_del_socio.zip URL Used to deliver initial access ZIP file (PXA Stealer: Campaign 1) hxxps://bagumedios[.]cloud/assets/media/others/ADN/pure URL Used to deliver PureRAT payload (PXA Stealer: Campaign 1) hxxp://concursal[.]macquet[.]de/uid_page=244739642061129 URL URL contained in phishing email (PXA Stealer: Campaign 1) hxxps://tickets[.]pfoten-prinz[.]de/uid_page=118759991475831 hxxps://erik22[.]carrd.co URL Used in make network connection and subsequent redirection in (PXA Stealer: Campaign 2) hxxps://erik22jomk77[.]card.co URL Used in make network connection and subsequent redirection in (PXA Stealer: Campaign 2) 157.66.27[.]11 IP Address PureRAT C2 server (PXA Stealer: Campaign 1) 195.24.236[.]116 IP Address C2 server (PXA Stealer: Campaign 2) bagumedios[.]cloud Domain C2 server (PXA Stealer: Campaign 1) Microsoft Sentinel Microsoft Sentinel customers can use the TI Mapping analytics (a series of analytics all prefixed with \u2018TI map\u2019) to automatically match the malicious domain indicators mentioned in this blog post with data in their workspace. If the TI Map analytics are not currently deployed, customers can install the Threat Intelligence solution from the Microsoft Sentinel Content Hub to have the analytics rule deployed in their Sentinel workspace. References A Vietnamese threat actor's shift from PXA Stealer to PureRAT | Huntress Ghost in the Zip | New PXA Stealer and Its Telegram-Powered Ecosystem | SentinelOne Information-Stealing Malware Distribution Campaign Using Emails Disguised as Copyright Infringement Notices \u2013 wizSafe Security Signal -Guideposts to Safety and Security- IIJ Learn more For the latest security research from the Microsoft Threat Intelligence community, check out the Microsoft Threat Intelligence Blog . To get notified about new publications and to join discussions on social media, follow us on LinkedIn , X (formerly Twitter) , and Bluesky . To hear stories and insights from the Microsoft Threat Intelligence community about the ever-evolving threat landscape, listen to the Microsoft Threat Intelligence podcast .",
-      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-experts-blog/hunting-infostealers-python-stealers/ba-p/4505342",
-      "source": "Microsoft Security Experts",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-04-08T16:00:00+00:00",
-      "published_ts": 1775664000,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Windows / Microsoft",
-        "Malware / Payloads",
-        "Web / API Security",
-        "Identity / Access",
-        "Network / OT / ICS",
-        "Phishing / Social Engineering",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Google API Keys Quietly Gain Access to Gemini on Android Devices",
-      "summary": "Google API key flaw exposes mobile apps to Gemini AI access, private files and billing risks",
-      "link": "https://www.infosecurity-magazine.com/news/google-api-keys-access-gemini/",
-      "source": "Infosecurity Magazine \u2013 News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T16:00:00+00:00",
-      "published_ts": 1775664000,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Microsoft 365 Network-Level Disruption Affecting Exchange Online, Teams, and Core Suite Services",
-      "summary": "A network-level disruption struck multiple Microsoft 365 services on Wednesday evening, knocking out or degrading access to Exchange Online, Microsoft Teams, and the broader Microsoft 365 suite for users across affected regions. The incident, tracked under issue ID MO1274150, began at approximately 8:37 PM IST (3:07 PM UTC) on April 8, 2026, and prompted Microsoft\u2019s [\u2026] The post Microsoft 365 Network-Level Disruption Affecting Exchange Online, Teams, and Core Suite Services appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/microsoft-365-network-level-disruption/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T15:57:53+00:00",
-      "published_ts": 1775663873,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "FrostArmada campaign disrupted: APT28 router hijacking operation halted",
-      "summary": "APT28, also known as Fancy Bear, compromised small office/home office routers, altering their DNS settings to redirect traffic to attacker-controlled virtual private servers.",
-      "link": "https://www.scworld.com/brief/frostarmada-campaign-disrupted-apt28-router-hijacking-operation-halted",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T15:57:51+00:00",
-      "published_ts": 1775663871,
-      "smart_groups": [
-        "Threat Actors / APT"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Google accelerates post-quantum cryptography timeline to 2029",
-      "summary": "Google's decision to aim for a 2029 PQC deadline, ahead of the NSA's 2031 and the US government's 2035 goals, stems from new research indicating quantum computers could break current encryption much sooner than anticipated.",
-      "link": "https://www.scworld.com/brief/google-accelerates-post-quantum-cryptography-timeline-to-2029",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T15:51:19+00:00",
-      "published_ts": 1775663479,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "GitLab security advisory (AV26-327)",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/gitlab-security-advisory-av26-327",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T15:48:45+00:00",
-      "published_ts": 1775663325,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "SaaS integration breach leads to widespread data theft attacks",
-      "summary": "Snowflake confirmed unusual activity impacting a small number of its customers, stating the attacks did not exploit vulnerabilities in its own systems.",
-      "link": "https://www.scworld.com/brief/saas-integration-breach-leads-to-widespread-data-theft-attacks",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T15:48:40+00:00",
-      "published_ts": 1775663320,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Hackers Used EvilTokens, ClickFix Campaign to Attack Claude Code Users with AMOS Stealer",
-      "summary": "Two significant threat campaigns from March 2026, one abusing Microsoft\u2019s OAuth authentication flow to silently hijack enterprise accounts, and another deploying the AMOS infostealer against macOS users who work with AI development tools like Claude Code. The EvilTokens campaign represents a significant evolution in phishing tactics because it completely bypasses the need to steal passwords. [\u2026] The post Hackers Used EvilTokens, ClickFix Campaign to Attack Claude Code Users with AMOS Stealer appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/eviltokens-amos-march-2026-threat-campaigns/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T15:47:09+00:00",
-      "published_ts": 1775663229,
-      "smart_groups": [
-        "Malware / Payloads",
-        "Identity / Access",
-        "Network / OT / ICS",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "I built a forensic tool that explains why a file is malicious",
-      "summary": "Hey everyone, I\u2019ve been working on a desktop forensic analysis tool called ForensiX Studio. This started from something I kept noticing, a lot of tools either dump raw indicators or give a verdict, but don\u2019t really explain what\u2019s going on in between. You still end up manually connecting everything. So I tried building something that focuses more on correlation and reasoning. Instead of just flagging things, it tries to combine signals and explain them. The goal was simple: don\u2019t just detect, actually explain. What it currently does: Correlates entropy, IOCs, strings, and file structure into a unified risk score Maps behavior to MITRE ATT&CK techniques Builds a behavioral profile of what the file is doing Classifies likely malware type (infostealer, loader, RAT, etc.) Detects anomalies like file type mismatch or packed binaries Generates a forensic report with reasoning, not just raw data So instead of: \u201cthis file looks suspicious\u201d you get closer to: \u201cthis file is likely malicious because of these signals, and here\u2019s what it could do\u201d That shift made a big difference while testing. Usage: Clone and run locally, or Download the standalone .exe and run directly GitHub: https://github.com/AquibPro/ForensiX-Studio I did use AI to help build parts of it, but most of the effort went into refining logic, reducing noise, and making the output actually useful. Would love feedback from people doing malware analysis or DFIR. What would make something like this genuinely useful in your workflow? submitted by /u/Old_Philosopher_64 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1sfwmtn/i_built_a_forensic_tool_that_explains_why_a_file/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-04-08T15:46:22+00:00",
-      "published_ts": 1775663182,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "ComfyUI instances hijacked for cryptomining and proxy botnet",
-      "summary": "Threat actors are employing a custom Python scanner that continuously probes cloud IP ranges for vulnerable ComfyUI deployments.",
-      "link": "https://www.scworld.com/brief/comfyui-instances-hijacked-for-cryptomining-and-proxy-botnet",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T15:45:46+00:00",
-      "published_ts": 1775663146,
-      "smart_groups": [
-        "Ransomware",
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Fraud Rockets Higher in Mobile-First Latin America",
-      "summary": "Cyber-fraudsters move quickly from compromised devices to account takeover to funds transfer, shifting money before many financial institutions can react.",
-      "link": "https://www.darkreading.com/cyberattacks-data-breaches/fraud-mobile-first-latin-america",
-      "source": "darkreading",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T15:45:11+00:00",
-      "published_ts": 1775663111,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Yael Nardi joins Minimus as Chief Business Officer to drive hyper-growth",
-      "summary": "New York, NY: Minimus, a provider of hardened container images and secure container images designed to reduce CVE risk, today announced the appointment of Yael Nardi as Chief Business Officer (CBO). In this newly created role, Nardi will lead the company\u2019s next phase of operations, overseeing top-of-funnel growth strategy, strategic operations, and future corporate development. As the market landscape evolves and AI affects customer acquisition, Minimus is implementing an operational model to scale marketing and strategic alliances, which will be managed by Nardi. \u201cWe are entering a phase of aggressive expansion that requires rigorous execution and a completely new playbook. Traditional marketing strategies are no longer enough in today\u2019s fast-moving environment. We need an operational powerhouse at the helm. Yael is a world-class operator accustomed to zero-error environments and high-stakes execution. We are choosing intelligence, speed, and strategic alignment, and there is no one I trust more to run this machine.\u201d \u2013 Ben Bernstein, CEO at Minimus Nardi brings a multidisciplinary background to Minimus, with over 15 years of experience advising high-growth startups, global investors, and technology corporations. Most recently, she served as Director at Meitar NY Inc. and Partner at Meitar Law Offices. Yael was leading the significant M&A transaction of Twistlock\u2019s acquisition by Palo Alto Networks and others, (PANW)\u2014a foundational deal in the container image hardening and runtime security space\u2014as well as transactions involving Wiz, JFrog, Salesforce, and others. \u201cI have worked with the Minimus team through some of their most critical milestones, and I know firsthand the massive potential of their technology. The demand for near-zero CVE container images and minimal container images with built-in security is only accelerating. Scaling a company in today\u2019s environment requires the same 24/7 rigor, vendor accountability, and strategic precision as closing a major M&A deal. I am thrilled to step into this operational role and build the growth engine that will drive Minimus\u2019s next chapter.\u201d \u2013 Yael Nardi, Chief Business Officer, Minimus Nardi holds a Bachelor of Laws (LLB) from Tel Aviv University and will be based in Minimus\u2019s New York City office. She will work with the executive leadership team to execute the company\u2019s growth targets. About Minimus Minimus provides hardened container images and hardened Docker images engineered to achieve near-zero CVE exposure. Built continuously from source with the latest patches and security updates, Minimus images undergo rigorous container image hardening and attack surface reduction , delivering secure container images with seamless supply chain security and built-in compliance for FedRAMP, FIPS 140-3, CIS, and STIG standards. Through automatically generated SBOMs and real-time threat intelligence, Minimus empowers teams to prioritize remediation and avoid over 97% of container vulnerabilities \u2013 making it a compelling Chainguard alternative for teams seeking production-hardened, distroless container images at scale. For more information, visit minimus.io . Minimus Public Relations contact@minimus.io",
-      "link": "https://www.csoonline.com/article/4155832/yael-nardi-joins-minimus-as-chief-business-officer-to-drive-hyper-growth.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T15:44:53+00:00",
-      "published_ts": 1775663093,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Iran is weighing crypto tolls for ships using Strait of Hormuz: Report",
-      "summary": "Empty tankers will reportedly be permitted to pass through the waterway under the US-Iran deal, but certain ships will need to pay a tariff of $1 per barrel of oil in Bitcoin.",
-      "link": "https://cointelegraph.com/news/iran-crypto-ships-strait-hormuz?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-08T15:43:18+00:00",
-      "published_ts": 1775662998,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Common Entra ID Security Assessment Findings \u2013 Part 3: Weak Privileged Identity Management Configuration",
-      "summary": "submitted by /u/GonzoZH [link] [comments]",
-      "link": "https://www.reddit.com/r/netsec/comments/1sfwhtv/common_entra_id_security_assessment_findings_part/",
-      "source": "/r/netsec",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-04-08T15:41:26+00:00",
-      "published_ts": 1775662886,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Hackers steal and leak sensitive LAPD police documents",
-      "summary": "The LAPD said the breach affected \u201ca digital storage system\u201d belonging to the city\u2019s Attorney's Office. The World Leaks extortion gang was reported to be behind the attack.",
-      "link": "https://techcrunch.com/2026/04/08/hackers-steal-and-leak-sensitive-lapd-police-documents/",
-      "source": "Security News | TechCrunch",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T15:38:34+00:00",
-      "published_ts": 1775662714,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Data Leakage Vulnerability Patched in OpenSSL",
-      "summary": "A total of seven vulnerabilities, most of which can be exploited for DoS attacks, have been patched in OpenSSL. The post Data Leakage Vulnerability Patched in OpenSSL appeared first on SecurityWeek .",
-      "link": "https://www.securityweek.com/data-leakage-vulnerability-patched-in-openssl/",
-      "source": "SecurityWeek",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T15:37:48+00:00",
-      "published_ts": 1775662668,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Data Breaches / Leaks"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Most Organisations Face an Unsecured API Surge As AI Agents Outpace Security",
-      "summary": "Salt Security has released its 1H 2026 State of AI and API Security: Navigating the Agentic Era report, revealing a widening gap between the rapid deployment of AI agents and the security programs designed to protect them. The research finds that while autonomous AI agents are being deployed at enterprise scale, 92% of organisations lack [\u2026] The post Most Organisations Face an Unsecured API Surge As AI Agents Outpace Security appeared first on IT Security Guru .",
-      "link": "https://www.itsecurityguru.org/2026/04/08/most-organisations-face-an-unsecured-api-surge-as-ai-agents-outpace-security/?utm_source=rss&utm_medium=rss&utm_campaign=most-organisations-face-an-unsecured-api-surge-as-ai-agents-outpace-security",
-      "source": "IT Security Guru",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T15:36:44+00:00",
-      "published_ts": 1775662604,
-      "smart_groups": [
-        "Web / API Security"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Snowflake customers hit in data theft attacks after SaaS integrator breach",
-      "summary": "submitted by /u/arsonislegal [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1sfwc29/snowflake_customers_hit_in_data_theft_attacks/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-04-08T15:35:35+00:00",
-      "published_ts": 1775662535,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "CUPS security advisory (AV26-326)",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/cups-security-advisory-av26-326",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T15:35:11+00:00",
-      "published_ts": 1775662511,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "A new initiative that brings together Amazon Web Services, Anthropic, Apple, Broadcom, Cisco, CrowdStrike, Google, JPMorganChase, the Linux Foundation, Microsoft, NVIDIA, and Palo Alto Networks in an effort to secure the world\u2019s most critical software.",
-      "summary": "submitted by /u/This_Lingonberry3274 [link] [comments]",
-      "link": "https://www.reddit.com/r/netsec/comments/1sfwb2n/a_new_initiative_that_brings_together_amazon_web/",
-      "source": "/r/netsec",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-04-08T15:34:35+00:00",
-      "published_ts": 1775662475,
-      "smart_groups": [
-        "Linux / Unix"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Critical Ninja Forms vulnerability allows remote code execution",
-      "summary": "The vulnerability, affecting versions up to 3.3.26, has a critical severity rating of 9.8 out of 10.",
-      "link": "https://www.scworld.com/brief/critical-ninja-forms-vulnerability-allows-remote-code-execution",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T15:30:10+00:00",
-      "published_ts": 1775662210,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Thinkst Canary Alerts in Google Security Operations",
-      "summary": "Thinkst Canary now integrates with Google Security Operations SOAR, giving security teams a straightforward way to work high-confidence Canary alerts in the environment they are already used to. Canary incidents can be ingested into Google SecOps SOAR as cases, where analysts can review alert and event context (and acknowledge incidents when the work is done).",
-      "link": "https://blog.thinkst.com/2026/04/thinkst-canary-alerts-in-google-secops-soar.html",
-      "source": "https://blog.thinkst.com/feed",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T15:28:41+00:00",
-      "published_ts": 1775662121,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "HPE security advisory (AV26-325)",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/hpe-security-advisory-av26-325",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T15:23:58+00:00",
-      "published_ts": 1775661838,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Developer of VeraCrypt encryption software says Windows users may face boot-up issues after Microsoft locked his account",
-      "summary": "The maker of the popular open source file encryption software VeraCrypt said Microsoft locked his online account, which may prevent device owners from booting up their computers.",
-      "link": "https://techcrunch.com/2026/04/08/veracrypt-encryption-software-windows-microsoft-lock-boot-issues/",
-      "source": "Security News | TechCrunch",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T15:21:13+00:00",
-      "published_ts": 1775661673,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Windows / Microsoft"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Check Point Software Celebrates Partner Success at Annual UK Partner Awards",
-      "summary": "Check Point has announced the winners of its 2026 UK Partner Awards, recognising the achievements of its UK partner ecosystem and their role in helping organisations strengthen cyber resilience. The awards ceremony took place on 19 March 2026 at One Moorgate Place in London, bringing together partners from across the UK to celebrate innovation, collaboration [\u2026] The post Check Point Software Celebrates Partner Success at Annual UK Partner Awards appeared first on IT Security Guru .",
-      "link": "https://www.itsecurityguru.org/2026/04/08/check-point-software-celebrates-partner-success-at-annual-uk-partner-awards/?utm_source=rss&utm_medium=rss&utm_campaign=check-point-software-celebrates-partner-success-at-annual-uk-partner-awards",
-      "source": "IT Security Guru",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T15:19:54+00:00",
-      "published_ts": 1775661594,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Acronis launches managed detection and response service for MSPs",
-      "summary": "The new MDR service is built to empower managed service providers (MSPs) of all sizes to expand their security offerings.",
-      "link": "https://www.scworld.com/brief/acronis-launches-managed-detection-and-response-service-for-msps",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T15:17:19+00:00",
-      "published_ts": 1775661439,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Outdated software on Macs and mobile devices poses significant security risk",
-      "summary": "The research highlights that nearly all assessed mobile apps (95%) contain at least one medium-severity vulnerability.",
-      "link": "https://www.scworld.com/brief/outdated-software-on-macs-and-mobiles-poses-significant-security-risk",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-08T15:13:03+00:00",
-      "published_ts": 1775661183,
-      "smart_groups": [
-        "Vulnerabilities / CVEs"
-      ],
       "curated": false
     },
     {
