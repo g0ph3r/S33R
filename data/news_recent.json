@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-05-11T19:26:12.801728+00:00",
+  "generated_at": "2026-05-11T20:57:00.079115+00:00",
   "days_back": 30,
-  "total_items": 7172,
+  "total_items": 7186,
   "items": [
     {
       "title": "Black Hat USA",
@@ -12,6 +12,213 @@
       "type_label": "General Security & Blogs",
       "published": "2026-08-01T11:00:00+00:00",
       "published_ts": 1785582000,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Can hackers break encrypted USB drives? I tried to find out",
+      "summary": "The Kingston IronKey Locker+50 G2 offers a high level of data security and several unique features to deter hackers.",
+      "link": "https://www.zdnet.com/article/kingston-ironkey-locker50-g2-review/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-11T20:42:00+00:00",
+      "published_ts": 1778532120,
+      "smart_groups": [
+        "Ransomware",
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "MS Defender on OT Network",
+      "summary": "Any of you using MS Defender for servers on OT networks that are otherwise completely blocked from Internet? As I see it, there's 2 options: 1- Firewall open outbound only the sites necessary to report out to Azure (leaning towards this as it seems cleaner) 2- Use a proxy, then use WinHTTP Proxy, then bypass the proxy for everything except the necessary MS sites Am I missing any options? Have any of you set it up either way and had success or problems? submitted by /u/Straight18s [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tafrmf/ms_defender_on_ot_network/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-11T20:40:11+00:00",
+      "published_ts": 1778532011,
+      "smart_groups": [
+        "Windows / Microsoft",
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Amazon Security Lake Integration with Microsoft Sentinel: Parquet at the Gates",
+      "summary": "In this blog post, we explore how centralized AWS Security Lake data can be transformed and streamed into Microsoft Sentinel using an AWS Lambda-based pipeline for near real-time ingestion. A story of cost, control, and custom engineering at cloud scale Every organization strives to design its security architecture in a way that can be designed to help address architectural complexity and support cost\u2011aware, scalable designs, depending on workload characteristics and implementation choices. Across multiple customer environments, we increasingly see a consistent pattern emerge\u2014security telemetry from various AWS services is not ingested in isolation, but is deliberately centralized into Amazon Security Lake . This approach reflects a maturity in design, where organizations move beyond service-level integrations and instead adopt a unified data strategy. Amazon Security Lake enables this by aggregating security data from services such as Route53, WAF, Kubernetes, and others into a centralized, governed repository. The data is normalized and stored in an open, analytics-friendly format, often leveraging Apache Parquet , a columnar storage format optimized for large-scale processing and cost-efficient storage. This can allow organizations to retain high volumes of security data while maintaining performance and may help optimize storage efficiency in certain scenarios, depending on data volume, retention policies, and analytics patterns. However, this architectural choice introduces a new consideration. Microsoft Sentinel, when integrated into such environments, typically expects ingestion through connector-driven pipelines and streaming event models. In contrast, Security Lake represents a batch-oriented, schema-driven data platform. Rather than treating this as a constraint, it becomes an opportunity to rethink how data should flow between these systems. In this blog, we explore how a streaming bridge architecture can be implemented to align Amazon Security Lake with Microsoft Sentinel\u2019s ingestion model. The approach leverages a combination of AWS Lambda and event-driven patterns to process data as it lands in Amazon S3, transforms it into a Sentinel-compatible format, and streams it through Azure Event Hub into Microsoft Sentinel using Data Collection Rules (DCRs) and Data Collection Endpoints (DCEs) . This approach can support lower\u2011latency ingestion patterns when configured appropriately and compared to batch\u2011only processing models while preserving the lake-first architecture, allowing organizations to support analytics, visualization, and threat\u2011hunting activities using the ingested data. For demonstration, this implementation focuses on ingesting the following data sources from Amazon Security Lake: Amazon EKS audit and runtime events Route 53 DNS query logs AWS WAF access logs AWS Lambda execution activity Amazon S3 access events Note : The solution and code provided in this blog are not an officially supported Microsoft solution and do not guarantee performance, reliability, availability, or support. No service-level agreements (SLAs) are included. Readers are responsible for validating suitability for their environment. Before we begin, let us briefly discuss Amazon Security Lake and the Parquet format. Amazon Security Lake and the Parquet Constraint Amazon Security Lake provides a centralized, S3-backed repository for security telemetry, addressing fragmentation across services, accounts, and regions. Instead of service-level ingestion pipelines, logs from sources such as EKS, Route 53, WAF, Lambda, and S3 are aggregated into a single, governed data layer , enabling consistent visibility, separation of duties, and cost-efficient storage at scale. This data is stored in Apache Parquet , a columnar format optimized for analytics\u2014delivering high compression, schema evolution, and efficient, selective reads across engines like Athena and Spark. Microsoft Sentinel operates on a streaming ingestion model expecting JSON payloads, source-specific pipelines, and continuous event flows. In lake-first architectures, reintroducing service-level ingestion is neither practical nor efficient. The requirement, therefore, is to bridge the two models\u2014preserving Parquet for storage while enabling event-driven ingestion at the point of consumption . In the following sections we will create an Event Hub, Configure the Lambda function and once the streaming is configured in event hub we will configure the Data Collection Rules, Data Collection endpoints, Data Collection Rule associations to configure the ingestion pipeline from Event hub to Sentinel. Pre-requisites: Log Analytics workspace where you have at least contributor rights . Your Log Analytics workspace needs to be linked to a dedicated cluster or to have a commitment tier . Event Hubs namespace that permits public network access. If public network access is disabled, ensure that \"Allow trusted Microsoft services to bypass this firewall\" is set to \"Yes.\" Event hubs with events flowing in. In this implementation, events are sent to Event Hubs by the AWS Lambda function configured in the steps below - no manual event sending is required. Appropriate IAM roles in AWS accounts to configure SQS queue, Lambda function, IAM policies, etc. The Event Hub To begin, we need to create an Event Hub. Azure Event Hubs is a fully managed, high-throughput event ingestion and streaming platform, designed to support high event volumes within documented service limits , subject to configuration and tier selection. SKUs (Standard vs Premium) Standard tier is a throughput-unit (TU) based model , where capacity is explicitly controlled and shared across the namespace. Premium tier provides isolated compute and memory via processing units (PU) , which can provide more consistent performance characteristics and higher throughput capacity compared to shared models, depending on workload. Additionally, Azure Event Hubs offers a Dedicated tier , which is a fully isolated, single-tenant cluster for enterprise-scale workloads with higher throughputs (at significantly higher cost). Throughput Characteristics (Standard Tier) A single Throughput Unit (TU) provides: Ingress: up to 1 MB/s Egress: up to 2 MB/s A Standard namespace can scale to a maximum of 40 TUs , giving: Max ingress: 40 MB/s Max egress: 80 MB/s All event hubs, partitions, and consumers within the namespace share this TU capacity , making it a central ingestion buffer for streaming pipelines rather than a per-source scaling model. Which SKU to choose: For ingress/egress up to 40/80 MB/s, a Standard SKU may be suitable . Higher volumes may warrant consideration of Premium, depending on workload requirements. Azure Event Hubs Concepts: Event Hub Namespace: A logical container that provides the endpoint, networking boundary, and shared throughput capacity (TUs/PUs) for all event hubs within it. Event Hub: An individual event stream (topic) within the namespace where events are ingested, stored, and read in a partitioned, ordered manner for parallel processing. Reference: Event Hubs features and terminology - Azure Event Hubs Creating Event Hub namespace, Event Hub entities, and considerations: Create the Azure Event Hub Namespace , in this example, we create a Standard Event Hub with minimum 1 TU with Auto Inflate on enabling scaling upto the maximum 40 TUs. Note the maximum Throughput Units should be based on the size of the logs expected per second from Amazon Security Lake. Since the Event Hub will be used to ingest data in Azure Monitor (Sentinel Workspace) please check the Supported Regions. Ensure Event Hub region alignment with Microsoft Sentinel. Configure TU based on expected ingestion rate Once the Event Hub is created, enable the Local Authentication, since the AWS Lambda code we are using (discussed in the next section) uses Shared access signature to connect to the Azure Event Hub. See Shared Access Signatures. Create individual Event Hubs within the namespace created in Step 1. One Event Hub is required per log type\u2014for example, if Amazon Security Lake includes EKS, Route 53, and WAF logs, then three Event Hub entities should be created. Why this matters: Easier DCR mapping Avoids schema conflicts Create a consumer group in each event hub we created in the previous step. Consumer Group is an independent view of an event stream that allows multiple applications to read the same events separately, each maintaining its own position (offset) in the stream. Event Hub Features Avoid using the $Default consumer group. With the Event Hub namespace, entities, and consumer groups in place, the receiving end of the pipeline is ready. The next step is to configure the AWS Lambda function that will translate Security Lake's Parquet files into the JSON events that Event Hub expects. The AWS Lambda Function (SQS-driven Parquet \u2192 JSON) In this architecture, AWS Lambda is the translation layer , not an ingestion source. Instead of being invoked directly by S3, Security Lake emits S3 object\u2011creation notifications into Amazon SQS , and SQS becomes the Lambda trigger. This decoupling is intentional: SQS absorbs bursts of newly written Parquet objects which can help increase resilience of the ingestion pipeline under bursty or variable workloads. Once triggered, the Lambda function processes each queued S3 notification end\u2011to\u2011end: it derives the log type from the S3 object key , downloads the Parquet file, converts each row into a discrete JSON event , and forwards the resulting events to Azure Event Hub in batches for downstream ingestion via DCR/DCE . A practical consideration is event size management . Some sources\u2014especially EKS audit telemetry \u2014can carry large, nested fields that are not always useful for Sentinel analytics. For those log types, the Lambda function drops non\u2011essential fields during transformation to keep each event within Azure ingestion constraints; oversized fields can exceed the 64 KB Azure Monitor field size limit and disrupt ingestion (Fields more than 64 KB will be truncated in Log Analytics Workspace). Solution Architecture Data flows from AWS \u2192 converted (Lambda) \u2192 sent (EventHub)\u2192 stored in Microsoft Sentinel The end-to-end flow operates as follows: Amazon Security Lake writes Parquet files to a centralized S3 bucket as logs arrive from source services (CloudTrail, EKS, VPC Flow, WAF, Route 53, and others). Amazon SQS receives S3 event notifications from Security Lake and queues them as Lambda triggers. AWS Lambda picks up each SQS message, identifies the log source from the S3 object key, downloads the Parquet file, converts each row to JSON, and forwards the events to Azure Event Hub. Azure Event Hub receives the JSON events and makes them available for ingestion into Microsoft Sentinel via a Data Collection Rule (DCR) . Microsoft Sentinel ingests the data into a custom log table, where it is available for detection rules, hunting queries, and dashboards. The full Lambda function code is available in the GithubRepository-LambdaFunction . Refer to the readme for more details. How the Lambda Function works At a high level, the Lambda function performs four things in sequence for every file it processes: Identify the log source: Security Lake organises files under a structured S3 key path that includes the log type (for example, CLOUD_TRAIL_MGMT , EKS_AUDIT , VPC_FLOW ). The function reads this key path to determine which log source the file belongs to, and routes it to the corresponding Azure Event Hub entity. Files that cannot be matched to a known log type are skipped and logged as warnings. Download and decompress the Parquet file: The function streams the Parquet file from S3 directly to local Lambda storage rather than loading it entirely into memory. This keeps memory consumption bounded regardless of file size. Where Security Lake uses gzip compression, the function decompresses automatically before processing. Convert Parquet rows to JSON: Each row in the Parquet file is read in batches using PyArrow and converted to a JSON object. Parquet columns can carry data types \u2014 such as NumPy scalars, nested arrays, and high-precision timestamps \u2014 that are not natively serialisable to JSON. The function handles these type conversions before serialisation, ensuring clean output that Sentinel's ingestion pipeline can accept without errors. Forward events to Azure Event Hub: Converted JSON events are sent to the respective Azure Event Hub entity in batches, with each row becoming a discrete event. The function respects Event Hub's payload size ceiling, handles throttling responses gracefully using retry logic with exponential backoff, and marks each processed file in S3 metadata to prevent duplicate ingestion on retry. Tuning the Lambda Messages at cloud scale are unforgiving. Memory, timeout, batch size, and retry behavior\u2014each decision determined whether the messenger would keep up or fall behind. Several configuration changes are required beyond the default Lambda settings to make this function production-ready. Runtime and Dependencies \u2014 Lambda Layer The function depends on three libraries not available in Lambda's default Python runtime: pyarrow (for Parquet reading), pandas (for type handling), and azure-eventhub (for Event Hub connectivity). These are packaged as an AWS Lambda Layer and attached to the function, keeping the deployment package clean and the layer reusable across function versions. Step-by-step instructions for packaging the dependencies, creating the S3 bucket, publishing the Layer, and deploying the function are available in the GithubRepository-LambdaLayer . Secrets Management \u2014 AWS Secrets Manager The Azure Event Hub connection strings \u2014 one per log type \u2014 are sensitive credentials that must not be stored in environment variables in plaintext. The function retrieves them at cold start from AWS Secrets Manager , using a single secret ARN passed as a Lambda environment variable ( SECRET_ARN ). The secret is stored as a JSON object with each log type as a key. The full secret structure and configuration steps are available in the GithubRepository-SecretsManager . IAM Permissions The Lambda execution IAM role requires scoped permissions across S3, Secrets Manager, SQS, and CloudWatch Logs. Full IAM policy JSON files following the principle of least privilege are available in the GithubRepository-IAMPolicies . Deployment instructions for the IAM Policies are available in the IAM Policies README . Memory Configuration A starting configuration of 1,792 MB is recommended \u2014 this is the threshold at which Lambda may allocate a full vCPU. For environments with high log volumes or large Parquet files, increasing to 2,048 MB provides headroom for concurrent batch processing. Tune further based on observed execution durations in CloudWatch Metrics. Timeout Configuration The default Lambda timeout of 3 seconds is insufficient for Parquet processing at scale. The function must download a file from S3, process it in batches, and flush all events to Event Hub \u2014 a sequence that can take tens of seconds for larger Security Lake files. A timeout of 5 minutes (300 seconds) is recommended as a starting point, with adjustment based on observed execution durations in CloudWatch Metrics. SQS Trigger Configuration The SQS queue connected to Security Lake S3 event notifications is configured as the trigger for the Lambda function. This enables automatic invoke of the Lambda function whenever Security Lake writes a new Parquet file to S3. Validate Event Hub Ingestion At this point, events should be streaming into each Event Hub. To validate, open a specific Event Hub from the Azure Portal and navigate to the Overview page. You should see active metrics across Requests, Messages, and Throughput, confirming that the Lambda function is successfully forwarding Security Lake events. Throughput spikes mean events are flowing correctly In the upcoming sections, we will follow the documentation to ingest events from Eventhub to Azure Monitor . Before we begin, please collect the required information as stated here to have resource ID's and other details ready for configuration of DCR and Data Collection Endpoint. Also create a user assigned managed identity (UAMI), since the DCRs in this setup use a UAMI that should be granted the required permissions on the Event Hub Namespace to Receive Events. To grant the Azure Event Hubs Data Receiver role to the user-assigned managed identity, follow the instructions here. Creating Tables in Log Analytics Workspace As mentioned in the Overview, this blog covers the following data sources: Amazon EKS audit and runtime events Route 53 DNS query logs AWS WAF access logs AWS Lambda execution activity Amazon S3 access events The PowerShell scripts to create these tables are provided here: GithubRepo CreateLAWTables. For assistance with executing these scripts, refer to: Readme.md. Note : In the Microsoft Documentation to Ingest logs from EventHub into Azure Monitor only 3 fields are created in the tables ( TimeGenerated , RawData , Properties ). In this case, the entire Json event from the Event Hub is sent to the RawData field. However the scripts we are running are creating additional fields since we will be parsing the RawData field and extracting/parsing the information from the complete event into individual fields. This makes it easier to search and analyze logs later and schema improves detection rules and KQL efficiency. Create a Data Collection Endpoint To collect data with a data collection rule, you need a data collection endpoint: Create a data collection endpoint . Note: Create the data collection endpoint in the same region as your Log Analytics workspace. From the data collection endpoint's Overview screen, select JSON View. Copy the Resource ID for the data collection rule. You use this information in the next step while creating Data Collection Rules. Create Data Collection Rules Since we have 5 sources in scope for this example, we need to create 5 DCRs using the collected information as stated here , the user assigned managed identity resource ID, and the Data Collection Endpoint resource ID we created in the previous step. DCR Deployment via ARM Templates The Data Collection Rules ARM templates can be found in the GithubRepo-DataCollectionRules. The instructions to create via ARM templates can be found in the readme.md (Microsoft article reference with manual steps here ). DCR Mapping (AWS Sources \u2192 DCR Templates) ARM Templates in GitHub Repo to AWS Source mapping Data Source DCR Template Name Amazon EKS Logs DCR-awseks.json AWS S3 Access Logs DCR-awsS3access.json AWS WAF Logs DCR-awswaf.json AWS Lambda Execution DCR-lambdaexecution.json Amazon Route 53 Logs DCR-Route53.json Final Step: Associating the Event Hub with the Data Collection Rule At this stage, the core building blocks of the ingestion pipeline are already in place. We have successfully configured streaming to Event Hubs, created dedicated Event Hubs for each Amazon Security Lake source, provisioned destination tables in the Microsoft Sentinel workspace, and defined Data Collection Rules (DCRs) \u2014 leveraging the Azure Monitor pipeline and a user-assigned managed identity to securely read incoming events. The final step is to stitch this entire architecture together by establishing associations between the Event Hubs and their corresponding Data Collection Rules. This association acts as the connection that links Event Hub to Sentinel that enables Azure Monitor to actively pull data from the Event Hubs and route it into the defined destination tables. Without this linkage, the pipeline remains incomplete \u2014 data may continue to flow into Event Hubs, but it will not be picked up or ingested into Sentinel. Each Event Hub must be explicitly mapped to its respective Data Collection Rule, ensuring: The correct stream is processed by the intended transformation logic Events are routed to the appropriate custom tables The ingestion pipeline operates in a deterministic and scalable manner helping ensure data is routed to the intended destination in a consistent and predictable manner . Once these associations are configured, the end\u2011to\u2011end pipeline is intended to operate as designed , subject to configuration accuracy and ongoing operational monitoring\u2014 enabling automated ingestion workflows of Amazon Security Lake data into Microsoft Sentinel with minimal manual intervention once configured. Steps to be followed : Associate the data collection rule with the event hub To complete the setup, we now associate each Event Hub with its corresponding Data Collection Rule (DCR). This creates the link that allows Azure Monitor to read data from the Event Hub and send it to Microsoft Sentinel. Important: You must create one association per Data Collection Rule . Example: If an Event Hub is receiving AWS Route 53 logs , it must be associated with the DCR created for AWS Route 53 . Copy the template in the template from the above link and create the Data Collection Rule associations. We have to create 1 association per Data Collection Rule. What You Need Event Hub Resource ID Follow these steps to get the Event Hub Resource ID: Open the Event Hub Namespace in the Azure Portal Go to Entities \u2192 Event Hubs Select the Event Hub that is receiving the logs (e.g., Route 53 logs) In the Overview page, click on JSON View Copy the Resource ID Resource Group, Region, and Association Name The Resource Group must be the same as the one where the Event Hub is deployed Provide the Azure region where the resources are deployed Define a unique name for the association Data Collection Rule (DCR) Resource ID Open the corresponding Data Collection Rule Go to the Overview page Click on JSON View Copy the Resource ID Key Note: Make sure that Each Event Hub is mapped to the correct DCR The data source and DCR template are aligned (e.g., Route 53 \u2192 Route 53 DCR) Validate End-to-End Ingestion Once this configuration is complete, we can validate the logs in the destination table, fields, and parsing accuracy. Seeing logs here indicates that ingestion is successfully flowing through the pipeline If you are building on a lake-first security architecture and running into ingestion challenges with Sentinel, feel free to share your experience in the comments or raise an issue in the GitHub repository.",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-community/amazon-security-lake-integration-with-microsoft-sentinel-parquet/ba-p/4516635",
+      "source": "Microsoft Security Blog (TechCommunity)",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-05-11T20:36:21+00:00",
+      "published_ts": 1778531781,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Cloud / SaaS",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Triggering Azure Functions from Blob Storage Using Event Grid",
+      "summary": "Overview Modern workloads increasingly rely on reacting to files as soon as they arrive in Azure Blob Storage. While Azure provides multiple ways to trigger computing from blob operations, choosing the right event-driven pattern is not always straightforward\u2014especially in enterprise environments where latency, reliability, and operational transparency all matter. Introduction Hello everyone, Andrew Coughlin here, a Cloud Solution Architect specializing in Infrastructure as a Service on Azure. In this post, I am going to walk through how to implement a direct Event Grid to Azure Function pattern. This is the simplest and lowest-latency option when you want real-time reactions to blob uploads. Scenario Suppose you have a workload where files are continuously uploaded into Azure Blob Storage and you need to trigger downstream processing. Typical requirements include avoiding polling, achieving near real-time execution, and maintaining strong observability. Architecture Blob Storage \u2192 Event Grid \u2192 Azure Function The Process Create and deploy the Azure Function 2. Validate the function 3. Create the Event Grid subscription 4. Upload a blob and validate the flow Step 1 \u2014 Create and Deploy the Azure Function (Function First) The Function must exist before creating the Event Grid subscription because Event Grid validates the endpoint during creation. Steps: 1. Create a Function App (Consumption plan + storage account) 2. Open Function App \u2192 Functions \u2192 Create 3. Select Event Grid trigger 4. Provide function name 5. Create and save the function Note: A storage account is required for all Function Apps and is created or selected during app creation. Implement the Function Below are examples of the HandleBlobCreatedEvent.cs, EventGridListenerFunction.csproj, Program.cs, and host.json Example of HandleBlobCreatedEvents.cs : namespace EventGridListenerFunction { public class HandleBlobCreatedEvent { private readonly ILogger _logger; public HandleBlobCreatedEvent(ILoggerFactory loggerFactory) { _logger = loggerFactory.CreateLogger (); } [Function(nameof(HandleBlobCreatedEvent))] public void Run([EventGridTrigger] string data) { // Event Grid sends events as a JSON array using var doc = JsonDocument.Parse(data); if (doc.RootElement.ValueKind == JsonValueKind.Array) { foreach (var ev in doc.RootElement.EnumerateArray()) { HandleOneEvent(ev); } } else { HandleOneEvent(doc.RootElement); } } private void HandleOneEvent(JsonElement ev) { if (ev.TryGetProperty(\"eventType\", out var eventType)) _logger.LogInformation(\"EventType: {EventType}\", eventType.GetString()); if (ev.TryGetProperty(\"subject\", out var subject)) _logger.LogInformation(\"Subject: {Subject}\", subject.GetString()); if (ev.TryGetProperty(\"data\", out var dataObj) && dataObj.ValueKind == JsonValueKind.Object && dataObj.TryGetProperty(\"url\", out var urlProp)) { _logger.LogInformation(\"Blob URL: {Url}\", urlProp.GetString()); } else { _logger.LogWarning(\"No data.url found in payload.\"); } } } } Example of Program.cs : var builder = FunctionsApplication.CreateBuilder(args); builder.ConfigureFunctionsWebApplication(); builder.Services .AddApplicationInsightsTelemetryWorkerService() .ConfigureFunctionsApplicationInsights(); builder.Build().Run(); Example of Host.json : { \"version\": \"2.0\", \"logging\": { \"applicationInsights\": { \"samplingSettings\": { \"isEnabled\": true, \"excludedTypes\": \"Request\" }, \"enableLiveMetricsFilters\": true } } } Example of EventGridListenerFunction.csproj : net8.0 v4 Exe enable enable You will still need to publish this to the function app, which is outlined: Deployment technologies in Azure Functions | Microsoft Learn . Step 2 \u2014 Create the Event Grid Subscription Navigate to the Storage Account \u2192 Events \u2192 Create Event Subscription and select BlobCreated events targeting the Function. Step 3 \u2014 Validate Upload a blob and confirm the Function triggers and logs event data. Common Pitfalls Creating the subscription before the function exists \u2022 Storage account misconfiguration \u2022 Networking restrictions preventing Function access to storage Conclusion The direct Event Grid to Azure Function pattern provides a simple and reliable approach for real-time blob processing without additional infrastructure. Disclaimer The sample scripts are not supported under any Microsoft standard support program or service. The sample scripts are provided AS IS without warranty of any kind. Microsoft further disclaims all implied warranties including, without limitation, any implied warranties of merchantability or of fitness for a particular purpose. The entire risk arising out of the use or performance of the sample scripts and documentation remains with you. In no event shall Microsoft, its authors, or anyone else involved in the creation, production, or delivery of the scripts be liable for any damages whatsoever (including, without limitation, damages for loss of business profits, business interruption, loss of business information, or other pecuniary loss) arising out of the use of or inability to use the sample scripts or documentation, even if Microsoft has been advised of the possibility of such damages.",
+      "link": "https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/triggering-azure-functions-from-blob-storage-using-event-grid/ba-p/4518184",
+      "source": "Core Infrastructure and Security Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-05-11T20:24:17+00:00",
+      "published_ts": 1778531057,
+      "smart_groups": [
+        "Ransomware",
+        "Cloud / SaaS",
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Cookie thieves caught stealing dev secrets via fake Claude Code installers",
+      "summary": "New IElevator2 COM interface? No problem",
+      "link": "https://www.theregister.com/security/2026/05/11/cookie-thieves-caught-stealing-dev-secrets/5238248",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-11T20:21:09+00:00",
+      "published_ts": 1778530869,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Should we do it?",
+      "summary": "Hi so back in feb me and my boys stared working on this platform we call it an ai native threat application platform where lets say there is a vulnerability that comes in like lets say dirty pipe now with our platform you will be able to replicate it in sandbox environment and run all your security tools on it and check weather your tools detect the vulnerability or not or else you want to hunt for bugs in bug bounty you can replicate the newly unpatched vulnerability test it understand it and then try to find it in prod and other there are so much of usecases there are usecases in ctfs enterprises and universities But we are not sure if there is such a market for it we have developed our mvp but now we are stuck in this stage to know weather it is a product marketfit or not and want you guy opinion on it. We just want to check if there is a market for something we are building or we are just wasting our timing try to ship something that is not needed submitted by /u/infinitynbeynd [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1taf6ok/should_we_do_it/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-11T20:19:56+00:00",
+      "published_ts": 1778530796,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Price predictions 5/11: SPX, DXY, BTC, ETH, XRP, BNB, SOL, DOGE, HYPE, ADA",
+      "summary": "Bitcoin looks set for another blockbuster week, but potential resistance at $84,000 could complicate the rally. Will altcoin consolidation continue?",
+      "link": "https://cointelegraph.com/markets/price-predictions-511-spx-dxy-btc-eth-xrp-bnb-sol-doge-hype-ada?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-11T20:12:42+00:00",
+      "published_ts": 1778530362,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Ripple receives $200M credit line to expand institutional prime brokerage",
+      "summary": "Financing from Neuberger Berman will increase Ripple Prime\u2019s capacity to offer margin lending and other brokerage services to institutional clients trading across crypto and traditional markets.",
+      "link": "https://cointelegraph.com/news/ripple-secures-200m-credit-facility-expand-institutional-prime-brokerage?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-11T20:12:35+00:00",
+      "published_ts": 1778530355,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "A fateful question",
+      "summary": "What's better: studying cybersecurity at a university or through self-study? Preference will be given to those with experience. submitted by /u/iiyaaz [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1taepf2/a_fateful_question/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-11T20:03:19+00:00",
+      "published_ts": 1778529799,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Apple security advisory (AV26-446)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/apple-security-advisory-av26-446",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-11T20:02:12+00:00",
+      "published_ts": 1778529732,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Texas sues Netflix over alleged data practices that create \u2018surveillance machinery\u2019 without user consent",
+      "summary": "In addition to fines, Texas is asking a judge to prevent Netflix from illegally collecting and sharing user data and to mandate that the company no longer use autoplay by default on kids\u2019 profiles.",
+      "link": "https://therecord.media/texas-sues-netflix-over-data-practices-surveillance",
+      "source": "The Record",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-11T19:56:00+00:00",
+      "published_ts": 1778529360,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Hackers Used AI to Build a Zero-Day Exploit That Bypasses Two-Factor Authentication: Google",
+      "summary": "Cybercriminals used an AI model to find and weaponize a previously unknown software flaw, Google's threat team confirmed Monday.",
+      "link": "https://decrypt.co/367477/hackers-ai-zero-day-exploit-google",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-11T19:49:10+00:00",
+      "published_ts": 1778528950,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "SC-900 or SC-400",
+      "summary": "Hi I will be handling Microsoft Purview as administrator soon and i want to get certified. I have no prior experience in M365 and it\u2019s new for the whole company. My question is, what will be more beneficial for me, sc-900 or sc-400 ? I can see that 900 is fundamentals and could be a good base for me, but isn\u2019t focusing on the solution I\u2019m handling is better and save me time since the fundamentals cert won\u2019t be enough ? appreciate all responses\ud83d\ude4f\ud83d\ude4f submitted by /u/Hot-Lattee [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1taeah1/sc900_or_sc400/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-11T19:48:41+00:00",
+      "published_ts": 1778528921,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "MoonPay makes prediction markets push with Dawn Labs buy, AI tool launch",
+      "summary": "The payments company acquired Dawn Labs for an undisclosed amount, immediately announcing the creation of an AI tool that would provide \u201ccustom strategies\u201d for trading on prediction markets.",
+      "link": "https://cointelegraph.com/news/moonpay-dawn-labs-ai-prediction-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-11T19:46:59+00:00",
+      "published_ts": 1778528819,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "JetBrains security advisory (AV26-445)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/jetbrains-security-advisory-av26-445",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-11T19:39:08+00:00",
+      "published_ts": 1778528348,
       "smart_groups": [],
       "curated": false
     },
@@ -30,6 +237,18 @@
         "Vulnerabilities / CVEs"
       ],
       "curated": true
+    },
+    {
+      "title": "iOS 26.5 is out, bringing encrypted RCS messaging to iPhone and Android users",
+      "summary": "Apple is bringing long-awaited end-to-end encryption to Rich Communication Services (RCS) messaging between iPhone and Android users in iOS 26.5. The feature is launching in beta for iPhone users running iOS 26.5 on supported carriers and Android users using the latest version of Google Messages. \u201cWhen RCS messages are end-to-end encrypted, they can\u2019t be read while they\u2019re sent between devices,\u201d Apple said. \u201cUsers will know that a conversation is end-to-end encrypted when they see a \u2026 More \u2192 The post iOS 26.5 is out, bringing encrypted RCS messaging to iPhone and Android users appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/05/11/apple-ios-26-5-rcs-end-to-end-encryption-iphone-android/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-11T19:09:43+00:00",
+      "published_ts": 1778526583,
+      "smart_groups": [],
+      "curated": false
     },
     {
       "title": "Losing my path",
@@ -59,6 +278,25 @@
       "curated": true
     },
     {
+      "title": "Meet the latest Database Center, now with Gemini-powered fleet intelligence",
+      "summary": "Managing a modern database fleet is both a scale and cognitive problem. As database estates grow, the effort required to monitor, troubleshoot, and optimize them often outpaces teams\u2019 capacity, who find themselves fighting database issues in isolation, buried under a mountain of fragmented signals. We designed Database Center as a single pane of glass that provides fleet-wide visibility across all Google Cloud managed database services . At Google Cloud Next \u201926, we announced an AI-native manageability interface for Database Center powered by Gemini that is designed to reason across your entire Data Cloud. In this new era of database operations, Gemini acts as an expert teammate, replacing manual scripts and error-prone workflows with AI-driven observability. In this blog, we showcase several key innovations in Database Center that you can take advantage of today. Gemini-powered enhancements Fleet -level intelligence with Gemini-powered analysis : Go from reactive firefighting to proactive, fleet-wide AI analysis. Gemini correlates performance shifts across your estate, highlighting patterns and providing actionable insights with an option for detailed investigations for diagnosis and remediation. These features are in preview with select customers. Generative views (coming soon): Database Center now offers a hyper-personalized, dynamic interface driven by natural language, moving beyond standard dashboards to surface only the most relevant insights. Users will also be able to iteratively update these views. Integrating into developer workflows: Database Center APIs are now public and integrated with the Model Context Protocol (MCP), bringing fleet management directly to tools like VS Code and Gemini CLI, as well as enabling custom third-party dashboards. Gemini-powered chat: A new conversational interface uses natural language to interact with the entire database estate, across services like Cloud SQL, Spanner, or Bigtable, for fleet-wide exploratory questions and contextual troubleshooting, including triggering Investigations for root-cause analysis and remediation. Gemini-backed recommendation validation (coming soon): Trust is vital for AI recommendations. New Gemini-based recommendation validations are available for specific performance optimizations. Users can trigger a Testing agent to simulate impacts on latency, IOPS, or throughput before applying changes like new indexes or machine upgrades, enabling confident, automated optimization. Other platform enhancements There\u2019s more to Database Center than just Gemini. Here are the other enhancements we\u2019ve made to the platform. BigQuery inventory and data affiliation: BigQuery reservations and datasets inventory are now integrated into Database Center. Reservations and datasets inventory provide a single unified view across Google Cloud Databases and BigQuery. Data affiliation, meanwhile,maps data flows between transactional databases and BigQuery, helping surface hidden dependencies for faster troubleshooting. Fleet-wide slow query analysis: Instead of hunting through logs and multiple pages, Database Center now centralizes and explains slow queries across the entire fleet, helping you prioritize your remediation efforts with AI-assisted troubleshooting. You can sort query patterns across the organization based on CPU execution time, number of instances, average rows returns, etc., and investigate the most impacted queries first. Observability for top resources: Instantly identify the top 10 resources by critical metrics (CPU, IOPS, latency, etc.) to jumpstart investigations before they impact users. Intelligent maintenance policies: For Cloud SQL and AlloyDB, Database Center now provides a unified, intelligent view of fleet maintenance status and compliance across all resources. You can also receive maintenance window suggestions based on your unique usage patterns, preventing downtime during peak business hours. Reporting: Configure Database Center to generate natural language summaries of fleet health and inventory, delivered directly to your inbox so stakeholders stay informed without ever needing to log into a console. What are Database Center customers saying \u201cDatabase Center gives our teams a comprehensive view of our Google Cloud database fleet and enables proactive risk management across security, performance, and capacity. Some of our product teams are already integrating it into their daily standups to improve monitoring and response. With Database Center\u2019s APIs and MCP tools, we will be able to embed real-time fleet health directly into application team workflows \u2014 combining Google\u2019s signals with our internal context like team ownership and application mapping to make insights truly actionable. This reduces context switching, accelerates recovery times, and strengthens proactive ownership across our engineering teams. We\u2019re excited to see how the product continues to evolve.\u201d - Bogdan Capatina, Technical Expert in Database Technologies, Ford Motor Company Get started with Database Center The future of database management isn't just unified \u2014 it's intelligent. With these new Database Center features and capabilities, you can: Reduce operational overhead: Eliminate management silos and the need for expensive third-party observability software. Enjoy faster mean time to resolution (MTTR): Resolve cross-domain issues in minutes rather than hours through Gemini-led correlation. Scale with confidence: End-to-end lineage monitoring and automated health checks minimize blind spots, so that your AI and apps are powered by fresh, reliable data. You can access Database Center from Google Cloud managed database services console for Cloud SQL, AlloyDB, Spanner, Bigtable, Firestore and Memorystore. Database Center is enabled by default for users with the necessary IAM permissions at the desired hierarchy. It is available at no cost, although certain premium features, including Gemini-backed fleet performance/ inventory insights, cost recommenders and natural language chat require Gemini Cloud Assist . Advanced security and compliance monitoring requires a Google Security Command Central (SCC) subscription. Get started with Database Center today: Access Database Center in the Google Cloud console Review the documentation to learn more",
+      "link": "https://cloud.google.com/blog/products/databases/database-center-improvements-from-next26/",
+      "source": "Google Cloud Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-05-11T19:00:00+00:00",
+      "published_ts": 1778526000,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS",
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
       "title": "Ubuntu 26.04 vs. Fedora 44: After years of testing both Linux distros, here's my verdict",
       "summary": "Ubuntu and Fedora are two powerhouse Linux distributions, but both take very different approaches, so which one should you be using?",
       "link": "https://www.zdnet.com/article/ubuntu-26-04-vs-fedora-44/",
@@ -70,6 +308,18 @@
       "smart_groups": [
         "Linux / Unix"
       ],
+      "curated": false
+    },
+    {
+      "title": "SailPoint GitHub repo hit by third-party cyberattack",
+      "summary": "SailPoint says GitHub repo breach exposed no customer data or production systems.",
+      "link": "https://www.scworld.com/news/sailpoint-github-repo-hit-by-third-party-cyberattack",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-11T18:52:30+00:00",
+      "published_ts": 1778525550,
+      "smart_groups": [],
       "curated": false
     },
     {
@@ -3253,19 +3503,15 @@
       "curated": false
     },
     {
-      "title": "Triggering Azure Functions from Blob Storage Using Event Grid",
-      "summary": "Overview Modern workloads increasingly rely on reacting to files as soon as they arrive in Azure Blob Storage. While Azure provides multiple ways to trigger computing from blob operations, choosing the right event-driven pattern is not always straightforward\u2014especially in enterprise environments where latency, reliability, and operational transparency all matter. Introduction Hello everyone, Andrew Coughlin here, a Cloud Solution Architect specializing in Infrastructure as a Service on Azure. In this post, I am going to walk through how to implement a direct Event Grid to Azure Function pattern. This is the simplest and lowest-latency option when you want real-time reactions to blob uploads. Scenario Suppose you have a workload where files are continuously uploaded into Azure Blob Storage and you need to trigger downstream processing. Typical requirements include avoiding polling, achieving near real-time execution, and maintaining strong observability. Architecture Blob Storage \u2192 Event Grid \u2192 Azure Function The Process Create and deploy the Azure Function 2. Validate the function 3. Create the Event Grid subscription 4. Upload a blob and validate the flow Step 1 \u2014 Create and Deploy the Azure Function (Function First) The Function must exist before creating the Event Grid subscription because Event Grid validates the endpoint during creation. Steps: 1. Create a Function App (Consumption plan + storage account) 2. Open Function App \u2192 Functions \u2192 Create 3. Select Event Grid trigger 4. Provide function name 5. Create and save the function Note: A storage account is required for all Function Apps and is created or selected during app creation. Implement the Function Below are examples of the HandleBlobCreatedEvent.cs, EventGridListenerFunction.csproj, Program.cs, and host.json Example of HandleBlobCreatedEvents.cs : namespace EventGridListenerFunction { public class HandleBlobCreatedEvent { private readonly ILogger _logger; public HandleBlobCreatedEvent(ILoggerFactory loggerFactory) { _logger = loggerFactory.CreateLogger (); } [Function(nameof(HandleBlobCreatedEvent))] public void Run([EventGridTrigger] string data) { // Event Grid sends events as a JSON array using var doc = JsonDocument.Parse(data); if (doc.RootElement.ValueKind == JsonValueKind.Array) { foreach (var ev in doc.RootElement.EnumerateArray()) { HandleOneEvent(ev); } } else { HandleOneEvent(doc.RootElement); } } private void HandleOneEvent(JsonElement ev) { if (ev.TryGetProperty(\"eventType\", out var eventType)) _logger.LogInformation(\"EventType: {EventType}\", eventType.GetString()); if (ev.TryGetProperty(\"subject\", out var subject)) _logger.LogInformation(\"Subject: {Subject}\", subject.GetString()); if (ev.TryGetProperty(\"data\", out var dataObj) && dataObj.ValueKind == JsonValueKind.Object && dataObj.TryGetProperty(\"url\", out var urlProp)) { _logger.LogInformation(\"Blob URL: {Url}\", urlProp.GetString()); } else { _logger.LogWarning(\"No data.url found in payload.\"); } } } } Example of Program.cs : var builder = FunctionsApplication.CreateBuilder(args); builder.ConfigureFunctionsWebApplication(); builder.Services .AddApplicationInsightsTelemetryWorkerService() .ConfigureFunctionsApplicationInsights(); builder.Build().Run(); Example of Host.json : { \"version\": \"2.0\", \"logging\": { \"applicationInsights\": { \"samplingSettings\": { \"isEnabled\": true, \"excludedTypes\": \"Request\" }, \"enableLiveMetricsFilters\": true } } } Example of EventGridListenerFunction.csproj : net8.0 v4 Exe enable enable Step 2 \u2014 Create the Event Grid Subscription Navigate to the Storage Account \u2192 Events \u2192 Create Event Subscription and select BlobCreated events targeting the Function. Step 3 \u2014 Validate Upload a blob and confirm the Function triggers and logs event data. Common Pitfalls Creating the subscription before the function exists \u2022 Storage account misconfiguration \u2022 Networking restrictions preventing Function access to storage Conclusion The direct Event Grid to Azure Function pattern provides a simple and reliable approach for real-time blob processing without additional infrastructure. Disclaimer The sample scripts are not supported under any Microsoft standard support program or service. The sample scripts are provided AS IS without warranty of any kind. Microsoft further disclaims all implied warranties including, without limitation, any implied warranties of merchantability or of fitness for a particular purpose. The entire risk arising out of the use or performance of the sample scripts and documentation remains with you. In no event shall Microsoft, its authors, or anyone else involved in the creation, production, or delivery of the scripts be liable for any damages whatsoever (including, without limitation, damages for loss of business profits, business interruption, loss of business information, or other pecuniary loss) arising out of the use of or inability to use the sample scripts or documentation, even if Microsoft has been advised of the possibility of such damages.",
-      "link": "https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/triggering-azure-functions-from-blob-storage-using-event-grid/ba-p/4518184",
-      "source": "Core Infrastructure and Security Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
+      "title": "Circle makes USDC push into AI agent payment tools",
+      "summary": "The new tools let AI agents hold wallets, discover services and make programmable USDC payments across blockchain networks.",
+      "link": "https://cointelegraph.com/news/circle-unveils-agent-stack-for-ai-driven-stablecoin-transactions?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
       "published": "2026-05-11T07:00:00+00:00",
       "published_ts": 1778482800,
-      "smart_groups": [
-        "Ransomware",
-        "Cloud / SaaS",
-        "Network / OT / ICS"
-      ],
+      "smart_groups": [],
       "curated": false
     },
     {
@@ -3633,6 +3879,37 @@
       "published_ts": 1778457600,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "GPT-5.5-Cyber is here. What it means for defenders operating at the frontier.",
+      "summary": "OpenAI\u2019s May 7 release of GPT-5.5 and the limited preview of GPT-5.5-Cyber put frontier AI in verified defenders\u2019 hands. As a member of the Trusted Access for Cyber program, Sophos is using these models to sharpen what we already operate: an agentic SOC that resolves more than half of cases without a human, and an endpoint architecture purpose-built to stop AI-generated zero-days. Categories: Products & Services Tags: ChatGPT, AI, artificial intelligence",
+      "link": "https://www.sophos.com/en-us/blog/sophos-chatgpt-cyber",
+      "source": "Sophos News",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-05-11T00:00:00+00:00",
+      "published_ts": 1778457600,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Ransomware: AI changes the writer. It doesn't change the math.",
+      "summary": "Why most endpoint protection still treats ransomware as just another piece of malware, and what changes when you watch the data instead of the attacker. Categories: Products & Services Tags: Ransomware, Endpoint, Sophos Endpoint, EDR, AI, artificial intelligence",
+      "link": "https://www.sophos.com/en-us/blog/sophos-ransomware-ai",
+      "source": "Sophos News",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-05-11T00:00:00+00:00",
+      "published_ts": 1778457600,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Malware / Payloads"
+      ],
+      "curated": true
     },
     {
       "title": "Weekly Update 503",
@@ -15808,27 +16085,6 @@
         "Curated",
         "Exploit / PoC",
         "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Amazon Security Lake Integration with Microsoft Sentinel: Parquet at the Gates",
-      "summary": "In this blog post, we explore how centralized AWS Security Lake data can be transformed and streamed into Microsoft Sentinel using an AWS Lambda-based pipeline for near real-time ingestion. A story of cost, control, and custom engineering at cloud scale Every organization strives to design its security architecture in a way that can be designed to help address architectural complexity and support cost\u2011aware, scalable designs, depending on workload characteristics and implementation choices. Across multiple customer environments, we increasingly see a consistent pattern emerge\u2014security telemetry from various AWS services is not ingested in isolation, but is deliberately centralized into Amazon Security Lake . This approach reflects a maturity in design, where organizations move beyond service-level integrations and instead adopt a unified data strategy. Amazon Security Lake enables this by aggregating security data from services such as Route53, WAF, Kubernetes, and others into a centralized, governed repository. The data is normalized and stored in an open, analytics-friendly format, often leveraging Apache Parquet , a columnar storage format optimized for large-scale processing and cost-efficient storage. This can allow organizations to retain high volumes of security data while maintaining performance and may help optimize storage efficiency in certain scenarios, depending on data volume, retention policies, and analytics patterns. However, this architectural choice introduces a new consideration. Microsoft Sentinel, when integrated into such environments, typically expects ingestion through connector-driven pipelines and streaming event models. In contrast, Security Lake represents a batch-oriented, schema-driven data platform. Rather than treating this as a constraint, it becomes an opportunity to rethink how data should flow between these systems. In this blog, we explore how a streaming bridge architecture can be implemented to align Amazon Security Lake with Microsoft Sentinel\u2019s ingestion model. The approach leverages a combination of AWS Lambda and event-driven patterns to process data as it lands in Amazon S3, transforms it into a Sentinel-compatible format, and streams it through Azure Event Hub into Microsoft Sentinel using Data Collection Rules (DCRs) and Data Collection Endpoints (DCEs) . This approach can support lower\u2011latency ingestion patterns when configured appropriately and compared to batch\u2011only processing models while preserving the lake-first architecture, allowing organizations to support analytics, visualization, and threat\u2011hunting activities using the ingested data. For demonstration, this implementation focuses on ingesting the following data sources from Amazon Security Lake: Amazon EKS audit and runtime events Route 53 DNS query logs AWS WAF access logs AWS Lambda execution activity Amazon S3 access events Note : The solution and code provided in this blog are not an officially supported Microsoft solution and do not guarantee performance, reliability, availability, or support. No service-level agreements (SLAs) are included. Readers are responsible for validating suitability for their environment. Before we begin, let us briefly discuss Amazon Security Lake and the Parquet format. Amazon Security Lake and the Parquet Constraint Amazon Security Lake provides a centralized, S3-backed repository for security telemetry, addressing fragmentation across services, accounts, and regions. Instead of service-level ingestion pipelines, logs from sources such as EKS, Route 53, WAF, Lambda, and S3 are aggregated into a single, governed data layer , enabling consistent visibility, separation of duties, and cost-efficient storage at scale. This data is stored in Apache Parquet , a columnar format optimized for analytics\u2014delivering high compression, schema evolution, and efficient, selective reads across engines like Athena and Spark. Microsoft Sentinel operates on a streaming ingestion model expecting JSON payloads, source-specific pipelines, and continuous event flows. In lake-first architectures, reintroducing service-level ingestion is neither practical nor efficient. The requirement, therefore, is to bridge the two models\u2014preserving Parquet for storage while enabling event-driven ingestion at the point of consumption . In the following sections we will create an Event Hub, Configure the Lambda function and once the streaming is configured in event hub we will configure the Data Collection Rules, Data Collection endpoints, Data Collection Rule associations to configure the ingestion pipeline from Event hub to Sentinel. Pre-requisites: Log Analytics workspace where you have at least contributor rights . Your Log Analytics workspace needs to be linked to a dedicated cluster or to have a commitment tier . Event Hubs namespace that permits public network access. If public network access is disabled, ensure that \"Allow trusted Microsoft services to bypass this firewall\" is set to \"Yes.\" Event hubs with events flowing in. In this implementation, events are sent to Event Hubs by the AWS Lambda function configured in the steps below - no manual event sending is required. Appropriate IAM roles in AWS accounts to configure SQS queue, Lambda function, IAM policies, etc. The Event Hub To begin, we need to create an Event Hub. Azure Event Hubs is a fully managed, high-throughput event ingestion and streaming platform, designed to support high event volumes within documented service limits , subject to configuration and tier selection. Azure Event Hubs Documentation SKUs (Standard vs Premium) Standard tier is a throughput-unit (TU) based model , where capacity is explicitly controlled and shared across the namespace. Premium tier provides isolated compute and memory via processing units (PU) , which can provide more consistent performance characteristics and higher throughput capacity compared to shared models, depending on workload . Event Hubs Scalability , Event Hub Tiers Additionally, Azure Event Hubs offers a Dedicated tier , which is a fully isolated, single-tenant cluster for enterprise-scale workloads with higher throughputs (at significantly higher cost). Event hub Dedicated Tier Throughput Characteristics (Standard Tier) A single Throughput Unit (TU) provides: Ingress: up to 1 MB/s Egress: up to 2 MB/s Event Hubs Scalability A Standard namespace can scale to a maximum of 40 TUs , giving: Max ingress: 40 MB/s Max egress: 80 MB/s Event Hubs Scalability All event hubs, partitions, and consumers within the namespace share this TU capacity , making it a central ingestion buffer for streaming pipelines rather than a per-source scaling model. Event Hubs Scalability Which SKU to choose: For ingress/egress up to 40/80 MB/s, a Standard SKU may be suitable . Higher volumes may warrant consideration of Premium, depending on workload requirements. Azure Event Hubs Concepts: Event Hub Namespace: A logical container that provides the endpoint, networking boundary, and shared throughput capacity (TUs/PUs) for all event hubs within it. Event Hub: An individual event stream (topic) within the namespace where events are ingested, stored, and read in a partitioned, ordered manner for parallel processing. Reference: Event Hubs features and terminology - Azure Event Hubs Creating Event Hub namespace, Event Hub entities, and considerations: Create the Azure Event Hub Namespace , in this example, we create a Standard Event Hub with minimum 1 TU with Auto Inflate on enabling scaling upto the maximum 40 TUs. Note the maximum Throughput Units should be based on the size of the logs expected per second from Amazon Security Lake. Since the Event Hub will be used to ingest data in Azure Monitor (Sentinel Workspace) please check the Supported Regions. Ensure region alignment with Sentinel. Configure TU based on expected ingestion rate. Once the Event Hub is created, enable the Local Authentication, since the AWS Lambda code we are using (discussed in the next section) uses Shared access signature to connect to the Azure Event Hub. See Shared Access Signatures. Create individual Event Hubs within the namespace created in Step 1. One Event Hub is required per log type\u2014for example, if Amazon Security Lake includes EKS, Route 53, and WAF logs, then three Event Hub entities should be created. Why this matters: Easier DCR mapping Avoids schema conflicts Create a consumer group in each event hub we created in the previous step. Consumer Group is an independent view of an event stream that allows multiple applications to read the same events separately, each maintaining its own position (offset) in the stream. Event Hub Features Avoid using the $Default consumer group. With the Event Hub namespace, entities, and consumer groups in place, the receiving end of the pipeline is ready. The next step is to configure the AWS Lambda function that will translate Security Lake's Parquet files into the JSON events that Event Hub expects. The AWS Lambda Function (SQS-driven Parquet \u2192 JSON) In this architecture, AWS Lambda is the translation layer , not an ingestion source. Instead of being invoked directly by S3, Security Lake emits S3 object\u2011creation notifications into Amazon SQS , and SQS becomes the Lambda trigger. This decoupling is intentional: SQS absorbs bursts of newly written Parquet objects which can help increase resilience of the ingestion pipeline under bursty or variable workloads. Once triggered, the Lambda function processes each queued S3 notification end\u2011to\u2011end: it derives the log type from the S3 object key , downloads the Parquet file, converts each row into a discrete JSON event , and forwards the resulting events to Azure Event Hub in batches for downstream ingestion via DCR/DCE . A practical consideration is event size management . Some sources\u2014especially EKS audit telemetry \u2014can carry large, nested fields that are not always useful for Sentinel analytics. For those log types, the Lambda function drops non\u2011essential fields during transformation to keep each event within Azure ingestion constraints; oversized fields can exceed the 64 KB Azure Monitor field size limit and disrupt ingestion (Fields more than 64 KB will be truncated in Log Analytics Workspace). Solution Architecture Data flows from AWS \u2192 converted (Lambda) \u2192 sent (EventHub)\u2192 stored in Sentinel The end-to-end flow operates as follows: Amazon Security Lake writes Parquet files to a centralized S3 bucket as logs arrive from source services (CloudTrail, EKS, VPC Flow, WAF, Route 53, and others). Amazon SQS receives S3 event notifications from Security Lake and queues them as Lambda triggers. AWS Lambda picks up each SQS message, identifies the log source from the S3 object key, downloads the Parquet file, converts each row to JSON, and forwards the events to Azure Event Hub. Azure Event Hub receives the JSON events and makes them available for ingestion into Microsoft Sentinel via a Data Collection Rule (DCR) . Microsoft Sentinel ingests the data into a custom log table, where it is available for detection rules, hunting queries, and dashboards. The full Lambda function code is available in the GithubRepository-LambdaFunction . Refer to the readme for more details. How the Lambda Function works At a high level, the Lambda function performs four things in sequence for every file it processes: Identify the log source: Security Lake organises files under a structured S3 key path that includes the log type (for example, CLOUD_TRAIL_MGMT , EKS_AUDIT , VPC_FLOW ). The function reads this key path to determine which log source the file belongs to, and routes it to the corresponding Azure Event Hub entity. Files that cannot be matched to a known log type are skipped and logged as warnings. Download and decompress the Parquet file: The function streams the Parquet file from S3 directly to local Lambda storage rather than loading it entirely into memory. This keeps memory consumption bounded regardless of file size. Where Security Lake uses gzip compression, the function decompresses automatically before processing. Convert Parquet rows to JSON: Each row in the Parquet file is read in batches using PyArrow and converted to a JSON object. Parquet columns can carry data types \u2014 such as NumPy scalars, nested arrays, and high-precision timestamps \u2014 that are not natively serialisable to JSON. The function handles these type conversions before serialisation, ensuring clean output that Sentinel's ingestion pipeline can accept without errors. Forward events to Azure Event Hub: Converted JSON events are sent to the respective Azure Event Hub entity in batches, with each row becoming a discrete event. The function respects Event Hub's payload size ceiling, handles throttling responses gracefully using retry logic with exponential backoff, and marks each processed file in S3 metadata to prevent duplicate ingestion on retry. Tuning the Lambda Messages at cloud scale are unforgiving. Memory, timeout, batch size, and retry behavior\u2014each decision determined whether the messenger would keep up or fall behind. Several configuration changes are required beyond the default Lambda settings to make this function production-ready. Runtime and Dependencies \u2014 Lambda Layer The function depends on three libraries not available in Lambda's default Python runtime: pyarrow (for Parquet reading), pandas (for type handling), and azure-eventhub (for Event Hub connectivity). These are packaged as an AWS Lambda Layer and attached to the function, keeping the deployment package clean and the layer reusable across function versions. Step-by-step instructions for packaging the dependencies, creating the S3 bucket, publishing the Layer, and deploying the function are available in the GithubRepository-LambdaLayer . Secrets Management \u2014 AWS Secrets Manager The Azure Event Hub connection strings \u2014 one per log type \u2014 are sensitive credentials that must not be stored in environment variables in plaintext. The function retrieves them at cold start from AWS Secrets Manager , using a single secret ARN passed as a Lambda environment variable ( SECRET_ARN ). The secret is stored as a JSON object with each log type as a key. The full secret structure and configuration steps are available in the GithubRepository-SecretsManager . IAM Permissions The Lambda execution IAM role requires scoped permissions across S3, Secrets Manager, SQS, and CloudWatch Logs. Full IAM policy JSON files following the principle of least privilege are available in the GithubRepository-IAMPolicies . Deployment instructions for the IAM Policies are available in the IAM Policies README . Memory Configuration A starting configuration of 1,792 MB is recommended \u2014 this is the threshold at which Lambda may allocate a full vCPU. For environments with high log volumes or large Parquet files, increasing to 2,048 MB provides headroom for concurrent batch processing. Tune further based on observed execution durations in CloudWatch Metrics. Timeout Configuration The default Lambda timeout of 3 seconds is insufficient for Parquet processing at scale. The function must download a file from S3, process it in batches, and flush all events to Event Hub \u2014 a sequence that can take tens of seconds for larger Security Lake files. A timeout of 5 minutes (300 seconds) is recommended as a starting point, with adjustment based on observed execution durations in CloudWatch Metrics. SQS Trigger Configuration The SQS queue connected to Security Lake S3 event notifications is configured as the trigger for the Lambda function. This enables automatic invoke of the Lambda function whenever Security Lake writes a new Parquet file to S3. Validate Event Hub Ingestion At this point, events should be streaming into each Event Hub. To validate, open a specific Event Hub from the Azure Portal and navigate to the Overview page. You should see active metrics across Requests, Messages, and Throughput, confirming that the Lambda function is successfully forwarding Security Lake events. \u201cThroughput spikes mean events are flowing correctly\u201d In the upcoming sections, we will follow the documentation to ingest events from Eventhub to Azure Monitor . Before we begin, please collect the required information as stated here to have resource ID's and other details ready for configuration of DCR and Data Collection Endpoint. Also create a user assigned managed identity (UAMI), since the DCRs in this setup use a UAMI that should be granted the required permissions on the Event Hub Namespace to Receive Events. To grant the Azure Event Hubs Data Receiver role to the user-assigned managed identity, follow the instructions here. Creating Tables in Log Analytics Workspace As mentioned in the Overview, this blog covers the following data sources: Amazon EKS audit and runtime events Route 53 DNS query logs AWS WAF access logs AWS Lambda execution activity Amazon S3 access events The PowerShell scripts to create these tables are provided here: GithubRepo CreateLAWTables. For assistance with executing these scripts, refer to: Readme.md. Note : In the Microsoft Documentation to Ingest logs from EventHub into Azure Monitor only 3 fields are created in the tables ( TimeGenerated , RawData , Properties ). In this case, the entire Json event from the Event Hub is sent to the RawData field. However the scripts we are running are creating additional fields since we will be parsing the RawData field and extracting/parsing the information from the complete event into individual fields. This makes it easier to search and analyze logs later and schema improves detection rules and KQL efficiency. Create a Data Collection Endpoint To collect data with a data collection rule, you need a data collection endpoint: Create a data collection endpoint . Note: Create the data collection endpoint in the same region as your Log Analytics workspace. From the data collection endpoint's Overview screen, select JSON View. Copy the Resource ID for the data collection rule. You use this information in the next step while creating Data Collection Rules. Create Data Collection Rules Since we have 5 sources in scope for this example, we need to create 5 DCRs using the collected information as stated here , the user assigned managed identity resource ID, and the Data Collection Endpoint resource ID we created in the previous step. DCR Deployment via ARM Templates The Data Collection Rules ARM templates can be found in the GithubRepo-DataCollectionRules. The instructions to create via ARM templates can be found in the readme.md (Microsoft article reference with manual steps here ). DCR Mapping (AWS Sources \u2192 DCR Templates) ARM Templates in GitHub Repo to AWS Source mapping Data Source DCR Template Name Amazon EKS Logs DCR-awseks.json AWS S3 Access Logs DCR-awsS3access.json AWS WAF Logs DCR-awswaf.json AWS Lambda Execution DCR-lambdaexecution.json Amazon Route 53 Logs DCR-Route53.json Final Step: Associating the Event Hub with the Data Collection Rule At this stage, the core building blocks of the ingestion pipeline are already in place. We have successfully configured streaming to Event Hubs, created dedicated Event Hubs for each Amazon Security Lake source, provisioned destination tables in the Microsoft Sentinel workspace, and defined Data Collection Rules (DCRs) \u2014 leveraging the Azure Monitor pipeline and a user-assigned managed identity to securely read incoming events. The final step is to stitch this entire architecture together by establishing associations between the Event Hubs and their corresponding Data Collection Rules. This association acts as the connection that links Event Hub to Sentinel that enables Azure Monitor to actively pull data from the Event Hubs and route it into the defined destination tables. Without this linkage, the pipeline remains incomplete \u2014 data may continue to flow into Event Hubs, but it will not be picked up or ingested into Sentinel. Each Event Hub must be explicitly mapped to its respective Data Collection Rule, ensuring: The correct stream is processed by the intended transformation logic Events are routed to the appropriate custom tables The ingestion pipeline operates in a deterministic and scalable manner helping ensure data is routed to the intended destination in a consistent and predictable manner . Once these associations are configured, the end\u2011to\u2011end pipeline is intended to operate as designed , subject to configuration accuracy and ongoing operational monitoring\u2014 enabling automated ingestion workflows of Amazon Security Lake data into Microsoft Sentinel with minimal manual intervention once configured. Steps to be followed : Associate the data collection rule with the event hub To complete the setup, we now associate each Event Hub with its corresponding Data Collection Rule (DCR). This creates the link that allows Azure Monitor to read data from the Event Hub and send it to Microsoft Sentinel. Important: You must create one association per Data Collection Rule . Example: If an Event Hub is receiving AWS Route 53 logs , it must be associated with the DCR created for AWS Route 53 . Copy the template in the template from the above link and create the Data Collection Rule associations. We have to create 1 association per Data Collection Rule. What You Need Event Hub Resource ID Follow these steps to get the Event Hub Resource ID: Open the Event Hub Namespace in the Azure Portal Go to Entities \u2192 Event Hubs Select the Event Hub that is receiving the logs (e.g., Route 53 logs) In the Overview page, click on JSON View Copy the Resource ID Resource Group, Region, and Association Name The Resource Group must be the same as the one where the Event Hub is deployed Provide the Azure region where the resources are deployed Define a unique name for the association Data Collection Rule (DCR) Resource ID Open the corresponding Data Collection Rule Go to the Overview page Click on JSON View Copy the Resource ID Key Note: Make sure that Each Event Hub is mapped to the correct DCR The data source and DCR template are aligned (e.g., Route 53 \u2192 Route 53 DCR) Validate End-to-End Ingestion Once this configuration is complete, we can validate the logs in the destination table, fields, and parsing accuracy. Seeing logs here indicates that ingestion is successfully flowing through the pipeline . If you are building on a lake-first security architecture and running into ingestion challenges with Sentinel, feel free to share your experience in the comments or raise an issue in the GitHub repository.",
-      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-community/amazon-security-lake-integration-with-microsoft-sentinel-parquet/ba-p/4516635",
-      "source": "Microsoft Security Blog (TechCommunity)",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-06T20:19:08+00:00",
-      "published_ts": 1778098748,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Windows / Microsoft",
-        "Cloud / SaaS",
-        "Identity / Access",
-        "Network / OT / ICS",
-        "Crypto / Web3"
       ],
       "curated": true
     },
@@ -100407,68 +100663,6 @@
       "type_label": "OSINT, Communities & Subreddits",
       "published": "2026-04-11T20:25:57+00:00",
       "published_ts": 1775939157,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "How do you reliably handle/close popups using Selenium in Python?",
-      "summary": "Hey all, I\u2019m working with Selenium in Python and running into issues with different types of popups. I\u2019m trying to handle things like: JavaScript alerts / confirms Cookie consent banners Modal popups that block interaction What are the most reliable strategies you use to detect and close them? Would appreciate real examples or patterns that work across sites. submitted by /u/thenoopcoder [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1sittc8/how_do_you_reliably_handleclose_popups_using/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-04-11T20:20:55+00:00",
-      "published_ts": 1775938855,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Prioritising large Nmap scans using service rarity and version grouping",
-      "summary": "One of the recurring problems with large Nmap scans is not data collection, but prioritisation. Once a scan grows beyond a few dozen hosts, the question shifts from: \u201cwhat is open?\u201d to: \u201cwhat actually stands out?\u201d I\u2019ve been experimenting with a simple approach based on two ideas: 1) Local service rarity Treat each host as a distribution of services and assign higher weight to services that appear infrequently across the scan. This is loosely inspired by self-information: common services (e.g. SSH) contribute little, while one-off services contribute more. This tends to push \"weird\" hosts (unusual service combinations, unexpected exposures) to the top quickly. 2) Version grouping Instead of looking at flat service lists, group by (service, product, version). This collapses large scans into a smaller set of variants and makes version drift visible (e.g. a few hosts lagging behind the main fleet). In practice, combining both: - helps identify outliers early - reduces the need for manual scanning of flat port/service lists - provides a clearer starting point for follow-up (NSE output, HTTP inspection, etc.) I implemented this as a simple XML -> HTML transformation using XSLT, mainly to keep it usable in restricted environments (no DB, no runtime), but the approach itself is independent of the tooling. Curious if others are using similar heuristics for scan triage, or if there are better ways to prioritise large result sets. submitted by /u/13utters [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1sitset/prioritising_large_nmap_scans_using_service/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-04-11T20:19:58+00:00",
-      "published_ts": 1775938798,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Over 20,000 crypto fraud victims identified in international crackdown",
-      "summary": "submitted by /u/rkhunter_ [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1sitd4c/over_20000_crypto_fraud_victims_identified_in/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-04-11T20:03:30+00:00",
-      "published_ts": 1775937810,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "UK oil and gas company Zephyr Energy loses \u00a3700K to contractor payment fraud",
-      "summary": "submitted by /u/rkhunter_ [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1sit7ox/uk_oil_and_gas_company_zephyr_energy_loses_700k/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-04-11T19:57:47+00:00",
-      "published_ts": 1775937467,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Crypto crashed six months ago: Have markets improved, or are bears still in charge?",
-      "summary": "The October 2025 Bitcoin and altcoin crash may have ended the bull market, but its long-term impact on market health may have been overstated.",
-      "link": "https://cointelegraph.com/news/crypto-crashed-six-months-ago-have-markets-improved-or-are-bears-still-in-charge?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-11T19:33:32+00:00",
-      "published_ts": 1775936012,
       "smart_groups": [],
       "curated": false
     },
