@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-05-12T00:16:56.591677+00:00",
+  "generated_at": "2026-05-12T02:32:58.639597+00:00",
   "days_back": 30,
-  "total_items": 7209,
+  "total_items": 7212,
   "items": [
     {
       "title": "Black Hat USA",
@@ -12,6 +12,76 @@
       "type_label": "General Security & Blogs",
       "published": "2026-08-01T11:00:00+00:00",
       "published_ts": 1785582000,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Windows 11's new Low Latency Profile may give your PC the speed boost it deserves",
+      "summary": "Currently in early testing mode, Low Latency Profile is expected to boost the speed of Windows 11 apps, menus, flyouts, and more.",
+      "link": "https://www.zdnet.com/article/microsoft-speed-launch-time-windows-11-apps-features/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-12T02:01:00+00:00",
+      "published_ts": 1778551260,
+      "smart_groups": [
+        "Windows / Microsoft"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Microsoft PowerToys now lets you control your monitor from the taskbar - here's how",
+      "summary": "Instead of pressing buttons on your monitor or hunting through your Windows settings, here's how you can now adjust your display directly from the system tray - plus other new PowerToys perks.",
+      "link": "https://www.zdnet.com/article/microsoft-powertoys-control-your-windows-monitor-from-the-taskbar/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-12T02:00:41+00:00",
+      "published_ts": 1778551241,
+      "smart_groups": [
+        "Windows / Microsoft"
+      ],
+      "curated": false
+    },
+    {
+      "title": "I compared how Gemini, ChatGPT, and Claude can analyze videos - this model wins",
+      "summary": "Can AI really watch video, or does it just fake it? I tested my favorite AI tools on YouTube clips and local files to find the best.",
+      "link": "https://www.zdnet.com/article/can-gemini-chatgpt-claude-analyze-video-this-one-wins-test/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-12T01:59:09+00:00",
+      "published_ts": 1778551149,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Linux kernel maintainers suggest a \u2018kill switch\u2019 to protect systems until a zero-day vulnerability is patched",
+      "summary": "Linux server admins may get the ability to turn off a vulnerable function in the OS kernel until a patch for a zero-day vulnerability is ready, if a proposal from a kernel developer and maintainer is accepted by the open source community. The idea of a kill switch for privileged operators has been suggested by Sasha Levin , a distinguished engineer at Nvidia and co-maintainer of the long-term support and stable Linux kernel trees, as a mitigation when a security hole is discovered. As he pointed out in a recent post , when a vulnerability is found, \u201cfleets stay exposed until a patched kernel is built, distributed and rebooted into. For many such issues, the simplest mitigation is to stop calling the buggy function.\u201d In his post, Levin and a colleague also provided a proposed version of a kernel kill switch. \u201cFor most users,\u201d Levin pointed out, \u201cthe cost of \u2018this socket family stops working for the day\u2019 is much smaller than the cost of running a known vulnerable kernel until the fix lands.\u201d The proposal comes at a time when several high severity Linux vulnerabilities have been discovered, including Copy Fail ( CVE-2026-31431 ), a logic bug which lets users easily obtain root access, and Dirty Frag , which abuses weaknesses in how the Linux kernel handles fragmented memory pages. The Dirty Frag attack combines two separate vulnerabilities affecting the Linux IPsec Encapsulating Security Payload (ESP) subsystem ( CVE-2026-43284 ) and the RxRPC networking protocol ( CVE-2026-43500 ). Security forum users opposed The proposal has set off a furious debate among infosec pros. For example, in the r/cybersecurity Reddit forum , it\u2019s been called a \u201cterrible idea,\u201d \u201cridiculous,\u201d \u201cabsolutely terrifying,\u201d and \u201cjust too risky.\u201d \u201cPeople will use a kill switch instead of patching,\u201d argued a contributor. Contributors also pointed out flaws in the proposed code. One pointed out that the kill switch would terminate a specific function, but disable the highest-level entry point that already handles \u2018failure\u2019 state for the operation. \u201cIf you know how Linux works, you don\u2019t need it,\u201d added one contributor, who said that within a couple of hours of the release of the Dirty Drag exploit, he had the code analyzed and mitigations ready. \u201cIf you don\u2019t know how Linux works,\u201d he added, \u201cyou shouldn\u2019t use any kill switch.\u201d Linux and security experts are cautious. \u201c[A kill switch is] nice in theory, but I don\u2019t think it accelerates my movement to protection any faster than what we deal with today, considering change control must still be carefully tested and managed,\u201d Kellman Meghu , chief technology officer at Canadian-based incident response firm DeepCove CyberSecurity, told CSO . \u201cIt is easy for a developer to say \u2018Just unload that kernel module,\u2019 but the harder part is attesting to the business there is no impact to the services, at which point I am asking why this module was loaded at all if it was never needed? That sounds like a gap in my hardening and build process,\u201d he said. Meghu foresees at least two problems with a kill switch: First, few admins are be able to easily assess its impact on their organization\u2019s services. A kill switch would easily work for the Copy Fail hole, he said, \u201cbut as a strategy for all potential risks? What will be the change impact of disabling kernel functions? It would need to be tested and validated, and that still takes time and effort to truly validate outside of production.\u201d Second, he said, just triggering the kill switch and hoping is not a great strategy for enterprise supported applications. The Copy Fail hole isn\u2019t typical of all issues Linux pros face, Meghu added. In short, he said, the kill switch \u201cseems like a Band-Aid that only works on certain cuts.\u201d Robert Enderle of the Enderle Group said the kill switch proposal is a classic \u2018break-glass-in-case-of-emergency\u2019 tool. He said, \u201cFor enterprise admins, it\u2019s a highly pragmatic response to the lag between a zero-day disclosure and a deployed patch. In high-availability environments where rebooting a fleet is a nightmare, being able to kill a specific, non-essential function (like an obscure networking protocol) that\u2019s currently being exploited is a huge win. It basically trades a niche feature for immediate system integrity without the downtime of a full patch cycle.\u201d However, he added, that power would be a double-edged sword. \u201cWhile it doesn\u2019t create a new entry point \u2014 you still need root access to pull the trigger \u2014 it opens the door for massive self-inflicted Denial of Service. There\u2019s no safety net; if an admin kills a critical memory management function by mistake, the system is toast.\u201d He pointed out that it also risks becoming a crutch that lets organizations delay actual patching. \u201cIt\u2019s a sharp tool that belongs in the hands of sophisticated security teams, but for the average sysadmin, it\u2019s probably a bit too \u2018nuclear\u2019 for comfort,\u201d he said. \u201cGiven how IT is staffed these days, this is likely way too dangerous for most to consider using.\u201d But an official at Linux distributor Red Hat said the company thinks it will work. \u201cWe\u2019re supportive of incorporating kill switch capabilities into the kernel, especially as the pace and severity of exploits expand due to LLM-driven scanning,\u201d Mike McGrath, vice president for core platforms at Red Hat, told CSO . \u201cPatches are absolutely critical to address CVEs, but they\u2019re also frequently disruptive. Most organizations operating at scale must weigh patch-based protection against the production impact of restarts and updates. This means that non-disruptive mitigations, which Red Hat frequently provides through all available means, are vital for \u2018in the moment\u2019 protection until a permanent patch can be verified and deployed.\u201d",
+      "link": "https://www.csoonline.com/article/4169659/linux-kernel-maintainers-suggest-a-kill-switch-to-protect-systems-until-a-zero-day-vulnerability-is-patched.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-12T00:47:09+00:00",
+      "published_ts": 1778546829,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Linux / Unix",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Verizon will give you a free Samsung Galaxy S26, tablet, and watch today - how to qualify",
+      "summary": "The latest add-a-line deal nets you a free Galaxy S26, Galaxy Watch 8, and Galaxy Tab S10 FE tablet from the carrier.",
+      "link": "https://www.zdnet.com/article/samsung-galaxy-s26-verizon-deal/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-12T00:16:37+00:00",
+      "published_ts": 1778544997,
       "smart_groups": [],
       "curated": false
     },
@@ -42,6 +112,18 @@
       "type_label": "OSINT, Communities & Subreddits",
       "published": "2026-05-11T23:55:59+00:00",
       "published_ts": 1778543759,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Instructure/ canvas paid the ransom?",
+      "summary": "Looks like the news release is they paid the ransom to get their data back? submitted by /u/ThePorko [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1takhmd/instructure_canvas_paid_the_ransom/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-11T23:42:29+00:00",
+      "published_ts": 1778542949,
       "smart_groups": [],
       "curated": false
     },
@@ -594,20 +676,6 @@
       "published": "2026-05-11T21:25:44+00:00",
       "published_ts": 1778534744,
       "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Microsoft is boosting the launch time of key Windows apps and features - here's how",
-      "summary": "Currently in early testing mode, the new Low Latency Profile will boost the speed of Windows 11 apps, menus, flyouts, and more.",
-      "link": "https://www.zdnet.com/article/microsoft-speed-launch-time-windows-11-apps-features/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-11T21:25:24+00:00",
-      "published_ts": 1778534724,
-      "smart_groups": [
-        "Windows / Microsoft"
-      ],
       "curated": false
     },
     {
@@ -2036,6 +2104,33 @@
       "curated": true
     },
     {
+      "title": "Smartphone users increasingly forgo paid antivirus protection",
+      "summary": "A recent survey by Cybernews indicates that only 18% of mobile phone users in America pay for third-party antivirus software, with many trusting the built-in tools provided by operating system vendors like Microsoft and Apple.",
+      "link": "https://www.scworld.com/brief/smartphone-users-increasingly-forgo-paid-antivirus-protection",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-11T14:42:00+00:00",
+      "published_ts": 1778510520,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "JDownloader website compromised to distribute malicious installers",
+      "summary": "The supply chain attack involved attackers modifying the website's download links to point to malicious third-party payloads.",
+      "link": "https://www.scworld.com/brief/jdownloader-website-compromised-to-distribute-malicious-installers",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-11T14:40:00+00:00",
+      "published_ts": 1778510400,
+      "smart_groups": [
+        "Curated",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
       "title": "IBM security advisory (AV26-438)",
       "summary": "",
       "link": "https://cyber.gc.ca/en/alerts-advisories/ibm-security-advisory-av26-438",
@@ -2052,6 +2147,18 @@
       "summary": "Customers urged to keep an eye out for phisherfolk",
       "link": "https://www.theregister.com/security/2026/05/11/best-western-hotels-confirms-web-app-data-breach/5238020",
       "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-11T14:34:00+00:00",
+      "published_ts": 1778510040,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "AI can profile users from ad patterns alone, study finds",
+      "summary": "A study by UNSW Sydney and QUT involving over 435,000 Facebook ads from 891 Australians revealed that large language models can infer a user's gender, age, education, employment, political leanings, and economic status solely from the ads they are exposed to.",
+      "link": "https://www.scworld.com/brief/ai-can-profile-users-from-ad-patterns-alone-study-finds",
+      "source": "SCM feed for Latest",
       "type": "general",
       "type_label": "General Security & Blogs",
       "published": "2026-05-11T14:34:00+00:00",
@@ -2818,18 +2925,6 @@
         "Linux / Unix"
       ],
       "curated": true
-    },
-    {
-      "title": "I tested whether Gemini, ChatGPT, and Claude can analyze videos - this one wins",
-      "summary": "Can AI really watch video, or does it just fake it? I tested my favorite AI tools on YouTube clips and local files to find the winner.",
-      "link": "https://www.zdnet.com/article/can-gemini-chatgpt-claude-analyze-video-this-one-wins-test/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-11T12:34:46+00:00",
-      "published_ts": 1778502886,
-      "smart_groups": [],
-      "curated": false
     },
     {
       "title": "Circle Raises $222M in Arc Token Presale at $3B Valuation",
@@ -25855,18 +25950,6 @@
       "type_label": "General Security & Blogs",
       "published": "2026-05-04T20:16:30+00:00",
       "published_ts": 1777925790,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Verizon will give you a free Samsung Galaxy S26, watch, and tablet right now - how to qualify",
-      "summary": "The latest add-a-line deal gets you a free Galaxy S26, Galaxy Watch 8, and Galaxy Tab S10 FE Tablet at Verizon.",
-      "link": "https://www.zdnet.com/article/samsung-galaxy-s26-verizon-deal/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-04T20:04:58+00:00",
-      "published_ts": 1777925098,
       "smart_groups": [],
       "curated": false
     },
@@ -100928,50 +101011,6 @@
       "published": "2026-04-12T03:01:39+00:00",
       "published_ts": 1775962899,
       "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Hallmark - 1,736,520 breached accounts",
-      "summary": "In March 2026, Hallmark suffered an alleged breach and subsequent extortion after attackers gained access to data stored within Salesforce. The data was later published after the extortion deadline passed, exposing 1.7M unique email addresses across both Hallmark and the Hallmark+ streaming service, along with names, phone numbers, physical addresses and support tickets.",
-      "link": "https://haveibeenpwned.com/Breach/Hallmark",
-      "source": "Have I Been Pwned \u2013 Latest Breaches",
-      "type": "leaks",
-      "type_label": "Leaks & Breaches",
-      "published": "2026-04-12T02:01:11+00:00",
-      "published_ts": 1775959271,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "After using Lenovo's new Yoga laptop, I'm wondering if Windows makers are running out of ideas",
-      "summary": "Lenovo's Yoga 7a 2-in-1 is a versatile and well-built PC, though its mid-tier hardware makes it hard to recommend over rivals.",
-      "link": "https://www.zdnet.com/article/lenovo-yoga-7a-2-in-1-review/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-12T01:00:49+00:00",
-      "published_ts": 1775955649,
-      "smart_groups": [
-        "Windows / Microsoft"
-      ],
-      "curated": false
-    },
-    {
-      "title": "The $30 Google TV stick may be the budget Chromecast successor we've been waiting for",
-      "summary": "Walmart's next streaming device might be exactly what Chromecast fans have been longing for. Here's what's expected.",
-      "link": "https://www.zdnet.com/article/walmarts-4k-chromecast-replacement/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-12T00:00:00+00:00",
-      "published_ts": 1775952000,
-      "smart_groups": [
-        "Identity / Access"
-      ],
       "curated": false
     },
     {
