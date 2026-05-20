@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-05-20T02:40:23.439547+00:00",
+  "generated_at": "2026-05-20T07:15:05.216574+00:00",
   "days_back": 30,
-  "total_items": 7727,
+  "total_items": 7742,
   "items": [
     {
       "title": "Black Hat USA",
@@ -27,6 +27,538 @@
       "smart_groups": [
         "Data Breaches / Leaks"
       ],
+      "curated": false
+    },
+    {
+      "title": "Zero Trust Meets Quantum Cryptography: Building an Unbreakable Security Architecture",
+      "summary": "The threat landscape is changing, and what was once the most robust cybersecurity is now falling short. You might... The post Zero Trust Meets Quantum Cryptography: Building an Unbreakable Security Architecture appeared first on JISA Softech Pvt Ltd .",
+      "link": "https://jisasoftech.com/zero-trust-meets-quantum-cryptography-building-an-unbreakable-security-architecture/",
+      "source": "JISA Softech",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-05-20T06:55:10+00:00",
+      "published_ts": 1779260110,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "New NGINX Vulnerability Exposes Servers to Malicious Code Execution",
+      "summary": "NGINX has disclosed a new high\u2011severity vulnerability in its JavaScript module that can allow remote attackers to crash servers and, in specific conditions, execute arbitrary code on vulnerable systems. F5 has published a security advisory (K000161307) describing a flaw in the NGINX JavaScript (njs) module, specifically when the js_fetch_proxy directive is used together with client\u2011controlled NGINX variables [\u2026] The post New NGINX Vulnerability Exposes Servers to Malicious Code Execution appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/new-nginx-vulnerability-exposes-servers/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T06:52:54+00:00",
+      "published_ts": 1779259974,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Trapdoor Android Ad Fraud Ring Abuses 455 Apps for Fake Clicks",
+      "summary": "A large-scale Android ad fraud campaign named \u201cTrapdoor,\u201d exposing a sophisticated ecosystem built on 455 malicious apps and 183 command-and-control (C2) domains. The operation combines malvertising, automated click fraud, and advanced evasion techniques to create a self-sustaining revenue loop that has generated massive fraudulent traffic across the digital advertising ecosystem. At its peak, Trapdoor generated [\u2026] The post Trapdoor Android Ad Fraud Ring Abuses 455 Apps for Fake Clicks appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/trapdoor-android-ad-fraud-ring/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T06:50:17+00:00",
+      "published_ts": 1779259817,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Detection Ratio Metrics",
+      "summary": "A detection engineering team monitors an environment that evolves over time. Generally, that environment grows as the enterprise hires more employees and expands its cyber footprint. To adjust for this we must measure a detection engineering team\u2019s output in a way that incorporates enterprise growth. We are going to build upon the two previous posts ( Detection Visibility Metrics & Detection Pipeline Metrics ). These three posts intentionally align since it\u2019s critical we keep the same terminology when referencing the entire detection ecosystem. Basic Detection Metrics We need a way to measure our success beyond basic alert counts which are just numbers without any context. The only way to show improvement for numbers without any context would be to reduce alert counts. We all know it is not that simple when most environments are growing. As the enterprise expands alert counts will also increase. Let\u2019s start with an example: At first glance it appears we are getting worse! It will look that way if we strictly look at the alert totals. There is much more to the story when we incorporate the growth of the environment we are monitoring. The Detection Ratio We can incorporate environment change into our metrics by creating a ratio for triggered alerts to monitored objects. This will allow us to both measure our improvement as the enterprise grows and even forecast alert output to ensure we have the appropriate staffing in place to monitor ahead of time. I will share a preview of the final metrics before I walk through the steps. The chart below is specific to endpoints. From the chart we can make the following conclusions: From 2023 to 2025 we reduced our triggered alert counts per endpoint from 0.026 to 0.015. The monthly average triggered alerts increased due to the amount of endpoints increasing within the enterprise. We can forecast triggered alert counts when the enterprise grows in 2026 since we have the alert ratio per endpoint for 2025. Forecasting will allow the monitoring team to prepare ahead of time. We can easily speak to the metrics with other teams and leadership by saying we have X alerts per month per 100 endpoints. For example in 2025 we generated approximately 1.5 alerts per 100 endpoints per month. Detection Ratio Categories We will need to create high level buckets to define a monitored object. I will propose some but you should adapt these to better fit your environment. Endpoint \u2014 count of endpoints being monitored within your organization. Network \u2014 sum of monitored network throughput within your organization. Identity \u2014 count of monitored users within your organization. Detection Ratio Data Sources The next step will be to split out all triggered alerts by the categories above. I have listed some example data sources below. Endpoint \u2014 sum of triggered alerts from endpoint related data sources. Antivirus, Endpoint Detection & Response (EDR), Endpoint Protection Platforms (EPP), Application Control, Operating System Events, PowerShell events, etc. Network \u2014 sum of triggered alerts from network related data sources. Web Proxies, Network Intrusion Detection Systems (IDS/IPS), Web Application Firewalls, VPN, Netflow, etc. Identity \u2014 sum of triggered alerts from identity related data sources. Email, Directory Services (Active Directory), Privileged Access Monitoring, Entra ID Protection, etc. NOTE: This will get trickier with more complex detection correlation across data sources but realistically for metrics we need to summarize the data. If we do not summarize our monitoring when reporting up we will be deep in weeds with leadership that simply does not have the time. Detection Ratio Calculations Below are the generic formulas to calculate the ratios. The objects will be what makes the most sense for your organization. Alerts per Object = Object Alert Totals / Object Count Alerts per 100 Objects = Object Alert Totals / (Object Count / 100) Next Year Forecast = Object count * Alerts per Object [Current Year Ratio] Here are some examples with fabricated alert counts for the categories I listed above. Endpoint \u2014 Alerts Per Endpoint Alerts per Endpoint = Endpoint Alert Totals / Endpoint Count Alerts per 100 Endpoints = Endpoint Alert Totals / (Endpoint Count / 100) Year 2026 Forecast = Endpoint count * Alerts per Endpoint [Year 2025 Ratio] Network \u2014 Alerts per GB transferred Alerts per GB Transferred = Network Alert Totals / (Network Ingress + Network Egress) Alerts per 100 GB transferred = Network Alert Totals / ((Network Ingress + Network Egress) / 100) Year 2026 Forecast = (Network Ingress + Network Egress) * Alerts per GB Transferred [Year 2025 Ratio] Identity \u2014 Alerts per User Alerts per User = Identity Alert Totals / User Count Alerts per 100 User = Identity Alert Totals / (User Count / 100) Year 2026 Forecast = User Count * Alerts per User [Year 2025 Ratio] Detection Ratio Visualization Next lets graph an example showing how these numbers fit together. Below you can see clearly that the Detection Engineering team is improving by reducing the detection ratio (green line) even while the enterprise is growing (blue line). The alert counts (red line) fluctuates which will certainly be noticed by leadership. If we only had the alerts totals (red line) there would be some frantic explaining to do. The detection landscape is always changing so we need to ensure when we measure it we incorporate that factor. If we do not then we may be improving but the metrics will not reflect it. As long as the final numbers are simple to communicate we are free to calculate them in a way that accounts for the environment change. Give these ratios a shot to see how your detections have improved over time. Sources and Additional Reading https://detect.fyi/detection-visibility-metrics-577fa1d63696 https://medium.com/@plantainstan/detection-pipeline-metrics-ae6757d7e6b2 Detection Ratio Metrics was originally published in Detect FYI on Medium, where people are continuing the conversation by highlighting and responding to this story.",
+      "link": "https://detect.fyi/detection-ratio-metrics-d7e5fdf87d47?source=rss----d5fd8f494f6a---4",
+      "source": "Detect.fyi",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T06:35:31+00:00",
+      "published_ts": 1779258931,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Web / API Security",
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "FreePBX Security Flaw Lets Attackers Access User Portals",
+      "summary": "A critical security vulnerability has been discovered in FreePBX, a widely used open-source PBX platform, allowing unauthenticated attackers to access user portals under certain conditions. The flaw, tracked as CVE-2026-46376, carries a CVSS v4 base score of 9.1 and affects the User Control Panel (UCP) via the \u201cuserman\u201d module. FreePBX Security Flaw According to an [\u2026] The post FreePBX Security Flaw Lets Attackers Access User Portals appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/freepbx-security-flaw/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T06:30:14+00:00",
+      "published_ts": 1779258614,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "DevilNFC Malware Traps Android Users in NFC Relay Attacks",
+      "summary": "A newly identified Android malware family named DevilNFC is raising concern among cybersecurity researchers for its advanced use of kiosk mode to trap victims during NFC relay attacks. These malware families mark a significant evolution in NFC relay threats. Unlike earlier campaigns dominated by Chinese-speaking Malware-as-a-Service ecosystems, DevilNFC and NFCMultiPay are developed by independent regional [\u2026] The post DevilNFC Malware Traps Android Users in NFC Relay Attacks appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/devilnfc-malware-traps-android-users/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T06:12:52+00:00",
+      "published_ts": 1779257572,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "America's top cyber-defense agency left a GitHub repo open with with passwords, keys, tokens \u2013 and incredibly obvious filenames",
+      "summary": "submitted by /u/Dash-Courageous [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1ticxu3/americas_top_cyberdefense_agency_left_a_github/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-20T06:12:23+00:00",
+      "published_ts": 1779257543,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Mini Shai-Hulud Attack Hits npm Ecosystem, Compromising Over 600 Packages",
+      "summary": "A large-scale supply chain attack targeting the npm ecosystem has resurfaced with a new variant of the Mini Shai-Hulud malware, compromising more than 600 packages and introducing advanced evasion techniques, including forged Sigstore provenance. The attack primarily targeted the widely used @antv ecosystem but quickly spread to other popular libraries and developer tools. The attack [\u2026] The post Mini Shai-Hulud Attack Hits npm Ecosystem, Compromising Over 600 Packages appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/mini-shai-hulud-attack-hits-npm-compromising-600-packages/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T06:11:59+00:00",
+      "published_ts": 1779257519,
+      "smart_groups": [
+        "Curated",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Top Security Concerns for DevOps in 2026: Expert Insights and Predictions",
+      "summary": "Development Environments Under Attack In 2025, trusted development environments became a haven for cyber attackers.... The post Top Security Concerns for DevOps in 2026: Expert Insights and Predictions appeared first on .",
+      "link": "https://www.news4hackers.com/top-security-concerns-for-devops-in-2026-expert-insights-and-predictions/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T06:07:21+00:00",
+      "published_ts": 1779257241,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Single-Letter Go Module Typosquat Drops DNS-Based Backdoor",
+      "summary": "A newly uncovered software supply chain attack targeting Go developers demonstrates how a single-character typo can silently introduce a persistent backdoor. A malicious Go module, github.com/shopsprint/decimal, designed to impersonate the widely trusted github.com/shopspring/decimal library used for high-precision arithmetic in financial and analytics applications. The legitimate package is heavily adopted across the Go ecosystem, with more than 38,000 known [\u2026] The post Single-Letter Go Module Typosquat Drops DNS-Based Backdoor appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/single-letter-go-module-typosquat/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T06:06:43+00:00",
+      "published_ts": 1779257203,
+      "smart_groups": [
+        "Curated",
+        "Malware / Payloads",
+        "Network / OT / ICS",
+        "Supply Chain / Software"
+      ],
+      "curated": true
+    },
+    {
+      "title": "What Happens When an Artificial Intelligence Takes Control of Production Systems",
+      "summary": "Large Language Models (LLMs) in Operational Roles Pose Risks to Enterprise Security The increasing adoption... The post What Happens When an Artificial Intelligence Takes Control of Production Systems appeared first on .",
+      "link": "https://www.news4hackers.com/what-happens-when-an-artificial-intelligence-takes-control-of-production-systems/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T06:05:34+00:00",
+      "published_ts": 1779257134,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Nationwide Cyber Frauds Exposed: Multiple Bank Accounts Used by Low-Income Individuals",
+      "summary": "Nationwide Cyber Fraud Ring Exposed in Ahmedabad, Utilizing Over 100 Mule Accounts In a significant... The post Nationwide Cyber Frauds Exposed: Multiple Bank Accounts Used by Low-Income Individuals appeared first on .",
+      "link": "https://www.news4hackers.com/nationwide-cyber-frauds-exposed-multiple-bank-accounts-used-by-low-income-individuals/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T06:04:05+00:00",
+      "published_ts": 1779257045,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "LPG Gas Booking Scams Spread Across the Country, Consumers Warned of Online Frauds",
+      "summary": "LPG Booking Scams Spread Across India India is experiencing a significant surge in LPG (Liquefied... The post LPG Gas Booking Scams Spread Across the Country, Consumers Warned of Online Frauds appeared first on .",
+      "link": "https://www.news4hackers.com/lpg-gas-booking-scams-spread-across-the-country-consumers-warned-of-online-frauds/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T06:02:51+00:00",
+      "published_ts": 1779256971,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "github-breach-teampcp-repository-hack-investigation",
+      "summary": "GitHub Investigates Internal Repositories Breach Claimed by TeamPCP GitHub, a cloud-based development platform used by... The post github-breach-teampcp-repository-hack-investigation appeared first on .",
+      "link": "https://www.news4hackers.com/github-breach-teampcp-repository-hack-investigation/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T06:01:37+00:00",
+      "published_ts": 1779256897,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "PoC Exploit Released for DirtyDecrypt Linux Kernel Vulnerability",
+      "summary": "PoC exploit code for the DirtyDecrypt (DirtyCBC) Linux kernel vulnerability has been released publicly, turning a previously theoretical local privilege escalation into a practical, copy\u2011paste exploit path to root on specific Linux distributions. DirtyDecrypt (also called DirtyCBC) is a local privilege escalation (LPE) in the Linux kernel\u2019s RxGK security layer for the RxRPC transport used by [\u2026] The post PoC Exploit Released for DirtyDecrypt Linux Kernel Vulnerability appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/poc-exploit-dirtydecrypt-linux-kernel-vulnerability/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T05:44:20+00:00",
+      "published_ts": 1779255860,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Linux / Unix"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Hackers Exploit MSHTA to Deploy LummaStealer and Amatera Malware",
+      "summary": "Hackers are increasingly abusing the legacy Microsoft HTML Application Host (MSHTA) utility to deliver commodity malware such as LummaStealer and Amatera. Despite being tied to Internet Explorer, which was retired in 2022, MSHTA remains default in Windows, making it an attractive Living-off-the-Land binary (LOLBIN) for stealthy attacks. MSHTA allows execution of VBScript and JavaScript from [\u2026] The post Hackers Exploit MSHTA to Deploy LummaStealer and Amatera Malware appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/lummastealer-and-amatera-malware/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T05:38:46+00:00",
+      "published_ts": 1779255526,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC",
+        "Windows / Microsoft",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Alleged Huawei zero-day blamed for the 2025 Luxembourg telecom crash",
+      "summary": "A Huawei zero-day flaw reportedly caused Luxembourg\u2019s 2025 nationwide outage, disrupting landline, 4G/5G, and emergency services On July 23, 2025, a nationwide telecom outage in Luxembourg was reportedly triggered by a previously undisclosed flaw in Huawei enterprise routers. The attack disrupted landline, 4G, 5G, and emergency communications for more than three hours after specially crafted [\u2026]",
+      "link": "https://securityaffairs.com/192431/hacking/alleged-huawei-zero-day-blamed-for-the-2025-luxembourg-telecom-crash.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T05:30:04+00:00",
+      "published_ts": 1779255004,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "An AI coding assistant installed malware into production environments. Nobody typed the command. AMA on what \"supply chain attack\" means now.",
+      "summary": "You probably remember the old supply chain attacks. SolarWinds. Log4j. Someone sneaks bad code into a trusted piece of software, and everyone who installed that software is suddenly in trouble. Here's what happened on March 24 of this year, and why it's different. A popular open-source tool called LiteLLM \u2014 it's a connector that a lot of companies use to route requests to ChatGPT, Claude, and other AI models \u2014 got compromised. Someone slipped malicious code into it. That part's the old playbook. The new part: a lot of the exposure didn't come from a person clicking install. It came from agent frameworks pulling the poisoned version in as part of doing normal work a developer had asked for. Anywhere pip install litellm ran without a pinned version during the window \u2014 CI jobs, build containers, agent frameworks with LiteLLM as a transitive dependency \u2014 was potentially exposed. And here's the kicker: the attackers didn't break into LiteLLM directly. They first broke into Trivy, which is a security tool companies use to scan for this exact kind of threat. The compromised Trivy action ran inside LiteLLM's CI/CD pipeline and exfiltrated the PyPI publishing token, which the attackers then used to push the bad code. The tool you use to catch supply chain attacks became the way one got in. Three big attacks in under three weeks \u2014 LiteLLM, then Axios (the JavaScript library that runs in a huge chunk of the internet, present in roughly 80% of cloud and code environments), then a roughly six-hour hijack of the CPUID website that pushed trojanized CPU-Z installers to anyone downloading from the official page. Different attackers, same pattern: the bad stuff came in through software you already trusted. So when we say \"supply chain attack\" in 2026, we mean three things that used to be separate: The code your team installs \u2014 packages, libraries, signed apps The AI infrastructure your agents depend on \u2014 model gateways, connectors, MCP servers, fine-tuned models pulled from public repos The AI agents themselves \u2014 which are now installing things, making decisions, and running with permissions they probably shouldn't have We're Itamar Golan ( u/Itamar _PromptSec) and David Abutbul ( u/David _PromptSec) from Prompt Security, the company inside SentinelOne securing enterprise AI usage. We spend our time on what happens at the agent layer specifically, the part that's newest and weirdest. We also maintain an open-source project called ClawSec, a security skill suite for OpenClaw and related agents (Hermes, PicoClaw, NanoClaw) that does drift detection, skill integrity verification, automated audits, and live advisory monitoring, so an agent's behavior and configuration can't quietly drift out from under you. Ask us anything about: The March 24 LiteLLM attack \u2014 what actually happened, what the poisoned code tried to do, and why the fact that a lot of the exposure came through automated pipelines and agent frameworks (not humans clicking install) matters for how you defend against this going forward. Agents doing things you didn't explicitly ask them to \u2014 your coding assistant grabbing a library, your customer-service agent pulling from a data source, your internal chatbot chaining tools together. Where's the line between \"helpful\" and \"this thing just ran a command with your permissions\"? Shadow AI, but worse \u2014 last year it was employees pasting stuff into ChatGPT. This year it's agents your company officially deployed quietly connecting to tools and services nobody mapped. How do you even get visibility into that? Why \"just add another approval step\" isn't going to work \u2014 the whole point of agents is speed. If every action needs a human to click yes, you don't have an agent, you have a very slow chatbot. What actually works instead. ClawSec \u2014 why we made it free and open source, what it does differently from the usual \"AI guardrails\" pitch, and what we've learned from people actually using it. State-sponsored actors, ransomware crews, and who's really behind this \u2014 who profits from attacking trusted software, and why the economics point to a lot more of this coming, not less. What a normal company should actually do on Monday \u2014 not a 40-page framework. The two or three things that meaningfully reduce your exposure this quarter. We'll be live Wednesday, May 20, and sticking around all day (Israel time). Bring the hard questions \u2014 the dumb ones too. Honestly, the \"dumb\" ones are usually the ones everyone else is afraid to ask out loud. submitted by /u/Itamar_PromptSec [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tic3ce/an_ai_coding_assistant_installed_malware_into/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-20T05:27:31+00:00",
+      "published_ts": 1779254851,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS",
+        "Malware / Payloads",
+        "Network / OT / ICS",
+        "Supply Chain / Software"
+      ],
+      "curated": true
+    },
+    {
+      "title": "We audited 12K n8n templates: most have critical vulnerabilities",
+      "summary": "submitted by /u/theMiddleBlue [link] [comments]",
+      "link": "https://www.reddit.com/r/netsec/comments/1tic39p/we_audited_12k_n8n_templates_most_have_critical/",
+      "source": "/r/netsec",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-20T05:27:24+00:00",
+      "published_ts": 1779254844,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "GitHub Source Code Reportedly Compromised, TeamPCP Claims Breach",
+      "summary": "A threat actor group known as TeamPCP has claimed responsibility for a significant breach involving GitHub\u2019s internal systems, alleging the theft of sensitive source code and proprietary organizational data. The group is currently offering the allegedly stolen dataset for sale on underground cybercrime forums, with asking prices reportedly exceeding $50,000. According to posts shared on [\u2026] The post GitHub Source Code Reportedly Compromised, TeamPCP Claims Breach appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/github-source-code-reportedly-compromised/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T05:14:49+00:00",
+      "published_ts": 1779254089,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Grafana GitHub Breach Exposes Source Code via TanStack npm Attack",
+      "summary": "Grafana Labs, on May 19, 2026, said an investigation into its recent breach found no evidence of customer production systems or operations being compromised. It said the scope of the incident is limited to the Grafana Labs GitHub environment, which includes public and private source code along with internal GitHub repositories. \"After the initial assessment, we found that in addition to source",
+      "link": "https://thehackernews.com/2026/05/grafana-github-breach-exposes-source.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T05:12:06+00:00",
+      "published_ts": 1779253926,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "GitHub investigates internal repositories breach claimed by TeamPCP",
+      "summary": "GitHub is investigating a breach of its internal repositories after the TeamPCP hacker group claimed to have accessed approximately 4,000 repositories containing private code. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/github-investigates-internal-repositories-breach-claimed-by-teampcp/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T05:08:42+00:00",
+      "published_ts": 1779253722,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Everything we saw at Google I/O: Gemini 3.5, Android XR glasses, Spark, and more",
+      "summary": "Here's everything we saw in Mountain View at Google's annual developer conference.",
+      "link": "https://www.zdnet.com/article/google-io-05-19-2026-live-blog/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T05:05:00+00:00",
+      "published_ts": 1779253500,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Identity Provider Security Compromise: Understanding the Kill Chain Risks",
+      "summary": "Identity Provider Compromise: A New Kill Chain The traditional concept of a kill chain, a... The post Identity Provider Security Compromise: Understanding the Kill Chain Risks appeared first on .",
+      "link": "https://www.news4hackers.com/identity-provider-security-compromise-understanding-the-kill-chain-risks/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T05:01:22+00:00",
+      "published_ts": 1779253282,
+      "smart_groups": [
+        "Identity / Access"
+      ],
+      "curated": false
+    },
+    {
+      "title": "US Senate advances resolution to curb Trump\u2019s Iran war powers",
+      "summary": "\u201cCongress has the power to slam the brakes on this unwise conflict,\u201d said bill sponsor and Democratic Senator Tim Kaine.",
+      "link": "https://cointelegraph.com/news/us-senate-advances-resolution-to-end-trumps-iran-war?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-20T04:58:03+00:00",
+      "published_ts": 1779253083,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "GitHub Hacked \u2013 Internal Source Code Repositories Compromised via Employee Device",
+      "summary": "GitHub has confirmed unauthorized access to its internal repositories after detecting a compromised employee device infected through a malicious Visual Studio Code extension, the company disclosed in a series of official statements on May 20, 2026. The Microsoft-owned code hosting platform said it identified and contained the breach after a poisoned VS Code extension was [\u2026] The post GitHub Hacked \u2013 Internal Source Code Repositories Compromised via Employee Device appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/github-data-breach/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T04:47:29+00:00",
+      "published_ts": 1779252449,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "WLFI-linked AI Financial flags \u2018going concern\u2019 as losses mount",
+      "summary": "The World Liberty Financial-linked AI Financial Corp. posted a net loss of $271.5 million in the first quarter of 2026, and flagged significant doubt it could continue operating for the next 12 months without intervention.",
+      "link": "https://cointelegraph.com/news/world-liberty-linked-ai-financial-flags-going-concern-as-losses-mount?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-20T04:44:55+00:00",
+      "published_ts": 1779252295,
+      "smart_groups": [
+        "Ransomware",
+        "Web / API Security"
+      ],
+      "curated": false
+    },
+    {
+      "title": "PoC Exploit Released for 20-Year Old PostgreSQL RCE Vulnerability",
+      "summary": "A proof-of-concept (PoC) exploit has been publicly released for CVE-2026-2005, a critical remote code execution (RCE) vulnerability affecting PostgreSQL\u2019s pgcrypto extension. The flaw, rooted in legacy code dating back nearly two decades, highlights the long-standing risks associated with memory handling issues in widely deployed database systems. The vulnerability exists in the PGP session key parsing [\u2026] The post PoC Exploit Released for 20-Year Old PostgreSQL RCE Vulnerability appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/20-year-old-postgresql-vulnerability/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T04:26:14+00:00",
+      "published_ts": 1779251174,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Identity / Access"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Veilgate - Deception proxy",
+      "summary": "In my day job I do pentest almost everyday and now we are actually using AI agents against real targets like banks, fintech, and saas those are behind paid waf and multilayered infra still just a LLMloop was breaking everything, and the raise of opensource agents are autonomously doing all the pentest without any intervention tools like strix, CAI, hexStrix, people just buy tokens and run pentest now a day even i made a mobile agent loop for my office work. Even the waf methods became old now a simple block won\u2019t stop AI agents from bypassing or trying on other routes even spa application are victim in both blackbox and greybox assessment. So I have built and open sourced it which is called veilgate where it will not block rather have three diff modes observe(scoring each req), challenge(proof of work) and trapit(honeypot) it won\u2019t block any req rather keep on loop and feeding fake vulnerabilities. submitted by /u/deffer_function [link] [comments]",
+      "link": "https://www.reddit.com/r/netsec/comments/1tiaq83/veilgate_deception_proxy/",
+      "source": "/r/netsec",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-20T04:18:46+00:00",
+      "published_ts": 1779250726,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "GitHub Investigating TeamPCP Claimed Breach of ~4,000 Internal Repositories",
+      "summary": "GitHub on Tuesday said it's investigating unauthorized access to its internal repositories after the notorious threat actor known as TeamPCP listed the platform's source code and internal organizations for sale on a cybercrime forum. \"While we currently have no evidence of impact to customer information stored outside of GitHub's internal repositories (such as our customers' enterprises,",
+      "link": "https://thehackernews.com/2026/05/github-investigating-teampcp-claimed.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T04:01:15+00:00",
+      "published_ts": 1779249675,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "ShinyHunters Claims Credit for Cyber-Attack on Online Learning Management System",
+      "summary": "A recent cyberattack targeting an online Learning Management System (LMS) has been attributed to the notorious cybercriminal group ShinyHunters. The incident caused widespread service disruptions affecting educational institutions and students across the United States, although the platform has since been restored. The attack temporarily disrupted access to critical academic resources hosted on the LMS platform, [\u2026] The post ShinyHunters Claims Credit for Cyber-Attack on Online Learning Management System appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/shinyhunters-claims-credit-online-lms/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T03:51:20+00:00",
+      "published_ts": 1779249080,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "New to cybersecurity",
+      "summary": "Guys, rn I'm 18. I've learnt these networking topics: \"Networking fundamentals, OSI/TCP-IP models, TCP/UDP, IP addressing & subnetting, routing/NAT/firewalls, DNS, HTTP/HTTPS, TLS basics, ARP/DHCP, ports & common services (FTP/SMB/RDP/SMTP/IMAP), Kerberos basics, authentication/sessions, packet flow, traceroute/TTL, and basic MITM.\" I can use Wireshark for packet analysis, understand packet flow and stuff. I'm doing PortSwigger labs daily, trying to write reports for them, and taking notes with attack methodology and stuff. I've learnt HTML/CSS, and I'm learning JS daily too. Is there anything I am missing in my learning path?? Feel free to share it will be great help in my journey Edit: Also i forgot to mention that I can use Burp Suite very well too... Edit 2: Genuinely wanna thank everyone who took the time to give advice and share their experiences... I definitely have a better idea of what to learn next now. I really do appreciate all the guidance.. nd good hunting everyone :) submitted by /u/Unknownbud8 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1ti9ncx/new_to_cybersecurity/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-20T03:28:45+00:00",
+      "published_ts": 1779247725,
+      "smart_groups": [
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Daybreak and Codename MDASH - Microsoft\u2019s Edge Password Blunder",
+      "summary": "OpenAI, Microsoft, and Google are racing to unleash next-gen AI that hunts for software vulnerabilities and hacks at scale. This episode explores how these advancements could shake up everything we thought we knew about cybersecurity. \u2022 Microsoft rethinks Edge's \"intended behavior\" after it gets press. \u2022 Chaotic Eclipse hacker strikes again with a Bitlocker bypass. \u2022 Google's threat analysis group documents malicious AI use. \u2022 Canada hasn't learned the lessons of the EU and the UK. \u2022 AI chatbots may be far more addictive than social media. \u2022 Project: Hail Mary now available to stream. \u2022 An apparently-serious zero-point quantum vacuum energy source. \u2022 A bit of listener feedback. \u2022 OpenAI's & Microsoft's vulnerability discovery systems Show Notes - https://www.grc.com/sn/SN-1079-Notes.pdf Hosts: Steve Gibson and Leo Laporte Security Now episode 1079 More Info: https://twit.tv/shows/security-now/episodes/1079 Sponsors: \u2022 http://outsystems.com/twit \u2022 http://hoxhunt.com/securitynow \u2022 http://zscaler.com/security \u2022 http://meter.com/securitynow \u2022 http://canary.tools/twit - use code: TWIT \u2022 http://joindeleteme.com/twit promo code TWIT Download or subscribe to Security Now at https://twit.tv/shows/security-now You can submit a question to Security Now at the GRC Feedback Page. For 16kbps versions, transcripts, and notes (including fixes), visit Steve's site: https://grc.com/ also the home of the best disk maintenance and recovery utility ever written Spinrite 6. Join Club TWiT for Ad-Free Podcasts! Support what you love and get ad-free audio and video feeds, a members-only Discord, and exclusive content. Join today: https://twit.tv/clubtwit Products we recommend: https://www.amazon.com/shop/twitnetcastnetwork TWiT may earn commissions on certain products. Follow us: Website: https://twit.tv/ Bluesky: https://bsky.app/profile/twit.tv Mastodon: https://mastodon.social/@TWiT Facebook: https://www.facebook.com/TWiTNetwork Instagram: https://www.instagram.com/twit.tv/ X (Twitter): https://x.com/TWiT TikTok: https://www.tiktok.com/@twittok LinkedIn: https://www.linkedin.com/company/twit-llc About us: TWiT.tv is a technology podcasting network located in the San Francisco Bay Area with the #1 ranked technology podcast This Week in Tech hosted by Leo Laporte. Every week we produce dozens of hours of content on a variety of programs including Tech News Weekly, MacBreak Weekly, Windows Weekly, Security Now, Intelligent Machines, and more.",
+      "link": "https://www.youtube.com/watch?v=mAH5tIIX5yA",
+      "source": "Security Now (YouTube Playlist)",
+      "type": "podcasts",
+      "type_label": "Podcasts & YouTube",
+      "published": "2026-05-20T03:27:53+00:00",
+      "published_ts": 1779247673,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Malware / Payloads",
+        "Identity / Access"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Bankr temporarily disables transactions after 14 wallets hacked",
+      "summary": "Bankr recommends that affected users create a new wallet, generate a new seed phrase on a clean device and revoke approvals if remaining assets can\u2019t be moved.",
+      "link": "https://cointelegraph.com/news/bankr-disables-transactions-after-14-wallets-hacked?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-20T03:14:22+00:00",
+      "published_ts": 1779246862,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Trump-backed Truth Social pulls bids for crypto ETFs",
+      "summary": "The crypto ETFs were intended to be part of Trump Media & Technology Group\u2019s broader crypto strategy, which included the launch of the Truth.fi financial platform.",
+      "link": "https://cointelegraph.com/news/trump-backed-truth-social-pulls-bids-for-crypto-etfs?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-20T02:42:44+00:00",
+      "published_ts": 1779244964,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "GitHub Source Code Breach \u2013 TeamPCP Claims Access to Internal Source Code",
+      "summary": "A notorious threat actor operating under the alias TeamPCP claims to have breached GitHub\u2019s internal systems, allegedly exfiltrating proprietary organization data and source code. The attackers are offering the stolen dataset for sale on underground cybercrime forums, demanding offers exceeding $50,000. According to the threat actor\u2019s post, the compromised data encompasses approximately 4,000 private repositories tied directly [\u2026] The post GitHub Source Code Breach \u2013 TeamPCP Claims Access to Internal Source Code appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/github-source-code-breach/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-20T02:39:50+00:00",
+      "published_ts": 1779244790,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "A stealth Firefox version that passes all anti-bot and CAPTCHA",
+      "summary": "submitted by /u/Groundbreaking-Ad472 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1ti8i7f/a_stealth_firefox_version_that_passes_all_antibot/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-20T02:38:11+00:00",
+      "published_ts": 1779244691,
+      "smart_groups": [],
       "curated": false
     },
     {
@@ -248,16 +780,19 @@
       "curated": false
     },
     {
-      "title": "Google I/O 2026 live: Our takes on Gemini 3.5, Spark, Android XR, and more",
-      "summary": "We're reporting live from Mountain View at Google's annual developer conference today. Stay tuned for the latest updates.",
-      "link": "https://www.zdnet.com/article/google-io-05-19-2026-live-blog/",
-      "source": "ZDNet \u2013 Security",
+      "title": "What Will Make AI BOMs Real?",
+      "summary": "A brief overview of the forces at play that will get more organizations on board with creating and consuming AI bill of materials (BOMs).",
+      "link": "https://www.darkreading.com/cybersecurity-analytics/what-make-ai-bom-real",
+      "source": "darkreading",
       "type": "general",
       "type_label": "General Security & Blogs",
-      "published": "2026-05-19T22:17:00+00:00",
-      "published_ts": 1779229020,
-      "smart_groups": [],
-      "curated": false
+      "published": "2026-05-19T22:17:55+00:00",
+      "published_ts": 1779229075,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
     },
     {
       "title": "UAC-0184 Malware Chain Uses bitsadmin and HTA Files for Gated Payload Delivery",
@@ -275,6 +810,20 @@
         "Malware / Payloads"
       ],
       "curated": true
+    },
+    {
+      "title": "CFTC sues Minnesota, Governor Tim Walz over prediction markets ban",
+      "summary": "About 24 hours after Minnesota Governor Tim Walz signed a bill into law passed by the state\u2019s legislature to effectively ban prediction markets in the state, the CFTC pushed back with its own lawsuit.",
+      "link": "https://cointelegraph.com/news/cftc-lawsuit-minnesota-prediction-markets-ban?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-19T22:01:41+00:00",
+      "published_ts": 1779228101,
+      "smart_groups": [
+        "Cloud / SaaS"
+      ],
+      "curated": false
     },
     {
       "title": "After Nearly a Decade, Gary Gensler's Poster Child for Crypto Compliance Executes Its First Trade",
@@ -108244,322 +108793,6 @@
       "published_ts": 1776667400,
       "smart_groups": [],
       "curated": false
-    },
-    {
-      "title": "British Hacker Admits Stealing Millions in Virtual Currency From Targeted Companies",
-      "summary": "A 24-year-old British national, Tyler Robert Buchanan, has pleaded guilty to orchestrating a massive cyberattack campaign that compromised over a dozen U.S. companies and resulted in the theft of at least $8 million in cryptocurrency. According to a Friday announcement from the U.S. Attorney\u2019s Office for the Central District of California, the Scottish hacker admitted [\u2026] The post British Hacker Admits Stealing Millions in Virtual Currency From Targeted Companies appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/british-hacker-admits-stealing-millions-in-virtual-currency/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-20T06:23:30+00:00",
-      "published_ts": 1776666210,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "ZionSiphon Hits Israeli Water Systems With OT Sabotage Malware",
-      "summary": "ZionSiphon is a newly analyzed Operational Technology (OT) malware strain designed to target Israeli water treatment and desalination facilities, with a clear emphasis on sabotage rather than simple IT disruption. Darktrace\u2019s investigation found that ZionSiphon restricts itself to hardcoded IPv4 ranges that map to Israeli network space, such as 2.52.0.0\u20132.55.255.255, 79.176.0.0\u201379.191.255.255, and 212.150.0.0\u2013212.150.255.255. The malware [\u2026] The post ZionSiphon Hits Israeli Water Systems With OT Sabotage Malware appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/zionsiphon-hits-israeli-water/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-20T06:18:02+00:00",
-      "published_ts": 1776665882,
-      "smart_groups": [
-        "Malware / Payloads",
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "NSA Confirms Use of Anthropic\u2019s Mythos Despite Pentagon Blacklist",
-      "summary": "The National Security Agency (NSA) is actively using Anthropic\u2019s highly restricted \u201cMythos\u201d artificial intelligence model, despite the developer currently being on the Department of Defense (DoD) blacklist. According to recent intelligence reports highlighted by the International Cyber Digest, the NSA is one of an exclusive group of approximately 40 organizations globally granted access to the [\u2026] The post NSA Confirms Use of Anthropic\u2019s Mythos Despite Pentagon Blacklist appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/nsa-confirms-use-of-anthropics-mythos-blacklist/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-20T06:10:55+00:00",
-      "published_ts": 1776665455,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Coinbase is testing AI agents that show up on Slack and email",
-      "summary": "Brian Armstrong has now predicted that AI agents will not only transact onchain more than humans but will outnumber employees at his company very soon.",
-      "link": "https://cointelegraph.com/news/coinbase-introduces-two-ai-agents-assist-workers?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-20T06:07:01+00:00",
-      "published_ts": 1776665221,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Cloud hosting firm Vercel confirms \u2018limited\u2019 hack of user info",
-      "summary": "Vercel has confirmed it was compromised after a member of a hacking forum put the company\u2019s information up for sale for $2 million.",
-      "link": "https://cointelegraph.com/news/cloud-hosting-vercel-confirms-limited-hack-user-info?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-20T06:05:56+00:00",
-      "published_ts": 1776665156,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "The quantum gap: Why Bitcoin and Ethereum are taking different paths on security",
-      "summary": "Why Bitcoin and Ethereum are taking different paths to address future cryptographic risks and long-term blockchain security.",
-      "link": "https://cointelegraph.com/explained/bitcoin-and-ethereum-quantum-threat-strategy?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-20T05:57:49+00:00",
-      "published_ts": 1776664669,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "SmokedMeat: Open-source tool shows what attackers do inside CI/CD pipelines",
-      "summary": "Boost Security has released SmokedMeat, an open-source framework that runs attack chains against CI/CD infrastructure so engineering and security teams can see what an attacker would do in their specific environment. What the tool does SmokedMeat takes a flagged pipeline vulnerability and executes a live demonstration against a team\u2019s own infrastructure. Starting from a single vulnerability, it deploys a payload, compromises the runner, harvests credentials from process memory, exchanges those credentials for cloud access, exposes \u2026 More \u2192 The post SmokedMeat: Open-source tool shows what attackers do inside CI/CD pipelines appeared first on Help Net Security .",
-      "link": "https://www.helpnetsecurity.com/2026/04/20/smokedmeat-ci-cd-pipeline-attacks/",
-      "source": "Help Net Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-20T05:30:15+00:00",
-      "published_ts": 1776663015,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Supply Chain / Software"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Polymarket in talks to raise $400M at a $15B valuation: Report",
-      "summary": "Polymarket\u2019s potential $15 billion valuation would still put it below the $22 billion valuation of competitor platform Kalshi in its latest funding round.",
-      "link": "https://cointelegraph.com/news/polymarket-seeking-400-million-raise-report?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-20T05:08:17+00:00",
-      "published_ts": 1776661697,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "How to spot a North Korean fake in a job interview",
-      "summary": "North Korean operatives are getting hired at companies by passing job interviews using fake identities and AI tools. In this Help Net Security video, Adrian Cheek, a senior cybercrime researcher at Flare, outlines several ways organizations can catch these attempts before extending an offer. Basic video checks, like asking candidates to move their head or place objects in front of the camera, can expose low-quality deepfake setups. Requiring an in-person interview at a later stage \u2026 More \u2192 The post How to spot a North Korean fake in a job interview appeared first on Help Net Security .",
-      "link": "https://www.helpnetsecurity.com/2026/04/20/north-korean-job-interview-infiltration-video/",
-      "source": "Help Net Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-20T05:00:52+00:00",
-      "published_ts": 1776661252,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Hackers impersonated eth.limo team to hijack its domain: Post-mortem",
-      "summary": "EasyDNS CEO Mark Jeftovic said the social engineering attack was highly sophisticated and the company is conducting further investigation to determine how the breach occurred.",
-      "link": "https://cointelegraph.com/news/eth-limo-domain-hijack-dnssec-social-engineering?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-20T04:57:35+00:00",
-      "published_ts": 1776661055,
-      "smart_groups": [
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Product showcase: Syncthing for secure, private file synchronization",
-      "summary": "Syncthing is a free and open-source application that synchronizes files directly between your devices. Instead of uploading data to a central server, it uses a peer-to-peer approach, transferring files whenever peers are online. This decentralized model ensures that your data remains private and under your control. Syncthing monitors shared folders for changes. When a file is created, modified, or removed, updates are propagated to connected peers. Synchronization happens automatically once they are online, keeping folder \u2026 More \u2192 The post Product showcase: Syncthing for secure, private file synchronization appeared first on Help Net Security .",
-      "link": "https://www.helpnetsecurity.com/2026/04/20/product-showcase-syncthing-private-file-synchronization-app/",
-      "source": "Help Net Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-20T04:30:14+00:00",
-      "published_ts": 1776659414,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Critical Vulnerability In Flowise Allows Remote Command Execution Via MCP Adapters",
-      "summary": "A critical vulnerability in Flowise and multiple AI frameworks has been discovered by OX Security, exposing millions of users to remote code execution (RCE). The flaw stems from the Model Context Protocol (MCP), a widely used communication standard for AI agents developed by Anthropic. Unlike a typical software bug, this vulnerability stems from an architectural [\u2026] The post Critical Vulnerability In Flowise Allows Remote Command Execution Via MCP Adapters appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/flowise-vulnerability/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-20T04:15:57+00:00",
-      "published_ts": 1776658557,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Bitcoin erases weekend gains as US-Iran ceasefire faces pressure",
-      "summary": "Bitcoin briefly crashed below $74,000 on Sunday as Iran threatened retaliation for a US military seizure of an Iranian cargo ship.",
-      "link": "https://cointelegraph.com/news/bitcoin-erases-weekend-gains-us-iran-ceasefire-falls-under-pressure?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-20T04:15:27+00:00",
-      "published_ts": 1776658527,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "F\u00fcr Cyberattacken gewappnet \u2013 Krisenkommunikation nach Plan",
-      "summary": "loading=\"lazy\" width=\"400px\"> Lesen Sie, welche Aspekte f\u00fcr einen Krisenkommunikationsplan entscheidend sind. Gorodenkoff \u2013 shutterstock.com Cyberangriffe fordern nicht nur CISOs in punkto Pr\u00e4vention und Krisenbew\u00e4ltigung heraus. Auch die Unternehmenskommunikation ist mit im Boot. Sie ist verantwortlich f\u00fcr den Krisenkommunikationsplan, den sie mit dem CISO entwickelt und bei Cybersicherheitsvorf\u00e4llen umsetzt. Eine gute Krisenpr\u00e4vention hat aus der Perspektive der Kommunikation drei Elemente und beginnt nicht erst dann, wenn die Krise eingetreten ist. Die folgenden Ma\u00dfnahmen sollten grunds\u00e4tzlich Teil der Unternehmenskommunikation (UK) sein. Ein Krisenkommunikationsplan bereitet das Unternehmen optimal auf alle m\u00f6glichen Krisenszenarien vor. Dazu z\u00e4hlen klare Verhaltens- und Kommunikationsregeln, vorbereitete Inhalte und sichere Kommunikationskan\u00e4le und -instrumente. Ein Internet- Monitoring zeigt an, wie die Krise in Sozialen Netzwerken und Medien wahrgenommen wird. Reputationssch\u00e4digende Ver\u00f6ffentlichungen k\u00f6nnen fr\u00fchzeitig entdeckt und Gegenma\u00dfnahmen eingeleitet werden. Eine gute Kommunikationsarbeit im Tagesgesch\u00e4ft schafft etablierte Kontakte zu Meinungsf\u00fchrern. Auf gute Beziehungen und starkes Standing kann man in der Krise aufsetzen. Konsistente Aussagen nach au\u00dfen Um eine konsistente Kommunikation und im Krisenfall eine schnelle Reaktion auf alle Herausforderungen zu garantieren, ist eine klare kommunikative Verantwortungsstruktur unbedingt notwendig. W\u00e4hrend die Gesamtverantwortung f\u00fcr korrektes unternehmerisches Handeln in der Krise bei der Gesch\u00e4ftsf\u00fchrung liegt, muss die Verantwortung f\u00fcr die Krisenkommunikation in der Abteilung Unternehmenskommunikation angesiedelt werden. Notfallst\u00e4be treten zusammen Im Krisenkommunikations-Notfallstab (KKN) sollten nur aktiv an Kommunikationsentscheidungen beteiligte Verantwortliche teilnehmen. Dieses Gremium wird nicht nach hierarchischen Gesichtspunkten besetzt. Parallel etabliert sich der erweiterte Krisenkommunikations-Notfallstab (eKKN). Ihm geh\u00f6ren Mitglieder aller Unternehmensbereiche an. Aufgabe des eKKN ist es, die Gesamtorganisation \u00fcber den Stand der Dinge zu informieren. Leitung des Krisenstabs Neben der Krisenkommunikation geht es im konkreten Handeln, um die Krise zu l\u00f6sen, vor allen Dingen um die Koordination technischer Ma\u00dfnahmen. Im Falle einer Cyberattacke liegt die Verantwortung bei der IT-Abteilung. Deshalb f\u00fchren ein Mitglied aus der Unternehmenskommunikation und ein Mitglied aus der IT gemeinsam den KKN. Zu den Aufgaben des KKN geh\u00f6rt es, die Kommunikationsma\u00dfnahmen auszurollen und die externe Berichterstattung zu beobachten. Der Krisenstab entscheidet auch dar\u00fcber, Ma\u00dfnahmen und Inhalte anzupassen. Von der Theorie in die Praxis Die Planung der Krisenkommunikation umfasst viele praktische Aspekte. Dazu geh\u00f6rt zum Beispiel, zu definieren, in welchem Raum Live-Sitzungen des Krisenstabs stattfinden k\u00f6nnen und wie Online-Meetings abgehalten werden. Dabei muss f\u00fcr den Fall einer Cyberkrise immer mit bedacht werden, dass gegebenenfalls Kommunikationstools wie E-Mail, Chat und Festnetz- beziehungsweise IP-Telefonie nicht verf\u00fcgbar sind. Notfall-Infrastruktur fr\u00fchzeitig aufbauen Es muss auch damit gerechnet werden, dass das IT-Netz nicht zug\u00e4nglich ist oder aus Sicherheitsgr\u00fcnden abgeschaltet werden muss. S\u00e4mtliche vorbereitete Dokumente und Kontaktlisten des Krisenstabs m\u00fcssen deshalb zwingend auch ohne Zugang zum internen IT-Netz erreichbar sein. Dabei m\u00fcssen f\u00fcr die Teammitglieder E-Mail-Accounts genutzt werden, die unabh\u00e4ngig von der Unternehmens-IT funktionieren. Die UK-Leitung muss bei der Erstellung dieser alternativen Kommunikations-Infrastruktur f\u00fcr Krisenf\u00e4lle unbedingt auf Datenschutz- und Datensicherheit achten. Licht ins Dunkel mit der Darksite Wo sollten Betriebe mit der ersten Notfall-Kommunikation anfangen? Gehen wir von der Situation aus, dass die IT nicht mehr funktioniert und auch die Webseite nicht mehr erreichbar ist. Dann wird eine Darksite online geschaltet. Die Darksite ist eine vorbereitete Internet-Seite mit den wichtigsten Informationen f\u00fcr Kunden, Partner und \u00d6ffentlichkeit im Krisenfall. Die Web-Adresse der Homepage wird \u00fcber den Provider auf diese Darksite gelenkt. Laufende Information st\u00e4rkt das Vertrauen Auf der Darksite k\u00f6nnen laufend aktuelle Informationen zur Krise und zur Krisenbew\u00e4ltigung ver\u00f6ffentlicht werden sowie Kontaktadressen f\u00fcr Betroffene, Medien und Partner. Bereits im Vorfeld muss gekl\u00e4rt sein, wer im KKN f\u00fcr die Redaktion der Darksite verantwortlich ist. Das Vorhalten einer Darksite ist unbedingt zu empfehlen, da die Webseite ein attraktives Ziel f\u00fcr Cyberkriminelle ist. Sie beweisen damit den Erfolg ihrer Attacke. Mehrstufige Kommunikation Entscheidend f\u00fcr eine gute Au\u00dfenkommunikation ist, dass Medien und Nutzer Sozialer Netzwerke aus einer Hand informiert werden. Deshalb muss gekl\u00e4rt sein, dass ausschlie\u00dflich definierte Mitarbeiterinnen und Mitarbeiter der Unternehmenskommunikation mit Erfahrung in der \u00d6ffentlichkeitsarbeit Stellungnahmen gegen\u00fcber den Medien abgeben. Alle Abteilungen m\u00fcssen dar\u00fcber informiert sein, wer Ansprechpartner f\u00fcr Medien ist. Die Pressearbeit in der Krise erfolgt grunds\u00e4tzlich mehrstufig. Stellungnahme bereithalten Sofort bei Ausbruch der Krise muss ein vorbereitetes Statement bereitgestellt werden, das auf Anfrage herausgegeben werden kann. Dieses Statement kann noch keine Details zum Vorfall selbst enthalten, muss aber die Bereitschaft zur offenen Kommunikation erkl\u00e4ren. Da die meisten Cybervorf\u00e4lle nach dem gleichen Muster ablaufen, k\u00f6nnen die Dokumente gut vorbereitet werden. Je konkreter das Ausma\u00df der Krise intern bekannt ist, desto konkreter kann die erste Stellungnahme formuliert werden. Erste aktive Erkl\u00e4rung Sobald Ursache und Ausma\u00df der Krise benannt werden, erfolgt eine aktive Information mit Kernaussagen. Da die h\u00e4ufigsten Formen von Cyberangriffen bekannt sind, kann auch diese Pressemitteilung vorbereitet werden. Gegebenenfalls k\u00f6nnen noch erg\u00e4nzende Aussagen hinzugef\u00fcgt werden, die f\u00fcr das Verst\u00e4ndnis des Vorfalls wichtig sind beziehungsweise die Reputation sch\u00fctzen oder zus\u00e4tzliche Informationen f\u00fcr Betroffene beinhalten. Alternative Tools f\u00fcr Pressearbeit Bei der aktiven Kommunikation ist zu beachten, dass interne Systeme, etwa Listen mit Medienkontakten oder Tools f\u00fcr den Versand von Presseinfos nicht mehr zur Verf\u00fcgung stehen. Cloud-L\u00f6sungen k\u00f6nnen hier Abhilfe schaffen und lassen sich meist auch im Tagesgesch\u00e4ft nutzen. Die wichtigsten Daten, zum Beispiel private E-Mail-Adressen und Mobilfunk-Nummern der Mitglieder der Krisenst\u00e4be sowie der wichtigsten externen Notfallpartner, sollten aber immer auch auf dem sichersten Medium der Welt gespeichert werden: auf Papier! Laufende Information gem\u00e4\u00df Kenntnisstand Eine zweite Pressemitteilung folgt zeitnah mit erg\u00e4nzenden Informationen zum Vorfall und mit einer Erl\u00e4uterung der Anti-Krisenstrategie sowie Hinweisen f\u00fcr Betroffene. Je nach Krisenverlauf folgen weitere Pressemitteilungen. Die optionale vierte Phase kann kommunikativ grunds\u00e4tzlich genutzt werden, um Vertrauen aufzubauen: Gesch\u00e4ftsf\u00fchrende und Mitglieder des Expertenteams k\u00f6nnen gemeinsam dar\u00fcber berichten, welche Wege zur erfolgreichen Bew\u00e4ltigung der Krise gef\u00fchrt haben. Das Kommunikationshandbuch \u2013 Nachschlagwerk f\u00fcr die Krise Das Krisenkommunikationshandbuch ist Teil des Notfallhandbuchs. Das Notfallhandbuch deckt alle Aspekte der Krisenbew\u00e4ltigung ab. Es kann f\u00fcr jede potenziell von einer Krise betroffene Fachabteilung mit einem entsprechenden Kapitel erg\u00e4nzt werden. Zus\u00e4tzlich sollte das Notfallhandbuch weitere Unterlagen umfassen, die eher dem allgemeinen Krisenmanagement einer Organisation zuzuordnen sind. Das Krisenkommunikationshandbuch umfasst zum Beispiel folgende Elemente: Definition einer Krise Definition von Zust\u00e4ndigkeiten Mitgliedslisten der Krisenst\u00e4be mit allen Kontaktdaten inklusive privater E-Mail-Adressen und privater Telefonnummern Beschreibung der Aufgaben der Gremien Definition der Prozesse Definition aller in der Krise genutzten Kommunikationskan\u00e4le (mit Zielgruppenzuordnung) Definition aller Kommunikationsinstrumente in der Krise Definition der Sprecher-Rollen Ablaufdiagramme (vom Feststellen der Krise bis zur Beendigung der Krise) Beschreibung der Kommunikationskultur Vorformulierte Dokumente Ratgeber und Vorlagen von staatlicher Seite Das Bundesamt f\u00fcr Sicherheit in der Informationstechnik (BSI) empfiehlt schon lange die Erstellung eines Notfallhandbuchs und gibt auch konkrete Tipps, was so ein Handbuch alles enthalten sollte . Die Krisenkommunikation sollte immer ein Teil eines Notfallhandbuch sein. Es hilft auch nichts, wenn ein Unternehmen technisch gerettet ist, aber die Kunden und Partner mangels Kommunikation weglaufen. Erfahrungsgem\u00e4\u00df muss ein Handbuch zur Krisenkommunikation immer in einem Prozess mit Gesch\u00e4ftsf\u00fchrung, Kommunikationsabteilung, IT-Abteilung, Sicherheits-Experten und betroffenen Fachabteilungen eines Unternehmens erarbeitet werden. Alle Jahre wieder \u2013 der Praxistest Wie eine Brandschutz\u00fcbung wird auch die Krisenkommunikation, die durch eine Cyberattacke ausgel\u00f6st wurde, j\u00e4hrlich ge\u00fcbt. Sie beginnt mit der Ausrufung der Krise bis zum Abschlussbericht. Damit wird \u00fcberpr\u00fcft, ob Ma\u00dfnahmen funktionieren, Gremien arbeitsf\u00e4hig sind, die Prozesse wie gew\u00fcnscht ablaufen und die Vorlagen tauglich sind.(jm) Lesetipp: So geht Tabletop Exercise",
-      "link": "https://www.csoonline.com/article/3851504/fur-cyberattacken-gewappnet-krisenkommunikation-nach-plan.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-20T04:00:00+00:00",
-      "published_ts": 1776657600,
-      "smart_groups": [
-        "Identity / Access",
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Using TPRM to Protect Intellectual Property in University Research | UpGuard",
-      "summary": "Learn how third-party risk management can help universities defend themselves against third-party risks and protect their valuable intellectual property.",
-      "link": "https://origin.upguard.com/blog/tprm-and-university-ip",
-      "source": "UpGuard Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-04-20T03:37:24+00:00",
-      "published_ts": 1776656244,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Vercel Breach Tied to Context AI Hack Exposes Limited Customer Credentials",
-      "summary": "Web infrastructure provider Vercel has disclosed a security breach that allows bad actors to gain unauthorized access to \"certain\" internal Vercel systems. The incident stemmed from the compromise of Context.ai, a third-party artificial intelligence (AI) tool, that was used by an employee at the company. \"The attacker used that access to take over the employee's Vercel Google Workspace account,",
-      "link": "https://thehackernews.com/2026/04/vercel-breach-tied-to-context-ai-hack.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-20T03:35:00+00:00",
-      "published_ts": 1776656100,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Aave's TVL tanks $8B a day after $293M Kelp DAO hack",
-      "summary": "The Aave token fell nearly 20% to $89.5 in just over 24 hours as users withdrew billions of dollars from the lending protocol.",
-      "link": "https://cointelegraph.com/news/aave-tvl-falls-8-billion-after-kelp-dao-hack?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-20T03:13:37+00:00",
-      "published_ts": 1776654817,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Conrad Capital Management data breach exposes Social Security numbers and financial data | UpGuard",
-      "summary": "A data breach involving Conrad Capital Management was reported in April 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.comnews/conrad-capital-management-data-breach-2026-04-17",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-04-20T02:50:49+00:00",
-      "published_ts": 1776653449,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Phoenix Art Museum data breach: names and Social Security numbers compromised | UpGuard",
-      "summary": "A data breach involving Phoenix Art Museum was reported in April 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.comnews/phoenix-art-museum-data-breach-2026-04-17",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-04-20T02:50:49+00:00",
-      "published_ts": 1776653449,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "TruView BSI data breach: key facts and what we know so far | UpGuard",
-      "summary": "A data breach involving TruView BSI was reported in April 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.comnews/truview-bsi-data-breach-2026-04-17",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-04-20T02:50:49+00:00",
-      "published_ts": 1776653449,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Inditex data breach: key facts and what we know so far | UpGuard",
-      "summary": "A data breach involving Inditex was reported in April 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.comnews/inditex-data-breach-2026-04-17",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-04-20T02:50:49+00:00",
-      "published_ts": 1776653449,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Smith Douglas M. CPA data breach exposes Social Security numbers and bank details | UpGuard",
-      "summary": "A data breach involving Smith Douglas M. CPA was reported in April 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.comnews/smith-douglas-m-cpa-data-breach-2026-04-17",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-04-20T02:50:49+00:00",
-      "published_ts": 1776653449,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Vercel Confirms Data Breach \u2014 Hackers Claim Access to Internal Systems",
-      "summary": "Vercel has disclosed a significant security incident after threat actors gained unauthorized access to internal systems, with a hacker group reportedly attempting to sell stolen data for $2 million on underground forums. Vercel, one of the most widely used frontend cloud platforms powering millions of developer deployments, confirmed the breach in an official security bulletin [\u2026] The post Vercel Confirms Data Breach \u2014 Hackers Claim Access to Internal Systems appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/vercel-data-breach/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-20T02:29:11+00:00",
-      "published_ts": 1776652151,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Data Breaches / Leaks"
-      ],
-      "curated": true
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
