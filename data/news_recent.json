@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-05-27T20:27:19.619660+00:00",
+  "generated_at": "2026-05-27T22:27:35.389324+00:00",
   "days_back": 30,
-  "total_items": 7816,
+  "total_items": 7825,
   "items": [
     {
       "title": "Black Hat USA",
@@ -42,6 +42,250 @@
       "curated": false
     },
     {
+      "title": "Provenance of Data",
+      "summary": "Hello, I am having some qualms relating to a set of data that my boss sent me. The output seems very \"AI\", especially the accompanying executive summary. This is particularly alarming, as I work in healthcare and the document contains patient identification information. Im worried he fed raw data into an AI platform and simply exported the result, which has obvious implications. I reviewed basic data for the file, and the author is listed as \"openpyxl\". The creation time is about 30 minutes before he sent the email claiming the data is complete. It appears the file originated from a work computer, as the business name is listed in the data. Can anyone point me in any particular direction as to whether my concerns seem founded, or how to inspect the excel file further to determine its provenance? Thank you. submitted by /u/Ok-Championship8197 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tpkas9/provenance_of_data/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-27T22:08:07+00:00",
+      "published_ts": 1779919687,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Out of the Crypt: The Evolving Cyber Extortion Economy",
+      "summary": "Unit 42 explores trends in data theft and extortion, outlining key strategies for organizations as frontier AI models advance. The post Out of the Crypt: The Evolving Cyber Extortion Economy appeared first on Unit 42 .",
+      "link": "https://unit42.paloaltonetworks.com/cyber-extortion-economy/",
+      "source": "https://unit42.paloaltonetworks.com/feed/",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-05-27T22:00:46+00:00",
+      "published_ts": 1779919246,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "AI models more vulnerable than claimed when faced with iterative attacks",
+      "summary": "CISOs relying on LLM runtime guardrails and official safety scores when making security decisions about their organizations\u2019 AI usage and model selection are due for a wakeup call. According to a new study from Cisco, frontier models from OpenAI, Anthropic, Google, xAI, and Amazon have significantly worse risk profiles when pressured in multi-turn attacks compared to when their safety is benchmarked using single prompts. \u201cThe dominant safety benchmarks for frontier large language models share a structural assumption: that a single prompt and a single model response are enough to characterize how a model behaves under adversarial attack,\u201d the Cisco researchers who authored the study said in a blog post . \u201cThese benchmarks inform model cards, safety reports, and procurement decisions across the industry, but they all only measure one narrow slice of attacker behavior.\u201d Instead, the researchers subjected 15 of the most widely used frontier AI models to a variety of attack techniques that are more likely to occur in the real world, where attackers will not give up after the model refuses to respond to one malicious prompt. \u201cReal adversaries iterate,\u201d the researchers said. \u201cThey reframe refusals, decompose tasks across turns, adopt personas, and escalate gradually. A single turn benchmark cannot see any of that.\u201d Stress-testing over multiple prompts The tests pitted various model configurations, such as with reasoning enabled or disabled, against a range of attack strategies aimed at bypassing safety guardrails. Techniques included role-play; misdirection or introducing ambiguity into the context; redirection or reframing the model\u2019s refusal; information decomposition and reassembly; and incremental escalation, by breaking a task into smaller parts that don\u2019t seem malicious on their own. The researchers ran 30,090 single prompt attacks (2,006 per model) to determine the weighted single-turn attack success rate (ASR) for every model and then ran 6,986 multi-turn attacks across 1,456 conversations for comparison. The results were telling: Most models had considerably higher average ASR scores for multi-turn attacks compared to single-prompt attacks. For example, Anthropic\u2019s Claude Opus 4.6 and OpenAI\u2019s GPT 5.4 \u2014 the latest versions at the time of testing \u2014 had single-turn ASRs of 3.64% and 2.74%, respectively. When faced with multi-turn attacks, average ASRs jumped to 16.20% for Opus and 24.68% for GPT. Neither of those, however, represented the biggest score jump. Google\u2019s Gemini 3 Pro had a single-turn ASR of 18.10% and a multi-turn ASR of 73.35%. \u201cFor business decisions made on the basis of published single-turn scores, this presents security and governance risk,\u201d the researchers concluded. \u201cA model with 2.74% single-turn ASR is not the same product as a model that holds the line at 24.68% multi-turn ASR. Without paired-regime data, the two are indistinguishable on most public evaluations, and the end user never sees the gap.\u201d Cisco The results also revealed that different model configurations can impact safety. For example, xAI\u2019s Grok 4.1 Fast in non-reasoning mode had the worst multi-turn ASR at 88.30%, but its score dropped to 43.47% when reasoning was turned on. The researchers note that these configuration-related variations are not currently captured by the official model cards published by the labs or the public safety benchmarks. Different attack strategies showed meaningful differences in success across models, both for single-turn and iterative attacks \u2014 findings that could be used to inform defense strategies for customers of these models. The tests also uncovered outliers such as Amazon\u2019s Nova Lite, Nova Lite 2, and Nova Micro models, all of which had more than three times higher single-turn ASRs than multi-turn ones. Open-source models from labs such as Meta, Mistral, Alibaba, DeepSeek, Google, OpenAI, Zhipu, and Microsoft faced the same challenges when it came to multi-turn attacks, as highlighted in a study published in November by the same Cisco research team. \u201cTaken together, the two studies make a stronger claim than either alone: multi-turn vulnerability is a structural property of the current frontier, not an artifact of open-weight alignment choices or capability-first development,\u201d the researchers said. \u201cWhether the weights are public or proprietary, whether the lab prioritizes safety or capability, the iterative attack surface remains an open challenge across the frontier.\u201d Call to action Cisco\u2019s researchers are calling for better benchmarks that consider real-world attacks and AI-specific vulnerabilities as identified by OWASP and other organizations, instead of primarily focusing on content safety. Model creators should also be more transparent about how various configuration flags \u2014 such as reasoning modes, temperature, and system prompt adherence settings \u2014 impact safety, according to the researchers. They should also publish ASRs for both single-turn and multi-turn attacks, further split across various attack strategies. This is especially important given that upcoming regulatory frameworks such as the NIST AI Risk Management Framework, the draft NIST Cyber AI Profile (IR 8596), and Article 15 of the EU AI Act call for adversarial testing. \u201cAny model with an absolute gap >15 [percent points] between single-turn and multi-turn ASR should trigger a manual review before deployment,\u201d the researchers said. \u201cIn this cohort that rule flags eight models: five with positive deltas (Gemini 3 Pro; Grok 4.1 Fast NR; GPT-5.4; Grok 4.1 Fast R; GPT-5.2) and three with negative deltas (Nova Lite; Nova Micro; Nova 2 Lite).\u201d",
+      "link": "https://www.csoonline.com/article/4177903/ai-models-more-vulnerable-than-claimed-when-faced-with-iterative-attacks.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-27T21:48:19+00:00",
+      "published_ts": 1779918499,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Romanian Hacker Gets Nearly 5 Years in US Prison Over Network Intrusion",
+      "summary": "Romanian hacker Catalin Dragomir (45) got 4 years and 8 months in prison for selling access to an Oregon state network. Romanian hacker Catalin Dragomir (45) will spend 4 years and 8 months in a US prison after admitting he sold access to an Oregon state network. \u201d A Romanian national was sentenced to 56 months [\u2026]",
+      "link": "https://securityaffairs.com/192770/cyber-crime/romanian-hacker-gets-nearly-5-years-in-us-prison-over-network-intrusion.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-27T21:43:23+00:00",
+      "published_ts": 1779918203,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "GPU mining malware spreads via SEO poisoning, AI chatbots",
+      "summary": "Threat actors are targeting systems with high-performance computers in an ongoing cryptojacking campaign spread through a coordinated SEO poisoning operation that also manipulated AI chatbot recommendations. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/gpu-mining-malware-spreads-via-seo-poisoning-ai-chatbots/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-27T21:31:25+00:00",
+      "published_ts": 1779917485,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Websites have a new way to spy on visitors: analyzing their SSD activity",
+      "summary": "submitted by /u/rkhunter_ [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tpitdk/websites_have_a_new_way_to_spy_on_visitors/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-27T21:12:11+00:00",
+      "published_ts": 1779916331,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "12 years in secops, military to vendor then internal. Internal feels like all loss and no win. Is this normal?",
+      "summary": "Has anyone else hit this wall on internal security teams? Quick background: 12 years in secops, starting in the military, then several years vendor-side doing consulting, product, and training. My last two roles have been internal SOC / SOC-adjacent at F500 companies (10k+ employees, not security companies). Quality of life and job satisfaction have been noticeably worse on the internal side. The biggest thing I've noticed is there's no real win condition. Everyone is spinning too many plates. Every task is shades of net-negative. I think this due to the cost-center/roadblock dynamic security teams have within non-security companies. It's enough that I'm weighing a full career shift, or going back to external work. Especially curious to hear from anyone who's bounced between vendor and internal, or pivoted out of secops entirely. Is this just the nature of internal secops, or did I get unlucky twice? Maybe I've passed the sweet spot in seniority. What's been your experience? submitted by /u/Mercilesspope [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tpitdx/12_years_in_secops_military_to_vendor_then/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-27T21:12:11+00:00",
+      "published_ts": 1779916331,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "AI Chatbots Could Quietly Pull Users Away From Reality, Researchers Warn",
+      "summary": "Researchers warn that prolonged chatbot interactions could distort how some users experience reality and social connection.",
+      "link": "https://decrypt.co/369243/ai-psychosis-chatbots-reality-mental-health-research",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-27T21:09:01+00:00",
+      "published_ts": 1779916141,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Here's How Much Bitcoin Elon Musk Would Control If SpaceX and Tesla Merge",
+      "summary": "If Tesla and SpaceX merged\u2014as is a reported possibility\u2014then Elon Musk's combined entity would hold billions of dollars' worth of Bitcoin.",
+      "link": "https://decrypt.co/369240/how-much-bitcoin-elon-musk-control-spacex-tesla-merge",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-27T21:07:10+00:00",
+      "published_ts": 1779916030,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Report \u2018phone hack\u2019 to police or I will do it for you, Labour chair tells Farage",
+      "summary": "Anna Turley gives Reform leader 24 hours to report Russian hacking claim in \u2018public and national interest\u2019 The Labour chair has given Nigel Farage 24 hours to report to security services the claim that his phone was hacked by Russia-linked actors or the party will do it for him. In a letter to the Reform UK leader, Anna Turley said it was \u201cin the public and national interest\u201d to ensure that a suspected overseas hack of a senior politician\u2019s phone by a hostile state was properly investigated. Continue reading...",
+      "link": "https://www.theguardian.com/politics/2026/may/27/nigel-farage-phone-hacking-claims",
+      "source": "Data and computer security | The Guardian",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-27T21:00:45+00:00",
+      "published_ts": 1779915645,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Websites have a new way to spy on visitors: analyzing their SSD activity",
+      "summary": "Telltale SSD activity can be measured in the browser using simple JavaScript.",
+      "link": "https://arstechnica.com/security/2026/05/websites-have-a-new-way-to-spy-on-visitors-analyzing-their-ssd-activity/",
+      "source": "Security \u2013 Ars Technica",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-27T20:56:03+00:00",
+      "published_ts": 1779915363,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Ethereum Traders Grow Increasingly Bearish as ETFs Bleed, ETH Sinks Near $2,000",
+      "summary": "Predictors on Myriad are losing faith, believing it's more likely that Ethereum dumps to $1,500 before a prospective move up to $3,000.",
+      "link": "https://decrypt.co/369218/ethereum-traders-increasingly-bearish-etfs-bleed-eth-sinks-near-2000",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-27T20:52:20+00:00",
+      "published_ts": 1779915140,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Orca, Streamex roll out secondary trading infrastructure for tokenized securities",
+      "summary": "Accredited investors can buy and sell the gold-backed GLDY token through permissioned liquidity pools operating on the Solana blockchain.",
+      "link": "https://cointelegraph.com/news/orca-and-streamex-launch-secondary-trading-infrastructure-for-tokenized-securities?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-27T20:51:40+00:00",
+      "published_ts": 1779915100,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Perry Carpenter KB4-CON 2026 Q&A: Deepfakes & Deception",
+      "summary": "In just a couple years, deepfakes have gone from cartoonishly silly and largely academic exercises to sophisticated audio and video creations with the potential to trick just about anyone into believing they\u2019re the real thing.",
+      "link": "https://blog.knowbe4.com/kb4-con-2026-perry-carpenter-deepfakes-interview",
+      "source": "KnowBe4 Blog",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-27T20:45:06+00:00",
+      "published_ts": 1779914706,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Ransomware Actors Show Up In Person to Steal Law Firm Data",
+      "summary": "The FBI warned that the extortion gang Silent Ransom Group is targeting law firms and socially engineering its way into servers and databases.",
+      "link": "https://www.darkreading.com/cyberattacks-data-breaches/ransomware-actors-steal-law-firm-data",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-27T20:38:01+00:00",
+      "published_ts": 1779914281,
+      "smart_groups": [
+        "Curated",
+        "Ransomware"
+      ],
+      "curated": true
+    },
+    {
+      "title": "ElevenLabs, Stability AI Drop New AI Music Models\u2014Can They Catch Suno?",
+      "summary": "Music v2 brings genre-shifting and section-by-section composition to ElevenLabs. Stable Audio 3.0 ships open weights and six-minute tracks. Is either good enough to dethrone the category leader?",
+      "link": "https://decrypt.co/369237/elevenlabs-stability-ai-new-music-models-suno",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-27T20:33:13+00:00",
+      "published_ts": 1779913993,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Free Gift Fallacy: How Attackers Harvest Credit Cards via Fake Surveys",
+      "summary": "Lead Analysts: Jeewan Singh Jalal, Dilsha Dines, Karthikeyan Dharmaraj",
+      "link": "https://blog.knowbe4.com/fake-survey-scams-harvesting-credit-cards-nrds",
+      "source": "KnowBe4 Blog",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-27T20:30:01+00:00",
+      "published_ts": 1779913801,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Marvel Comics Icon Stan Lee Has Been 'Revived' With AI Tech\u2014Again",
+      "summary": "ElevenLabs has licensed Stan Lee\u2019s voice and likeness, adding the late Marvel comic creator to a growing market for AI celebrity replicas.",
+      "link": "https://decrypt.co/369220/marvel-comics-icon-stan-lee-revived-ai-tech-again",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-27T20:23:37+00:00",
+      "published_ts": 1779913417,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "PACs laud Texas primary wins, look to back more pro-crypto candidates",
+      "summary": "While crypto industry-backed candidates won runoffs in Texas on Tuesday, industry PACs have less of a stake in California races next week.",
+      "link": "https://cointelegraph.com/news/crypto-pac-fairshake-texas-primary-backed-candidates?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-27T20:21:00+00:00",
+      "published_ts": 1779913260,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "EDR/MDR Vendor Questions",
       "summary": "We currently use a 3rd party company for incident response, EDR, and MDR monitoring, and I\u2019m curious how other organizations handle expectations around alerts and response. One thing I\u2019ve been wondering about is whether it\u2019s \u201cold school IT thinking\u201d to believe that no news is good news. In other words, if the MDR provider isn\u2019t constantly sending alerts, does that generally mean they\u2019re doing their job correctly and stopping or filtering out the noise before it reaches us? Or should we expect to see more regular activity and reporting from them? Second question \u2014 what kind of SLA expectations are you using for responding to alerts they do send? For example: Medium priority alerts during business hours Medium priority alerts that come in overnight or very early morning High/Critical alerts after hours or in the middle of the night Escalation methods (email vs phone call vs text) Right now, we receive email alerts for Medium priority issues, and we\u2019re supposed to receive phone calls for higher priority incidents. One area we\u2019re trying to define better is what the expectation should be for Medium alerts that arrive at 1\u20133 AM. Do most organizations expect someone to review those immediately if they only come through email, or is it more common to have an SLA such as \u201creview by start of business\u201d unless the MDR escalates it further? I\u2019m trying to get a feel for what other companies consider reasonable for: Internal IT response times Overnight/on-call expectations When the MDR should contain something themselves vs waking up internal staff Whether Medium alerts after hours should require immediate action or next-business-day review Interested to hear how others are structuring this and whether you\u2019ve adjusted expectations over time. submitted by /u/mjaneway43 [link] [comments]",
       "link": "https://www.reddit.com/r/cybersecurity/comments/1tpgvpe/edrmdr_vendor_questions/",
@@ -64,6 +308,34 @@
       "type_label": "General Security & Blogs",
       "published": "2026-05-27T20:00:23+00:00",
       "published_ts": 1779912023,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "CISA adds LiteSpeed cPanel plugin bug to exploited vulnerabilities list",
+      "summary": "CISA warns of exploited LiteSpeed flaw putting shared hosting at risk.",
+      "link": "https://www.scworld.com/news/cisa-adds-litespeed-cpanel-plugin-bug-to-exploited-vulnerabilities-list",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-27T19:46:22+00:00",
+      "published_ts": 1779911182,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Bitcoin treasury company Nakamoto falls nearly 67% YTD after reverse stock split",
+      "summary": "The company owns 5,058 Bitcoin, ranking it as the 20th largest publicly traded BTC treasury company, according to data from Bitcoin Treasuries.",
+      "link": "https://cointelegraph.com/news/bitcoin-treasury-nakamoto-falls-67-reverse-stock-split?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-27T19:40:26+00:00",
+      "published_ts": 1779910826,
       "smart_groups": [],
       "curated": false
     },
@@ -135,6 +407,18 @@
       "curated": false
     },
     {
+      "title": "Laying the groundwork: A practical path to identity security for AI agents",
+      "summary": "As enterprises move toward AI-driven operations, identity modernization becomes essential.",
+      "link": "https://www.scworld.com/resource/laying-the-groundwork-a-practical-path-to-identity-security-for-ai-agents",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-27T19:29:47+00:00",
+      "published_ts": 1779910187,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "MCP Servers on the Internet",
       "summary": "Executive Summary Introduction AI is everywhere now. It\u2019s hard to go a day without hearing about it, let alone using it. It\u2019s becoming a core part of daily work, and in some ways, it\u2019s democratizing the underlying technologies: tasks that once required a veteran specialist in a highly specialized niche can now be handled by [\u2026] The post MCP Servers on the Internet appeared first on Censys .",
       "link": "https://censys.com/blog/mcp-servers-on-the-internet/",
@@ -177,6 +461,18 @@
         "Cloud / SaaS"
       ],
       "curated": true
+    },
+    {
+      "title": "Ether bears at risk of $2B squeeze as short positions build around $2K",
+      "summary": "Ether futures positioning tightened near $2,000 as rising open interest and dense short liquidity increased focus on a possible squeeze above $2,150.",
+      "link": "https://cointelegraph.com/markets/ether-bears-risk-115-billion-squeeze-as-shorts-pile-up-at-2k?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-27T19:17:05+00:00",
+      "published_ts": 1779909425,
+      "smart_groups": [],
+      "curated": false
     },
     {
       "title": "OWASP Vienna - anyone going?",
@@ -688,6 +984,26 @@
       "curated": false
     },
     {
+      "title": "A Guide to AI Cold Starts on Cloud Run",
+      "summary": "I saw a developer asking on Reddit if there was any \u201csane way\u201d to manage Cloud Run cold starts for AI across multiple regions. They were experiencing startup latencies of up to 20 seconds, a frustrating gap where the infrastructure is spinning up while the user waits for a response. The discussion was full of developers who had almost given up on serverless GPUs, with some even migrating back to GKE just to escape the latency. I decided it was time to dive deep into the Mechanics of AI Cold Starts and see if we could find that \"sane way.\" During my research into hosting models like Gemma 4 on Cloud Run , I had the privilege of co-presenting at Google Cloud Next '26 with Oded Shahar (Senior Engineering Manager for Cloud Run) and our guest speaker Ajay Nair (Global VP of Platform at Elastic). In our session, \"Build AI architectures with custom models on Cloud Run ,\" Ajay shared the production-hardened strategies that allow Elastic to serve millions of daily requests across 17+ model variants, all while maintaining the 'scale-to-zero' efficiency of Cloud Run. Build AI architectures with custom models on Cloud Run Ajay showed us that the secret isn't just in the model, but in treating GPUs as fungible compute rather than infrastructure to manage. I realized then that minimizing cold start latency isn't just about the model, it's about the infrastructure patterns and architectural decisions that keep it fast, scalable, and secure. The anatomy of an AI cold start As the official Google Cloud GPU best practices explain, an AI cold start is a shift from standard web microservices. You aren't just booting code, you're moving gigabytes of weights into a specialized physical accelerator. Think of it as a four-phase race. If you don't optimize each step, you're going to lose your users. Phase 1: Infrastructure Provisioning (~5s) Cloud Run allocates the physical GPU and injects pre-installed NVIDIA drivers. Since Google manages the drivers for you, you don't have to bloat your Dockerfile. Phase 2: Block-Level Container Image Streaming (1-2s) Cloud Run uses \"image streaming,\" meaning it pulls only the blocks needed to boot. Your 15GB CUDA image can actually start as fast as a tiny Node.js app! Phase 3: Engine Initialization (5-15s) This is where your inference engine (vLLM, Ollama) warms up. This is a massive CPU-heavy task, and it's where most people get throttled without realizing it. Phase 4: Model Loading & VRAM Transfer This is the final hurdle - moving those model weights from storage into the GPU memory. Unlike standard web apps where CPU is king, GPU memory is your primary constraint here. If your model\u2019s weights don\u2019t fit entirely within the GPU memory , performance degrades significantly as it swaps to slower system RAM. Best practices to handling AI cold starts To build a \"sane\" production environment, here are a few crucial levers you can pull, informed by the official Google Cloud documentation on AI inference with GPUs. Optimize Phase 4 Pick the Right Deployment Option Phase 4 is the \"final hurdle\" where you move gigabytes of weights from storage into GPU memory. Your choice of storage determines how fast this transfer happens: Cloud Storage (Concurrent Download) - Fastest: Using the Google Cloud CLI ( gcloud storage cp ) allows you to download model files in parallel. This is the recommended method for massive weights because it maximizes network throughput and drastically reduces transfer time. Cloud Storage (FUSE) - Easiest: This provides \"zero-code\" changes by mounting a bucket as a local file system. However, because it does not parallelize the initial download, it is significantly slower for large model weights Container Image - Best for Baking weights into your image is efficient for smaller models thanks to Cloud Run's Image Streaming. For models over 10GB, however, the import and streaming overhead can become a bottleneck. Internet: Avoid this. It is the slowest and least predictable path for production inference. Model Format & Size Optimizing your model's format and size is a direct \"hack\" to shorten Phase 4 (Model Loading & VRAM Transfer). Because this phase is constrained by how fast you can move gigabytes of data into VRAM, smaller and more efficient files are critical. 4-bit Quantization: This is the ultimate cold start hack. Smaller weights mean fewer gigabytes to pull from storage, which directly accelerates the download and transfer portion of Phase 4, Fast Formats: Pick a model format with fast load times like GGUF to minimize startup time. For the fastest performance, move away from Python \"pickle\" files and use Safetensors for zero-copy loading. Ensure VRAM Fit: Use quantized models to ensure the weights fit entirely within the GPU memory. If the model exceeds VRAM , Phase 4 will stall as the system swaps to significantly slower RAM. Optimize Phases 3 & 4: Infrastructure & Network Levers These infrastructure settings provide the necessary resources to accelerate the most demanding parts of the startup process. Startup CPU Boost (Accelerates Phase 3) This feature temporarily doubles your CPU power during startup. A 1 vCPU instance boosts to 2 vCPUs for the duration of startup and the first 10 seconds of serving. It is essential for Phase 3, as engine initialization is a massive CPU-heavy task. Direct VPC Egress & PGA (Accelerates Phase 4) Utilizing Direct VPC Egress with Private Google Access (PGA) ensures your model weight traffic stays on Google\u2019s internal high-speed backbone. This optimizes the network path to shorten the time spent moving gigabytes of weights into VRAM. Concurrency Tuning (Cold Start Avoidance): In Cloud Run, \" concurrency \" refers to the maximum number of requests a single instance can handle before the platform scales out to start a new one. For AI workloads, you must tune this setting in tandem with your model engine's internal parallelism flags (e.g., --max-num-seqs for vLLM or OLLAMA_NUM_PARALLEL for Ollama). Use the official Google Cloud formula to find your ideal Cloud Run concurrency: ( Number of model instances \u2217 parallel queries per model )+( number of model instances \u2217 ideal batch size ) Example: If your instance loads 3 model instances onto the GPU, and each model instance can handle 4 parallel queries with an ideal batch size of 4, you would set your Cloud Run maximum concurrent requests to 24: (3\u00d74)+(3\u00d74) How the math works: The goal is to keep the GPU fully saturated while ensuring users aren't stuck in a long queue. In this example, the total of 24 concurrent requests is split into two functional groups: Active Processing (12 requests): Calculated as (3 instances\u00d74 queries), this represents the total number of requests the GPU can actively process at any given moment. The \"Next Batch\" Buffer (12 requests): Calculated as (3 instances\u00d74 batch size), these are the requests waiting \"on deck\" inside the container. As soon as the GPU finishes the first batch, it immediately picks up these waiting requests. By tuning this value as high as your VRAM allows (usually 10-20 users), one warm instance can serve many requests without triggering a new scale-out event and the cold start that comes with it. Scaling Controls (Tuning the Threshold) While the formula above defines your maximum capacity, you can also tune when Cloud Run decides to start the next instance. Cloud Run's autoscaler typically targets 60% utilization, but for long-running AI cold starts, you can increase this threshold to 80% or 90% via Scaling Controls . Concurrency Target : Increasing this allows you to \"pack\" more requests into a single warm instance before triggering a scale-out. CPU Target : Increasing the CPU target prevents the platform from starting a new instance just because initialization or high-intensity inference spiked the CPU utilization. Scaling & Reliability Strategies Sometimes the best way to handle a cold start is to avoid it entirely or manage it proactively. The Single-Region \"Always-On\" Tradeoff If you are deploying globally, the cost of keeping minimum instances set to 1 in every region adds up. Instead, consider an 'always-on' service in just one region. A 100ms global network delay is a much better user experience than a 20s local cold start. The 15-Minute Grace Period: A common question is 'How long will my instance stay warm after a request?' Cloud Run generally keeps instances alive for 15 minutes after they become idle (processing zero requests). If your traffic is predictable and comes in every 10\u201312 minutes, you might not even need an 'always-on' service, the platform\u2019s default shutdown policy will keep a warm instance ready for your next user for free The \"Wake-Up Call\" Strategy Sometimes the best way to handle a cold start is to proactively mask it. If your UI can predict an upcoming request, for example, when a user clicks \"New Chat\" or begins hovering over a text area, you can send a lightweight health check to your service immediately. By the time the user finishes typing their prompt, the first two phases of the cold start (Infrastructure Provisioning and Container Image Streaming) are already finished in the background. Pro-Tip: Use Non-Inference Endpoints To make this \"wake-up call\" as fast as possible, always use a non-inference endpoint rather than sending a dummy prompt like \"hi\". Why it\u2019s faster: Non-inference endpoints (like /v1/models for vLLM or /api/tags for Ollama) are handled by the container\u2019s web server the moment it starts. They don\u2019t have to wait for the slow \"Phase 4\" model loading and VRAM transfer to complete before sending a success response. No Chat Pollution: Because these endpoints don't trigger the model's completion logic, they won't interfere with the user's actual chat history or accidentally trigger session creation in your backend. Recommended Endpoints: vLLM: GET /health or GET GET /v1/models Ollama: GET /api/tags or GET /api/version Tune Startup Probes for VRAM AI models take significant time to move gigabytes of weights from storage into GPU memory (Phase 4). If your startup check fails too many times, Cloud Run will assume your container is broken and kill it . To prevent this: Increase the Failure Threshold : Use a high failureThreshold (e.g., 60 or more). Since the total allowed startup time is the product of failureThreshold \\times periodSeconds , a threshold of 60 with a 5-second period gives your model a healthy 5-minute window to load. Utilize the 30-Minute Maximum : While standard services are limited to 4 minutes, Cloud Run supports a total startup time of up to 30 minutes (1,800 seconds) for intensive workloads. Avoid False Positives (The Ollama Fix) : Be careful with engines like Ollama, which may open a TCP port as soon as the service starts, but before the model is actually in VRAM. Always ensure you are preloading models during the container's entrypoint script to ensure the startup probe only passes once the model is truly ready for inference. Lessons from Elastic\u2019s strategy In our NEXT \u201826 session, Ajay Nair highlighted three architectural decisions that allowed Elastic to treat GPUs as fungible compute, rather than infrastructure to manage: Bypass the Compilation Tax: By setting enforce_eager=True in vLLM, they traded a tiny bit of throughput for cold starts that finish in less than a minute rather than multiple minutes. Standalone Checkpoints: They avoided the latency of runtime adapter-switching by pre-merging each LoRA variant into a standalone checkpoint. One Workload, One Service: Each independently-scalable workload \u2014 defined by model, task adapter, and traffic shape \u2014 is deployed as its own Cloud Run service. This produces 30+ services across ~15 model families, with some models split by task (e.g., v5 retrieval vs. clustering) or by query/passage role. Ready to get started? Optimizing the cold start process is the difference between a hobby project and a production-ready application. The best part? Cloud Run handles the NVIDIA driver and CUDA installation for you, starting the instance in about 5 seconds. For a deeper dive, the official documentation is your best friend: Best practices: AI inference on Cloud Run with GPUs Configure GPU for Cloud Run services Startup CPU boost for Cloud Run For the full technical breakdown, I highly recommend watching the recording of the session from Google Cloud Next '26. It provides the most comprehensive blueprint for hosting high-performance open models on serverless infrastructure.\" Happy building! Special thanks to Sara Ford and Shane Ouchi from the Cloud Run team and to Zac Li from Elastic for the helpful review and feedback on this article.",
+      "link": "https://cloud.google.com/blog/topics/developers-practitioners/a-guide-to-ai-cold-starts-on-cloud-run/",
+      "source": "Google Cloud Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-05-27T17:23:00+00:00",
+      "published_ts": 1779902580,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS",
+        "Web / API Security",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
       "title": "Microsoft security advisory \u2013 May 2026 monthly rollup (AV26-456) \u2013 Update 1",
       "summary": "",
       "link": "https://cyber.gc.ca/en/alerts-advisories/microsoft-security-advisory-may-2026-monthly-rollup-av26-456",
@@ -845,6 +1161,21 @@
         "Crypto / Web3"
       ],
       "curated": true
+    },
+    {
+      "title": "\ud83d\udea8 Exposed Global Smishing Operation Hitting 19 Countries Across 3 Continents",
+      "summary": "Hunt.io researchers traced a coordinated smishing campaign targeting DPD customers in the UK, T-Mobile users in the US, road police portals in Eastern Europe, and court payment systems in Trinidad & Tobago. All 1,628 phishing pages shared the same HTML fingerprint. https://hunt.io/blog/massive-smishing-campaign-governments-postal-telecoms submitted by /u/Straight-Practice-99 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tpaj22/exposed_global_smishing_operation_hitting_19/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-27T16:22:37+00:00",
+      "published_ts": 1779898957,
+      "smart_groups": [
+        "Ransomware",
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
     },
     {
       "title": "Latin American Cybercriminals Hoover Up Government Data",
@@ -109620,223 +109951,6 @@
         "Cloud / SaaS"
       ],
       "curated": true
-    },
-    {
-      "title": "Canada advances bill to ban crypto political donations",
-      "summary": "Lawmakers look to push election reform that would block crypto campaign donations, even as Canada expands oversight of stablecoins and digital asset markets.",
-      "link": "https://cointelegraph.com/news/canada-advances-bill-ban-crypto-political-donations?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-27T21:50:17+00:00",
-      "published_ts": 1777326617,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Bitcoin whale holdings hit five-month high: Is BTC headed to $80K next?",
-      "summary": "Bitcoin accumulation by whales and institutional investors is reducing the available supply of BTC and potentially setting the stage for a rally above $80,000.",
-      "link": "https://cointelegraph.com/markets/bitcoin-whale-holdings-hit-five-month-high-is-btc-headed-to-80k-next?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-27T21:44:05+00:00",
-      "published_ts": 1777326245,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "GlassWorm malware attacks return via 73 OpenVSX \"sleeper\" extensions",
-      "summary": "A new wave of the Glassworm campaign is targeting the OpenVSX ecosystem with 73 \"sleeper\" extensions that turn malicious after an update. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/glassworm-malware-attacks-return-via-73-openvsx-sleeper-extensions/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-27T21:41:01+00:00",
-      "published_ts": 1777326061,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Cursor-Opus agent snuffs out startup\u2019s production database",
-      "summary": "Relax, the data's been recovered. Continue with your vibe coding",
-      "link": "https://www.theregister.com/software/2026/04/27/cursor-opus-agent-snuffs-out-startups-production-database/5224442",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-27T21:29:25+00:00",
-      "published_ts": 1777325365,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Tennessee crypto kiosk ban set to go into effect July 1",
-      "summary": "Crypto ATM operators and businesses hosting the machines have until July 1 to be in compliance with the new law or risk potential fines and prison time.",
-      "link": "https://cointelegraph.com/news/tennessee-crypto-kiosk-atm-ban-july?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-27T21:13:07+00:00",
-      "published_ts": 1777324387,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Open source package with 1 million monthly downloads stole user credentials",
-      "summary": "If you're one of millions using element-data, it's time to check for compromise.",
-      "link": "https://arstechnica.com/security/2026/04/open-source-package-with-1-million-monthly-downloads-stole-user-credentials/",
-      "source": "Security \u2013 Ars Technica",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-27T21:04:03+00:00",
-      "published_ts": 1777323843,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Aave-Led 'DeFi United' Relief Effort Raises $300 Million to Cover Kelp DAO Exploit Losses",
-      "summary": "The Aave-led relief effort has gained widespread support, securing enough commitments to replenish the swiped funds.",
-      "link": "https://decrypt.co/365724/aave-led-defi-united-relief-effort-raises-300m-kelp-dao-losses",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-27T20:56:27+00:00",
-      "published_ts": 1777323387,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Supreme Court signals location data searches should require a warrant",
-      "summary": "Privacy advocates had worried that the high court would rule that geofencing does not qualify as a constitutionally protected search, opening the door to much broader use of warrantless reverse searches of all types.",
-      "link": "https://therecord.media/supreme-court-signals-location-data-searches-require-warrant",
-      "source": "The Record",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-27T20:52:00+00:00",
-      "published_ts": 1777323120,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "OpenAI Is Building Its Own Smartphone Chip With Qualcomm and MediaTek: Report",
-      "summary": "Six weeks after telling staff to stop chasing distractions, OpenAI is reportedly planning a phone targeting 400 million units a year.",
-      "link": "https://decrypt.co/365726/openai-smartphone-chip-qualcomm-mediatek",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-27T20:45:08+00:00",
-      "published_ts": 1777322708,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "CVE-2026-7191- Arbitrary Code Execution via Sandbox Bypass in QnABot on AWS",
-      "summary": "Bulletin ID: 2026-020-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 2026/04/27 13:15 PM PDT Description: QnABot on AWS is an open-source solution that provides a multi-channel, multi-language conversational interface powered by Amazon Lex, Amazon OpenSearch Service, and optionally Amazon Bedrock. We identified CVE-2026-7191, where the improper use of the static-eval npm package may allow an authenticated administrator to execute arbitrary code within the fulfillment Lambda execution context. By injecting a crafted conditional chaining expression via the Content Designer interface, an actor with Admin access could bypass the intended expression sandbox through JavaScript prototype manipulation. Successful exploitation may grant direct access to backend resources, including Lambda environment variables, OpenSearch indices, S3 objects, and DynamoDB tables, that are not exposed through normal administrative interfaces. Impacted versions: Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin.",
-      "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-020-aws/",
-      "source": "Latest Bulletins",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-04-27T20:21:23+00:00",
-      "published_ts": 1777321283,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Cloud / SaaS",
-        "Web / API Security"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Bitcoin Developer Plans to 'Reassign' Coins Linked to Satoshi Nakamoto in Hard Fork",
-      "summary": "Paul Sztorc\u2019s proposed eCash fork would give investors coins cloned from wallets believed to belong to Bitcoin creator Satoshi Nakamoto.",
-      "link": "https://decrypt.co/365712/bitcoin-developer-reassign-coins-linked-satoshi-nakamoto-hard-fork",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-27T20:15:29+00:00",
-      "published_ts": 1777320929,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "UNC6692 Combines Social Engineering, Malware, Cloud Abuse",
-      "summary": "A newly discovered threat actor is using Microsoft Teams, AWS S3 buckets, and custom \"Snow\" malware in a multipronged campaign.",
-      "link": "https://www.darkreading.com/cloud-security/unc6692-social-engineering-malware-cloud-abuse",
-      "source": "darkreading",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-27T20:12:34+00:00",
-      "published_ts": 1777320754,
-      "smart_groups": [
-        "Cloud / SaaS",
-        "Malware / Payloads",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Taylor Swift Seeks Trademarks for Her Voice and Image to Fight AI Fakes",
-      "summary": "The trademark applications aim to strengthen her ability to fight AI-generated deepfakes, as image generation tools advance.",
-      "link": "https://decrypt.co/365720/taylor-swift-trademarks-voice-mage-fight-ai-fakes",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-27T20:07:06+00:00",
-      "published_ts": 1777320426,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Tennessee becomes second state to ban cryptocurrency ATMs over scam concerns",
-      "summary": "State officials said they observed overseas criminals carrying out government impersonation or tech support cons, as well as romance and pig butchering scams using cryptocurrency ATMs.",
-      "link": "https://therecord.media/tennessee-bans-cryptocurrency-atms-over-scams",
-      "source": "The Record \u2013 Cybercrime",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-04-27T20:06:00+00:00",
-      "published_ts": 1777320360,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Canada arrests three for operating \u201cSMS blaster\u201d device in Toronto",
-      "summary": "Canadian authorities have arrested three men for operating an \"SMS blaster\" device that pretends to be a cellular tower to send phishing texts to nearby phones. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/canada-arrests-three-for-operating-sms-blaster-device-in-toronto/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-27T20:00:31+00:00",
-      "published_ts": 1777320031,
-      "smart_groups": [
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Price predictions 4/27: SPX, DXY, BTC, ETH, XRP, BNB, SOL, DOGE, HYPE, ADA",
-      "summary": "Bitcoin fails to top $80,000 as analysts debate whether BTC has truly changed its trend or remains in the grasp of the bears.",
-      "link": "https://cointelegraph.com/markets/price-predictions-427-spx-dxy-btc-eth-xrp-bnb-sol-doge-hype-ada?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-27T19:59:19+00:00",
-      "published_ts": 1777319959,
-      "smart_groups": [],
-      "curated": false
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
