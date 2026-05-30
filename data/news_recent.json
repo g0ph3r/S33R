@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-05-30T18:25:09.457262+00:00",
+  "generated_at": "2026-05-30T19:31:31.306202+00:00",
   "days_back": 30,
-  "total_items": 7592,
+  "total_items": 7579,
   "items": [
     {
       "title": "Black Hat USA",
@@ -51,6 +51,36 @@
       "published": "2026-06-02T13:30:00+00:00",
       "published_ts": 1780407000,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Question for teams running parallel agents: Would you actually pay for a deterministic control plane, or are we all just building custom wrappers forever?",
+      "summary": "I\u2019ve been reading through a ton of threads lately about how people are managing parallel coding agents and preventing scope drift. Right now, it seems like the meta is relying heavily on plan.md, handoff.md, or incredibly strict claude.md system prompts. But I keep hitting the same wall: a markdown file is just a prompt. It\u2019s informed consent, not a mechanical boundary. Probabilistic models are incredible at writing code, but they are structurally terrible at strict authorization. You can tell an agent \"don't touch the auth module\" or \"always run npm test,\" but under cognitive load, it drifts. Then you end up spending 80% of your time doing forensic PR reviews just to figure out if the agent actually behaved itself. I\u2019m currently prototyping a framework-agnostic control plane to solve this, and I want a sanity check. The architecture I'm playing with shifts guardrails away from the prompt and down to the execution layer: Pre-Execution Intercepts: A wrapper around the agent's shell/environment that intercepts tool calls (bash commands, file writes). It checks the action against an external, deterministic state (like a lease table). If the agent tries to mutate a file it doesn't own, it gets hard-blocked. No prompt engineering needed, just a mechanical \"no.\" The \"Trust Brief\" (PR CI for Behavior): Because the system deterministically intercepts the shell, it can auto-generate a hard receipt for the PR. Instead of trusting the LLM's PR summary, the infrastructure attaches a brief proving exactly what files were read, what was mutated, and what terminal commands/tests were actually run. I know a lot of us are hacking together localized versions of this with custom Python scripts, SQLite, and git worktrees. Before I sink more weekends into polishing this into a deployable tool, my question is: Is this a bleeding-neck enough problem that teams would actually pay for a plug-and-play version of this? Or is the duct-tape of custom scripts \"good enough\" for the foreseeable future? Would love to know where the pain points are hitting you hardest. submitted by /u/Few-Ad-1358 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1ts8y6c/question_for_teams_running_parallel_agents_would/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-30T19:24:05+00:00",
+      "published_ts": 1780169045,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Web / API Security"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Can Steam Cloud Files Transfer Malware",
+      "summary": "Sorry if wrong sub Planning to get an upgraded laptop and my old one may have malware cuz I won't say I'm as safe with cybersecurity as I'd like to be. Anyway can't reset old laptop cuz someone else is going to use it and they don't want to reinstall but will uninstall and logout of steam. Anyway I'm just wondering if on my new laptop, I log into steam and download games from my library, can the steam cloud files for those games be a potential entryway for potential malware? What if I ran those games while on the previous possibly infected device, would the cloud files be infected than? If so, what can I do when moving to my new laptop. Btw there probably isn't malware but just in case yk. submitted by /u/0zMosiss [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1ts8c2t/can_steam_cloud_files_transfer_malware/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-30T19:00:48+00:00",
+      "published_ts": 1780167648,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
       "curated": false
     },
     {
@@ -106352,212 +106382,6 @@
       "published_ts": 1777576161,
       "smart_groups": [],
       "curated": false
-    },
-    {
-      "title": "US privacy fines skyrocket past $3.4B, Gartner reports",
-      "summary": "Privacy-related regulatory penalties imposed by U.S. states on companies reached $3.45 billion last year, which is higher than the combined fines between 2020 and 2024, reports CyberScoop.",
-      "link": "https://www.scworld.com/brief/us-privacy-fines-skyrocket-past-3-4b-gartner-reports",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-30T19:02:26+00:00",
-      "published_ts": 1777575746,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Federal charges filed against teen hacker allegedly part of Scattered Spider",
-      "summary": "BleepingComputer reports that teen hacker \"Bouquet,\" who is suspected to be part of the Scattered Spider hacking collective, has been charged by the U.S. with several crimes linked to large-scale extortion schemes targeting companies worldwide.",
-      "link": "https://www.scworld.com/brief/federal-charges-filed-against-teen-hacker-allegedly-part-of-scattered-spider",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-30T19:01:22+00:00",
-      "published_ts": 1777575682,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Misconfigured Server Run by Hackers Leaks 345,000 Stolen Credit Cards",
-      "summary": "A misconfigured server linked to the carding marketplace Jerry\u2019s Store exposed 345,000 stolen credit cards after an AI coding error caused a major security flaw.",
-      "link": "https://hackread.com/misconfigured-server-hackers-leak-stolen-credit-cards/",
-      "source": "HackRead",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-30T19:01:18+00:00",
-      "published_ts": 1777575678,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "New Bluekit phishing service includes an AI assistant, 40 templates",
-      "summary": "A new phishing kit named Bluekit offers more than 40 templates targeting popular services and includes basic AI features for generating campaign drafts. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/new-bluekit-phishing-service-includes-an-ai-assistant-40-templates/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-30T18:58:50+00:00",
-      "published_ts": 1777575530,
-      "smart_groups": [
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Anthropic Unveils Claude Security to Counter AI-Powered Exploit Surge",
-      "summary": "With Mythos signaling a new era of near-instant exploitation, Anthropic positions Claude Security to help defenders keep pace. The post Anthropic Unveils Claude Security to Counter AI-Powered Exploit Surge appeared first on SecurityWeek .",
-      "link": "https://www.securityweek.com/anthropic-unveils-claude-security-to-counter-ai-powered-exploit-surge/",
-      "source": "SecurityWeek",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-30T18:57:55+00:00",
-      "published_ts": 1777575475,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Bitcoin\u2019s $75K cost basis emerges as key support zone for current bull trend",
-      "summary": "Bitcoin found support above a key investor cost-basis level as spot BTC ETF flows and spot positioning compressed BTC\u2019s price range in preparation for the next trending move.",
-      "link": "https://cointelegraph.com/markets/bitcoins-75k-cost-basis-cluster-emerges-as-key-support-zone-for-cycle?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-30T18:56:06+00:00",
-      "published_ts": 1777575366,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "C2PA and media authentication: What you need to know",
-      "summary": "By Brandon Epstein Key insights If you\u2019ve been working in media forensics or the larger digital evidence community in the past six months, chances are you\u2019ve heard about C2PA Content Credentials and their role in authenticating digital media. In this article, we\u2019ll explore what C2PA is, how it works, and its current function within the \u2026 Continued The post C2PA and media authentication: What you need to know appeared first on Magnet Forensics .",
-      "link": "https://www.magnetforensics.com/blog/c2pa-and-media-authentication-what-you-need-to-know/",
-      "source": "Magnet Forensics",
-      "type": "dfir",
-      "type_label": "DFIR & Forensics",
-      "published": "2026-04-30T18:54:17+00:00",
-      "published_ts": 1777575257,
-      "smart_groups": [
-        "Ransomware",
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "AI Fuels \u2018Industrial\u2019 Cybercrime as Time-to-Exploit Shrinks to Hours",
-      "summary": "Industrialized cybercrime delivers attacks with greater scale, speed and success. Defenders must match this with use of AI and automation. The post AI Fuels \u2018Industrial\u2019 Cybercrime as Time-to-Exploit Shrinks to Hours appeared first on SecurityWeek .",
-      "link": "https://www.securityweek.com/ai-fuels-industrial-cybercrime-as-time-to-exploit-shrinks-to-hours/",
-      "source": "SecurityWeek",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-30T18:54:15+00:00",
-      "published_ts": 1777575255,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "North Korean Hackers Have Stolen $6 Billion in Crypto\u2014Including 76% of 2026's Spoils: TRM",
-      "summary": "Pyongyang-linked hackers drained $577 million from two DeFi platforms in April, underscoring an escalating threat to crypto markets.",
-      "link": "https://decrypt.co/366241/north-korean-hackers-stolen-6-billion-crypto-trm",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-30T18:42:53+00:00",
-      "published_ts": 1777574573,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Insider trading backlash forces Polymarket to step up surveillance",
-      "summary": "Polymarket has selected Chainalysis to flag suspicious trades as insider betting concerns mount and regulators tighten scrutiny on prediction markets.",
-      "link": "https://cointelegraph.com/news/polymarket-chainalysis-insider-betting-detection-prediction-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-30T18:35:00+00:00",
-      "published_ts": 1777574100,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Copy Fail: New Linux bug enables Root via page\u2011cache corruption",
-      "summary": "Linux flaw CVE\u20112026\u201131431, \u2018Copy Fail,\u2019 lets any local user write four bytes into page cache files, enabling easy escalation to root on major distros. Xint Code researchers warn of a serious Linux flaw, tracked as CVE-2026-31431 (CVSS score of 7.8), dubbed Copy Fail. It lets any local, unprivileged user write four controlled bytes into the [\u2026]",
-      "link": "https://securityaffairs.com/191519/hacking/copy-fail-new-linux-bug-enables-root-via-page-cache-corruption.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-30T18:23:30+00:00",
-      "published_ts": 1777573410,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Linux / Unix"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Ryanair flight compensation data purportedly pilfered, leaked",
-      "summary": "Cybernews reports that European ultra low-cost airline Ryanair had its flight compensation data proliferating across underground cybercrime forums after a threat actor claimed to have breached the airline.",
-      "link": "https://www.scworld.com/brief/ryanair-flight-compensation-data-purportedly-pilfered-leaked",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-30T18:20:46+00:00",
-      "published_ts": 1777573246,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "OpenAI Finally Explains Why ChatGPT Wouldn't Stop Talking About Goblins",
-      "summary": "Why did OpenAI have to write \"never mention goblins\" into its production code on ChatGPT? The company has published a post-mortem.",
-      "link": "https://decrypt.co/366197/openai-explains-chatgpt-mention-goblins",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-04-30T18:16:37+00:00",
-      "published_ts": 1777572997,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "cPanel security advisory (AV26-404) \u2013 Update 1",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/cpanel-security-advisory-av26-404",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-04-30T18:04:58+00:00",
-      "published_ts": 1777572298,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Enforcing trust and transparency: Open-sourcing the Azure Integrated HSM",
-      "summary": "As cloud workloads become more agentic and AI systems handle increasingly sensitive data, trust must be engineered directly into infrastructure. Azure Integrated HSM brings hardware\u2011enforced key protection into Azure, extending cryptographic trust from silicon to services through verifiable and transparent design. The post Enforcing trust and transparency: Open-sourcing the Azure Integrated HSM appeared first on Microsoft Azure Blog .",
-      "link": "https://azure.microsoft.com/en-us/blog/enforcing-trust-and-transparency-open-sourcing-the-azure-integrated-hsm/",
-      "source": "Security | Microsoft Azure Blog | Microsoft Azure",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-04-30T18:00:00+00:00",
-      "published_ts": 1777572000,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": true
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
