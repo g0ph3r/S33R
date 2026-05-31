@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-05-31T03:00:35.831418+00:00",
+  "generated_at": "2026-05-31T11:54:29.533628+00:00",
   "days_back": 30,
-  "total_items": 7519,
+  "total_items": 7438,
   "items": [
     {
       "title": "Black Hat USA",
@@ -51,6 +51,426 @@
       "published": "2026-06-02T13:30:00+00:00",
       "published_ts": 1780407000,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Introducing the updated exposure score in Microsoft Defender Vulnerability Management",
+      "summary": "We are introducing an updated exposure score model in Microsoft Defender Vulnerability Management, now available in public preview. Security teams use the exposure score to understand vulnerability posture, prioritize remediation, and explain progress to leadership. The updated model helps make that score more useful by bringing in additional vulnerability risk signals and asset context, so teams can better understand where risk is concentrated and which remediation actions are likely to have the greatest impact. Why we updated the exposure score Customers told us they needed the exposure score to better reflect real-world vulnerability risk and to make remediation progress easier to explain. In the previous model, some remediation actions did not always result in visible score movement. Prioritization also relied heavily on severity, even though severity alone does not always tell the full story. A vulnerability with a high CVSS score may not always represent the same level of practical risk as one that is more likely to be exploited or that affects a more exposed or business-critical asset. We also heard that asset-level scoring could be difficult to interpret. In some cases, the score for a device was influenced too heavily by the most severe CVE, while other vulnerabilities on the same device had limited impact, even when they represented meaningful accumulated risk. The updated model addresses these customer pain points by combining vulnerability risk , exploitability signals , and asset context into a more representative exposure score. The goal is to help security teams move from a score that explains \u201chow severe are the vulnerabilities?\u201d to a score that better helps answer \u201cwhere should we focus remediation first, and why?\u201d What changed CVE risk scoring now uses additional risk signals The updated model uses a multi-factor CVE risk score instead of relying primarily on CVSS severity. This includes EPSS as one of the signals used to estimate exploitation likelihood. The model also uses normalized CVE data across vulnerability sources to improve consistency in how vulnerabilities are scored. As a result, the score can better represent which vulnerabilities are more likely to be exploited, rather than only how severe they appear theoretically. Asset scoring now considers all vulnerabilities on a device The asset exposure score now considers all vulnerabilities affecting a device, weighted by vulnerability risk and asset context, rather than relying primarily on the most severe CVE. This gives security teams a more complete view of device exposure. It also means remediation work across a device can contribute more visibly to reducing exposure, instead of only changes to the single highest-severity vulnerability driving the score. Asset context is included The updated model incorporates important asset context, such as whether a device is internet-facing and, where configured, the device criticality level. This helps prioritize vulnerabilities on assets that may carry higher business or exposure risk. For example, the same vulnerability may require different levels of urgency depending on whether it affects an exposed or business-critical device. Organization score is based on asset scores The organization-level exposure score is calculated from individual asset scores, giving you a more representative view of vulnerability exposure across your environment. This helps connect organization-level posture to the actual assets and vulnerabilities that contribute to risk. Recommendation impact is more closely aligned with score movement Recommendation impact is now calculated using asset-CVE level data. This improves the relationship between the predicted impact shown on a recommendation and the score movement you should expect after remediation is completed and reflected in the product. When remediation is reflected in Defender Vulnerability Management, the updated model is designed to make the expected score impact more visible and more closely aligned with observed score movement. Why this matters The updated exposure score is not just a new calculation. It is a more accurate reflection of real-world vulnerability risk. By combining vulnerability risk signals, exploitability likelihood, and asset context, the updated model gives security teams a clearer path from insight to action. It helps teams prioritize remediation based on the risk that matters most, explain why priorities changed, and show remediation progress more clearly over time. What to expect during the transition When the updated model is enabled for your organization: Your score may change. The score may go up or down because the calculation model changed. This does not necessarily mean your security posture changed or that new vulnerabilities were introduced. Treat the updated score as a new baseline. Because the model changed, direct comparison with the previous score should be done carefully. Recommendation priorities may shift. Recommendations may appear in a different order because impact values are calculated using the updated model. Score updates are calculated daily. After remediation actions are completed and reflected in Defender Vulnerability Management, allow up to 24 hours for score changes to appear. Score levels remain unchanged. The score bands remain 0-29 for low, 30-69 for medium, and 70-100 for high. During public preview, we recommend reviewing the updated score as a new baseline and validating recommendation priorities with your existing remediation workflows. Common questions Why did my score increase after the update? Your score may increase because the updated model uses additional risk signals and asset context. A higher score after enablement does not necessarily mean new vulnerabilities were introduced or that your environment became less secure. We recommend treating the updated score as a new baseline. Did my security posture change if my score changed? Not necessarily. Your score may change because the scoring model changed, not because your environment changed. Should I compare the updated score to my previous score? Use the updated score as a new baseline. The new model uses additional signals and a different calculation approach, so direct comparison may not be meaningful. Why did recommendation priority change? Recommendation impact is now calculated using updated asset and CVE risk signals, so some recommendations may move up or down in priority. Do I need to take immediate action if my score changed? A score change after enablement does not necessarily require immediate action. Review your updated recommendations, validate priority changes against your remediation process, and use the updated score as your new baseline. How to get started The updated exposure score is available in public preview. To view it: Go to the Microsoft Defender portal. Navigate to Exposure management > Vulnerability management > Overview . Review the exposure score card. Select Improve score to view security recommendations prioritized by updated impact values. For more information, see the updated documentation: Exposure score in Defender Vulnerability Management: https://learn.microsoft.com/en-us/defender-vulnerability-management/tvm-exposure-score Security recommendations: https://learn.microsoft.com/en-us/defender-vulnerability-management/tvm-security-recommendation Share feedback We want your feedback during public preview. Use the feedback button in the Microsoft Defender portal or contact your Microsoft account team.",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/introducing-the-updated-exposure-score-in-microsoft-defender/ba-p/4524217",
+      "source": "Vulnerability Management",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-05-31T11:47:34+00:00",
+      "published_ts": 1780228054,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Your TV's RS-232 port is a versatile automation tool - how to unlock its full potential",
+      "summary": "The RS-232 serial port on your smart TV isn't just for professional diagnostics. Here's how to use it for more advanced programming.",
+      "link": "https://www.zdnet.com/article/what-is-the-tvs-rss232-serial-port-and-what-it-can-do/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-31T11:00:41+00:00",
+      "published_ts": 1780225241,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Vietnam proposes allowing SMEs to use digital assets as loan collateral",
+      "summary": "Vietnam\u2019s Ministry of Finance has proposed letting SMEs use digital assets, virtual assets and intellectual property as loan collateral.",
+      "link": "https://cointelegraph.com/news/vietnam-proposes-allowing-smes-to-use-digital-assets-as-loan-collateral?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-31T10:03:56+00:00",
+      "published_ts": 1780221836,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Quantum computing looms, and your security is nowhere near ready",
+      "summary": "Quantum is coming soon to an enterprise near you. But that shift brings significant security concerns.",
+      "link": "https://www.zdnet.com/article/as-quantum-computing-emerges-some-hard-deadlines-loom/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-31T10:00:49+00:00",
+      "published_ts": 1780221649,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "This hidden FaceTime feature is incredibly useful - and surprised my own family",
+      "summary": "If someone missed your FaceTime call, try leaving them a video message. Here's how.",
+      "link": "https://www.zdnet.com/article/facetime-voicemail-feature-incredibly-useful-surprised-family/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-31T10:00:36+00:00",
+      "published_ts": 1780221636,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Could you guys give an honest feedback to a completely automated ssrf attack tool?",
+      "summary": "https://github.com/KauanCosta2000/Ultimate-ssrf-Framework Any feedback would be appreciated, and tips to create a powerful tool it was a long project. submitted by /u/Friendly_Comedian625 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tsqu72/could_you_guys_give_an_honest_feedback_to_a/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-31T09:45:13+00:00",
+      "published_ts": 1780220713,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "tengo 61 y mi famila y amigos me espian I am 61 and my family and friends spy on me",
+      "summary": "se que es por celular y pc nose que hacer son 61 y viviendo en chile I know it's by cell phone and PC, I don't know what to do, I'm 61 and living in Chile submitted by /u/Solid-Part-3841 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tsqnoy/tengo_61_y_mi_famila_y_amigos_me_espian_i_am_61/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-31T09:34:31+00:00",
+      "published_ts": 1780220071,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Microsoft Joined the DMARC Club",
+      "summary": "Not sure if this belongs here but.. Google and Yahoo dropped their email authentication hammer in February 2024. Microsoft watched that unfold, nodded slowly, and then did the same thing on May 5, 2025. If your domain hasn\u2019t sorted out SPF, DKIM, and DMARC by now, a chunk of your outbound mail is already being rejected \u2014 silently, with no bounce to show for it. https://blog.kalfaoglu.net/posts/2026-05-31-microsoft-outlook-dmarc-enforcement-en/ submitted by /u/Grumpy-Man19 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tsqa1z/microsoft_joined_the_dmarc_club/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-31T09:12:23+00:00",
+      "published_ts": 1780218743,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "No Longer Invisible: When Cyber Attacks Go Physical",
+      "summary": "Critical infrastructure cyber attacks are increasing in the U.S. \u2014 and they\u2019re changing in nature. Here are some examples and the top trends from the first half of 2026.",
+      "link": "https://www.govtech.com/blogs/lohrmann-on-cybersecurity/no-longer-invisible-when-cyber-attacks-go-physical",
+      "source": "Lohrmann on Cybersecurity",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-31T09:05:00+00:00",
+      "published_ts": 1780218300,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Why I switched to MyRadar as my main Android Auto weather app for road trip storm tracking",
+      "summary": "There aren't many weather apps for Android Auto, but there's one that easily rises above the rest.",
+      "link": "https://www.zdnet.com/article/best-android-auto-weather-apps/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-31T09:00:00+00:00",
+      "published_ts": 1780218000,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Help.",
+      "summary": "How many kinds of reports are there for SOC/IR L1 roles to make? Is there a specific format for report writing? Ticket escalation I meant filling ServiceNow fields with incident details also comes under report making? Which level make which type of reports? submitted by /u/SkillChoice1827 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tsq217/help/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-31T08:59:36+00:00",
+      "published_ts": 1780217976,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Cosmos-based Gravity Bridge halts bridge after reported $5.4M exploit",
+      "summary": "Gravity Bridge was drained of roughly $5.4 million in a suspected signing key compromise, prompting validators to halt the bridge while an investigation is underway.",
+      "link": "https://cointelegraph.com/news/cosmos-based-gravity-bridge-halts-bridge-after-reported-54m-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-31T08:57:25+00:00",
+      "published_ts": 1780217845,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Vibe Coding Security",
+      "summary": "Hello everyone, I am currently working on a project for my university and also want to write a paper about it. As the time to exploit collapsed to not only a few days, but mostly a few hours the old model of patching is a bit in bad light right now and needs a rethink for the Agentic era. How do you tackle this? In the project I want to explore how companies are currently securing the output of AI generated code. How is your security cycle? Do you even have any security in place? Do you have security guidelines to follow? How do you make sure Agents follow the security guidelines? Do you have someone to maintain the security guidelines, who actively do so? Do you see any problems with your current security cycle, as e.g. security teams cannot keep up with the amount of code to review and fix? Do you have markdown files, skills or anything in place for security? And maybe if you are willing to share the company size and industry that would be great. If you want we can also take the conversation to the DMs. I really appreciate your feedback. This would help me write a better paper for my project at university. My professor said, that we have to do user research before writing any code. Have a great day! submitted by /u/LachException [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tspwql/vibe_coding_security/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-31T08:50:42+00:00",
+      "published_ts": 1780217442,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC",
+        "Identity / Access"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Looking for a Company to Partner With",
+      "summary": "I am a co-founder of a cybersecurity consulting company providing a wide range of services (consulting, auditing, penetration testing and red teaming, training and awareness). I am looking for a consulting company (or perhaps a company in another sector) to partner with on profit-sharing basis. We have established ourselves in our country (one of the EU membership candidate countries) and started to export services to the US and the EU. We also understand that it would be much quicker and easier to partner with established companies in other countries who can engage us as sub-contractors or help with reselling our services to their existing clients. If this is something you are interested in, let's get in touch / share information about your business and I'll reach out to you. submitted by /u/Abject-Substance-108 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tsps5i/looking_for_a_company_to_partner_with/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-31T08:43:16+00:00",
+      "published_ts": 1780216996,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Best reporting tools?",
+      "summary": "Hey all, first post! My buddy is working on a pentesting reporting tool for small firms and contractors. Free during the period of the beta so worth a go, I think it's going to be cheaper and more readily available than anything else out there to be honest. Reporting on the go is essentially what it is. Features: Each phase carries its own scope, methodology, endpoints/cloud inventory, attack narrative and findings Framework tagging: NCSC CAF, OWASP Top 10, MITRE ATT&CK etc. Clean PDF and DOCX export White-label: your firm name, logo and accent colour on the cover + footer The waitlist is on rn so please support him! submitted by /u/Ok_Fail4982 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tsploy/best_reporting_tools/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-31T08:32:47+00:00",
+      "published_ts": 1780216367,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "What actually moved the needle on our alert fatigue (Wazuh + some automation, lessons after ~6 months)",
+      "summary": "Sharing this because the \"just tune your rules\" advice you see everywhere skips the part where you're drowning while you tune them. Here's what actually reduced our noise, roughly in order of impact. 1. Dedupe before triage, not after. A huge chunk of our \"volume\" was the same alert firing repeatedly from the same source. Collapsing those into one enriched event before a human ever saw it cut the queue more than any rule change did. 2. Enrich at ingest, not at investigation. Pulling asset criticality, recent CVEs for the host, and basic threat-intel context onto the alert meant the analyst wasn't opening five tabs per alert. The triage decision got faster because the context was already there. 3. Write the \"why this fired\" in plain language. We started auto-generating a one-line human summary of each alert (\"SSH brute force against [host], which runs [service], no successful auth yet\"). Sounds trivial. Cut onboarding time for junior analysts dramatically. 4. Accept that some tuning is permanent triage. Not every rule can be made quiet. Some you just route straight to a low-priority bucket and review weekly instead of in real time. None of this is novel, but the sequencing mattered \u2014 we wasted a month tuning rules before realizing dedup + enrichment was the bigger lever. Curious what worked for others, especially anyone running this at a smaller team where you can't just throw headcount at the queue. submitted by /u/Annual_Bear_4733 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tspjoq/what_actually_moved_the_needle_on_our_alert/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-31T08:29:41+00:00",
+      "published_ts": 1780216181,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Identity / Access"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Hyderabad Police Crack Down on India\u2019s Cybercrime Hub \u2013 Operation Octopus",
+      "summary": "Operation Octopus: Indian Law Enforcement Targets Complex Cyber Fraud Network The Hyderabad Police has launched... The post Hyderabad Police Crack Down on India\u2019s Cybercrime Hub \u2013 Operation Octopus appeared first on .",
+      "link": "https://www.news4hackers.com/hyderabad-police-crack-down-on-indias-cybercrime-hub-operation-octopus/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-31T08:03:54+00:00",
+      "published_ts": 1780214634,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Week in review: Infostealer dropped via FortiClient EMS flaw, exploited Trend Micro Apex One flaw",
+      "summary": "Here\u2019s an overview of some of last week\u2019s most interesting news, articles, interviews and videos: Coinflow CISO on crypto payments security under AI pressure Crypto payment firms sit near the top of the target list for advanced persistent threat groups, and the workload on their security leaders keeps growing. Malcolm Portelli, CISO at Coinflow, runs the company\u2019s security program from Malta. Coinflow is headquartered in the United States and operates across multiple jurisdictions. Portelli sat \u2026 More \u2192 The post Week in review: Infostealer dropped via FortiClient EMS flaw, exploited Trend Micro Apex One flaw appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/05/31/week-in-review-infostealer-dropped-via-forticlient-ems-flaw-exploited-trend-micro-apex-one-flaw/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-31T08:00:26+00:00",
+      "published_ts": 1780214426,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Week 22 \u2013 2026",
+      "summary": "If your organisation is interested in sponsoring an upcoming post then reach out via the contact form! No sponsor this week",
+      "link": "https://thisweekin4n6.com/2026/05/31/week-22-2026/",
+      "source": "This Week In 4n6",
+      "type": "dfir",
+      "type_label": "DFIR & Forensics",
+      "published": "2026-05-31T07:17:45+00:00",
+      "published_ts": 1780211865,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "How Can Polyfill.io Still Act Maliciously?",
+      "summary": "Polyfill.io is loaded by many websites because it is used to provide JavaScript code that allows new features to be supported in older browsers, such as IE. In 2024, the domain was sold to a Chinese CDN company, and what followed was that polyfill.io started injecting malicious code into websites that used it. Luckily, popular browsers such as Chrome started blocking the url. Before starting an SAT mock exam on PrincetonReview.com, I was asked for my username and password by polyfill.io ( https://imgur.com/a/nxdrcuT ) How can this be possible if Chrome is supposedly blocking polyfill.io? (I emailed Princeton Review, and checked browser devtools to confirm they use polyfill) submitted by /u/SmallApplication3826 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tso3h4/how_can_polyfillio_still_act_maliciously/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-31T07:06:57+00:00",
+      "published_ts": 1780211217,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Ghost passwords?",
+      "summary": "Why are there 4 passwords in my google security dashboard here that don\u2019t exist? Does anyone know how to clear them? They were originally on my computer and I deleted them but they never actually cleared here? Nothing shows up on any device when I try to delete them again and I tried clearing cache. Does anyone have any idea on what to do? submitted by /u/BioShocker123 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tsn08m/ghost_passwords/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-31T06:06:08+00:00",
+      "published_ts": 1780207568,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Bitcoin sentiment reaches most \u2018lopsided positive\u2019 ratio for 2026: Santiment",
+      "summary": "Crypto sentiment platform Santiment warned that the two biggest spikes in social media bullishness around Bitcoin have previously been followed by short-term price pullbacks.",
+      "link": "https://cointelegraph.com/news/crypto-sentiment-reaches-most-lopsided-positive-ratio-for-2026-santiment?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-31T06:02:05+00:00",
+      "published_ts": 1780207325,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Charter Communications Data Breach Exposes Customer Info After Ransom Demands Rejected",
+      "summary": "Charter Communications Data Exposed by ShinyHunters Following an unpaid ransom demand, data allegedly stolen from... The post Charter Communications Data Breach Exposes Customer Info After Ransom Demands Rejected appeared first on .",
+      "link": "https://www.news4hackers.com/charter-communications-data-breach-exposes-customer-info-after-ransom-demands-rejected/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-31T06:01:46+00:00",
+      "published_ts": 1780207306,
+      "smart_groups": [
+        "Ransomware",
+        "Data Breaches / Leaks"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Bitcoin dip buyers curb selling but questionable spot, futures volumes highlight weakness",
+      "summary": "Bitcoin dip buyers are present near range lows, and new leveraged longs opened in the zone but the volumes lack the size needed to reverse the downtrend.",
+      "link": "https://cointelegraph.com/markets/bitcoin-dip-buyers-curb-selling-but-questionable-spot-futures-volumes-highlight-weakness?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-05-31T05:37:27+00:00",
+      "published_ts": 1780205847,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Was a stipulation in my offer letter that I was required to obtain my CISM certification in 6 months... I did not.",
+      "summary": "As the title says, I'm coming up on my 6 month window at this new job and I did not obtain the certification that was stated I obtain within 6 months of employment. HR nor my manager has said anything about it this entire time. Is this something I could get away with until I have some more time to study? Or is it crunch time to try and get it? Please if you have experience with this, feel free to share your insight. Thank you in advance! If it\u2019s important, I\u2019m a contractor and have about 1 year left here regardless. submitted by /u/Rich-Forever6 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tsl7ep/was_a_stipulation_in_my_offer_letter_that_i_was/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-31T04:31:17+00:00",
+      "published_ts": 1780201877,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Fake KBC Lottery Scam Exposed in Surat, India: Cyber Crime Crackdown",
+      "summary": "Surat Cyber Crime Police Crack Down on International Fake KBC Lottery Scam The Surat Cyber... The post Fake KBC Lottery Scam Exposed in Surat, India: Cyber Crime Crackdown appeared first on .",
+      "link": "https://www.news4hackers.com/fake-kbc-lottery-scam-exposed-in-surat-india-cyber-crime-crackdown/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-31T04:03:50+00:00",
+      "published_ts": 1780200230,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "UP Police Warns Against Sophisticated Hybrid Cybercrimes: Understanding the Threat",
+      "summary": "Uttar Pradesh Police Issues Warning Over Rising Hybrid Cybercrime Threat The digital landscape continues to... The post UP Police Warns Against Sophisticated Hybrid Cybercrimes: Understanding the Threat appeared first on .",
+      "link": "https://www.news4hackers.com/up-police-warns-against-sophisticated-hybrid-cybercrimes-understanding-the-threat/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-31T04:02:48+00:00",
+      "published_ts": 1780200168,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Rajkot Bank Scam Exposed Through 71 Cyber Frauds Worth \u20b91.85 Crores",
+      "summary": "Rajkot Cyber Fraud Case Uncovered: \u20b91.85 Crore Banking Racket Exposed Through 71 Complaints Investigations have... The post Rajkot Bank Scam Exposed Through 71 Cyber Frauds Worth \u20b91.85 Crores appeared first on .",
+      "link": "https://www.news4hackers.com/rajkot-bank-scam-exposed-through-71-cyber-frauds-worth-%e2%82%b91-85-crores/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-31T04:01:41+00:00",
+      "published_ts": 1780200101,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "LLMReaper - DOM Based AI Conversation Exfiltration via Browser Extensions",
+      "summary": "submitted by /u/thewhiteh4t [link] [comments]",
+      "link": "https://www.reddit.com/r/netsec/comments/1tsk829/llmreaper_dom_based_ai_conversation_exfiltration/",
+      "source": "/r/netsec",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-31T03:42:57+00:00",
+      "published_ts": 1780198977,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "LLMReaper - DOM Based AI Conversation Exfiltration via Browser Extensions",
+      "summary": "submitted by /u/thewhiteh4t [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tsk4xi/llmreaper_dom_based_ai_conversation_exfiltration/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-05-31T03:38:41+00:00",
+      "published_ts": 1780198721,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Delh HC Ruling on Bank Liability for Suspected Online Transactions",
+      "summary": "Banks Cannot Be Held Responsible for Customer Negligence in Cyber Fraud Incidents A recent landmark... The post Delh HC Ruling on Bank Liability for Suspected Online Transactions appeared first on .",
+      "link": "https://www.news4hackers.com/delh-hc-ruling-on-bank-liability-for-suspected-online-transactions/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-31T03:01:28+00:00",
+      "published_ts": 1780196488,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Microsoft Releases KB5089573 for Windows 11 to Fix Patch Tuesday Install Issues",
+      "summary": "Microsoft has rolled out a new cumulative update, KB5089573, for Windows 11 versions 25H2 and 24H2, targeting a critical installation failure that affected users following the May 2026 Patch Tuesday release. The update brings OS builds to 26200.8524 and 26100.8524, respectively, resolving a widely reported error that prevented many systems from completing the monthly security [\u2026] The post Microsoft Releases KB5089573 for Windows 11 to Fix Patch Tuesday Install Issues appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/microsoft-kb5089573-windows-11/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-05-31T02:22:11+00:00",
+      "published_ts": 1780194131,
+      "smart_groups": [
+        "Windows / Microsoft"
+      ],
       "curated": false
     },
     {
@@ -857,6 +1277,65 @@
       "published": "2026-05-30T08:31:41+00:00",
       "published_ts": 1780129901,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "ChatGPhish Vulnerability Turns ChatGPT Web Summaries Into a Phishing Surface",
+      "summary": "ChatGPhish exploits ChatGPT Markdown rendering to deliver phishing content from summarized web pages, increasing AI attack surfaces.",
+      "link": "https://lifeboat.com/blog/2026/05/chatgphish-vulnerability-turns-chatgpt-web-summaries-into-a-phishing-surface",
+      "source": "Lifeboat \u2013 Cybercrime & Malcode",
+      "type": "cybercrime",
+      "type_label": "Cybercrime, Darknet & Leaks",
+      "published": "2026-05-30T08:28:19+00:00",
+      "published_ts": 1780129699,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Phishing / Social Engineering"
+      ],
+      "curated": true
+    },
+    {
+      "title": "ChatGPT share links abused to host fake outage pages to deliver malware",
+      "summary": "Threat actors are abusing ChatGPT\u2019s content-sharing feature to display fake OpenAI outage pages that direct users to download malware disguised as the ChatGPT desktop application. The \u201cLLMShare\u201d campaign, discovered by Push Security, uses Google ads to direct users searching for ChatGPT to a malicious shared ChatGPT page hosted on chatgpt.com, allowing the attack to be [\u2026]",
+      "link": "https://lifeboat.com/blog/2026/05/chatgpt-share-links-abused-to-host-fake-outage-pages-to-deliver-malware",
+      "source": "Lifeboat \u2013 Cybercrime & Malcode",
+      "type": "cybercrime",
+      "type_label": "Cybercrime, Darknet & Leaks",
+      "published": "2026-05-30T08:27:44+00:00",
+      "published_ts": 1780129664,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "From $5 Attacks to Botnet-Powered Platforms: Inside the DDoS-as-a- Service Market",
+      "summary": "DDoS attacks are increasingly being sold like subscription services, complete with pricing tiers, support, and reseller programs. Flare explores how the DDoS-as-a-Service market has evolved from scattered tools into polished attack platforms.",
+      "link": "https://lifeboat.com/blog/2026/05/from-5-attacks-to-botnet-powered-platforms-inside-the-ddos-as-a-service-market",
+      "source": "Lifeboat \u2013 Cybercrime & Malcode",
+      "type": "cybercrime",
+      "type_label": "Cybercrime, Darknet & Leaks",
+      "published": "2026-05-30T08:27:08+00:00",
+      "published_ts": 1780129628,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Dutch govt disrupts malware botnet with 17 million infected devices",
+      "summary": "Dutch authorities have taken offline a massive botnet of 17 million devices and seized more than 200 servers at a local provider that supported the operation. The action was carried out following an investigation from the Police in collaboration with the country\u2019s cybersecurity agency, the National Cyber Security Centre (NCSC). According to the authorities, the [\u2026]",
+      "link": "https://lifeboat.com/blog/2026/05/dutch-govt-disrupts-malware-botnet-with-17-million-infected-devices",
+      "source": "Lifeboat \u2013 Cybercrime & Malcode",
+      "type": "cybercrime",
+      "type_label": "Cybercrime, Darknet & Leaks",
+      "published": "2026-05-30T08:26:49+00:00",
+      "published_ts": 1780129609,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
       "curated": false
     },
     {
@@ -3141,18 +3620,6 @@
       "curated": false
     },
     {
-      "title": "I tried different Android Auto weather apps - these 3 are best for storm nerds like me",
-      "summary": "There aren't many weather apps for Android Auto, but the ones I found work very well.",
-      "link": "https://www.zdnet.com/article/best-android-auto-weather-apps/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-29T12:01:03+00:00",
-      "published_ts": 1780056063,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
       "title": "Cisco Secure Access and Microsoft Edge for Business Integration",
       "summary": "Announcing the new integration between Cisco Secure Access and Microsoft Edge for Business, designed to enhance enterprise browser security and protect an organization\u2019s applications and data.",
       "link": "https://blogs.cisco.com/security/secure-access-microsoft-edge-business-integration/",
@@ -3441,6 +3908,54 @@
         "Curated",
         "Ransomware",
         "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Threat Actors Exploit Critical FortiClient EMS Flaw to Deploy Credential Stealer",
+      "summary": "Threat actors are continuing to exploit a critical, now-patched security flaw impacting FortiClient Endpoint Management Server (EMS) deployments to deliver credential-stealing malware. \u201cThe campaign abused trusted endpoint management infrastructure to deliver malware across managed endpoints,\u201d Arctic Wolf said. \u201cThreat actors disguised the credential stealer payload as a Fortinet endpoint update, silently executing the malicious executable [\u2026]",
+      "link": "https://lifeboat.com/blog/2026/05/threat-actors-exploit-critical-forticlient-ems-flaw-to-deploy-credential-stealer",
+      "source": "Lifeboat \u2013 Cybercrime & Malcode",
+      "type": "cybercrime",
+      "type_label": "Cybercrime, Darknet & Leaks",
+      "published": "2026-05-29T11:11:13+00:00",
+      "published_ts": 1780053073,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Exploit / PoC",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "GreyVibe hackers use ChatGPT, Gemini to power cyberattacks",
+      "summary": "A likely Russian threat group tracked as GreyVibe has been using AI-generated lures and a rich set of custom malware tools to target entities in the military, government, civilian, and business sectors. The cyberespionage campaign has been active since at least August 2025 and appears to align with Russian state interests, although researchers cannot confidently [\u2026]",
+      "link": "https://lifeboat.com/blog/2026/05/greyvibe-hackers-use-chatgpt-gemini-to-power-cyberattacks",
+      "source": "Lifeboat \u2013 Cybercrime & Malcode",
+      "type": "cybercrime",
+      "type_label": "Cybercrime, Darknet & Leaks",
+      "published": "2026-05-29T11:10:35+00:00",
+      "published_ts": 1780053035,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "BTMOB Android malware service generates custom phishing payloads",
+      "summary": "An Android remote access trojan named BTMOB is offered to cybercriminals with a builder interface for generating malware payloads tailored to phishing lures. The malware provides a wide set of features that includes stealing specific data, intercepting financial transactions, capturing screenshots, and remote control capabilities. Cybersecurity company ESET says that BTMOB is openly advertised on [\u2026]",
+      "link": "https://lifeboat.com/blog/2026/05/btmob-android-malware-service-generates-custom-phishing-payloads",
+      "source": "Lifeboat \u2013 Cybercrime & Malcode",
+      "type": "cybercrime",
+      "type_label": "Cybercrime, Darknet & Leaks",
+      "published": "2026-05-29T11:10:20+00:00",
+      "published_ts": 1780053020,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Malware / Payloads",
+        "Phishing / Social Engineering"
       ],
       "curated": true
     },
@@ -60567,20 +61082,6 @@
       "curated": false
     },
     {
-      "title": "Your TV's RS-232 port is a powerful automation tool - how to unlock it (and what it can do)",
-      "summary": "The RS-232 serial port on your smart TV isn't just for professional diagnostics. Here's how to unlock it for more advanced programming.",
-      "link": "https://www.zdnet.com/article/what-is-the-tvs-rss232-serial-port-and-what-it-can-do/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-13T15:00:38+00:00",
-      "published_ts": 1778684438,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
       "title": "Brickken and Magma partner to deliver Net Asset Value (NAV) oracle for tokenized real estate",
       "summary": "Built on Magma's Digital Twin Token (DTT) and Brickken's institutional tokenization infrastructure to close the data gap that has held tokenized real estate back.",
       "link": "https://cointelegraph.com/press-releases/brickken-and-magma-partner-to-deliver-net-asset-value-nav-oracle-for-tokenized-real-estate?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
@@ -103871,1662 +104372,6 @@
         "Ransomware"
       ],
       "curated": true
-    },
-    {
-      "title": "A Ransomware Negotiator Was Working for a Ransomware Gang",
-      "summary": "Someone pleaded guilty to secretly working for a ransomware gang as he negotiated ransomware payments for clients.",
-      "link": "https://www.schneier.com/blog/archives/2026/05/a-ransomware-negotiator-was-working-for-a-ransomware-gang.html",
-      "source": "Schneier on Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T11:18:43+00:00",
-      "published_ts": 1777634323,
-      "smart_groups": [
-        "Curated",
-        "Ransomware"
-      ],
-      "curated": true
-    },
-    {
-      "title": "EtherRAT Uses SEO Poisoning and Fake GitHub Pages to Target Enterprise Admins",
-      "summary": "A newly uncovered cyber campaign dubbed \u201cEtherRAT\u201d is raising concerns across enterprise environments, as attackers combine SEO poisoning, GitHub abuse, and blockchain-based infrastructure to target high-privilege IT professionals. Instead of broadly targeting users, the attackers deliberately impersonate trusted administrative tools, increasing the likelihood that victims already have elevated system access. The attack chain begins with [\u2026] The post EtherRAT Uses SEO Poisoning and Fake GitHub Pages to Target Enterprise Admins appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/etherrat-uses-seo-poisoning/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T11:17:25+00:00",
-      "published_ts": 1777634245,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Microsoft now lets admins choose pre-installed Store apps to uninstall",
-      "summary": "Microsoft has updated a Windows 11 in-box app removal policy introduced in October to include a dynamic list that lets IT admins choose which preinstalled Store apps to uninstall. [...]",
-      "link": "https://www.bleepingcomputer.com/news/microsoft/microsoft-now-lets-admins-choose-pre-installed-store-apps-to-uninstall/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T11:10:07+00:00",
-      "published_ts": 1777633807,
-      "smart_groups": [
-        "Windows / Microsoft"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Sophisticated Deep#Door Backdoor Enables Espionage, Disruption",
-      "summary": "The stealthy Python-based backdoor framework deploys a persistent Windows implant likely designed for espionage. The post Sophisticated Deep#Door Backdoor Enables Espionage, Disruption appeared first on SecurityWeek .",
-      "link": "https://www.securityweek.com/sophisticated-deepdoor-backdoor-enables-espionage-disruption/",
-      "source": "SecurityWeek",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T11:08:50+00:00",
-      "published_ts": 1777633730,
-      "smart_groups": [
-        "Curated",
-        "Windows / Microsoft",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Pro-Iran crew turns DDoS into shakedown as Ubuntu.com stays down",
-      "summary": "313 Team tells Canonical: pay up or the packets keep coming Canonical says its web infrastructure is under attack after a pro-Iran hacktivist group instructed its members to target the open source giant.\u2026",
-      "link": "https://go.theregister.com/feed/www.theregister.com/2026/05/01/canonical_confirms_ubuntu_infrastructure_under/",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T11:05:59+00:00",
-      "published_ts": 1777633559,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Linux / Unix"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Pro-Iran crew turns DDoS into shakedown as Ubuntu.com stays down",
-      "summary": "313 Team tells Canonical: pay up or the packets keep coming",
-      "link": "https://www.theregister.com/security/2026/05/01/pro-iran-group-turns-ubuntu-ddos-into-shakedown/5224575",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T11:05:59+00:00",
-      "published_ts": 1777633559,
-      "smart_groups": [
-        "Linux / Unix"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Eight Arrests Made in \u20b9125 Crore Cyber Fraud Case in Kanpur",
-      "summary": "Major Crackdown on Kanpur Cyber Fraud Network Uncovered, Eight Accused Arrested An organized crime network... The post Eight Arrests Made in \u20b9125 Crore Cyber Fraud Case in Kanpur appeared first on .",
-      "link": "https://www.news4hackers.com/eight-arrests-made-in-%e2%82%b9125-crore-cyber-fraud-case-in-kanpur/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T11:04:34+00:00",
-      "published_ts": 1777633474,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "windows-11-update-kb5083631-released-with-key-fixes-and-changes",
-      "summary": "Microsoft Releases KB5083631 Optional Cumulative Update for Windows 11 The wait is over for Windows... The post windows-11-update-kb5083631-released-with-key-fixes-and-changes appeared first on .",
-      "link": "https://www.news4hackers.com/windows-11-update-kb5083631-released-with-key-fixes-and-changes/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T11:03:26+00:00",
-      "published_ts": 1777633406,
-      "smart_groups": [
-        "Windows / Microsoft"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Critical cPanel Vulnerability Lets Attackers Bypass Login, Gain Root Access",
-      "summary": "A critical cPanel vulnerability lets attackers bypass login and gain root access, with active exploitation reported before patches were released.",
-      "link": "https://hackread.com/cpanel-vulnerability-attacker-bypass-login-root-access/",
-      "source": "HackRead",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T11:02:37+00:00",
-      "published_ts": 1777633357,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Cisco Unveils Free Open-Source Tool for Tracking AI Model Origins",
-      "summary": "Cisco Releases Open Source Tool for Tracking AI Model Provenance Cisco has launched an open-source... The post Cisco Unveils Free Open-Source Tool for Tracking AI Model Origins appeared first on .",
-      "link": "https://www.news4hackers.com/cisco-unveils-free-open-source-tool-for-tracking-ai-model-origins/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T11:02:19+00:00",
-      "published_ts": 1777633339,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Best AirPods of 2026: Expert tested and reviewed",
-      "summary": "I've worn every pair of headphones in Apple's catalog to help you find your iPhone's new best friend.",
-      "link": "https://www.zdnet.com/article/best-airpods/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T11:00:48+00:00",
-      "published_ts": 1777633248,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Bitcoin ETFs draw $2B in April for highest monthly inflows this year",
-      "summary": "US spot Bitcoin ETFs posted strong April inflows as Bitcoin rallied, with IBIT leading gains despite late-month outflows across funds.",
-      "link": "https://cointelegraph.com/news/bitcoin-etf-2-billion-inflow-april-biggest-month-ytd?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-01T10:53:44+00:00",
-      "published_ts": 1777632824,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Actively exploited cPanel bug exposes millions of websites to takeover",
-      "summary": "A vulnerability in the cPanel/WHM admin interface lets attackers access websites without a username and password.",
-      "link": "https://www.malwarebytes.com/blog/news/2026/05/actively-exploited-cpanel-bug-exposes-millions-of-websites-to-takeover",
-      "source": "Malwarebytes Labs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T10:48:19+00:00",
-      "published_ts": 1777632499,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Nine-Year-Old Zero-Day Flaw in Linux Kernel Discovered by AI-Equipped Security Researcher",
-      "summary": "A researcher from offensive security firm Theori has found a nine-year-old flaw in the Linux kernel with the help of AI",
-      "link": "https://www.infosecurity-magazine.com/news/zero-day-2017-linux-kernel/",
-      "source": "Infosecurity Magazine \u2013 News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T10:45:00+00:00",
-      "published_ts": 1777632300,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Linux / Unix"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Ongoing supply chain attacks worm into SAP npm packages",
-      "summary": "submitted by /u/NISMO1968 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t0pmz6/ongoing_supply_chain_attacks_worm_into_sap_npm/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-01T10:33:35+00:00",
-      "published_ts": 1777631615,
-      "smart_groups": [
-        "Curated"
-      ],
-      "curated": true
-    },
-    {
-      "title": "86% of Phishing Attacks are AI Driven, KnowBe4 Research Finds",
-      "summary": "KnowBe4, the digital workforce security provider, securing both AI agents and humans, has announced new research, Phishing Threat Trends Report Volume Seven. The report finds a seismic shift in the attack vectors utilized to conduct phishing attacks, including touchpoints outside of traditional email communication such as calendar invitations and messaging tools. \u201cThe inbox is no [\u2026] The post 86% of Phishing Attacks are AI Driven, KnowBe4 Research Finds appeared first on IT Security Guru .",
-      "link": "https://www.itsecurityguru.org/2026/05/01/86-of-phishing-attacks-are-ai-driven-knowbe4-research-finds/?utm_source=rss&utm_medium=rss&utm_campaign=86-of-phishing-attacks-are-ai-driven-knowbe4-research-finds",
-      "source": "IT Security Guru",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T10:32:10+00:00",
-      "published_ts": 1777631530,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Phishing / Social Engineering"
-      ],
-      "curated": true
-    },
-    {
-      "title": "South Korean Court Lifts Bithumb's Six-Month Business Suspension",
-      "summary": "A Seoul court has reversed March sanctions that would have restricted the exchange's core functions over alleged compliance failures.",
-      "link": "https://decrypt.co/366292/south-korean-court-lifts-bithumbs-six-month-business-suspension",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-01T10:32:10+00:00",
-      "published_ts": 1777631530,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Top Five Sales Challenges Costing MSPs Cybersecurity Revenue",
-      "summary": "The managed security services market is projected to grow from $38.31 billion in 2025 to $69.16 billion by 2030[1], with cybersecurity being the fastest-growing sector[2]. Despite this opportunity, many MSPs leave revenue on the table because their go-to-market strategy fails to connect technical expertise with business needs. This execution gap is where most deals stall. MSPs often focus on",
-      "link": "https://thehackernews.com/2026/05/top-five-sales-challenges-costing-msps.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T10:30:00+00:00",
-      "published_ts": 1777631400,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Lessons from the PocketOS Incident: When AI Agents Go Beyond Their Limits",
-      "summary": "The reported PocketOS incident, in which an AI agent deleted a live production database and its backups in a matter of seconds, has quickly become a defining moment in the conversation around autonomous systems in enterprise environments. An AI-powered coding or operations agent, operating with legitimate access via API tokens, encountered what it interpreted as [\u2026] The post Lessons from the PocketOS Incident: When AI Agents Go Beyond Their Limits appeared first on IT Security Guru .",
-      "link": "https://www.itsecurityguru.org/2026/05/01/lessons-from-the-pocketos-incident-when-ai-agents-go-beyond-their-limits/?utm_source=rss&utm_medium=rss&utm_campaign=lessons-from-the-pocketos-incident-when-ai-agents-go-beyond-their-limits",
-      "source": "IT Security Guru",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T10:28:46+00:00",
-      "published_ts": 1777631326,
-      "smart_groups": [
-        "Identity / Access",
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "New job and dont know where to go from there",
-      "summary": "I am thinking of my future, their future for me in the company is that I become a specialist in one field inside the company. But I dont know if that role translates to other companies in the future since its too specific for that company. They want me to become data manager specialist submitted by /u/Living-Bell8637 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t0pik0/new_job_and_dont_know_where_to_go_from_there/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-01T10:26:59+00:00",
-      "published_ts": 1777631219,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Cisco Releases Open Source Tool for AI Model Provenance",
-      "summary": "The new kit aims to address risks related to poisoned models, regulatory issues, supply chain integrity, and incident response. The post Cisco Releases Open Source Tool for AI Model Provenance appeared first on SecurityWeek .",
-      "link": "https://www.securityweek.com/cisco-releases-open-source-tool-for-ai-model-provenance/",
-      "source": "SecurityWeek",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T10:18:39+00:00",
-      "published_ts": 1777630719,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "New Android Spyware Platform Enables Rebranding and Resale",
-      "summary": "A newly discovered Android spyware platform is raising concerns among cybersecurity researchers by introducing a business model that allows buyers to rebrand and resell surveillance malware as their own product. Buyers can subscribe to the service, customize branding, and launch their own spyware operation with minimal effort. KidsProtect presents itself as a parental monitoring app, [\u2026] The post New Android Spyware Platform Enables Rebranding and Resale appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/android-spyware-platform/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T10:15:42+00:00",
-      "published_ts": 1777630542,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Brazil bars crypto settlement in regulated cross-border payment rails",
-      "summary": "Brazil\u2019s central bank barred virtual assets from settlement inside regulated eFX payment rails as it tightens oversight of crypto-linked flows.",
-      "link": "https://cointelegraph.com/news/brazil-central-bank-bars-virtual-assets-from-cross-border-payment-service-efx?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-01T10:07:14+00:00",
-      "published_ts": 1777630034,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Mini Shai-Hulud SAP Security Breach Impact Analysis",
-      "summary": "Over 1,800 Developers Affected by Mini Shai-Hulud Supply Chain Attack A sophisticated supply chain attack... The post Mini Shai-Hulud SAP Security Breach Impact Analysis appeared first on .",
-      "link": "https://www.news4hackers.com/mini-shai-hulud-sap-security-breach-impact-analysis/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T10:06:52+00:00",
-      "published_ts": 1777630012,
-      "smart_groups": [
-        "Curated"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Minnesota Ransomware Attack Leaks Sensitive Information, Cybersecurity Concerns Rise",
-      "summary": "Ransomware Attack Exposes Sensitive Data in Winona County A recent ransomware attack on the computer... The post Minnesota Ransomware Attack Leaks Sensitive Information, Cybersecurity Concerns Rise appeared first on .",
-      "link": "https://www.news4hackers.com/minnesota-ransomware-attack-leaks-sensitive-information-cybersecurity-concerns-rise/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T10:05:43+00:00",
-      "published_ts": 1777629943,
-      "smart_groups": [
-        "Curated",
-        "Ransomware"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Digital Arrest Scam Preys on Pharmacist for 9 Days, \u20b97.20 Lakh Lost in India",
-      "summary": "Digital Arrest Scams on the Rise: A Threat to Online Security A recent spate of... The post Digital Arrest Scam Preys on Pharmacist for 9 Days, \u20b97.20 Lakh Lost in India appeared first on .",
-      "link": "https://www.news4hackers.com/digital-arrest-scam-preys-on-pharmacist-for-9-days-%e2%82%b97-20-lakh-lost-in-india/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T10:04:29+00:00",
-      "published_ts": 1777629869,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "India Fraud Case: Scam Offers Rs 48 Lakhs with Old Notes",
-      "summary": "Old Note Scam in Ajmer Leaves Retired Teacher $450,000 Short A retired private school teacher... The post India Fraud Case: Scam Offers Rs 48 Lakhs with Old Notes appeared first on .",
-      "link": "https://www.news4hackers.com/india-fraud-case-scam-offers-rs-48-lakhs-with-old-notes/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T10:03:23+00:00",
-      "published_ts": 1777629803,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Phishing Scams Using Fake Traffic Fines Target Drivers Globally",
-      "summary": "A Global Smishing Campaign Targets Drivers A sophisticated smishing campaign has been discovered, targeting drivers... The post Phishing Scams Using Fake Traffic Fines Target Drivers Globally appeared first on .",
-      "link": "https://www.news4hackers.com/phishing-scams-using-fake-traffic-fines-target-drivers-globally/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T10:02:16+00:00",
-      "published_ts": 1777629736,
-      "smart_groups": [
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Windows 11 KB5083631 update released with 34 changes and fixes",
-      "summary": "Microsoft has released the KB5083631 optional cumulative update for Windows 11, which includes 34 changes, such as a new Xbox mode for Windows PCs, enhanced security and performance for batch files, and performance improvements for launching startup apps. [...]",
-      "link": "https://www.bleepingcomputer.com/news/microsoft/windows-11-kb5083631-update-released-with-34-changes-and-fixes/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T10:00:53+00:00",
-      "published_ts": 1777629653,
-      "smart_groups": [
-        "Windows / Microsoft"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Moving from AI pilots to business-wide value requires a superhighway - how to ramp up",
-      "summary": "Accenture's latest research finds that companies must demonstrate sustained early wins from AI investments to build momentum. The key is shifting from siloed AI to systemic AI.",
-      "link": "https://www.zdnet.com/article/moving-from-ai-pilots-to-business-wide-value-accenture-research/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T10:00:45+00:00",
-      "published_ts": 1777629645,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Human-centric failures: Why BEC continues to work despite MFA",
-      "summary": "Business email compromise (BEC) is still thriving even in organizations that have implemented multi-factor authentication (MFA). As security professionals, we often assume that MFA is the silver bullet for email security, but real-world incidents suggest otherwise. Attackers exploit human behaviors, process gaps and operational blind spots that MFA alone cannot address. In many modern BEC cases, no account is technically compromised at all, which places these attacks outside the protection boundary of MFA controls. In 2019, Toyota Boshoku Corporation fell to a BEC attack with an employee transferring over $30m to scammers following a cloned email from a 3 rd party company with urgency citing the need for the transaction to be completed urgently so as not to slow down Toyota\u2019s production line. There was no indication that the Toyota employee\u2019s email had been compromised . Take also the 2024 case of Arup where attackers impersonated a senior manager using Deepfake voices and videos and convinced a member of the finance team to make payments totaling $25m. The compromise did not rely on stolen credentials but on carefully orchestrated social engineering, timing and the finance team\u2019s procedural shortcuts. The technical safeguards could have been strong, but human oversight proved to be the weakest link. In both cases, the failure occurred at the decision point, not at the authentication layer, exploiting trust, timing and established, convenient, approval habits. Where security controls end and business risk begins From experience, this scenario is all too common. Organizations often focus on deploying security technology without addressing human workflows and culture. This often includes shiny new EDR technology which are used to check boxes for audit and compliance purposes, and which CIOs are quick to sign off on to show stakeholders they are cyber resilient. This is not a failure of EDR itself, but of how security investments are scoped. Endpoint and identity controls protect systems, but they do not govern how financial approvals, vendor changes or executive requests are validated in practice. MFA reduces risk but cannot replace the need for process controls, verification routines and continuous awareness training especially as there are now AITM phishing kits which bypass MFA in the wild. The operational blind spots being exploited sit in business workflows where speed, trust and authority override verification, particularly in finance and procurement processes. These blind spots exist because business processes are optimized for speed and continuity, not verification. Finance teams are trained to keep operational lines moving, and attackers who have now taken cognizance of this, use this advantage to their own advantage by introducing urgency or invoking authority. When a request appears legitimate, time-sensitive and from someone with perceived authority, employees often follow familiar patterns rather than pause to challenge intent. This is not a failure of technology, but a failure of process design. Practical steps for IT leaders include redesigning approval workflows so that high-value transactions require multi-step verification including out-of-band call to confirm, simulating BEC scenarios in realistic exercises to identify gaps in response and decision-making, embedding security awareness into daily routines using micro-learning and real incident reviews, and empowering teams to challenge unusual requests without fear of reprisal. Instances of successful attacks can also be shared with employees who distribute invoices, financial documents or oversee making decisions regarding transfers Designing approval workflows that thwart BEC attacks Redesigning approval workflows means explicitly defining what constitutes a high-risk request, such as first-time payments, changes to vendor banking details, sudden payment requests from an executive or requests that bypass standard procedures. These requests should require independent verification using known contact details, not information provided in the email itself. When reviewing and redesigning approval workflows, organizations should begin by asking salient, hard, operational questions at the decision-making point. Does this request align with how payments are normally initiated/approved? Is the requester the typical communication channel and tone? Has this vendor or account been paid before, and under similar circumstances? Does the email tally with the one on the sender\u2019s company website without alterations? Is there a different reply-to email visible? Can a quick call to confirm be made? Teams should also ask what assumptions are being made under time pressure, whether authority is being inferred rather than verified, and who is accountable if the decision turns out to be wrong. These questions force employees to slow down, recognize deviations from normal behavior and treat unusual requests as potential security events rather than routine business tasks. Simulating BEC transcends phishing tests and should mirror real business scenarios, including urgent executive requests or supplier payment changes, allowing organizations to observe how staff respond to pressure and ambiguity. Effective simulations introduce urgency, impersonate authority figures with typosquatted emails and exploit realistic business contexts such as end-of-quarter payments, supplier changes and times of the year when attackers like to strike such as festive periods and before holidays. Participants are observed on how they verify requests, whether they escalate concerns and how quickly they move to execution without confirmation. The outcome is not a pass or fail score but can provide insight into where processes encourage compliance over caution. These simulations allow organizations to refine approval rules, reinforce escalation paths and normalize verification as part of everyday operations. Empowerment must be formalized through policy, making it clear that pausing or escalating a suspicious request is expected behavior, not an obstacle to productivity. Staff who report suspicious requests also should be encouraged and used as good examples in internal communications where possible. Using friction and alerts in workflows Insights from cross-border operations is that attackers exploit time pressure and executive assumptions often seen in CEO/CFO themed fraud . Teams often follow cues from perceived authority, scoped by attackers from email flows and urgency often attached to making large payments, tying them to critical business needs. By implementing friction in critical workflows such as mandatory pauses for large transfers or automated anomaly alerts, organizations can reduce risk without hampering productivity Effective friction does not mean indiscriminately grinding the business or its process to a halt. Mandatory pauses for large or unusual transfers create space for verification and reduce impulsive decisions and actions. During these pauses, specific actions should occur, such as email/signature checks, verbiage, secondary approval, independent confirmation or automated checks against historical payment behavior as stated above. Automated anomaly alerts are only useful when they focus on deviations that matter and are tied to clear response expectations. Alerts should prioritize scenarios such as out-of-hours payment requests, changes to established vendor details or transfers that fall outside normal patterns. Ownership of BEC-related alerts should sit with teams that control financial decisions, such as finance operations, fraud risk units or cross-functional payment risk groups that combine security and business authority, rather than being routed exclusively to noisy SOC queues. To reduce false positives also, the concept of enhanced monitoring for priority accounts should also be introduced. This can be made better by routing emails containing specific payment keywords to these risk groups to evaluate before landing in the intended inboxes. What security leaders should change now BEC continues to succeed because human decision points are rarely treated as security-critical systems. MFA, email filtering and endpoint protections remain necessary, but they do not control how people make decisions under pressure. Until financial and executive workflows are designed with the same rigor applied to technical systems, attackers will continue to exploit the impact of human behavior on cybersecurity with social engineering and human weaknesses at the top of the pile. Added to this, there should also be clear ownership of BEC risk at the leadership level. If no single role is accountable for payment verification failures, responsibility defaults to frontline staff under pressure who often bear the brunt of being sacked or prosecuted following successful BEC attacks . Assigning ownership to finance leadership, risk committees or cross-functional governance groups ensures that process failures are treated as systemic issues rather than individual mistakes. Although equally important, leaders should not measure success solely by the number of blocked phishing emails, but by how often verification steps are followed, how many payment requests are challenged and how quickly suspicious transactions are paused and reviewed. In conclusion, security leaders who reduce BEC risk align people, processes and technology so that verification becomes routine, hesitation is acceptable and authority is never assumed without confirmation. In 2026 and beyond, business workflows should continue to be treated as a core part of the security architecture and not a peripheral component. This article is published as part of the Foundry Expert Contributor Network. Want to join?",
-      "link": "https://www.csoonline.com/article/4165638/human-centric-failures-why-bec-continues-to-work-despite-mfa.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T10:00:00+00:00",
-      "published_ts": 1777629600,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Identity / Access",
-        "Phishing / Social Engineering",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Two Cybersecurity Professionals Get 4-Year Sentences in BlackCat Ransomware Attacks",
-      "summary": "The U.S. Department of Justice (DoJ) on Thursday announced the sentencing of two cybersecurity professionals to four years each in prison for their role in facilitating BlackCat ransomware attacks in 2023. Ryan Goldberg, 40, of Georgia, and Kevin Martin, 36, of Texas, were accused of deploying the ransomware against multiple victims located throughout the U.S. between April and December 2023.",
-      "link": "https://thehackernews.com/2026/05/two-cybersecurity-professionals-get-4.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T09:56:00+00:00",
-      "published_ts": 1777629360,
-      "smart_groups": [
-        "Curated",
-        "Ransomware"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Ransomware Victims Jump to 7,831 as AI Crime Tools Scale Global Attacks",
-      "summary": "The ransomware threat has reached a new and alarming level. According to Fortinet\u2019s newly released 2026 Global Threat Landscape Report, the number of confirmed ransomware victims worldwide jumped to 7,831 in 2025, up from roughly 1,600 victims recorded in the previous year\u2019s report. That is a 389% increase year-over-year, a rise that reflects how deeply [\u2026] The post Ransomware Victims Jump to 7,831 as AI Crime Tools Scale Global Attacks appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/ransomware-victims-jump-to-7831-as-ai-crime-tools/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T09:43:23+00:00",
-      "published_ts": 1777628603,
-      "smart_groups": [
-        "Curated",
-        "Ransomware"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Poisoned Ruby Gems and Go Modules Exploit CI Pipelines for Credential Theft",
-      "summary": "A new software supply chain attack campaign has been observed using sleeper packages as a conduit to subsequently push malicious payloads that enabled credential theft, GitHub Actions tampering, and SSH persistence. The activity has been attributed to the GitHub account \"BufferZoneCorp,\" which has published a set of repositories that are associated with malicious Ruby gems and Go modules. As of",
-      "link": "https://thehackernews.com/2026/05/poisoned-ruby-gems-and-go-modules.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T09:43:00+00:00",
-      "published_ts": 1777628580,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC",
-        "Identity / Access",
-        "Supply Chain / Software"
-      ],
-      "curated": true
-    },
-    {
-      "title": "SBI eyes Bitbank deal as Japan\u2019s crypto exchange market consolidates",
-      "summary": "SBI Holdings is in discussions to make Bitbank a subsidiary, adding to its push to acquire crypto exchanges amid improving regulatory clarity in Japan.",
-      "link": "https://cointelegraph.com/news/sbi-seeks-to-make-bitbank-a-subsidiary-in-japan-crypto-consolidation-push?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-01T09:39:34+00:00",
-      "published_ts": 1777628374,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "The Life-Dinner Principle in Detection",
-      "summary": "\u201cThe rabbit runs faster than the fox, because the rabbit is running for his life while the fox is only running for his dinner.\u201d \u2014 paraphrase cited \u201cafter Aesop\u201d by Richard Dawkins & John Krebs, \u201cArms Races Between and Within Species\u201d. Cybersecurity has its own folk saying. You have heard it at conferences, on panels, in vendor decks, and in LinkedIn posts from CISOs who are \u201chumbled\u201d to announce something: \u201cThe attacker only has to be right once. The defender has to be right every time.\u201d It sounds true. Sometimes it is true. But as a general statement about cybersecurity, it is wrong. Not grammatically wrong. Not useless in every context. There are attack classes where it describes the problem well enough. But it has been treated as a foundational law of security, and that is where the break occurs. It has become the sentence we use to justify endless alert volume, endless budget requests, endless analyst burnout, and endless fear. For many important defender-attacker dynamics, the sentence is not just incomplete. It is backwards. Dawkins and Krebs were interested in evolutionary arms races: how predators and prey escalate against one another, and why those contests do not simply spiral until one side wins completely. A simple model says that if either side gets even a small advantage, the race should tip decisively. The fox gets faster, catches more hares, and the hares vanish. Or the hares get faster, escape consistently, and the foxes starve. But that is not what happens. Foxes and hares have shared landscapes for millions of years. The fox still hunts. The hare is still in the meadow. Something else is going on. Dawkins and Krebs point to an asymmetry in per-encounter stakes. The fox is running for dinner. If it loses, it misses a meal. That matters, but it is usually recoverable. It can hunt again. The hare is running for its life. If it loses, the game is over. No second try. No recovery. No descendants. The same race has different consequences depending on which animal you are. That difference changes the selection pressure. Over many generations, the hare is pushed harder toward escape than the fox is pushed toward pursuit. The hare becomes, in a sense, over-invested in survival. And that over-investment is not waste. It is part of what keeps the system stable. Cybersecurity usually talks as though the arms race is symmetric. The attacker gets infinite cheap shots. The defender is doomed to fail eventually. The attacker only needs one success. The defender needs perfection. However! real security programs do not operate in a symmetric world. Some attacks are high-stakes for defenders. A missed detection can mean ransomware, exfiltration, regulatory exposure, customer churn, or an existential hit to the business. In those cases, yes, the defender is running for its life. Over-investment is rational. Other attacks are the opposite. Commodity scanning, phishing spray, low-grade malware noise, and botnet traffic can cost attackers almost nothing to generate. If the defender spends real analyst time on every one of those events, the defender loses economically even when nothing bad happens. That is the distinction we usually fail to make. Some detections are life races. Some detections are dinner races. A mature security program needs to know which is which. The sentence we keep paying for \u201cThe attacker only has to be right once\u201d is not just a clich\u00e9. It is a load-bearing clich\u00e9. Vendor marketing depends on it. A dashboard showing \u201cX threats blocked today\u201d only works if you believe every single threat is equally meaningful. MSSP sales pitches depend on it too. \u201cWe cover everything\u201d sounds impressive only if \u201ceverything\u201d deserves the same treatment. Conference panels love it because it produces solemn nodding. It sounds humble. It sounds serious. It makes the speaker look battle-tested. It also lets everyone avoid harder questions. If every alert might be the one, then every alert deserves attention. If every attacker attempt has the same strategic weight, then prioritization becomes morally suspect. If the defender must be right every time, then exhaustion starts to look like professionalism. That is a comfortable worldview for vendors and a miserable one for analysts. It is also not how asymmetry works. The cyber arms race is not one race. It is thousands of races, each with different stakes, different costs, and different consequences. In some of them, the defender really is the rabbit. In others, the defender is the fox burning calories on a chase that was never worth taking. We need to be able to tell those apart. Where the rabbit lives A rabbit-side detection is one where the defender\u2019s per-encounter loss is severe enough to justify unusually deep investment. These are the cases where missing the signal is expensive, damaging, or irreversible. The defender may face regulatory penalties, business disruption, loss of intellectual property, legal exposure, or long-term reputational damage. Examples: Targeted exfiltration of crown-jewel data Compromise of executive or board-level communications Ransomware in a business-critical environment APT persistence in regulated infrastructure Privileged access abuse in cloud or identity systems Insider theft of material nonpublic information Activity suggesting a rare or expensive exploit chain In these cases, over-investment is not paranoia. It is appropriate. If a CFO mailbox shows anomalous access from an unusual geography, that is not the same operational object as a random inbound scan against a public web server. One may represent material business risk. The other may be normal internet weather. The problem is that many SOCs treat both as versions of the same thing: an alert. They are not the same thing. Rabbit-side detections deserve depth. They deserve careful investigation, higher tolerance for false positives, better context, longer dwell time, and more experienced analysts. They deserve escalation paths that do not depend on whether Tier 1 happens to be having a good shift. In those cases, the organization is running for its life, or close enough that it should behave as if it is. Where we are the fox A fox-side detection is one where the attacker\u2019s cost is close to zero, but the defender\u2019s cost is real. These are the alerts that drain security teams because they scale cheaply for the attacker and expensively for the defender. Examples include: Spray phishing Commodity botnet traffic Opportunistic vulnerability scanning Low-tier malware callbacks Repeated credential stuffing from known infrastructure Generic exploit attempts against non-vulnerable systems Internet background noise hitting exposed services For the attacker, these events are cheap. Sometimes they are effectively free. A scanner runs. A botnet sprays. A phishing kit sends messages. The attacker does not care about any individual failure. But if the defender pays analyst time per event, the economics are awful. That is how organizations end up with burned-out analysts investigating garbage. Not because the analysts are bad. Not because the SOC is lazy. Because the system has confused cheap attacker noise with expensive defender risk. Fox-side detections should not receive the same treatment as rabbit-side detections. They should be aggregated, suppressed, enriched automatically, rate-limited, summarized, or converted into engineering work. The goal is not heroic investigation. The goal is to make the defender\u2019s marginal cost approach zero. If the attacker has automated the noise, the defender has to automate the response. Otherwise, the defender is the fox sprinting after every rabbit in the field until it collapses. The life-dinner score Consider the simple solution of an additional metadata field: detection: name: T1078.004 - Cloud Account Anomalous Login (CFO mailbox) life_dinner: rabbit asymmetry_justification: | Crown-jewel SaaS login compromise. Defender per-encounter loss is regulatory disclosure, customer churn, and acquisition sensitivity (~8-figure exposure). Attacker per-encounter loss is one credential and one IP. Asymmetry: several orders of magnitude in defender's favour. Treatment: deep investigation per fire. No auto-close. detection: name: Generic Inbound HTTP Vulnerability Scan life_dinner: fox asymmetry_justification: | Opportunistic. Attacker cost ~zero (open-source scanner from free-tier VPS). Defender investigation cost nontrivial if treated manually. Asymmetry: against defender. Treatment: aggregate, suppress to weekly summary, no analyst time per fire. That one field forces the conversation security teams should already be having. What are the stakes? Who pays per encounter? What does a miss cost? What does a false positive cost? Is this an investigation problem or an automation problem? A detection should not ship unless someone can explain where it sits on the life-dinner line. That classification should affect everything downstream: Queue design Triage expectations Escalation paths False positive tolerance False negative tolerance Metrics Staffing Vendor evaluation Automation strategy A rabbit-side queue should be built for depth. The analysts working it need patience, context, and investigative skill. A single alert may deserve hours or days. A fox-side queue should be built for throughput. The people working it should think like engineers. Their job is not to lovingly investigate every piece of internet trash. Their job is to make sure nobody has to. Most SOCs combine those two jobs and then wonder why both are done badly. They hire investigators and bury them in noise, or they hire \u201cthroughput operators\u201d and ask them to reason about subtle intrusions. Those are different jobs. They require different temperaments, different tooling, and different success metrics. Where this analogy breaks The fox-and-rabbit analogy is useful, but it is still an analogy. It breaks in a few important places. First, there is the rare-enemy problem. Dawkins and Krebs noted that selection pressure changes when encounters are rare. If a hare almost never meets a fox, then fox-driven selection pressure weakens. The cyber equivalent is straightforward: if an organization is rarely targeted by sophisticated actors, it may not experience the kind of pressure that justifies a large rabbit-side investment in every domain. That does not mean the organization needs no security. It means the life-dinner classification has to include encounter probability, not just impact. Second, breaches create externalities. When a fox catches a rabbit, the cost is mostly borne by the rabbit. When a company loses sensitive data, the cost spreads to customers, employees, partners, and sometimes whole ecosystems. The defender\u2019s balance sheet may understate the actual harm. So the model is useful, but it can underprice the social cost of failure. Third, the asymmetry can change mid-engagement. A tool that is too expensive to burn in peacetime may be worth burning during a geopolitical crisis. An attacker who usually behaves like a fox may suddenly behave like a rabbit if the operation is strategically important enough. That means classification is not a one-time exercise. It is part of threat modeling. The meadow is still here The cybersecurity industry has spent years warning that the meadow is about to collapse, but I don\u2019t think it has. That does not mean defenders are winning everywhere. It does not mean the work is easy. It does not mean attackers are harmless. But it does mean the simple doom model is wrong. The attacker does not always win, the defender does not need to treat every encounter as existential \u2014 the real work is figuring out which races matter. If we took the life-dinner principle seriously, security programs would change in practical ways: Every detection would have a life-dinner classification: rabbit, fox, or mixed Rabbit-side alerts would go to a depth-oriented investigation track Fox-side alerts would go to an automation and aggregation track Hiring would distinguish between investigators and automation engineers Metrics would differ by queue Classifications would be reviewed as threat conditions changed Vendors would be judged by whether they understand the difference And maybe CISOs could stop repeating the same old sentence. \u201cThe attacker only has to be right once\u201d is not useless. It just needs a footnote: Sometimes. In symmetric contests. Which many of the important ones are not. Dawkins and Krebs gave us a better way to think about this in 1979. The fox runs for dinner. The rabbit runs for life. A good security program knows which one it is before the race starts. If you enjoyed the article, feel free to connect with me! www.linkedin.com/in/koifman-daniel https://x.com/KoifSec https://koifsec.me https://bsky.app/profile/koifsec.bsky.social The Life-Dinner Principle in Detection was originally published in Detect FYI on Medium, where people are continuing the conversation by highlighting and responding to this story.",
-      "link": "https://detect.fyi/the-life-dinner-principle-in-detection-822169d9da2c?source=rss----d5fd8f494f6a---4",
-      "source": "Detect.fyi",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T09:33:56+00:00",
-      "published_ts": 1777628036,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Cloud / SaaS",
-        "Threat Actors / APT",
-        "Malware / Payloads",
-        "Network / OT / ICS",
-        "Phishing / Social Engineering"
-      ],
-      "curated": true
-    },
-    {
-      "title": "CAPTCHA and ClickFix Abuse Fuels Credential Theft Surge",
-      "summary": "Attackers are increasingly combining QR codes, fake CAPTCHA gates, and ClickFix-style tricks to steal credentials at scale, even as major phishing-as-a-service (PhaaS) platforms face disruption. These tactics shift risk from traditional malware attachments to highly convincing, hosted phishing flows that are harder for both users and email filters to spot. Across this volume, 78% of [\u2026] The post CAPTCHA and ClickFix Abuse Fuels Credential Theft Surge appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/captcha-and-clickfix-abuse/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T09:33:05+00:00",
-      "published_ts": 1777627985,
-      "smart_groups": [
-        "Malware / Payloads",
-        "Network / OT / ICS",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Confirming (potential) malware distribution attempt",
-      "summary": "Ran into a possible malware distribution attempt on a subforum. User links a github with an AI-coded project with outlandish performance claims. The developer's profile has a host of hacking-related repos. Either I'm completely wrong, at least about the vibe-coded software he linked, or they're not smart enough to hide their hacking tools, which is in part what allowed me to detect (assuming I'm right) the threat in the first place. I'm a beginner at this point, and at the moment only have a Ubuntu laptop to perform tests. Free online tools find no threats in the zip of the repo I downloaded. Learning everything from scratch means letting the (possible) hacker run free in the meantime. Are there reasonable options I have to test the repo? I do hope I'm not in violation of the second posting rule, but can't seem to find any guidance anywhere else. submitted by /u/anvoice [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t0oiq4/confirming_potential_malware_distribution_attempt/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-01T09:31:42+00:00",
-      "published_ts": 1777627902,
-      "smart_groups": [
-        "Linux / Unix",
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Overview of Content Published in April",
-      "summary": "Here is an overview of content I published in April: Blog posts: Update: cut-bytes.py Version 0.0.18 SANS ISC Diary entries: A .WAV With A Payload",
-      "link": "https://blog.didierstevens.com/2026/05/01/overview-of-content-published-in-april-10/",
-      "source": "https://blog.didierstevens.com/feed/",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T09:28:46+00:00",
-      "published_ts": 1777627726,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Billions of meals at risk due to Iran war, says fertiliser boss",
-      "summary": "submitted by /u/OGMYT [link] [comments]",
-      "link": "https://www.reddit.com/r/netsec/comments/1t0ogbc/billions_of_meals_at_risk_due_to_iran_war_says/",
-      "source": "/r/netsec",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-01T09:27:45+00:00",
-      "published_ts": 1777627665,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Deep#Door Stealer Harvests Browser Passwords, Cloud Tokens, SSH Keys, and Wi-Fi Credentials",
-      "summary": "A newly identified Python-based malware known as DEEP#DOOR has surfaced as a serious threat to Windows users, combining a fully-featured backdoor with a powerful credential-stealing engine. What makes this threat especially concerning is how quietly it operates, embedding itself deep inside a compromised system while collecting sensitive data from multiple sources at once. The malware [\u2026] The post Deep#Door Stealer Harvests Browser Passwords, Cloud Tokens, SSH Keys, and Wi-Fi Credentials appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/deepdoor-stealer-harvests-browser-passwords/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T09:26:17+00:00",
-      "published_ts": 1777627577,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Windows / Microsoft",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Passport to \u00a3\u00a3\u00a3: Home Office adds \u00a3216M to travel doc contract before a single bid's been placed",
-      "summary": "Start date pushed back a year, annual cost up a third, and UK's now handing out eight million passports a year The Home Office has increased the annual value and overall duration of its new passport production contract, increasing it to a total of \u00a3576 million as it starts a third round of engagement with suppliers.\u2026",
-      "link": "https://go.theregister.com/feed/www.theregister.com/2026/05/01/passport_to_home_office_adds/",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T09:15:06+00:00",
-      "published_ts": 1777626906,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Passport to \u00a3\u00a3\u00a3: Home Office adds \u00a3216M to travel doc contract before a single bid's been placed",
-      "summary": "Start date pushed back a year, annual cost up a third, and UK's now handing out eight million passports a year",
-      "link": "https://www.theregister.com/security/2026/05/01/home-office-adds-216m-to-travel-doc-contract-before-bids/5227219",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T09:15:06+00:00",
-      "published_ts": 1777626906,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Anthropic launches Claude Security to counter rapid AI-Powered exploits",
-      "summary": "Anthropic launched Claude Security to counter faster AI-driven cyberattacks, as tools like Mythos enable near-instant exploitation by threat actors. Anthropic introduced Claude Security to help defenders keep up with a surge in AI-powered cyberattacks. As models like Mythos drastically reduce the time needed to exploit vulnerabilities, similar tools will likely spread among criminals and nation-state [\u2026]",
-      "link": "https://securityaffairs.com/191532/ai/anthropic-launches-claude-security-to-counter-rapid-ai-powered-exploits.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T09:15:02+00:00",
-      "published_ts": 1777626902,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Multiple Exim Mail Server Vulnerabilities Could Trigger Crashes via Malicious DNS Data",
-      "summary": "The developers of the Exim mail server have officially rolled out version 4.99.2 to address four newly discovered security vulnerabilities. This critical update patches multiple software flaws that could allow attackers to crash server connections, corrupt memory heaps, or potentially leak sensitive system data. Mail server administrators are strongly advised to apply these fixes immediately [\u2026] The post Multiple Exim Mail Server Vulnerabilities Could Trigger Crashes via Malicious DNS Data appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/multiple-exim-mail-server-vulnerabilities/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T09:11:53+00:00",
-      "published_ts": 1777626713,
-      "smart_groups": [
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Two People Arrested in Saharanpur for Duping Judge with Fake Haj Travel Scam",
-      "summary": "Cybercrime Scheme Exposed: Judge Duped of \u20b923.99 Lakhs A complex cybercrime scheme has come to... The post Two People Arrested in Saharanpur for Duping Judge with Fake Haj Travel Scam appeared first on .",
-      "link": "https://www.news4hackers.com/two-people-arrested-in-saharanpur-for-duping-judge-with-fake-haj-travel-scam/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T09:09:14+00:00",
-      "published_ts": 1777626554,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "FBI Issues Warning on Rise in Hacker-Enabled Cargo Theft Cases",
-      "summary": "FBI Warns of Surge in Hacker-Enabled Cargo Theft The Federal Bureau of Investigation (FBI) has... The post FBI Issues Warning on Rise in Hacker-Enabled Cargo Theft Cases appeared first on .",
-      "link": "https://www.news4hackers.com/fbi-issues-warning-on-rise-in-hacker-enabled-cargo-theft-cases/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T09:08:02+00:00",
-      "published_ts": 1777626482,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Hugging Face\u2019s Open-Source Technology Hijacked for Malware Spread",
-      "summary": "Ambushed Trust: Threat Actors Exploit Popular AI Distribution Platforms Recent research by Acronis reveals a... The post Hugging Face\u2019s Open-Source Technology Hijacked for Malware Spread appeared first on .",
-      "link": "https://www.news4hackers.com/hugging-faces-open-source-technology-hijacked-for-malware-spread/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T09:06:46+00:00",
-      "published_ts": 1777626406,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "\u20b91.49 Crore Looted from Indian E-Commerce Wallet via OTP Loophole",
-      "summary": "Two Warehouse Employees Arrested for Exploiting OTP Loophole to Siphon \u20b91.49 Crore from Company Wallet... The post \u20b91.49 Crore Looted from Indian E-Commerce Wallet via OTP Loophole appeared first on .",
-      "link": "https://www.news4hackers.com/%e2%82%b91-49-crore-looted-from-indian-e-commerce-wallet-via-otp-loophole/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T09:05:33+00:00",
-      "published_ts": 1777626333,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Ransomware Negotiators Sentenced to 4 Years for BlackCat Attacks",
-      "summary": "US Ransomware Negotiators Receive Four-Year Prison Sentences for Facilitating BlackCat Attacks Two former employees of... The post Ransomware Negotiators Sentenced to 4 Years for BlackCat Attacks appeared first on .",
-      "link": "https://www.news4hackers.com/ransomware-negotiators-sentenced-to-4-years-for-blackcat-attacks/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T09:04:20+00:00",
-      "published_ts": 1777626260,
-      "smart_groups": [
-        "Curated",
-        "Ransomware"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Just 34% of cyber pros plan to stick with their current employer",
-      "summary": "Declining job satisfaction means that only one in three (34%) cybersecurity professionals plan to stay with their current employer, increasing the pressure on CISOs\u2019 talent retention strategies. And according to a survey of 500 cybersecurity professionals by IANS and Artico Search, while salary remains important it is not the primary driver of retention. Flexible work models correlate strongly with satisfaction and retention, however. Hybrid work arrangements, particularly those that require only one to two days onsite per week, also tend to reduce the desire for talented cybersecurity staffers to jump ship, according to IANS\u2019s Cybersecurity Talent Report . The researchers found that wage growth is more important in minimizing staff turnover than the absolute value of compensation packages. \u201cAs pressure on cyber teams skyrockets, CISOs who double down on mentorship, coaching, and career development can create a sense of purpose and progression that helps their employees avoid burnout,\u201d says Nick Kakolowski, senior research director at IANS. Cybersecurity staff who feel their employer views security as a priority (73%) are more likely to stay than those working for enterprises who perceive little or no organizational backing for security, where the desire to stay with their current employer drops to just 19%. \u201cVisibility, career growth, and support from security leadership are necessary to keep high performers,\u201d adds Steve Martano, an IANS faculty member and partner at Artico Search. Cybersecurity training and certification body ISC2 estimates that the global cybersecurity workforce gap peaked at 4.8 million in 2024. Although budget cuts last year have reduced the number of unfilled cybersecurity roles, the employment market remains tight and highly competitive. In CIO.com\u2019s State of the CIO survey , cybersecurity tied AI for the hardest skill to fill despite notably higher demand for AI talent (42% to 38%). Career progression and workplace autonomy Along with flexibility, recruitment experts polled by CSO say that cybersecurity professionals consistently look for opportunities to develop their skills, to have agency over how they work, and to have their expertise taken seriously. \u201cWhen candidates see a defined career progression, the offer of ongoing certifications and training, direct visibility into strategy, and access to modern security stacks, that\u2019s when your role becomes desirable,\u201d says Archie Payne, president at recruitment agency CalTek Staffing. Employers that fail to offer some form of remote, or at least hybrid work, will miss out on a sizable portion of the talent pool. \u201cWe regularly see candidates decline otherwise strong offers because of rigid location requirements,\u201d Payne says. \u201cAgain, top candidates know they are in-demand and won\u2019t settle for a role that doesn\u2019t support their work-life balance needs.\u201d Skills development Richard Demeny, founder and CTO at Canary Wharfian, an online finance career platform, says that graduates and early professionals know they are calling the shots because even at the entry level talent is scarce. \u201c[New entrants] are prioritizing opportunity and learnings, as pay is pretty much standard across the board, except for maybe high-finance areas like hedge funds,\u201d Demeny says. \u201cThese professionals know that staying at the same employer for long will greatly limit their professional development: Often times, the best way to supercharge their knowledge, skills, and network is to simply change workplaces,\u201d he adds, regarding rising employee turnover rates . David Berwick, director at Adria Solutions, argues that CISOs need to be more consistent in their attempts to retain cybersecurity workers . \u201cClear progression, realistic workloads, visible support from leadership, and flexibility where it makes sense,\u201d says Berwick. \u201cThe organizations that get those fundamentals right tend to attract and retain people far more effectively than those relying on compensation alone.\u201d Avoiding burnout Oliver Legg, co-founder of cybersecurity recruiter Aspiron Search, says that employee burnout is a growing problem for CISOs managing security teams. \u201cWhat we\u2019re seeing in the market is that retention goes beyond pay and depends heavily on the environment you create, the support you show, and how you evolve alongside an increasingly complex threat landscape,\u201d says Legg. Security teams need to stay up to date with modern tooling to both defend against adversaries and keep teams engaged and effective. \u201cCyber pros working with outdated tools or purely reactive processes are far more likely to disengage and look elsewhere,\u201d Legg warns. Growth and elevation Offering cybersecurity staff learning opportunities can be a powerful driver of engagement and retention. \u201cProviding opportunities to attend or speak at industry conferences, along with support for new or refreshed certifications, helps teams stay motivated and continue developing,\u201d Legg advises. CalTek Staffing\u2019s Payne notes that cybersecurity professionals are both \u201chighly specialized and in high demand.\u201d This means workers are \u201cconstantly being approached by companies eager for their talents and are well aware that their skills are in short supply,\u201d he says. Job candidates increasingly ask sharper questions about what their growth path would look like and whether they\u2019ll have a voice in security strategy rather than focusing on compensation alone, according to Payne. Earning employee engagement Retention has become less about preventing dissatisfaction and more about continuously earning engagement. \u201cOne of the biggest drivers of turnover we see is a disconnect between what the candidate was promised during the hiring process and what\u2019s actually supported internally,\u201d Payne says. \u201cMany companies talk about security being \u2018mission-critical\u2019 but operate with chronically understaffed security teams, or don\u2019t give the CISO budget authority.\u201d Payne concludes: \u201cStrong candidates can spot this kind of problem very quickly, and they\u2019ll leave just as fast.\u201d",
-      "link": "https://www.csoonline.com/article/4165916/just-34-of-cyber-pros-plan-to-stick-with-their-current-employer.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T09:01:00+00:00",
-      "published_ts": 1777626060,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Web / API Security",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "4 interior designers told us what smart tech you should actually buy",
-      "summary": "Interior designers and decorators share their picks for the best smart home products that both look sleek and offer useful features.",
-      "link": "https://www.zdnet.com/article/4-interior-designers-told-us-what-smart-tech-you-should-actually-buy/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T09:01:00+00:00",
-      "published_ts": 1777626060,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Forget productivity: Here are 5 strategic shifts that drive real AI value",
-      "summary": "Everyone talks about increasing productivity with AI tools. Here's how to deliver actual value.",
-      "link": "https://www.zdnet.com/article/strategic-shifts-drive-real-ai-value/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T09:00:44+00:00",
-      "published_ts": 1777626044,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Managing OT risk at scale: Why OT cyber decisions are leadership decisions",
-      "summary": "The first time I approached an OT environment, I assumed that the strategies effective in IT cybersecurity would be equally applicable. I was wrong. The experience revealed a fundamental difference, highlighting the need for a distinct approach to OT cyber risk management. The mistake was not technical. It was conceptual. I was treating OT as another security domain that needed stronger controls, better tooling and greater discipline. But OT lives under different conditions. Systems stay in service for years, sometimes decades. Patching is limited. Change windows are negotiated. Vendor dependencies are part of daily operations. Asset visibility is often incomplete and the highly distributed environments depend heavily on third-party access. In summary, OT cyber risk fundamentally constitutes a challenge of leadership and governance. The primary concern at scale is not isolated technical controls at individual sites, but rather the enterprise\u2019s ability to ensure consistent decision-making across all sites through clearly defined roles and shared accountability. OT changes the nature of cyber risk Boards have improved their cyber oversight of IT, but OT requires a different perspective. Here, cyber risk goes beyond data and compliance into operational processes, industrial assets and critical services. OT architecture begins in the physical world, moves through control systems and operations networks, and increasingly connects to enterprise systems and cloud services. This creates a consequence profile distinct from IT, in which cyber risk directly affects physical operations. OT operating constraints include long asset lifecycles, incomplete asset visibility, embedded third-party access, fragmented ownership across engineering, operations, site leadership, vendors and security. IT cyber assumptions often fail in OT because risk and responsibility structures diverge fundamentally. The governance baseline for OT remains thin, as reflected in recent World Economic Forum research that highlights broader issues of leadership and oversight. Only 16 percent of organizations with industrial environments report OT security issues to their boards and just 20 percent maintain dedicated OT security teams. Furthermore, in only 36 percent of cases is the CISO directly responsible for OT security. These low levels of reporting and responsibility indicate not only a maturity gap in organizational processes but, more critically, a substantial accountability gap that directly reinforces the thesis: OT cyber risk management at scale is fundamentally a challenge of leadership and governance, rather than solely a technical concern. At scale, a local weakness becomes an enterprise coordination issue. Differences in maturity, ownership, vendor dependencies and business priorities create uneven exposure. The board question is not whether OT controls exist, but whether the enterprise can make consistent, defensible decisions about OT cyber risk before and during disruption. At scale, incident outcomes become leadership outcomes Effective OT oversight shifts from control-by-control discussions to scenario and consequence analysis. Common OT exposure paths include remote access abuse, shared accounts, weak segmentation, infected maintenance media, compromised workstations and poorly governed vendor connectivity. In OT, these exposures have direct operational consequences. A SCADA compromise can reduce visibility across power operations. Poor remote access governance can degrade rail operations. Infected media can trigger plant downtime. Unauthorized parameter changes can force emergency shutdowns and manual safety validation. OT risk appetite cannot be reduced to the enterprise itself. OT impact may extend to the economy, environmental, critical services and, sometimes, human safety. As the consequences broaden, oversight standards must rise. A technical control gap is one risk. A governance structure that cannot support safe, coherent decisions under pressure is a different order of magnitude in terms of exposure. In OT, incident outcomes are determined by leadership choices made before disruption begins. Should the organization isolate quickly to stop propagation, or continue operating in a constrained way to protect essential output? Should authority be centralized to improve consistency, or federated to improve speed and local judgment? Should the organization restore quickly, or verify process integrity first and accept a longer recovery path? Should vendor and remote support remain broadly enabled for operational convenience, or be reduced because it has become part of the real perimeter? No single option is always correct. The key is whether leaders understand trade-offs before action is required. Executive decisions such as isolate versus operate, centralize versus federate and restore versus verify change outcomes. These are governance choices, not technical defaults. I have seen both sides of this in practice. In one environment, centralization accelerated capability building. It improved consistency, but it also introduced the risk of slower decisions in a crisis because authority sat too far from the operational edge. In another, responsibility was distributed across business units, which improved local ownership but increased coordination risk under stress. The lesson was never ideological. It was operational. The operating model had to match the risk reality. This is also why the strongest board-level conversations in OT are rarely about tools first. They are about decision rights, escalation logic, crisis thresholds and assurance. The NIST Cybersecurity Framework 2.0 is useful here not because it provides boards with a script, but because it explicitly frames cybersecurity as part of how organizations understand and manage cyber risk. What boards should ask now Boards do not need to become technical experts in OT. They do need to demand decision-grade oversight. First , clarify the operating model. Who owns OT cyber risk across the enterprise? Where does business unit accountability sit? Which decisions are centralized and which are delegated? Who has authority in a crisis when continuity and containment are in tension? If these answers are unclear, residual risk is likely underestimated. To help make this concrete, consider two common operating models. In a centralized model, OT cyber risk governance, tooling decisions and incident response authority reside primarily at the enterprise or group level, typically under the leadership of a central security or risk function. Local sites implement enterprise direction but have limited autonomy to define controls or crisis actions. In contrast, a federated model grants more decision rights to individual business units or operating sites. Here, local leaders often own OT cyber controls, incident triage and vendor management, while the central organization coordinates standards and provides guidance. Each model brings different trade-offs in consistency, speed and local adaptation. Directors should ask management to clarify which approach is in place today and why it fits the organization\u2019s risk profile. Second , identify the two or three OT cyber scenarios that would most impact continuity, key operations and external defensibility. Scenarios should be concrete enough to guide priorities, budget and crisis preparation. Generic statements about protecting critical infrastructure are not enough. Third , require assurance. Boards should ask whether a baseline exists and whether it has been independently tested for effectiveness. Governance and assurance should sit above the technical baseline and operating model. In OT, site assessments, adversarial simulations, tabletop exercises and validation of remote access controls provide more insight than maturity scoring. Fourth , address innovation. AI and cloud are changing operational environments, even when adoption begins at the physical layer. The leadership agenda is moving toward governance, resilience and control of increasingly complex digital dependencies. For OT, boards should treat these shifts as operating model and assurance questions, not just technology questions. This is where the board agenda becomes practical. Directors should ask management to clarify decision rights, define the top OT cyber scenarios, establish an enterprise minimum baseline for priority environments and run independent assurance on the sites or operations that matter most. These are not technical housekeeping tasks. They are the foundations of defensible oversight. This article builds on a recent RSAC session on managing OT risk at scale , but the lesson is broader. OT cyber risk at scale is not simply a controls problem. It is a leadership problem because real outcomes depend on governance, accountability and pre-agreed trade-offs. The organizations that navigate OT disruption better are usually not the ones with the most ambitious slide decks. They are the ones who decided in advance how they will govern, escalate, verify and recover. That is what the shift boards should insist on. In OT, resilience is built by decisions made before the incident alarm sounds. This article is published as part of the Foundry Expert Contributor Network. Want to join?",
-      "link": "https://www.csoonline.com/article/4165633/managing-ot-risk-at-scale-why-ot-cyber-decisions-are-leadership-decisions.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T09:00:00+00:00",
-      "published_ts": 1777626000,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Windows / Microsoft",
-        "Identity / Access",
-        "Network / OT / ICS",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Enterprise Spotlight: Transforming software development with AI",
-      "summary": "Artificial intelligence has had an immediate and profound impact on software development. Coding practices, coding tools, developer roles, and the software development process itself are all being reimagined as AI agents advance on every stage of the software development life cycle, from planning and design to testing, deployment, and maintenance. Download the May 2026 issue of the Enterprise Spotlight from the editors of CIO, Computerworld, CSO, InfoWorld, and Network World and learn how to harness the power of AI-enabled development.",
-      "link": "https://us.resources.csoonline.com/resources/spotlight-report-transforming-software-development-with-ai/",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T09:00:00+00:00",
-      "published_ts": 1777626000,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Bitcoin seals best monthly gain in a year as S&P 500 hits fresh all-time high",
-      "summary": "Bitcoin finished April above $76,000 to preserve most of its monthly gains, but the S&P 500 stole the limelight with a trip back to record highs.",
-      "link": "https://cointelegraph.com/markets/bitcoin-seals-best-monthly-gain-in-a-year-as-sp-500-hits-fresh-all-time-high?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-01T08:58:46+00:00",
-      "published_ts": 1777625926,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "SonicWall patches three SonicOS flaws in Gen 6, 7 and 8 firewalls. Patch them now",
-      "summary": "SonicWall patches three SonicOS flaws in Gen 6, 7 and 8 firewalls. The company released firmware updates to block bypass attacks and unauthorized access. SonicWall released urgent firmware updates to fix three SonicOS vulnerabilities affecting Gen 6, Gen 7, and Gen 8 firewalls. The flaws could allow attackers to bypass security controls, access restricted services, [\u2026]",
-      "link": "https://securityaffairs.com/191527/security/sonicwall-patches-three-sonicos-flaws-in-gen-6-7-and-8-firewalls-patch-them-now.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T08:42:36+00:00",
-      "published_ts": 1777624956,
-      "smart_groups": [
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Hugging Face, ClawHub Abused for Malware Distribution",
-      "summary": "Threat actors are relying on social engineering to lure users into downloading files containing malicious instructions. The post Hugging Face, ClawHub Abused for Malware Distribution appeared first on SecurityWeek .",
-      "link": "https://www.securityweek.com/hugging-face-clawhub-abused-for-malware-distribution/",
-      "source": "SecurityWeek",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T08:41:57+00:00",
-      "published_ts": 1777624917,
-      "smart_groups": [
-        "Malware / Payloads",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Handled, Not Hosted: Administrative Activity Inside a Bulletproof Hoster",
-      "summary": "submitted by /u/0x5h4un [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t0njaw/handled_not_hosted_administrative_activity_inside/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-01T08:34:11+00:00",
-      "published_ts": 1777624451,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Handled, Not Hosted: Administrative Activity Inside a Bulletproof Hoster",
-      "summary": "submitted by /u/0x5h4un [link] [comments]",
-      "link": "https://www.reddit.com/r/netsec/comments/1t0nif0/handled_not_hosted_administrative_activity_inside/",
-      "source": "/r/netsec",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-01T08:32:46+00:00",
-      "published_ts": 1777624366,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "DDoS Malware Targets Jenkins to Hit Valve Game Servers",
-      "summary": "A new DDoS botnet that abuses exposed Jenkins servers to launch powerful attacks against Valve Source Engine game infrastructure, including servers hosting titles like Counter\u2011Strike and Team Fortress 2. The campaign shows how a single misconfigured CI server can be turned into a multi\u2011platform attack node capable of UDP, TCP, and application\u2011layer floods against online [\u2026] The post DDoS Malware Targets Jenkins to Hit Valve Game Servers appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/ddos-malware-targets-jenkins/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T08:25:28+00:00",
-      "published_ts": 1777623928,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Anyone have suggestions for how to set up a vpn (in the USA) that I can use when I\u2019m in Iran?",
-      "summary": "Going back to Iran but they\u2019re selling vpns for $300/20 gb. I\u2019m trying to set up my own to use while I still have internet access. I don\u2019t mind paying at all but I prefer to pay directly instead of the middle man so it\u2019s more sustainable long term. submitted by /u/Turbulent-Future-107 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t0nd16/anyone_have_suggestions_for_how_to_set_up_a_vpn/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-01T08:24:18+00:00",
-      "published_ts": 1777623858,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "China-Aligned Attackers Use ShadowPad, IOX Proxy, and WMIC in Multi-Stage Espionage Campaign",
-      "summary": "A China-aligned threat group has been carrying out a carefully planned espionage campaign against government agencies and critical infrastructure across Asia. The group, tracked under the temporary designation SHADOW-EARTH-053, has been active since at least December 2024, quietly targeting organizations in at least eight countries. The campaign uses a combination of malware tools and living-off-the-land [\u2026] The post China-Aligned Attackers Use ShadowPad, IOX Proxy, and WMIC in Multi-Stage Espionage Campaign appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/china-aligned-attackers-use-multi-stage-espionage-campaign/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T08:17:11+00:00",
-      "published_ts": 1777623431,
-      "smart_groups": [
-        "Malware / Payloads",
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "FBI Warns of Surge in Hacker-Enabled Cargo Theft",
-      "summary": "A new alert from the FBI says criminal enterprises are hacking both brokers and carriers to steal cargo for resale. The post FBI Warns of Surge in Hacker-Enabled Cargo Theft appeared first on SecurityWeek .",
-      "link": "https://www.securityweek.com/fbi-warns-of-surge-in-hacker-enabled-cargo-theft/",
-      "source": "SecurityWeek",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T08:11:20+00:00",
-      "published_ts": 1777623080,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "US ransomware negotiators get 4 years in prison over BlackCat attacks",
-      "summary": "Two former employees of cybersecurity incident response companies Sygnia and DigitalMint were sentenced to four years in prison each for targeting U.S. companies in BlackCat (ALPHV) ransomware attacks. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/us-ransomware-negotiators-get-4-years-in-prison-over-blackcat-attacks/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T07:47:11+00:00",
-      "published_ts": 1777621631,
-      "smart_groups": [
-        "Curated",
-        "Ransomware"
-      ],
-      "curated": true
-    },
-    {
-      "title": "New Fake CAPTCHA Campaign Uses SMS Pumping Fraud to Run Up Victims\u2019 Phone Bills",
-      "summary": "A newly documented scam campaign is using fake CAPTCHA pages to silently trigger dozens of international SMS messages from victims\u2019 mobile phones, leaving them with unexpected charges on their phone bills. What looks like a routine \u201cprove you\u2019re human\u201d step online turns into a financial hit that many users never see coming. CAPTCHAs have become [\u2026] The post New Fake CAPTCHA Campaign Uses SMS Pumping Fraud to Run Up Victims\u2019 Phone Bills appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/new-fake-captcha-campaign-uses-sms-pumping/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T07:44:41+00:00",
-      "published_ts": 1777621481,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Bakkt completes acquisition of stablecoin payments firm Distributed Technologies Research",
-      "summary": "Bakkt announced the deal in January, which was originally for 9.3 million shares, along with a corporate name change to Bakkt Inc.",
-      "link": "https://cointelegraph.com/news/bakkt-completes-deal-to-acquire-distributed-technologies-research?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-01T07:43:18+00:00",
-      "published_ts": 1777621398,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Why is losing encrypted data considered risky if it's got a strong password?",
-      "summary": "I do get it with key derivation functions that aren't as strong, but with Argon2id and the rate limitations applied to brute force and dictionary attacks make it practically impossible to crack a file with a moderately strong password. submitted by /u/Away-Road-1333 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t0mkwj/why_is_losing_encrypted_data_considered_risky_if/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-01T07:39:13+00:00",
-      "published_ts": 1777621153,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "AI Finds 38 Security Flaws in Electronic Health Record Platform",
-      "summary": "submitted by /u/rkhunter_ [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t0mjdt/ai_finds_38_security_flaws_in_electronic_health/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-01T07:36:39+00:00",
-      "published_ts": 1777620999,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Just Graduated and Already Stuck\u2026 Networking or Cybersecurity?",
-      "summary": "Guys, I really need some honest advice. I just graduated a few days ago and I\u2019m feeling completely stuck. I\u2019ve completed training for both CCNA and CEH. The thing is, I genuinely enjoyed CCNA and networking concepts made sense to me. CEH, on the other hand, felt quite overwhelming at times. Now I\u2019m confused about what path to choose: * Go into networking (which I enjoy and feel confident in), or * Push through cybersecurity (which feels harder but seems to pay more) From what I\u2019ve seen, cybersecurity roles tend to have higher salaries, which is making this decision even harder. I don\u2019t want to make the wrong choice early in my career. Has anyone been in a similar situation? Is it better to follow what I enjoy or go for the higher-paying field even if it feels overwhelming right now? Any guidance, real experiences, or suggestions would really help. Thanks in advance submitted by /u/Forsaken-Working2527 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t0mjda/just_graduated_and_already_stuck_networking_or/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-01T07:36:38+00:00",
-      "published_ts": 1777620998,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "1,800 Hit in Mini Shai-Hulud Attack on SAP, Lightning, Intercom",
-      "summary": "The compromised Lightning and Intercom packages have a combined monthly download count of nearly 10 million. The post 1,800 Hit in Mini Shai-Hulud Attack on SAP, Lightning, Intercom appeared first on SecurityWeek .",
-      "link": "https://www.securityweek.com/1800-hit-in-mini-shai-hulud-attack-on-sap-lightning-intercom/",
-      "source": "SecurityWeek",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T07:33:40+00:00",
-      "published_ts": 1777620820,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Multiple Wireshark Vulnerabilities Allow Arbitrary Code Execution via Malformed Packets",
-      "summary": "The Wireshark Foundation has released version 4.6.5 of its widely used network protocol analyzer, addressing a massive wave of security vulnerabilities. This urgent update patches over 40 distinct security flaws, driven by a recent surge in AI-assisted vulnerability reports. The most critical bugs in this release allow for possible arbitrary code execution, elevating the risk [\u2026] The post Multiple Wireshark Vulnerabilities Allow Arbitrary Code Execution via Malformed Packets appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/multiple-wireshark-vulnerabilities/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T07:33:10+00:00",
-      "published_ts": 1777620790,
-      "smart_groups": [
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "How do you actually get comfortable with a tool vs just knowing how to run it?",
-      "summary": "There's a difference between knowing a tool exists and knowing when to reach for it. I can follow documentation fine. What I can't do is look at a situation and instinctively know what fits. Curious how long that took people and what actually built that instinct \u2014 labs, real work, repetition? submitted by /u/Both_Arrival6621 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t0mgp9/how_do_you_actually_get_comfortable_with_a_tool/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-01T07:32:30+00:00",
-      "published_ts": 1777620750,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "AI-Powered Ransomware Surge Hits 7,831 Victims Worldwide",
-      "summary": "Ransomware attacks surged dramatically in 2025, with global victims reaching 7,831. The sharp rise highlights how cybercrime has evolved into a highly organized, AI-driven ecosystem in which attackers operate at speed, with automation and scale. This surge is largely fueled by the widespread availability of AI-powered cybercrime tools such as WormGPT, FraudGPT, and BruteForceAI, which [\u2026] The post AI-Powered Ransomware Surge Hits 7,831 Victims Worldwide appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/ai-powered-ransomware/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T07:31:51+00:00",
-      "published_ts": 1777620711,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Hospitality frauds and chargebacks",
-      "summary": "Hi everyone, I\u2019m 28 and I\u2019m validating a business idea I\u2019ve been working on. I kindly need your help, and I appreciate any advice you could give. Are online frauds and chargebacks really painful in hospitality? Is this really a problem? This is for all the hotel/hostel/b&b/AirBnB/car rentals/travel agency/etc owners. Thanks a lot in advance for your help! submitted by /u/Lion-marlin [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t0mbzl/hospitality_frauds_and_chargebacks/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-01T07:24:46+00:00",
-      "published_ts": 1777620286,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Cyber-Fraud Fusion: Insights from the WTF Summit Panel",
-      "summary": "submitted by /u/Sumsub_Insights [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t0m3xp/cyberfraud_fusion_insights_from_the_wtf_summit/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-01T07:11:44+00:00",
-      "published_ts": 1777619504,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Best Diagram Software in 2026, Why EdrawMax Works for Everyday Use",
-      "summary": "Compare top diagram software in 2026 and see why Wondershare EdrawMax can be a practical choice for fast, template rich, AI supported diagramming.",
-      "link": "https://hackread.com/best-diagram-software-2026-edrawmax/",
-      "source": "HackRead",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T07:03:29+00:00",
-      "published_ts": 1777619009,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "US House Panels Investigate Risks of Chinese AI Technology and Supply Chains",
-      "summary": "US House Committees Investigate National Security and Cybersecurity Risks Associated with Chinese AI Models The... The post US House Panels Investigate Risks of Chinese AI Technology and Supply Chains appeared first on .",
-      "link": "https://www.news4hackers.com/us-house-panels-investigate-risks-of-chinese-ai-technology-and-supply-chains/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T07:02:50+00:00",
-      "published_ts": 1777618970,
-      "smart_groups": [
-        "Identity / Access"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Algoric and Tsaaro Collaborate on AI-Powered Data Protection Solutions",
-      "summary": "Data Protection Partnership Enhances Enterprise Governance and Compliance Algorithma, a prominent provider of cybersecurity solutions,... The post Algoric and Tsaaro Collaborate on AI-Powered Data Protection Solutions appeared first on .",
-      "link": "https://www.news4hackers.com/algoric-and-tsaaro-collaborate-on-ai-powered-data-protection-solutions/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T07:01:46+00:00",
-      "published_ts": 1777618906,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "4 ways to prepare your SOC for agentic AI",
-      "summary": "According to IDC , agentic AI is on track to become mainstream infrastructure. The analyst firm expects 45% of organizations to have autonomous agents operating at scale across critical business functions by 2030. In enterprise SOCs, AI is already reshaping functions like alert triage, enrichment, data correlation, IOC validation and initial containment. It could soon move up the stack to take on more complex tasks like incident investigation, root cause analysis, and response. \u201cAI acts as a force multiplier in the SOC,\u201d says Nicole Carignan, senior VP, security and AI strategy at Darktrace. But harnessing that promise will require organizations to invest now in reskilling analysts, redesigning processes, building new technical roles, and establishing guardrails and governance frameworks to ensure autonomous AI agents operate safely. \u201cIt\u2019s not enough to simply deploy an AI solution. Security practitioners must understand how the underlying machine learning techniques function, what their strengths and limitations are, and how to evaluate their outputs,\u201d Carignan says. \u201cWithout explainability and trust, AI risks are exacerbating alert fatigue rather than solving it.\u201d Here is what security leaders need to know \u2014 and do \u2014 to prepare their SOCs for the agentic AI era. Reskill analysts to become AI collaborators and overseers Increasingly, human roles in the SOC will shift from hands-on execution to supervision, governance, design, and oversight. As AI agents take on more operational tasks, analysts will need to focus on managing AI systems, interpreting outputs, and resolving the nuanced challenges machines cannot handle, says Casey Ellis, founder of Bugcrowd. \u201cJobs won\u2019t disappear, they\u2019ll adapt. The key is ensuring that SOC professionals are prepared for this shift through ongoing education, training, and tooling.\u201d Few expect the transition will occur organically or without friction. Many SOC leaders will need to reskill existing staff to manage AI effectively; to interrogate AI reasoning; enrich investigations with contextual insight; and apply informed human analysis to AI-driven outputs. When acting on an AI tool\u2019s recommendation, analysts must understand what questions the agent asked, which data sources it queried, and what evidence informed its decision, according to Dov Yoran, co-founder and CEO of Command Zero. From there, they need to be able to pivot to additional data sources, pursue new artifacts, and extend the investigative timeline as needed. \u201cJunior analysts who might not know how to start an investigation from scratch can become effective by learning how to extend and refine what the agent produced,\u201d Yoran says. \u201cIt\u2019s a different skill set from traditional SOC work, and in many ways, a more accessible one.\u201d In the SOC of the future, analysts must also act as adversarial reviewers of AI-driven conclusions. That\u2019s because AI systems can introduce hallucinations, training-data bias, and other vulnerabilities while also being vulnerable to adversarial manipulation. Analysts need to recognize these risks to ensure decisions remain grounded and defensible, says Ensar Seker, CISO at SOCRadar. \u201cAnalysts need to be trained less as button-pushers and more as adversarial reviewers of AI output. That means understanding how models reason, where they fail, how bias and data gaps surface, and how to interrogate confidence levels and assumptions. The goal isn\u2019t to \u2018trust AI faster,\u2019 but to develop the instinct to ask: What would make this conclusion wrong?\u201d Seker says. Analysts will also play a critical role in enabling organization-specific context into AI-driven workflows. Without that context, agents risk missing threats, amplifying noise, or triggering risky actions based on incomplete information. SOC leaders need to remember that \u201cAI agents are only as smart as the context they have access to,\u201d Yoran says. Analysts must learn to annotate identities, maintain watch lists, document recurring false-positive patterns, and build enrichment layers that strengthen future investigations, he said, \u201cThis is knowledge work, not data work.\u201d Ultimately, the objective is not to outperform AI, but to do better where AI falls short. For example, \u201caccept that autonomous alert triage will become table stakes,\u201d Yoran says. \u201cYour processes need to shift from \u2018how do we triage every alert\u2019 to \u2018how do we handle escalations from autonomous investigations\u2019.\u201d Build capabilities for AI governance, content and quality Upskilling existing analysts alone is not enough. As AI agents begin operating across tools, making decisions and triggering actions with minimal human involvement, the demands on the SOC will extend well beyond traditional analyst capabilities, experts say. Content engineering, for instance, is one emerging requirement. In an AI-enabled SOC, detection engineers will no longer write only static rules. They must design dynamic content such as questions, prompts and investigation templates that agents can use to reason, enrich data, correlate signals and act autonomously. These content engineers curate the structured inputs that power agents, including telemetry, threat models, and playbooks. \u201cThis is the most underappreciated role in AI-powered security operations,\u201d Yoran notes. \u201cThese are people who build and maintain the questions that agents can ask, the investigation plans that guide autonomous work, and the knowledge bases that provide context,\u201d. Organizations need someone who can translate detection logic from their SIEM, import best practices from frameworks like MITRE ATT&CK, and encode institutional knowledge into the platform. \u201cThis isn\u2019t traditional security engineering, it\u2019s closer to knowledge management combined with threat intelligence,\u201d he says. Mature SOCs will also require clear ownership of AI governance and agent oversight. That includes roles that have oversight over model risk evaluation, prompt and policy management, continuous performance validation, and even red teaming the agents themselves, Seker says. \u201cYou don\u2019t need a massive new team, but you do need clear accountability for how autonomous decisions are made, tested, and constrained.\u201d Another emerging need is analysts with deep fluency in data management. An AI-driven SOC will require professionals who understand how information should be classified, protected, normalized, and monitored to ensure reliable conclusions. \u201cWith 64% of organizations planning to add AI-powered solutions to their security stack in the next year, it is critical for professionals to cross-skill in AI,\u201d Carignan says. \u201cCybersecurity professionals must become fluent in AI and data, developing a deeper understanding of data classification, governance, and model behavior.\u201d Cross-skills in data science, machine learning, and cybersecurity enable analysts to critically evaluate AI outputs, tune models for security use cases, and adapt defenses as threats evolve, making them indispensable in an AI-augmented SOC. Frank Dickson, an analyst at IDC, urged organizations to think of this capability as similar to a data architect role. \u201cThe key to getting value from AI is having data located in a place where you can get to it, having it formatted in a homogeneous way so you can do analysis on it, and then manage the data,\u201d he says. \u201cThe success of your AI initiative is going to be tied to the effectiveness of your ability to get data. A data architect manages that.\u201d Dickson also emphasized the need for an \u201corchestration platform engineer\u201d role responsible for ensuring effective communication and workflow integration across security tools. The SOC of the future will not hinge on a single platform but on an interconnected ecosystem of SIEM, EDR, SOAR, identity, cloud and other systems that must operate in concert to support AI-driven, agentic investigations and automation, Dickson tells. Dedicated orchestration expertise will become essential to maintain reliable data flows and automation logic in such an environment, he noted. Redesign SOC processes and playbooks where needed Organizations will need to review and rework SOC processes and playbooks to ensure their AI-augmented SOC is consistent, efficient and continuously learning. Yoran recommends that SOC leaders focus on codifying institutional knowledge into AI agent-accessible questions and plans. Translate playbooks into investigation plans that AI agents can follow on a repeatable basis. In situations where an agent might hit a wall, have processes in place for a smooth handoff to a human analyst and build feedback loops for continuous improvement, Yoran adds. \u201cPlaybooks must shift from step-by-step human procedures to intent-based guardrails,\u201d Seker points out. \u201cInstead of telling analysts how to investigate, define what outcomes are allowed, what actions are prohibited, and when human approval is mandatory.\u201d. The objective is not to micromanage every alert but to assume AI agents operate continuously across tools, with humans only supervising exceptions, edge cases, and strategic decisions. SOCs also need to rethink metrics, accountability, and documentation within the SOC. Traditional performance indicators, such as ticket closure rates or mean time to resolution, may need to broaden to include model accuracy, escalation quality, and the effectiveness of automated containment actions. \u201cThe biggest mistake is optimizing for speed metrics instead of investigation quality,\u201d Yoran says. \u201cI see this constantly: vendors promising 90% faster time to resolution or reduce tier-one workload by 80% or close alerts in seconds instead of hours. These metrics while seductive are dangerous,\u201d he cautions. \u201cMaking the same mistake faster benefits no one. An incomplete investigation that closes in two minutes isn\u2019t better than a thorough investigation that takes 30 minutes.\u201d Auditability too becomes critical. All AI-driven decisions should be traceable, explainable, and reviewable from both an internal governance standpoint and for external compliance requirements. \u201cIf you can\u2019t explain why an AI took an action to an auditor, regulator, or executive, it shouldn\u2019t be allowed to take that action. Explainability isn\u2019t a nice-to-have; it\u2019s a prerequisite for autonomy,\u201d Seker says. Implement AI guardrails and principles Formal guardrails and operating principles are going to be critical in SOCs where AI agents influence decisions, initiate responses and help prioritize threats. That means setting defined boundaries around data access and model behavior, having processes to validate responses and making sure humans remain in the loop on all high-impact decisions. Focus areas should include approval thresholds for autonomous actions, figuring out allowed and disallowed actions for an agent, protecting against prompt injection attacks, testing and red-teaming of agentic workflows and ensuring IR policies are updated for AI-driven actions. \u201cRequire transparent decision trails, rate limiting, least-privilege, and instant override,\u201d Seker advises. \u201cHard limits on action scope, blast radius, and privilege are non-negotiable. Agents should operate under least-privilege identities, with explicit kill-switches, change-control boundaries, and environment awareness. The key is to ensure that AI is never allowed to silently escalate its own authority or modify guardrails without human approval.\u201d IDC analyst Dickson pointed to identity and access as two other areas to focus on by way of guardrails and policies. \u201cIn the past, when we gave humans access, we often over-provisioned by default. That approach does not work with agents. With agentic AI, permissions must start at least privilege, defined precisely from day one.\u201d The focus should be on ensuring no standing privileges, implementing dynamic authorization and establishing clear role definitions, Dickson says. \u201cAgentic AI is enormously powerful. Constraining access correctly is non-negotiable.\u201d There\u2019s no playbook for leading through today\u2019s cyber risk \u2014 only experience. The CSO Cybersecurity Awards & Conference, May 11-13, brings together CISOs and senior security executives for peer\u2011driven insight, unfiltered conversations, and practical strategies that drive real business impact. Secure your seat before it fills up .",
-      "link": "https://www.csoonline.com/article/4140208/4-ways-to-prepare-your-soc-for-agentic-ai.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T07:00:00+00:00",
-      "published_ts": 1777618800,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Network / OT / ICS",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "MoonPay launches card enabling AI agents to spend stablecoins via Mastercard",
-      "summary": "The card links self-custodied wallets to Mastercard rails, allowing AI agents to spend stablecoins at checkout without preloading funds or moving assets offchain.",
-      "link": "https://cointelegraph.com/news/moonpay-unveils-agent-ready-card-to-let-ai-spend-stablecoins-via-mastercard-network?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-01T07:00:00+00:00",
-      "published_ts": 1777618800,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Tether reports $1.04B profit in Q1 as Treasury holdings reach $141B",
-      "summary": "The top stablecoin issuer\u2019s balance sheet remains heavily concentrated in US Treasuries as stablecoin adoption expands across emerging markets.",
-      "link": "https://cointelegraph.com/news/tether-reports-104-b-profit-in-q1-as-treasury-holdings-reach-141b?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-01T07:00:00+00:00",
-      "published_ts": 1777618800,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Bitcoin risks extended retreat as April rally was futures-driven: CryptoQuant",
-      "summary": "Futures drove up Bitcoin's price in April while spot demand declined, which CryptoQuant warned has historically preceded extended price declines.",
-      "link": "https://cointelegraph.com/news/bitcoin-risks-decline-rally-speculative-not-structural-cryptoquant?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-01T06:53:44+00:00",
-      "published_ts": 1777618424,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "3 ways custom scan checks turn practitioner knowledge into scalable automation",
-      "summary": "Senior pentesters have a deeply refined intuition about what is vulnerable in an environment. The problem? That expertise is often siloed with an individual and trapped in their notes or Python scripts.",
-      "link": "https://portswigger.net/blog/3-ways-custom-scan-checks-turn-practitioner-knowledge-into-scalable-automation",
-      "source": "https://portswigger.net/blog/rss",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T06:52:00+00:00",
-      "published_ts": 1777618320,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Bitcoiners launch 'The Bitcoin Evidence Base' to stamp out FUD",
-      "summary": "The Bitcoin FUD-stopping tool cites over 22 peer-reviewed research papers to address common misconceptions about Bitcoin.",
-      "link": "https://cointelegraph.com/news/bitcoiner-launches-the-bitcoin-evidence-base-to-stamp-out-fud?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-01T06:51:37+00:00",
-      "published_ts": 1777618297,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "DeFi protocol Carrot becomes first casualty of $285M Drift exploit",
-      "summary": "Carrot's total value locked has collapsed 93% in a month, from $28 million to $1.99 million, leaving the protocol financially unable to continue.",
-      "link": "https://cointelegraph.com/news/defi-protocol-carrot-becomes-first-casualty-of-285m-drift-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-01T06:48:08+00:00",
-      "published_ts": 1777618088,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Exploit / PoC",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Deep#Door Stealer Targets Passwords, Tokens, SSH Keys, and Wi-Fi Credentials",
-      "summary": "Deep#Door is a stealthy Python-based Remote Access Trojan (RAT) that uses an obfuscated batch loader to deploy a persistent surveillance and credential-stealing implant on Windows systems. It aggressively turns off security controls, hides its traffic behind the bore.]pub tunneling service, and focuses on stealing browser passwords, cloud tokens, SSH keys, and Wi\u2011Fi credentials. When executed, [\u2026] The post Deep#Door Stealer Targets Passwords, Tokens, SSH Keys, and Wi-Fi Credentials appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/deepdoor-stealer/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T06:43:34+00:00",
-      "published_ts": 1777617814,
-      "smart_groups": [
-        "Curated",
-        "Windows / Microsoft",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "FBI Warns Logistics Sector of Fake Business Identity Cargo Scams",
-      "summary": "The FBI issued a public service announcement warning the transportation and logistics sectors about a massive increase in cyber-enabled strategic cargo theft. Threat actors are increasingly using sophisticated tactics to impersonate legitimate businesses, hijack freight, and steal high-value shipments. The financial impact of these attacks is severe. In 2025 alone, estimated cargo theft losses in [\u2026] The post FBI Warns Logistics Sector of Fake Business Identity Cargo Scams appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/fbi-warns-logistics-sector-of-fake-business-identity/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T06:40:34+00:00",
-      "published_ts": 1777617634,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Advice from graduates or industry experts",
-      "summary": "Hey, I want to do my fyp in cyber security and I am a bit confused about that which domain should I choose and if anyone willing to give me idea about it or tell me bit more or guide me about my fyp. I would really appreciate that. submitted by /u/Signal_Desk_2404 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t0lepo/advice_from_graduates_or_industry_experts/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-01T06:32:40+00:00",
-      "published_ts": 1777617160,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Need Referral / Guidance for Cybersecurity / SecOps Engineering roles",
-      "summary": "I am Cybersecurity Professional with 4.8 years of experience in SOC, SecOps Engineering, Security Incident Response, SIEM, SOAR, XDR, Cloud Security and Automation. Currently trying to switch and looking for better opportunities. Total Experience : 4.8 years Current CTC : 8.2 LPA Fixed + Shift Allowance Expected CTC : 14 LPA Fixed Current Location : Delhi NCR (Open for PAN India or Remote) Any Leads or Guidance is appreciated. submitted by /u/AlbatrossPersonal713 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t0l3e9/need_referral_guidance_for_cybersecurity_secops/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-01T06:15:01+00:00",
-      "published_ts": 1777616101,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "China-Aligned Hackers Deploy ShadowPad in Multi-Stage Espionage Campaign",
-      "summary": "China-aligned threat actors tracked as SHADOW-EARTH-053 are exploiting old but unpatched Microsoft Exchange and IIS vulnerabilities to run a stealthy, multi-stage espionage campaign across Asian governments, critical infrastructure, and one NATO member state. The group primarily targets government entities and critical infrastructure in South, East, and Southeast Asia, with additional activity against at least one [\u2026] The post China-Aligned Hackers Deploy ShadowPad in Multi-Stage Espionage Campaign appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/china-hackers-deploy-shadowpad/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T06:08:51+00:00",
-      "published_ts": 1777615731,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Network / OT / ICS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Increasing Artificial Intelligence Traffic Trends and Patterns",
-      "summary": "AI Workflows Drive Shift in Network Traffic Patterns A recent report from Backblaze highlights a... The post Increasing Artificial Intelligence Traffic Trends and Patterns appeared first on .",
-      "link": "https://www.news4hackers.com/increasing-artificial-intelligence-traffic-trends-and-patterns/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T06:07:58+00:00",
-      "published_ts": 1777615678,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Shadow AI Risks Grow Amid Rising Untrained Users",
-      "summary": "Shadow AI Risks Deepen as Employers Fail to Provide Adequate Training A recent global survey... The post Shadow AI Risks Grow Amid Rising Untrained Users appeared first on .",
-      "link": "https://www.news4hackers.com/shadow-ai-risks-grow-amid-rising-untrained-users/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T06:06:36+00:00",
-      "published_ts": 1777615596,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Protect Personal Data with Open-Source Proxy for Secure AI Interactions",
-      "summary": "Open-source privacy proxy safeguards sensitive data before it reaches external AI services In recent years,... The post Protect Personal Data with Open-Source Proxy for Secure AI Interactions appeared first on .",
-      "link": "https://www.news4hackers.com/protect-personal-data-with-open-source-proxy-for-secure-ai-interactions/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T06:05:12+00:00",
-      "published_ts": 1777615512,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Hyderabad Cybercrime Scam Revealed: Rs 1.26 Crores Lost in Online Trading Frauds",
-      "summary": "Two Separate Online Trading Scams Result in Total Loss of $1.78 Million for Hyderabad Residents... The post Hyderabad Cybercrime Scam Revealed: Rs 1.26 Crores Lost in Online Trading Frauds appeared first on .",
-      "link": "https://www.news4hackers.com/hyderabad-cybercrime-scam-revealed-rs-1-26-crores-lost-in-online-trading-frauds/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T06:03:48+00:00",
-      "published_ts": 1777615428,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Top Security Solutions for April 2026",
-      "summary": "The following is a summary of recent notable cybersecurity product releases, highlighting innovations from industry... The post Top Security Solutions for April 2026 appeared first on .",
-      "link": "https://www.news4hackers.com/top-security-solutions-for-april-2026/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T06:02:26+00:00",
-      "published_ts": 1777615346,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Open-source privacy proxy masks PII before prompts reach external AI services",
-      "summary": "Enterprise developers routinely send prompts to external large language models that contain customer emails, support transcripts, and other identifying information, often without a sanitization layer between the application and the API. Dataiku has released Kiji Privacy Proxy, an open-source local gateway that detects and masks personally identifiable information before requests leave the network. The tool sits between local applications and external AI APIs such as OpenAI and Anthropic. Inbound requests pass through a machine learning \u2026 More \u2192 The post Open-source privacy proxy masks PII before prompts reach external AI services appeared first on Help Net Security .",
-      "link": "https://www.helpnetsecurity.com/2026/05/01/open-source-pii-privacy-proxy/",
-      "source": "Help Net Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T06:00:16+00:00",
-      "published_ts": 1777615216,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Ruby Gems and Go Modules Used in Campaign Targeting GitHub Actions",
-      "summary": "A sophisticated software supply chain attack originating from the GitHub account BufferZoneCorp has been uncovered, targeting developers and continuous integration environments through malicious Ruby gems and Go modules. The campaign deployed sleeper packages that impersonated legitimate developer tools, which were later weaponized to steal secrets and poison build pipelines. On the Ruby ecosystem, threat actors [\u2026] The post Ruby Gems and Go Modules Used in Campaign Targeting GitHub Actions appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/ruby-gems-and-go-modules-used-in-campaign-github/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T05:38:10+00:00",
-      "published_ts": 1777613890,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Exploit / PoC",
-        "Supply Chain / Software"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Bitcoin\u2019s surge to $77K pressures shorts, but absent spot and long leverage caps rallies",
-      "summary": "Bitcoin bulls took another swing at the $77,000 resistance, but profit-taking and traders\u2019 reluctance to increase margin and spot longs limit the strength of each breakout.",
-      "link": "https://cointelegraph.com/markets/bitcoins-surge-through-77k-pressures-shorts-but-absent-spot-and-long-leverage-cap-rallies?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-01T05:34:10+00:00",
-      "published_ts": 1777613650,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Shadow AI risks deepen as 31% of users get no employer training",
-      "summary": "Between one-fifth and one-third of workers use AI outside the influence and governance of the IT function, according to a global survey of 6,000 full-time employees at enterprise organizations. Researchers found a widening gap between employee AI adoption and the controls organizations have in place to manage it. The Lenovo Work Reborn Research Series 2026 report documents a workforce split into two groups: employees equipped with IT-managed tools, training, and oversight, and those operating independently \u2026 More \u2192 The post Shadow AI risks deepen as 31% of users get no employer training appeared first on Help Net Security .",
-      "link": "https://www.helpnetsecurity.com/2026/05/01/shadow-ai-risks-it-oversight/",
-      "source": "Help Net Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T05:30:46+00:00",
-      "published_ts": 1777613446,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Tokenized RWA market grows 420% since 2025 on regulatory clarity, access",
-      "summary": "Tokenized US Treasurys were one of the biggest growth areas of the RWA market, rising from a market capitalization of $3.9 billion at the start of 2025 to more than $15 billion.",
-      "link": "https://cointelegraph.com/news/tokenized-rwa-market-cap-spiked-in-the-last-15-months?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-01T05:16:02+00:00",
-      "published_ts": 1777612562,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Claude Security Enters Public Beta for Enterprise Customers",
-      "summary": "Anthropic has officially launched the public beta of Claude Security, an advanced vulnerability detection and remediation tool now available to Claude Enterprise customers. Powered by the highly capable Claude Opus 4.7 model, this platform shifts application security testing from basic pattern matching to deep, contextual analysis. As AI accelerates the timeline between discovering and exploiting [\u2026] The post Claude Security Enters Public Beta for Enterprise Customers appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/claude-security-enters-public-beta/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T05:13:58+00:00",
-      "published_ts": 1777612438,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Critical Wireshark Vulnerabilities Let Attackers Execute Arbitrary Code Via Malformed Packets",
-      "summary": "Wireshark, the world\u2019s most widely used open-source network protocol analyzer, has released a major security update addressing over 40 vulnerabilities, several of which enable arbitrary code execution through malformed packet injection or malicious capture files. Organizations and individuals relying on Wireshark for network monitoring, forensics, and traffic analysis should update immediately to Wireshark 4.6.5. Critical [\u2026] The post Critical Wireshark Vulnerabilities Let Attackers Execute Arbitrary Code Via Malformed Packets appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/wireshark-vulnerabilities-code-execution/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T05:08:44+00:00",
-      "published_ts": 1777612124,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Network / OT / ICS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Control Plane for Distributed Infrastructure Management",
-      "summary": "Distributed Infrastructure Requires Unified Identity Management The increasing complexity of distributed infrastructure, including cloud services,... The post Control Plane for Distributed Infrastructure Management appeared first on .",
-      "link": "https://www.news4hackers.com/control-plane-for-distributed-infrastructure-management/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T05:01:56+00:00",
-      "published_ts": 1777611716,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Identity is the control plane for distributed infrastructure",
-      "summary": "Teleport CEO Ev Kontsevoy makes the case that distributed infrastructure, across cloud, Kubernetes, databases, and servers, can\u2019t be secured by layering more tools on top of fragmented identity systems. He argues for fewer credentials, fewer entry points, and a single identity layer that gives security and engineering teams unified visibility and control. The post Identity is the control plane for distributed infrastructure appeared first on Help Net Security .",
-      "link": "https://www.helpnetsecurity.com/2026/05/01/teleport-ceo-distributed-infrastructure-video/",
-      "source": "Help Net Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T05:00:15+00:00",
-      "published_ts": 1777611615,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Tune In: The Future of AI-Powered Vulnerability Discovery",
-      "summary": "",
-      "link": "https://www.crowdstrike.com/en-us/blog/tune-in-future-of-ai-powered-vulnerability-discovery/",
-      "source": "CrowdStrike Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-01T00:00:00-05:00",
-      "published_ts": 1777611600,
-      "smart_groups": [
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Microsoft Windows 11 April 2026 Security Update Disrupts Third-Party Backup Tools",
-      "summary": "The April 2026 security update for Windows 11, designated as KB5083769, is causing severe disruptions for users relying on third-party backup solutions. Deployed for Windows 11 versions 24H2 and 25H2, this patch introduces a critical flaw that breaks the Microsoft Volume Shadow Copy Service (VSS). Because VSS is a fundamental component for taking safe, point-in-time [\u2026] The post Microsoft Windows 11 April 2026 Security Update Disrupts Third-Party Backup Tools appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/microsoft-windows-11-april-2026-security-update/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T04:58:01+00:00",
-      "published_ts": 1777611481,
-      "smart_groups": [
-        "Windows / Microsoft"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Fake CAPTCHA Scam Uses SMS Pumping to Inflate Phone Bills",
-      "summary": "A newly uncovered cyber fraud campaign is abusing fake CAPTCHA pages to trick mobile users into sending large volumes of international SMS messages, resulting in unexpected phone bills and illicit profits for attackers. Unlike traditional malware campaigns, this operation does not require installing malicious software. Instead, it exploits telecom billing systems and affiliate revenue models [\u2026] The post Fake CAPTCHA Scam Uses SMS Pumping to Inflate Phone Bills appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/fake-captcha-scam-2/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T04:58:00+00:00",
-      "published_ts": 1777611480,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "313 Team claims DDoS/extortion attack on Canonical, disrupting Ubuntu services and security update infrastructure",
-      "summary": "A report says Canonical/Ubuntu services were disrupted in a massive DDoS attack attributed to Islamic Cyber Resistance in Iraq - 313 Team, with Ubuntu.com reportedly returning 503 errors and possible impact to security/CVE-related services. submitted by /u/raptorhunter22 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t0jf3p/313_team_claims_ddosextortion_attack_on_canonical/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-01T04:47:34+00:00",
-      "published_ts": 1777610854,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Linux / Unix"
-      ],
-      "curated": true
-    },
-    {
-      "title": "AI traffic is getting bigger, louder, and less predictable",
-      "summary": "AI workflows need storage that supports repeated movement across the model lifecycle. Large datasets are ingested, transformed, exported for training, pulled back for evaluation, and refreshed as models evolve. Backblaze\u2019s Q1 2026 Network Stats report says this creates a shift from diffuse internet-style traffic to large, high-bandwidth flows between fewer endpoints. Monthly view of all bits transferred to each network type (2025-05 to current) (Source: Backblaze) \u201cFrom a network perspective, this represents a meaningful shift \u2026 More \u2192 The post AI traffic is getting bigger, louder, and less predictable appeared first on Help Net Security .",
-      "link": "https://www.helpnetsecurity.com/2026/05/01/backblaze-ai-network-traffic-trends-report/",
-      "source": "Help Net Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T04:30:02+00:00",
-      "published_ts": 1777609802,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Anthropic Launches Claude Security in Public Beta for Enterprise Customers",
-      "summary": "Anthropic has opened Claude Security to public beta for Claude Enterprise customers, bringing AI-powered vulnerability detection directly into production codebases without the need for custom tooling or API integrations. Claude Security leverages the Opus 4.7 model to perform end-to-end security analysis across your codebase. The platform scans for vulnerabilities, validates each finding to reduce false [\u2026] The post Anthropic Launches Claude Security in Public Beta for Enterprise Customers appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/claude-security-public-beta/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T04:09:52+00:00",
-      "published_ts": 1777608592,
-      "smart_groups": [
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": false
-    },
-    {
-      "title": "New infosec products of the month: April 2026",
-      "summary": "Here\u2019s a look at the most interesting products from the past month, featuring releases from Advenica, Aptori, Axonius, Broadcom, GlobalSign, Intruder, IP Fabric, Mallory, Secureframe, Siemens, Sitehop, and Virtue AI. Mallory brings contextual threat intelligence to security operations Mallory is launching an AI-native threat intelligence platform that monitors thousands of threat sources, contextualizes them against your actual attack surface, and puts that intelligence to work across hunting, detection, and exposure management use cases. One platform. \u2026 More \u2192 The post New infosec products of the month: April 2026 appeared first on Help Net Security .",
-      "link": "https://www.helpnetsecurity.com/2026/05/01/new-infosec-products-of-the-month-april-2026/",
-      "source": "Help Net Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T04:00:31+00:00",
-      "published_ts": 1777608031,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Questions about going into a cybersecurity major",
-      "summary": "In a few months, I will be majoring in Cybersecurity. What should I know before taking the class in fall 2026? Also, any tips to succeed in this industry. submitted by /u/PugMagic024 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t0i3pw/questions_about_going_into_a_cybersecurity_major/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-01T03:41:27+00:00",
-      "published_ts": 1777606887,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Aman - 215,563 breached accounts",
-      "summary": "In April 2026, the ultra-luxury hotel brand Aman was named by ShinyHunters as the target of a \"pay or leak\" extortion campaign , with the data allegedly obtained from their Salesforce CRM. The data was subsequently leaked publicly and contained over 200k unique email addresses. Whilst not present on all records, the data also included genders, physical addresses, phone numbers, nationalities, dates of birth, spouse names and VIP status codes.",
-      "link": "https://haveibeenpwned.com/Breach/Aman",
-      "source": "Have I Been Pwned \u2013 Latest Breaches",
-      "type": "leaks",
-      "type_label": "Leaks & Breaches",
-      "published": "2026-05-01T03:34:30+00:00",
-      "published_ts": 1777606470,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "CISA orders feds to patch Windows flaw exploited as zero-day",
-      "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) has ordered federal agencies to secure their Windows systems against a vulnerability exploited in zero-day attacks. Tracked as CVE-2026\u201332202, this security flaw was reported by cybersecurity firm Akamai, which described it as a zero-click NTLM hash leak vulnerability left behind after Microsoft incompletely patched a remote code [\u2026]",
-      "link": "https://lifeboat.com/blog/2026/04/cisa-orders-feds-to-patch-windows-flaw-exploited-as-zero-day",
-      "source": "Lifeboat \u2013 Cybercrime & Malcode",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-05-01T03:22:24+00:00",
-      "published_ts": 1777605744,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Windows / Microsoft"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Spent 4 hours today fixing \"vibe-coded\" security patches",
-      "summary": "I\u2019m all for tools making things faster, but I just found a script that was clearly AI-generated and it basically broke every file larger than 128KB in our test env. It's becoming a full-time job just babysitting these \"automations.\" Is anyone else seeing this in their workflows lately? submitted by /u/Legitimate_Wall5977 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t0h2o8/spent_4_hours_today_fixing_vibecoded_security/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-01T02:51:52+00:00",
-      "published_ts": 1777603912,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "US Senate bans itself from betting on prediction markets",
-      "summary": "The US Senate unanimously passed a rule banning members and staff from prediction markets, with a similar resolution set to be introduced in the House.",
-      "link": "https://cointelegraph.com/news/us-senate-bans-itself-from-prediction-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-01T02:51:19+00:00",
-      "published_ts": 1777603879,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Billions of Chrome Users Urged to Update After Google Patches 30 Security Flaws",
-      "summary": "Google patched 30 Chrome vulnerabilities, including four Critical flaws. Here\u2019s what users should know and how to update Chrome and Firefox. The post Billions of Chrome Users Urged to Update After Google Patches 30 Security Flaws appeared first on TechRepublic .",
-      "link": "https://www.techrepublic.com/article/news-google-chrome-security-update-30-vulnerabilities-april-2026/",
-      "source": "TechRepublic \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-01T02:47:45+00:00",
-      "published_ts": 1777603665,
-      "smart_groups": [
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": false
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
