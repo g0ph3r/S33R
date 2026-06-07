@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-06T20:38:21.117225+00:00",
+  "generated_at": "2026-06-07T04:00:14.584553+00:00",
   "days_back": 30,
-  "total_items": 7360,
+  "total_items": 7292,
   "items": [
     {
       "title": "Black Hat USA",
@@ -39,6 +39,198 @@
       "smart_groups": [
         "Data Breaches / Leaks"
       ],
+      "curated": false
+    },
+    {
+      "title": "Why do we use UCL for smbclient ? Why don't we use UCL for nc or ssh?",
+      "summary": "(I am not sure if this is the right sub for asking this Q. So please forgive me if I have made a mistake. Thank you.) I obviously asked AI, but I did not get an answer which would satisfy me. This is what it said - UCL is used so that the Linux terminal doesn't think of it as a command. It should think of it as a path. wtf does that even mean? submitted by /u/MG_road_nap [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tz1ha6/why_do_we_use_ucl_for_smbclient_why_dont_we_use/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-07T03:48:23+00:00",
+      "published_ts": 1780804103,
+      "smart_groups": [
+        "Linux / Unix"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Everyone's planning post-quantum migration for enterprises. Nobody's talking about your password manager",
+      "summary": "There's a lot of solid discussion lately about orgs needing to start PQC migration now instead of waiting for the 2030/2035 NIST deadlines. Crypto inventories, vendor crypto-agility, all of it. Good stuff. But I keep noticing the conversation is almost entirely enterprise-shaped, and there's a gap nobody seems to bring up: the harvest-now-decrypt-later threat applies to individuals too, and arguably your password manager is one of the worst things to have sitting in someone's archive. Here's the logic, and I'm curious if people think I'm overstating it: Most mainstream password managers still use RSA or ECC somewhere in their key handling. If an adversary is doing HNDL (the NSA has been warning about this for years), an encrypted vault export is a high-value target. Unlike a single TLS session, the value of a password vault doesn't decay. If someone grabs my encrypted vault today and decrypts it in 2032, most of those credentials, security questions, and recovery codes are probably still useful. People don't rotate everything. Q-Day being years out doesn't help you here the way it helps a TLS handshake. So the part I find genuinely odd: enterprise PQC roadmaps treat \"data with long confidentiality lifetime\" as the top migration priority. A personal credential vault is basically the textbook example of that, and yet consumer tools are way behind enterprise on this. Nonetheless, I know that: Q-Day timelines are genuinely debated. Plenty of cryptographers think it's further out than the alarmist takes suggest. A well-derived master password (Argon2id etc.) means an offline attacker is fighting the KDF, not just the asymmetric layer, so the picture is more nuanced than \"RSA = doomed.\" For most individuals the realistic threat model is phishing and credential stuffing, not a nation-state sitting on their vault. The quantum angle is probably overhyped for the average person. But for journalists, activists, people in sensitive roles, the math seems different to me. Questions for the people here who actually do this for a living: Is HNDL on a personal password vault a real concern or am I pattern-matching enterprise logic onto a consumer problem where it doesn't fit? Are any of the mainstream managers actually moving to ML-KEM, or is everyone waiting? If you were advising a high-risk individual today, would PQC for their vault even make your top 5 recommendations, or is it noise compared to basics like 2FA hygiene? Genuinely want pushback on this. It feels like either an underrated gap or a solution looking for a problem and I can't fully decide which. submitted by /u/ElC0pias [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tz0br4/everyones_planning_postquantum_migration_for/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-07T02:51:32+00:00",
+      "published_ts": 1780800692,
+      "smart_groups": [
+        "Ransomware",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "CISA Warns of Linux Kernel Improper Authentication Vulnerability Exploited in Attacks",
+      "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) has added a critical Linux kernel vulnerability, tracked as CVE-2022-0492, to its Known Exploited Vulnerabilities (KEV) catalog, warning that the flaw is being actively leveraged in real-world attacks. The issue, categorized as improper authentication, affects Linux systems using the cgroups v1 release_agent feature and may allow attackers [\u2026] The post CISA Warns of Linux Kernel Improper Authentication Vulnerability Exploited in Attacks appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/linux-kernel-improper-authentication-vulnerability/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-07T02:08:27+00:00",
+      "published_ts": 1780798107,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Linux / Unix"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Years of emergency prep taught me how to storm-proof my solar generators",
+      "summary": "With severe weather becoming more common, you need a plan before the lights go out. Here's my approach.",
+      "link": "https://www.zdnet.com/article/how-to-prep-solar-power-stations-for-emergencies/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-07T02:02:02+00:00",
+      "published_ts": 1780797722,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "PSA: Attack Shark R85 HE (FREEWOLF US / Amazon) \u2014 BadUSB credential harvester, confirmed malware",
+      "summary": "TL;DR: Bought an Attack Shark R85 HE from FREEWOLF US on Amazon. Plugged it in. It immediately ran a BadUSB credential-harvesting attack \u2014 opened login pages, ran PowerShell recon, targeted my password manager, and downloaded confirmed malware. Windows Defender detected two threats, both requiring manual removal. Two days of incident response. Amazon called it a defective return. It wasn't defective. It was weaponized. Don't buy this keyboard. Warning. This keyboard currently carries Amazon's Choice status and is actively being sold. Product: Attack Shark R85 HE Wired 75% Hall Effect Mechanical Keyboard \u2014 Seller: FREEWOLF US \u2014 Fulfilled by Amazon What happened \u2014 June 1st, seconds after plugging in: Before any drivers, before any setup, before a single key was touched \u2014 the device started executing on its own. Immediately opened multiple browser tabs targeting Microsoft OneDrive, Teams, Microsoft 365, and LinkedIn login pages simultaneously Triggered a LastPass clipboard permission prompt \u2014 it identified LastPass was installed and went for the vault Executed Get-AppxPackage | Select Name via PowerShell to inventory every installed application on the system \u2014 confirmed in Windows Event Viewer PowerShell Operational log at 5:52 PM Used that software inventory to specifically target LastPass based on what it found Created folders on the Desktop and downloaded a malicious archive containing confirmed malware This is not a spray-and-pray script. It recons first, then targets what it finds. Windows Defender detections from files the device created: SoftwareBundler:Win32/Stallmonitz \u2014 High severity \u2014 Remove failed Trojan:Win32/Skeeyah.A!bit \u2014 Severe \u2014 Remove failed \u2014 Defender's own label: \"This program is dangerous and executes commands from an attacker\" Both required manual deletion after Defender failed to auto-remove. Why it didn't fully succeed: LastPass MFA blocked vault access. Microsoft and LinkedIn required authentication it couldn't automate past. Aftermath: Two full days of incident response. System audit, credential rotation, account remediation across multiple services. Amazon classified it as a defective return. It was not defective. It functioned exactly as it was programmed to. If you own this keyboard: do not plug it in. If you already did: check your browser history, password manager activity logs, and Windows Event Viewer PowerShell Operational log. Run a full Defender scan immediately. Good luck out there yall. submitted by /u/RefrigeratorLegal868 [link] [comments]",
+      "link": "https://www.reddit.com/r/netsec/comments/1tyyprr/psa_attack_shark_r85_he_freewolf_us_amazon_badusb/",
+      "source": "/r/netsec",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-07T01:32:08+00:00",
+      "published_ts": 1780795928,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Exploit / PoC",
+        "Windows / Microsoft",
+        "Malware / Payloads",
+        "Web / API Security",
+        "Identity / Access"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Is a separate \u201cclean\u201d S3 bucket actually a security boundary for uploaded files?",
+      "summary": "Not sure if this is the right subreddit, but looking for security architecture feedback. We have a file upload flow where users upload to S3, then a malware scanner scans the object. Today, after a clean verdict, we copy the file to a second \u201cclean\u201d bucket and only serve downloads from there. I\u2019m questioning whether the copy is actually adding security. Alternative design: keep the object in the original bucket, store scan state in our service, and only issue download access if the file is marked clean. Bucket policy would deny direct access; users only access files through our service/presigned URLs after authorization and scan status checks. So the question is: does copying clean files to a second bucket provide a real security benefit, or is the actual security boundary the app state + IAM/S3 policy + presigned URL logic? Are there any practical failure modes I might be missing. submitted by /u/ongix [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tyy8d2/is_a_separate_clean_s3_bucket_actually_a_security/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-07T01:08:23+00:00",
+      "published_ts": 1780794503,
+      "smart_groups": [
+        "Cloud / SaaS",
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "I drove 25,000 miles with CarPlay last year - here are the apps I used most (and why)",
+      "summary": "I spend a lot of time driving. These are the CarPlay apps that make every trip easy.",
+      "link": "https://www.zdnet.com/article/i-drove-over-25000-miles-last-year-here-are-the-carplay-apps-i-used/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-07T01:00:51+00:00",
+      "published_ts": 1780794051,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "CVE-2026-46640: Developing payloads for Twig sandbox bypass",
+      "summary": "I recently learned about multiple sandbox bypasses discovered in Twig by project Glasswing. From the descriptions, only CVE-2026-46640 and CVE-2026-46633 seemed universally exploitable, so I decoded to research them. This writeup documents my development of payloads for the CVE-2026-46640 and the corresponding SSTImap module. submitted by /u/vladko312 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tywwu0/cve202646640_developing_payloads_for_twig_sandbox/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-07T00:04:48+00:00",
+      "published_ts": 1780790688,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "PenTest+ Exam",
+      "summary": "Hello! I've wanted to be a Pentester for some time now but after a long consideration and a ton of thinking on it I've decided to give up on becoming one. I've been working in the cyber security space for about 5 years now, being in and around the pentesters and bug hunter people its just not what I want to do anymore, and I just don't see the point in PenTest+. I have an exam voucher for it, (PT0-002) has to be used no later than 07/24/2026 . Let me know if someone wants it. submitted by /u/owoll100 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tytve2/pentest_exam/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-06T21:50:06+00:00",
+      "published_ts": 1780782606,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "U.S. CISA adds SolarWinds Serv-U flaw to its Known Exploited Vulnerabilities catalog",
+      "summary": "U.S. Cybersecurity and Infrastructure Security Agency (CISA) adds SolarWinds Serv-U flaw to its Known Exploited Vulnerabilities catalog. The U.S. Cybersecurity and Infrastructure Security Agency (CISA) added SolarWinds Serv-U flaw, tracked as CVE-2026-28318 (CVSS ver 3.1 score of 7.5), to its Known Exploited Vulnerabilities (KEV) catalog. SolarWinds Serv-U is a managed file transfer (MFT) and secure file [\u2026]",
+      "link": "https://securityaffairs.com/193245/security/u-s-cisa-adds-solarwinds-serv-u-flaw-to-its-known-exploited-vulnerabilities-catalog.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-06T21:44:53+00:00",
+      "published_ts": 1780782293,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "AI Is Helping Discover Tech Vulnerabilities\u2014And Zcash Is Just the Latest Example",
+      "summary": "Frontier AI models have evolved into bug-finding tools, uncovering vulnerabilities across the tech world\u2014and now in crypto too.",
+      "link": "https://decrypt.co/370237/ai-discover-tech-vulnerabilities-zcash-latest-example",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-06-06T20:56:43+00:00",
+      "published_ts": 1780779403,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "AI Agent Uncovers 21 Zero-Days in FFmpeg; Chrome Patches Record 429 Bugs",
+      "summary": "submitted by /u/Gorstak-Zadar [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1tys5z7/ai_agent_uncovers_21_zerodays_in_ffmpeg_chrome/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-06T20:37:40+00:00",
+      "published_ts": 1780778260,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "OpenAI unveils Lockdown Mode to protect sensitive data from prompt injection attacks",
+      "summary": "Even with Lockdown Mode, ChatGPT could be still vulnerable to prompt injections, but the goal is to reduce the likelihood that sensitive data gets shared in the process.",
+      "link": "https://techcrunch.com/2026/06/06/openai-unveils-lockdown-mode-to-protect-sensitive-data-from-prompt-injection-attacks/",
+      "source": "Security News | TechCrunch",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-06T20:32:24+00:00",
+      "published_ts": 1780777944,
+      "smart_groups": [],
       "curated": false
     },
     {
@@ -102220,1120 +102412,6 @@
       "smart_groups": [
         "Phishing / Social Engineering"
       ],
-      "curated": false
-    },
-    {
-      "title": "Block Inc rises 8% as Q1 gives \u2018earnings surprise\u2019 despite Bitcoin dip",
-      "summary": "Block\u2019s Q1 earnings beat estimates despite Bitcoin revenue falling 26% on changing Bitcoin \u201ctrading dynamics\u201d and reducing fees on Cash App transactions.",
-      "link": "https://cointelegraph.com/news/blocks-rises-8-percent-after-q1-earnings-surprise?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-08T03:20:03+00:00",
-      "published_ts": 1778210403,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "AI agents may be skilled researchers\u2014but not always honest ones",
-      "summary": "Artificial intelligence tools designed to execute end-to-end projects, from coming up with hypotheses to running and writing up experiments, are increasingly popular with researchers\u2014and increasingly skilled. But a new study shows these tools can stealthily violate norms of research integrity. VANCOUVER, CANADA\u2014 Artificial intelligence (AI) tools designed to execute end-to-end projects, from coming up with [\u2026]",
-      "link": "https://lifeboat.com/blog/2026/05/ai-agents-may-be-skilled-researchers-but-not-always-honest-ones",
-      "source": "Lifeboat \u2013 Cybercrime & Malcode",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-05-08T03:20:02+00:00",
-      "published_ts": 1778210402,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Multiple Critical Vulnerabilities Patched in Next.js and React Server Components",
-      "summary": "Vercel has released an extensive set of security advisories for Next.js, addressing more than a dozen vulnerabilities, including denial-of-service, middleware bypass, server-side request forgery, and cross-site scripting. The flaws affect Next.js versions 13.x through 16.x using the App Router, as well as React Server Components packages for versions 19.x. CVE-2026-23870: Denial of Service via React [\u2026] The post Multiple Critical Vulnerabilities Patched in Next.js and React Server Components appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/next-js-react-server-vulnerabilities/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-08T03:01:32+00:00",
-      "published_ts": 1778209292,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Web / API Security"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Canvas Breach Disrupts Schools & Colleges Nationwide",
-      "summary": "An ongoing data extortion attack targeting the widely-used education technology platform Canvas disrupted classes and coursework at school districts and universities across the United States today, after a cybercrime group defaced the service's login page with a ransom demand that threatened to leak data from 275 million students and faculty across nearly 9,000 educational institutions.",
-      "link": "https://krebsonsecurity.com/2026/05/canvas-breach-disrupts-schools-colleges-nationwide/",
-      "source": "Krebs on Security",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-05-08T02:58:46+00:00",
-      "published_ts": 1778209126,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "ISC Stormcast For Friday, May 8th, 2026 https://isc.sans.edu/podcastdetail/9924, (Fri, May 8th)",
-      "summary": "(c) SANS Internet Storm Center. https://isc.sans.edu Creative Commons Attribution-Noncommercial 3.0 United States License.",
-      "link": "https://isc.sans.edu/diary/rss/32966",
-      "source": "SANS Internet Storm Center",
-      "type": "government",
-      "type_label": "Government, CERT & Advisories",
-      "published": "2026-05-08T02:00:03+00:00",
-      "published_ts": 1778205603,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Egnyte potential ransomware attack",
-      "summary": "Egnyte may have suffered a ransomware attack. Does anyone have any confirmation of this incident? Specifically, any emails sent by the company to customers or similar official notifications from the company (not looking for public threat intel feeds) submitted by /u/Own_Raspberry_3254 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t6u9ua/egnyte_potential_ransomware_attack/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-08T01:54:42+00:00",
-      "published_ts": 1778205282,
-      "smart_groups": [
-        "Curated",
-        "Ransomware"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Palo Alto Networks firewall flaw has been exploited for several weeks",
-      "summary": "Palo Alto Networks warns that a critical zero-day vulnerability has been discovered in the PAN-OS firewall system. The vulnerability has already been exploited by suspected state-sponsored hackers for nearly a month, reports Bleeping Computer . The vulnerability, CVE-2026-0300, is located in the User-ID Authentication Portal (also known as the Captive Portal) and allows attackers to execute code with root privileges on exposed PA and VM series firewalls without first logging in. The security organization Shadowserver estimates that over 5,400 PAN-OS VM firewalls are exposed to the internet, primarily in Asia and North America. Palo Alto Networks is still working on security updates. These are expected to begin rolling out on May 13. Until then, customers are advised to restrict access to the Authentication Portal to trusted networks or disable the feature entirely.",
-      "link": "https://www.csoonline.com/article/4168343/critical-palo-alto-networks-software-bug-hits-exposed-firewalls.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-08T01:19:01+00:00",
-      "published_ts": 1778203141,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Become a millionaire by bug hunting on Android",
-      "summary": "Over the past decade, Google has introduced a wide range of bug bounty programs for its software and services. The company has now announced that the reward for individuals who discover vulnerabilities in Android or the Chrome browser is being increased , bringing the maximum reward to $1.5 million. However, reports indicate that you must find a critical vulnerability in the Pixel Titan M2 security chip to reach that amount. As for vulnerabilities in Google Chrome, the highest reward is $250,000, reports Bleeping Computer . In total, Google has paid out $81.6 million in rewards since the bug bounty programs were launched in 2010.",
-      "link": "https://www.csoonline.com/article/4168634/now-you-can-earn-millions-by-finding-bugs-in-android.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-08T01:13:04+00:00",
-      "published_ts": 1778202784,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "After using Lenovo's $2,600 Yoga, I'm taking premium Windows laptops seriously again",
-      "summary": "Lenovo's Pro 9i Aura Edition is a powerful laptop that fields strong, sustained performance, a vivid display, and a robust cooling system.",
-      "link": "https://www.zdnet.com/article/lenovo-pro-9i-aura-edition-review/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-08T01:01:01+00:00",
-      "published_ts": 1778202061,
-      "smart_groups": [
-        "Windows / Microsoft"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Diamond Chemical data breach: key facts and what we know so far | UpGuard",
-      "summary": "A data breach involving Diamond Chemical was reported in May 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.comnews/diamond-chemical-data-breach-2026-05-07",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-08T00:52:11+00:00",
-      "published_ts": 1778201531,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Coastal Heritage Bank data breach: what happened and what's at risk | UpGuard",
-      "summary": "A data breach involving Coastal Heritage Bank was reported in May 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.comnews/coastal-heritage-bank-data-breach-2026-05-07",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-08T00:52:11+00:00",
-      "published_ts": 1778201531,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Handala claims Port of Fujairah data breach affecting 430,000 documents | UpGuard",
-      "summary": "A data breach involving Port of Fujairah was reported in May 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.comnews/port-of-fujairah-data-breach-2026-05-07",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-08T00:52:11+00:00",
-      "published_ts": 1778201531,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "LaBonne's Markets data breach: what happened and what's at risk | UpGuard",
-      "summary": "A data breach involving LaBonne's Markets was reported in May 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.comnews/labonne-s-markets-data-breach-2026-05-07",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-08T00:52:11+00:00",
-      "published_ts": 1778201531,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Radial Entertainment data breach exposes names and Social Security numbers | UpGuard",
-      "summary": "A data breach involving radialentertainment.com was reported in May 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.comnews/radialentertainment-com-data-breach-2026-05-07",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-08T00:52:11+00:00",
-      "published_ts": 1778201531,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Suncoast One Title & Closings data breach: what happened and what's at risk | UpGuard",
-      "summary": "A data breach involving Suncoast One Title & Closings was reported in May 2026. See incident details, impact, and recommended security measures.",
-      "link": "https://www.upguard.comnews/punta-gorda-port-charlotte-north-port-fl-data-breach-2026-05-07",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-08T00:52:11+00:00",
-      "published_ts": 1778201531,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "The Shadow Supply Chain: A 72.9% Gap In Your Vendor Inventory | UpGuard",
-      "summary": "Your real vendor inventory is 8x larger than your official list. Discover how user behavior creates a hidden shadow supply chain that legacy tools miss.",
-      "link": "https://origin.upguard.com/blog/the-gap-in-your-vendor-inventory",
-      "source": "UpGuard Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-08T00:52:11+00:00",
-      "published_ts": 1778201531,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Straumann Reports Cybersecurity Incident Involving Legacy System | UpGuard",
-      "summary": "A security incident involving Straumann was reported in May 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.comnews/straumann-security-incident-2026-05-04",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-08T00:52:11+00:00",
-      "published_ts": 1778201531,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "/Why/ is Shinyhunters targeting Canvas?",
-      "summary": "I hope this is the right place to ask this, but ever since I heard about the breach, I've been wondering why Canvas, a platform used for students, is being targeted? This is being asked by someone who knows nothing about Shinyhunters or Canvas's parent company, but I never understood why schools and school software were desirable targets. My only experience with this is my highschool getting hacked by another group 2 years ago, and idk why that was a target then anyway. Obviously without a statement we can't know for sure, but I tried googling to find people's theories or ideas but I couldn't find anything. submitted by /u/SweetestFern [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t6sx86/why_is_shinyhunters_targeting_canvas/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-08T00:52:11+00:00",
-      "published_ts": 1778201531,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "The Shadow Supply Chain: A 72.9% Gap In Your Vendor Inventory | UpGuard",
-      "summary": "Your real vendor inventory is 8x larger than your official list. Discover how user behavior creates a hidden shadow supply chain that legacy tools miss.",
-      "link": "https://www.upguard.com/blog/the-gap-in-your-vendor-inventory",
-      "source": "UpGuard Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-08T00:52:11+00:00",
-      "published_ts": 1778201531,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Suncoast One Title & Closings data breach: what happened and what's at risk | UpGuard",
-      "summary": "A data breach involving Suncoast One Title & Closings was reported in May 2026. See incident details, impact, and recommended security measures.",
-      "link": "https://www.upguard.com/news/punta-gorda-port-charlotte-north-port-fl-data-breach-2026-05-07",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-08T00:52:11+00:00",
-      "published_ts": 1778201531,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Radial Entertainment data breach exposes names and Social Security numbers | UpGuard",
-      "summary": "A data breach involving radialentertainment.com was reported in May 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.com/news/radialentertainment-com-data-breach-2026-05-07",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-08T00:52:11+00:00",
-      "published_ts": 1778201531,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "LaBonne's Markets data breach: what happened and what's at risk | UpGuard",
-      "summary": "A data breach involving LaBonne's Markets was reported in May 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.com/news/labonne-s-markets-data-breach-2026-05-07",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-08T00:52:11+00:00",
-      "published_ts": 1778201531,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Handala claims Port of Fujairah data breach affecting 430,000 documents | UpGuard",
-      "summary": "A data breach involving Port of Fujairah was reported in May 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.com/news/port-of-fujairah-data-breach-2026-05-07",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-08T00:52:11+00:00",
-      "published_ts": 1778201531,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Coastal Heritage Bank data breach: what happened and what's at risk | UpGuard",
-      "summary": "A data breach involving Coastal Heritage Bank was reported in May 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.com/news/coastal-heritage-bank-data-breach-2026-05-07",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-08T00:52:11+00:00",
-      "published_ts": 1778201531,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Diamond Chemical data breach: key facts and what we know so far | UpGuard",
-      "summary": "A data breach involving Diamond Chemical was reported in May 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.com/news/diamond-chemical-data-breach-2026-05-07",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-08T00:52:11+00:00",
-      "published_ts": 1778201531,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Straumann Reports Cybersecurity Incident Involving Legacy System | UpGuard",
-      "summary": "A security incident involving Straumann was reported in May 2026. See incident details, impact on customers, and recommended security measures.",
-      "link": "https://www.upguard.com/news/straumann-security-incident-2026-05-04",
-      "source": "UpGuard \u2013 News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-08T00:52:11+00:00",
-      "published_ts": 1778201531,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Google Maps vs. Apple Maps: I compared two of the best navigation apps - here's my pick",
-      "summary": "Apple Maps has improved over the years, but how does it compare to Google Maps today? Here's the verdict after extended use.",
-      "link": "https://www.zdnet.com/article/google-maps-vs-apple-maps-2026/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-08T00:43:04+00:00",
-      "published_ts": 1778200984,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Canvas Hack - Any Guesses How?",
-      "summary": "Anyone wanna take a wild guess how Canvas just got hacked? Discuss below. submitted by /u/twinito1 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t6smoc/canvas_hack_any_guesses_how/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-08T00:38:37+00:00",
-      "published_ts": 1778200717,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "13 new critical holes in JavaScript sandbox allow execution of arbitrary code",
-      "summary": "Thirteen critical vulnerabilities have been found in the vm2 JavaScript sandbox package that could allow an attacker\u2019s code to escape the container and do nasty things to IT environments. As a result, developers using this library in their applications are urged to update the software to the latest version, which is currently 3.11.2. The warnings come in advisories from vm2 maintainer Patrik Simek . vm2 is an open source vm/sandbox that can run untrusted code with whitelisted Node.js\u2019s built-in modules. One of the more serious of the 13 vulnerabilities is CVE-2026-26956 , a full sandbox escape with arbitrary code execution. Attacker code that is inside VM.run() can obtain host process object and runs host commands with zero co-operation from the host. However, researchers at Socket told us in an email that the advisory about this escape says it has been confirmed only on Node.js 25.6.1, and requires a Node.js version with WebAssembly exception handling and JSTag support. The highest-risk scenario, they said, would be an application using vm2 version 3.10.4 on Node 25, where attacker-controlled JavaScript is passed into VM.run() . \u201cThis is a narrow but high-impact vulnerability,\u201d Socket research engineer Wenxin Jiang said in an email. \u201cIt does not appear to affect every vm2 deployment, because the advisory points to a specific vulnerable version and a specific Node 25/WebAssembly combination. But when those conditions line up, the security boundary fails completely: code that was supposed to be confined to the sandbox can reach the host process and execute commands. That is why teams using vm2 for user-supplied JavaScript should patch quickly and review what the sandboxed process can access.\u201d Although it is not a vm2 maintainer, Socket said it is issuing a patch for developers who can\u2019t immediately upgrade to the latest, fixed version. Another serious hole is CVE-2026-44007 , an improper access control vulnerability in the vm2 Node.js library that allows sandbox escape and execution of arbitrary operating system commands on the underlying host. Its advisory says that the vulnerability is in how the nesting:true option interacts with the legacy module resolver. This was patched in vm2 version 3.11.1. \u201cFor CSOs, both [vulnerabilities] deserve urgent attention,\u201d said Jiang, \u201cbut the second [the NodeVM nesting issue] may be the one more organizations need to audit for immediately.\u201d Both flaws, said Socket researchers, can turn sandboxed JavaScript into command execution on the host system. The difference is in how many environments are likely to be exposed. The Node 25/WebAssembly issue appears narrower because it depends on a specific vm2 version and a specific newer Node.js runtime behavior. The NodeVM nesting issue may be broader because it affects more versions and is triggered by a configuration pattern that some developers may have used intentionally. Jiang added that both advisories point to a broader lesson: JavaScript sandboxes are difficult to secure , and small differences in runtime behavior or configuration can have major security consequences. \u201cThe first issue appears tied to a narrow Node 25/WebAssembly path,\u201d he said. \u201cThis second issue is a configuration-driven escape involving NodeVM and nesting:true . In both cases, the highest-risk users are organizations that run untrusted JavaScript and assume vm2 is containing it. Those [application development] teams should patch immediately and add stronger isolation around sandboxed workloads.\u201d \u2018Fragile security model\u2019 These sandbox escape vulnerabilities demonstrate why sandboxing untrusted code inside a trusted process is a fragile security model, Adam Reynolds , senior security researcher at Sonatype, said in an email. \u201cOnce untrusted code runs inside a process with access to credentials and secrets, the underlying filesystem, the network, or with deployment privileges, a sandbox bypass can easily lead to a full system compromise,\u201d he said. Simply having vm2 installed somewhere in the dependency tree is not enough to make some of these vulnerabilities exploitable, he added. For example, an attacker generally needs the ability to execute crafted JavaScript (and in the case of CVE-2026-26956, crafted WebAssembly) inside a vm2 sandbox controlled by the vulnerable application. If the application never instantiates vm2, only uses it for trusted internal scripts, or does not allow attacker-controlled code execution at all, then there may be no realistic exploit path despite the presence of the dependency. If an organization is running any applications impacted by vm2, they should be upgraded immediately, he said. To mitigate risk until the upgrade is complete, users can avoid Node.js 25 runtimes, disable or block WebAssembly entirely inside untrusted sandboxes, and prevent user-controlled WASM compilation/execution. \u201cSince future runtime updates could lead to similar issues, vm2 should be viewed as a convenience isolation layer as opposed to a hard security boundary,\u201d he added. In addition, Robert Enderle of the Enderle Group said that IT leaders who are serious about security should stop relying on software-level sandboxing for untrusted code. Start looking at moving those processes into hardened Docker containers or V8 Isolates, he advised.",
-      "link": "https://www.csoonline.com/article/4168568/13-new-critical-holes-in-javascript-sandbox-allow-execution-of-arbitrary-code.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-08T00:13:41+00:00",
-      "published_ts": 1778199221,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Cloud / SaaS",
-        "Identity / Access"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Instructure (Canvas) Breached by Shiny Hunters \u2014 275M Records from ~9,000 Schools/Universities, Ransom Deadline May 12",
-      "summary": "Shiny Hunters breached Instructure, operator of the Canvas platform. They claim ~275 million records stolen from nearly 9,000 educational institutions, plus billions of private messages. Live Canvas websites were defaced today with a May 12 ransom demand. Instructure took affected sites offline. https://6abc.com/post/canvas-hacked-massive-data-breach-affects-schools-using-nationwide-penn-reportedly-impacted/19059691/ submitted by /u/BigSewerRat1 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t6rws7/instructure_canvas_breached_by_shiny_hunters_275m/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-08T00:06:09+00:00",
-      "published_ts": 1778198769,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Kubernetes security fundamentals: Secrets",
-      "summary": "A look at how to secure Kubernetes secrets",
-      "link": "https://securitylabs.datadoghq.com/articles/kubernetes-security-fundamentals-part-8/",
-      "source": "https://securitylabs.datadoghq.com/rss/feed.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-08T00:00:00+00:00",
-      "published_ts": 1778198400,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Diagnose and resolve database performance issues faster with Database Investigator",
-      "summary": "Database Investigator is a feature of Datadog Database Monitoring that uses an agentic approach to surface root causes and remediation steps for database performance issues.",
-      "link": "https://www.datadoghq.com/blog/database-investigator/",
-      "source": "https://www.datadoghq.com/blog/index.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-08T00:00:00+00:00",
-      "published_ts": 1778198400,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "How Discord Automates ScyllaDB Clusters at Scale",
-      "summary": "You've been asked to stand up a brand-new database cluster, meaning a whole day of configuring dozens of nodes, validating replication, wiring up dual-write pipelines\u2026 what if this whole ordeal took less than two hours? This is how we got ourselves into this exact mess, and how we made our way out of it.",
-      "link": "https://discord.com/blog/how-discord-automates-scylladb-clusters-at-scale",
-      "source": "https://discord.com/blog/rss.xml",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-08T00:00:00+00:00",
-      "published_ts": 1778198400,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Remote Code Execution Vulnerability in Fooocus",
-      "summary": "Remote Code Execution Vulnerability in Fooocus Fooocus is the third-most popular open-source AI image generation WebUI on GitHub with 48k stars. By exposing it to the internet, you allow attackers to take control of your computer using an exploit I reported six months ago that remains unpatched. Here is the story of how I found it. Why Fooocus? As part of a university project, I was asked to evaluate a series of AI image generation tools and recommend one of them to my professor.",
-      "link": "https://mrbruh.com/fooocus/",
-      "source": "https://mrbruh.com/index.xml",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-08T00:00:00+00:00",
-      "published_ts": 1778198400,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Identity / Access"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Sophos named a Leader in the KuppingerCole Analysts Leadership Compass for Managed Detection and Response 2026",
-      "summary": "Sophos recognized across four leadership categories: Overall, Product, Innovation, and Market Categories: Products & Services Tags: MDR, KuppingerCole",
-      "link": "https://www.sophos.com/en-us/blog/sophos-leader-kuppingercole-mdr-2026",
-      "source": "Sophos News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-08T00:00:00+00:00",
-      "published_ts": 1778198400,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Engineering a Zero-Trust Kubernetes SIEM: Bypassing NAT Blindness with eBPF, TC, and Suricata",
-      "summary": "Standard Kubernetes network security is fundamentally broken by NAT blindness. When an intrusion alert fires, traditional tools show a physical node IP, leaving you guessing which of the hundreds of ephemeral pods is actually compromised. I engineered a custom SIEM pipeline that uses eBPF and Linux Traffic Control to mirror virtual CNI traffic directly to Suricata. By binding this telemetry to a deterministic O(1) Logstash memory router, the system maps transient IPs to exact pod names and namespaces in under 5 milliseconds. This architecture completely eliminates the Kubernetes blind spot, providing true zero-trust visibility across both kernel execution and East-West lateral network movement. Read the full technical architecture breakdown here: https://medium.com/@mouhamed.yeslem.kh/engineering-a-zero-trust-kubernetes-siem-bypassing-nat-blindness-with-ebpf-tc-and-suricata-767c70a55058 submitted by /u/Southern-Fox4879 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t6rofq/engineering_a_zerotrust_kubernetes_siem_bypassing/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-07T23:56:23+00:00",
-      "published_ts": 1778198183,
-      "smart_groups": [
-        "Linux / Unix",
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Bitcoin bulls target $115K by December: Does data back the expectation?",
-      "summary": "Bitcoin options show bulls targeting $115,000 by year-end but are traders becoming overly optimistic?",
-      "link": "https://cointelegraph.com/markets/bitcoin-bulls-target-115k-by-december-does-data-back-the-expectation?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-07T23:56:15+00:00",
-      "published_ts": 1778198175,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "ShinyHunters Defaces Canvas LMS Portal, Hundreds of Universities Affected",
-      "summary": "ShinyHunters hackers defaced the official Canvas LMS portal after breaching Instructure systems, disrupting university access worldwide.",
-      "link": "https://hackread.com/shinyhunters-defaces-canvas-lms-portal-universities-affected/",
-      "source": "HackRead",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-07T23:55:50+00:00",
-      "published_ts": 1778198150,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Issues removing Trellix (and specifically solidifier)",
-      "summary": "Anyone have any insight? I am banging my head against a wall at this point. ePO is gone so thats not an option. I have tried to use Tanium, Powershell... all the scripts to use the uninstall string and it won't work. I tried to use the \"Uninstaller Tool\" provided by Trellix... but no cigar. Please someone tell me they have an answer to this madness. Trellix is like a cancer, or herpes submitted by /u/Dad_Naps [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t6riyx/issues_removing_trellix_and_specifically/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-07T23:49:36+00:00",
-      "published_ts": 1778197776,
-      "smart_groups": [
-        "Windows / Microsoft"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Pentagon eyes 3-year cyber training requirement, overriding new Army policy",
-      "summary": "submitted by /u/Just_Cause89 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t6r9gn/pentagon_eyes_3year_cyber_training_requirement/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-07T23:38:02+00:00",
-      "published_ts": 1778197082,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Mozilla boasts Mythos boosted Firefox bug cull",
-      "summary": "Yet it remains unclear if Anthropic's uber model was effective, or if better model middleware is what makes the difference",
-      "link": "https://www.theregister.com/security/2026/05/08/mozilla-says-ai-helped-squash-423-firefox-security-bugs/5235438",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-07T23:32:16+00:00",
-      "published_ts": 1778196736,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "US Treasury \u2018privately demanded\u2019 Binance comply with monitoring deal: Report",
-      "summary": "US Treasury officials reportedly sent a letter to Binance pressing the crypto exchange on compliance with a 2023 deal, after reports circulated that the company had facilitated transactions linked to Iran.",
-      "link": "https://cointelegraph.com/news/us-treasury-binance-monitoring-program-reminder?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-07T22:55:00+00:00",
-      "published_ts": 1778194500,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Canvas login portals hacked in mass ShinyHunters extortion campaign",
-      "summary": "The ShinyHunters extortion gang has breached education technology giant Instructure again, this time exploiting another vulnerability to deface Canvas login portals for hundreds of colleges and universities. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/canvas-login-portals-hacked-in-mass-shinyhunters-extortion-campaign/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-07T22:36:54+00:00",
-      "published_ts": 1778193414,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "How much personal info will be leaked by the recent Canvas hack??",
-      "summary": "So apparently Canvas got hacked by ShinyHunters (3?!) times and is currently completely down. The cybercriminal group said the deadline is on May 12st, and if Instructure doesn't comply, they'll leak the PII of all students and teachers. I'm not a cybersecurity major, and I don't know much about Canvas, but how much will we be affected if no deal is reached? Like, how much information is typically stored on Canvas, and will they be able to figure out more through what is available in the system? I'm genuinely concerned.... submitted by /u/Wonderful-Click9431 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t6ps71/how_much_personal_info_will_be_leaked_by_the/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-07T22:35:11+00:00",
-      "published_ts": 1778193311,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Solv Protocol Will Dump LayerZero, Migrate $700M Tokenized Bitcoin Tech to Chainlink",
-      "summary": "Solv Protocol will move its tokenized Bitcoin infrastructure to Chainlink, following Kelp DAO's lead after it blamed LayerZero for a hack.",
-      "link": "https://decrypt.co/367154/solv-protocol-dump-layerzero-migrate-700m-tokenized-bitcoin-chainlink",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-07T22:31:02+00:00",
-      "published_ts": 1778193062,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "CLARITY Act markup could happen as early as next week: Coinbase exec",
-      "summary": "The provisions in the crypto market structure bill are still under review by the banking and crypto lobbies as a new poll shows bipartisan voter support for the legislation.",
-      "link": "https://cointelegraph.com/news/clarity-act-markup-could-happen-as-early-as-next-week-coinbase-exec?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-07T22:30:00+00:00",
-      "published_ts": 1778193000,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "New TCLBanker malware self-spreads over WhatsApp and Outlook",
-      "summary": "A new trojan named TCLBanker, which targets 59 banking, fintech, and cryptocurrency platforms, uses a trojanized MSI installer for Logitech AI Prompt Builder to infect systems. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/new-tclbanker-malware-self-spreads-over-whatsapp-and-outlook/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-07T22:06:52+00:00",
-      "published_ts": 1778191612,
-      "smart_groups": [
-        "Curated",
-        "Malware / Payloads",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Trump Sons Haven't Abandoned World Liberty Financial, Crypto Firm Insists",
-      "summary": "World Liberty co-founder Zach Witkoff also said Thursday that the crypto firm is \u201cin the final stages\u201d of receiving bank charter approval from the Trump administration.",
-      "link": "https://decrypt.co/367215/trump-sons-havent-abandoned-world-liberty-financial",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-07T22:01:03+00:00",
-      "published_ts": 1778191263,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Hackers deface school login pages after claiming another Instructure hack",
-      "summary": "submitted by /u/mingoslingo92 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t6owwj/hackers_deface_school_login_pages_after_claiming/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-07T22:00:09+00:00",
-      "published_ts": 1778191209,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Bitcoin exchange reserves fall to two-year low after $8B exodus",
-      "summary": "Nearly 100,000 Bitcoin exited major exchanges as OTC balances tightened and demand from accumulator addresses increased by 60%, pointing to reduced liquid supply.",
-      "link": "https://cointelegraph.com/markets/8b-bitcoin-exodus-drains-exchange-reserves-to-multi-year-lows?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-07T21:52:34+00:00",
-      "published_ts": 1778190754,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "A New Era of Security: Frontier AI Defense",
-      "summary": "Palo Alto Networks introduces Frontier AI Defense to counter autonomous AI cyber threats. Get continuous protection and autonomous remediation against machine-speed attacks. The post A New Era of Security: Frontier AI Defense appeared first on Palo Alto Networks Blog .",
-      "link": "https://www.paloaltonetworks.com/blog/2026/05/frontier-ai-defense/",
-      "source": "Palo Alto Networks Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-07T21:45:24+00:00",
-      "published_ts": 1778190324,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Hackers Use Fake Claude AI Site to Infect Users With New Beagle Malware",
-      "summary": "Researchers have discovered a new malvertising campaign using a fake Claude AI website to plant a new, undocumented backdoor named Beagle on user devices.",
-      "link": "https://hackread.com/hackers-fake-claude-ai-site-infect-beagle-malware/",
-      "source": "HackRead",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-07T21:34:18+00:00",
-      "published_ts": 1778189658,
-      "smart_groups": [
-        "Curated",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Did I destroy my career by being loyal to an arguably good company?",
-      "summary": "What are the general thoughts among other companies about hiring someone (early 40's) that has worked at one company for 20+ years or more? Obviously I stay on top of tech over the years, get to play with lots of toys and infosec is front and center of my daily grinds. I can't help but wonder if I'd be marketable though if I were to look around. Would any hiring managers here prefer that sort of experience or steer clear of it? EDIT: I'm not asking for interviews, I'm very blessed to have the job I have...it's just good to reassess one's worth from time to time I suppose. submitted by /u/uebersoldat [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t6o89p/did_i_destroy_my_career_by_being_loyal_to_an/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-07T21:33:10+00:00",
-      "published_ts": 1778189590,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Iranian government hackers using Chaos ransomware as cover, researchers say",
-      "summary": "Incident responders from cybersecurity firm Rapid7 published a report about a recent intrusion that initially appeared to be a Chaos ransomware attack but was later discovered to be an attack attributed to MuddyWater, an Iranian APT group tied to the country\u2019s Ministry of Intelligence and Security (MOIS).",
-      "link": "https://therecord.media/iran-government-hackers-use-chaos-ransomware-as-cover",
-      "source": "The Record \u2013 Cybercrime",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-05-07T21:30:00+00:00",
-      "published_ts": 1778189400,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Threat Actors / APT"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Crypto PACs spend $7.2M to support candidates in 5 US states ahead of elections",
-      "summary": "Two affiliates of the crypto-backed PAC Fairshake reported media buys for political candidates in Georgia, Alabama, Nebraska, Kentucky and Texas this week.",
-      "link": "https://cointelegraph.com/news/crypto-pacs-spending-candidates-five-states-midterms?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-07T21:28:06+00:00",
-      "published_ts": 1778189286,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Coinbase Shares Slide as Crypto Giant Reports $394 Million Q1 Loss",
-      "summary": "Crypto exchange Coinbase reported a consecutive quarterly loss as transaction revenue plummeted 40% amid a volatile market.",
-      "link": "https://decrypt.co/367216/coinbase-shares-slide-crypto-giant-reports-394-million-q1-loss",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-07T21:24:36+00:00",
-      "published_ts": 1778189076,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Kernel LPE Vulnerability Published Early Due To Third-Party Breaking Embargo",
-      "summary": "submitted by /u/LordAlfredo [link] [comments]",
-      "link": "https://www.reddit.com/r/netsec/comments/1t6nyth/kernel_lpe_vulnerability_published_early_due_to/",
-      "source": "/r/netsec",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-07T21:22:56+00:00",
-      "published_ts": 1778188976,
-      "smart_groups": [
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Security Dashboard for AI: 3 Ways CISOs Drive Impact Today",
-      "summary": "AI is reshaping the enterprise and, with it, the threat landscape. Today's organizations face new threats with AI agents that modify configurations, execute workflows, and access data without direct human oversight. As a result, the gap between AI adoption and AI governance is widening, and CISOs face growing challenges to maintain visibility, control, and compliance across an increasingly complex ecosystem. As AI becomes embedded across the enterprise, CISOs face four key challenges: Scale without visibility: Over 75% of enterprises surveyed by PWC report they are already adopting AI agents. \u00b9 At the same time, over 80% of security teams surveyed by Nokod report visibility gaps into the applications and AI agents created within their organization. \u00b2 Rapid AI proliferation and evolving regulations make unified visibility across AI platforms, apps, and agents critical for CISOs. Fragmentation: Organizations rely on multiple siloed tools for AI asset visibility, making oversight fragmented and inefficient. According to Gartner\u2019s 2024 survey of 162 enterprises, organizations use 45 cybersecurity tools on average. Expanding AI risk: AI proliferation is rapidly increasing the attack and risk surface, with the surge of AI-generated identities. By 2027, 4 out of 5 organizations will face phishing attacks powered by AI-generated synthetic identities, according to IDC. \u00b3 This makes it harder for CISOs to track emerging threats, unmanaged assets, and shifting risk patterns. Overload: Alert fatigue is now a top challenge, with organizations now receiving an average of 2,992 security alerts daily, yet 63% go unaddressed. \u2074 Increasing AI risk without a way to prioritize what matters most compounds pressure on CISOs. In conversations between Microsoft and CISOs, one common need emerged: a single place to view integrated AI risk across the enterprise. To address these growing challenges, we are excited to provide CISOs with the Security Dashboard for AI, which recently became generally available. This unified dashboard aggregates posture and real-time risk signals from Microsoft Defender, Entra, and Purview into one unified, executive-level view of AI posture, risk, and inventory across agents, apps, and platforms. The Security Dashboard for AI helps CISOs: Gain unified AI risk visibility : Discover AI agents and applications and continuously monitor posture across the environment Prioritize critical risks : Correlate signals across identity, data, and threat protection to surface the most urgent issues Drive risk mitigations : Investigate activity and take action to help reduce exposure across the AI ecosystem The dashboard is capable of aggregating and surfacing AI risks from across Microsoft Defender, Entra, Purview - including Microsoft 365 Copilot, Microsoft Copilot Studio agents, and Microsoft Foundry applications and agents as well as cross-platform AI risks with Microsoft network-based or SDK-enabled integrations, and MCP servers. This supports comprehensive visibility and control, regardless of where applications and agents are built. As you activate Microsoft Security for AI capabilities, you can gain richer visibility into different aspects of your AI risk posture. Figure 1: Security Dashboard for AI in browser Getting Started with the Security Dashboard for AI The Security Dashboard for AI is provided at no additional cost to customers already using Defender, Entra, and/or Purview to protect their AI innovation. Based on how early adopter CISOs are using the dashboard, here are three ways you can start leveraging the dashboard today. 1. Manage Daily AI Risk Beyond reporting, you must stay hands-on with AI risks, scanning for emerging issues, verifying asset governance, and delegating remediations. The Security Dashboard for AI consolidates daily operations into a single pane of glass, surfacing critical alerts, unmanaged assets, and emerging risks. Use the dashboard as a daily AI risk radar, enabling rapid triage and ensuring you focus on the most urgent threats. Scan and triage daily AI risk: Start each day by identifying and prioritizing the highest-risk AI exposures. Risks are prioritized on severity reported by underlying security tools, helping you focus on the most critical exposures. Track AI asset inventory and monitor agent sprawl: Use the Inventory page to gain comprehensive visibility into all AI assets. Identify newly registered assets to mitigate the risk of shadow or unmanaged IT and surface inactive agents to proactively monitor and control agent sprawl. Delegate tasks for remediation : Move from insight to action by delegating tasks to your security team with easy click delegation. Delegation routes ownership via email or Microsoft Teams with notifications, due date, and ownership tracking. Delegate actions to specific roles such as global admin and AI administrator, without granting full access to underlying tools. Figure 2: Security Dashboard for AI risk page 2. Guide Briefings with Security Teams You require up-to-date intelligence to guide conversations with Security Teams about what is happening across the AI estate. The Security Dashboard for AI helps you anchor discussions in specific risks, trends, and ownership gaps surfaced in the data. The dashboard becomes a conversation driver, helping you ask the right questions about risk and security posture, to help ensure you and your team are triaging the right priorities. Because the dashboard consolidates signals from Defender, Entra, and Purview, both CISO and security teams operate from the same facts, enabling more outcome-driven discussions and faster prioritization, so you can shift the conversations from status updates to targeted action planning. Prioritize top AI Risk: Use the dashboard to help you prioritize the AI risk that matters the most. In preparation for team meetings, use Microsoft Security Copilot to explore AI risks, agent activity, and security recommendations via prompts to strengthen your AI security posture. With your team, take a closer look at risk vectors like data leakage, oversharing and unethical behavior, and discuss what actions need to be taken. Review Security Recommendations: Create a routine with your security team to review the recommended Microsoft security actions and track your progress over time. Across regular team check\u2011ins, review what has been addressed, what remains open, and which actions require follow\u2011up so you are prepared to respond to regulatory, audit, or executive questions with up\u2011to\u2011date metrics. Figure 3: Security Dashboard for AI inventory page Figure 4: Security Dashboard for AI delegation 3. Executive Reporting Reporting to the board on AI security posture has historically meant weeks of manual data gathering across multiple tools. The Security Dashboard for AI streamlines the data collection process with a single source of truth for AI risk, enabling confident, data-backed insights for your board presentations and conversations. Early adopters confirm the value and are using it for quarterly executive briefings. Prepare for Board Discussions: Use the dashboard to help get the right insights at the right altitude to help you prepare for discussions with your board. The Overview page aggregates identity, data security, and threat protection signals from Defender, Entra, and Purview into an AI risk scorecard with risk factors. The embedded Security Copilot AI-powered insights provide suggested prompts with risk assessments, summaries, and recommendations to help you prioritize what matters most. Extend Observability to Executive Stakeholders : Authorize AI risk follow\u2011ups to the appropriate security, identity, or governance owners using Microsoft Teams or email. Distribute visibility across GRC lead, AI governance, and IT leaders, while maintaining executive\u2011level oversight. Figure 5: Security Dashboard for AI Copilot prompt gallery Next Steps The Security Dashboard for AI helps CISOs manage AI risk faster, more confidently and more collaboratively with their team. Defender, Entra, and Purview signals are surfaced in a single pane of glass, providing observability across your AI estate. Drive faster triage, use data to support board-level discussions about AI risk, and enable coordinated action with integrated insights, recommendations, and delegation to help accelerate remediation across existing security workflows. The Security Dashboard for AI is generally available now . If your organization uses Microsoft Defender, Entra, and/or Purview, you already have access, no additional licensing is required. Visit ai.security.microsoft.com to access the dashboard directly, or navigate to it from the Defender, Entra, or Purview portals. Learn more about the Security Dashboard for AI on the MS Learn page and the Security Dashboard for AI Security Blog. Discover new features in the Security Dashboard for AI such as the Security Reader role, new delegation flow, and new identity risk section here. \u00b9AI agent survey. PwC, May 2025 \u00b2Security Teams Taking on Expanded AI Data Responsibilities. Bedrock Data, March 2025 \u00b3IDC FutureScape: Worldwide Security and Trust 2026 Predictions, November 2025 \u20742026 State of Threat Detection and Response Report. Vectra AI, February 2026",
-      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-community/security-dashboard-for-ai-3-ways-cisos-drive-impact-today/ba-p/4517134",
-      "source": "Microsoft Security Blog (TechCommunity)",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-07T21:21:06+00:00",
-      "published_ts": 1778188866,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Network / OT / ICS",
-        "Data Breaches / Leaks",
-        "Phishing / Social Engineering"
-      ],
-      "curated": true
-    },
-    {
-      "title": "V4bel/dirtyfrag - Universal Linux Local Privilege Escalation",
-      "summary": "submitted by /u/cos [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t6nurt/v4beldirtyfrag_universal_linux_local_privilege/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-07T21:18:41+00:00",
-      "published_ts": 1778188721,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Linux / Unix"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Ollama vulnerability highlights danger of AI frameworks with unrestricted access",
-      "summary": "A critical vulnerability in Ollama poses a direct risk of sensitive information leaks to more than 300,000 internet-exposed servers, researchers have found. The flaw, tracked as CVE-2026-7482, stems from an out-of-bounds heap read in Ollama\u2019s model quantization pipeline. Ollama is one of the most popular frameworks for running AI models on local hardware. The flaw also subjects servers on local LANs to the leak risk if access is not restricted to them. The vulnerability, dubbed Bleeding Llama by the researchers from Cyera who found it, enables unauthenticated attackers to upload a specially crafted file to the Ollama API endpoint, causing the application to leak its process memory, including system prompts, user messages, environment variables, and other sensitive data. Ollama provides an interface and REST API server for running and calling locally hosted large language models (LLMs). The application does not provide authentication by default and is also often configured to listen on all network interfaces (0.0.0.0), even though it\u2019s meant for local usage and binds to localhost (127.0.1.1) by default. There are approximately 300,000 Ollama servers currently exposed on the public internet and many more on local networks. \u201cWith over 170,000 GitHub stars and 100 million Docker Hub downloads, Ollama is widely used across enterprises as a self-hosted AI inference engine,\u201d Cyera warns, adding that the vulnerability is broadly exploitable because no authentication is required. Only three API requests needed for exploit Located in Ollama\u2019s model quantization pipeline, the bug relates to how the framework loads GGUF (GPT-Generated Unified Format) files, which store weights, metadata, and tokenizer information for local models. \u201cA malicious actor can craft a GGUF file that declares a far larger tensor size than the actual data provided, forcing Ollama to read well beyond the intended buffer boundary \u2014 accessing sensitive data stored on the heap,\u201d the researchers said. Leaked memory data can include user prompts and chat messages, system prompts from all running models, conversation history across all users, API keys, tokens and secrets stored in environment variables, proprietary code submitted to the AI models, customer data and contracts reviewed via AI models, and so on. After exploiting the vulnerability, attackers can send a request to Ollama\u2019s push API endpoint to exfiltrate the model and embedded leaked data to a server under their control. Mitigation Users should update to Ollama version 0.17.1, which includes a patch for this vulnerability. More generally, they should deploy an authentication proxy or API gateway in front of all Ollama instances and never expose them to the internet without IP access filters and firewalls. \u201cIf your Ollama server was internet-accessible, assume environment variables and secrets in memory may be compromised,\u201d Cyera said. \u201cRotate API keys, tokens, and credentials immediately.\u201d On local networks, Ollama servers should also be isolated on secure network segments and behind firewalls. This general security advice pertains to all AI frameworks and AI agent frameworks, which are being increasingly targeted by attackers. Vulnerability management programs should monitor such tools, and their presence on networks should be regularly audited because employees might deploy such frameworks and tools without their company\u2019s permission and knowledge.",
-      "link": "https://www.csoonline.com/article/4168584/ollama-vulnerability-highlights-danger-of-ai-frameworks-with-unrestricted-access.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-07T21:14:16+00:00",
-      "published_ts": 1778188456,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Data Breaches / Leaks"
-      ],
-      "curated": true
-    },
-    {
-      "title": "AI is Eating Itself",
-      "summary": "Google made answers easy. AI is making us source-blind. \u201cAsk the chatbot and get an answer.\u201d That sounds good until you ask where the answer came from, who created it, who verified it, who updated it. And if you don\u2019t verify the answer, you are rolli...",
-      "link": "https://brettshavers.com/brett-s-blog/entry/ai-is-eating-itself",
-      "source": "Brett Shavers",
-      "type": "dfir",
-      "type_label": "DFIR & Forensics",
-      "published": "2026-05-07T21:13:55+00:00",
-      "published_ts": 1778188435,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Weird bar with a bunch of buttons popped up randomly on my computer",
-      "summary": "Just turned my computer on to listen to music and as the title says, a bar popped up. I didn\u2019t look too close unfortunately and I didn\u2019t take a screenshot of it. I just closed it quick bc I was afraid. It was dark grey and looked kinda like a gaming control panel where you can screen record if you\u2019re playing a video game, I guess? It wasn\u2019t a full window and it didn\u2019t pop up at the bottom of the windows tool bar as an application. After I closed it a different smaller window popped up with a slightly similar look but with words on it like the command prompt window. Apparently my Norton360 protection is expired and I didn\u2019t realize (my dad usually shares one of his licenses with me right around expiration time, not sure what the story is with that) How can I check if something nefarious is going on with my computer? Is there a way to know is someone is remotely accessing my computer? It is functioning completely normally now. submitted by /u/VegetableShoe6264 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t6nomy/weird_bar_with_a_bunch_of_buttons_popped_up/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-07T21:12:21+00:00",
-      "published_ts": 1778188341,
-      "smart_groups": [
-        "Windows / Microsoft"
-      ],
-      "curated": false
-    },
-    {
-      "title": "What is CYBERRANT?",
-      "summary": "Came across something on a random search. Anyone have an idea what this is? submitted by /u/RevolutionaryAnt8598 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t6nk38/what_is_cyberrant/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-07T21:07:39+00:00",
-      "published_ts": 1778188059,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Canvas is down as ShinyHunters hack forces outage",
-      "summary": "Check any major university subreddit such as /r/UCSD and you will see the ransom note. This follows from news yesterday that Canvas had contained the attack submitted by /u/ExcelAcolyte [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t6ncj3/canvas_is_down_as_shinyhunters_hack_forces_outage/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-07T21:00:13+00:00",
-      "published_ts": 1778187613,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Getting Rid of Your VPN - Rob Allen - PSW #925",
-      "summary": "Rob Allen from Threatlocker joins us to discuss the risks associated with VPN appliances and how to implement better security solutions that don't leave you hanging out on the open Internet. The interview segment is sponsored by ThreatLocker. Visit https://securityweekly.com/threatlockerrsac to learn more about them! In the Security News: Less details about the FCC router ban Canary traps that work Hacking trains and getting arrested You can be an adult if you have a mustache cPanel is being exploited Pro-Iran group takes down Ubuntu Anthropic's new security solution Safe AI Agents and other lies People still use screensavers? CISA and operating for weeks or months in isolation Paramiko issues fixes Find security research Copy/Fail and AI slop debate ESP32 simulator Spotting vibe coded malware Fast16 - Stuxnet before Stuxnet Visit https://www.securityweekly.com/psw for all the latest episodes! Show Notes: https://securityweekly.com/psw-925",
-      "link": "https://podcast.securityweekly.com/getting-rid-of-your-vpn-rob-allen-psw-925",
-      "source": "Security Weekly Podcast Network (Audio)",
-      "type": "podcasts",
-      "type_label": "Podcasts & YouTube",
-      "published": "2026-05-07T21:00:00+00:00",
-      "published_ts": 1778187600,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Exploit / PoC",
-        "Linux / Unix",
-        "Malware / Payloads",
-        "Identity / Access"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Getting Rid of Your VPN - Rob Allen - PSW #925",
-      "summary": "",
-      "link": "https://www.scworld.com/podcast-segment/14950-getting-rid-of-your-vpn-rob-allen-psw-925",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-07T21:00:00+00:00",
-      "published_ts": 1778187600,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Hackers deface school login pages after claiming another Instructure hack",
-      "summary": "The cybercrime group ShinyHunters claimed to have hacked Instructure again, defacing the login pages of several Instructure customer schools with an extortion message.",
-      "link": "https://techcrunch.com/2026/05/07/hackers-deface-school-login-pages-after-claiming-another-instructure-hack/",
-      "source": "Security News | TechCrunch",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-07T20:59:09+00:00",
-      "published_ts": 1778187549,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Fund managers double down on Bitcoin as crypto sentiment rebounds \u2014 CoinShares",
-      "summary": "Institutional investors are gradually increasing crypto exposure as Bitcoin leads allocation preferences amid rising fund inflows and improving market sentiment.",
-      "link": "https://cointelegraph.com/news/fund-managers-boost-bitcoin-exposure-crypto-sentiment-rebounds-coinshares?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-07T20:55:08+00:00",
-      "published_ts": 1778187308,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Tom Lee Says BitMine May Slow Ethereum Buys After Amassing Nearly $12 Billion of ETH",
-      "summary": "Leading Ethereum treasury firm BitMine Immersion Technologies may start slowing its ETH purchases as it approaches its 5% supply goal.",
-      "link": "https://decrypt.co/367192/tom-lee-bitmine-slow-ethereum-buys-12-billion-eth",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-07T20:54:20+00:00",
-      "published_ts": 1778187260,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "New Dirty Frag Linux Bug Emerges in Wake of Copy Fail",
-      "summary": "submitted by /u/YogiBerra88888 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t6n6hv/new_dirty_frag_linux_bug_emerges_in_wake_of_copy/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-07T20:53:55+00:00",
-      "published_ts": 1778187235,
-      "smart_groups": [
-        "Linux / Unix"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Beyond the inbox: Why your domain and social media are the next front lines",
-      "summary": "Protecting the inbox is no longer enough. The real battle is fought everywhere your brand exists.",
-      "link": "https://www.scworld.com/resource/beyond-the-inbox-why-your-domain-and-social-media-are-the-next-front-lines",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-07T20:53:50+00:00",
-      "published_ts": 1778187230,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Chrome Deletes Its Own Privacy Promise for Sneaky On-Device AI",
-      "summary": "Chrome is quietly installing a 4GB AI on your devices. And now, its latest version has removed the disclosure that promised to keep your data off Google\u2019s servers.",
-      "link": "https://decrypt.co/367193/chrome-removes-privacy-claim-gemini-nano-google",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-07T20:52:05+00:00",
-      "published_ts": 1778187125,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Heads up: AWS Educate Canvas login page may be compromised. Saw what looks like a ShinyHunters defacement page today.",
-      "summary": "Just had a weird and honestly unsettling experience using AWS Educate that I want to flag for anyone else using the platform. Everything started normally. Logged into the AWS Educate portal without any issues. But the moment I clicked to open a Labs environment, it redirected me to: https://awseducate.instructure.com/login/canvas Instead of the usual Canvas login page, I was greeted with what appears to be a defacement/extortion page claiming a breach by \"ShinyHunters.\" Yeah. Not exactly what you want to see on an edu platform. What I observed: Initial AWS Educate login worked fine, no red flags there Clicking into Labs triggered the redirect to the Instructure subdomain That's where the defacement page showed up instead of the expected Canvas login I didn't click anything on the page, no downloads, no attacker links touched I've already reported this to Instructure security, AWS Educate support, and my institution's IT team. Posting here mainly to see if anyone else is experiencing this and to get a heads-up out before people unknowingly enter credentials on that page. If you've used that login page recently, please: Don't enter credentials on the affected page until this is clarified Change your password if you've logged in there recently Enable MFA if you haven't already Do not follow any onion/TOR links shown on the defacement page, those are almost certainly malicious Screenshot attached. Stay safe out there and let me know if you're seeing the same thing. submitted by /u/the_magician24 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t6mxi0/heads_up_aws_educate_canvas_login_page_may_be/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-07T20:44:39+00:00",
-      "published_ts": 1778186679,
-      "smart_groups": [
-        "Ransomware",
-        "Cloud / SaaS",
-        "Identity / Access"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Nation-state actors exploit Palo Alto PAN-OS zero-day for weeks",
-      "summary": "Palo Alto says hackers exploited PAN-OS zero-day CVE-2026-0300 for weeks, gaining root access to exposed firewalls and hiding traces. Palo Alto Networks warned that suspected state-sponsored hackers have been exploiting the critical PAN-OS zero-day CVE-2026-0300 for nearly a month. After exploiting the flaw, attackers deployed tunneling tools such as EarthWorm and ReverseSocks5, used stolen credentials [\u2026]",
-      "link": "https://securityaffairs.com/191831/security/nation-state-actors-exploit-palo-alto-pan-os-zero-day-for-weeks.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-07T20:44:22+00:00",
-      "published_ts": 1778186662,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "After Replacing TeamPCP Malware, 'PCPJack' Steals Cloud Secrets",
-      "summary": "PCPJack makes innovative use of parquet files for stealthy, pre-validated target discovery as it canvasses multiple cloud environments.",
-      "link": "https://www.darkreading.com/cloud-security/teampcp-malware-pcpjack-steals-cloud-secrets",
-      "source": "darkreading",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-07T20:43:30+00:00",
-      "published_ts": 1778186610,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "LinkedIn illegally blocking free accounts from seeing \u2018who\u2019s viewed your profile\u2019 data, group alleges",
-      "summary": "A LinkedIn feature that allows paid subscribers to view a list of visitors to their profile should be made available to all EU users free of charge to comply with the region\u2019s General Data Protection Regulation (GDPR), a legal complaint launched by the None of Your Business (NOYB) digital rights group has claimed. Filed this week in an Austrian court, the group\u2019s argument is that LinkedIn\u2019s \u2018Who\u2019s Viewed Your Profile\u2019 feature contravenes the GDPR Article 15, which covers a subject\u2019s right of access to their own data. NOYB has a history of taking on tech companies. In 2025, Google was hit by a \u20ac325 million ($381 million) fine by French privacy regulator, the CNIL, over its data collection and advertising policies after a complaint by the group. Contradictory policy LinkedIn began offering users the ability to see who has viewed their profile around 2007, later turning this into a paywalled perk in a move that pre-dated the arrival of GDPR in 2018. According to NOYB, this commercialization left non-subscription users in a bind. Profile visitor data should legally be accessible to EU citizens under GDPR, but when they ask for this via a formal Data Subject Access Request (DSAR), LinkedIn refuses access, citing data protection. Despite this, if the user subscribes to a LinkedIn Premium Career plan starting at \u20ac30 per month ($40 per month in the US), the same data suddenly becomes accessible. \u201cIt is particularly absurd that LinkedIn is using a supposed \u2018data protection interest\u2019 as an argument to deny the right of access to data under the GDPR,\u201d argued NOYB\u2019s press release . In NOYB\u2019s view, LinkedIn\u2019s policy is contradictory. The company limits access to something that should legally be free because allowing access would undermine the incentive to pay for it. \u201cEither the data must not be accessible to anyone, or \u2013 if it is clear to the visitor that the data is visible \u2013 it must also be disclosed in accordance with Article 15 GDPR,\u201d NOYB said. In its view, LinkedIn\u2019s policy of charging to access this data is illegal and the company should be fined to prevent future breaches. Right to view LinkedIn will doubtless point out to the Austrian Data Protection Authority that all users, including free subscribers, can opt out of having their profile visit made visible by toggling off the feature in Settings/Visibility tab/\u2019Visibility when viewing other profiles\u2019. Then each visit a user makes to another profile is recorded as one by an \u2018Anonymous LinkedIn Member\u2019. Free users can also see the last five visitors to their profile, as long as those users have not selected this anonymity setting. It\u2019s possible the company will further argue that, under Article 15, the rights of users to know who has viewed their data conflicts with the rights of other users to maintain their own privacy. When contacted for response, a LinkedIn spokesperson sent the following statement: \u201cThis assertion [by NOYB] is false. Not only is it incorrect that only Premium members can see who has viewed their profile, but we also satisfy GDPR Article 15 by disclosing the information at issue via our Privacy Policy.\u201d According to Helen Brain , partner and head of commercial at Square One Law in the UK, the case would cause problems for LinkedIn\u2019s lawyers even if the outcome remained uncertain. \u201cNOYB appears to have a strong argument that LinkedIn is breaching GDPR in one way or the other, but it\u2019s impossible to say how likely they are to succeed before we see LinkedIn\u2019s counter-arguments,\u201d she said. The complaint is on strong ground when arguing that profile visits should fall under GDPR Article 15 Right of Access. \u201cIf the viewer\u2019s personal data is private and shouldn\u2019t be disclosed in response to a DSAR by the viewed person, logically that means the viewer\u2019s personal data should not be disclosed to premium account holders either,\u201d said Brain. \u201cIf NOYB is successful in its complaint, the Austrian Data Protection Authority could ultimately issue a fine, and that could be substantial.\u201d However, predicting the wider effect on technology companies using the same \u2018data as a feature\u2019 to incentivize paid subscriptions is difficult in advance of a ruling. If NOYB prevails, LinkedIn could be ordered to stop its disclosure of profile searchers or, alternatively, to make this available free of charge in response to DSARs. However, Brain believed the issue might come down to the way consent is gained. \u201cEven if LinkedIn is ordered to change what it is doing, it will find a new way to gain consent to permit the disclosures of searchers lawfully and continue to charge for the data they gather.\u201d This article originally appeared on Computerworld .",
-      "link": "https://www.csoonline.com/article/4168576/linkedin-illegally-blocking-free-accounts-from-seeing-whos-viewed-your-profile-data-group-alleges-2.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-07T20:36:07+00:00",
-      "published_ts": 1778186167,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "How to Disable Google's Gemini in Chrome",
-      "summary": "Chrome users were caught off guard by a 4-GB Google AI model baked into Chrome, sparking privacy concerns. The good news: You can easily uninstall it. The bad? You might not want to.",
-      "link": "https://www.wired.com/story/you-can-disable-gemini-in-chrome-if-its-freaking-you-out/",
-      "source": "Security News: Cybersecurity, Hacks, Privacy, National Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-07T20:31:57+00:00",
-      "published_ts": 1778185917,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "When prompts become shells: RCE vulnerabilities in AI agent frameworks",
-      "summary": "AI agents have fundamentally changed the threat model of AI model-based applications. By equipping these models with plugins (also called tools), your agents no longer just generate text; they now read files, search connected databases, run scripts, and perform other tasks to actively operate on your network. The post When prompts become shells: RCE vulnerabilities in AI agent frameworks appeared first on Microsoft Security Blog .",
-      "link": "https://www.microsoft.com/en-us/security/blog/2026/05/07/prompts-become-shells-rce-vulnerabilities-ai-agent-frameworks/",
-      "source": "Microsoft Security Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-07T20:22:39+00:00",
-      "published_ts": 1778185359,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "How is GRC work in a MSSP?",
-      "summary": "I don't have much to add, I'm curious because it's where I'm going to head into in a month. submitted by /u/Soren911 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t6mb43/how_is_grc_work_in_a_mssp/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-07T20:22:14+00:00",
-      "published_ts": 1778185334,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Building for the future",
-      "summary": "This afternoon, we sent the following email to our global team. One of our core values at Cloudflare is transparency, and we believe it's important that you hear this directly from us because it\u2019s a major moment at Cloudflare.",
-      "link": "https://blog.cloudflare.com/building-for-the-future/",
-      "source": "The Cloudflare Blog",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-07T20:15:12+00:00",
-      "published_ts": 1778184912,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Bitcoin falls under $80K but four-month high in weekly BTC ETF inflows may curb selling",
-      "summary": "Bitcoin hit resistance at $82,800, triggering a drop below $80,000, but a $1.105 billion weekly inflow into spot BTC ETFs could slow sellers.",
-      "link": "https://cointelegraph.com/markets/bitcoin-slips-below-80k-while-weekly-etf-inflows-hit-january-highs?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-07T20:05:09+00:00",
-      "published_ts": 1778184309,
-      "smart_groups": [],
       "curated": false
     },
     {
