@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-09T14:05:30.908026+00:00",
+  "generated_at": "2026-06-09T17:11:37.773155+00:00",
   "days_back": 30,
-  "total_items": 7378,
+  "total_items": 7438,
   "items": [
     {
       "title": "Black Hat USA",
@@ -39,6 +39,889 @@
       "smart_groups": [
         "Data Breaches / Leaks"
       ],
+      "curated": false
+    },
+    {
+      "title": "Microsoft Defender now monitors RPC activity",
+      "summary": "Remote procedure call (RPC) is a protocol commonly abused by attackers that allows functions implemented in a separate process, and potentially on a remote machine, to be called as if they were local. Many core Windows and Active Directory capabilities are built on or make use of RPC, which makes it an attractive target. To help protect against remote RPC-based attacks, Microsoft Defender now monitors remote RPC calls, disrupts malicious activity that leverages them, and surfaces relevant telemetry in advanced hunting. RPC basics While RPC is a rich and complicated protocol , the main components that are relevant for security monitoring purposes are: Interface : A logical grouping of functionality exposed by an RPC server. Interfaces are identified by UUID. Example interfaces include Task Scheduler, Remote Registry, and the Service Control Manager, each exposing functionality related to a different Windows OS component. OpNum : Stands for Operation Number, an ordinal that denotes a specific function exposed by an RPC interface. Examples include RCreateServiceW (OpNum 12, Service Control Manager interface) and BaseRegQueryValue (OpNum 17, Remote Registry interface). Many remote attack techniques and tactics are based on RPC, for example: Lateral movement : often abuses RPC functionality for remotely creating tasks, services or invoking WMI. Credential theft : DCsync attacks, which abuse privileged compromised accounts to remotely extract credential material from Active Directory, are based on RPC functionality for directory replication. SecretsDump and similar attacks, which remotely extract SAM or LSA secrets, are based on querying a device\u2019s registry remotely, using RPC. Privilege escalation : Multiple authentication coercion attacks abuse benign RPC interfaces to coerce servers to authenticate an attacker. Discovery : Tools such as SharpHound leverage RPC calls to enumerate users, sessions and shares. For a more comprehensive mapping of RPC interfaces to attack techniques, see work by Jonathan Johnson. RPC auditing in Defender Since RPC is so heavily used on Windows systems and in Active Directory domains, monitoring remote RPC traffic using network monitors is often expensive and infeasible. Additionally, if the underlying transport protocol is encrypted (such as SMB3), it might be impossible to observe RPC traffic. To enable efficient auditing of remote RPC activity regardless of transport-layer protection, Defender research and engineering expanded the existing RPC integration with the Windows Filtering Platform (WFP) to support OpNum-level granularity. This makes it possible to identify and audit the specific RPC function being invoked, rather than only the RPC interface. This capability is designed to help detect remote RPC-based attack techniques, where an attacker interacts with RPC interfaces exposed by a target device. For that reason, Defender focuses this monitoring on inbound remote RPC calls observed on the RPC server host. The telemetry is collected using audit-only WFP filters, which do not interfere with normal traffic, while still providing visibility into suspicious remote activity targeting the device. This approach does not require visibility into the source device. Local RPC calls, such as inter-process communication on the same device over local transport, and outbound RPC client calls are outside the scope of this monitoring mechanism. Using this capability, Defender monitors selected RPC calls, leverages the resulting telemetry to detect malicious activity, and exposes monitored calls in advanced hunting. Defender dynamically monitors selected remote operations from interfaces including, but not limited to: Remote Registry, Service Control Manager, Task Scheduler, and Windows Management Instrumentation (WMI). RPC monitoring for workstations is generally available, while server monitoring is currently in gradual rollout. RPC-based detections and disruption triggers are already available in Defender and include detections such as: Ongoing hands-on-keyboard attack via Impacket toolkit Suspicious service creation initiated remotely Indication of local security authority secrets theft Unusual RPC user and session discovery Authentication coercion attack Example Advanced Hunting queries 1. Remote registry key save events, abused for remote credential dumping. let remoteRegistryInterface = '338cd001-2244-31f1-aaaa-900038001003'; let registrySaveOpnums = dynamic([20, 31]); // BaseRegSaveKey, BaseRegSaveKeyEx DeviceEvents | where ActionType == 'InboundRemoteRpcCall' | extend AdditionalFields = parse_json(AdditionalFields) | extend RpcInterface = tostring(AdditionalFields.RpcInterfaceUuid), OpNum = toint(AdditionalFields.RpcOpNum) | where RpcInterface == remoteRegistryInterface and OpNum in(registrySaveOpnums) 2. Remote Service Creation events, could indicate lateral movement: let remoteServicesInterface = '367abb81-9844-35f1-ad32-98f038001003'; let serviceCreationOpnums = dynamic([12, 24, 44, 45, 60]); // RCreateServiceW, RCreateServiceA, RCreateServiceWOW64A, RCreateServiceWOW64W, RCreateWowService DeviceEvents | where ActionType == 'InboundRemoteRpcCall' | extend AdditionalFields = parse_json(AdditionalFields) | extend RpcInterface = tostring(AdditionalFields.RpcInterfaceUuid), OpNum = toint(AdditionalFields.RpcOpNum) | where RpcInterface == remoteServicesInterface and OpNum in(serviceCreationOpnums) 3. Session discovery events, could indicate account discovery: let srvsvcInterface = '4b324fc8-1670-01d3-1278-5a47bf6ee188'; let netrSessionEnumOpnum = 12; DeviceEvents | where ActionType == 'InboundRemoteRpcCall' | extend AdditionalFields = parse_json(AdditionalFields) | extend RpcInterface = tostring(AdditionalFields.RpcInterfaceUuid), OpNum = toint(AdditionalFields.RpcOpNum) | where RpcInterface == srvsvcInterface and OpNum == netrSessionEnumOpnum | summarize dcount(DeviceId) by AccountName, AccountDomain, AccountSid Check out the advanced hunting tab to see monitored RPC activity in your environment and stay tuned for more updates from Defender. Learn more To learn more about endpoint protection with Microsoft Defender, check out our website . To learn more about Microsoft Security solutions, visit our website. Bookmark the Security blog to keep up with our expert coverage on security matters. Follow us on LinkedIn ( Microsoft Security ) and X ( @MSFTSecurity ) for the latest news and updates on cybersecurity.",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-defender-for-endpoint/microsoft-defender-now-monitors-rpc-activity/ba-p/4523368",
+      "source": "Microsoft Defender ATP Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-06-09T16:55:28+00:00",
+      "published_ts": 1781024128,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Web / API Security",
+        "Network / OT / ICS",
+        "Data Breaches / Leaks"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Authenticating ARP and NDP",
+      "summary": "ARP (IPv4) and NDP (IPv6) have no built-in authentication. For 20 years, Layer 2 neighbor discovery has been the blind spot in every Zero Trust architecture. Existing solutions require expensive hardware, heavy cryptography, or infrastructure upgrades that leave IoT, hospitality, and small business networks completely exposed. I developed a lightweight, software-only protocol that cryptographically authenticates every ARP and NDP message. It extends Zero Trust architecture to Layer 2. What it does: \u2022 Authenticates ARP and NDP \u2022 Prevents spoofing, replay attacks, and MAC flooding and key reuse \u2022 Key never transmitted over the network \u2014 offline distribution only \u2022 Avoids heavy encryption like RSA and AES but uses HMAC \u2022 Backward compatible \u2014 legacy devices still function normally \u2022 Continuous IP-MAC monitoring via integrated IDS/IPS \u2022 Works on both IPv4 and IPv6 \u2022 No new hardware. No switch upgrades. Software only. Working prototype complete. Implementation matches design specification. Looking to connect with: \u2022 Network security engineers for technical feedback \u2022 Hospitality and enterprise IT leaders for pilot deployments \u2022 Researchers and IEEE members for standardization guidance Open to collaboration, consulting, and speaking opportunities. submitted by /u/LY70N [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1u1aokj/authenticating_arp_and_ndp/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-09T16:51:33+00:00",
+      "published_ts": 1781023893,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "OpenSSL Patches High-Severity Vulnerability Found With AI",
+      "summary": "A total of 18 vulnerabilities have been patched in the latest OpenSSL releases, including many that were potentially discovered by AI. The post OpenSSL Patches High-Severity Vulnerability Found With AI appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/openssl-patches-high-severity-vulnerability-found-with-ai/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T16:47:58+00:00",
+      "published_ts": 1781023678,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Does anyone use rule feeds in 2026?",
+      "summary": "We\u2019re considering investing in a few paid rule feeds to save time on building and maintaining detections from scratch, but I\u2019m not sure whether they provide enough value. There are so many public sources available now: threat reports, blogs, GitHub repositories, and detection content from all kinds of vendors and researchers. If you\u2019ve invested in paid rule feeds, could you share your experience? Which types of rules have delivered the most value for your team? I\u2019ll be grateful for any help! submitted by /u/minfrihet [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1u1aaov/does_anyone_use_rule_feeds_in_2026/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-09T16:38:02+00:00",
+      "published_ts": 1781023082,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Microsoft Restores Some GitHub Repos, Keeps Others Offline as Miasma Probe Continues",
+      "summary": "Microsoft on Monday confirmed that it temporarily removed some GitHub repositories in response to a recent security incident that led to 73 of its open-source projects being compromised to inject an information stealer into the code. \"Our priority is to protect customers and the broader ecosystem,\" a Microsoft spokesperson told The Hacker News via email. \"We temporarily removed some",
+      "link": "https://thehackernews.com/2026/06/microsoft-restores-some-github-repos.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T16:34:52+00:00",
+      "published_ts": 1781022892,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "US workers are the world's biggest AI skeptics - and it's not just about job loss",
+      "summary": "More than half of US desk workers consider themselves AI skeptics, while emerging economies trust AI more, according to recent studies.",
+      "link": "https://www.zdnet.com/article/us-workers-are-worlds-biggest-ai-skeptics/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T16:34:11+00:00",
+      "published_ts": 1781022851,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Building a tactical Pelican case for my Flipper Zero + AIO setup. Looking for advanced tool and script recommendations!",
+      "summary": "Hey everyone, I\u2019m putting together a compact Pelican case to protect and organize my field gear for future freelance pentesting and portfolio work. Just to be clear- this is strictly a transit case so I don't snap the antennas or bend the GPIO pins in my backpack. When it\u2019s deployment time, the Flipper is in my hands. Right now, the kit is pretty straightforward. Inside the Pelican case, I have a Flipper Zero running Momentum FW and an AIO Board V1.4 (packing the ESP32 Marauder, NRF24, and a CC1101 amplifier with external antennas). I mostly use it for the usual stuff- messing around with BLE spam, dropping Wi-Fi networks, and experimenting with everything that comes built-in with Momentum. Alongside that, I keep a single SanDisk USB drive that currently holds a C2 deployment package, which I trigger hands-free using a quick Flipper BadUSB Ducky script on target machines. I want to hear your thoughts on the setup and get some recommendations on how to expand it. I\u2019m looking for ideas on what else I should throw into this Pelican case, whether it\u2019s extra physical tools, hardware modules, or specific USB tools. More importantly, I\u2019d love to get recommendations for specialized scripts, advanced payloads, or cool Flipper apps that can do more interesting things than the everyday ordinary stuff. If you have any specific recommendations, please drop the direct GitHub repository links so I can check them out and upgrade my kit. Let me know what you think! submitted by /u/Majestic_Report_2908 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1u19wah/building_a_tactical_pelican_case_for_my_flipper/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-09T16:23:42+00:00",
+      "published_ts": 1781022222,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Spyware firm targeted WhatsApp users in defiance of US court order, Meta says",
+      "summary": "Tech company says it \u2018caught and disrupted\u2019 NSO Group\u2019s attempts to access accounts in Jordan and Lebanon A spyware firm has been targeting WhatsApp users with malicious links in contravention of a US court order forbidding it from doing so, Meta has said. In a post, Meta said WhatsApp had \u201ccaught and disrupted spear phishing attempts\u201d by NSO Group, which a spokesperson said targeted a handful of users in Jordan and Lebanon. It had also caught the group creating \u201ctest accounts and groups\u201d on WhatsApp. Continue reading...",
+      "link": "https://www.theguardian.com/technology/2026/jun/09/spyware-firm-targeted-whatsapp-users-defiance-us-court-order-meta-says",
+      "source": "Data and computer security | The Guardian",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T16:20:18+00:00",
+      "published_ts": 1781022018,
+      "smart_groups": [
+        "Ransomware",
+        "Phishing / Social Engineering",
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Need a vm for practice",
+      "summary": "Hi, i am looking for a VM for practicing the cyber security labs can some one suggest a best free/ low fee platform for this?(Other than try hack me / hack the box) submitted by /u/Eastern-Panic-7598 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1u19qo3/need_a_vm_for_practice/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-09T16:18:16+00:00",
+      "published_ts": 1781021896,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "XBOW tests Anthropic's Mythos Preview for offensive security",
+      "summary": "Anthropic's Mythos Preview was highly effective at finding vulnerability candidates, especially when analyzing source code. XBOW explores how the model performed across exploit discovery, reverse engineering, and live-site validation. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/xbow-tests-anthropics-mythos-preview-for-offensive-security/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T16:16:38+00:00",
+      "published_ts": 1781021798,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Apple\u2019s iOS 27 goes all agentic on compromised passwords, promises to change them with one tap",
+      "summary": "iBiz might not win the AI race, but analysts say it's focusing on features people may actually use",
+      "link": "https://www.theregister.com/personal-tech/2026/06/09/apples-ios-27-goes-all-agentic-on-compromised-passwords/5252957",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T16:13:31+00:00",
+      "published_ts": 1781021611,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Tips/Tricks to WFH as a SOC Analyst?",
+      "summary": "Hello everyone, Firstly, I apologize if this post is not well suited for this sub. Please let me know if my questions would be better fit somewhere else (i.e. r/securitycareeradvice ) I just landed a remote SOC analyst position that I\u2019ll be starting very soon. This will be my first time working a position fully remote, and I was curious if any of you had any advice on how to effectively work from home, as well as any tips on how to structure my desk setup/\u201coffice\u201d space. Any guidance is much appreciated! submitted by /u/SlickBackSamurai [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1u19i8y/tipstricks_to_wfh_as_a_soc_analyst/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-09T16:10:14+00:00",
+      "published_ts": 1781021414,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Cybersecurity statistics of the week (June 1st - June 7th)",
+      "summary": "Hi guys, I send out a weekly newsletter with the latest cybersecurity vendor reports and research, and thought you might find it useful, so sharing it here. All the reports and research below were published between June 1st - June 7th. You can get the below into your inbox every week if you want: https://www.cybersecstats.com/cybersecstatsnewsletter/ Big Picture Reports The Security Maturity Benchmark Report (AlertMedia) Data on what sets security teams that stay ahead of threats apart from the teams that always play catch-up. Key stats: 92% of organizations have experienced consequences tied to security readiness gaps. Only 31% of organizations operate a centralized, highly automated security ecosystem. 47% of organizations say they would not respond to a serious security incident as quickly as they should. Read the full report here . General AI CISO Pulse Check Report. AI: The New Superpower and The New Super-Risk (Sprinto) More than a third of US organizations have already dealt with a major AI security incident (Bad). Most CISOs are at least tracking AI as a dedicated risk category now (Good). Key stats: More than 30% of US organizations report experiencing a major AI-related security incident in the past 12 months. Nearly 70% of US CISOs and senior security leaders say they are actively following AI-related regulations or standards. Over half of US CISOs track AI as a dedicated risk category. Read the full report here . 2026 AI Maturity Report (Ivanti) Organizations are deploying AI broadly. Governance is a long tail priority. Key stats: 56% of organizations now deploy AI broadly across multiple IT workflows or at business-critical scale. 68% of IT professionals have personally seen AI generate hallucinations with potential operational impact. Only 24% of IT professionals say AI policies are followed very consistently in day-to-day work. Read the full report here . The State of Enterprise Agentic AI in 2026: Agentic Reality Check (Chapsvision) AI agents sound great, but almost nobody has actually made them deliver business value at scale. Thus, most executives don't trust AI gains anymore because of all the hype. Key stats: Only 10% of large-scale enterprises have successfully transitioned autonomous AI agents from pilot phases into full-scale production. 88% of executives say agent-washing has negatively affected their trust in AI broadly. 86% of enterprise leaders cite reliability, security, privacy, and accuracy as the top blockers preventing implementation of autonomous agents. Read the full report here . The Data & AI Trust Gap (Veeam) Few organizations are ready for AI. Most can't even see what their AI systems are doing, can't stop a rogue AI agent, and have no idea if they have an actual inventory of all their AI systems. Key stats: 88% of organizations are already using or piloting AI agents. Only 28% of organizations are confident they can detect AI systems operating outside approved parameters. Only 25% of organizations running AI today can identify, within minutes, which actions an AI took. Read the full report here . AI Risk Quadrant for Agent Security (AIRQ) Turns out, most claims about AI agent defenses are completely unverifiable. Key stats: 83% of claimed AI agent defenses are not publicly verifiable. 38% of AI agents complete irreversible actions before any monitoring path can plausibly fire. More than a third of AI agents score well on logging and observability while scoring poorly across the four defense components that actually prevent or limit harm. Read the full report here . What we learned mapping a year's worth of AI-enabled cyber threats (Anthropic) Super bit of data. Anthropic analyzed 832 accounts banned for malicious cyber activity and mapped the exact attacker techniques they used to the MITRE ATT&CK framework. Key stats: 67.3% of malicious accounts banned were using AI to write malware. The share of actors classified as medium risk or higher increased from 33% in the first six-month period to 56% in the second, a roughly sevenfold increase. Across the period studied, the use of AI for account discovery rose notably while AI-assisted phishing fell. Read the full report here . AI-Generated Code AI Coding Assistants and the New Security Challenge (Salt Security) Nearly every development team is using AI to write code now. As you can probably imagine, security teams hate it. Key stats: 67% of organizations report that AI coding assistants are now widely adopted across development teams. 38% of organizations still rely primarily on manual review for AI-generated code. 29% of security leaders identify insecure coding patterns as the leading risk introduced by AI coding assistants. Read the full report here . What's In America's Code? (Booz Allen) Chinese AI models either intentionally introduce vulnerabilities or outright refuse to help with certain tasks. Meanwhile, some models change their behavior completely depending on whether you mention working for the US government. Key stats: Three of four Chinese LLMs generate hidden security vulnerabilities when prompted with a US government persona. All four Chinese-built models refuse to generate code for mock US government tasks that Beijing would oppose. When one model was told the code was for a US government agency, it generated significantly more vulnerabilities than when given the same task without that context. Read the full report here . Phishing The (Higher) Business Cost of Phishing (IRONSCALES) Phishing is taking up more of security teams' time than ever. Key stats: Phishing consumes 36.5% of security team working hours, up from 33.5% three years ago. Phishing costs $51,948 per security analyst annually, a 13.6% increase from $45,726 in 2022. Security teams remediate phishing incidents 16% faster but spend 9% more of their annual hours remediating phishing. Read the full report here . Enterprise Perspective The State of Physical Security Operations in 2026 (HiveWatch) Is your false alarm rate closer to 28% or 44%, and are you in the 75% of mature programs using AI or the 43% that aren't? This report benchmarks you against comparable peers. Key stats: Large enterprises report false alarm rates approaching 44%. Nearly 30% of organizations rely on manual device health checks instead of fully automated monitoring systems. 97% of US-based physical security operations professionals are either currently using AI or actively evaluating it for security operations. Read the full report here . The 2026 State of Digital Risk Report (Outtake) A good benchmark of how enterprises handle digital risk (sadly showing just how far behind the threat most of them are). Key stats: 84% of organizations experienced material digital risk incidents in the past year. 44% of organizations say AI-generated attacks are already indistinguishable from legitimate activity. 53% of organizations had an executive or employee impersonated in the past year. Read the full report here . Industry-Specific 2026 State of Financial Services: The Dual Storm of Ransomware and Vendor Ecosystem Risk (Black Kite) Direct ransomware attacks on banks increased significantly quarter over quarter. Guess what the real problem is (it\u2019s the supply chain). Key stats: Across all financial services vendors, half carry high-severity CVEs. From 2024 to 2025, the number of critical vulnerabilities carried across vendors serving the financial sector increased 387%. Critical-level patch management failures were present in 78% of the vendors whose client base is meaningfully concentrated in finance. Read the full report here . submitted by /u/Narcisians [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1u19f20/cybersecurity_statistics_of_the_week_june_1st/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-09T16:07:08+00:00",
+      "published_ts": 1781021228,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Malware / Payloads",
+        "Network / OT / ICS",
+        "Phishing / Social Engineering"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Microsoft Entra Agent ID Logs Reveal Suspicious Assistive Agent Activity",
+      "summary": "AI agents built into enterprise platforms are no longer just productivity tools. Security researchers have found that these agents, when configured to act on behalf of real users, can become a quiet but serious risk deep inside an organization\u2019s identity layer. A new investigation reveals how Microsoft Entra Agent ID logs capture suspicious behavior tied [\u2026] The post Microsoft Entra Agent ID Logs Reveal Suspicious Assistive Agent Activity appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/microsoft-entra-agent-id-logs/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T16:03:16+00:00",
+      "published_ts": 1781020996,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "North Korea-Aligned Hackers Abuse GitHub Repositories to Infect Developers",
+      "summary": "North Korea-aligned hackers are once again targeting the developer community, this time by hiding malicious code inside seemingly legitimate GitHub repositories. The campaign, tracked under the name UNK_DeadDrop, uses fake job offers and code review requests to lure developers into cloning infected repositories and unknowingly executing malware on their own machines. The threat actor sent [\u2026] The post North Korea-Aligned Hackers Abuse GitHub Repositories to Infect Developers appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/north-korea-aligned-hackers-abuse-github-repositories/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T16:02:01+00:00",
+      "published_ts": 1781020921,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Amazon Prime members can buy a car online now - and get a $1,500 gift card",
+      "summary": "Amazon is now partnering with local dealerships to help you buy, sell, or lease your car - and Prime members can get a big gift card when they do.",
+      "link": "https://www.zdnet.com/article/amazon-autos-1500-gift-card-prime-day-2026/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T16:01:31+00:00",
+      "published_ts": 1781020891,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "The New Frontier: Securing Japan\u2019s Hybrid Digital Workforce (2026 & Beyond)",
+      "summary": "As Japan navigates the mid-point of the decade, its cybersecurity landscape is undergoing a fundamental transformation. Driven by escalating geopolitical tensions and the rapid proliferation of agentic AI, the nation is shifting its focus from purely technical defenses to a broader strategy of \"Cognitive Security\" and national resilience. The emergence of a hybrid workforce - where human employees work alongside autonomous AI agents - has redefined the traditional enterprise perimeter. From Japan\u2019s Cybersecurity Strategy to the official launch of their AI Cybersecurity Task Force , the country is facing exponential threats online, and has initiated a series of national strategies to address the dangers originating from AI-powered attacks.",
+      "link": "https://blog.knowbe4.com/the-new-frontier-securing-japans-hybrid-digital-workforce-2026-beyond",
+      "source": "KnowBe4 Blog",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T16:00:01+00:00",
+      "published_ts": 1781020801,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "User-to-User Authentication: Down the Rabbit Hole \u2013 Part 1",
+      "summary": "TL;DR: This blog post covers Windows internals and how Kerberos user-to-user (U2U) authentication works under the hood versus showing how to execute an attack. U2U authentication came into the spotlight after the Active Directory Certificate Services (ADCS), UnPAC-the-Hash, and Shadow Credentials attacks. While the attack technique is popular and common amongst red teamers, there\u2019s limited [\u2026] The post User-to-User Authentication: Down the Rabbit Hole \u2013 Part 1 appeared first on SpecterOps .",
+      "link": "https://specterops.io/blog/2026/06/09/user-to-user-authentication-down-the-rabbit-hole-part-1/",
+      "source": "https://specterops.io/feed/",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T16:00:00+00:00",
+      "published_ts": 1781020800,
+      "smart_groups": [
+        "Windows / Microsoft"
+      ],
+      "curated": false
+    },
+    {
+      "title": "AI-Generated Code Security Risks: Why \u201cVibe Coding\u201d Can Break Your App - WC #1",
+      "summary": "",
+      "link": "https://www.scworld.com/podcast-segment/15109-ai-generated-code-security-risks-why-vibe-coding-can-break-your-app-wc-1",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T16:00:00+00:00",
+      "published_ts": 1781020800,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Report: GKE Inference Gateway delivers up to 92% faster AI responses",
+      "summary": "As generative AI moves from experimental pilots to massive production environments, the efficiency of your infrastructure becomes the ultimate differentiator. One way to get the most out of it and minimize costly accelerator idle time is to leverage the Google Kubernetes Engine (GKE) Inference Gateway , which intelligently routes generative AI workloads based on real-time model server metrics. Instead of relying on traditional, naive round-robin load balancing \u2014 which frequently triggers expensive accelerator recomputation and spikes user latency \u2014 this native extension of the GKE Gateway utilizes advanced capabilities like prefix caching and model-aware routing . By ensuring requests land on the exact accelerator that is primed to process them right away, GKE transforms how you can serve your large language models (LLMs), with excellent hardware utilization and ultra-fast response times. In fact, according to an independent benchmark report , GKE Inference Gateway outperforms the next leading managed Kubernetes service with 15.7% higher throughput, 92.8% shorter wait times, and 62.6% lower inter-token latency . This performance takes LLM-based applications from sluggish and expensive to fast and production-grade. That performance tracks with Snap \u2019s experience using GKE Inference Gateway. \u201cAt Snap, we are integrating llm-d into our production AI infrastructure to facilitate high-performance inference at scale. By employing prefix-cache-aware routing, we have achieved prefix cache hit rates ranging up to 75-80%. We appreciate the open-source nature of llm-d, as it enables seamless integration with our Envoy-based Service Mesh.\u201d - Vinay Kola, Senior Manager, Software Engineering, Snap Inc. In this blog, we take a closer look at GKE Inference Gateway\u2019s prefix caching, complete with examples. We also provide more details about its benchmark results. Let\u2019s jump in. The secret to low-latency AI: Prefix caching Prefix caching optimizes LLM performance by storing the KV cache (activation states) of long, repetitive prompt prefixes. When consecutive user requests share the same system instructions, context, or documentation, the model entirely skips reprocessing those tokens. GKE Inference Gateway reads incoming request prefixes and matches them to the specific pods that already hold that data in memory. This eliminates the \"thinking\" tax on your GPUs and TPUs, turning heavy reasoning loops into near-instant answers. Use case 1: Documentation and codebase Q&A with retrieval-augmented generation (RAG) When querying massive enterprise repositories, you can ground your LLMs\u2019 responses without any added latency by pinning entire documentation sets as static cached prefixes, using RAG. Instead of forcing an LLM to re-read thousands of lines of API references or corporate wikis for every single user question, GKE Inference Gateway routes the query to a pod that already has that specific context warmed up in its KV cache. The LLM only has to compute the user's brief, dynamic question, completely bypassing expensive document re-evaluation. code_block [10,000+ words of API reference documentation, endpoints, error codes, etc.] \\r\\n\\r\\n[DYNAMIC SUFFIX - CHANGES PER REQUEST] User Question: How do I handle a 429 rate limit error using the Python SDK?'), ('language', ''), ('caption', )])]> Use case 2: Multi-turn chat You can also use prefix caching to maintain customer service interactions across thousands of simultaneous sessions without compounding compute costs. You can do so by caching permanent system personas and core business rules directly on the LLM server. In enterprise chat architectures, the base system prompt and reference tables remain completely identical across millions of customer interactions. GKE Inference Gateway handles these multi-turn conversations using context-aware routing to bypass repetitive token processing, so that your chatbot stays ultra-responsive even under peak traffic. code_block )])]> GKE outperforms alternative managed Kubernetes solutions To validate these architectural advantages, Principled Technologies recently released an independent benchmark report comparing GKE (equipped with the GKE Inference Gateway) against a standard third-party managed Kubernetes service utilizing conventional round-robin HTTP load balancing. Tested on a Llama 3.1 8B Instruct shared prefix workload using identical hardware (eight NVIDIA A100 40GB GPUs) the results reveal a massive performance gap between the two Kubernetes services. GKE didn't just win; it completely redefined inference efficiency across three critical metrics: Higher throughput: 15.7% more tokens processed per second, enabling higher request capacity or reduced hardware needs for the same workload Much faster time to first token (TTFT): 92.8% shorter wait times, producing dramatically quicker perceived response starts for interactive scenarios Lower inter-token latency (ITL): 62.6% reduction, resulting in smoother and faster token streaming after the first token Figure 3: Mean latency (normalized time per output token) of GKE with GKE Inference Gateway and third-party managed Kubernetes service on the Llama 3.1-8B Instruct LLM on the Shared prefix use case. Both solutions used the same hardware. Source: Principled Technologies GKE 3rd party Managed Kubernetes Service GKE Advantage Mean output token throughput 7,169.21 output tokens per second 6,042.05 output tokens per second 15.7% more output token throughput Mean time to first token (TTFT) 188.36 ms 2624.73 ms 92.8% less TTFT Mean inter-token latency (ITL) 30.20 ms 81.03 ms 62.6% lower ITL Figure 4: GKE with GKE Inference Gateway delivered superior AI inference compared to a third-party managed Kubernetes service using standard HTTP LB. Ready to accelerate your gen AI inference workloads? Whether you\u2019re deploying inference workloads such as real-time customer support agents, dynamic coding assistants, or sub-second fraud detection models, infrastructure latency dictates your user experience. By ensuring shared prompt prefixes hit the active cache nearly 100% of the time, GKE Inference Gateway transforms your LLMs from sluggish, expensive reasoning engines into rapid, capital-efficient, production-grade powerhouses. Ready to explore the performance advantage that GKE Inference Gateway can bring to your gen AI workloads? Access the full benchmark report here and watch this explainer video to learn more. A special thanks to Dan Sullivan, Senior Performance Architect , Principled Technologies.",
+      "link": "https://cloud.google.com/blog/products/containers-kubernetes/gke-inference-gateway-prefix-caching-accelerates-ai-inference/",
+      "source": "Google Cloud Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-06-09T16:00:00+00:00",
+      "published_ts": 1781020800,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS",
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Storage Insights datasets: Enabling org-wide operational discovery with activity insights",
+      "summary": "As enterprise storage footprints scale to billions of objects, AI applications and agentic workloads are fundamentally shifting the role of storage from a passive repository to the foundation of the data platform. This is driven by a surge in unstructured model data and the billions of actions performed on those objects, including session logs and audit trails. To manage this and answer questions about cost, operations, and security, storage and platform admins need to go beyond knowing what data they have, to understanding exactly how it is being accessed, moved, and modified. To help, we're excited to announce activity insights within Storage Insights datasets . Now generally available, these new views provide visibility into the operational details of your Google Cloud Storage assets, enabling data-driven cost optimization and faster troubleshooting. For example, with activity insights, you can answer questions like: Are my objects located in the right storage classes within my buckets? What regions is my bucket interacting with the most so I can assess if it is optimally located? Where are there errors across operations on my storage estate and why? Answering these questions confidently is the key to unlocking cost optimizations and reclaiming engineering time. Storage Insights datasets , a feature of Storage Intelligence for Cloud Storage , provides daily metadata and frequent activity insights (typically within four hours of the activity) so you have better visibility into your storage estate. While Storage Intelligence is a unified management product with capabilities like Bucket relocation , Batch operations and Gemini Cloud Assist , this blog focuses on how you can leverage Storage Insights datasets for operational optimization. What are Storage Insights datasets? Storage Insights datasets deliver an automated, query-ready BigQuery index of your entire storage estate, complete with raw metadata and activity insights, replacing manual, error-prone data collection. Storage Insights datasets can be customized in scope: create a dataset for your entire org, a specific folder, a project, or a set of projects, or even specific buckets. The dataset then refreshes with regular updates, giving you a comprehensive view of your storage. From static metadata to live intelligence Storage Insights datasets are your go-to tool for understanding your storage metadata , acting as an inventory management tool, scanning object metadata (storage class, location, age, custom metadata) and organizing it into a powerful, queryable BigQuery-linked dataset. This is crucial for knowing what data you have (learn more about how to optimize storage spend with Storage Insights datasets here ). But what if you also knew how and when that data is being used? Storage Insights datasets now offers a set of new views that capture: Object-level activity, including writes, updates, deletes, and errors Bucket-level aggregate activity, including total object operations, a breakdown by type of operations, total errors and most active prefixes Bucket-level regional traffic activity, including ingress and egress bytes per region that interact with your bucket Project-level aggregate activity, including total object operations, a breakdown by type of operations and total errors This data flows directly into new BigQuery views within your dataset so you can run analytics queries for specific insights, interact with the data via Gemini or simply connect it to powerful Looker dashboards for visualization. This moves you from a static snapshot to a dynamic, queryable analysis of your data's entire lifecycle. It's the difference between knowing what's in your warehouse and knowing what\u2019s used and when . Three ways to use activity insights immediately Here\u2019s what you can do, starting today, with activity insights in Storage Intelligence datasets. 1. Right-size your storage estate The challenge: You have terabytes of data in Standard or Nearline class storage that you believe is cold. But without proof, moving it to Coldline or Archive class is risky. What if a critical process still needs to read it once per quarter? The solution: With the new Storage Intelligence views that surface activity insights, you can now identify buckets that have had minimal read/write activity over the last 30, 60, or 90 days. The outcome: Apply or fine-tune lifecycle policies to transition this data to more cost-effective storage classes. For example, here\u2019s a SQL query to order all the buckets in your estate with little to no activity in the last six months: code_block = TIMESTAMP(DATE_SUB(DATE_TRUNC(CURRENT_DATE(), MONTH), INTERVAL 5 MONTH))\\r\\n AND snapshotEndTime )])]> 2. Architect for global performance with data-driven bucket placement The challenge: Your team set up a multi-region bucket to serve a global application. But a year later, is that still the right architecture? What if 99% of your traffic is now coming from a single region? The solution: Analyze the access patterns in your new bucket_region_activity_view table. You can easily pinpoint which regions are driving read and write activity for the bucket. The outcome: Make data-driven decisions to co-locate your bucket with your compute. You might find that changing a multi-region bucket to a single-region one (or vice-versa) can lead to significant cost-savings and even improve performance. For example, here\u2019s a SQL query to break down the egress and ingress traffic pattern for a bucket across regions: code_block )])]> Shipt , a retail technology platform and same-day delivery service, has been using Storage Intelligence capabilities to inform their data location decisions: \u201cStorage Intelligence enables us to efficiently manage over 2 billion objects, delivering cost and performance optimization. With Insights datasets, we detected and analyzed egress charges from multi-region buckets, identifying opportunities to improve efficiency by co-locating compute and storage. By leveraging the Bucket Relocate capability, we seamlessly moved 1.3 Petabytes of data from multi-region to regional storage, achieving substantial cost savings while maintaining uninterrupted application performance and data pipeline continuity.\u201d - Ron Cuirle, Director of Engineering - Cloud Platforms, Shipt 3. Demystify and resolve operational hotspots The challenge: Your team sees a spike in 429 (too many requests) errors. In a massive environment, this is rarely just a performance hiccup \u2014 it\u2019s expensive! These errors trigger automatic retries, which often lead to a cycle of high-frequency, billable operations that drive up your Class A costs. Pinpointing exactly which object or prefix is causing this can be a time-consuming troubleshooting nightmare. The solution: The new Storage Insights datasets views provide granular details on these errors, right in BigQuery. You can query for 429 errors and see exactly which objects and prefixes are under pressure. The outcome: Additionally, you can pinpoint the cause of your 429 errors, moving your team from troubleshooting to resolution. For example, here\u2019s a SQL query to analyze 429s occurring across your estate, where they are happening and why: code_block )])]> Getting started As your organization grows with Google Cloud, the scale of your data will only increase. Stop relying on archival data and start optimizing your organization\u2019s storage estate. Cloud Storage Storage Insights datasets with activity insights turn massive data estates from complex operational challenges into clearly understood, highly optimized assets. To get started, check out use our pre-configured Looker Studio template here to connect to your dataset for quick analysis and value: For example: View the trend for Total Reads on your bucket over time Or, analyze the ingress and egress traffic patterns for your bucket: Ready to turn insight into action? Enable Storage Intelligence today in the Google Cloud console. Configure your dataset today and query your data directly in BigQuery or connect to our Looker template for quick and easy visualization. Reference our videos for more information on Storage Intelligence and How to Get Started . Read more about how to optimize your Cloud Storage footprint with Storage Insights datasets .",
+      "link": "https://cloud.google.com/blog/products/storage-data-transfer/analyze-cloud-storage-estates-with-storage-insights-datasets/",
+      "source": "Google Cloud Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-06-09T16:00:00+00:00",
+      "published_ts": 1781020800,
+      "smart_groups": [
+        "Ransomware",
+        "Cloud / SaaS",
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "How to unlock true ROI in software development \u2013 a deep dive into the latest DORA research",
+      "summary": "How do you prove the business value of generative AI to your teams? Technology and finance leaders need to show the clear business value of AI projects to secure ongoing funding. While measuring return on investment (ROI) is a key part of validating your technical strategy, long-term success ultimately depends on building the organizational systems and culture needed to make AI work. To help you evaluate the costs and business benefits of AI, we recently shared the DORA: ROI of AI-assisted software development report . This research offers a practical approach to help your team work through early adoption challenges, align engineering plans, and drive business growth. Here are the key findings from the report, and how you can use them to support your overall technology strategy. Insight #1: Navigating the J-curve of AI value realization It is important to be realistic about how quickly you will see a return on your AI investments. While AI can act as a powerful amplifier for software engineering, the path to financial value is rarely a straight line. Most organizations will instead encounter a J-curve : a temporary productivity dip and period of instability associated with early adoption. This temporary drop is a normal part of adopting new technology, rather than a sign of a failing strategy. The report points to three main reasons why this happens: The learning curve: Teams require dedicated time away from regular feature delivery to adapt their daily workflows and master advanced techniques, evolving from simple prompting to building systems based on context and intent. The verification tax: Because AI dramatically increases the sheer volume of code produced, developers must invest extra time rigorously reviewing generated outputs to ensure trustworthiness, prevent hallucinations, and meet internal architectural standards. Pipeline adaptation: As individual developers generate code significantly faster, downstream processes like testing and change approvals often become bottlenecks and must be actively scaled to handle the increased throughput. Budgeting for this initial learning phase is key to making the transition work. By anticipating this temporary drop in productivity, you can confidently keep your AI projects moving forward, knowing that these early challenges are an investment in your team's long-term speed. The J-Curve of AI value realization Insight #2: Understand the market divide on AI returns DORA\u2019s state of AI-assisted software development report shows that 90% of DORA survey respondents report using AI at work. Despite nearly universal adoption, actual financial impacts vary across organizations. Across the market, some companies see clear value from their engineering investments, while others struggle with unexpected costs. When a project falls short, it\u2019s often because the team lacks the organizational support to make it work. To get the returns you expect, you need to prepare your workflows and teams to adopt the new technology. Insight #3: Calculating your AI ROI is essential Building a realistic financial model for AI starts with looking at where it actually adds value. Across the software development lifecycle, AI can help your team reduce costs, boost productivity, improve security, and deliver a better experience for both developers and users. To assist in modeling this for your organization, you can use this interactive ROI calculator . This tool helps you explicitly forecast both the visible expenses and the hidden realities of AI adoption. You can explore the mechanics, adjust the assumptions to match your reality, and build your own estimate. The value model\u2014from adoption to ROI Get started Download the full report : Explore the complete framework to quantify your AI investments, navigate the J-Curve, and map your AI investment roadmap. Try out the interactive ROI calculator : Visit https://dora.dev/ai/roi/calculator to estimate your organization's potential returns and build a defensible business case. Watch this Cloud OnAir webinar: From cost center to value engine: Building your business case for AI-assisted development .",
+      "link": "https://cloud.google.com/blog/products/ai-machine-learning/how-to-measure-the-business-value-of-generative-ai/",
+      "source": "Google Cloud Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-06-09T16:00:00+00:00",
+      "published_ts": 1781020800,
+      "smart_groups": [
+        "Identity / Access",
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Detecting and containing AI-powered threats with Google Security Operations agents",
+      "summary": "To defend against the growing range of AI-accelerated threat actors, organizations need to be able to respond faster to outpace the adversary. Recently, we announced Google AI Threat Defense , an automated security system designed to help you continuously monitor for and stop AI-powered threats before they can impact your business. Based on Google\u2019s own approach to today\u2019s threats and vulnerability management, it\u2019s centered on a four-step framework: Prepare, scan and prioritize, remediate, and monitor. Today, we\u2019re sharing more details on how Google Security Operations works in concert with AI Threat Defense to monitor, detect, and respond to threats, particularly from code you do not own or can not patch. The remediation gap represents a critical vulnerability. According to M-Trends 2026 , the exploitation of vulnerabilities has become the most common initial infection vector. Notably, the report also indicates that the mean time to exploit has dropped to an estimated minus seven days, meaning exploitation frequently occurs even before a patch is officially released. Google Security Operations delivers vital operational fabric to autonomously contain active attacks across your entire environment. Google Security Operations supports AI Threat Defense to monitor, detect, and respond to threats. Engineered around a comprehensive approach that uses compensating controls with proactive security to strengthen operational resilience, Google Security Operations is built on a strategic, three-part approach to cross-environment visibility across your entire attack surface: Continuous and autonomous coverage analysis and detection generation Autonomous investigation, containment, and response Retroactive hunting Designed to help you see and respond to threats faster than ever before, we deliver these capabilities at machine-scale and machine-speed. Together with Google AI Threat Defense , we\u2019re able to provide the autonomous platform you need to outpace AI-driven attacks. 1. Continuous and autonomous coverage analysis and detection generation While proactive defense can identify vulnerabilities before they can be exploited, there will be applications that you can not patch, as well as potential gaps in the time it takes to remediate vulnerabilities. The 2026 Verizon Data Breach Investigations Report underscores the magnitude of this challenge. In a study encompassing over 13,000 organizations, only 26% of vulnerabilities identified on the CISA Known Exploited Vulnerabilities (KEV) list had been fully remediated. Moreover, the median duration required to achieve full patching after detection stands at 43 days. Clearly, you still need continuous monitoring to detect threats in your environments. Detection Engineering agent. Results for illustrative purposes. Detection Engineering agent. Results for illustrative purposes. Detection Engineering agent. Results for illustrative purposes. The Detection Engineering agent in Google Security Operations can automatically translate new exploitation patterns of unpatched vulnerabilities into custom detections for your specific environment. Available in preview, it analyzes a diverse array of input sources to quickly and effectively recognize malicious activity, so you can uncover novel attack patterns evolving from new and unpatched vulnerabilities. The agent\u2019s sources include Google Threat Intelligence (such as emerging threat intelligence, new attack patterns curated by Mandiant, offensive tool repositories, red and purple team reports, autonomous malware analysis, open-source detection repositories and blogs), and internal security telemetry. The workflow of the Detection Engineering agent. To automatically find and fill coverage gaps tailored to your environment, the agent proactively builds new rules and validates them with synthetic events to help ensure your environment is covered before an exploit hits. 2. Autonomous investigation, containment, and response If a threat is detected, you need to immediately and autonomously assess and respond to protect your environment. By bringing together visibility from cloud and enterprise assets, including endpoints, on-premises firewall, identity, network, and custom application logs, your security operations center (SOC) can gain the full context of an attack, and unify disparate signals into a complete, actionable narrative the moment an adversary strikes. The Triage and Investigation agent in Google Security Operations, generally available, helps analysts drastically reduce time to respond by autonomously investigating alerts, gathering evidence for analysis, and providing verdicts with comprehensive explanations. It can help security analysts automate decision-making, alert closure, and remediation flows, allowing them to spend more time prioritizing high-priority threats instead of false positives. The agent has already investigated over 5 million alerts, reducing a typical 30-minute manual analysis to 60 seconds with Gemini. While identifying threats is critical, the ultimate goal is rapid remediation. Agentic automation , available in preview, can help contain attacks by combining dynamic AI agents \u2014 which autonomously gather evidence and reason through complex alerts \u2014 with deterministic enterprise playbooks. This hybrid approach ensures that analysts remain in absolute control of critical, high-impact actions while using AI to safely automate decision-making and remediation workflows. 3. Retroactive hunting Even with autonomous detections and rapid-response handling of active threats, stealthy adversaries and zero-day exploits can sometimes bypass frontline controls. To achieve operational resilience, security teams must also look backward through their data to uncover hidden compromises. Strong, effective defensive strategies rely on more than just reacting to alerts. The Threat Hunting agent , available in preview, can help teams proactively hunt for novel attack patterns and stealthy adversary behaviors that bypass traditional defenses. By scouring petabytes of enterprise telemetry (including historical logs) for subtle anomalies the agent fundamentally shifts the SOC posture from reactive to deeply proactive. Auditing the Axios supply chain attack When adversaries can generate unique exploits and command-and-control (C2) infrastructure at zero marginal cost, static indicators like hashes and IPs decay instantly. Defenders must instead detect the behavioral tactics, techniques, and procedures (TTPs) of the attack. We had the Detection Engineering agent audit our coverage against the recent Axios supply chain attack (UNC1069). The agent mapped the campaign intelligence into behavioral threat detection opportunities (TDOs), simulated the attack chain using high-fidelity synthetic UDM logs, and ran them against active rules. Google Detection Engineering agent output. We successfully flagged the execution phases in the middle (renamed PowerShell and macOS background shells), but were blind at the initial entry point (NPM postinstall dropper) and the final C2 exit point. By exposing these blind spots, the agent helped us proactively engineer custom YARA-L rules to close the loop at the first and final steps of the kill chain. You can sign up for the Google Security Operations Detection Engineering agent preview today . Next steps By integrating Google Security Operations Gemini-native specialized agents into your workflow, you can autonomously generate detections, orchestrate containment, and hunt for stealthy threats at machine speed. This allows you to maintain a resilient defense even when primary controls fail, ultimately driving a 70% reduction in both breach risks and costs. Google AI Threat Defense working alongside Google Security Operations can help you consistently outpace automated adversaries. To learn more about how Google AI Threat Defense and Google Security Operations can help you fight AI with AI, check out our Security Talks online event on June 10 .",
+      "link": "https://cloud.google.com/blog/products/identity-security/detecting-and-containing-powered-threats-with-google-security-operations-agents/",
+      "source": "Google Cloud Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-06-09T16:00:00+00:00",
+      "published_ts": 1781020800,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Windows / Microsoft",
+        "Malware / Payloads",
+        "Network / OT / ICS",
+        "Data Breaches / Leaks"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Elevate your telemetry using custom data collection in Microsoft Defender",
+      "summary": "At Ignite in November, we announced that Microsoft Defender is now the only endpoint protection solution that allows data-hungry security teams to meet specific telemetry needs by optimizing their data collection right within the Defender portal, without the need to rely on fragmented and siloed solutions. Since then, we've heard from customers that this tool has been a game changer, enabling them to hunt through new data types as well as richer data on events already reported. The release of custom data collection was a key milestone in our ongoing journey to make Defender easy to manage and customize. Security teams have been asking for guidance and examples of how to get the most out of the tool, so today we're sharing how some organizations can use custom data collection and dynamic tagging to detect command and control (C2) communications, giving defenders elevated visibility and deeper telemetry into attacker activity across the environment. See the data you want to see Defender's default telemetry is tuned to balance performance and signal-to-noise across millions of devices, so it focuses on the events most useful for high-fidelity detection at fleet scale, but many organizations want richer, more granular signals for deeper hunting, compliance, or auditing purposes. Custom data collection lets you go beyond what Defender already captures without ever leaving the Defender portal. Easily build custom collection rules based on your organization\u2019s specific needs using natural language; no PhD required! It includes several highly requested data types, including AMSI for hunting over script content, and Kerberos for hunting auth-based and network attacks. This truly integrated custom data offering is possible thanks to Microsoft\u2019s platform approach, as the additional telemetry can be collected and analyzed via Defender and stored via Microsoft Sentinel. It puts you in complete control of any customized, add-on data, including exactly which data types are collected and how long they are stored. No other security solution has fully integrated and customizable telemetry collection and analysis. Example custom telemetry scenario: detecting C2 communications Many organizations have a set of assets that require special attention, like internet-facing servers, domain controllers, and other high-value endpoints where deeper telemetry can make the difference between catching an intrusion early and discovering it after the damage is done. Imagine your organization has received threat intelligence on attacks using stealthy C2 frameworks: HTTPS beacons with jittered intervals, DNS-based data exchange, and persistence via scheduled tasks and registry modifications. You want richer visibility into those internet-facing servers and high-value endpoints so you can hunt for these patterns proactively, instead of reconstructing them after the fact. Dynamic tags scope these high-value devices into a targeted group, and custom data collection captures the extra process, network, and registry events from them, giving analysts the telemetry they need to hunt for beaconing, suspicious DNS patterns, and persistence before attackers establish a foothold. To detect C2 communications using dynamic tagging, follow these steps: Step 1: Tag your devices Custom Data Collection rules are scoped to dynamic tags; once set, those tags are automatically applied and removed based on conditions you define. Configure them in Settings > Microsoft Defender XDR > Asset Rule Management . Tag Rule name Conditions Tag to apply Internet-facing servers InternetFacing-Servers Internet facing = true AND OS platform equals Windows Server 2022 C2-Watchlist Devices under active investigation HighSev-Investigation Manual tag equals UnderInvestigation HighSev-Verbose Bringing manual tags into the dynamic model Custom data collection is built around dynamic tags by design: one leading, unified tagging experience that's more flexible and customizable. Dynamic tags can be driven by device properties, group membership, OS, or by existing manual tags, so anything your team already tags manually flows naturally into custom data collection through a simple Asset Rule Management rule, exactly as Tag 2 above does. In this example, analysts manually tag a device UnderInvestigation during incident response. The dynamic rule picks up that manual tag and applies HighSev-Verbose, which custom data collection rules can target. The analyst doesn't need to know about dynamic tags they tag the device the way they always have, and custom data collection activates automatically . Step 2: Build your collection rules Navigate to Settings > Endpoints > Rules > Custom Data Collection . Select your Microsoft Sentinel workspace in the top-right corner. Before creating rules, confirm you meet every prerequisite in the custom data collection documentation , in particular, your tenant must be onboarded to the Unified Security Operations Platform (USOP) . Rule 1: Outbound network connections from high-risk processes Capture connections from processes commonly abused by C2 frameworks living-off-the-land binaries and scripting engines. Setting Value Rule name C2-OutboundConnections Table DeviceCustomNetworkEvents Action Connection Success Condition InitiatingProcessFileName Equals: powershell.exe, rundll32.exe, regsvr32.exe, mshta.exe, certutil.exe, msiexec.exe Scope Devices tagged C2-Watchlist Rule 2: DNS query activity Many C2 frameworks use DNS for beaconing or data exchange. Default telemetry captures limited DNS data. This rule collects all DNS queries from monitored devices. Setting Value Rule name C2-DNSActivity Table DeviceCustomNetworkEvents Action Connection Success Condition RemotePort equals 53 Scope Devices tagged C2-Watchlist Rule 3: Persistence mechanisms C2 implants establish persistence via scheduled tasks, registry run keys, or services. Capture process creation events for common persistence tools. Setting Value Rule name C2-Persistence Table DeviceCustomProcessEvents Action Process Created Condition FileName in (schtasks.exe, reg.exe, sc.exe, at.exe) Scope Devices tagged C2-Watchlist Rule 4: Full process and script telemetry during investigations When a device gets the HighSev-Verbose tag, collect everything. Setting Value Rule name HighSev-AllProcesses Table DeviceCustomProcessEvents Action Process Created Condition Broad (all process creation events) Scope Devices tagged HighSev-Verbose Setting Value Rule name HighSev-ScriptCapture Table DeviceCustomScriptEvents Action Script execution Condition Broad (all script events) \u2013 add a condition which is always true such as FileName not equals \u201c\u201d Scope Devices tagged HighSev-Verbose Collection profiles summary Tag Rules active What gets collected Use case C2-Watch list OutboundConnections, DNSActivity, Persistence Network connections from, DNS queries, persistence tool usage, DLL sideloading Persistent C2 monitoring HighSev-Verbose AllProcesses, ScriptCapture Every process creation, all script execution Full-depth incident response Important: when you remove the HighSev-Verbose tag after closing an incident, collection automatically drops back to baseline, no manual rule cleanup needed. This is what makes verbose collection safe to leave configured: it's only active while the tag is. Step 3: Hunt Rules deploy within 20 minutes to an hour. Query the data in AH directly. Detect beaconing patterns processes making regular-interval outbound connections: Find DNS queries to high-entropy domains (potential DGA): Spot persistence being established: Leverage the telemetry from your new collection rule into a Custom Detection so high-value findings raise alerts automatically, instead of waiting for the next manual hunt. Custom data collection effectively extends your endpoint protection into a targeted, general-purpose log collector, one that's now ready to serve advanced hunting, custom detections, and auditing or regulatory use cases, while default fleet-wide telemetry stays tuned for performance and signal-to-noise. By combining dynamic tagging with purpose-built collection rules, your highest-risk devices are always streaming the signals that matter most, ready for detection and investigation before and during an incident. Learn more To learn more about endpoint protection with Microsoft Defender, check out our website . To learn more about Microsoft Security solutions, visit our website. Bookmark the Security blog to keep up with our expert coverage on security matters. Follow us on LinkedIn ( Microsoft Security ) and X ( @MSFTSecurity ) for the latest news and updates on cybersecurity. To learn more about custom data collection and how to get started, see our documentation .",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-defender-for-endpoint/elevate-your-telemetry-using-custom-data-collection-in-microsoft/ba-p/4512530",
+      "source": "Microsoft Defender ATP Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-06-09T16:00:00+00:00",
+      "published_ts": 1781020800,
+      "smart_groups": [
+        "Windows / Microsoft",
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Miasma Worm Compromises 73 Microsoft GitHub Repositories",
+      "summary": "The Miasma worm compromised 73 Microsoft GitHub repos, spreading via AI coding tools and stealing cloud credentials from developers and CI/CD systems. A self-replicating worm called Miasma has compromised 73 Microsoft GitHub repositories and forced GitHub staff to disable them. The affected repos include core Azure infrastructure like azure-functions-host and the entire Durable Task family [\u2026]",
+      "link": "https://securityaffairs.com/193367/malware/miasma-worm-compromises-73-microsoft-github-repositories.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T15:57:16+00:00",
+      "published_ts": 1781020636,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Where can GRC folks learn practical AppSec / DevSecOps without going full engineer?",
+      "summary": "I\u2019m a GRC director and struggling to find AppSec or \"DevSecOps\" training that hits the \"right depth\". Most options are either very high level (i.e., \"Apply secure coding practices\") or geared toward engineers working directly in code and tooling. I am looking for something practical enough to understand how secure SDLC actually works in real environments. Ultimately, I wan to be able to give concrete, credible recommendations in risk assessments and strategy meetings, as well as properly understand limitations when they are presented by developers. Does anything like this exist? submitted by /u/BaddestMofoLowDown [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1u18wk9/where_can_grc_folks_learn_practical_appsec/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-09T15:49:21+00:00",
+      "published_ts": 1781020161,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "GitHub disables Microsoft repos pushing password-stealing malware",
+      "summary": "Microsoft removed 73 repositories across its Azure, microsoft, Azure-Samples, and MicrosoftDocs organizations on GitHub, disrupting continuous integration pipelines. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/github-disables-microsoft-repos-pushing-password-stealing-malware/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T15:42:40+00:00",
+      "published_ts": 1781019760,
+      "smart_groups": [
+        "Ransomware",
+        "Cloud / SaaS",
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Crypto Lending Protocol Morpho Raises $175 Million to Aid Wall Street\u2019s DeFi Push",
+      "summary": "Decentralized lending platform Morpho has secured $175 million in its latest funding round, highlighting the rise of curated lending vaults.",
+      "link": "https://decrypt.co/370522/crypto-lending-protocol-morpho-raises-175-million-wall-street-defi",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-06-09T15:39:33+00:00",
+      "published_ts": 1781019573,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Russian Attackers Weaponize WinRAR Flaw Against Ukrainian Orgs",
+      "summary": "Two separate campaigns target CVE-2025-8088, fixed last July, to conduct data theft and cyberespionage against military and government targets in Ukraine.",
+      "link": "https://www.darkreading.com/vulnerabilities-threats/russian-groups-winrar-flaw-ukrainian-orgs",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T15:37:02+00:00",
+      "published_ts": 1781019422,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Fortinet security advisory (AV26-568)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/fortinet-security-advisory-av26-568",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T15:35:07+00:00",
+      "published_ts": 1781019307,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "How Threat Intelligence Feeds Help Automate SOCs to Reduce MTTR",
+      "summary": "Security operations center (SOC) automation has become one of the biggest trends in cybersecurity. Organizations are investing heavily in AI, orchestration, and automated response technologies in pursuit of faster detection and reduced operational costs. However, effective SOC automation requires a practical approach grounded in business priorities, realistic expectations, and measurable outcomes. SOC Automation Starts with [\u2026] The post How Threat Intelligence Feeds Help Automate SOCs to Reduce MTTR appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/how-threat-intelligence-feeds-help-automate-socs-to-reduce-mttr/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T15:33:20+00:00",
+      "published_ts": 1781019200,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Ivanti security advisory (AV26-567)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/ivanti-security-advisory-av26-567",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T15:30:20+00:00",
+      "published_ts": 1781019020,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "AI Threat Readiness Pillar 2: Accelerate Patching and Response",
+      "summary": "Your guide to operationalizing ownership, remediation, and response with Wiz to keep pace with the AI threat landscape.",
+      "link": "https://www.wiz.io/blog/ai-threat-readiness-pillar-2",
+      "source": "https://www.wiz.io/feed/rss.xml",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-06-09T15:25:20+00:00",
+      "published_ts": 1781018720,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "This silent Android feature scans your photos for 'sensitive content' - how to uninstall it",
+      "summary": "Google didn't say much about Android System SafetyCore before it suddenly appeared on phones. Fortunately, you can disable it.",
+      "link": "https://www.zdnet.com/article/android-safetycore-scans-phone-photos-for-sensitive-content-how-to-uninstall/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T15:24:00+00:00",
+      "published_ts": 1781018640,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "I tested iOS 27's new AI photo editing tools as a skeptic - and the results surprised me",
+      "summary": "The new developer beta of iOS 27 offers three AI-powered skills to tweak and enhance your photos. Are they worth using?",
+      "link": "https://www.zdnet.com/article/ai-photo-editing-apple-ios-27/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T15:19:25+00:00",
+      "published_ts": 1781018365,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "University of Toronto proof-of-concept AI worm spread to 62% of a test network in 7 days using a free open-weight model",
+      "summary": "This one breaks a core assumption about worm containment. Traditional worms have a fixed exploit payload. Patch those bugs and propagation stops. This worm reads live public advisories at runtime and generates new attack logic tailored to whatever it finds on the next target. Patch one hole, it picks another. It ran on a free open-weight LLM on a single GPU with no API keys and no cloud dependency. Across 15 runs on a 33-host isolated network it gained elevated access on 23 hosts and replicated to 62% of the network in 7 days with no human input. It exploited three CVEs disclosed after the model was trained, including CVE-2026-39987, a pre-auth RCE in Marimo (CVSS 9.3) that was exploited in the wild 9 hours after disclosure. Once it compromises a GPU-capable host it routes inference through that machine for lower-compute devices on the same subnet. One compromised deep-learning server becomes a reasoning hub for the whole network. And because it runs entirely locally, provider-side controls do nothing. There is no API key to revoke. What I found most significant: the worm rewrote its own code on several occasions to bypass security controls, behavior the researchers never programmed in. For defenders: hunt for unexpected GPU inference on endpoints, automated SSH key injection, and LLM activity on unexpected segments. Segment GPU infrastructure and treat it as high-value attack real estate. Paper at arXiv:2606.03811 by Jonas Guan, Tom Blanchard, Hanna Foerster, Hengrui Jia, Gabriel Huang and Nicolas Papernot from University of Toronto, Vector Institute, Cambridge and ServiceNow. submitted by /u/Aureliand [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1u17y7b/university_of_toronto_proofofconcept_ai_worm/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-09T15:16:43+00:00",
+      "published_ts": 1781018203,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "RakuOS fixes the one thing that annoys me most about immutable Linux distros",
+      "summary": "Immutable Linux is the future of OS security, but the current distributions do have one particular limitation that RakuOS has overcome.",
+      "link": "https://www.zdnet.com/article/rakuos-fixes-my-biggest-problem-with-immutable-linux-distros/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T15:11:54+00:00",
+      "published_ts": 1781017914,
+      "smart_groups": [
+        "Linux / Unix"
+      ],
+      "curated": false
+    },
+    {
+      "title": "GPS As a Key Distribution Platform",
+      "summary": "This is interesting: The U.S. military has likely been quietly broadcasting codes for its global encryption network using public GPS for nearly 20 years, turning each satellite into a hidden \u201cnumbers station,\u201d according to Steven Murdoch\u2026 That means every device that uses GPS has been receiving hidden government information for years, and nobody outside the military knew it until now. [\u2026] Murdoch discovered that this particular sentinel was transmitted by all 31 operational satellites within a window of a few hours on May 26, 2011, potentially heralding the activation of a new operational system. He confirmed that this timeline coincided with the rollout of the military\u2019s Over-the-Air Distribution (OTAD) and the Over-the-Air Rekeying (OTAR) by cross-referencing declassified documents, including a 2015 presentation about the dates of the operation...",
+      "link": "https://www.schneier.com/blog/archives/2026/06/gps-as-a-key-distribution-platform.html",
+      "source": "Schneier on Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T15:06:49+00:00",
+      "published_ts": 1781017609,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "AI Blocklist - help",
+      "summary": "Hello everyone. I am trying to find a AI blocklist like this one: https://github.com/laylavish/uBlockOrigin-HUGE-AI-Blocklist/blob/main/noai_hosts.txt but with more ai agents like tabnine or cursor. Do you know another one that contains tabnine or cursor? Basically I am trying to control de access and block the usage of AI, and I am trying to do this with bitdefender. Any thoughts about it? submitted by /u/Ambitious-Jelly-523 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1u17n3o/ai_blocklist_help/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-09T15:06:06+00:00",
+      "published_ts": 1781017566,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Bitcoin price slips toward $62K local lows as bear-market history keeps repeating",
+      "summary": "Bitcoin bear market analysis showed copycat BTC price moves ongoing despite new hopes of a US-Iran peace deal.",
+      "link": "https://cointelegraph.com/markets/bitcoin-price-slips-toward-62k-local-lows-as-bear-market-history-keeps-repeating?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-06-09T15:05:28+00:00",
+      "published_ts": 1781017528,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Claude Mythos Turns N-Days Into N-Hours With Rapid Exploit Creation",
+      "summary": "Public LLM models with safeguards turned off can also build working exploits, increasing patch gap risks. The post Claude Mythos Turns N-Days Into N-Hours With Rapid Exploit Creation appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/claude-mythos-turns-n-days-into-n-hours-with-rapid-exploit-creation/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T15:03:13+00:00",
+      "published_ts": 1781017393,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Security in the Post-Mythos Era",
+      "summary": "Discover how AI-driven vulnerability discovery is reshaping the cybersecurity landscape. Learn why foundational hardening and proactive threat detection are now essential for defending against zero-day threats in the post-AI era.",
+      "link": "https://blogs.cisco.com/security/security-in-the-post-mythos-era/",
+      "source": "Cisco Security Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-06-09T15:00:53+00:00",
+      "published_ts": 1781017253,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Time to integrate AI into the core of the business",
+      "summary": "The most successful companies will turn AI into a persistent, intelligent layer that protects the enterprise.",
+      "link": "https://www.scworld.com/perspective/time-to-integrate-ai-into-the-core-of-the-business",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T14:53:55+00:00",
+      "published_ts": 1781016835,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "What you give up when you put on a smartwatch or ring",
+      "summary": "Health wearables are constantly collecting your personal information, but who owns that data, and what does it mean for your privacy?",
+      "link": "https://www.zdnet.com/article/what-you-give-up-when-you-put-on-a-smartwatch-or-ring/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T14:53:00+00:00",
+      "published_ts": 1781016780,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Wearables produce huge amounts of health data - and doctors are struggling to keep up",
+      "summary": "Patients have never had more data about their health, but much of it is unusable. Here's why.",
+      "link": "https://www.zdnet.com/article/wearables-produce-huge-amounts-of-health-data-and-doctors-are-struggling-to-keep-up/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T14:52:00+00:00",
+      "published_ts": 1781016720,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Fortinet FortiSandbox Vulnerability Allows Attackers to Execute Unauthorized Commands",
+      "summary": "Fortinet has disclosed a critical security vulnerability in its FortiSandbox product line that could allow unauthenticated remote attackers to execute arbitrary OS commands through the web interface. The flaw, tracked as CVE-2026-25089 and assigned a CVSSv3 score of 9.1 (Critical), affects multiple versions of FortiSandbox, FortiSandbox Cloud, and FortiSandbox PaaS deployments. The vulnerability stems from [\u2026] The post Fortinet FortiSandbox Vulnerability Allows Attackers to Execute Unauthorized Commands appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/fortinet-fortisandbox-vulnerability-exploited/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T14:51:50+00:00",
+      "published_ts": 1781016710,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Elizabeth Warren Demands Answers on CFTC's Crypto and Prediction Market Oversight",
+      "summary": "The Massachusetts senator highlighted workforce cuts and enforcement changes at the regulator under the Trump administration.",
+      "link": "https://decrypt.co/370518/elizabeth-warren-demands-answers-on-cftcs-crypto-and-prediction-market-oversight",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-06-09T14:51:09+00:00",
+      "published_ts": 1781016669,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "I'm using these 7 Linux wellness apps to take better care of myself in 2026",
+      "summary": "If you're on a mission to improve your health and wellness, and Linux is your OS of choice, there are plenty of apps to help you on your journey, and these are my favorites.",
+      "link": "https://www.zdnet.com/article/best-linux-desktop-wellness-apps/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T14:51:00+00:00",
+      "published_ts": 1781016660,
+      "smart_groups": [
+        "Linux / Unix"
+      ],
+      "curated": false
+    },
+    {
+      "title": "The biggest risks lurking inside your at-home DNA and health tests",
+      "summary": "What's really in that DNA kit? Hint: It's not just a spit tube, but a whole lot of fine print.",
+      "link": "https://www.zdnet.com/article/biggest-risks-in-at-home-dna-tests/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T14:50:00+00:00",
+      "published_ts": 1781016600,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "The curious case of the disappearing wearable",
+      "summary": "Tech companies are evolving their health trackers to make them smaller, thinner, and near-invisible. Here's why.",
+      "link": "https://www.zdnet.com/article/the-curious-case-of-the-disappearing-wearable/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T14:49:00+00:00",
+      "published_ts": 1781016540,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "AI can identify intimate partner violence years before people disclose it, but is that safe?",
+      "summary": "Researchers at MIT and Mass General Brigham have built an AI model that can flag intimate partner violence risk in patients from their medical records.",
+      "link": "https://www.zdnet.com/article/ai-can-identify-intimate-partner-violence-ipv-before-disclosure/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T14:48:00+00:00",
+      "published_ts": 1781016480,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "How I used Airtable to swap my daily fast-food habit with 5-minute meal planning",
+      "summary": "I used Airtable to turn daily meal planning into a simple database system, reducing food stress, grocery confusion, and last-minute takeout temptations without counting calories, macros, or points.",
+      "link": "https://www.zdnet.com/article/how-i-used-airtable-to-swap-my-daily-fast-food-habit-with-5-minute-meal-planning/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T14:47:00+00:00",
+      "published_ts": 1781016420,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "I turned my Android phone into a 35-tool science kit with one free app - and started testing everything",
+      "summary": "Phyphox can do so much that explaining it all would take hours. The real fun starts once you begin testing the world around you.",
+      "link": "https://www.zdnet.com/article/phyphox-science-lab-free-android-app-i-tested-everything/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T14:42:37+00:00",
+      "published_ts": 1781016157,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "SPF, DKIM, DMARC Passed. Malicious Link Passes Every Authentication Check, But CyberCheck360 Caught It",
+      "summary": "A $12 domain, 72 hours of patience, and your finance team\u2019s credentials \u2014 why authentication tells you who sent the email, never where the link goes, and how detection at the click closes the gap your gateway can\u2019t see. A domain is registered on Monday. By Tuesday it serves a pixel-perfect Microsoft 365 login clone. [\u2026] The post SPF, DKIM, DMARC Passed. Malicious Link Passes Every Authentication Check, But CyberCheck360 Caught It appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/cybercheck360/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T14:38:01+00:00",
+      "published_ts": 1781015881,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "I found an AirTag alternative unlike any other - it doesn't even use Google or Apple's networks",
+      "summary": "Seeed Studio's SenseCAP T1000-E tracker card also doesn't use cell towers or Wi-Fi. Here's how.",
+      "link": "https://www.zdnet.com/article/sensecap-t1000-e-tracker-card-airtag-alternative-review/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T14:29:49+00:00",
+      "published_ts": 1781015389,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "New Veeam vulnerability exposes backup servers to RCE attacks",
+      "summary": "Veeam has released security updates to patch a critical Backup & Replication security flaw that can be exploited to gain remote code execution (RCE) on domain-joined backup servers. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/new-veeam-vulnerability-exposes-backup-servers-to-rce-attacks/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T14:27:56+00:00",
+      "published_ts": 1781015276,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Blockchain researchers warn HTX sanctions may blur crypto risk signals",
+      "summary": "Researchers say broad HTX tainting could freeze legitimate users and make compliance tools less useful for tracing illicit funds.",
+      "link": "https://cointelegraph.com/news/blockchain-researchers-htx-sanctions-crypto-risk-signals?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-06-09T14:22:11+00:00",
+      "published_ts": 1781014931,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Google Chrome 0-Day Vulnerability Exploited in the Wild \u2014 Update Now",
+      "summary": "Google has released an emergency security update for Chrome, patching a critical zero-day vulnerability actively exploited in the wild. The Stable channel has been updated to version 149.0.7827.102/.103 for Windows and Mac, and 149.0.7827.102 for Linux, addressing 74 security vulnerabilities, including one confirmed zero-day. Here\u2019s the breakdown of the five actively exploited Chrome zero-days patched [\u2026] The post Google Chrome 0-Day Vulnerability Exploited in the Wild \u2014 Update Now appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/google-chrome-0-day-vulnerability-exploited-in-the-wild-update-now/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T14:20:55+00:00",
+      "published_ts": 1781014855,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Windows / Microsoft",
+        "Linux / Unix"
+      ],
+      "curated": true
+    },
+    {
+      "title": "[Control systems] Siemens security advisory (AV26-566)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/control-systems-siemens-security-advisory-av26-566",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T14:18:59+00:00",
+      "published_ts": 1781014739,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Wonders of Web Weaving #5: Mike",
+      "summary": "I was a guest on James\u2019 fantastic Wonders of Web Weaving podacst!We talk about, among other things, balancing personal and professional identities on personal websites, curating interesting content on the web, and creating bridges between disciplines with curation.",
+      "link": "https://web-weaving.jamesg.blog/5",
+      "source": "https://shellsharks.com/feeds/all-feed.xml",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T14:13:00+00:00",
+      "published_ts": 1781014380,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Entra Agent ID from a Security Perspective",
+      "summary": "submitted by /u/GonzoZH [link] [comments]",
+      "link": "https://www.reddit.com/r/netsec/comments/1u15vl4/entra_agent_id_from_a_security_perspective/",
+      "source": "/r/netsec",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-09T14:02:15+00:00",
+      "published_ts": 1781013735,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Privacy push as StarkWare and Sui move toward compliance-ready confidential transfers",
+      "summary": "StarkWare and Sui roll out confidential transfer systems as Zama boosts compliance efforts and Zcash\u2019s Orchard bug highlights risks in shielded privacy models.",
+      "link": "https://cointelegraph.com/news/privacy-starkware-sui-move-compliance-confidential-transfers?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-06-09T14:01:11+00:00",
+      "published_ts": 1781013671,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Protecting AI workloads on Linux servers",
+      "summary": "Hi All! Curious how folks here are thinking about protecting AI workloads on Linux servers right now. Are you running anything in production or mostly experimenting? What does your setup look like (containers/Kubernetes, local GPU, pipelines, agents, etc.)? How are you protecting/planning to protect this infrastructure on Linux servers? Wondering how people are thinking about security in these setups \u2014 is it something you actively manage yet or still evolving? submitted by /u/tejasvkashyap [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1u15ucs/protecting_ai_workloads_on_linux_servers/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-09T14:01:02+00:00",
+      "published_ts": 1781013662,
+      "smart_groups": [
+        "Linux / Unix",
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Meta&#8217;s face-recognition code raises new concerns about smart glasses",
+      "summary": "As smart glasses become more capable, concerns about face recognition, covert recording, and biometric surveillance are growing.",
+      "link": "https://www.malwarebytes.com/blog/privacy/2026/06/metas-face-recognition-code-raises-new-concerns-about-smart-glasses",
+      "source": "Malwarebytes Labs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T13:57:59+00:00",
+      "published_ts": 1781013479,
+      "smart_groups": [],
       "curated": false
     },
     {
@@ -85,6 +968,18 @@
         "Vulnerabilities / CVEs"
       ],
       "curated": true
+    },
+    {
+      "title": "Apple Intelligence to automatically fix weak passwords with iOS 27",
+      "summary": "Apple states that its built-in password manager and Safari will now use AI to \"agentically\" act on user behavior to automatically secure passwords.",
+      "link": "https://www.scworld.com/brief/apple-intelligence-to-automatically-fix-weak-passwords-with-ios-27",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T13:34:00+00:00",
+      "published_ts": 1781012040,
+      "smart_groups": [],
+      "curated": false
     },
     {
       "title": "Filigran launches XTM One to automate CTEM with AI agents",
@@ -597,6 +1492,71 @@
       "source": "Cisco Security Blog",
       "type": "vendors",
       "type_label": "Vendors & Product Blogs",
+      "published": "2026-06-09T12:00:00+00:00",
+      "published_ts": 1781006400,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Siemens KACO Blueplanet Inverters",
+      "summary": "View CSAF Summary KACO blueplanet Inverters contain multiple vulnerabilities that could allow an attacker to derive the credentials from the devices serial number and misuse them to gain unauthorized access. KACO new energy GmbH has released new versions for several affected products and recommends to update to the latest versions. KACO new energy GmbH is preparing further fix versions and recommends countermeasures for products where fixes are not, or not yet available. The following versions of Siemens KACO Blueplanet Inverters are affected: blueplanet 100 NX3 M8 vers:all/* blueplanet 100 TL3 GEN2 vers:all/*, vers:intdot/ blueplanet 105 TL3 vers:all/* blueplanet 105 TL3 GEN2 vers:all/*, vers:intdot/ blueplanet 110 TL3 vers:all/* blueplanet 125 NX3 M11 vers:all/* blueplanet 125 TL3 vers:all/* blueplanet 125 TL3 GEN2 vers:all/*, vers:intdot/ blueplanet 137 TL3 vers:all/* blueplanet 150 TL3 vers:all/* blueplanet 150 TL3 GEN2 vers:all/*, vers:intdot/ blueplanet 155 TL3 vers:all/* blueplanet 155 TL3 GEN2 vers:all/*, vers:intdot/ blueplanet 165 TL3 vers:all/* blueplanet 165 TL3 GEN2 vers:all/*, vers:intdot/ blueplanet 25.0 NX3-33.0 NX3 vers:all/* blueplanet 3.0 NX3-20.0 NX3 vers:all/* blueplanet 3.0 TL3-60.0 TL3 vers:all/* blueplanet 3.0-5.0 NX1 vers:all/* blueplanet 360 NX3 M6 vers:all/* blueplanet 50.0 NX3-60.0 NX3 vers:all/* blueplanet 87.0 TL3 vers:all/* blueplanet 87.0 TL3 GEN2 vers:all/*, vers:intdot/ blueplanet 92.0 TL3 vers:all/* blueplanet 92.0 TL3 GEN2 vers:all/*, vers:intdot/ blueplanet gridsafe 110 TL3-S vers:intdot/ blueplanet gridsafe 137 TL3-S vers:intdot/ blueplanet gridsafe 92.0 TL3-S vers:all/*, vers:intdot/ blueplanet hybrid 10.0 TL3 vers:all/* blueplanet hybrid 6.0 NH3-12.0 NH3 vers:all/* CVSS Vendor Equipment Vulnerabilities v3 8.3 Siemens Siemens KACO Blueplanet Inverters Use of Hard-coded Cryptographic Key, Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection') Background Critical Infrastructure Sectors: Energy Countries/Areas Deployed: Worldwide Company Headquarters Location: Germany Vulnerabilities Expand All + CVE-2025-40946 A CRC16-based algorithm for generating Technical Service credentials could allow an attacker to derive the credentials from the devices serial number and misuse them to gain unauthorized access. View CVE Details Affected Products Siemens KACO Blueplanet Inverters Vendor: Siemens Product Version: blueplanet 100 NX3 M8, blueplanet 100 TL3 GEN2, blueplanet 105 TL3, blueplanet 105 TL3 GEN2, blueplanet 110 TL3, blueplanet 125 NX3 M11, blueplanet 125 TL3, blueplanet 125 TL3 GEN2, blueplanet 137 TL3, blueplanet 150 TL3, blueplanet 150 TL3 GEN2, blueplanet 155 TL3, blueplanet 155 TL3 GEN2, blueplanet 165 TL3, blueplanet 165 TL3 GEN2, blueplanet 3.0 TL3-60.0 TL3, blueplanet 87.0 TL3, blueplanet 87.0 TL3 GEN2, blueplanet 92.0 TL3, blueplanet 92.0 TL3 GEN2, blueplanet gridsafe 110 TL3-S, blueplanet gridsafe 137 TL3-S, blueplanet gridsafe 92.0 TL3-S Product Status: known_affected, known_not_affected Remediations No fix planned Currently no fix is planned None available Currently no fix is available Vendor fix Update to V3.91 or later version https://kaco-newenergy.com/service/mykacocom-customer-portal Vendor fix Update to V6.1.4.9 or later version https://kaco-newenergy.com/service/mykacocom-customer-portal Relevant CWE: CWE-321 Use of Hard-coded Cryptographic Key Metrics CVSS Version Base Score Base Severity Vector String 3.1 8.3 HIGH CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:U/C:L/I:H/A:H CVE-2026-41125 Improper neutralization of special elements used in an sql command ('sql injection') in KACO Meteor server allows an authorized attacker to elevate privileges over a local network. View CVE Details Affected Products Siemens KACO Blueplanet Inverters Vendor: Siemens Product Version: blueplanet 100 NX3 M8, blueplanet 100 TL3 GEN2, blueplanet 105 TL3, blueplanet 105 TL3 GEN2, blueplanet 110 TL3, blueplanet 125 NX3 M11, blueplanet 125 TL3, blueplanet 125 TL3 GEN2, blueplanet 137 TL3, blueplanet 150 TL3, blueplanet 150 TL3 GEN2, blueplanet 155 TL3, blueplanet 155 TL3 GEN2, blueplanet 165 TL3, blueplanet 165 TL3 GEN2, blueplanet 87.0 TL3, blueplanet 87.0 TL3 GEN2, blueplanet 92.0 TL3, blueplanet 92.0 TL3 GEN2, blueplanet gridsafe 110 TL3-S, blueplanet gridsafe 137 TL3-S, blueplanet gridsafe 92.0 TL3-S Product Status: known_affected, known_not_affected Remediations None available Currently no fix is available Relevant CWE: CWE-89 Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection') Metrics CVSS Version Base Score Base Severity Vector String 3.1 6 MEDIUM CVSS:3.1/AV:A/AC:H/PR:H/UI:N/S:U/C:L/I:H/A:H Acknowledgments Siemens ProductCERT reported these vulnerabilities to CISA. Ruben Santamarta of Reversemode reported these vulnerabilities to Siemens General Recommendations Operators of critical power systems (e.g. TSOs or DSOs) worldwide are usually required by regulations to build resilience into the power grids by applying multi-level redundant secondary protection schemes. It is therefore recommended that the operators check whether appropriate resilient protection measures are in place. The risk of cyber incidents impacting the grid's reliability can thus be minimized by virtue of the grid design. Siemens strongly recommends applying the provided security updates using the corresponding tooling and documented procedures made available with the product. If supported by the product, an automated means to apply the security updates across multiple product instances may be used. Siemens strongly recommends prior validation of any security update before being applied, and supervision by trained staff of the update process in the target environment. As a general security measure Siemens strongly recommends to protect network access with appropriate mechanisms (e.g. firewalls, segmentation, VPN). It is advised to configure the environment according to our operational guidelines in order to run the devices in a protected IT environment. Recommended security guidelines can be found at: https://www.siemens.com/gridsecurity Additional Resources For further inquiries on security vulnerabilities in Siemens products and solutions, please contact the Siemens ProductCERT: https://www.siemens.com/cert/advisories Terms of Use The use of Siemens Security Advisories is subject to the terms and conditions listed on: https://www.siemens.com/productcert/terms-of-use. Legal Notice and Terms of Use This product is provided subject to this Notification (https://www.cisa.gov/notification) and this Privacy & Use policy (https://www.cisa.gov/privacy-policy). Recommended Practices CISA recommends users take defensive measures to minimize the exploitation risk of this vulnerability. Minimize network exposure for all control system devices and/or systems, and ensure they are not accessible from the internet. Locate control system networks and remote devices behind firewalls and isolate them from business networks. When remote access is required, use more secure methods, such as Virtual Private Networks (VPNs), recognizing VPNs may have vulnerabilities and should be updated to the most recent version available. Also recognize VPN is only as secure as its connected devices. CISA reminds organizations to perform proper impact analysis and risk assessment prior to deploying defensive measures. CISA also provides a section for control systems security recommended practices on the ICS webpage on cisa.gov. Several CISA products detailing cyber defense best practices are available for reading and download, including Improving Industrial Control Systems Cybersecurity with Defense-in-Depth Strategies. CISA encourages organizations to implement recommended cybersecurity strategies for proactive defense of ICS assets. Additional mitigation guidance and recommended practices are publicly available on the ICS webpage at cisa.gov in the technical information paper, ICS-TIP-12-146-01B--Targeted Cyber Intrusion Detection and Mitigation Strategies. Organizations observing suspected malicious activity should follow established internal procedures and report findings to CISA for tracking and correlation against other incidents. Advisory Conversion Disclaimer This ICSA is a verbatim republication of Siemens ProductCERT SSA-545643 from a direct conversion of the vendor's Common Security Advisory Framework (CSAF) advisory. This is republished to CISA's website as a means of increasing visibility and is provided \"as-is\" for informational purposes only. CISA is not responsible for the editorial or technical accuracy of republished advisories and provides no warranties of any kind regarding any information contained within this advisory. Further, CISA does not endorse any commercial product or service. Please contact Siemens ProductCERT directly for any questions regarding this advisory. Revision History Initial Release Date: 2026-05-12 Date Revision Summary 2026-05-12 1 Publication Date 2026-06-09 2 Initial CISA Republication of Siemens ProductCERT SSA-545643 advisory Legal Notice and Terms of Use",
+      "link": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-160-02",
+      "source": "All CISA Advisories",
+      "type": "government",
+      "type_label": "Government, CERT & Advisories",
+      "published": "2026-06-09T12:00:00+00:00",
+      "published_ts": 1781006400,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Linux / Unix",
+        "Web / API Security",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Schneider Electric EcoStruxure Panel Server",
+      "summary": "View CSAF Summary Schneider Electric is aware of its vulnerability in its EcoStruxure Panel Server offer. The EcoStruxure Panel Server is a high performance, modular gateway with enhanced cybersecurity that provides easy and fast connections to multiple concurrent edge control or cloud applications. Failure to apply the remediations provided below may risk unauthorized authentication, which could lead to access to sensitive information. The following versions of Schneider Electric EcoStruxure Panel Server are affected: EcoStruxure Panel Server PAS800 vers:intdot/ EcoStruxure Panel Server PAS800 vers:intdot/=002.006.000 EcoStruxure Panel Server PAS800V2 vers:intdot/ EcoStruxure Panel Server PAS800V2 vers:intdot/=002.006.000 EcoStruxure Panel Server PAS600 vers:intdot/ EcoStruxure Panel Server PAS600 vers:intdot/=002.006.000 EcoStruxure Panel Server PAS600V2 vers:intdot/ EcoStruxure Panel Server PAS600V2 vers:intdot/=002.006.000 EcoStruxure Panel Server PAS400 vers:intdot/ EcoStruxure Panel Server PAS400 vers:intdot/=002.006.000 CVSS Vendor Equipment Vulnerabilities v3 7.5 Schneider Electric Schneider Electric EcoStruxure Panel Server Initialization of a Resource with an Insecure Default Background Critical Infrastructure Sectors: Commercial Facilities, Critical Manufacturing, Energy Countries/Areas Deployed: Worldwide Company Headquarters Location: France Vulnerabilities Expand All + CVE-2026-6866 CWE-1188 Initialization of a Resource with an Insecure Default vulnerability exists that could cause unauthorized disclosure of sensitive information when credentials revert to initial settings in rare circumstances, enabling unauthorized authentication using known credentials View CVE Details Affected Products Schneider Electric EcoStruxure Panel Server Vendor: Schneider Electric Product Version: EcoStruxure Panel Server PAS800 Versions 002.005.000 and prior, EcoStruxure Panel Server PAS800V2 Versions 002.005.000 and prior, EcoStruxure Panel Server PAS600 Versions 002.005.000 and prior, EcoStruxure Panel Server PAS600V2 Versions 002.005.000 and prior, EcoStruxure Panel Server PAS400 Versions 002.005.000 and prior Product Status: fixed, known_affected Remediations Vendor fix Version 002.006.000 of EcoStruxure Panel Server includes a fix for this vulnerability and is available for download here: \u2022 https://www.se.com/ww/en/download/document/PAS800_Fir mware_Package/ \u2022 Reboot needed: Yes https://www.se.com/ww/en/download/document/PAS800_Firmware_Package/ Vendor fix Version 002.006.000 of EcoStruxure Panel Server includes a fix for this vulnerability and is available for download here: \u2022 https://www.se.com/ww/en/download/document/PAS800V2_F irmware_Package/ \u2022 Reboot needed: Yes https://www.se.com/ww/en/download/document/PAS800V2_Firmware_Package/ Vendor fix Version 002.006.000 of EcoStruxure Panel Server includes a fix for this vulnerability and is available for download here: \u2022 https://www.se.com/ww/en/download/document/PAS600_Fir mware_Package/ \u2022 Reboot needed: Yes https://www.se.com/ww/en/download/document/PAS600_Firmware_Package/ Vendor fix Version 002.006.000 of EcoStruxure Panel Server includes a fix for this vulnerability and is available for download here: \u2022 https://www.se.com/ww/en/download/document/PAS600V2_ Firmware_Package/ \u2022 Reboot needed: Yes https://www.se.com/ww/en/download/document/PAS600V2_Firmware_Package/ Vendor fix Version 002.006.000 of EcoStruxure Panel Server includes a fix for this vulnerability and is available for download here: \u2022 https://www.se.com/ww/en/download/document/PAS400_Fir mware_Package/ \u2022 Reboot needed: Yes https://www.se.com/ww/en/download/document/PAS400_Firmware_Package/ Relevant CWE: CWE-1188 Initialization of a Resource with an Insecure Default Metrics CVSS Version Base Score Base Severity Vector String 3.1 7.5 HIGH CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N Acknowledgments Schneider Electric CPCERT reported this vulnerability to CISA. A Schneider Electric Partner reported this vulnerability to Schneider Electric. General Security Recommendations We strongly recommend the following industry cybersecurity best practices. * Locate control and safety system networks and remote devices behind firewalls and isolate them from the business network. * Install physical controls so no unauthorized personnel can access your industrial control and safety systems, components, peripheral equipment, and networks. * Place all controllers in locked cabinets and never leave them in the \u201cProgram\u201d mode. * Never connect programming software to any network other than the network intended for that device. * Scan all methods of mobile data exchange with the isolated network such as CDs, USB drives, etc. before use in the terminals or any node connected to these networks. * Never allow mobile devices that have connected to any other network besides the intended network to connect to the safety or control networks without proper sanitation. * Minimize network exposure for all control system devices and systems and ensure that they are not accessible from the Internet. * When remote access is required, use secure methods, such as Virtual Private Networks (VPNs). Recognize that VPNs may have vulnerabilities and should be updated to the most current version available. Also, understand that VPNs are only as secure as the connected devices. For more information refer to the Schneider Electric [Recommended Cybersecurity Best Practices](https://www.se.com/us/en/download/document/7EN52-0390/) document. For More Information This document provides an overview of the identified vulnerability or vulnerabilities and actions required to mitigate. For more details and assistance on how to protect your installation, contact your local Schneider Electric representative or Schneider Electric Industrial Cybersecurity Services: https://www.se.com/ww/en/work/solutions/cybersecurity/. These organizations will be fully aware of this situation and can support you through the process. For further information related to cybersecurity in Schneider Electric's products, visit the company's cybersecurity support portal page: https://www.se.com/ww/en/work/support/cybersecurity/overview.jsp LEGAL DISCLAIMER THIS NOTIFICATION DOCUMENT, THE INFORMATION CONTAINED HEREIN, AND ANY MATERIALS LINKED FROM IT (COLLECTIVELY, THIS \u201cNOTIFICATION\u201d) ARE INTENDED TO HELP PROVIDE AN OVERVIEW OF THE IDENTIFIED SITUATION AND SUGGESTED MITIGATION ACTIONS, REMEDIATION, FIX, AND/OR GENERAL SECURITY RECOMMENDATIONS AND IS PROVIDED ON AN \u201cAS-IS\u201d BASIS WITHOUT WARRANTY OR GUARANTEE OF ANY KIND. SCHNEIDER ELECTRIC DISCLAIMS ALL WARRANTIES RELATING TO THIS NOTIFICATION, EITHER EXPRESS OR IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. SCHNEIDER ELECTRIC MAKES NO WARRANTY THAT THE NOTIFICATION WILL RESOLVE THE IDENTIFIED SITUATION. IN NO EVENT SHALL SCHNEIDER ELECTRIC BE LIABLE FOR ANY DAMAGES OR LOSSES WHATSOEVER IN CONNECTION WITH THIS NOTIFICATION, INCLUDING DIRECT, INDIRECT, INCIDENTAL, CONSEQUENTIAL, LOSS OF BUSINESS PROFITS OR SPECIAL DAMAGES, EVEN IF SCHNEIDER ELECTRIC HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. YOUR USE OF THIS NOTIFICATION IS AT YOUR OWN RISK, AND YOU ARE SOLELY LIABLE FOR ANY DAMAGES TO YOUR SYSTEMS OR ASSETS OR OTHER LOSSES THAT MAY RESULT FROM YOUR USE OF THIS NOTIFICATION. SCHNEIDER ELECTRIC RESERVES THE RIGHT TO UPDATE OR CHANGE THIS NOTIFICATION AT ANY TIME AND IN ITS SOLE DISCRETION About Schneider Electric Schneider's purpose is to create Impact by empowering all to make the most of our energy and resources, bridging progress and sustainability for all. We call this Life Is On. Our mission is to be the trusted partner in Sustainability and Efficiency. We are a global industrial technology leader bringing world-leading expertise in electrification, automation and digitization to smart industries, resilient infrastructure, future-proof data centers, intelligent buildings, and intuitive homes. Anchored by our deep domain expertise, we provide integrated end-to-end lifecycle AI enabled Industrial IoT solutions with connected products, automation, software and services, delivering digital twins to enable profitable growth for our customers. We are a people company with an ecosystem of 150,000 colleagues and more than a million partners operating in over 100 countries to ensure proximity to our customers and stakeholders. We embrace diversity and inclusion in everything we do, guided by our meaningful purpose of a sustainable future for all. www.se.com Legal Notice and Terms of Use This product is provided subject to this Notification (https://www.cisa.gov/notification) and this Privacy & Use policy (https://www.cisa.gov/privacy-policy). Recommended Practices CISA recommends users take defensive measures to minimize the exploitation risk of these vulnerabilities. Minimize network exposure for all control system devices and/or systems, and ensure they are not accessible from the internet. Locate control system networks and remote devices behind firewalls and isolate them from business networks. When remote access is required, use more secure methods, such as Virtual Private Networks (VPNs), recognizing VPNs may have vulnerabilities and should be updated to the most recent version available. Also recognize VPN is only as secure as its connected devices. CISA reminds organizations to perform proper impact analysis and risk assessment prior to deploying defensive measures. CISA also provides a section for control systems security recommended practices on the ICS webpage on cisa.gov. Several CISA products detailing cyber defense best practices are available for reading and download, including Improving Industrial Control Systems Cybersecurity with Defense-in-Depth Strategies. CISA encourages organizations to implement recommended cybersecurity strategies for proactive defense of ICS assets. Additional mitigation guidance and recommended practices are publicly available on the ICS webpage at cisa.gov in the technical information paper, ICS-TIP-12-146-01B--Targeted Cyber Intrusion Detection and Mitigation Strategies. Organizations observing suspected malicious activity should follow established internal procedures and report findings to CISA for tracking and correlation against other incidents. Advisory Conversion Disclaimer This ICSA is a verbatim republication of Schneider Electric CPCERT SEVD-2026-132-04 from a direct conversion of the vendor's Common Security Advisory Framework (CSAF) advisory. This is republished to CISA's website as a means of increasing visibility and is provided \"as-is\" for informational purposes only. CISA is not responsible for the editorial or technical accuracy of republished advisories and provides no warranties of any kind regarding any information contained within this advisory. Further, CISA does not endorse any commercial product or service. Please contact Schneider Electric CPCERT directly for any questions regarding this advisory. Revision History Initial Release Date: 2026-05-12 Date Revision Summary 2026-05-12 1 Original Release 2026-06-09 2 Initial CISA Republication of Schneider Electric CPCERT SEVD-2026-132-04 advisory Legal Notice and Terms of Use",
+      "link": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-160-03",
+      "source": "All CISA Advisories",
+      "type": "government",
+      "type_label": "Government, CERT & Advisories",
+      "published": "2026-06-09T12:00:00+00:00",
+      "published_ts": 1781006400,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Schneider Electric Modicon Network Managed Switches",
+      "summary": "View CSAF Summary Schneider Electric is aware of a RADIUS protocol vulnerability affecting its Modicon Network Managed Switch product. The Modicon Network Managed Switch product provides connectivity for multiple Ethernet devices, network management, enhanced cyber security and more advanced switching features. Failure to apply the mitigation provided below may risk forgery attacks in RADIUS Protocol, which could result in modification of any valid Response (Access-Accept, Access-Reject, or Access-Challenge) to any other response which could result in the possibility of denial of service and loss of confidentiality, integrity of the devices connected to the switch. The following versions of Schneider Electric Modicon Network Managed Switches are affected: Connexium Managed Switches vers:all/* Modicon Managed Switches vers:all/* Modicon Redundancy Switches vers:all/* CVSS Vendor Equipment Vulnerabilities v3 9 Schneider Electric Schneider Electric Modicon Network Managed Switches Improper Enforcement of Message Integrity During Transmission in a Communication Channel Background Critical Infrastructure Sectors: Commercial Facilities, Energy, Food and Agriculture, Government Services and Facilities, Transportation Systems, Water and Wastewater Countries/Areas Deployed: Worldwide Company Headquarters Location: France Vulnerabilities Expand All + CVE-2024-3596 Additional information about CVE-2024-3596 can be found here:https://www.cve.org/CVERecord?id=CVE-2024-3596 View CVE Details Affected Products Schneider Electric Modicon Network Managed Switches Vendor: Schneider Electric Product Version: Connexium Managed Switches All Versions, Modicon Managed Switches All Versions, Modicon Redundancy Switches All Versions Product Status: known_affected Remediations Mitigation The default RADIUS configuration is not vulnerable. However, if the RADIUS Server Message Authenticator option is disabled, the product becomes vulnerable. We advise keeping this parameter in its default (enabled) state. This parameter can be configured via CLI and SNMP:TCSESM* CLI: radius server msgauthMIB: hmAgentRadiusServerMsgAuth Mitigation The default RADIUS configuration is not vulnerable. However, if the RADIUS Server Message Authenticator option is disabled, the product becomes vulnerable. We advise keeping this parameter in its default (enabled) state. This parameter can be configured via CLI and SNMP:MCSESM*, MCSESP* CLI: radius server auth modify msgauth MIB: hm2AgentRadiusServerMsgAuth Mitigation The default RADIUS configuration is not vulnerable. However, if the RADIUS Server Message Authenticator option is disabled, the product becomes vulnerable. We advise keeping this parameter in its default (enabled) state. This parameter can be configured via CLI and SNMP:MCSESR* CLI: radius server auth modify msgauth MIB: hm2AgentRadiusServerMsgAuth Relevant CWE: CWE-924 Improper Enforcement of Message Integrity During Transmission in a Communication Channel Metrics CVSS Version Base Score Base Severity Vector String 3.1 9 CRITICAL CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H Acknowledgments Schneider Electric CPCERT reported this vulnerability to CISA. General Security Recommendations We strongly recommend the following industry cybersecurity best practices. * Locate control and safety system networks and remote devices behind firewalls and isolate them from the business network. * Install physical controls so no unauthorized personnel can access your industrial control and safety systems, components, peripheral equipment, and networks. * Place all controllers in locked cabinets and never leave them in the \u201cProgram\u201d mode. * Never connect programming software to any network other than the network intended for that device. * Scan all methods of mobile data exchange with the isolated network such as CDs, USB drives, etc. before use in the terminals or any node connected to these networks. * Never allow mobile devices that have connected to any other network besides the intended network to connect to the safety or control networks without proper sanitation. * Minimize network exposure for all control system devices and systems and ensure that they are not accessible from the Internet. * When remote access is required, use secure methods, such as Virtual Private Networks (VPNs). Recognize that VPNs may have vulnerabilities and should be updated to the most current version available. Also, understand that VPNs are only as secure as the connected devices. For more information refer to the Schneider Electric [Recommended Cybersecurity Best Practices](https://www.se.com/us/en/download/document/7EN52-0390/) document. For More Information This document provides an overview of the identified vulnerability or vulnerabilities and actions required to mitigate. For more details and assistance on how to protect your installation, contact your local Schneider Electric representative or Schneider Electric Industrial Cybersecurity Services: https://www.se.com/ww/en/work/solutions/cybersecurity/. These organizations will be fully aware of this situation and can support you through the process. For further information related to cybersecurity in Schneider Electric's products, visit the company's cybersecurity support portal page: https://www.se.com/ww/en/work/support/cybersecurity/overview.jsp LEGAL DISCLAIMER THIS NOTIFICATION DOCUMENT, THE INFORMATION CONTAINED HEREIN, AND ANY MATERIALS LINKED FROM IT (COLLECTIVELY, THIS \u201cNOTIFICATION\u201d) ARE INTENDED TO HELP PROVIDE AN OVERVIEW OF THE IDENTIFIED SITUATION AND SUGGESTED MITIGATION ACTIONS, REMEDIATION, FIX, AND/OR GENERAL SECURITY RECOMMENDATIONS AND IS PROVIDED ON AN \u201cAS-IS\u201d BASIS WITHOUT WARRANTY OR GUARANTEE OF ANY KIND. SCHNEIDER ELECTRIC DISCLAIMS ALL WARRANTIES RELATING TO THIS NOTIFICATION, EITHER EXPRESS OR IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. SCHNEIDER ELECTRIC MAKES NO WARRANTY THAT THE NOTIFICATION WILL RESOLVE THE IDENTIFIED SITUATION. IN NO EVENT SHALL SCHNEIDER ELECTRIC BE LIABLE FOR ANY DAMAGES OR LOSSES WHATSOEVER IN CONNECTION WITH THIS NOTIFICATION, INCLUDING DIRECT, INDIRECT, INCIDENTAL, CONSEQUENTIAL, LOSS OF BUSINESS PROFITS OR SPECIAL DAMAGES, EVEN IF SCHNEIDER ELECTRIC HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. YOUR USE OF THIS NOTIFICATION IS AT YOUR OWN RISK, AND YOU ARE SOLELY LIABLE FOR ANY DAMAGES TO YOUR SYSTEMS OR ASSETS OR OTHER LOSSES THAT MAY RESULT FROM YOUR USE OF THIS NOTIFICATION. SCHNEIDER ELECTRIC RESERVES THE RIGHT TO UPDATE OR CHANGE THIS NOTIFICATION AT ANY TIME AND IN ITS SOLE DISCRETION About Schneider Electric Schneider's purpose is to create Impact by empowering all to make the most of our energy and resources, bridging progress and sustainability for all. We call this Life Is On. Our mission is to be the trusted partner in Sustainability and Efficiency. We are a global industrial technology leader bringing world-leading expertise in electrification, automation and digitization to smart industries, resilient infrastructure, future-proof data centers, intelligent buildings, and intuitive homes. Anchored by our deep domain expertise, we provide integrated end-to-end lifecycle AI enabled Industrial IoT solutions with connected products, automation, software and services, delivering digital twins to enable profitable growth for our customers. We are a people company with an ecosystem of 150,000 colleagues and more than a million partners operating in over 100 countries to ensure proximity to our customers and stakeholders. We embrace diversity and inclusion in everything we do, guided by our meaningful purpose of a sustainable future for all. www.se.com Legal Notice and Terms of Use This product is provided subject to this Notification (https://www.cisa.gov/notification) and this Privacy & Use policy (https://www.cisa.gov/privacy-policy). Recommended Practices CISA recommends users take defensive measures to minimize the exploitation risk of these vulnerabilities. Minimize network exposure for all control system devices and/or systems, and ensure they are not accessible from the internet. Locate control system networks and remote devices behind firewalls and isolate them from business networks. When remote access is required, use more secure methods, such as Virtual Private Networks (VPNs), recognizing VPNs may have vulnerabilities and should be updated to the most recent version available. Also recognize VPN is only as secure as its connected devices. CISA reminds organizations to perform proper impact analysis and risk assessment prior to deploying defensive measures. CISA also provides a section for control systems security recommended practices on the ICS webpage on cisa.gov. Several CISA products detailing cyber defense best practices are available for reading and download, including Improving Industrial Control Systems Cybersecurity with Defense-in-Depth Strategies. CISA encourages organizations to implement recommended cybersecurity strategies for proactive defense of ICS assets. Additional mitigation guidance and recommended practices are publicly available on the ICS webpage at cisa.gov in the technical information paper, ICS-TIP-12-146-01B--Targeted Cyber Intrusion Detection and Mitigation Strategies. Organizations observing suspected malicious activity should follow established internal procedures and report findings to CISA for tracking and correlation against other incidents. Advisory Conversion Disclaimer This ICSA is a verbatim republication of Schneider Electric CPCERT SEVD-2026-104-02 from a direct conversion of the vendor's Common Security Advisory Framework (CSAF) advisory. This is republished to CISA's website as a means of increasing visibility and is provided \"as-is\" for informational purposes only. CISA is not responsible for the editorial or technical accuracy of republished advisories and provides no warranties of any kind regarding any information contained within this advisory. Further, CISA does not endorse any commercial product or service. Please contact Schneider Electric CPCERT directly for any questions regarding this advisory. Revision History Initial Release Date: 2026-04-14 Date Revision Summary 2026-04-14 1 Original Release 2026-06-09 2 Initial CISA Republication of Schneider Electric CPCERT SEVD-2026-104-02 advisory Legal Notice and Terms of Use",
+      "link": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-160-01",
+      "source": "All CISA Advisories",
+      "type": "government",
+      "type_label": "Government, CERT & Advisories",
+      "published": "2026-06-09T12:00:00+00:00",
+      "published_ts": 1781006400,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "CISA Announces Winners of the 2026 President\u2019s Cup Cybersecurity Competition",
+      "summary": "",
+      "link": "https://www.cisa.gov/news-events/news/cisa-announces-winners-2026-presidents-cup-cybersecurity-competition",
+      "source": "CISA News",
+      "type": "government",
+      "type_label": "Government, CERT & Advisories",
       "published": "2026-06-09T12:00:00+00:00",
       "published_ts": 1781006400,
       "smart_groups": [],
@@ -1486,6 +2446,26 @@
       "curated": true
     },
     {
+      "title": "OWASP Dependency-Track 5.0 Is Now Generally Available",
+      "summary": "The largest redesign in the project\u2019s history brings horizontal scaling, fault tolerance, and software supply chain integrity verification to the widely used open source platform. [Wilmington, DE], June 3, 2026. OWASP Dependency-Track, the open source platform that organizations use to identify and reduce risk in the software supply chain, today announced the general availability of version 5.0. Developed under the codename Hyades, v5 is the most extensive redesign since the platform\u2019s inception. It rebuilds how Dependency-Track scales, survives failure, and reasons about risk, while keeping the workflows teams already rely on. Version 4 ran as a single API server that held its work queue in memory and its search index on local disk. That shape served smaller deployments well, but it limited any team that needed high availability, predictable resource usage, or clean recovery after a crash. Version 5 targets those limits directly. The platform now scales out, keeps working when individual instances fail, and standardizes on a single mature database engine. Smaller deployments gain the same guarantees with no added complexity. Those guarantees already hold up in the field. Early adopters running the v5 alphas have ingested upwards of 20,000 SBOMs per hour, and some organizations now operate single v5 instances holding more than 250,000 SBOMs representing tens of millions of software components. Throughput and portfolio sizes at that level put Dependency-Track firmly in enterprise territory. \ud83d\udecd\ufe0f Highlights of Dependency-Track 5.0 Horizontal scaling and active/active high availability. Stateless API server instances coordinate through PostgreSQL alone, with no message broker and no peer to peer networking, so a cluster can span availability zones and scale up or down without reconfiguration. Processing that survives crashes. An embedded durable execution engine resumes bill of materials processing, vulnerability analysis, and notification delivery from the exact step they reached, and retries failed steps automatically with backoff instead of waiting for someone to trigger them again. Software supply chain integrity verification. Dependency-Track now flags components whose published hashes do not match what the upstream package registry served, catching typosquatting and registry side tampering, a class of attack that v4 left to tools further down the pipeline. Smarter, expression based policies. A new policy engine built on Common Expression Language (CEL) powers component policies, vulnerability policies that can automatically audit or suppress findings before they reach analysts, and notification filters that can match on any field of an event, such as firing only at or above a chosen severity. One database, fewer failure modes. v5 standardizes on PostgreSQL and moves search, caching, and metrics into the database. The local search index disappears, along with the index corruption and disk space failures that came with it, and metrics become a proper time series with bounded retention. Built for operations. A dedicated management endpoint exposes Prometheus metrics and Kubernetes style liveness and readiness probes on their own port, integration secrets are centralized behind a pluggable provider for easier rotation and audit, and pluggable file storage supports shared volumes or S3 compatible object storage. Governance and data lifecycle. Portfolio access control graduates out of beta with bounded overhead at scale, and configurable retention keeps inactive project versions and time series metrics from growing without bound. What it means for security leaders For security leaders, v5 turns Dependency-Track into infrastructure they can depend on at enterprise scale. The strategic value is less about any single feature than about what a platform at this scale makes possible. Regulation is turning software inventory from good practice into legal obligation. Under the EU Cyber Resilience Act, manufacturers of products with digital elements must produce and maintain a machine readable SBOM, with core obligations phasing in through December 2027 and vulnerability reporting duties arriving sooner. Satisfying that across a real product portfolio means keeping a complete and continuously updated inventory, not a periodic sample. v5 is built to hold exactly that, at the scale where compliance has to operate. The same foundation reaches well beyond software. A platform that already tracks millions of components is the natural place to inventory everything else an organization ships and runs, including hardware, AI and machine learning models, and the cryptography embedded across its products. \u201cDependency-Track has always been about making software bill of materials analysis practical for everyone, and v5 is about making it dependable at any scale, from a single team to enterprise portfolios of hundreds of thousands of projects,\u201d said Steve Springett, founder and project co-lead of OWASP Dependency-Track. \u201cWe rebuilt the engine so the platform stays up, never silently loses work, and gives teams stronger guarantees about the integrity of what they ship, without losing the openness that made the project what it is.\u201d The strategic premise underneath all of it is simple: an organization cannot assess, prioritize, or reduce risk in what it has not inventoried. By making a complete and current component inventory feasible at enterprise scale, v5 gives security and risk teams the foundation that every downstream assessment depends on, whether regulatory, vulnerability, license, cryptographic, or supply chain. What it means for existing v4 users Existing Dependency-Track 4.x deployments continue to receive security and high severity fixes on the 4.14.x line for at least roughly six months after this release. v5 does not upgrade in place: it runs on its own PostgreSQL cluster and ingests v4 data through an offline, one time migrator, so teams should plan a maintenance window. Operators should note the headline breaking changes. PostgreSQL is now the only supported database, replacing H2, MySQL, and Microsoft SQL Server. Notification payloads move to Protobuf, so existing templates need updating. The REST API enforces pagination by default and changes some response schemas. The bundled container image and the executable WAR are discontinued in favor of separate API server and frontend container images. Lucene based fuzzy vulnerability matching is removed. Full upgrade and migration guides, including a rehearsal procedure and a parallel run option, are available in the documentation. \u201cThis release was two years in the making, and not a line of it happened in isolation,\u201d said Niklas D\u00fcster, co-leader of OWASP Dependency-Track and lead architect of v5. \u201cCountless individuals and organizations contributed code, infrastructure, funding, and feedback, and many ran the early builds in production so we could scale v5 against real workloads. We are deeply grateful to every one of them. Dependency-Track v5 is a community effort, and it shows.\u201d \u2014 Availability Dependency-Track 5.0 is available now as container images from Docker Hub and the GitHub Container Registry. Documentation, upgrade guides, and the v4 to v5 migration procedure are published at the project documentation site. Dependency-Track is free and open source under the OWASP Foundation. \u2014 About OWASP Dependency-Track OWASP Dependency-Track is an OWASP flagship project and an intelligent component analysis platform that helps organizations identify and reduce risk in the software supply chain. It consumes software bill of materials (SBOM) data, including the CycloneDX standard, continuously monitors components for newly disclosed vulnerabilities and policy violations, and integrates with the tools that security and development teams already use. Learn more at dependencytrack.org . About OWASP The OWASP Foundation is a nonprofit organization that works to improve the security of software. Through community-led open source software projects, over 260 local chapters worldwide, tens of thousands of members, and leading educational and training conferences, the OWASP Foundation is the source for developers and technologists to secure the web. For nearly two decades, corporations, foundations, developers, and volunteers have supported the OWASP Foundation and its work. To learn more or to become a member, visit owasp.org .",
+      "link": "http://owasp.org/blog/2026/06/09/dependency-track-v5.html",
+      "source": "OWASP",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T07:00:00+00:00",
+      "published_ts": 1780988400,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS",
+        "Network / OT / ICS",
+        "Crypto / Web3",
+        "Supply Chain / Software"
+      ],
+      "curated": true
+    },
+    {
       "title": "Google patches new Chrome zero-day flaw exploited in the wild",
       "summary": "Google has released emergency updates to patch another Chrome zero-day vulnerability that has been exploited in the wild, the fifth such flaw patched since the start of the year. [...]",
       "link": "https://www.bleepingcomputer.com/news/security/google-patches-fifth-chrome-zero-day-bug-exploited-in-attacks-this-year/",
@@ -1597,6 +2577,21 @@
         "Crypto / Web3"
       ],
       "curated": true
+    },
+    {
+      "title": "Defend against frontier cyber models: Cloudflare's architecture as customer zero",
+      "summary": "In our post about Project Glasswing, we made the argument that the architecture around a vulnerability matters more than the speed of the patch. Here we walk through what that architecture looks like, the threats it defends against, and how we run it ourselves as Cloudflare's customer zero.",
+      "link": "https://blog.cloudflare.com/frontier-model-defense/",
+      "source": "The Cloudflare Blog",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-09T06:00:00+00:00",
+      "published_ts": 1780984800,
+      "smart_groups": [
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": false
     },
     {
       "title": "Google Patches 5th Chrome Zero-Day Exploited in 2026",
@@ -2907,25 +3902,6 @@
       "published_ts": 1780942868,
       "smart_groups": [],
       "curated": false
-    },
-    {
-      "title": "Microsoft Defender now monitors RPC activity",
-      "summary": "Remote procedure call (RPC) is a protocol commonly abused by attackers that allows functions implemented in a separate process, and potentially on a remote machine, to be called as if they were local. Many core Windows and Active Directory capabilities are built on or make use of RPC, which makes it an attractive target. To help protect against remote RPC-based attacks, Microsoft Defender now monitors remote RPC calls, disrupts malicious activity that leverages them, and surfaces relevant telemetry in advanced hunting. RPC basics While RPC is a rich and complicated protocol , the main components that are relevant for security monitoring purposes are: Interface : A logical grouping of functionality exposed by an RPC server. Interfaces are identified by UUID. Example interfaces include Task Scheduler, Remote Registry, and the Service Control Manager, each exposing functionality related to a different Windows OS component. OpNum : Stands for Operation Number, an ordinal that denotes a specific function exposed by an RPC interface. Examples include RCreateServiceW (OpNum 12, Service Control Manager interface) and BaseRegQueryValue (OpNum 17, Remote Registry interface). Many remote attack techniques and tactics are based on RPC, for example: Lateral movement : often abuses RPC functionality for remotely creating tasks, services or invoking WMI. Credential theft : DCsync attacks, which abuse privileged compromised accounts to remotely extract credential material from Active Directory, are based on RPC functionality for directory replication. SecretsDump and similar attacks, which remotely extract SAM or LSA secrets, are based on querying a device\u2019s registry remotely, using RPC. Privilege escalation : Multiple authentication coercion attacks abuse benign RPC interfaces to coerce servers to authenticate an attacker. Discovery : Tools such as SharpHound leverage RPC calls to enumerate users, sessions and shares. For a more comprehensive mapping of RPC interfaces to attack techniques, see work by Jonathan Johnson. RPC auditing in Defender Since RPC is so heavily used on Windows systems and in Active Directory domains, monitoring remote RPC traffic using network monitors is often expensive and infeasible. Additionally, if the underlying transport protocol is encrypted (such as SMB3), it might be impossible to observe RPC traffic. To enable efficient auditing of remote RPC activity regardless of transport-layer protection, Defender research and engineering expanded the existing RPC integration with the Windows Filtering Platform (WFP) to support OpNum-level granularity. This makes it possible to identify and audit the specific RPC function being invoked, rather than only the RPC interface. This capability is designed to help detect remote RPC-based attack techniques, where an attacker interacts with RPC interfaces exposed by a target device. For that reason, Defender focuses this monitoring on inbound remote RPC calls observed on the RPC server host. The telemetry is collected using audit-only WFP filters, which do not interfere with normal traffic, while still providing visibility into suspicious remote activity targeting the device. This approach does not require visibility into the source device. Local RPC calls, such as inter-process communication on the same device over local transport, and outbound RPC client calls are outside the scope of this monitoring mechanism. Using this capability, Defender monitors selected RPC calls, leverages the resulting telemetry to detect malicious activity, and exposes monitored calls in advanced hunting. Defender dynamically monitors selected remote operations from interfaces including, but not limited to: Remote Registry, Service Control Manager, Task Scheduler, and Windows Management Instrumentation (WMI). RPC monitoring for workstations is generally available, while server monitoring is currently in gradual rollout. RPC-based detections and disruption triggers are already available in Defender and include detections such as: Ongoing hands-on-keyboard attack via Impacket toolkit Suspicious service creation initiated remotely Indication of local security authority secrets theft Unusual RPC user and session discovery Authentication coercion attack Example Advanced Hunting queries 1. Remote registry key save events, abused for remote credential dumping. let remoteRegistryInterface = '338cd001-2244-31f1-aaaa-900038001003'; let registrySaveOpnums = dynamic([20, 31]); // BaseRegSaveKey, BaseRegSaveKeyEx DeviceEvents | where ActionType == 'InboundRemoteRpcCall' | extend AdditionalFields = parse_json(AdditionalFields) | extend RpcInterface = tostring(AdditionalFields.RpcInterfaceUuid), OpNum = toint(AdditionalFields.RpcOpNum) | where RpcInterface == remoteRegistryInterface and OpNum in(registrySaveOpnums) 2. Remote Service Creation events, could indicate lateral movement: let remoteServicesInterface = '367abb81-9844-35f1-ad32-98f038001003'; let serviceCreationOpnums = dynamic([12, 24, 44, 45, 60]); // RCreateServiceW, RCreateServiceA, RCreateServiceWOW64A, RCreateServiceWOW64W, RCreateWowService DeviceEvents | where ActionType == 'InboundRemoteRpcCall' | extend AdditionalFields = parse_json(AdditionalFields) | extend RpcInterface = tostring(AdditionalFields.RpcInterfaceUuid), OpNum = toint(AdditionalFields.RpcOpNum) | where RpcInterface == remoteServicesInterface and OpNum in(serviceCreationOpnums) 3. Session discovery events, could indicate account discovery: let srvsvcInterface = '4b324fc8-1670-01d3-1278-5a47bf6ee188'; let netrSessionEnumOpnum = 12; DeviceEvents | where ActionType == 'InboundRemoteRpcCall' | extend AdditionalFields = parse_json(AdditionalFields) | extend RpcInterface = tostring(AdditionalFields.RpcInterfaceUuid), OpNum = toint(AdditionalFields.RpcOpNum) | where RpcInterface == srvsvcInterface and OpNum == netrSessionEnumOpnum | summarize dcount(DeviceId) by AccountName, AccountDomain, AccountSid Check out the advanced hunting tab to see monitored RPC activity in your environment and stay tuned for more updates from Defender. Learn more To learn more about endpoint protection with Microsoft Defender, check out our website . To learn more about Microsoft Security solutions, visit our website. Bookmark the Security blog to keep up with our expert coverage on security matters. Follow us on LinkedIn ( Microsoft Security ) and X ( @MSFTSecurity ) for the latest news and updates on cybersecurity.",
-      "link": "https://techcommunity.microsoft.com/t5/microsoft-defender-for-endpoint/microsoft-defender-now-monitors-rpc-activity/ba-p/4523368",
-      "source": "Microsoft Defender ATP Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-06-08T18:16:45+00:00",
-      "published_ts": 1780942605,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Windows / Microsoft",
-        "Web / API Security",
-        "Network / OT / ICS",
-        "Data Breaches / Leaks"
-      ],
-      "curated": true
     },
     {
       "title": "iOS 27 is here: How to download the developer beta now",
@@ -103437,141 +104413,6 @@
         "Vulnerabilities / CVEs",
         "Linux / Unix"
       ],
-      "curated": false
-    },
-    {
-      "title": "Email OTP as default (often ONLY) password isn\u2019t the solution",
-      "summary": "Drives me crazy how everyone is switching to this. Things that don\u2019t need to be secure, have nothing confidential or even financial information. Now logging in went from a 5 second thing to a 30 second to 15 minute login. It\u2019s absurd. To not even give customers an option like authy and a generator which is more secure, faster, and integrated often is crazy. I say this as OTPs are taking 10 minutes to come through for whop right now and by the time they arrive they\u2019ve expired. submitted by /u/traker998 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t9bglv/email_otp_as_default_often_only_password_isnt_the/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-10T16:24:38+00:00",
-      "published_ts": 1778430278,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Ethereum down 35% versus Bitcoin in a year: Will the ETH price downtrend continue?",
-      "summary": "Ethereum\u2019s ongoing downtrend against Bitcoin mirrors the bearish structure seen in 2024\u20132025, raising the risk of another 40% decline.",
-      "link": "https://cointelegraph.com/markets/ethereum-down-35-versus-bitcoin-in-year-will-eth-downtrend-continue?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-10T16:13:27+00:00",
-      "published_ts": 1778429607,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "New cPanel vulnerabilities could allow file access and remote code execution",
-      "summary": "cPanel fixed three flaws that could allow file reads, code execution, and privilege escalation. No active exploitation has been reported yet. cPanel has released security updates to fix three vulnerabilities affecting cPanel & WHM that could allow attackers to read files, execute code, or escalate privileges on vulnerable systems. Below are the descriptions for these [\u2026]",
-      "link": "https://securityaffairs.com/191931/security/new-cpanel-vulnerabilities-could-allow-file-access-and-remote-code-execution.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-10T15:59:36+00:00",
-      "published_ts": 1778428776,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Police Shut Down Dark Web Marketplace Reboot, Admin Arrested",
-      "summary": "CrimesNetwork Takedown Highlights Law Enforcement Efforts The recent shutdown of a relaunched CrimesNetwork marketplace by... The post Police Shut Down Dark Web Marketplace Reboot, Admin Arrested appeared first on .",
-      "link": "https://www.news4hackers.com/police-shut-down-dark-web-marketplace-reboot-admin-arrested/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-10T15:01:45+00:00",
-      "published_ts": 1778425305,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Bitcoin holds $80K into weekly close as traders say BTC price dip not yet over",
-      "summary": "Bitcoin avoided a weekend drop as $80,000 stayed in place, but traders saw BTC price action dipping below before continuing higher.",
-      "link": "https://cointelegraph.com/markets/bitcoin-price-holds-80k-into-weekly-close-traders-say-dips-not-over-yet?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-10T14:56:21+00:00",
-      "published_ts": 1778424981,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Soc analyse",
-      "summary": "I already start study basics of networking and Linux fundamentals in YouTube and pre security in TryHackMe. It enough basic networking or i need to master it ? And what certifications helpful in job career for SOC analyse i need to target ? submitted by /u/Alert-Talk-21 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1t988br/soc_analyse/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-10T14:20:26+00:00",
-      "published_ts": 1778422826,
-      "smart_groups": [
-        "Linux / Unix",
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Police shut down reboot of Crimenetwork marketplace, arrest admin",
-      "summary": "German authorities have shut down a relaunch version of the criminal marketplace 'Crimenetwork' that generated more than 3.6 million euros, and arrested its operator. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/police-shut-down-reboot-of-crimenetwork-marketplace-arrest-admin/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-10T14:16:47+00:00",
-      "published_ts": 1778422607,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Malkajgiri Police Crack Down on Investment Scam, Arrest Two Individuals",
-      "summary": "Investment Fraud Crackdown: Malkajgiri Cybercrime Police Thwart Scams, Recover Funds In a significant development, the... The post Malkajgiri Police Crack Down on Investment Scam, Arrest Two Individuals appeared first on .",
-      "link": "https://www.news4hackers.com/malkajgiri-police-crack-down-on-investment-scam-arrest-two-individuals/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-10T14:02:48+00:00",
-      "published_ts": 1778421768,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Ayushman Bharat Fraud Prevention Saves \u20b9630 Crore Through Effective Countermeasures",
-      "summary": "Ayushman Bharat Anti-Fraud Tools Prevent Significant Financial Losses The Ayushman Bharat Pradhan Mantri Jan Arogya... The post Ayushman Bharat Fraud Prevention Saves \u20b9630 Crore Through Effective Countermeasures appeared first on .",
-      "link": "https://www.news4hackers.com/ayushman-bharat-fraud-prevention-saves-%e2%82%b9630-crore-through-effective-countermeasures/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-10T14:01:42+00:00",
-      "published_ts": 1778421702,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Canton Network creator targets $300M in capital raise: Report",
-      "summary": "Bloomberg reported Digital Asset Holdings is raising money at a $2B valuation in a round led by a16z Crypto, which comes less than a year after an earlier nine-figure round.",
-      "link": "https://cointelegraph.com/news/company-canton-network-raises-300m-2-billion-valuation?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-10T14:00:00+00:00",
-      "published_ts": 1778421600,
-      "smart_groups": [],
       "curated": false
     },
     {
