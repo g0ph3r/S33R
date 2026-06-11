@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-11T05:47:54.687050+00:00",
+  "generated_at": "2026-06-11T10:54:33.289796+00:00",
   "days_back": 30,
-  "total_items": 7597,
+  "total_items": 7583,
   "items": [
     {
       "title": "Black Hat USA",
@@ -39,6 +39,651 @@
       "smart_groups": [
         "Data Breaches / Leaks"
       ],
+      "curated": false
+    },
+    {
+      "title": "Trust No Skill: Integrity Verification for AI Agent Supply Chains",
+      "summary": "Protect enterprise AI agents from supply chain risks by auditing third-party skills for hidden vulnerabilities and multi-stage attack chains. The post Trust No Skill: Integrity Verification for AI Agent Supply Chains appeared first on Unit 42 .",
+      "link": "https://unit42.paloaltonetworks.com/ai-agent-supply-chain-risks/",
+      "source": "https://unit42.paloaltonetworks.com/feed/",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-06-11T10:00:24+00:00",
+      "published_ts": 1781172024,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "What SRE teams need before they trust AI agents",
+      "summary": "The future of reliability will not be defined by whether site reliability engineering (SRE) teams use AI agents, but by the conditions under which they choose to trust them. In high-stakes systems, trust is never granted because a demo looks impressive; it is earned through observability, constraints, accountability and repeated evidence that the system helps more than it harms. Right now, many teams are exploring AI for incident response, alert triage, root cause analysis and runbook automation because modern systems generate more context than humans can process quickly under pressure. That interest is justified. But the most mature SRE organizations understand something important: the real challenge is not building an agent that can act, it is building an operating model that people can trust in production. Trust is operational, not emotional SRE teams do not trust tools in the abstract. They trust behavior under stress. A platform earns credibility when it helps engineers make better decisions during noisy alerts, partial outages, failed deploys and ambiguous telemetry, not when it generates polished answers in ideal conditions . That is why generic AI often falls short in production. It may be fluent, but fluency is not reliability. Live systems demand awareness of ownership, dependency maps, escalation paths, blast radius and policy boundaries, and without that context an AI agent can sound helpful while being operationally dangerous . For SRE teams, trust starts when the agent proves it understands the system it is operating around. The trust ladder Neel Shah Teams do not move directly from experimentation to autonomy. They move up a ladder of trust, where each step is validated in production-like conditions before the next one is allowed. The 1st requirement: Grounded observability Before teams trust an AI agent, they need a telemetry foundation that the agent can actually reason over. If logs are incomplete, traces are missing, ownership is unclear and deployment metadata is scattered across tools, the agent will not become intelligent by magic. It will simply become confidently under-informed. This is why observability is the real prerequisite for agentic SRE. The strongest AI SRE approaches are grounded in correlated metrics, logs, traces, changes and incident history so that recommendations are evidence-backed rather than speculative. An AI agent cannot create operational truth; it can only synthesize the truth your systems already expose. In practice, that means teams need more than dashboards. They need clean service ownership, change tracking, incident timelines, runbooks and enough signal quality that an agent can distinguish a symptom from a cause. Without that groundwork, the AI layer becomes theatre What grounded observability looks like Neel Shah Monitoring tells you that something is wrong, while observability helps explain why. AI becomes useful only when it sits on top of both layers, not instead of them. The 2nd requirement: Clear guardrails The fastest way to lose trust in AI is to give it authority before defining its boundaries. In operations, the question is not \u201cCan the agent do this?\u201d but \u201cUnder what conditions should it be allowed to do this, and who is accountable if it is wrong?\u201d This is where guardrails matter. Strong SRE teams want explicit permission models, approval gates, action allowlists, audit trails and rollback paths before an agent touches anything meaningful in production. That may sound restrictive, but it is exactly what makes adoption viable. Constraint is not the enemy of agentic systems; constraint is what makes them usable. The most practical path is progressive autonomy. Let the agent start by summarizing incidents, correlating changes and suggesting next steps. Then move to read-only diagnostics. Only after consistent success should it be allowed to trigger low-risk automation, and even then, within tightly defined policies. Trust grows when the blast radius stays small. Visual: Progressive autonomy model Stage Agent role Risk level Human involvement Stage 1 Summarize alerts and incidents Low Human reviews output [cite:8] Stage 2 Pull telemetry and correlate changes Low to medium Human approves decisions [cite:41][cite:52] Stage 3 Recommend remediation actions Medium Human confirms action [cite:42][cite:43] Stage 4 Execute pre-approved low-risk actions Medium Human supervises and can override [cite:44][cite:52] Stage 5 Broad autonomous action High Rarely acceptable without strict policy controls [cite:43][cite:54] The 3rd requirement: Human-in-the-loop design SRE teams are not looking for an AI replacement. They are looking for leverage. The most credible operating model is not autonomous-by-default but supervised-by-design, where agents accelerate understanding and execution while humans retain judgment over risk, trade-offs and unusual conditions . That distinction matters because incidents are rarely just technical events. They involve business impact, customer communication, cross-team coordination and decisions shaped by context that may not exist in telemetry alone . An agent can help identify a likely bad deploy, but it cannot fully own the decision about whether to roll back during a major customer launch without broader situational awareness. Human-in-the-loop does not mean slowing everything down. It means designing different levels of oversight for different classes of action. Low-risk tasks such as drafting an incident summary or pulling related dashboards may be automatic. Restarting a background worker might require lightweight approval. Disabling a core production dependency should remain firmly human-controlled . Mature trust comes from matching autonomy to risk. The 4th requirement: Explainability over magic SRE teams will not trust an agent that gives answers without showing its work. In reliability engineering, a recommendation is only as useful as the evidence behind it. Engineers need to know which metrics changed, which deployment correlated with the issue, which logs support the hypothesis and how confident the system actually is. This is one of the biggest lessons emerging from operational AI systems. Precision matters but trust also depends on whether humans can inspect the reasoning path, challenge it and understand uncertainty in familiar terms . The best agent experiences feel less like oracles and more like disciplined collaborators: they surface context, rank hypotheses and make clear what they know versus what they infer . That is especially important because AI failure in SRE is rarely dramatic at first. It often starts as subtle overconfidence. The agent sounds convincing, the team moves faster and only later does it become clear that the recommendation was based on incomplete evidence. Explainability is what keeps speed from turning into hidden fragility. The 5th requirement: Evaluation in real incidents Trust cannot be built on benchmarks alone. SRE teams need evidence from scenarios that resemble their actual world: noisy alerts, incomplete data, conflicting symptoms, repeated incidents and multi-service failures . This is why post-incident evaluation is becoming one of the most important practices in AI-assisted operations. Some of the most interesting approaches focus on replaying past incidents and measuring how the AI would have performed once the real outcome is already known . That creates a concrete way to score whether the agent identified the right signals, prioritized the right hypotheses or recommended safe and useful next steps. It also shifts the conversation from hype to measurable reliability impact. For SRE leaders, this is a critical mindset change. Do not ask whether the agent is impressive. Ask whether it consistently shortens investigation time, reduces false escalation, improves documentation quality and avoids introducing new operational risk . Trust follows evidence, not enthusiasm. The 6th requirement: Fit with existing workflows One reason some AI initiatives fail inside engineering teams is that they force a new workflow instead of strengthening the one that already works. SRE teams already have paging tools, Slack channels, dashboards, escalation policies and runbooks. An AI agent earns trust faster when it respects those patterns rather than trying to replace them all at once. This is where incremental adoption becomes strategic. If the agent can appear in the incident channel, pull context from observability tools, draft timelines and recommend actions inside the systems engineers already trust, the barrier to adoption drops sharply. The agent becomes part of the response loop rather than another platform demanding attention during an outage. That compatibility matters culturally as much as technically. SRE is built on disciplined operational habits. Tools that complement those habits can gain traction. Tools that disrupt them without providing value usually get ignored after the first few frustrating incidents. If you need a more detailed guide to keep points while evaluating AI SRE tools, then check this buyer\u2019s guide by one of the senior leaders. What trust looks like in practice When an SRE team truly trusts an AI agent, several things are visible. The team does not treat it as a novelty. They treat it as a bounded operational partner. They know where it adds value, where it must ask for approval and where it should stay out of the way. Trust also changes behavior. Engineers stop wasting the first 10 minutes of an incident assembling basic context because the agent already did that well. Incident channels become more structured because summaries, timelines and likely causes are surfaced early. Runbooks improve because teams start writing them in ways both humans and machines can execute or reference . In that environment, AI is not replacing rigor. It is reinforcing it. Most importantly, trusted AI agents reduce toil without eroding accountability. The on-call engineer is still responsible. The incident commander is still responsible. The organization still owns the reliability posture. The agent simply helps the system operate with more speed and clarity. The leadership shift behind all of this This is why the conversation about AI agents in SRE is ultimately a leadership question, not just a tooling question. Teams do not need another shiny automation layer. They need a clear philosophy for how autonomy, human judgment, safety and reliability will work together. The most forward-looking SRE leaders will not ask, \u201cHow quickly can we automate incident response?\u201d They will ask, \u201cWhat conditions must be true before our engineers feel safe delegating part of this workflow to a machine?\u201d That is a much better question because it forces investment in the real foundations: observability, governance, evidence, workflow design and measurable trust. AI agents may become standard in reliability engineering over the next few years, but standard does not mean automatic. The teams that benefit most will be the ones that treat trust as infrastructure. They will build it deliberately, test it relentlessly and expand autonomy only where the evidence justifies it. Closing thought Before SRE teams trust AI agents, they need more than a capable model. They need grounded telemetry, explicit guardrails, human-centered workflow design, explainable reasoning, rigorous evaluation and operational fit with the systems they already rely on. Only then does the promise of agentic SRE become credible. That is the real frontier. Not autonomous operations for their own sake, but reliable collaboration between humans and intelligent systems. In the end, SRE teams will trust AI agents for the same reason they trust any production system: because it behaves predictably, shows its work, respects constraints and makes the organization more resilient when it matters most . This article is published as part of the Foundry Expert Contributor Network. Want to join?",
+      "link": "https://www.csoonline.com/article/4183666/what-sre-teams-need-before-they-trust-ai-agents.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T10:00:00+00:00",
+      "published_ts": 1781172000,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Locking Down the Server",
+      "summary": "How privileged access controls help you stay ahead of AI-driven vulnerability discovery",
+      "link": "https://www.security.com/product-insights/locking-down-server",
+      "source": "Broadcom \u2013 Symantec Blogs",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-06-11T10:00:00+00:00",
+      "published_ts": 1781172000,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "China-linked recon botnet outpaces enterprise defenses",
+      "summary": "A botnet made up of compromised small office and Internet of Things devices has grown into a larger reconnaissance network capable of rapidly identifying vulnerable internet-facing systems after public vulnerability disclosures, researchers said. The botnet, tracked by Lumen\u2019s Black Lotus Labs as JDY, now comprises more than 1,500 compromised small office and home office, or SOHO, and IoT devices, and is being used to \u201cdiscover, fingerprint and continuously map exposed services at scale.\u201d Lumen said the activity is linked to Chinese nation-state-backed actors , including Volt Typhoon. The findings point to a growing challenge for enterprise security teams. Many enterprise edge systems remain outside traditional endpoint monitoring, giving adversaries room to move quickly from vulnerability disclosure to targeted reconnaissance. Lumen added that JDY\u2019s distributed infrastructure can also help operators evade geofencing and other IP-based defenses because the activity may appear to come from legitimate residential or small-business internet traffic. JDY undermines several defensive assumptions that many enterprises still rely on, according to Sakshi Grover , senior research manager for IDC Asia Pacific Cybersecurity Services. Geofencing and IP reputation controls have limited value when used in isolation, Grover said, while static blocklists are structurally weak against botnets that continuously rotate compromised infrastructure. JDY also exposes a broader visibility gap around edge devices, which are often difficult for enterprises to monitor with the same rigor as endpoints and cloud workloads. Reconnaissance moves closer to attack Analysts said that CISOs should not dismiss JDY as just another botnet. \u201cThe reported JDY activity shows a clear focus on discovering, fingerprinting, and continuously mapping exposed services at scale, including shortly after public vulnerability disclosures,\u201d Grover said. \u201cThat points to a more industrialized model of pre-exploitation reconnaissance, where compromised edge devices are used not merely for disruption or commodity abuse, but to generate timely targeting intelligence for follow-on operations.\u201d That means the compromised SOHO and IoT devices may not be the final target. Instead, they provide the scanning layer used to identify exposed enterprise infrastructure, including routers, firewalls, VPNs, cameras, and other internet-facing systems. Devashri Datta , a cybersecurity researcher, said CISOs should treat JDY as evidence of a shift in how reconnaissance is being operationalized. \u201cIf JDY is sitting in your risk register under \u2018routine botnet management\u2019, your defensive playbook will fail before it starts,\u201d Datta said. \u201cJDY isn\u2019t designed to DDoS anyone, steal credentials, or mine cryptocurrency. It is a centrally controlled, high-performance scanning engine.\u201d Patch timelines come under pressure The scanning activity also raises questions about whether conventional vulnerability management timelines are still workable for perimeter systems exposed to the internet. \u201cTraditional SLA-driven patching is no longer defensible for perimeter devices,\u201d Datta said. The size of the botnet matters less than the speed of its targeting cycle, according to Sanchit Vir Gogia , chief analyst at Greyhound Research. \u201cFifteen hundred devices that find the right vulnerable systems within hours are worth more than a hundred thousand generating noise,\u201d Gogia said. \u201cExploitation no longer begins when malicious code arrives. It begins when exposure is discovered.\u201d The concern is that JDY may already have collected much of the information attackers need before a new vulnerability is disclosed. Datta said the botnet\u2019s reconnaissance can include IP addresses, port configurations, protocol information, service banners, TLS versions, certificate metadata, and associated domains. That gives operators a head start when a critical flaw becomes public. Lumen said Black Lotus Labs observed a selective increase in scans of Fortinet equipment shortly after the disclosure of CVE-2026-35616, indicating the ability and intent to identify vulnerable devices before patches are widely applied. For CISOs, Datta said, the response requires pre-approved playbooks for perimeter devices, including accelerated patching, access control list changes, temporary disabling of exposed features, and lockdown of management interfaces.",
+      "link": "https://www.csoonline.com/article/4184043/china-linked-recon-botnet-outpaces-enterprise-defenses.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T09:57:00+00:00",
+      "published_ts": 1781171820,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Malware / Payloads",
+        "Identity / Access",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "\u2018GreatXML\u2019 Zero-Day Exploit Bypasses BitLocker",
+      "summary": "The PoC exploits Microsoft Defender\u2019s offline scan to spawn a SYSTEM shell when rebooting in Recovery Mode. The post \u2018GreatXML\u2019 Zero-Day Exploit Bypasses BitLocker appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/greatxml-zero-day-exploit-bypasses-bitlocker/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T09:56:12+00:00",
+      "published_ts": 1781171772,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Fortinet patched a new critical FortiSandbox flaw",
+      "summary": "Fortinet patched a critical FortiSandbox vulnerability that could let unauthenticated attackers remotely execute commands via crafted HTTP requests. Fortinet released security updates to address several vulnerabilities affecting FortiSandbox, FortiOS, FortiProxy, and FortiPortal. The most severe issue, tracked as CVE-2026-25089 (CVSS score of 9.8), is an OS command injection flaw in FortiSandbox products. The vulnerability could [\u2026]",
+      "link": "https://securityaffairs.com/193509/security/fortinet-patched-a-new-critical-fortisandbox-flaw.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T09:51:29+00:00",
+      "published_ts": 1781171489,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "OceanLotus Hits Vietnam Investors With SPECTRALVIPER in FireAnt Attack",
+      "summary": "The Vietnam-aligned threat actor known as OceanLotus has been attributed to two distinct campaigns that targeted domestic entities and stock investors with a backdoor known as SPECTRALVIPER. The campaigns involve a prolonged cyber espionage operation aimed at a Vietnamese infrastructure and transport construction corporation between mid-2024 and February 2026, as well as a supply chain attack",
+      "link": "https://thehackernews.com/2026/06/oceanlotus-hits-vietnam-investors-with.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T09:45:58+00:00",
+      "published_ts": 1781171158,
+      "smart_groups": [
+        "Curated",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "DoD 0-days Typically Come Down to Authorization Failures",
+      "summary": "Between 2020 and 2025, Silent Breach identified several vulnerabilities affecting production Department of Defense systems. None required novel exploitation techniques. What stood out was how familiar the underlying failure patterns were. The first finding was an IDOR on a profile endpoint. An authenticated user could modify a UID2 cookie value and retrieve another user's profile data. User identifiers were sequential integers, and object access was resolved directly from the client-supplied UID2 without validating ownership. The second finding combined with the first: A password modification endpoint accepted a UID2 value and a new password. It did not require the current password, verify ownership of the referenced account, or perform any secondary challenge. The IDOR provided account enumeration. The password endpoint provided credential modification. Together, they created an account takeover chain. The third finding involved a ColdFusion deployment exposing a publicly accessible CFC method: iedit.cfc?method=wizardHash&_metadata.classname= By supplying a directory traversal path through _metadata.classname , the application resolved and loaded arbitrary files from disk within the ColdFusion service account's permissions. One of the files retrieved was lib/password.properties , which contained administrator password hashes, database connection strings, and API keys. What struck us wasn't the individual vulnerabilities themselves. It was how closely they reflected failure patterns that continue to appear in mature enterprise environments despite significant security investment. The IDOR existed because authorization decisions were made against a client-controlled identifier. The account takeover chain existed because authentication and authorization were treated as the same thing. The ColdFusion issue existed because attacker-controlled metadata ultimately influenced file resolution inside a framework component that most developers never interact with directly. One recurring pattern we continue to see is that authorization is treated as an endpoint responsibility rather than a system responsibility. Developers are expected to remember ownership checks for every retrieval and modification operation. As applications grow across teams and years of development, gaps inevitably emerge. We also see information disclosure findings dismissed as isolated issues when they are often the first stage of a larger exploitation chain. An exposed identifier may seem low impact until that identifier becomes a trusted input elsewhere in the application. For others working in application security today, are you still seeing object-level authorization failures and framework-level attack surface issues like these in mature enterprise environments, or has the problem shifted elsewhere? submitted by /u/SilentBreachTeam [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1u2uh0d/dod_0days_typically_come_down_to_authorization/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-11T09:45:20+00:00",
+      "published_ts": 1781171120,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Web / API Security"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Buying a school laptop? 4 things I'd consider first (and my top 10 picks)",
+      "summary": "Your laptop can make or break or time in college, so you want to make sure you get the right one. Here's what to consider.",
+      "link": "https://www.zdnet.com/article/how-to-pick-a-laptop-for-college/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T09:30:15+00:00",
+      "published_ts": 1781170215,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "China-Linked JDY Botnet Uses 1,500+ SOHO and IoT Devices for Rapid Vulnerability Exploitation",
+      "summary": "A China-linked network of compromised routers and smart devices has grown into one of the most capable reconnaissance tools tied to a nation-state threat group. Researchers have identified a major resurgence of a botnet known as JDY, which now controls more than 1,500 small office and home office (SOHO) and Internet of Things (IoT) devices [\u2026] The post China-Linked JDY Botnet Uses 1,500+ SOHO and IoT Devices for Rapid Vulnerability Exploitation appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/china-linked-jdy-botnet-uses-1500-soho-and-iot-devices/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T09:25:39+00:00",
+      "published_ts": 1781169939,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "The best time-tracking software of 2026: Expert tested",
+      "summary": "We tested Toggl Track, Timely, 7pace, QuickBooks Time, and ActivityWatch to find the best time-tracking tools for freelancers and remote teams.",
+      "link": "https://www.zdnet.com/article/best-time-tracking-software/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T09:00:43+00:00",
+      "published_ts": 1781168443,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Aged-domain acquisition: The tradecraft phishing operators are using to bypass your mail filter\u2019s reputation score",
+      "summary": "I\u2019ve spent the past two years working on incident response and threat intelligence, and the pattern I\u2019m about to describe is one I keep seeing show up in cases that should have been caught at the email gateway. The kit families change. The lure templates change. The constant is that phishing-as-a-service operators are buying aged legitimate domains and redeploying them to steal credentials from enterprise and government targets. The most recent incident I worked involved a Sneaky2FA deployment running on 117 origin servers in Kansas City, Missouri, split across two hosting providers. The operator has been on the same infrastructure for over two years and runs lures against a mix of UK and US government, energy companies and US healthcare SMBs. The aged-domain tradecraft I\u2019m about to walk through is one way this operator stays inside enterprise environments that should be filtering them out. The certificate transparency logs tell the whole story, and they explain why the reputation classifier didn\u2019t catch it. How age-weighted reputation became the blind spot Most enterprise mail filters from major vendors, including Microsoft Defender for Office 365, Proofpoint, Mimecast and Cisco Talos, factor domain age heavily into their classification decisions. A freshly registered .com triggers immediate reputation penalties. A domain with years of stable hosting, consistent certificate issuance and clean DNS history gets treated as low risk. The logic made sense ten years ago, when newly minted abuse domains dominated phishing infrastructure and aged domains usually meant established small businesses. I work with several enterprise environments that pay for the most expensive tiers of email security and still see phishing lures land in users\u2019 inboxes. When I trace those lures back to their parent domains, an increasing percentage show the same pattern. Long-stable cert history through some point in 2024 or 2025. A several-month gap with no new certs issued. Then certs start appearing again for subdomains that have nothing to do with the original brand. The reputation score on these domains is high. The infrastructure behind them is criminal. The filter doesn\u2019t know the difference. What aged-domain acquisition actually looks like There are two reasonable ways for an operator to acquire an aged domain. They can drop-catch an expired registration, or they can hijack an active one through credential theft against the owner\u2019s registrar account. Drop-catching is cheaper and lower-risk. Services like DropCatch , SnapNames and GoDaddy Auctions exist precisely to acquire domains the moment they expire, and a determined operator can pay $50 to $500 for a domain with a decade of clean history. The domain I want to walk through is one I documented in detail during the Sneaky2FA case: digitalscrapbookingfreebies.com. The certificate transparency record shows the takeover in full. From 2016 through July 2025, the cert history reads like a normal small-business cPanel-hosted blog. cPanel Inc. issued ECC certs every 60 to 90 days for the standard cpanel., mail., webdisk. and webmail. subdomains. Let\u2019s Encrypt R3 issued certs for the apex and www. every 90 days. The subjects stayed stable across nine years. Someone was running a hobby blog providing free scrapbooking assets to a small audience, and the cert pattern reflects that. In April 2025, GoDaddy certs appear in the record. A new certificate authority showing up after eight uninterrupted years of cPanel-plus-Let\u2019s-Encrypt is the first hard signal that something changed at the registrar or hosting level. By July 2025, the last legitimate-pattern cert will be issued. Then six months of silence, no new certs, no renewals. In December 2025, fresh Let\u2019s Encrypt R13 certs surfaced for subdomains the original blog never had: beds, footboard, haushafin and locklear. By January 2026, another subdomain appeared: nativems-mfl09093004.digitalscrapbookingfreebies.com. That subdomain was the one I caught being actively used in phishing against a US state health agency. The original owner of the scrapbooking blog is almost certainly a victim, too. They probably let the registration lapse, the operator drop-caught it and the domain entered criminal use under a privacy WHOIS that obscures the new ownership. Their nine years of reputation-building goodwill now serve as a credential-theft operation. What made this case generalizable is that the same operator also runs a second-tier-2 lure domain acquired through fresh registration. The two strategies serve different targeting profiles. The operator uses fresh registrations when the subdomain itself can carry the credibility, like an SSO-themed subdomain mimicking a corporate authentication endpoint where the parent domain isn\u2019t doing much work. The operator uses aged-domain acquisitions when the domain reputation itself has to do the work, when the lure is going through an enterprise mail filter that scores by age. The selection is contextual. Why your reputation classifier won\u2019t catch this Reputation scoring assumes that domain history reflects domain ownership. When ownership transfers through drop-catch or hijack, that assumption breaks. The score doesn\u2019t reset. The new operator inherits the trust without inheriting any of the work that built it. Most reputation systems also weigh the length of clean history more heavily than recent changes to ownership patterns, which makes the problem worse. A nine-year-old domain that changes hands quietly stays scored as a nine-year-old domain. The signals that would actually catch the takeover (a CA issuer change, a six-month cert gap, a sudden wordlist of new subdomains that has nothing to do with the original brand) aren\u2019t features in most age-weighted classifiers. A better detection approach has to weigh hosting-pattern stability. A domain whose hosting infrastructure changes abruptly is more suspicious than a domain whose pattern continues uninterrupted, and the events you want to fire on are concrete: a new CA appearing after years of stable issuance, a gap in cert renewals followed by new issuance or a CDN change with no legitimate ownership reason. Most reputation systems don\u2019t track any of this because the score is a single number rather than a stability metric. Subdomain wordlist anomaly is the second axis. When a long-stable domain about scrapbooking suddenly issues certs for a subdomain named nativems-mfl09093004, the disconnect between the original brand and the new naming is detectable behaviorally, even when every other signal fails. The third piece is certificate transparency monitoring. CT logs are public, queryable and updated within hours. I reconstructed the entire digitalscrapbookingfreebies.com takeover timeline from public CT data alone. No commercial threat feed was required. Security teams who subscribe to CT log feeds for their blocklist candidates can surface operator-deployed subdomains within hours of issuance, which is often well before they show up in any commercial threat feed. If I were running enterprise email security tomorrow, the first thing I\u2019d change is to stop treating domain age as a primary signal. Aged-domain acquisition is documented tradecraft now. Sekoia has surfaced it. Centripetal has surfaced it. My own research on this Sneaky2FA case adds another example. Any reputation system that weights age heavily has a known bypass, which means age should be one signal among several, not the dominant one. The detection logic that does work is the one I described above: hosting-pattern stability, subdomain wordlist anomaly and CT log monitoring. A nine-year-old hobby blog suddenly hosting Microsoft-themed authentication pages is detectable behaviorally, even when domain age fails the analyst. Several CTI vendors are starting to surface this as a capability. Ask yours where they are on it and get a real answer, not a marketing one. CT log monitoring is cheap and surfaces operator infrastructure within hours of issuance, which is one of the higher leverage moves a small security team can make. The operators figured out the blind spot. They\u2019re going to keep buying aged domains for as long as those domains keep working. Closing the gap doesn\u2019t take a new product line. It takes treating the signals we already collect with appropriate weight. The full research from the Sneaky2FA case, including methodology, IOCs and the detection rules I wrote, is available on my GitHub . This article is published as part of the Foundry Expert Contributor Network. Want to join?",
+      "link": "https://www.csoonline.com/article/4183653/aged-domain-acquisition-the-tradecraft-phishing-operators-are-using-to-bypass-your-mail-filters-reputation-score.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T09:00:00+00:00",
+      "published_ts": 1781168400,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Identity / Access",
+        "Phishing / Social Engineering"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Frontier AI models offer sneak peak of seismic cyber shifts ahead",
+      "summary": "The advent of Claude Mythos combined with the release of OpenAI\u2019s GPT-5.5 have changed the threat model for CISOs . The arrival of those frontier AI models \u2014 and the ones soon to follow \u2014 makes it much easier to discover and chain vulnerabilities at a speed and scale that will require most cyber departments to rethink their strategies and operations. Experts polled by CSO on the impact of these capabilities say defenders should assume AI will make initial compromise more likely and that they should focus less on trying to patch everything perfectly and more on limiting blast radius through stronger identity controls, least privilege, and internal segmentation. Wild frontier Although access to Mythos remains restricted to a limited number of trusted partners, comparable AI-based vulnerability discovery platforms are in the works, and few experts think access to sufficiently capable AI models will be kept from attackers for long. Anthropic itself has now released to the public the \u201cMythos-class\u201d Fable 5 AI model , with extra cybersecurity guardrails. Noe Ramos, vice president of AI operations at Agiloft, says CISOs should operate on the assumption that attackers will get access to frontier AI-style capabilities within months if not sooner. \u201cWhether through jailbreaks, fine-tuned open-weight derivatives, or purpose-built black-hat versions, determined threat actors are resourceful and motivated,\u201d says Ramos. \u201cFrontier AI capabilities tend to diffuse faster than the security community expects and slower than the headlines suggest. Defenders should plan for the former.\u201d Rather than jailbreaking frontier models it is more likely that attackers will gain access to capable vulnerability discovery platforms by fine-tuning open-weight models on offensive security data and running them locally. \u201cWe see people out there that are starting to work on replicating the results of Mythos with existing infrastructure and open source models that they don\u2019t have to run through the clouds,\u201d Martin Roesch, lead developer of the Snort intrusion detection system turned head of cloud at security startup Vectra AI, tells CSO. \u201cThis kind of industrial-scale vulnerability discovery and potential exploit generation is not something that most of the world is really prepared for in terms of the downstream implications of the effects that it\u2019ll have on the defendability of organizations,\u201d Roesch concludes. Will Barker, cybersecurity advisor at managed detection and response vendor Huntress, agrees that research is showing that AI-driven vulnerability discovery is no longer something only frontier models can do. \u201cSmaller open-weights models are already finding the same types of zero-days and exploit chains,\u201d says Barker. These findings imply that the model itself is not always the biggest differentiator. \u201cThe real value comes from everything around it: how the work is orchestrated, how findings are validated, how noise is filtered, and how quickly humans can turn those findings into action,\u201d Barker says. Vulnerability discovery compressed A junior security researcher with API access to a frontier model can find vulnerabilities without the reverse-engineering work that used to take an experienced team. \u201cLogic flaws are where this hits hardest,\u201d says Nik Kale, principal engineer and member of the Coalition for Secure AI (CoSAI). \u201cTraditional scanners never caught them well because the code isn\u2019t broken, just strategically wrong. A frontier LLM reads a hardcoded trust assumption like it\u2019s reading a paragraph. That\u2019s the gap that opened, and it isn\u2019t closing.\u201d Frontier AI has meaningfully compressed discovery time for well-understood vulnerability classes: SQL injection variants, common misconfigurations, things that pattern-match against known CVEs. Raphael Peyret, a former product manager at Google turned startup advisor at SHA/RP, argues that the barrier to creating a reliable exploit from a vulnerability has been lowered rather than removed. \u201cIn many cases, finding the weakness is no longer the bottleneck,\u201d says Peyret. \u201cBut novel zero-days in hardened targets are a genuinely different problem, and that still takes human expertise.\u201d Matthew Bidwell, founder at Newzino.com, backs up this assessment. \u201cThe binding constraint for attackers has shifted from finding bugs to operationalizing them: turning a hypothetical flaw into a working exploit, chaining it against a real target, evading detection, [and] persisting,\u201d he says. The more meaningful shift in the vulnerability discovery landscape is economic rather than technical, according to several experts. \u201cAttackers are running roughly the same playbook they always ran,\u201d Peyret notes. \u201cWhat\u2019s changed is the unit cost of running a credible campaign, and it\u2019s dropped substantially.\u201d Other experts agreed that AI is turning vulnerability discovery from a scarce human craft into a scalable computational problem. \u201cMythos-class systems compress reconnaissance, target triage, payload customization, and social engineering into minutes,\u201d says Noah M. Kenney, founder and principal consultant at Digital 520. \u201cJailbreaks and black-hat forks will happen, but the bigger risk is legitimate enterprise AI being turned against the enterprise that deployed it.\u201d Attackers do not need Mythos itself; they need Mythos-like vulnerability discovery workflows, says Mudit Sinha, AI Lead at Lineaje. \u201cMythos may be expensive and restricted today, but the gap is closing fast through frontier models, specialized cyber models, and black-hat harnesses around general-purpose AI,\u201d he says. Exploit pathways The historical bottleneck in offensive cyber operations was finding novel weaknesses. AI-native cyber systems are automating code reasoning, attack-path identification, and variant analysis at machine speed, according to Kai CISO Alfredo Hickman. \u201cThe constraint is shifting from \u2018Can we find bugs?\u2019 to \u2018Can we reliably weaponize and scale them?\u2019\u201d he says. Louis Leung, a software developer and co-founder at InFlow Inventory, believes attackers\u2019 real challenge remains turning a discovered weakness into a stable, stealthy, repeatable capability that survives modern defensive controls and produces operational impact. \u201cThe hard part is turning the bug into a stable working exploit that functions across real-world production environments, which come with modern defenses, monitoring, and patching solutions,\u201d he says. \u201cAttackers increasingly need to chain multiple weaknesses together in SaaS environments \u2014 like inventory and warehouse systems \u2014 more than they need to identify the first point of weakness.\u201d Still, frontier AI models are likely to accelerate the ability to chain those weaknesses together, said Jon Yeoh, chief scientific officer at the Cloud Security Alliance, at the recent CSO Cybersecurity Awards and Conference . \u201cWe\u2019re looking at taking like maybe three or four CVEs that were very low-level and chaining those to become something that\u2019s high or critical,\u201d he said. \u201cThat\u2019s something we haven\u2019t seen \u2014 just what the models themselves do with a simple prompt.\u201d Opening Pandora\u2019s Box Independent security experts were keen to avoid blaming Anthropic for opening a Pandora\u2019s Box full of vulnerability discoveries, however. \u201cI do think Anthropic is trying to do the right thing by getting organizations involved early, letting them battle-test, harden, and build some understanding of what this looks like in the wild before it\u2019s widely available,\u201d says Melissa Bischoping, senior director of security and product design research at Tanium. \u201cIt\u2019s not a perfect solution, but the spirit and intent are well-placed.\u201d Bischoping, a SANS Technology Institute board member, warns that there are concerns whether organizational change control can move fast enough to action what Mythos finds before Mythos is out in the wild. \u201cAgentic patch workflows are possible and can match pace with adversarial AI in a lot of cases, but [organizational] politics and change control don\u2019t run at the speed of AI today,\u201d says Bischoping. Countermeasures For defenders, the answer to the challenge posed by frontier AI models is faster vulnerability remediation. \u201cSecurity teams need to stop treating vulnerability discovery as the hard part and start fixing aggressively,\u201d argues Lineaje\u2019s Sinha. \u201cKnown CVEs are the easiest place to begin: prioritize, validate exploitability, patch, test, and verify continuously. The same frontier models that can detect vulnerabilities often have some capacity to remediate them, but they need a harness around them: asset context, SBOMs, exploitability validation, patch generation, CI/CD checks, sandboxed testing, and human approval for risky changes.\u201d AI Operations\u2019 Ramos adds: \u201cIf AI surfaces vulnerabilities at a rate that outpaces human remediation, and Mythos suggests it will, then the strategic priority has to shift toward containment and resilience.\u201d \u201cAssume breach. Shrink blast radius,\u201d Ramos concludes.",
+      "link": "https://www.csoonline.com/article/4183772/frontier-ai-models-offer-sneak-peak-of-seismic-cyber-shifts-ahead.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T09:00:00+00:00",
+      "published_ts": 1781168400,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Cloud / SaaS",
+        "Web / API Security",
+        "Network / OT / ICS",
+        "Phishing / Social Engineering"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Microsoft fixes BitLocker recovery bug on Windows Server 2025",
+      "summary": "Microsoft has resolved a known issue causing some Windows Server 2025 devices to boot into BitLocker recovery after installing the April 2026 security update. [...]",
+      "link": "https://www.bleepingcomputer.com/news/microsoft/microsoft-fixes-bitlocker-recovery-bug-on-windows-server-2025/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T08:44:22+00:00",
+      "published_ts": 1781167462,
+      "smart_groups": [
+        "Ransomware",
+        "Windows / Microsoft",
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "The Escalating Cyber Risk Landscape in Regional Conflicts & Strategic Actions for 2026",
+      "summary": "Executive Summary The People's Republic of China (PRC) represents the most significant long-term cyber threat to defense-aligned and enterprise organizations. PRC-linked threat groups are pre-positioned inside critical networks at scale. This access appears intended for possible activation during a future geopolitical crisis, likely a Taiwan contingency.",
+      "link": "https://blog.eclecticiq.com/the-escalating-cyber-risk-landscape-in-regional-conflicts-strategic-actions-for-2026",
+      "source": "EclecticIQ Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-06-11T08:35:11+00:00",
+      "published_ts": 1781166911,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Prompt injection: attacking the analyst's AI",
+      "summary": "submitted by /u/GrapefruitCool2078 [link] [comments]",
+      "link": "https://www.reddit.com/r/netsec/comments/1u2tagh/prompt_injection_attacking_the_analysts_ai/",
+      "source": "/r/netsec",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-11T08:35:00+00:00",
+      "published_ts": 1781166900,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "How can we test the firmware code/images security?",
+      "summary": "If anyone worked on this please help me with automation tools and any research papers submitted by /u/StructureGeneral5049 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1u2t8ab/how_can_we_test_the_firmware_codeimages_security/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-11T08:31:17+00:00",
+      "published_ts": 1781166677,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "University of Nottingham Confirms Breach After Hackers Leak Data",
+      "summary": "The ShinyHunters hacker group has taken credit for the attack, leaking more than 450,000 email addresses and other information. The post University of Nottingham Confirms Breach After Hackers Leak Data appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/university-of-nottingham-confirms-breach-after-hackers-leak-data/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T08:30:02+00:00",
+      "published_ts": 1781166602,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Microsoft Exchange Server 0-Day Vulnerability Exploited in Attacks Using Weaponized Email",
+      "summary": "Microsoft has confirmed active exploitation of a new zero\u2011day spoofing flaw in on\u2011premises Exchange Server, tracked as CVE\u20112026\u201142897. The flaw allows attackers to execute arbitrary JavaScript in Outlook Web Access (OWA) simply by sending a weaponized email that a victim opens in a browser. On May 14, 2026, Microsoft disclosed CVE\u20112026\u201142897 as a spoofing vulnerability [\u2026] The post Microsoft Exchange Server 0-Day Vulnerability Exploited in Attacks Using Weaponized Email appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/microsoft-exchange-server-0-day-exploited/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T08:27:45+00:00",
+      "published_ts": 1781166465,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Windows / Microsoft"
+      ],
+      "curated": true
+    },
+    {
+      "title": "20 years of Fancy Bear (APT28): How Russian military hackers evolved their tradecraft since 2004",
+      "summary": "Since 2025, we have partnered with foreign and domestic law enforcement and government agencies, including the FBI, to disrupt GRU cyber operations. Today, as part of a broader public-private coordinated disclosure aimed at constraining their activities, we released a retrospective analysis of APT28's evolving arsenal (aka Fancy Bear, Sofacy, Forest Blizzard, Blue Delta, and 28 other names that we have compiled). Our latest report traces two decades of their tradecraft shifts since 2004. In fact, APT28 stands out as the only intrusion set with a proven link between remote cyberattacks and physical close-access operations. If you're into threat intel or malware analysis, you can check out the arsenal evolution here: https://blog.sekoia.io/apt28-an-evolution-of-tradecraft/ submitted by /u/R4yfield [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1u2t46z/20_years_of_fancy_bear_apt28_how_russian_military/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-11T08:24:24+00:00",
+      "published_ts": 1781166264,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Threat Actors / APT",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "GitHub announces npm security changes to tackle supply-chain attacks",
+      "summary": "submitted by /u/rkhunter_ [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1u2sykk/github_announces_npm_security_changes_to_tackle/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-11T08:15:00+00:00",
+      "published_ts": 1781165700,
+      "smart_groups": [
+        "Curated"
+      ],
+      "curated": true
+    },
+    {
+      "title": "The \u2018Miasma\u2019 worm source code briefly leaked on GitHub",
+      "summary": "submitted by /u/rkhunter_ [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1u2swcj/the_miasma_worm_source_code_briefly_leaked_on/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-11T08:11:15+00:00",
+      "published_ts": 1781165475,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "CISA Rewrites Federal Patching Requirements for AI Threat Era",
+      "summary": "submitted by /u/rkhunter_ [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1u2su0y/cisa_rewrites_federal_patching_requirements_for/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-11T08:07:07+00:00",
+      "published_ts": 1781165227,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "What is the difference between Regular TLS and Mutual TLS?",
+      "summary": "submitted by /u/BenignPositive [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1u2srhe/what_is_the_difference_between_regular_tls_and/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-11T08:02:54+00:00",
+      "published_ts": 1781164974,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation.",
+      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-06-11T07:55:49+00:00",
+      "published_ts": 1781164549,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "X-Square-Robot-Open-Sources-Autonomous-Data-Collection-Framework-for-Free-Use,",
+      "summary": "Companies developing physical robots face significant challenges in gathering sufficient training data through traditional methods.... The post X-Square-Robot-Open-Sources-Autonomous-Data-Collection-Framework-for-Free-Use, appeared first on .",
+      "link": "https://www.news4hackers.com/x-square-robot-open-sources-autonomous-data-collection-framework-for-free-use/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T07:55:20+00:00",
+      "published_ts": 1781164520,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Operation Mule Hunt 2.0 Uncovers Massive \u20b944 Crore Cyber Scam in Gujarat India",
+      "summary": "Operation Mule Hunt 2.0 uncovers extensive cyber fraud network in Gujarat involving over \u20b944 crore... The post Operation Mule Hunt 2.0 Uncovers Massive \u20b944 Crore Cyber Scam in Gujarat India appeared first on .",
+      "link": "https://www.news4hackers.com/operation-mule-hunt-2-0-uncovers-massive-%e2%82%b944-crore-cyber-scam-in-gujarat-india/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T07:52:49+00:00",
+      "published_ts": 1781164369,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Sniper\u2019s Nest: From Brand Impersonation to Browser Hijacking and CPA Fraud",
+      "summary": "This blog provides a deep-dive into SniperDz, a centralised PhaaS platform with more than 80 ready-made phishing templates impersonating over 30 global brands, and uncovers the hidden infrastructure behind this sophisticated and highly-organized fraud ecosystem.",
+      "link": "https://www.group-ib.com/blog/inside-sniperdz-phaas-ecosystem/",
+      "source": "Group-IB Blog",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T07:51:27+00:00",
+      "published_ts": 1781164287,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Every employee's password was stored in a single Excel file",
+      "summary": "submitted by /u/NISMO1968 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1u2sk13/every_employees_password_was_stored_in_a_single/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-11T07:51:07+00:00",
+      "published_ts": 1781164267,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "JDY Botnet Evolves After KV Takedown, Targets Military Networks",
+      "summary": "JDY botnet scans SOHO/IoT devices globally to map services and targets, especially US military networks. Lumen\u2019s Black Lotus Labs reported the resurgence of the JDY botnet, a covert reconnaissance network tied to Chinese state-sponsored hacking groups including Volt Typhoon. The network was first spotted in late 2023 as a cluster inside KV-botnet. The U.S. government [\u2026]",
+      "link": "https://securityaffairs.com/193490/malware/jdy-botnet-evolves-after-kv-takedown-targets-military-networks.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T07:46:54+00:00",
+      "published_ts": 1781164014,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Nottingham University data breach affects over 450,000 students",
+      "summary": "The University of Nottingham confirmed on Wednesday that a hacking group gained access to its student records system in a breach affecting both current students and alums. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/nottingham-university-data-breach-affects-over-450-000-students/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T07:27:53+00:00",
+      "published_ts": 1781162873,
+      "smart_groups": [
+        "Data Breaches / Leaks"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Beware of Scammers Using TikTok & Instagram for Vidar Infostealer Malware Spreads",
+      "summary": "Cybercriminals are leveraging TikTok and Instagram Reels to deploy Vidar infostealer malware, according to findings... The post Beware of Scammers Using TikTok & Instagram for Vidar Infostealer Malware Spreads appeared first on .",
+      "link": "https://www.news4hackers.com/beware-of-scammers-using-tiktok-instagram-for-vidar-infostealer-malware-spreads/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T07:22:53+00:00",
+      "published_ts": 1781162573,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Ivanti Releases Critical Patches for Sentry Vulnerabilities to Enhance Security",
+      "summary": "IVANTI HAS ISSUED UPDATES TO ADDRESS TWO CRITICAL FLAWS IN ITS SENTRY SECURE MOBILE GATEWAY... The post Ivanti Releases Critical Patches for Sentry Vulnerabilities to Enhance Security appeared first on .",
+      "link": "https://www.news4hackers.com/ivanti-releases-critical-patches-for-sentry-vulnerabilities-to-enhance-security/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T07:03:32+00:00",
+      "published_ts": 1781161412,
+      "smart_groups": [
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "TradFi advisers want stablecoins, tokenization over Bitcoin: Bitwise",
+      "summary": "Bitwise\u2019s Matt Hougan says it was \u201cpretty hard to engage with advisers on Bitcoin\u201d during recent discussions, who are more interested in stablecoins and tokenization.",
+      "link": "https://cointelegraph.com/news/tradfi-advisors-want-stablecoins-tokenization-over-bitcoin-bitwise?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-06-11T07:01:31+00:00",
+      "published_ts": 1781161291,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "AI researcher claims he's already bypassed Anthropic's Fable 5 guardrails",
+      "summary": "\u201cPliny the Liberator,\u201d says he has been \u201ccleverly finding the holes in the fence that the thought police missed,\u201d in the newly launched Fable 5.",
+      "link": "https://cointelegraph.com/news/researcher-claims-hes-already-jailbroken-anthropics-guardrailed-claude-fable-5?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-06-11T07:00:53+00:00",
+      "published_ts": 1781161253,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Every employee\u2019s password was stored in a single Excel file",
+      "summary": "The CEO thought this was the best way to deal with some email issues",
+      "link": "https://www.theregister.com/security/2026/06/11/every-employees-password-was-stored-in-a-single-excel-file/5253784",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T07:00:00+00:00",
+      "published_ts": 1781161200,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "npm v12 is changing how dependencies are installed to reduce supply-chain risk",
+      "summary": "npm v12 is introducing several security-focused changes that will require developers to explicitly approve certain dependency behaviors. Some notable changes include: Dependency install scripts won't automatically execute Git-based dependencies won't be fetched unless permitted Remote URL dependencies won't be resolved unless permitted Native module build processes triggered during installation will be more restricted The goal appears to be reducing code execution opportunities during package installation and limiting common software supply-chain attack paths. From a security perspective, this seems like a better move towards Zero Trust model for dependency management. For developers who rely heavily on install scripts, Git dependencies, or custom build processes, there may be some workflow adjustments required. What do you think? Announcement: https://github.blog/changelog/2026-06-09-upcoming-breaking-changes-for-npm-v12/ submitted by /u/ChakraByte-Sec [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1u2rmjn/npm_v12_is_changing_how_dependencies_are/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-11T06:56:33+00:00",
+      "published_ts": 1781160993,
+      "smart_groups": [
+        "Curated"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Microsoft Patches Exploited Exchange Server Vulnerability",
+      "summary": "The company warned about zero-day attacks exploiting the Exchange Server vulnerability CVE-2026-42897 on May 14. The post Microsoft Patches Exploited Exchange Server Vulnerability appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/microsoft-patches-exploited-exchange-server-vulnerability/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T06:52:21+00:00",
+      "published_ts": 1781160741,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Windows / Microsoft"
+      ],
+      "curated": true
+    },
+    {
+      "title": "China-Linked JDY Botnet Expands Targeting US Military Networks Cybersecurity Threats,",
+      "summary": "China-linked JDY botnet expands targeting of U.S. military networks Evolution of JDY The JDY botnet,... The post China-Linked JDY Botnet Expands Targeting US Military Networks Cybersecurity Threats, appeared first on .",
+      "link": "https://www.news4hackers.com/china-linked-jdy-botnet-expands-targeting-us-military-networks-cybersecurity-threats/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T06:48:31+00:00",
+      "published_ts": 1781160511,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "At-Scale Failure Reporting for Azure Update Manager",
+      "summary": "Introduction Azure Update Manager simplifies patching across Azure virtual machines and Azure Arc-enabled servers by providing a centralized platform for patch assessment and installation. However, as environments scale, a key challenge emerges\u2014 efficiently identifying and troubleshooting patch failures across large fleets of machines . While Azure Update Manager surfaces detailed error messages in the Azure portal, this information is typically available only at an individual machine level . In enterprise environments managing hundreds or thousands of systems, drilling into each VM to find error details quickly becomes impractical. In this article, we walk through a real-world use case and demonstrate how to leverage Azure Resource Graph (ARG) to extract failed machines along with their error details for a specific maintenance run \u2014using a single query. The Challenge: Scaling Patch Failure Visibility In a large enterprise deployment, Azure Update Manager was configured to manage patching across: Windows and Linux virtual machines Azure cloud VMs and Arc-enabled on\u2011premises servers Multiple regions and subscriptions While patching operations were largely successful, a subset of machines experienced failures. The key challenges faced by the operations team were: Error messages were visible only by drilling into each failed VM in the portal No built\u2011in way to aggregate failures across all machines Lack of a simple mechanism to export: Failed VMs Error codes Error messages The team needed a scalable, query \u2011 driven approach to analyze failures across an entire maintenance run. Key Insight: Where Azure Update Manager Stores Data Azure Update Manager does not rely on Log Analytics to store operational results. Instead: Patch assessment and installation results are stored in Azure Resource Graph Azure Resource Graph acts as a centralized, queryable store for update operations This design enables powerful querying without requiring additional ingestion, configuration, or cost overhead. Understanding Maintenance Runs and Correlation IDs Each Azure Update Manager maintenance run generates a unique identifier: properties.correlationId represents the maintenance (schedule) run ID All machines involved in the same patch cycle share this ID This allows all machines within a single patch execution to be correlated and queried collectively. The Solution: Query Failed VMs with Error Messages Azure Resource Graph allows querying failures at scale using the maintenanceresources dataset. Core Query (Kusto Query Language) 1 maintenanceresources 2 | where type =~ \"microsoft.maintenance/applyupdates\" 3 | where tostring(properties.correlationId) contains \" \" 4 | where tostring(properties.status) =~ \"Failed\" 5 | project properties.resourceId, properties.errorCode, properties.errorMessage What This Query Delivers All machines that failed in a specific maintenance run Error codes for troubleshooting Full error messages that are otherwise visible only in the Azure portal Note: Property names for error information can vary by environment. Validate available fields using Azure Resource Graph Explorer and adjust the project clause if required. Sample Output (Conceptual) Resource ID Error Code Error Message vm-01 0x80244007 Windows Update API failed vm-02 0x80072f8f Connectivity issue vm-03 1C WSUS configuration issue Advanced Scenario: Automatically Detecting the Latest Failed Maintenance Run In real-world scenarios, you may not always know the maintenance run ID. The following query dynamically identifies the most recent maintenance run that had failures , and then retrieves all failed machines from that run. 1 // Step 1: Identify the latest maintenance run ID with failures 2 let lastFailedRun = toscalar( 3 maintenanceresources 4 | extend runId = extract(@\"applyupdates/(\\d+)$\", 1, properties.correlationId) 5 | where type =~ \"microsoft.maintenance/applyupdates\" 6 | where tostring(properties.status) =~ \"Failed\" 7 | order by tostring(properties.startDateTime) desc 8 | take 1 9 | project runId 10 ); 11 // Step 2: Query all failed VMs from that run 12 maintenanceresources 13 | where type =~ \"microsoft.maintenance/applyupdates\" 14 | where tostring(properties.correlationId) contains lastFailedRun 15 | where tostring(properties.status) =~ \"Failed\" 16 | project properties.resourceId, properties.errorCode, properties.errorMessage This approach is ideal for automation, scheduled reporting, and dashboard scenarios. Why This Approach Matters Operational Efficiency Eliminates manual portal navigation Provides consolidated failure insights in seconds Scalability Works across large, distributed environments Supports both Azure and hybrid (Arc\u2011enabled) machines Automation Ready Can be integrated into scripts, dashboards, and reporting pipelines Enables proactive monitoring and alerting scenarios Best Practices for Enterprise Patch Reporting To maximize the value of this approach: Capture and track maintenance run IDs Use Azure Resource Graph as the primary reporting layer Build reusable queries for different patch scenarios Export reports for compliance and auditing Correlate failures with root\u2011cause trends over time Conclusion As organizations scale patching operations with Azure Update Manager, visibility, speed, and automation become essential . While the Azure portal is effective for per\u2011machine troubleshooting, it is not optimized for fleet\u2011level analysis. Azure Resource Graph fills this gap by enabling a shift from manual troubleshooting to automated, query \u2011 driven failure analysis at scale . By adopting this approach, teams can significantly improve operational efficiency, reduce mean time to resolution, and build a more mature patch management strategy. Final takeaway: Don\u2019t rely only on the portal Leverage Azure Resource Graph to operationalize patch insights at enterprise scale References Azure Update Manager \u2013 Query resources with Azure Resource Graph https://learn.microsoft.com/azure/update-manager/query-logs Azure Update Manager \u2013 Troubleshooting guide https://learn.microsoft.com/azure/update-manager/troubleshoot Sample Azure Resource Graph queries for Azure Update Manager https://github.com/MicrosoftDocs/azure-docs/blob/main/articles/update-manager/sample-query-logs.md",
+      "link": "https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/at-scale-failure-reporting-for-azure-update-manager/ba-p/4527378",
+      "source": "Core Infrastructure and Security Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-06-11T06:32:42+00:00",
+      "published_ts": 1781159562,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Linux / Unix",
+        "Cloud / SaaS",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "GitHub to Disable npm Install Scripts by Default to Stop Supply Chain Attacks",
+      "summary": "GitHub has announced what it said are \"breaking changes\" coming to npm version 12, one of which turns off install scripts by default to combat software supply chain threats. The changes aim to combat attack techniques that abuse the \"npm install\" command to trigger the execution of malicious code using npm lifecycle hooks. \"Npm install\" is used to download and install all the necessary",
+      "link": "https://thehackernews.com/2026/06/github-to-disable-npm-install-scripts.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T06:23:03+00:00",
+      "published_ts": 1781158983,
+      "smart_groups": [
+        "Curated",
+        "Supply Chain / Software"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Max severity Ivanti Sentry vulnerability now exploited in attacks",
+      "summary": "Attackers are now targeting a recently patched maximum-severity flaw in Ivanti Sentry, enabling them to execute code with root privileges on Internet-exposed secure mobile gateways. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/max-severity-ivanti-sentry-vulnerability-now-exploited-in-attacks/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T06:20:22+00:00",
+      "published_ts": 1781158822,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "FBI Uncovers Ties Between China-Based Organized Crime Groups and Southeast Asian Scams",
+      "summary": "A senior Federal Bureau of Investigation official has asserted that organized crime groups based in... The post FBI Uncovers Ties Between China-Based Organized Crime Groups and Southeast Asian Scams appeared first on .",
+      "link": "https://www.news4hackers.com/fbi-uncovers-ties-between-china-based-organized-crime-groups-and-southeast-asian-scams/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-11T06:03:22+00:00",
+      "published_ts": 1781157802,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Teen crypto scammer stole $13M to splurge on private jets, Lambo",
+      "summary": "Trenton Richard Johnston was arrested in March during a traffic stop for speeding, but investigators soon found he was involved in a wider fraud scheme.",
+      "link": "https://cointelegraph.com/news/teen-admits-to-scamming-13m-crypto-to-splurge-on-private-jets-lambo?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-06-11T05:57:24+00:00",
+      "published_ts": 1781157444,
+      "smart_groups": [],
       "curated": false
     },
     {
@@ -430,6 +1075,20 @@
         "Crypto / Web3"
       ],
       "curated": true
+    },
+    {
+      "title": "Bug bounties in the Mythos era",
+      "summary": "How AI is rewriting vulnerability research, and how our program has adapted",
+      "link": "https://www.sophos.com/en-us/blog/bug-bounties-in-the-mythos-era",
+      "source": "Sophos News",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-06-11T00:00:00+00:00",
+      "published_ts": 1781136000,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
     },
     {
       "title": "CISA directs federal agencies on prioritization of cyber vulnerabilities",
@@ -881,20 +1540,6 @@
         "Cloud / SaaS"
       ],
       "curated": true
-    },
-    {
-      "title": "Here\u2019s what happened in crypto today",
-      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation.",
-      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-10T20:13:00+00:00",
-      "published_ts": 1781122380,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
     },
     {
       "title": "Bug Bounty Research Triggers ServiceNow Security Alert",
@@ -105806,842 +106451,6 @@
       "type_label": "Crypto & Blockchain Security",
       "published": "2026-05-12T10:08:28+00:00",
       "published_ts": 1778580508,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Simple yet Effective Cybersecurity Measures Remain Relevant Today",
-      "summary": "Applying Fundamental Security Principles Can Mitigate the Impact of Future Vulnerabilities In light of growing... The post Simple yet Effective Cybersecurity Measures Remain Relevant Today appeared first on .",
-      "link": "https://www.news4hackers.com/simple-yet-effective-cybersecurity-measures-remain-relevant-today/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T10:03:26+00:00",
-      "published_ts": 1778580206,
-      "smart_groups": [
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Instructure Reaches Agreement to Prevent Future Data Leaks with ShinyHunters",
-      "summary": "Cybersecurity Breach Hits Instructure\u2019s Canvas Learning Management System Instructure, the parent company of the widely-used... The post Instructure Reaches Agreement to Prevent Future Data Leaks with ShinyHunters appeared first on .",
-      "link": "https://www.news4hackers.com/instructure-reaches-agreement-to-prevent-future-data-leaks-with-shinyhunters/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T10:02:08+00:00",
-      "published_ts": 1778580128,
-      "smart_groups": [
-        "Curated",
-        "Data Breaches / Leaks"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Developer workstations are the new beachhead",
-      "summary": "I spent the first week of April reading three separate threat intelligence reports that, on the surface, had nothing in common. One covered a North Korean campaign that had published over 1,700 malicious packages across five open-source ecosystems. Another detailed a malware operation using a Zig-compiled binary to silently infect every IDE on a developer\u2019s machine. The third walked through a cascading supply chain compromise that turned a trusted vulnerability scanner into a credential-harvesting weapon. Three different threat actor sets. Three different technical approaches. One shared conclusion: developer workstations are now the highest-value initial access target in enterprise environments. This is not a supply chain security story, at least not in the way most security leaders think about supply chain risk. This is a story about why attackers have independently arrived at the same strategic calculation and what that convergence should tell us about where our defensive investments are misallocated. The pattern hiding in plain sight The Contagious Interview campaign , attributed to North Korean threat actors, crossed a scale threshold in early April when Socket researchers reported that the operation had spread to npm, PyPI, Go Modules, crates.io and Packagist simultaneously. The packages impersonate legitimate developer tooling. Once installed, they function as malware loaders that steal browser data, cryptocurrency wallet credentials and password manager contents. The operation has been running since January 2025, but the expansion to five ecosystems in parallel signals a factory-model approach to developer targeting. Separately, the GlassWorm campaign evolved from malicious IDE extensions into something more ambitious. Aikido Security researchers discovered a fake WakaTime extension on OpenVSX that bundled a Zig-compiled native binary alongside its JavaScript code. The binary does not operate within the extension sandbox. It runs with full operating system access, scans the machine for every compatible IDE and silently installs a second-stage dropper across all of them. The malware avoids execution on Russian systems and uses Solana blockchain infrastructure for command and control. This is not a smash-and-grab credential theft. It is persistent, cross-platform and designed to survive the removal of any single extension. Then there is TeamPCP , which executed a cascading compromise that started with Aqua Security\u2019s Trivy vulnerability scanner in mid-March and chained through Checkmarx KICS, LiteLLM and the Telnyx Python SDK. Each compromise provided the credentials needed to reach the next target. The malware ran inside build pipelines and developer machines, stealing cloud tokens, CI/CD secrets and service account credentials. One security tool compromise became the launchpad for four more. These three campaigns share no infrastructure, no malware families and no apparent coordination. That is precisely why their convergence matters. When unrelated threat actors independently arrive at the same targeting strategy, they are responding to the same structural incentive. In this case, the incentive is straightforward: developer machines are where the keys live. The economics that drive the convergence A typical developer workstation holds SSH keys, cloud provider credentials, container registry tokens, Git authentication tokens and CI/CD pipeline secrets. Many developers have administrative access to internal package registries and deployment infrastructure. Their machines often sit outside the hardened perimeter that security teams build around production systems. From an attacker\u2019s perspective, compromising a single developer is equivalent to a supply chain attack without the complexity of compromising an upstream package registry. You do not need to poison a package that thousands of organizations use. You just need one developer who has push access to a production deployment pipeline. The access-to-effort ratio is simply better than attacking production infrastructure directly. Production systems have monitoring, network segmentation and incident response playbooks built around them. Developer workstations, by contrast, are often trusted implicitly because the people who use them are trusted implicitly. Google\u2019s Cloud Threat Horizons report for the first half of 2026 documented exactly this pattern: threat actors used a trojanized application to gain a foothold on a developer workstation, then leveraged authenticated sessions and available credentials to pivot into cloud resources. Within 72 hours, they had moved from a developer\u2019s local environment to full cloud administration access by abusing OpenID Connect trust between a CI/CD provider and the cloud platform. The Security Boulevard analysis of the March 2026 attack wave framed this dynamic as a \u201cDeveloper Credential Economy,\u201d arguing that these campaigns should not be viewed as isolated incidents but as evidence of a black market for highly privileged developer credentials. That framing is useful because it explains why we are seeing simultaneous but independent campaigns targeting the same environment. The market price for developer access has risen because the downstream value of that access has risen. What this should change for security leaders Most organizations treat developer environment security as an extension of endpoint protection. Developers get the same EDR agent, the same patch management and the same access controls as every other employee. Some organizations go further and enforce code signing or require multi-factor authentication for package registry access. But few treat the developer workstation as a distinct attack surface that requires its own security architecture. The convergence of these three campaigns suggests that distinction is overdue. Developer machines are not just endpoints. They are credential stores, pipeline controllers and trust anchors for the entire software delivery chain. Protecting them requires controls that traditional endpoint security was never designed to provide. That starts with visibility, which remains the most fundamental gap. Most security operations centers have limited insight into what happens inside IDE extension ecosystems, package manager installations or CI/CD pipeline executions. The GlassWorm campaign exploited OpenVSX, a registry that many security teams do not even monitor. TeamPCP compromised GitHub Actions workflows that run with elevated permissions but often escape the scrutiny applied to production deployments. If your security team cannot tell you which IDE extensions are installed across your developer fleet, you have a blind spot that three different threat actor groups are now actively exploiting. It extends to architectural decisions about how developer environments are provisioned and isolated. Ephemeral development environments, hardware-bound credentials, restricted network access from build systems and mandatory code review for CI/CD pipeline changes are not new ideas. But they remain uncommon in practice because most organizations have not yet accepted that developer environments require the same defensive investment as production infrastructure. The most uncomfortable implication is organizational. Developer environment security does not fit neatly into existing security team structures. It sits at the intersection of application security, endpoint security, identity management and supply chain risk. In most organizations, no single team owns that intersection. Application security teams focus on code vulnerabilities. Endpoint teams focus on malware detection. Identity teams focus on access governance. Nobody is watching the IDE extension that just installed a Zig binary with full operating system access. The campaigns of March and April 2026 are exploiting that gap. Three unrelated threat actors looked at the modern enterprise and independently concluded that the developer workstation offers the best return on investment for initial access. That is not a coincidence. It is a price signal, and the price is set by the gap between the value of developer credentials and the maturity of the controls protecting them. The question for security leaders is whether they will close that gap before the next wave of campaigns arrives to exploit it. This article is published as part of the Foundry Expert Contributor Network. Want to join?",
-      "link": "https://www.csoonline.com/article/4169635/developer-workstations-are-the-new-beachhead.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T10:00:00+00:00",
-      "published_ts": 1778580000,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Malware / Payloads",
-        "Identity / Access",
-        "Network / OT / ICS",
-        "Crypto / Web3",
-        "Supply Chain / Software"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Seedworm: Iran-Linked Hackers Breached Korean Electronics Maker in Global Spying Campaign",
-      "summary": "Iran-linked threat actor abused signed Fortemedia and SentinelOne binaries for DLL sideloading and exfiltrated data through a public file-transfer service.",
-      "link": "https://www.security.com/threat-intelligence/iran-seedworm-electronics",
-      "source": "Broadcom \u2013 Symantec Blogs",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-12T10:00:00+00:00",
-      "published_ts": 1778580000,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Instructure reaches 'agreement' with ShinyHunters to stop data leak",
-      "summary": "submitted by /u/rkhunter_ [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1tawq36/instructure_reaches_agreement_with_shinyhunters/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-12T09:46:47+00:00",
-      "published_ts": 1778579207,
-      "smart_groups": [
-        "Curated",
-        "Data Breaches / Leaks"
-      ],
-      "curated": true
-    },
-    {
-      "title": "North Korea Hackers Abuse Git Hooks to Deploy Cross-Platform Malware",
-      "summary": "North Korean threat actors have introduced a stealthy new delivery mechanism in their ongoing \u201cContagious Interview\u201d campaign, shifting tactics to abuse Git hooks for malware execution. The attack begins with a familiar social engineering lure. Victims, often developers targeted through fake job interviews, are asked to clone a GitHub repository containing a \u201ccoding assessment.\u201d Hidden [\u2026] The post North Korea Hackers Abuse Git Hooks to Deploy Cross-Platform Malware appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/git-hooks-abused/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T09:46:40+00:00",
-      "published_ts": 1778579200,
-      "smart_groups": [
-        "Malware / Payloads",
-        "Network / OT / ICS",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Apple, Google drag cross-platform texting into the encrypted age",
-      "summary": "After years of stopping dead at the green bubble border, iPhone and Android users can finally send E2EE messages without relying on third-party apps",
-      "link": "https://www.theregister.com/security/2026/05/12/apple-google-drag-cross-platform-texting-into-the-encrypted-age/5238556",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T09:46:00+00:00",
-      "published_ts": 1778579160,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Curl lead developer Daniel Stenberg provides insightful feedbacks from Mythos analysis results",
-      "summary": "submitted by /u/qwerty0x41 [link] [comments]",
-      "link": "https://www.reddit.com/r/netsec/comments/1tawjdn/curl_lead_developer_daniel_stenberg_provides/",
-      "source": "/r/netsec",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-12T09:36:12+00:00",
-      "published_ts": 1778578572,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "WannaCry, the ransomware attack that changed the history of cybersecurity",
-      "summary": "WannaCry showed how unpatched flaws and leaked cyber tools can cripple global systems, reshaping cybersecurity defenses worldwide. In memory of the day the digital world was shaken, but learned to fight back. The WannaCry ransomware attack represents one of the most significant events in recent cybersecurity history, not only for its global scale but also [\u2026]",
-      "link": "https://securityaffairs.com/192015/malware/wannacry-the-ransomware-attack-that-changed-the-history-of-cybersecurity.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T09:31:21+00:00",
-      "published_ts": 1778578281,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Malicious Hugging Face Repository Typosquats OpenAI",
-      "summary": "HiddenLayer reveals infostealer malware in a Hugging Face repository",
-      "link": "https://www.infosecurity-magazine.com/news/malicious-hugging-face-repo/",
-      "source": "Infosecurity Magazine \u2013 News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T09:30:00+00:00",
-      "published_ts": 1778578200,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Instructure reaches 'agreement' with ShinyHunters to stop data leak",
-      "summary": "Instructure, the edtech giant behind the widely popular Canvas learning management system (LMS), has reached an \"agreement\" with the ShinyHunters extortion group to prevent the data stolen in a recent breach from being leaked online. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/instructure-reaches-agreement-with-shinyhunters-to-stop-data-leak/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T09:23:56+00:00",
-      "published_ts": 1778577836,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Data Breaches / Leaks"
-      ],
-      "curated": true
-    },
-    {
-      "title": "1 in 8 employees have sold company logins or know someone who has",
-      "summary": "Cifas just published research that should bother anyone who runs a business, or buys from one.",
-      "link": "https://www.malwarebytes.com/blog/news/2026/05/1-in-8-employees-have-sold-company-logins-or-know-someone-who-has",
-      "source": "Malwarebytes Labs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T09:21:39+00:00",
-      "published_ts": 1778577699,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Cline AI Agent Flaw Allows Attackers to Launch RCE Attacks",
-      "summary": "A critical security vulnerability in the Cline AI coding assistant\u2019s kanban package exposes developers to remote code execution, data theft, and denial-of-service attacks by simply visiting a malicious website. Security researcher Sagilayani disclosed CVE-2026-44211 on GitHub four days ago, revealing that the kanban npm package bundled with the Cline CLI starts a WebSocket server on 127.0.0.1:3484 with zero Origin [\u2026] The post Cline AI Agent Flaw Allows Attackers to Launch RCE Attacks appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/cline-ai-agent-flaw-launch-rce-attacks/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T09:12:28+00:00",
-      "published_ts": 1778577148,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Hardcoded secrets in Git",
-      "summary": "We just got GitHub advanced security, and during GitHub Secret scanning, we found a number of secrets hardcoded in multiple repos, which has access to enterprise apps. We have already done the containment and remediation, but what should be the long term plans for better security around this. submitted by /u/shonik97 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1taw34o/hardcoded_secrets_in_git/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-12T09:10:35+00:00",
-      "published_ts": 1778577035,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Windows API Abuse Enables Unencrypted System Lockdown via GhostLock Attack",
-      "summary": "Windows API Misuse Enables Ransomware-Like Disruption Without Encryption Cybersecurity researchers have identified a previously unknown... The post Windows API Abuse Enables Unencrypted System Lockdown via GhostLock Attack appeared first on .",
-      "link": "https://www.news4hackers.com/windows-api-abuse-enables-unencrypted-system-lockdown-via-ghostlock-attack/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T09:01:44+00:00",
-      "published_ts": 1778576504,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Windows / Microsoft",
-        "Linux / Unix"
-      ],
-      "curated": true
-    },
-    {
-      "title": "CISOs step into the AI spotlight",
-      "summary": "Serving in the military requires a precise, tactical mindset, and that\u2019s exactly what Barry Hensley espoused during his 24 years in the US Army , where he rose to the rank of colonel. The military \u201cis where you earn your stripes, showing your soldiers your willingness to jump into a foxhole and pick up a weapon,\u201d says Hensley , CSO of Brown & Brown, an independent insurance brokerage firm. As a security leader in an industry that is constantly evolving, Hensley has leaned on that in-the-trenches approach as a key part of his leadership ethos, even as the CSO role has grown increasingly strategic. \u201cA security leader needs to be close enough to the tactical fight to effectively guide the organization\u2019s strategic direction, align with business goals, manage risk and investments, and influence culture,\u201d he explains. Business units need to have confidence in a security leader\u2019s level of expertise in a specific security domain so the leader can properly represent the risks and investments required. \u201cRolling your sleeves up in the middle of a security event is never a bad thing,\u201d Hensley adds. \u201cIt shows your willingness to lead from the front and/or support in the most stressful situations.\u201d And increasingly stressful those situations have become, as the spotlight on CISOs has never shone more brightly. Now alongside increasing responsibilities that include data protection and privacy, third-party and supply chain risk, and regulatory compliance and reporting, CISOs must confront the rise of AI \u2014 both in the hands of bad actors and throughout the enterprise. And as the CISO role evolves and grows, many are rising to embrace the opportunity. According to Foundry\u2019s latest Security Priorities Survey , 95% of top security leaders regularly engage with the board of directors multiple times a month, up from 85% in 2023. This is helping advance cybersecurity initiatives. The CISO\u2019s elevated prominence is also leading to new reporting structures, the survey found, with 31% of respondents reporting that the top security leader reports directly into the board of directors. Only one in five respondents said their security chief reports into the corporate CIO, \u201canother sign that cybersecurity commands its own infrastructure and leadership outside of IT.\u201d CSO spoke with Hensley and other 2026 CSO Hall of Fame inductees , about how they are governing as AI initiatives become firmly rooted in the enterprise. Implementing an AI security framework AI is a core component of Brown & Brown\u2019s security strategy: enhancing SOC operations, streamlining vulnerability management, determining the risks/rewards of third- and fourth-party partnerships, and boosting security application development, Hensley says. \u201cFor 2026, publishing an AI security framework is our top priority to enable the business to move fast \u2014 safely,\u201d he says. His staff is partnering with the firm\u2019s AI engineering and enablement teams to perform AI risk assessments and ensure that AI is fit for purpose and used responsibly through the company\u2019s AI Governance Working Group. \u201cAI is top of mind for our leaders and a prominent topic with the board of directors, serving as a key consideration and differentiator for our business,\u201d Hensley says. Companies need governance frameworks that require security reviews before any AI capability is deployed, agrees Shaun Khalfan , senior vice president and CISO of PayPal. This ensures use cases are evaluated against security requirements, data sensitivity, operational risk, and business impact. \u201cThis is why I am a strategic business advisor for major AI business decisions at PayPal,\u201d says Khalfan, whose team is applying advanced risk detection technology and oversight, including machine learning models running in real-time that evaluate over a billion transactions per month. The work includes maintaining tight risk and business alignment, incorporating new products into existing compliance and risk frameworks, and adapting them to the unique characteristics of each product, he says. Move fast, keep risk at bay Like Hensley, Jeff Trudeau , CSO of Chime, says the role is fundamentally shifting from a control function to a strategic partner in how the business adopts AI responsibly. At Chime, that means being embedded early in how AI is built and deployed, not reviewing it after the fact, Trudeau says. \u201cWe\u2019re focused on three areas: securing AI systems themselves, governing how AI is used across the company, and helping leadership make clear risk/reward decisions as we scale,\u201d he says. Noting that AI increases both speed and surface area, Trudeau says his role is to ensure the firm can move fast without introducing unacceptable risk. \u201cThat requires tighter integration with engineering, product, and data teams, as well as more direct engagement with executive leadership and the board on how AI changes our risk posture.\u201d Khalfan also characterizes himself as a strategic CISO with a strong operational and engineering foundation. He strongly believes that a well-defined security strategy aligned to business goals is essential for the success of any cybersecurity organization. \u201cSecurity cannot operate as a separate function; it must be embedded in how the business grows, innovates, and continues to earn trust,\u201d he says, adding that \u201cstrategy without execution is just theory. We operate in a threat landscape that changes daily, and there are moments when tactical action is critical to managing immediate risk.\u201d Rapid AI adoption is a perfect example, he says. Echoing Trudeau, Khalfan believes the CISO must help the organization move fast while still protecting customers, data, infrastructure, and reputation. \u201cThe best CISOs know how to balance both, thinking long-term while acting decisively in the short term,\u201d he says. All roads lead back to trust and strong governance, he notes. \u201cTrust is the foundation of both technology and business. You must build trust in the system across customers, merchants, partners, and infrastructure to ensure AI and agent-driven transactions are reliable, secure, and verifiable.\u201d AI is creating the greatest security challenges For Trudeau, the biggest challenge of the burgeoning AI era is the pace of change. AI is accelerating how software is built, how attacks are executed, and how quickly systems evolve. Traditional security models, periodic reviews, and static controls don\u2019t keep up, he says. \u201cWe\u2019re addressing that by shifting to more continuous, embedded security practices. That includes integrating security into development workflows, investing in detection and response capabilities that adapt in real-time, and building stronger data governance around how sensitive information is accessed and used by AI systems,\u201d Trudeau says. At the same time, the focus is on maintaining trust at scale. \u201cAs we introduce more AI-driven experiences, we have to be clear about how systems behave, how decisions are made, and where human oversight remains,\u201d Trudeau says. \u201cThat\u2019s as much a product and trust challenge as it is a technical one.\u201d AI is also impacting what Brown & Brown is seeing with phishing campaigns, notes Hensley. \u201cAI is maturing in its ability to impersonate individuals, both voice and video, while quickly generating supporting documents to further convince teammates that a fraudulent request is genuine.\u201d A preview of Anthropic\u2019s Mythos release shows that AI can now rapidly discover previously unknown vulnerabilities and automate their exploitation, Hensley says. \u201cThis changes the paradigm. Vulnerability management will likely become a higher priority for organizations as they cannot wait weeks to patch hosts based on a perceived risk tolerance of mitigating controls.\u201d Most organizations will have to empower their IT platform providers to deploy automation for near-real-time patching \u2014 while holding them accountable for the contracted service-level availability, he says. Managing identity, data, and humans AI is not the only challenge CISOs have to contend with. Khalfan says that identity, data security, and context are his most important challenges to solve for. \u201cIdentity is becoming more complex, as humans, machines, APIs, and autonomous agents all interact with critical systems,\u201d he says. \u201cKnowing who \u2014 or what \u2014 is requesting access and ensuring the right level of trust and least privilege is fundamental.\u201d Context is the multiplier, Khalfan adds. \u201cSecurity decisions without business context create unnecessary friction, and business decisions without security context create unnecessary risk. Security leaders must create systems that make both visible in real-time.\u201d To execute, his team focuses heavily on getting the fundamentals right: strong data governance, dynamic policy tuning, continuous validation of the control environment, frequent deployment of security improvements, and designing controls that are embedded into workflows rather than added afterward, Khalfan says. \u201cSecurity at scale is less about isolated controls and more about building resilient systems that continuously adapt,\u201d he says. As much as AI has added new trials, Hensley finds that the human element, along with the expanding attack surface, remain the greatest security challenges. This includes the arms race between attackers and defenders. \u201cSophisticated social engineering is at an all-time high, challenging our teammates to be not only vigilant but also often the first line of defense,\u201d he says. To stay ahead, \u201cwe are tackling from all angles, including security awareness training, enabling new advanced AI features in our security tools, and taking more proactive actions on behalf of our teammates based on risk/reward evaluations,\u201d Hensley says. Hall of Fame advice on meeting the current CISO moment Meeting today\u2019s cyber leadership challenges requires CISOs to lead from the front \u2014 something both Hensley and Khalfan practice. That means only adopting AI that is secure and trusted. \u201cSecurity should not be the department of \u2018no\u2019; it should help business partners move faster with confidence, Khalfan says. Leading from the front also means challenging the status quo, and viewing yourself as a business partner/risk advisor, Hensley says. For Trudeau, it\u2019s about being able to translate risk into business terms. Stay close to the business. \u201cIf you do not understand how your company creates value, you cannot effectively protect it,\u201d Khalfan says. \u201cSecurity leaders need to speak the language of growth, customer trust, and operational resilience, not just technical risk.\u201d Trudeau agrees, saying that security leaders must align their work directly to business outcomes. \u201cIf security is seen as separate from growth, you\u2019ll always be reacting instead of shaping decisions.\u201d Be the enabler. \u201cThe best CISOs help the business move faster and safer, not slower,\u201d Khalfan says. \u201cYour job is not to create friction everywhere; it is to create friction where the risk is highest and remove it where trust can be increased through better design.\u201d Engage early. \u201cThe earlier security is involved in product and AI development, the more leverage you have to influence outcomes without slowing teams down,\u201d Trudeau notes. Khalfan echoes that, saying that data security, identity, and observability are the foundations on which trusted AI systems are built. Business and cyber teams must work hand in hand to ensure those outcomes are achieved, he says. \u201cWhether it is defending against AI-enabled threats, protecting AI infrastructure, or evaluating the risk and reward of AI innovation, security must be involved early, not after deployment,\u201d he adds. Stay proactively compliant. Khalfan says that PayPal\u2019s security organization continually monitors and updates its governance and requirements based on the evolving regulatory frameworks. Solve business problems. This is a sure-fire way to meet the today\u2019s cyber challenges and raise your profile as CISO. \u201cWhen security becomes a driver of trust, speed, and competitive advantage, your seat at the table becomes permanent,\u201d Khalfan says. For example, Khalfan drove company-wide bot protection initiatives, a collaborative, multi-team effort that enhanced fraud prevention. It greatly reduced fraudulent traffic at the top of the process, resulting in higher quality customer engagement, he says. Talk the talk. If you want to understand how to secure AI, you need to actively use AI, Khalfan stresses. \u201cSecurity leaders cannot govern what they do not understand. Hands-on experience creates credibility and better decision-making,\u201d he says. This often requires investing in fluency beyond security to understand how AI systems work, how your company builds products, and what leadership cares about, Trudeau says. Build credibility through consistency. \u201cAs the scope of the role expands, especially with AI, leaders are looking for clear, pragmatic guidance, not theoretical risk models,\u201d Trudeau says. There\u2019s no \u2018I\u2019 in team A core part of raising to today\u2019s challenges and elevating your CISO role requires security leaders to bring your teammates along. They will always be your greatest resource, Hensley says. \u201cMy military experience is part of my DNA and has shaped every part of my life, especially how I think of teammate development, building highly cohesive functioning teams, and prioritizing what is most important,\u201d he says. So many things in life will come and go, but your impact on others will impact generations, Hensley adds. They carry your values forward from culture, ethics, and standards. \u201cMy legacy will be the teammates that I have served alongside through my career,\u201d he says. \u201cI encourage security leaders to focus on the impact you can make on your team every day \u2014 it will ultimately serve to elevate your profile and leave a lasting mark.\u201d",
-      "link": "https://www.csoonline.com/article/4168684/cisos-step-into-the-ai-spotlight.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T09:01:00+00:00",
-      "published_ts": 1778576460,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Network / OT / ICS",
-        "Phishing / Social Engineering",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Hack to the Future: The Impact and Legacy of the DARPA AIxCC Challenge",
-      "summary": "",
-      "link": "https://openssf.org/blog/2026/05/12/hack-to-the-future-the-impact-and-legacy-of-the-darpa-aixcc-challenge/",
-      "source": "Open Source Security Foundation",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T09:00:49+00:00",
-      "published_ts": 1778576449,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Mini Shai-Hulud Worm Compromises TanStack, Mistral AI, Guardrails AI & More Packages",
-      "summary": "submitted by /u/arctide_dev [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1tavwoo/mini_shaihulud_worm_compromises_tanstack_mistral/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-12T09:00:49+00:00",
-      "published_ts": 1778576449,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Linux Mint vs. Elementary OS: I compared both distros, and here's my advice",
-      "summary": "If you're looking for a user-friendly Linux distribution, your destination could depend on your starting point.",
-      "link": "https://www.zdnet.com/article/elementary-os-vs-linux-mint-which-is-right-for-you/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T09:00:37+00:00",
-      "published_ts": 1778576437,
-      "smart_groups": [
-        "Linux / Unix"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Why patching SLAs should be the floor, not the strategy",
-      "summary": "I\u2019ve been a CISO for two separate companies, know several CISOs personally, and interact with many others through various cybersecurity forums. We all have one thing in common. We can tell you our patching SLA numbers off the top of our heads. Ninety-five percent of criticals closed in 14 days. Eighty-something on highs. The board slide is green. The auditors are satisfied. The client questionnaires come back clean. Then I ask a different question: what still needs to be done? And the tone shifts from the confident \u201cWe\u2019ve got it all covered\u201d to \u201cWellll\u2026 we\u2019ve got some legacy tech debt holding us back.\u201d What they\u2019re really saying, when someone\u2019s been in the role long enough to stop performing, is usually some version of this: the stuff we closed fast was the stuff that was cheap to close. The stuff that\u2019s still open is the stuff that would require us to re-architect a service, take a critical system offline or fight with a business owner who doesn\u2019t want to hear it. So, we keep closing easy criticals to keep the dashboard green, and the hard problems age quietly in the backlog where no one looks. This is the part of vulnerability management nobody wants to say out loud: we have built an entire governance industry around measuring the wrong thing. SLAs tell you how disciplined your ticketing process is. They tell you almost nothing about your actual risk. The compliance trap I\u2019ve watched this pattern play out across enough programs to be confident it\u2019s not an outlier. An organization commits to a thirty-day SLA for critical vulnerabilities. The vulnerability management team gets measured on that SLA. So, they get very, very good at hitting it \u2014 for the vulnerabilities that are easy to hit it on. What gets closed fast: anything an agent can patch remotely. Anything in a containerized workload that rebuilds nightly. Anything where the vendor has already shipped a clean update and the change advisory board will approve it without debate. What doesn\u2019t get closed: the legacy ERP module that can\u2019t be patched without breaking three downstream integrations. The embedded system in the warehouse that runs an operating system whose vendor went out of business in 2019. The Windows 2000 server under the sysadmin\u2019s desk who\u2019s been at the company since 1995. The misconfiguration in the core identity provider that, if changed, would lock out a business unit for a day while someone rebuilds their SSO flow. The architectural flaw in the authentication layer that\u2019s technically a CVSS 7 but practically an existential exposure because it sits in front of the crown jewels. Those don\u2019t move. They get relegated to the Island of Misfit Risks \u2014 exception queues, risk-accepted trackers, or the backlog of whatever team has owned the system or function since 2017. And the SLA report stays green because the denominator is dominated by the easy stuff, and the business has \u201caccepted the risk.\u201d I\u2019ve been the person who had to explain to a board that our SLA compliance was ninety-four percent and our biggest single point of failure was in the six percent. It is not a fun conversation. It is, however, the correct one. And the reason it almost never happens is because the entire reporting apparatus is structured to make it invisible. SLAs measure discipline, not risk Here\u2019s the mental model I\u2019ve been pushing with my peers. Think of patching SLAs the way you think of fire drills. Fire drills are necessary. They prove that, on a predictable cadence, your organization can execute a known procedure. No one in charge of a building full of people would claim that a successful fire drill means the building is safe. They would tell you the building is safe when the sprinklers, the structural design, the exits and the materials all hold up to a scenario you didn\u2019t script. Patching SLAs are fire drills. They prove your program can execute a known procedure on a predictable cadence. They do not tell you whether you\u2019re protected against the scenario you didn\u2019t script \u2014 the chained exploit path, the misconfigured trust boundary, the control that looks present in the GRC tool but has been silently failing for eight months, or my favorite, \u201cthat control works for everywhere except XYZ business unit.\u201d When I ask a CISO how much cyber risk they have, they struggle to articulate it. They talk about the attack surface, the number of vulnerabilities, an audit score. Rarely do I hear them say something like, \u201cWe have $252M in cyber risk.\u201d What if we as CISOs could articulate how much risk we have in terms of dollars and finally be able to build a business case for solving those hard vulnerabilities, misconfigurations and control breakdowns instead of trying to sell fear, uncertainty and doubt? That question has an answer, and it\u2019s one the FAIR Institute has been formalizing for years : cyber risk quantification, or CRQ. I\u2019m not here to evangelize a methodology. There are several \u2014 some more defensible than others \u2014 and the specific choice matters less than the discipline of forcing vulnerabilities, misconfigurations and control gaps into loss-exposure terms rather than severity labels. When I tell a CFO that an unpatched CVSS 9.8 exists on a server, their eyes glaze over. When I tell them we have an estimated twelve-million-dollar annualized loss exposure concentrated in one unremediated architectural flaw, we have a very different conversation \u2014 and, in my experience, a very different remediation budget. Three shifts that actually move the needle If you\u2019re a security leader trying to pull your program out of SLA theater and into something that reflects real risk, here\u2019s what I\u2019ve seen work. Treat the SLA as the floor of what\u2019s required, not the ceiling of what\u2019s reported. Continue to meet your contractual and regulatory SLA commitments \u2014 they exist for good reasons and customers ask about them. But stop presenting SLA compliance as the headline metric of your vulnerability management program. It\u2019s a hygiene measure. Put it on a hygiene slide. The headline metric should be the trend of your quantified residual risk; broken out by the business services it threatens. Make your exception process produce better decisions, not just documented ones. In most of the programs I\u2019ve reviewed, the risk acceptance process is a filing exercise with risks living on the register for years. Someone signs a form, the ticket gets closed as \u201crisk accepted,\u201d and the exposure disappears from the SLA report until the exception expires in the GRC tool next year. That\u2019s not risk management. That\u2019s paperwork. A functional exception process requires the business owner to see the quantified loss exposure they\u2019re accepting, agree to revisit it on a defined cadence and \u2014 for the biggest exposures \u2014 commit to a remediation plan with a funded timeline. Research from Verizon\u2019s 2025 DBIR found that among the edge device vulnerabilities featured in the report, the average time to patch was 209 days while attackers\u2019 median time-to-exploitation was five days \u2014 a gap that exists because the fixes live where change is hardest. That same pattern shows up in CISA\u2019s Known Exploited Vulnerabilities catalog , populated largely with CVEs that had patches available long before they were used in the wild. That isn\u2019t a patching problem. That\u2019s an exception-hygiene problem. Fund remediation the way you fund other capital and opex projects. The hard vulnerabilities \u2014 the ones that require re-architecting a service, replacing an end-of-life platform or rebuilding an identity flow \u2014 aren\u2019t going to get solved out of the quarterly operational budget. They require capital and opex investment, and they compete with every other business investment. Quantified risk is what lets you compete on equal terms. \u201cWe need to rebuild the authentication layer because it\u2019s old and unsupported\u201d will lose that fight eight out of 10 times. \u201cWe need to rebuild the authentication layer because it represents a $10M cyber risk exposure, and a $1M investment to remediate will reduce our cyber risk by a net of $9M\u201d wins it often enough to matter. One final note, because I get this question every time I talk about CRQ with a skeptical audience. Your loss-exposure estimates are going to be imprecise. The inputs are uncertain, the ranges are wide and any honest quantification exercise produces results that could be picked apart by a determined critic. That\u2019s fine. A CFO or an actuary can argue the number is $8M rather than $10M \u2014 still fine. At least you have a number people can anchor to, versus the old patching scorecard that said everything was rainbows and unicorns. A green SLA dashboard tells an executive that their security team is disciplined. A quantified risk picture tells them where their actual exposure is and what it would cost to reduce it. One of those conversations gets the hard stuff fixed. The other one gets it documented and forgotten. SLAs are the floor. If that\u2019s all you\u2019re standing on, you\u2019re closer to the ground than you think. This article is published as part of the Foundry Expert Contributor Network. Want to join?",
-      "link": "https://www.csoonline.com/article/4169623/why-patching-slas-should-be-the-floor-not-the-strategy.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T09:00:00+00:00",
-      "published_ts": 1778576400,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Windows / Microsoft",
-        "Identity / Access",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Why Basic Security Practices Still Work - Rob Allen - ASW #382",
-      "summary": "",
-      "link": "https://www.scworld.com/podcast-segment/14826-why-basic-security-practices-still-work-rob-allen-asw-382",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T09:00:00+00:00",
-      "published_ts": 1778576400,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Why Basic Security Practices Still Work - Rob Allen - ASW #382",
-      "summary": "If you have to ditch your entire appsec strategy because you expect 2026 to bring more vulns more quickly, then you probably didn't have a good strategy in the first place. Rob Allen shares how the mentality of \"assume breach\" doesn't have to be a defeatist attitude and can instead be a way to change a catastrophic breach into a more contained one. We also talk about proactive security and what an \"avoid breach\" attitude could look like, including how to apply the macro lessons of default deny and network isolation to writing secure code. Resources https://www.threatlocker.com/blog/the-claude-mythos-preview-proves-now-is-the-time-for-zero-trust?utm source=cyber risk alliance&utm medium=sponsor&utm campaign=claude mythos asw q2 26&utm content=claude mythos asw-&utm_term=podcast https://www.threatlocker.com/capabilities/zero-trust-network-access?utm source=cyber risk alliance&utm medium=sponsor&utm campaign=ztna q2 26&utm content=ztna-&utm_term=podcast https://www.threatlocker.com/capabilities/zero-trust-cloud-access?utm source=cyber risk alliance&utm medium=sponsor&utm campaign=ztca q2 26&utm content=ztca-&utm_term=podcast This segment is sponsored by ThreatLocker. Visit https://securityweekly.com/threatlocker to learn more about them! Visit https://www.securityweekly.com/asw for all the latest episodes! Show Notes: https://securityweekly.com/asw-382",
-      "link": "https://podcast.securityweekly.com/why-basic-security-practices-still-work-rob-allen-asw-382",
-      "source": "Security Weekly Podcast Network (Audio)",
-      "type": "podcasts",
-      "type_label": "Podcasts & YouTube",
-      "published": "2026-05-12T09:00:00+00:00",
-      "published_ts": 1778576400,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Malware / Payloads",
-        "Identity / Access"
-      ],
-      "curated": true
-    },
-    {
-      "title": "UK water company allowed hackers to lurk undetected for nearly two years, regulator finds",
-      "summary": "submitted by /u/DerBootsMann [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1tavt3o/uk_water_company_allowed_hackers_to_lurk/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-12T08:55:28+00:00",
-      "published_ts": 1778576128,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Fake TronLink Chrome Extension Steals Crypto Wallet Credentials",
-      "summary": "A newly uncovered phishing campaign is targeting TRON wallet users through a deceptive Chrome extension that mimics the popular TronLink wallet. The campaign highlights how modern browser extension abuse is evolving beyond static code inspection, making detection significantly harder. At first glance, it appears legitimate, even displaying \u201c1,000,000+ users\u201d and strong ratings on the Chrome [\u2026] The post Fake TronLink Chrome Extension Steals Crypto Wallet Credentials appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/fake-tronlink-chrome-extension/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T08:51:58+00:00",
-      "published_ts": 1778575918,
-      "smart_groups": [
-        "Network / OT / ICS",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Outpost24 Launches AI-Powered Authentication to Remove Configuration Barriers in DAST",
-      "summary": "By replacing complex authentication setup with plain-language instructions, Outpost24 Scale helps Application Security and DevSecOps teams make authenticated DAST easier to configure, maintain, and scale. The post Outpost24 Launches AI-Powered Authentication to Remove Configuration Barriers in DAST appeared first on Outpost24 .",
-      "link": "https://outpost24.com/blog/outpost24-launches-ai-powered-authentication-remove-configuration-barriers-dast/",
-      "source": "https://outpost24.com/feed/",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-12T08:45:56+00:00",
-      "published_ts": 1778575556,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Stolen Canvas data was \u201creturned\u201d after hacker agreement, Instructure says",
-      "summary": "Instructure says the stolen Canvas data impacting millions of students and staff was \u201creturned.\u201d That\u2019s not how breaches work.",
-      "link": "https://www.malwarebytes.com/blog/news/2026/05/stolen-canvas-data-was-returned-after-hacker-agreement-instructure-says",
-      "source": "Malwarebytes Labs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T08:41:07+00:00",
-      "published_ts": 1778575267,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Critical PHP SOAP Extension Vulnerabilities Enables Remote Code Execution Attacks",
-      "summary": "A serious cluster of vulnerabilities has been uncovered in PHP\u2019s core string processing and ext-soap components, putting numerous web servers at immediate risk of total takeover. While the SOAP extension has a notorious history of memory corruption flaws, this latest discovery crosses the red line into unauthenticated Remote Code Execution (RCE). GitHub security teams are [\u2026] The post Critical PHP SOAP Extension Vulnerabilities Enables Remote Code Execution Attacks appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/php-soap-extension-vulnerabilities/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T08:34:45+00:00",
-      "published_ts": 1778574885,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Magecart Hackers Abuse Google Tag Manager to Inject Credit Card Skimmers",
-      "summary": "Online shoppers have long been targets of digital theft, but a recent wave of attacks has raised the stakes in a troubling new way. Hackers tied to the notorious Magecart group are now hiding credit card skimmers inside Google Tag Manager (GTM) containers, turning a widely trusted web tool into a silent weapon against unsuspecting [\u2026] The post Magecart Hackers Abuse Google Tag Manager to Inject Credit Card Skimmers appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/magecart-hackers-abuse-google-tag-manager/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T08:30:09+00:00",
-      "published_ts": 1778574609,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "South Staffordshire Water Fined \u00a31m After Data Breach",
-      "summary": "The ICO has fined South Staffordshire Water nearly \u00a31m for a series of data protection failings",
-      "link": "https://www.infosecurity-magazine.com/news/south-staffordshire-water-fined-1m/",
-      "source": "Infosecurity Magazine \u2013 News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T08:30:00+00:00",
-      "published_ts": 1778574600,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "New ipTIME Pre-Auth RCE in CWMP",
-      "summary": "A pre-auth remote code execution vulnerability was found in the CWMP implementation of ipTIME routers, allowing unauthenticated attackers to execute arbitrary code remotely. submitted by /u/SSDisclosure [link] [comments]",
-      "link": "https://www.reddit.com/r/netsec/comments/1tav4dk/new_iptime_preauth_rce_in_cwmp/",
-      "source": "/r/netsec",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-12T08:16:01+00:00",
-      "published_ts": 1778573761,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Postmortem: TanStack npm supply-chain compromise",
-      "summary": "submitted by /u/Code-Painting-8294 [link] [comments]",
-      "link": "https://www.reddit.com/r/netsec/comments/1tav4d3/postmortem_tanstack_npm_supplychain_compromise/",
-      "source": "/r/netsec",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-12T08:16:00+00:00",
-      "published_ts": 1778573760,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Google Detects Sophisticated AI-Driven Cyber Threats Using Zero-Day Exploits",
-      "summary": "Cybersecurity Experts Warn of Rising Threat from AI-Powered Attacks As the cybersecurity landscape continues to... The post Google Detects Sophisticated AI-Driven Cyber Threats Using Zero-Day Exploits appeared first on .",
-      "link": "https://www.news4hackers.com/google-detects-sophisticated-ai-driven-cyber-threats-using-zero-day-exploits/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T08:02:51+00:00",
-      "published_ts": 1778572971,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Vidar Malware Attacks Browser Passwords, Crypto Wallets and Cookies for Financial Gain",
-      "summary": "Password Stealers Evolve: Vidar Malware Targets Browser Credentials and Cryptocurrency Wallets Cybersecurity researchers have identified... The post Vidar Malware Attacks Browser Passwords, Crypto Wallets and Cookies for Financial Gain appeared first on .",
-      "link": "https://www.news4hackers.com/vidar-malware-attacks-browser-passwords-crypto-wallets-and-cookies-for-financial-gain/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T08:01:37+00:00",
-      "published_ts": 1778572897,
-      "smart_groups": [
-        "Malware / Payloads",
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "TeamPCP Compromised Checkmarx Jenkins AST Plugin Following KICS Supply Chain Attack",
-      "summary": "A supply chain attack that started with a relatively obscure open-source scanner has now reached one of the most widely used application security tools in the industry. In May 2026, a malicious version of the Checkmarx Jenkins AST plugin was quietly published to the Jenkins Marketplace, exposing development pipelines to credential theft and unauthorized access. [\u2026] The post TeamPCP Compromised Checkmarx Jenkins AST Plugin Following KICS Supply Chain Attack appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/teampcp-compromised-checkmarx-jenkins-ast-plugin/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T07:49:27+00:00",
-      "published_ts": 1778572167,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Network / OT / ICS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Is Your LLM at Risk? Explaining Prompt Injection Attacks",
-      "summary": "Prompt injection attacks are a growing risk in LLMs. Understand how they work and reduce the risk of this LLM-specific vulnerability. The post Is Your LLM at Risk? Explaining Prompt Injection Attacks appeared first on Outpost24 .",
-      "link": "https://outpost24.com/blog/explaining-prompt-injection-attacks/",
-      "source": "https://outpost24.com/feed/",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-12T07:40:05+00:00",
-      "published_ts": 1778571605,
-      "smart_groups": [
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Instructure Reaches Ransom Agreement with ShinyHunters to Stop 3.65TB Canvas Leak",
-      "summary": "American educational technology company Instructure, the parent company of Canvas, said it reached an \"agreement\" with a decentralized cybercrime extortion group after it breached its network and threatened to leak stolen information from thousands of schools and universities. In an update shared on Monday, the Utah-based firm said it \"reached an agreement with the unauthorized actor involved in",
-      "link": "https://thehackernews.com/2026/05/instructure-reaches-ransom-agreement.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T07:37:00+00:00",
-      "published_ts": 1778571420,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "JDownloader site hacked to replace installers with Python RAT malware",
-      "summary": "The website for the popular JDownloader download manager was compromised earlier this week to distribute malicious Windows and Linux installers, with the Windows payload found deploying a Python-based remote access trojan. The supply chain attack affects those who downloaded installers from the official website between May 6 and May 7, 2026 via the Windows \u201cDownload [\u2026]",
-      "link": "https://lifeboat.com/blog/2026/05/jdownloader-site-hacked-to-replace-installers-with-python-rat-malware",
-      "source": "Lifeboat \u2013 Cybercrime & Malcode",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-05-12T07:32:07+00:00",
-      "published_ts": 1778571127,
-      "smart_groups": [
-        "Curated",
-        "Windows / Microsoft",
-        "Linux / Unix",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Instructure confirms hackers used Canvas flaw to deface portals",
-      "summary": "Education technology giant Instructure has confirmed that a security vulnerability allowed hackers to modify Canvas login portals and leave an extortion message. BleepingComputer has learned that both the breach and defacements involved multiple cross-site scripting (XSS) vulnerabilities that enabled the attacker to obtain authenticated admin sessions. The second hack was to draw attention and to [\u2026]",
-      "link": "https://lifeboat.com/blog/2026/05/instructure-confirms-hackers-used-canvas-flaw-to-deface-portals",
-      "source": "Lifeboat \u2013 Cybercrime & Malcode",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-05-12T07:31:39+00:00",
-      "published_ts": 1778571099,
-      "smart_groups": [
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Web / API Security"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Webinar this week: Prevention alone is not enough against modern attacks",
-      "summary": "This upcoming webinar explores how organizations need to combine security, backups, and recovery planning to reduce the impact of modern cyberattacks.",
-      "link": "https://lifeboat.com/blog/2026/05/webinar-this-week-prevention-alone-is-not-enough-against-modern-attacks",
-      "source": "Lifeboat \u2013 Cybercrime & Malcode",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-05-12T07:31:13+00:00",
-      "published_ts": 1778571073,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "TrickMo Android banker adopts TON blockchain for covert comms",
-      "summary": "A new variant of the TrickMo Android banking malware, delivered in campaigns targeting users across Europe, introduces new commands and uses The Open Network (TON) for stealthy command-and-control communications. The TrickMo banker was first spotted in September 2019 and has remained in active development, constantly receiving updates since then. In October 2024, Zimperium analyzed 40 [\u2026]",
-      "link": "https://lifeboat.com/blog/2026/05/trickmo-android-banker-adopts-ton-blockchain-for-covert-comms",
-      "source": "Lifeboat \u2013 Cybercrime & Malcode",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-05-12T07:30:59+00:00",
-      "published_ts": 1778571059,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Hackers abuse Google ads, Claude.ai chats to push Mac malware",
-      "summary": "Attackers are abusing Google Ads and legitimate Claude.ai shared chats in an active malvertising campaign. Users searching for \u201cClaude mac download\u201d may come across sponsored search results that list claude.ai as the target website, but lead to instructions that install malware on their Mac. The campaign was spotted by Berk Albayrak, a security engineer at [\u2026]",
-      "link": "https://lifeboat.com/blog/2026/05/hackers-abuse-google-ads-claude-ai-chats-to-push-mac-malware",
-      "source": "Lifeboat \u2013 Cybercrime & Malcode",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-05-12T07:30:45+00:00",
-      "published_ts": 1778571045,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "PoC Exploit Released for Android 0-Click Vulnerability that Enables Remote Shell Access",
-      "summary": "Google\u2019s May 2026 Android Security Bulletin has revealed a critical zero-click vulnerability in the core Android System. The CVE-2026-0073 flaw in Android\u2019s adbd daemon lets nearby threat actors remotely gain full shell access without victim interaction. Unearthed by BARGHEST security researchers, this critical cryptographic breakdown completely shatters Android\u2019s debugging trust model, transforming a standard developer [\u2026] The post PoC Exploit Released for Android 0-Click Vulnerability that Enables Remote Shell Access appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/poc-exploit-android-zero-click-vulnerability/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T07:29:48+00:00",
-      "published_ts": 1778570988,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Binance says AI-powered security has thwarted $10B in fraud since 2025",
-      "summary": "Binance says it prevented $10.53 billion in user losses and blacklisted 36,000 malicious addresses, with AI now powering over half of its fraud controls.",
-      "link": "https://cointelegraph.com/news/binance-ai-powered-security-stopped-10b-fraud-since-2025?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-12T07:22:38+00:00",
-      "published_ts": 1778570558,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Pluralistic: A fascist paradigm (12 May 2026)",
-      "summary": "Today's links A fascist paradigm: The change that changed everything. Hey look at this: Delights to delectate. Object permanence: Openstreetmap x Isle of Wight; Found grocery lists; Mayor wants to pray away potholes; Designing a D120; \"Too Like the Lightning.\" Upcoming appearances: Barcelona, Berlin, Hay-on-Wye, London, NYC, Edinburgh. Recent appearances: Where I've been. Latest books: You keep readin' em, I'll keep writin' 'em. Upcoming books: Like I said, I'll keep writin' 'em. Colophon: All the rest. A fascist paradigm (permalink) Yesterday, I attended a workshop on systems thinking and political change, which included a presentation on the work of Donella Meadows, whose Thinking in Systems is a canonical work on the subject: https://en.wikipedia.org/wiki/Thinking_In_Systems:_A_Primer \"Systems thinking\" is an analytical framework that treats the world as a mesh of interconnected, nonlinear components and relationships that can't be easily understood or steered. A complex system isn't merely \"complicated.\" A mechanical watch is complicated, in that it has many parts that work together in ways that require training and specialized knowledge to understand. But it isn't \"complex\" because each part has a specific function that can be understood and adjusted. In a complex system \u2013 say, an ecosystem \u2013 the parts are meshed in a web of unobvious relationships that make it difficult to predict what effect will follow from a given perturbation. When a blight kills off a plant species, the soil stability declines, resulting in landslides during the rainy season, changing the mineral content of nearby waterways, which creates microbial blooms or fish die-offs in a distant, downstream lake. But systems thinking isn't a counsel of despair that insists that you shouldn't do anything because you can never predict what will come of your actions. In Thinking in Systems, Meadows presents a hierarchy of leverage points for changing a system, ranked from least effective (\"Constants, numbers, parameters\") to most (\"The power to shift paradigms to deal with new challenges\"): https://www.flickr.com/photos/doctorow/55264856861/ In all, Meadows theorizes 12 different \"places to intervene in a system.\" The least effective of these \u2013 constants like taxes and standards, negative and positive feedback loops \u2013 are the sites of most of our political fights, and rightly so. They are the fine-tuning knobs of the system that adjust its margins. Once you have the rule of law (\"the rules of the system\"), you can drive change by amending, repealing or passing a law: https://donellameadows.org/archives/leverage-points-places-to-intervene-in-a-system/ But when you're confronted with a system that is significantly, persistently dysfunctional, you will likely have to work at sites that are further up the hierarchy, such as \"the distribution of power over the rules of the system\" or \"the goals of the system\"; or the most profound of all, \"the paradigm out of which the system \u2014 its goals, power structure, rules, its culture \u2014 arises.\" Thinking about paradigms is a form of \"meta-cognition,\" which is to say, \"thinking about how you think.\" Your paradigm encompasses all your assumptions, including your assumptions about how to proceed from your other assumptions: \"if x, then y\" is a paradigm. The workshop where we were discussing all of this is part of a group whose goal is reversing the antidemocratic movement in our society and the climate emergency that is its backdrop. But as I listened to the speaker and the ensuing discussion, it occurred to me that Meadows' theoretical work was a very good way of describing the successes of the fascist movement in the UK and around the world. Fascists like Farage and Trump are, at their root, anti-democratic. Their pitch is that the people are incapable of self-determination (as Peter Thiel puts it, \"democracy is incompatible with freedom\"). They want us to think that all our neighbors are irrational and foolish, and that we, too, are irrational and foolish, and that our safety and prosperity can only be safeguarded if we seek out those few people who are born to rule and liberate them from the petty niceties and regulations that democracy and the rule of law demand. In other words, the paradigm of democracy is that all of us are capable of both wise self-governance and self-rationalized misgovernance, and each of us has a useful perspective to contribute. The fascist paradigm is that we can't be trusted to rule ourselves, and only the people who are born with \"good blood\" are capable of directing our lives: https://pluralistic.net/2025/05/20/big-cornflakes-energy/#caliper-pilled This is the theory behind \"race realism\" and \"human diversity\" and all the other polite names the modern fascist uses to obscure the fact that they're reviving eugenics. It explains the panic over DEI, a panic driven by the belief that lesser people are being elevated to positions of rule and authority that they are genetically incapable of carrying out. That's why, whenever a disaster arises, fascists demand to know the gender, race and sexual orientation of the pilot, the ship's captain, or the official in charge. If the person who crashed the cargo ship into the bridge has brown skin, we can add another line to the ledger of costs associated with the doomed project to put people who were born to be bossed around in the boss's seat (of course, if the pilot turns out to be a white guy, that proves nothing, except that mistakes sometimes happen). The revival of fascism in this century has been scarily effective, and at times it can feel unstoppable. Meadows' work on systems thinking provides an explanation for that efficacy \u2013 and suggests a theory of change for dispatching fascism back to the graveyard of history. Fascists have made changes to things like laws and feedback loops, rules and distribution of power, but this all stems from a more profound alteration to the system, at the level of the paradigm. Which suggests that the real fight we have is over that paradigm: we have to convince our neighbors that they are smart enough to rule themselves, and so are we, and so is everyone else. We have to convince them that even the smartest and wisest person (including us, including them) is capable of folly and needs to have checks on their (our) authority. We need to attack the theory of the \"unitary executive\" and every other autocratic ideology head on. We have to insist that these aren't just unconstitutional, but that they are ideologically catastrophic. \"No kings,\" because even an omnibenevolent king isn't omniscient, and that means that omnipotence is always omnidestructive in the long run. The fascist revival has been scarily effective and resilient \u2013 and systems thinking offers an explanation for both that efficacy and that resiliency. Hey look at this (permalink) I knew my writing students were using AI. Their confessions led to a powerful teaching moment https://www.theguardian.com/us-news/ng-interactive/2026/may/10/fiction-writing-professor-ai Reporters at McClatchy withhold bylines in dispute over AI content https://www.spokesman.com/stories/2026/may/01/reporters-at-mcclatchy-withhold-bylines-in-dispute/ Someone Built an App to Fight Surveillance Pricing With a Flipper Zero\u2026 for Research Purposes https://gizmodo.com/someone-built-an-app-to-fight-surveillance-pricing-with-a-flipper-zero-for-research-purposes-2000755224 Life without US tech https://www.ft.com/content/4c3aad70-e0cb-46a2-95d5-15d11b6bf818?accessToken=zwAAAZ4VoJdukc9MOq1w4MtGotOV1RXRG2v4GA.MEQCIFXG2BBi81XpJ8D4_1uEUIencLlX2h_fjR9DN9YSKjmdAiA9W8XTlEm0uuh0SQioErfqHFu5R_9gkFTD4L54Bmg-cQ&amp;sharetype=gift&amp;token=3519ae98-a671-4dbe-9058-4ebf21385c9a&amp;syn-25a6b1a6=1 What Challenging a Bowling Monopoly Says About America https://www.thebignewsletter.com/p/monopoly-round-up-what-challenging The Oligarchs Are Starting to Lose Their Grip on Power https://www.nytimes.com/2026/05/07/opinion/hollywood-merger-fear-paramount-warner-bros.html Object permanence (permalink) #25yrsago First aid for the dying dotcom http://modernhumorist.com/mh/0010/dotcom/ #20yrsago OpenStreetMap maps Isle of Wight, Manchester next https://wiki.openstreetmap.org/wiki/Mapchester_Mapping_Party_2006 #20yrsago Fueling model rockets with Oreo fillings https://web.archive.org/web/20060616192646/https://www.popsci.com/popsci/how20/600152d7d441b010vgnvcm1000004eecbccdrcrd.html #20yrsago Legal guide for podcasters https://wiki.creativecommons.org/wiki/Welcome_To_The_Podcasting_Legal_Guide #20yrsago Collection of 1100+ found grocery lists https://grocerylists.org/ #10yrsago Mayor of Jackson, MS: \u201cI believe we can pray potholes away\u201d https://www.wjtv.com/news/jackson-mayor-tony-yarber-we-can-pray-potholes-away/ #10yrsago What\u2019s the best way to distribute numbers on the faces of a D120? https://web.archive.org/web/20160510182023/https://www.wired.com/2016/05/mathematical-challenge-of-designing-the-worlds-most-complex-120-sided-dice/ #10yrsago Billionaire Paypal co-founder Peter Thiel will be a California Trump delegate https://web.archive.org/web/20160510155226/https://www.wired.com/2016/05/investor-peter-thiel-will-california-delegate-trump/ #10yrsago McClatchy newspapers\u2019 CEO pleased to announce that he\u2019s shipping IT jobs overseas https://web.archive.org/web/20160510102956/https://www.computerworld.com/article/3067304/it-careers/newspaper-chain-sending-it-jobs-overseas.html #10yrsago Peace in Our Time: how publishers, libraries and writers could work together https://locusmag.com/feature/cory-doctorow-peace-in-our-time/ #10yrsago Too Like the Lightning: intricate worldbuilding, brilliant speculation, gripping storytelling https://memex.craphound.com/2016/05/10/too-like-the-lightning-intricate-worldbuilding-brilliant-speculation-gripping-storytelling/ #5yrsago LA traveling toward free public transit https://pluralistic.net/2021/05/10/comrade-ustr/#get-on-the-bus #5yrsago Biden's shift on vaccine patents is a Big Deal https://pluralistic.net/2021/05/10/comrade-ustr/#vaccine-diplomacy Upcoming appearances (permalink) Barcelona: Internet no tiene que ser un vertedero (Global Digital Rights Forum), May 13 https://encuentroderechosdigitales.com/en/speakers/ Virtual: How to Disenshittify the Internet with Wendy Liu (EFF), May 14 https://www.eff.org/event/effecting-change-enshittification Berlin: Re:publica, May 18-20 https://re-publica.com/de/news/rp26-sprecher-cory-doctorow Berlin: Enshittification at Otherland Books, May 18 https://www.otherland-berlin.de/de/event-details/cory-doctorow-in-der-friesenstrasse-23-kreuzberg-praesentiert-von-otherland.html Berlin: Enshittification at Otherland Books, May 19 https://www.otherland-berlin.de/de/event-details/cory-doctorow.html Hay-on-Wye: HowTheLightGetsIn, May 22-25 https://howthelightgetsin.org/festivals/hay/big-ideas-2 SXSW London, Jun 2 https://www.sxswlondon.com/session/how-big-tech-broke-the-internet-b3c4a901 NYC: The Reverse Centaur's Guide to Life After AI with Jonathan Coulton (The Strand), Jun 24 https://www.strandbooks.com/cory-doctorow-the-reverse-centaur-s-guide-to-life-after-ai.html Edinburgh International Book Festival with Jimmy Wales, Aug 17 https://www.edbookfest.co.uk/events/the-front-list-cory-doctorow-and-jimmy-wales Recent appearances (permalink) The \u201cEnshittification\u201d of Everything (Bioneers) https://bioneers.org/cory-doctorow-enshittification-of-everything-zstf2605/ Enshittification (99% Invisible) https://99percentinvisible.org/episode/666-enshittification/ Artificial Intelligence: The Ultimate Disruptor, with Astra Taylor and Yoshua Bengio (CBC Ideas) https://www.cbc.ca/listen/live-radio/1-23-ideas/clip/16210039-artificial-intelligence-the-ultimate-disruptor When Do Platforms Stop Innovating and Start Extracting? (InnovEU) https://www.youtube.com/watch?v=cccDR0YaMt8 Pete \"Mayor\" Buttigieg (No Gods No Mayors) https://www.patreon.com/posts/pete-mayor-with-155614612 Latest books (permalink) \"Canny Valley\": A limited edition collection of the collages I create for Pluralistic, self-published, September 2025 https://pluralistic.net/2025/09/04/illustrious/#chairman-bruce \"Enshittification: Why Everything Suddenly Got Worse and What to Do About It,\" Farrar, Straus, Giroux, October 7 2025 https://us.macmillan.com/books/9780374619329/enshittification/ \"Picks and Shovels\": a sequel to \"Red Team Blues,\" about the heroic era of the PC, Tor Books (US), Head of Zeus (UK), February 2025 (https://us.macmillan.com/books/9781250865908/picksandshovels). \"The Bezzle\": a sequel to \"Red Team Blues,\" about prison-tech and other grifts, Tor Books (US), Head of Zeus (UK), February 2024 (thebezzle.org). \"The Lost Cause:\" a solarpunk novel of hope in the climate emergency, Tor Books (US), Head of Zeus (UK), November 2023 (http://lost-cause.org). \"The Internet Con\": A nonfiction book about interoperability and Big Tech (Verso) September 2023 (http://seizethemeansofcomputation.org). Signed copies at Book Soup (https://www.booksoup.com/book/9781804291245). \"Red Team Blues\": \"A grabby, compulsive thriller that will leave you knowing more about how the world works than you did before.\" Tor Books http://redteamblues.com. \"Chokepoint Capitalism: How to Beat Big Tech, Tame Big Content, and Get Artists Paid, with Rebecca Giblin\", on how to unrig the markets for creative labor, Beacon Press/Scribe 2022 https://chokepointcapitalism.com Upcoming books (permalink) \"The Reverse-Centaur's Guide to AI,\" a short book about being a better AI critic, Farrar, Straus and Giroux, June 2026 (https://us.macmillan.com/books/9780374621568/thereversecentaursguidetolifeafterai/) \"Enshittification, Why Everything Suddenly Got Worse and What to Do About It\" (the graphic novel), Firstsecond, 2026 \"The Post-American Internet,\" a geopolitical sequel of sorts to Enshittification, Farrar, Straus and Giroux, 2027 \"Unauthorized Bread\": a middle-grades graphic novel adapted from my novella about refugees, toasters and DRM, FirstSecond, April 20, 2027 \"The Memex Method,\" Farrar, Straus, Giroux, 2027 Colophon (permalink) Today's top sources: Currently writing: \"The Post-American Internet,\" a sequel to \"Enshittification,\" about the better world the rest of us get to have now that Trump has torched America. Third draft completed. Submitted to editor. \"The Reverse Centaur's Guide to AI,\" a short book for Farrar, Straus and Giroux about being an effective AI critic. LEGAL REVIEW AND COPYEDIT COMPLETE. \"The Post-American Internet,\" a short book about internet policy in the age of Trumpism. PLANNING. A Little Brother short story about DIY insulin PLANNING This work \u2013 excluding any serialized fiction \u2013 is licensed under a Creative Commons Attribution 4.0 license. That means you can use it any way you like, including commercially, provided that you attribute it to me, Cory Doctorow, and include a link to pluralistic.net. https://creativecommons.org/licenses/by/4.0/ Quotations and images are not included in this license; they are included either under a limitation or exception to copyright, or on the basis of a separate license. Please exercise caution. How to get Pluralistic: Blog (no ads, tracking, or data-collection): Pluralistic.net Newsletter (no ads, tracking, or data-collection): https://pluralistic.net/plura-list Mastodon (no ads, tracking, or data-collection): https://mamot.fr/@pluralistic Bluesky (no ads, possible tracking and data-collection): https://bsky.app/profile/doctorow.pluralistic.net Medium (no ads, paywalled): https://doctorow.medium.com/ Tumblr (mass-scale, unrestricted, third-party surveillance and advertising): https://mostlysignssomeportents.tumblr.com/tagged/pluralistic \"When life gives you SARS, you make sarsaparilla\" -Joey \"Accordion Guy\" DeVilla READ CAREFULLY: By reading this, you agree, on behalf of your employer, to release me from all obligations and waivers arising from any and all NON-NEGOTIATED agreements, licenses, terms-of-service, shrinkwrap, clickwrap, browsewrap, confidentiality, non-disclosure, non-compete and acceptable use policies (\"BOGUS AGREEMENTS\") that I have entered into with your employer, its partners, licensors, agents and assigns, in perpetuity, without prejudice to my ongoing rights and privileges. You further represent that you have the authority to release me from any BOGUS AGREEMENTS on behalf of your employer. ISSN: 3066-764X",
-      "link": "https://pluralistic.net/2026/05/12/donella-meadows/",
-      "source": "https://pluralistic.net/feed/",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T07:22:17+00:00",
-      "published_ts": 1778570537,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Identity / Access",
-        "Network / OT / ICS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Three men charged in US over crypto wrench attack spree",
-      "summary": "US prosecutors say three men posed as delivery drivers and forced entry into homes to steal at least $6.5 million in crypto.",
-      "link": "https://cointelegraph.com/news/us-trio-charged-6-5m-crypto-wrench-attack-ring-los-angeles?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-12T07:15:02+00:00",
-      "published_ts": 1778570102,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "TrickMo Android Banking Malware Targets Banking, Wallet, and Authenticator Apps",
-      "summary": "A dangerous Android banking malware known as TrickMo has resurfaced with a powerful new variant, and this time it is more stealthy, more capable, and harder to stop than ever before. The threat is actively targeting users of banking apps, digital wallets, and authenticator applications across Europe, putting financial data and account access at serious [\u2026] The post TrickMo Android Banking Malware Targets Banking, Wallet, and Authenticator Apps appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/trickmo-android-banking-malware/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T07:14:02+00:00",
-      "published_ts": 1778570042,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Ethereum Foundation hits \u2018Glamsterdam\u2019 milestones, names new protocol leads",
-      "summary": "The Ethereum Foundation has finalized a new gas limit floor and improvement proposal for its \u201cGlamsterdam\u201d upgrade, which is likely to go live sometime in the third quarter of 2026.",
-      "link": "https://cointelegraph.com/news/ethereum-foundation-hits-glamsterdam-milestones-names-new-protocol-leads?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-12T07:06:20+00:00",
-      "published_ts": 1778569580,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Digital Fraud Network Expansion in India: Cybercrime in AP Sees 8% Rise, \u20b9970 Crore Loss",
-      "summary": "Cybercrime in Andhra Pradesh Surges 8% In recent years, the Indian state of Andhra Pradesh... The post Digital Fraud Network Expansion in India: Cybercrime in AP Sees 8% Rise, \u20b9970 Crore Loss appeared first on .",
-      "link": "https://www.news4hackers.com/digital-fraud-network-expansion-in-india-cybercrime-in-ap-sees-8-rise-%e2%82%b9970-crore-loss/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T07:01:39+00:00",
-      "published_ts": 1778569299,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Broadridge expands tokenized securities infrastructure amid Wall Street blockchain push",
-      "summary": "The company said its platform now supports tokenized equities, funds and money market instruments across trading, settlement and post-trade operations.",
-      "link": "https://cointelegraph.com/news/wall-street-tokenization-grows-as-broadridge-financial-solutions-adds-tokenized-securities-support?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-12T07:00:00+00:00",
-      "published_ts": 1778569200,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Nasdaq Ventures, Deutsche Bank back Elliptic in $120M funding round",
-      "summary": "The blockchain analytics company said the funding will support expansion of AI-powered compliance and transaction monitoring software for banks and crypto firms.",
-      "link": "https://cointelegraph.com/news/nasdaq-ventures-deutsche-bank-back-elliptic-in-120m-funding-round?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-12T07:00:00+00:00",
-      "published_ts": 1778569200,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Cushman & Wakefield - 310,431 breached accounts",
-      "summary": "In May 2026, the real estate services firm Cushman & Wakefield was the target of a \"pay or leak\" extortion campaign by the ShinyHunters group . Following the threat, the group publicly published data they alleged had been obtained from the firm, consisting mostly of C&W email addresses along with tens of thousands of external email addresses and corporate contact records. The exposed data was primarily business information, including names, job titles, company addresses and phone numbers.",
-      "link": "https://haveibeenpwned.com/Breach/CushmanWakefield",
-      "source": "Have I Been Pwned \u2013 Latest Breaches",
-      "type": "leaks",
-      "type_label": "Leaks & Breaches",
-      "published": "2026-05-12T06:58:16+00:00",
-      "published_ts": 1778569096,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "OpenAI Launches Daybreak for AI-Powered Vulnerability Detection and Patch Validation",
-      "summary": "OpenAI has launched Daybreak, a new cybersecurity initiative that brings together frontier artificial intelligence (AI) model capabilities and Codex Security to help organizations identify and patch vulnerabilities before attackers find a way in using the same issues. \"Daybreak combines the intelligence of OpenAI models, the extensibility of Codex as an agentic harness, and our partners across",
-      "link": "https://thehackernews.com/2026/05/openai-launches-daybreak-for-ai-powered.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T06:55:00+00:00",
-      "published_ts": 1778568900,
-      "smart_groups": [
-        "Vulnerabilities / CVEs",
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Android banking Trojan TrickMo evolves using TON network for C2",
-      "summary": "ThreatFabric found a new TrickMo Android trojan focused on stealth and persistence, moving its command-and-control traffic to the TON network. Security researchers at ThreatFabric have recently identified a new version of TrickMo, a dangerous Android banking trojan that shows how malware operators are focusing less on flashy new features and more on improving stealth, flexibility, [\u2026]",
-      "link": "https://securityaffairs.com/192003/malware/android-banking-trojan-trickmo-evolves-using-ton-network-for-c2.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T06:53:14+00:00",
-      "published_ts": 1778568794,
-      "smart_groups": [
-        "Curated",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "\u2018I failed them\u2019: Goliath Ventures CEO charged with crypto Ponzi apologizes",
-      "summary": "Christopher Delgado, the former Goliath Ventures CEO charged with fraud and money laundering, has publicly apologized to investors of what US prosecutors allege is a Ponzi scheme.",
-      "link": "https://cointelegraph.com/news/goliath-ventures-ceo-charged-over-alleged-crypto-ponzi-apologizes-to-investors-in-interview?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-12T06:45:07+00:00",
-      "published_ts": 1778568307,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Switched to a grc role after a year in SOC L1",
-      "summary": "I just switched to grc after one year of soc l1(mssp) First of all thank god i escaped cause that was the worst time I\u2019ve ever had, 24/7 shifts and irregular weekends destroyed my social life which is important to me. Working a night shift on Sunday and a morning shift on Thursday is probably a crime in some countries cause wtf. Now i know that I will NEVER work in SOC ever again. So now I got two options: continue in GRC all the way or switch to PT and or red teaming as i have the necessary certifications and skills just not the experience. GRC gods in this sub please give your opinion/POV as well as how the career progression looks like in the GRC path. submitted by /u/black13x [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1tateyy/switched_to_a_grc_role_after_a_year_in_soc_l1/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-12T06:40:20+00:00",
-      "published_ts": 1778568020,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "DRC\u2019s Coltan Belt: Verifying Deadly Landslides At Mines Under M23 Control",
-      "summary": "Since the beginning of 2026, at least four landslides are reported to have killed hundreds of people at the Rubaya mines in the Democratic Republic of Congo (DRC), a major global source of coltan. Coltan is widely used in smartphones, laptops and e-vehicles. With the mines currently under the control of the Rwandan-backed group M23, [\u2026] The post DRC\u2019s Coltan Belt: Verifying Deadly Landslides At Mines Under M23 Control appeared first on bellingcat .",
-      "link": "https://www.bellingcat.com/news/africa/2026/05/12/congos-coltan-belt-verifying-deadly-landslides-at-mines-under-m23-control/",
-      "source": "Bellingcat",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T06:34:28+00:00",
-      "published_ts": 1778567668,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Open-Source Vulnerability Scanner Plugin for IDE",
-      "summary": "Open-Source Vulnerability Checks Get a Boost with HEIDI Plugin Software composition analysis has become increasingly... The post Open-Source Vulnerability Scanner Plugin for IDE appeared first on .",
-      "link": "https://www.news4hackers.com/open-source-vulnerability-scanner-plugin-for-ide/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T06:01:28+00:00",
-      "published_ts": 1778565688,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Japan\u2019s PM orders cybersecurity review to stop Mythos going full CyberZilla",
-      "summary": "Fears exponential increase in attack scale and speed",
-      "link": "https://www.theregister.com/security/2026/05/12/japans-pm-orders-cybersecurity-review-to-defend-against-anthropic-mythos/5238501",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-12T05:40:37+00:00",
-      "published_ts": 1778564437,
       "smart_groups": [],
       "curated": false
     },
