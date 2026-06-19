@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-19T17:39:28.882055+00:00",
+  "generated_at": "2026-06-19T19:50:02.637600+00:00",
   "days_back": 30,
-  "total_items": 7231,
+  "total_items": 7220,
   "items": [
     {
       "title": "Black Hat USA",
@@ -24,6 +24,230 @@
       "type_label": "General Security & Blogs",
       "published": "2026-06-26T11:00:00+00:00",
       "published_ts": 1782471600,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Use-after-free in the QPACK encoder of nginx HTTP/3 - CVE-2026-42530",
+      "summary": "submitted by /u/everping [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1uab93o/useafterfree_in_the_qpack_encoder_of_nginx_http3/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-19T19:25:08+00:00",
+      "published_ts": 1781897108,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "An update on FortiBleed\u200a\u2014\u200awhat\u2019s happening with victim orgs",
+      "summary": "An update on FortiBleed \u2014 what\u2019s happening with victim orgs Two days ago I wrote something about FortiBleed: FortiBleed - 75k Fortinet firewalls have admin passwords cracked Fortinet told media orgs the data was from prior breaches and bruteforcing. That isn\u2019t true \u2014 or at least, not the full story. We\u2019ll get into that in this blog. I\u2019ve been working with impacted organisations to help them remediate \u2014 they\u2019ve given me logs in return. CloudSEK has a really good look inside the threat actor infrastructure here, it\u2019s well worth a look if you\u2019re a breach nerd: Inside the FortiBleed Open Directory: A Technical Analysis of What the Attacker Left Behind | CloudSEK CloudSEK\u2019s blog is great but there\u2019s around certain areas I\u2019d like to add context to. For example, the reason certain password credentials are repeated across victims is because a ransomware group was backdooring devices a while ago \u2014 using the same passwords. In fact, from looking into this \u2014 a staggering amount of Fortigate customers are already backdoored essentially via dormant admin accounts, waiting for future breaches. I disagree on their conclusion \u2014 yes, only about a thousand orgs were definitely compromised internally by this attacker based on the opendir evidence, however they performed logins at scale, performed full config exports and cracked credentials at scale across tens of thousands of Fortigate devices. They are currently trying to resell these credentials. Also, a thousand orgs getting pwned in itself is.. not fun. Let\u2019s get into my perspective. How they did it The attacker made an big error and put parts of their attack infrastructure in an open directory anybody could access at 85.11.187.8 on port 9999. This gives much evidence about what they were up to. The attacker essentially scanned the internet, discovered Fortigate boxes, logged in (it\u2019s not quite clear exactly how this bit worked, but more likely prior unpatched vulnerabilities or prior backdoor admin accounts) and then exported the full Fortigate configuration. Then, offline, they cracked the password hashes to reveal plain text passwords of all users on the box. They are currently attempting to sell the credentials online on forums as FortiVPN client credentials. This will allow follow on breaches. The password cracking was hosted at a GenAI company which rents GPU compute. The attacker rented 36 enterprise class GPUs \u2014 more than most large orgs have for internal AI efforts \u2014 and instead of using it for AI tasks, they used them for password cracking. Enterprise GPUs can crack passwords at scale very quickly. This is a side impact of the drunk GenAI stupidity gripping organisations worldwide. Getting a 36 Nvidia GPU cluster a few years ago would have required talking to providers, getting racks and lots of setup. Now? Get a VISA card, rent by the hour and log in a few minutes later. All your irreversibly encrypted passwords aren\u2019t looking so hot in the age of on demand compute at scale, where attackers who put things in open web directories can bruteforce large volumes of passwords at scale. pic from CloudSek, borrowed from the threat actor Config dumping at scale All of the orgs I\u2019ve helped have experienced dumping of their Fortigate configs over the past month. Every one was a listed FortiBleed victim, and every one had their configs exported. It is visible in Fortigate logs \u2014 go to System, Events, and filter Messages for config (or *config* depending on version of FortiOS). You will see messages saying the config has been exported, and list a user. You\u2019ll see a mix of admins and REST API accounts doing the exports. Here are IPs I have seen exporting device configs during the past month: 193.8.186.7 80.75.212.113 213.21.239.65 208.94.246.58 69.195.129.144 96.45.42.173 (yes, this one is Fortigate\u2019s ASN and their SASE solution \u2014 no, I don\u2019t know how this is happening). These configs then had passwords cracked by the threat actor \u2014 giving them a large volume of new credentials. I have published the full unredacted IP list of devices with known credentials and config dumps here \u2014 the victims, if you want to identify yourself: http://owned.lab6.com/~gossi/research/public/fortibleed/some-fortibleed-ips.txt GAYINT has published the victim domain list \u2014 to be clear, this is based on the Fortiguard license ID on the box, visible from the config dump: https://blog.gayint.org/intel/fortibleed.txt What the attacker did with access The CloudSek report contains this: \u201cThe directory also contains at least one live SSL VPN configuration file pointing into a victim network, confirming that the operators held usable, active access, not merely a list of cracked passwords.\u201d From the organisations I\u2019ve been helping, a few things have been seen: Multiple logins to legit staff accounts by the attacker Multiple exports of device configs by the attacker, these are automated and happen seconds after login Additions of new user admin accounts Additions of new firewall rules \u2014 for example, allowing SSH and RDP to allow NAT\u2019d IPs Logins to IPsec VPN tunnels From CloudSEK\u2019s reporting, they appear to have specifically targeted telcos and MSPs which manage customer connectivity with Fortigate devices to gain access into internal networks. The directory contains direct evidence of access to internal Active Directory environments at a reasonable number of companies \u2014 the lateral movement playbook for ransomware and data extortion. The attacker has been rumbled early into their operation. What to do if you use Fortigate firewalls Check the some-fortibleed-IPs.txt list above for your internet facing Fortigate IP addresses, and fortibleed.txt for your domains. If you\u2019re in either, there is a high probability your Fortigate device was already compromised. I recommend this guide if in the lists above: AL26-014 - FortiBleed leak of thousands of compromised credentials impacting Fortinet devices - Canadian Centre for Cyber Security In particular, look at your logs for config export messages \u2014 and look at the Admin user list and verify all of them can be accounted for. Accounts such as forticloud-* in superadmins strongly suggests the box is backdoored. If the box is compromised , you may want to consider: Disconnect from the internet temporarily Rebuild the box from scratch If not possible, remove all admin accounts, and create new ones for each user who needs access, with MFA enabled on each account Make sure then box is on the very latest available firmware. If end of life and no firmware available, bin it Inspect all firewall rules for changes, including looking at the system logs Rotate IPsec site to site VPN tunnel keys or certs at both ends Who is the attacker? Unknown, but it fits the mold of an eCrime group. Also, many of the reused credentials come from one specific Russian ransomware group. The sloppy nature of the security around the attacker suggests less nation state and more Advanced Persistent Teenagers. There\u2019s a financial motivation \u2014 you spend money on renting GPUs to crack passwords to make money from intrusions and blackmail of corporate victims. Fun fact \u2014 the biggest and most damaging security incidents I\u2019ve dealt with over the past 26 years have all involved teenagers, not nation states. Some of my learnings from FortiBleed Organisations are constantly worrying about Generative AI threats \u2014 but this incident has tens of thousands of organisations without even multi-factor authentication setup on boxes providing VPNs still. There is a massive gap between what many cybersecurity people are talking about \u2014 Frontier AI \u2014 and what is happening at the organisations they manage. Generative AI craze has lowered the bar so Mr Bean can crack passwords quickly using his mums credit card. Thanks, Sam Altman. Fortinet need to invest in security more. They need to be on top of things like this. The statements to media around it being old breach data (not true \u2014 includes new passwords from cracking) and bruteforce tend to suggest Fortinet were on the backfoot. Which is fine, but they probably want to get more on the front foot longer term. My suggestion = add telemetry for config exports back to mothership, detections for large volumes of logins to unique devices from the same IP via Fortiguard telemetry, that sort of thing. Do you know which of your suppliers use Fortigate boxes for site-to-site VPNs? Are those threat actors inside your internal network now? There needs to be a better system for threat intelligence which isn\u2019t private companies hoarding attacker data. There should be something public, not guided by profit. Hudson Rock have done a great job getting things out there on request, but I dunno.. it\u2019s 2026, you know? I think active security threat data should be more openly shared. We\u2019ve ended up with the Fortiguard ID domain list being hosted on GAYINT, and the impacted boxes IP list distributed by me on a webserver I set up in the year 2000 \u201326 years ago, which is still online to this day. (Fun fact, I went on to work in the office the box was hosted in two decades later). honey I\u2019m old I think because of those involved in publicising this \u2014 from Voldymyr Bob Diachenko to Hudson to CloudSEK \u2014 we\u2019ve ended up helping disrupting eCrime people getting further into large volumes of networks. As always, it will be people who get organisations out of danger \u2014 you can take your AI agents and stick them up your bum when shit\u2019s on fire. An update on FortiBleed \u2014 what\u2019s happening with victim orgs was originally published in DoublePulsar on Medium, where people are continuing the conversation by highlighting and responding to this story.",
+      "link": "https://doublepulsar.com/an-update-on-fortibleed-whats-happening-with-victim-orgs-c0671a50e7f4?source=rss----8343faddf0ec---4",
+      "source": "https://doublepulsar.com/feed",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-19T19:02:25+00:00",
+      "published_ts": 1781895745,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Malware / Payloads",
+        "Identity / Access",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "ludus 2.2.1",
+      "summary": "docs: \ud83d\udcda update GOAD env guide to use the BSL source method Signed-off-by: badsectorlabs-erik",
+      "link": "https://gitlab.com/badsectorlabs/ludus/-/releases/2.2.1",
+      "source": "https://gitlab.com/badsectorlabs/ludus/-/releases.atom",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-19T18:55:14+00:00",
+      "published_ts": 1781895314,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "[Control systems] Mitsubishi Electric security advisory (AV26-616)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/control-systems-mitsubishi-electric-security-advisory-av26-616",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-19T18:53:39+00:00",
+      "published_ts": 1781895219,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Unpatchable 'usbliter8' Exploit Breaks Apple A12 and A13 SecureROM Boot Chain",
+      "summary": "Security researchers at Paradigm Shift have published a working exploit, dubbed usbliter8, that achieves arbitrary code execution inside the SecureROM of Apple's A12 and A13 chips. That code is burned into the silicon at manufacture. No software update can reach it. Affected devices will carry this flaw for as long as they stay in use. This is not a remote attack. It requires",
+      "link": "https://thehackernews.com/2026/06/unpatchable-usbliter8-exploit-breaks.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-19T18:37:41+00:00",
+      "published_ts": 1781894261,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Best way to get recommendation for submitting a Cybersecurity research in arxiv?",
+      "summary": "This community have helped me a lot to learn. I've been working as a freelance security analyst and before worked on early stage startups, but I don't have any research background, neither part of any institution. Recently, as I'm playing around with agents, I'm able to find more ways to secure them and challenges around it. I would love to see how I can share this research with the public. \u200b If anyone is interested, I'm happy to share the whitepaper as well, but as I'm new to the research area, I would love to know what would be the first step because when I started to create an account there to just submit for peer review, they did need some recommendation \u200b Would appreciate any help submitted by /u/Immediate-Welder999 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1ua9zdq/best_way_to_get_recommendation_for_submitting_a/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-19T18:36:06+00:00",
+      "published_ts": 1781894166,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "The Gentlemen RaaS Uses GentleKiller EDR Framework Targeting 400 Security Processes",
+      "summary": "The Gentlemen ransomware-as-a-service (RaaS) operation is actively developing and maintaining a suite of endpoint detection and response (EDR) killers that it hands out to affiliates for impairing system defenses before deploying the encryptor. This mature portfolio of EDR-terminating tools is centered around a framework that's known as GentleKiller. \"They also incorporate third-party or",
+      "link": "https://thehackernews.com/2026/06/the-gentlemen-raas-uses-gentlekiller.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-19T18:33:07+00:00",
+      "published_ts": 1781893987,
+      "smart_groups": [
+        "Curated",
+        "Ransomware"
+      ],
+      "curated": true
+    },
+    {
+      "title": "How do you handle security questionnaires at scale? (SIG, CAIQ, vendor risk)",
+      "summary": "Curious how security teams deal with the volume of security questionnaires from customers/prospects. In my experience it's mostly copy-paste from old responses, digging through old emails, or starting from scratch each time. Hours of work per questionnaire. How does your team handle this? Any tools or processes that actually work? submitted by /u/Traditional-Dish2325 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1ua9wfm/how_do_you_handle_security_questionnaires_at/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-19T18:32:50+00:00",
+      "published_ts": 1781893970,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Republican lawmaker proposes prediction markets insider trading ban, not including White House officials",
+      "summary": "The bill did not specifically bar members of the US Congress from using the platforms or making sports bets, but prohibited policy wagers.",
+      "link": "https://cointelegraph.com/news/prediction-markets-law-white-house-officials?utm_source=rss&utm_medium=rss&utm_campaign=rss",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-06-19T18:30:21+00:00",
+      "published_ts": 1781893821,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "GPT-5.6 Rumors Heat Up as Users Swear ChatGPT Suddenly Got Smarter",
+      "summary": "Many AI users are convinced that OpenAI is quietly running GPT-5.6 inside ChatGPT. OpenAI isn't confirming anything.",
+      "link": "https://decrypt.co/371699/openai-gpt-5-6-chatgpt-stealth-testing-rumors",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-06-19T18:15:55+00:00",
+      "published_ts": 1781892955,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Apple Fixes Beats Eavesdropping Flaw, DOT Ends Delta CrowdStrike Probe, AWS Continuum Updates",
+      "summary": "SecurityWeek\u2019s weekly cybersecurity news roundup offers a concise overview of important developments that may not... The post Apple Fixes Beats Eavesdropping Flaw, DOT Ends Delta CrowdStrike Probe, AWS Continuum Updates appeared first on .",
+      "link": "https://www.news4hackers.com/apple-fixes-beats-eavesdropping-flaw-dot-ends-delta-crowdstrike-probe-aws-continuum-updates/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-19T18:08:13+00:00",
+      "published_ts": 1781892493,
+      "smart_groups": [
+        "Ransomware",
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Cybercriminals Exploit GitHub, YouTube, and VirusTotal to Distribute Crypto-Stealing Malware",
+      "summary": "Cybercriminals leveraged GitHub, YouTube, and VirusTotal to disseminate cryptocurrency-stealing malware, according to findings by Check... The post Cybercriminals Exploit GitHub, YouTube, and VirusTotal to Distribute Crypto-Stealing Malware appeared first on .",
+      "link": "https://www.news4hackers.com/cybercriminals-exploit-github-youtube-and-virustotal-to-distribute-crypto-stealing-malware/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-19T18:06:04+00:00",
+      "published_ts": 1781892364,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC",
+        "Malware / Payloads",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Splunk Enterprise RCE Vulnerability (CVE-2026-20253) Under Active Exploitation",
+      "summary": "Critical Unauthenticated Remote Code Execution Vulnerability in Splunk Enterprise Being Exploited in the Wild (CVE-2026-20253)... The post Splunk Enterprise RCE Vulnerability (CVE-2026-20253) Under Active Exploitation appeared first on .",
+      "link": "https://www.news4hackers.com/splunk-enterprise-rce-vulnerability-cve-2026-20253-under-active-exploitation/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-19T18:04:23+00:00",
+      "published_ts": 1781892263,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Mastodon 4.6 Introduces Profile Collections and Two-Factor Security Controls",
+      "summary": "Mastodon 4.6 introduces profile Collections and enhanced two-factor authentication options, focusing on user organization, security,... The post Mastodon 4.6 Introduces Profile Collections and Two-Factor Security Controls appeared first on .",
+      "link": "https://www.news4hackers.com/mastodon-4-6-introduces-profile-collections-and-two-factor-security-controls/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-06-19T18:02:39+00:00",
+      "published_ts": 1781892159,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "The 5 Largest Publicly Traded Solana Treasury Firms",
+      "summary": "Institutions are gobbling up Solana for their balance sheets. These are the top publicly traded treasuries.",
+      "link": "https://decrypt.co/339551/5-largest-publicly-traded-solana-treasury-firms",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-06-19T17:40:59+00:00",
+      "published_ts": 1781890859,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Bitcoin traders expect new lows but data cautions against overly bearish bias",
+      "summary": "A concentrated liquidity pocket below $59,000 raises the chance of a Bitcoin price sell-off to new 2026 lows, but data suggests bulls will absorb the dip.",
+      "link": "https://cointelegraph.com/markets/bitcoin-eyes-new-yearly-lows-as-traders-warn-not-to-get-too-bearish-here?utm_source=rss&utm_medium=rss&utm_campaign=rss",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-06-19T17:38:09+00:00",
+      "published_ts": 1781890689,
       "smart_groups": [],
       "curated": false
     },
@@ -170,6 +394,26 @@
         "Network / OT / ICS"
       ],
       "curated": false
+    },
+    {
+      "title": "What\u2019s new with Google Cloud",
+      "summary": "Want to know the latest from Google Cloud? Find it here in one handy location. Check back regularly for our newest updates, announcements, resources, events, learning opportunities, and more. Tip : Not sure where to find what you\u2019re looking for on the Google Cloud blog? Start here: Google Cloud blog 101: Full list of topics, links, and resources . aside_block Jun 15 - Jun 19 Join us for a deep dive into agentic AI control with AppyThings Your integrations aren\u2019t failing\u2014they are evolving. When users interact with AI agents, they no longer arrive directly at your site, resulting in experiences stripped of your context, expertise, and intended experience. Join us on Thursday, June 25, for a community tech talk in partnership with AppyThings to learn how to solve this new gateway challenge. We will explore how MTN laid an integration foundation with the Model Context Protocol (MCP) to deliver accurate, consistent experiences. Our technical experts will demonstrate how to leverage Apigee as a centralized tools management solution to govern agent access. Register for the session Optimize Spot VM Deployments with Capacity Advisor for Spot, Now in Public Preview Google Compute Engine has launched Capacity Advisor for Spot to Public Preview, now open to all customers. This tool turns Spot capacity discovery into a data-driven process by providing real-time deployment recommendations to maximize obtainability and minimize preemption risks. Query the Capacity Advisor API for obtainability and minimum estimated uptimes, or use the new Console UI featuring a global availability map, spot price lookups, and historical preemption rate trends to visually find the most cost-efficient compute capacity. Get started today to start optimizing your Spot VM deployments! Build a multi-tenant agentic AI system When scaling generative AI across different business units, your teams need specialized AI agents with unique operational rules and tools. Our new reference architecture helps you build a centralized multi-tenant platform to prevent fragmented silos, eliminate data exposure risks, and maintain unified compliance. Read the guide to design and deploy a multi-tenant agentic AI system in Google Cloud. How to Configure Gemini Enterprise to Connect to a Custom MCP Server The Gemini Enterprise MCP Connector was a big announcement at Google Cloud Next because it introduces the ability to connect Gemini Enterprise to MCP servers. This blog post provides a step-by-step guide on how to configure your first Custom MCP Server connector using the Google Maps Ground Lite MCP server as an example. Once you understand this flow, you can configure multiple MCP servers with Gemini Enterprise to bring all the context you need. Jun 8 - Jun 12 Simplify Multi-Cloud Planning with Cloud Location Finder, now Generally Available Cloud Location Finder provides up-to-date data on public regions, zones, and Google Distributed Cloud Connected locations across Google Cloud, AWS, Azure, and OCI. You can now programmatically discover locations based on provider, proximity, territory, and carbon footprint to optimize your global infrastructure strategy for performance, compliance, and sustainability. Get started for free today Jun 1 - Jun 5 Modeling the physical world with BigQuery Graph Managing complex supply chains requires more than just spreadsheets; it requires a digital replica of the physical world. In this post , Guru Rangavittal and Candice Chen explore how BigQuery Graph enables organizations to build a digital twin by turning physical assets into an interconnected map of nodes and edges. By moving beyond traditional relational databases, businesses gain real-time clarity into operations\u2014from executing surgical ingredient recalls to analyzing weather-driven logistics risks. Discover how BigQuery Graph transforms reactive firefighting into proactive, precision modeling, allowing you to see critical connections in seconds and future-proof your supply chain. Apigee for AI: Govern LLMs and MCP Servers (Presented in Spanish) Learn how to securely transition your AI initiatives from experimental prototypes to enterprise-ready deployments. Join Luis Cuellar on June 18 for a technical deep dive (presented in Spanish) exploring Apigee\u2019s latest AI gateway capabilities. Discover how to centralize governance over Model Context Protocol (MCP) servers, protect Large Language Models (LLMs) with robust API gateway security policies, and manage token-based quotas. Register for the June 18 Spanish Community TechTalk May 25 - May 29 Anthropic\u2019s Claude Opus 4.8 is now available on Gemini Enterprise Agent Platform . As we continue to expand our platform's model offerings, this addition gives organizations more options for handling complex, multi-stage enterprise workflows. Claude Opus 4.8 brings strong capabilities in agentic coding, allowing developers to manage extensive refactors and tracking dependencies over extended sessions. API Horizon Munich July 6, 2026: Orchestrating the Next Era of AI and APIs Master the orchestration of next-gen AI and digital ecosystems. Join Google Cloud experts and DACH tech leaders on July 6 for an exclusive look at the Apigee roadmap, Agent Management, and Model Context Protocol (MCP). Gain real-world insights and connect with the regional integration community. Register now Securing AI Agents: The Extended Agent Gateway Pattern Learn how to prevent autonomous AI agents from invoking unauthorized APIs. Join Apigee Specialist Joel Gauci on June 4 for a technical deep dive into the Extended Agent Gateway pattern. This session covers enforcing Fine-Grained Authorization (FGA), implementing secure token exchange, and establishing Model Context Protocol (MCP) governance at the API gateway layer to protect enterprise backend services. Register for the June 4 Community TechTalk API-to-Agent Security: Exposing REST APIs to Gemini Enterprise via MCP Connect Gemini Enterprise agents to core data without creating security hazards. Join Google Cloud Specialist Nigel Walters on June 11 to learn how to instantly transform legacy REST APIs into secure Model Context Protocol (MCP) servers. We\u2019ll cover how to safely register tools with Gemini while enforcing gateway-level guardrails like rate limiting and access control policies. Register for the June 11 Community TechTalk May 18 - May 22 Chinese Webinar | June 4: AI Command and Control As AI agents move from experimental pilots to core enterprise functions, governance has become a critical next step. Join Google Cloud on June 4th at 10:00 AM (Beijing Time) to learn how to build a secure AI management layer architecture. We'll explore how to develop governed MCP (Model Context Protocol) endpoints, manage tool access to enterprise data, and leverage robust audit logs to operationalize AI. This session also includes a practical demonstration of these governance frameworks on Google Cloud. Register here GCP Announces New Features to Benchmark and Optimize LLMs for On-Device Use Cases Deploying fine-tuned LLMs from GCP to edge devices like smartphones is complex due to fragmented hardware. Google AI Edge Portal bridges this gap, giving GCP developers the ability to test AI performance on 120+ Android devices, representing the full diversity of high, medium, and low tier smartphones on the market today. This week at I/O, we announced brand new capabilities to benchmark and debug LLM performance across these devices. Sign-up to utilize these new features in private preview today. May 11 - May 15 Build Your AI & MCP Control Tower for Universal Governance Master the future of agentic security with Apigee. Join our Community TechTalk on May 21 to discover how Apigee serves as a central \"Control Tower\" for the Model Context Protocol (MCP). We will explore how new JSON-RPC tool authorization enables fine-grained access policies across your organization, ensuring secure and scalable AI deployments. Whether managing internal tools or external users, learn to govern your agentic ecosystem with absolute precision. This session is designed for global coverage across EMEA and AMER regions. Register for the May 21 Community TechTalk Apr 27 - May 1 Master Your Launch: The Apigee Production Go-Live Checklist Ensure a secure launch with the Apigee production guide. Join Nicola Cardace on May 28 to explore security guardrails, including IAM roles, mTLS configurations, and encrypted KVM migrations. Scheduled at 11 AM EDT / 5 PM CEST to support EMEA and AMER teams, this TechTalk provides the technical roadmap you need to flip the switch with absolute confidence. Register for the May 28 Community TechTalk Transforming APIs into Governed Agentic Tools on the Google Cloud Agentic Platform Turn your APIs into secure, governed agentic tools on the Google Cloud Agentic Platform. Join Specialist Christophe Lalev\u00e9e on May 7 for a technical deep dive into AI productization. Scheduled at 5 PM CEST / 11 AM EDT to maximize coverage for developers across EMEA and AMER, this session explores the integration and governance frameworks required to scale enterprise-ready AI with confidence. Register for the May 7 Community TechTalk Fractional G4 VMs are Generaly Available, providing a highly efficient and cost-effective entry point for AI and graphics workloads. These new configurations, using NVIDIA virtual GPU (vGPU) technology, allow you to leverage the power of the NVIDIA RTX PRO 6000 Blackwell Server Edition GPUs in flexible, smaller increments, so you can right-size your infrastructure to match the specific demands of your applications. By providing more granular access to advanced hardware, fractional G4 VMs let you optimize resource allocation and reduce overhead without sacrificing performance. You can now select from additional GPU slice sizes for your specific needs: 1/2 GPU: Ideal for more intensive tasks such as LLM inference, robotics sensor simulation, and high-fidelity 3D rendering. 1/4 GPU: Optimized for mainstream workloads, including mid-range creative design, video transcoding, and real-time data visualization. 1/8 GPU: Great for lightweight applications such as remote desktops, productivity tools, and entry-level streaming services. Transitioning AI from a sandbox prototype to an enterprise-grade system is a major hurdle. A monolithic script won't suffice for widespread deployment. To achieve true scale and reliability with Gemini, organizations must adopt service-oriented micro-agent architectures, establish Zero-Trust security, and implement rigorous EvalOps. Master the \"Agentic Maturity Ladder\" to ensure your AI & Agentic solutions are robust, secure, and ready for the real world. Watch the deep dive and read the developer blog to learn more. ML Development in VS Code with Google Cloud Power: Workbench Extension Now Available Data scientists and developers can now combine the local productivity of VS Code with the scalable infrastructure of Google Cloud. The new Google Cloud Workbench Notebooks extension allows you to connect to and run notebooks on managed cloud environments directly within your local IDE. This integration streamlines the ML lifecycle by eliminating context switching and providing high-performance compute for complex workloads in a familiar interface. As part of our commitment to the developer ecosystem, the extension is fully open-sourced to support community-driven innovation. Install from Marketplace: GoogleCloudTools.workbench-notebooks Contribute on GitHub: colab-enterprise-vscode Apr 20 - Apr 24 Announcing the 2026 Google Cloud Partners of the Year Google Cloud is honored to celebrate the winners of the 2026 Partner of the Year awards! These awards recognize an exceptional group of partners across AI, Security, Infrastructure, and more, who have demonstrated a commitment to customer success. From global system integrators to specialized startups, these winners are leveraging the power of Google Cloud to solve complex challenges and drive digital transformation worldwide. Join us in congratulating these organizations for their innovation, collaboration, and impactful results over the past year. See the 2026 Partner Award winners Apr 13 - Apr 17 We're excited to announce the Public Preview of Datastream\u2019s metadata integration with Knowledge Catalog . This is the first step in our vision to provide a centralized, \"single pane of glass\" for all Datastream assets. The enhancement automatically synchronizes Streams, Connection Profiles, and Private Connections, eliminating data silos. It enhances discoverability, allowing you to search for Datastream assets using the same interface as BigQuery tables. Centralized governance is also provided, making your real-time data estate more transparent and easier to manage. Upgrading Apigee OPDK to 4.53 with OS Modernization Modernize your infrastructure using Google\u2019s official, sequential upgrade path. Our Technical expert, Rakesh Talanki outlines how to upgrade Apigee OPDK to v4.53 while migrating to a supported OS (RHEL 8.x/9.x). This guide covers the \"build-out\" methodology, including multi-data center syncing, to ensure a stable, zero-downtime transition Read the guide Cloud Run Worker Pools and CREMA: Powering Serverless AI at Scale Google Cloud has announced the General Availability of Cloud Run worker pools , a new resource type designed specifically for pull-based, non-HTTP workloads. Unlike traditional Cloud Run services that scale based on request traffic, worker pools provide an \"always-on\" environment for background tasks like processing message queues or running large-scale AI inference. To support this, Google Cloud also open-sourced the Cloud Run External Metrics Autoscaler (CREMA) . Built on KEDA, CREMA enables queue-aware autoscaling for worker pools, allowing them to dynamically scale based on external signals like Pub/Sub backlog or Kafka lag. Apigee Model Context Protocol (MCP) now Generally Available Expose enterprise APIs as MCP tools for agentic AI applications with the General Availability of MCP in Apigee. This update allows developers to transform APIs into AI-ready tools using OpenAPI Specifications, removing the need for local MCP servers or additional infrastructure. With managed endpoints and semantic search in API hub, you can now provide AI agents with secure, governed access to enterprise data at scale. Explore the MCP overview Apr 6 - Apr 10 Community TechTalk: Powering Retail Agents with ADK, UCP & Apigee X Move beyond basic chatbots to secure, transactional AI experiences. Join our Community TechTalk on April 16 to learn how Apigee X and Gemini build a \"Trust Layer\" for AI shopping assistants using UCP standards. We\u2019ll demonstrate how to block prompt injections with Model Armor and implement cost governance via token limits to secure the path from discovery to purchase. Register for the TechTalk Implement multimodal capabilities in your AI agents Explore three new reference architectures for building sophisticated multi-agent AI systems that can process and analyze multimodal data. To analyze disparate multimodal data and produce a high-confidence classification, see Classify multimodal data . To create a fluid conversational AI that processes audio and video streams in real time, see Enable live bidirectional multimodal streaming . To consolidate fragmented multimodal data into a searchable knowledge graph, see Multimodal GraphRAG resource orchestration . Automate SecOps workflows with an agentic AI system To accelerate incident response and reduce manual toil for your security team, you need a system that can automate remediation playbooks. Our new reference architecture helps you build an AI agent that orchestrates complex triage and investigation workflows across disparate security tools, such as SIEM, CSPM, and EDR, from a single interface. See the full guide to orchestrate security operations workflows . Mar 30 - Apr 3 ASEAN Webinar | April 30: Mastering Agentic Governance at Scale with GCP As AI agents move from experimental pilots to core enterprise functions, governance is the critical next step. Join Google Cloud experts Shilpi Puri & Wely Lau for a webinar on April 30th at 11:00 AM SGT to learn how to architect a secure AI Management layer. We\u2019ll explore developing governed MCP endpoints, managing tool access to enterprise data, and operationalizing AI with robust audit logs. The session includes a live demo of these frameworks in action on Google Cloud. RSVP here. Mar 23 - Mar 27 Turn your API sprawl into an agent-ready catalog As organizations scale, APIs often become scattered across multiple gateways, creating \"blind spots\" that hinder AI adoption. To solve this, we\u2019ve introduced two new capabilities for Apigee API hub: a new integration with API Gateway to automatically centralize API metadata into a single control plane, and a specification boost add-on (now in public preview). This add-on uses AI to enhance your API documentation with the precise examples and error codes that AI agents need to function reliably. Read the full blog post to get started. Webinar | April 16: AI Command & Control As AI agents move from experimental pilots to core enterprise functions, governance is the critical next step. Join Google Cloud expert Satyam Maloo for a webinar on April 16th at 11:00 AM IST to learn how to architect a secure AI Management layer. We\u2019ll explore developing governed MCP endpoints, managing tool access to enterprise data, and operationalizing AI with robust audit logs. The session includes a live demo of these frameworks in action on Google Cloud. RSVP here. Modernizing and Decoupling Event Ingestion with Apigee In modern cloud-native architectures, decoupling producers from consumers is critical for building resilient systems. While Google Cloud Pub/Sub provides a scalable backbone, exposing it directly to external clients can introduce security and management overhead. This new guide explores how to leverage Apigee as an intelligent HTTP ingestion point. Learn how to handle security, mediation, and traffic control before messages reach your internal bus using the PublishMessage policy or Pub/Sub API. Read the full guide. Mar 16 - Mar 20 Gemini-powered Assistant in BigQuery Studio Gets Context-Aware Upgrades The Gemini-powered assistant in BigQuery Studio has been transformed into a fully context-aware analytics partner, supporting your entire data lifecycle. The new capabilities include intelligent resource discovery, which uses Dataplex Universal Catalog search to find resources across projects and deep dive into metadata using natural language. You can now automate tasks, such as scheduling production-grade queries directly through the chat interface, and instantly troubleshoot long-running or failed jobs with root cause analysis and cost control auditing. Explore the full range of what the assistant can do. Mar 9 - Mar 13 Want to use Gemini to develop code and don't know where to start? This article includes a couple of examples of developing code with Gemini prompts; it identified changes that were needed to be made to get the code working. The article also refers to other examples that are available on github. Mar 2 - Mar 6 Introducing Gemini 3.1 Flash-Lite, our fastest and most cost-efficient Gemini 3 series model. Built for high-volume developer workloads at scale, 3.1 Flash-Lite delivers high quality for its price and model tier. Gemini 3.1 Flash-Lite can tackle tasks at scale, like high-volume translation and content moderation, where cost is a priority. And it can also handle more complex workloads where more in-depth reasoning is needed, like generating user interfaces and dashboards, creating simulations or following instructions. Starting today, 3.1 Flash-Lite is rolling out in preview to enterprises via Vertex AI and developers via the Gemini API in Google AI Studio . TechTalk: Implementing Device Authorization Grant (RFC 8628) for Apigee Learn how to authorize \"headless\" devices like Smart TVs or AI agents that lack keyboards and browsers. Join our Community TechTalk on March 19 (5PM CET / 12PM EDT) to go under the hood of Apigee X/Hybrid. We\u2019ll cover the real-world mechanics of state management, polling, and human-in-the-loop security patterns for devices and autonomous agents. Register for the TechTalk Feb 23 - Feb 27 Pro-level image generation gets faster and more accessible with Nano Banana 2 Nano Banana 2 is our state-of-the-art image generation and editing model. It delivers Pro-level image generation and editing at the speed you expect from Flash \u2014 making the quality, reasoning, and world knowledge you loved about Nano Banana Pro more accessible. Learn more about the model here . The Intelligent Path to Compliance: Transforming Regulatory QC with Google Cloud Reducing \"Refuse to File\" (RTF) risks and submission cycle times is critical for life sciences leaders. Google Cloud\u2019s Regulatory Submission Semantic QC Auditor leverages Gemini and RAG architecture to transform Quality Control from a manual burden into an active, intelligent workflow. By automating semantic cross-referencing, narrative coherence checks, and dynamic guidance-based auditing, this solution ensures rigorous accuracy and auditability. Operating within a secure GxP-ready environment, it empowers teams to detect subtle inconsistencies and generate remediation plans without sacrificing data privacy. Learn more . Stop typing, start interacting! The Gemini Live Agent Challenge is here . Build immersive agents that can help you see, hear, and speak using Gemini and Google Cloud. Compete for your share of $80,000+ in prizes and a trip to Google Cloud Next '26! Submissions are open from February 16, 2026 to March 16, 2026. Learn more and register at geminiliveagentchallenge.devpost.com Feb 9 - Feb 13 Introducing Gemini 3.1 Pro on Google Cloud. 3.1 Pro is a noticeably smarter, more capable baseline for complex problem-solving. We\u2019re shipping 3.1 Pro at scale, building upon our goal to help you transform your business for the agentic future. Learn more about the model\u2019s capabilities here . Gemini 3.1 Pro is available starting today in preview in Vertex AI and Gemini Enterprise . Developers can access the model in preview via the Gemini API in Google AI Studio , Android Studio , Google Antigravity , and Gemini CLI . Automate Storage Compatibility with GKE Dynamic Default Storage Classes Managing storage across mixed-generation VM clusters in GKE just got easier. With the new Dynamic Default Storage Class , Google Kubernetes Engine automatically selects between Persistent Disk (PD) and Hyperdisk based on a node's specific hardware compatibility. This abstraction eliminates the need for complex scheduling rules and manual pairing, ensuring your volumes \"just work\" regardless of the underlying infrastructure. By defining both variants in a single class, you reduce operational overhead while maintaining peak performance and cost-efficiency across your entire cluster. Explore automated disk type selection Community TechTalk: AI-Powered Apigee Development with strofa.io Join the Apigee community on February 26 for a deep dive into strofa.io . Guest speaker Denis Kalitviansky will demonstrate how this new AI-powered tool automates and orchestrates Apigee development, from local emulators to large-scale hybrid environments. Discover how to scale your API management and streamline team collaboration using the latest in AI-driven automation. Register now to reserve your spot. Jan 26 - Jan 30 Simplify API Governance with Native OpenAPI v3 Support Eliminate integration debt and accelerate deployment velocity with the General Availability of OpenAPI v3 (OASv3) support for API Gateway and Cloud Endpoints. You no longer need to downgrade modern specifications to OASv2. Instead, you can now define API contracts and enforce critical policies\u2014including telemetry, quotas, and security\u2014using native Google-specific extensions directly within your OASv3 files. This update ensures your APIs are secure by design while remaining fully compatible with the modern developer ecosystem and Google Cloud\u2019s AI services. Get started with OpenAPI v3 on API Gateway and Cloud Endpoints. Accelerate API Testing with the New Open Source API Tester Start validating your APIs with API Tester, a simple, YAML-based Test Driven Development (TDD) framework. Designed for the Apigee community, this tool allows you to write human-readable tests, run them instantly via a web client or CLI, and perform deep unit testing on Apigee proxies. With native support for JSONPath assertions and Apigee shared flows, you can verify everything from payload data to internal variables like proxy.basepath without leaving your terminal. Explore the API Tester guide and start testing your proxies today. Secure Sensitive Data with Kubernetes Secrets in Apigee hybrid Enhance security in Apigee hybrid by accessing Kubernetes Secrets directly within your API proxies. This hybrid-exclusive feature keeps sensitive credentials within your cluster boundary and prevents replication to the management plane. It supports strict separation of duties: operators manage secrets via kubectl , while developers reference them as secure flow variables\u2014ideal for high-compliance and GitOps workflows. Implement Kubernetes Secrets in your hybrid proxies. See the Console in a Whole New Light: Dark Mode is Now Generally Available in Google Cloud Elevate your cloud management workflow with Dark Mode, now generally available in the Google Cloud console. We have delivered a modern, cohesive, and accessible experience reimagined for maximum comfort and productivity\u2014especially during extended working hours and low-light environments. Dark Mode can be enabled automatically based on your operating system's preference, or manually through the Settings -> Appearance menu. Switch to Dark Mode today to enjoy a modern, comfortable, and productive environment! Apigee X Networking: PSC or VPC Peering? Deciding how to connect Apigee X? Watch this video to compare Private Service Connect and VPC Peering. We break down northbound and southbound routing, IP consumption, and how to reach targets on-prem or in the cloud. Learn to simplify your architecture and avoid common networking \"gotchas\" for a smoother deployment. Watch the video. Jan 19 - Jan 23 Bridge the Gap: Excel-to-API Conversion in Apigee Portals Give your customers more ways to connect! This new article by Tyler Ayers explores how to extend the Apigee Integrated Portal to support direct Excel file uploads. By leveraging SheetJS and custom portal scripts, you can enable users to upload spreadsheets, preview data, and submit it directly to your APIs, all without writing a single line of integration code themselves. It\u2019s a powerful way to simplify onboarding for those who aren't yet API-ready. Learn how to build it . Elevate your applications with Firestore\u2019s new advanced query engine We have fundamentally reimagined Firestore with pipeline operations for Enterprise edition. Experience a powerful new engine featuring over a hundred new query features, index-less queries, new index types, and observability tooling to improve query performance. Seamlessly migrate using built-in tools and leverage Firestore\u2019s existing differentiated serverless foundation, virtually unlimited scale, and industry-leading SLA. Join a community of 600K developers to craft expressive applications that maximize the benefits of rich queryability, real-time listen queries, robust offline caching, and cutting-edge AI-assistive coding integrations. Learn more about Firestore pipeline operations.",
+      "link": "https://cloud.google.com/blog/topics/inside-google-cloud/whats-new-google-cloud/",
+      "source": "Google Cloud Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-06-19T16:00:00+00:00",
+      "published_ts": 1781884800,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Linux / Unix",
+        "Cloud / SaaS",
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": true
     },
     {
       "title": "CISA Adds LiteSpeed cPanel Plugin Vulnerability to KEV List Following Active Exploitation",
@@ -2138,6 +2382,18 @@
         "Crypto / Web3"
       ],
       "curated": true
+    },
+    {
+      "title": "Franklin Templeton files ETFs that turn stock dividends into Bitcoin exposure",
+      "summary": "The proposed funds would allocate stock dividends to Bitcoin-linked investments, using a dividend reinvestment strategy to build crypto exposure over time.",
+      "link": "https://cointelegraph.com/news/franklin-templeton-bitcoin-drip-etfs-reinvest-stock-dividends-btc-exposure?utm_source=rss&utm_medium=rss&utm_campaign=rss",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-06-19T06:00:00+00:00",
+      "published_ts": 1781848800,
+      "smart_groups": [],
+      "curated": false
     },
     {
       "title": "The first unpatchable iPhone exploit in six years targets chips still running Apple's latest iOS",
@@ -23410,26 +23666,6 @@
         "Phishing / Social Engineering"
       ],
       "curated": false
-    },
-    {
-      "title": "What\u2019s new with Google Cloud",
-      "summary": "Want to know the latest from Google Cloud? Find it here in one handy location. Check back regularly for our newest updates, announcements, resources, events, learning opportunities, and more. Tip : Not sure where to find what you\u2019re looking for on the Google Cloud blog? Start here: Google Cloud blog 101: Full list of topics, links, and resources . aside_block Jun 8 - Jun 12 Simplify Multi-Cloud Planning with Cloud Location Finder, now Generally Available Cloud Location Finder provides up-to-date data on public regions, zones, and Google Distributed Cloud Connected locations across Google Cloud, AWS, Azure, and OCI. You can now programmatically discover locations based on provider, proximity, territory, and carbon footprint to optimize your global infrastructure strategy for performance, compliance, and sustainability. Get started for free today Jun 1 - Jun 5 Modeling the physical world with BigQuery Graph Managing complex supply chains requires more than just spreadsheets; it requires a digital replica of the physical world. In this post , Guru Rangavittal and Candice Chen explore how BigQuery Graph enables organizations to build a digital twin by turning physical assets into an interconnected map of nodes and edges. By moving beyond traditional relational databases, businesses gain real-time clarity into operations\u2014from executing surgical ingredient recalls to analyzing weather-driven logistics risks. Discover how BigQuery Graph transforms reactive firefighting into proactive, precision modeling, allowing you to see critical connections in seconds and future-proof your supply chain. Apigee for AI: Govern LLMs and MCP Servers (Presented in Spanish) Learn how to securely transition your AI initiatives from experimental prototypes to enterprise-ready deployments. Join Luis Cuellar on June 18 for a technical deep dive (presented in Spanish) exploring Apigee\u2019s latest AI gateway capabilities. Discover how to centralize governance over Model Context Protocol (MCP) servers, protect Large Language Models (LLMs) with robust API gateway security policies, and manage token-based quotas. Register for the June 18 Spanish Community TechTalk May 25 - May 29 Anthropic\u2019s Claude Opus 4.8 is now available on Gemini Enterprise Agent Platform . As we continue to expand our platform's model offerings, this addition gives organizations more options for handling complex, multi-stage enterprise workflows. Claude Opus 4.8 brings strong capabilities in agentic coding, allowing developers to manage extensive refactors and tracking dependencies over extended sessions. API Horizon Munich July 6, 2026: Orchestrating the Next Era of AI and APIs Master the orchestration of next-gen AI and digital ecosystems. Join Google Cloud experts and DACH tech leaders on July 6 for an exclusive look at the Apigee roadmap, Agent Management, and Model Context Protocol (MCP). Gain real-world insights and connect with the regional integration community. Register now Securing AI Agents: The Extended Agent Gateway Pattern Learn how to prevent autonomous AI agents from invoking unauthorized APIs. Join Apigee Specialist Joel Gauci on June 4 for a technical deep dive into the Extended Agent Gateway pattern. This session covers enforcing Fine-Grained Authorization (FGA), implementing secure token exchange, and establishing Model Context Protocol (MCP) governance at the API gateway layer to protect enterprise backend services. Register for the June 4 Community TechTalk API-to-Agent Security: Exposing REST APIs to Gemini Enterprise via MCP Connect Gemini Enterprise agents to core data without creating security hazards. Join Google Cloud Specialist Nigel Walters on June 11 to learn how to instantly transform legacy REST APIs into secure Model Context Protocol (MCP) servers. We\u2019ll cover how to safely register tools with Gemini while enforcing gateway-level guardrails like rate limiting and access control policies. Register for the June 11 Community TechTalk May 18 - May 22 Chinese Webinar | June 4: AI Command and Control As AI agents move from experimental pilots to core enterprise functions, governance has become a critical next step. Join Google Cloud on June 4th at 10:00 AM (Beijing Time) to learn how to build a secure AI management layer architecture. We'll explore how to develop governed MCP (Model Context Protocol) endpoints, manage tool access to enterprise data, and leverage robust audit logs to operationalize AI. This session also includes a practical demonstration of these governance frameworks on Google Cloud. Register here GCP Announces New Features to Benchmark and Optimize LLMs for On-Device Use Cases Deploying fine-tuned LLMs from GCP to edge devices like smartphones is complex due to fragmented hardware. Google AI Edge Portal bridges this gap, giving GCP developers the ability to test AI performance on 120+ Android devices, representing the full diversity of high, medium, and low tier smartphones on the market today. This week at I/O, we announced brand new capabilities to benchmark and debug LLM performance across these devices. Sign-up to utilize these new features in private preview today. May 11 - May 15 Build Your AI & MCP Control Tower for Universal Governance Master the future of agentic security with Apigee. Join our Community TechTalk on May 21 to discover how Apigee serves as a central \"Control Tower\" for the Model Context Protocol (MCP). We will explore how new JSON-RPC tool authorization enables fine-grained access policies across your organization, ensuring secure and scalable AI deployments. Whether managing internal tools or external users, learn to govern your agentic ecosystem with absolute precision. This session is designed for global coverage across EMEA and AMER regions. Register for the May 21 Community TechTalk Apr 27 - May 1 Master Your Launch: The Apigee Production Go-Live Checklist Ensure a secure launch with the Apigee production guide. Join Nicola Cardace on May 28 to explore security guardrails, including IAM roles, mTLS configurations, and encrypted KVM migrations. Scheduled at 11 AM EDT / 5 PM CEST to support EMEA and AMER teams, this TechTalk provides the technical roadmap you need to flip the switch with absolute confidence. Register for the May 28 Community TechTalk Transforming APIs into Governed Agentic Tools on the Google Cloud Agentic Platform Turn your APIs into secure, governed agentic tools on the Google Cloud Agentic Platform. Join Specialist Christophe Lalev\u00e9e on May 7 for a technical deep dive into AI productization. Scheduled at 5 PM CEST / 11 AM EDT to maximize coverage for developers across EMEA and AMER, this session explores the integration and governance frameworks required to scale enterprise-ready AI with confidence. Register for the May 7 Community TechTalk Fractional G4 VMs are Generaly Available, providing a highly efficient and cost-effective entry point for AI and graphics workloads. These new configurations, using NVIDIA virtual GPU (vGPU) technology, allow you to leverage the power of the NVIDIA RTX PRO 6000 Blackwell Server Edition GPUs in flexible, smaller increments, so you can right-size your infrastructure to match the specific demands of your applications. By providing more granular access to advanced hardware, fractional G4 VMs let you optimize resource allocation and reduce overhead without sacrificing performance. You can now select from additional GPU slice sizes for your specific needs: 1/2 GPU: Ideal for more intensive tasks such as LLM inference, robotics sensor simulation, and high-fidelity 3D rendering. 1/4 GPU: Optimized for mainstream workloads, including mid-range creative design, video transcoding, and real-time data visualization. 1/8 GPU: Great for lightweight applications such as remote desktops, productivity tools, and entry-level streaming services. Transitioning AI from a sandbox prototype to an enterprise-grade system is a major hurdle. A monolithic script won't suffice for widespread deployment. To achieve true scale and reliability with Gemini, organizations must adopt service-oriented micro-agent architectures, establish Zero-Trust security, and implement rigorous EvalOps. Master the \"Agentic Maturity Ladder\" to ensure your AI & Agentic solutions are robust, secure, and ready for the real world. Watch the deep dive and read the developer blog to learn more. ML Development in VS Code with Google Cloud Power: Workbench Extension Now Available Data scientists and developers can now combine the local productivity of VS Code with the scalable infrastructure of Google Cloud. The new Google Cloud Workbench Notebooks extension allows you to connect to and run notebooks on managed cloud environments directly within your local IDE. This integration streamlines the ML lifecycle by eliminating context switching and providing high-performance compute for complex workloads in a familiar interface. As part of our commitment to the developer ecosystem, the extension is fully open-sourced to support community-driven innovation. Install from Marketplace: GoogleCloudTools.workbench-notebooks Contribute on GitHub: colab-enterprise-vscode Apr 20 - Apr 24 Announcing the 2026 Google Cloud Partners of the Year Google Cloud is honored to celebrate the winners of the 2026 Partner of the Year awards! These awards recognize an exceptional group of partners across AI, Security, Infrastructure, and more, who have demonstrated a commitment to customer success. From global system integrators to specialized startups, these winners are leveraging the power of Google Cloud to solve complex challenges and drive digital transformation worldwide. Join us in congratulating these organizations for their innovation, collaboration, and impactful results over the past year. See the 2026 Partner Award winners Apr 13 - Apr 17 We're excited to announce the Public Preview of Datastream\u2019s metadata integration with Knowledge Catalog . This is the first step in our vision to provide a centralized, \"single pane of glass\" for all Datastream assets. The enhancement automatically synchronizes Streams, Connection Profiles, and Private Connections, eliminating data silos. It enhances discoverability, allowing you to search for Datastream assets using the same interface as BigQuery tables. Centralized governance is also provided, making your real-time data estate more transparent and easier to manage. Upgrading Apigee OPDK to 4.53 with OS Modernization Modernize your infrastructure using Google\u2019s official, sequential upgrade path. Our Technical expert, Rakesh Talanki outlines how to upgrade Apigee OPDK to v4.53 while migrating to a supported OS (RHEL 8.x/9.x). This guide covers the \"build-out\" methodology, including multi-data center syncing, to ensure a stable, zero-downtime transition Read the guide Cloud Run Worker Pools and CREMA: Powering Serverless AI at Scale Google Cloud has announced the General Availability of Cloud Run worker pools , a new resource type designed specifically for pull-based, non-HTTP workloads. Unlike traditional Cloud Run services that scale based on request traffic, worker pools provide an \"always-on\" environment for background tasks like processing message queues or running large-scale AI inference. To support this, Google Cloud also open-sourced the Cloud Run External Metrics Autoscaler (CREMA) . Built on KEDA, CREMA enables queue-aware autoscaling for worker pools, allowing them to dynamically scale based on external signals like Pub/Sub backlog or Kafka lag. Apigee Model Context Protocol (MCP) now Generally Available Expose enterprise APIs as MCP tools for agentic AI applications with the General Availability of MCP in Apigee. This update allows developers to transform APIs into AI-ready tools using OpenAPI Specifications, removing the need for local MCP servers or additional infrastructure. With managed endpoints and semantic search in API hub, you can now provide AI agents with secure, governed access to enterprise data at scale. Explore the MCP overview Apr 6 - Apr 10 Community TechTalk: Powering Retail Agents with ADK, UCP & Apigee X Move beyond basic chatbots to secure, transactional AI experiences. Join our Community TechTalk on April 16 to learn how Apigee X and Gemini build a \"Trust Layer\" for AI shopping assistants using UCP standards. We\u2019ll demonstrate how to block prompt injections with Model Armor and implement cost governance via token limits to secure the path from discovery to purchase. Register for the TechTalk Implement multimodal capabilities in your AI agents Explore three new reference architectures for building sophisticated multi-agent AI systems that can process and analyze multimodal data. To analyze disparate multimodal data and produce a high-confidence classification, see Classify multimodal data . To create a fluid conversational AI that processes audio and video streams in real time, see Enable live bidirectional multimodal streaming . To consolidate fragmented multimodal data into a searchable knowledge graph, see Multimodal GraphRAG resource orchestration . Automate SecOps workflows with an agentic AI system To accelerate incident response and reduce manual toil for your security team, you need a system that can automate remediation playbooks. Our new reference architecture helps you build an AI agent that orchestrates complex triage and investigation workflows across disparate security tools, such as SIEM, CSPM, and EDR, from a single interface. See the full guide to orchestrate security operations workflows . Mar 30 - Apr 3 ASEAN Webinar | April 30: Mastering Agentic Governance at Scale with GCP As AI agents move from experimental pilots to core enterprise functions, governance is the critical next step. Join Google Cloud experts Shilpi Puri & Wely Lau for a webinar on April 30th at 11:00 AM SGT to learn how to architect a secure AI Management layer. We\u2019ll explore developing governed MCP endpoints, managing tool access to enterprise data, and operationalizing AI with robust audit logs. The session includes a live demo of these frameworks in action on Google Cloud. RSVP here. Mar 23 - Mar 27 Turn your API sprawl into an agent-ready catalog As organizations scale, APIs often become scattered across multiple gateways, creating \"blind spots\" that hinder AI adoption. To solve this, we\u2019ve introduced two new capabilities for Apigee API hub: a new integration with API Gateway to automatically centralize API metadata into a single control plane, and a specification boost add-on (now in public preview). This add-on uses AI to enhance your API documentation with the precise examples and error codes that AI agents need to function reliably. Read the full blog post to get started. Webinar | April 16: AI Command & Control As AI agents move from experimental pilots to core enterprise functions, governance is the critical next step. Join Google Cloud expert Satyam Maloo for a webinar on April 16th at 11:00 AM IST to learn how to architect a secure AI Management layer. We\u2019ll explore developing governed MCP endpoints, managing tool access to enterprise data, and operationalizing AI with robust audit logs. The session includes a live demo of these frameworks in action on Google Cloud. RSVP here. Modernizing and Decoupling Event Ingestion with Apigee In modern cloud-native architectures, decoupling producers from consumers is critical for building resilient systems. While Google Cloud Pub/Sub provides a scalable backbone, exposing it directly to external clients can introduce security and management overhead. This new guide explores how to leverage Apigee as an intelligent HTTP ingestion point. Learn how to handle security, mediation, and traffic control before messages reach your internal bus using the PublishMessage policy or Pub/Sub API. Read the full guide. Mar 16 - Mar 20 Gemini-powered Assistant in BigQuery Studio Gets Context-Aware Upgrades The Gemini-powered assistant in BigQuery Studio has been transformed into a fully context-aware analytics partner, supporting your entire data lifecycle. The new capabilities include intelligent resource discovery, which uses Dataplex Universal Catalog search to find resources across projects and deep dive into metadata using natural language. You can now automate tasks, such as scheduling production-grade queries directly through the chat interface, and instantly troubleshoot long-running or failed jobs with root cause analysis and cost control auditing. Explore the full range of what the assistant can do. Mar 9 - Mar 13 Want to use Gemini to develop code and don't know where to start? This article includes a couple of examples of developing code with Gemini prompts; it identified changes that were needed to be made to get the code working. The article also refers to other examples that are available on github. Mar 2 - Mar 6 Introducing Gemini 3.1 Flash-Lite, our fastest and most cost-efficient Gemini 3 series model. Built for high-volume developer workloads at scale, 3.1 Flash-Lite delivers high quality for its price and model tier. Gemini 3.1 Flash-Lite can tackle tasks at scale, like high-volume translation and content moderation, where cost is a priority. And it can also handle more complex workloads where more in-depth reasoning is needed, like generating user interfaces and dashboards, creating simulations or following instructions. Starting today, 3.1 Flash-Lite is rolling out in preview to enterprises via Vertex AI and developers via the Gemini API in Google AI Studio . TechTalk: Implementing Device Authorization Grant (RFC 8628) for Apigee Learn how to authorize \"headless\" devices like Smart TVs or AI agents that lack keyboards and browsers. Join our Community TechTalk on March 19 (5PM CET / 12PM EDT) to go under the hood of Apigee X/Hybrid. We\u2019ll cover the real-world mechanics of state management, polling, and human-in-the-loop security patterns for devices and autonomous agents. Register for the TechTalk Feb 23 - Feb 27 Pro-level image generation gets faster and more accessible with Nano Banana 2 Nano Banana 2 is our state-of-the-art image generation and editing model. It delivers Pro-level image generation and editing at the speed you expect from Flash \u2014 making the quality, reasoning, and world knowledge you loved about Nano Banana Pro more accessible. Learn more about the model here . The Intelligent Path to Compliance: Transforming Regulatory QC with Google Cloud Reducing \"Refuse to File\" (RTF) risks and submission cycle times is critical for life sciences leaders. Google Cloud\u2019s Regulatory Submission Semantic QC Auditor leverages Gemini and RAG architecture to transform Quality Control from a manual burden into an active, intelligent workflow. By automating semantic cross-referencing, narrative coherence checks, and dynamic guidance-based auditing, this solution ensures rigorous accuracy and auditability. Operating within a secure GxP-ready environment, it empowers teams to detect subtle inconsistencies and generate remediation plans without sacrificing data privacy. Learn more . Stop typing, start interacting! The Gemini Live Agent Challenge is here . Build immersive agents that can help you see, hear, and speak using Gemini and Google Cloud. Compete for your share of $80,000+ in prizes and a trip to Google Cloud Next '26! Submissions are open from February 16, 2026 to March 16, 2026. Learn more and register at geminiliveagentchallenge.devpost.com Feb 9 - Feb 13 Introducing Gemini 3.1 Pro on Google Cloud. 3.1 Pro is a noticeably smarter, more capable baseline for complex problem-solving. We\u2019re shipping 3.1 Pro at scale, building upon our goal to help you transform your business for the agentic future. Learn more about the model\u2019s capabilities here . Gemini 3.1 Pro is available starting today in preview in Vertex AI and Gemini Enterprise . Developers can access the model in preview via the Gemini API in Google AI Studio , Android Studio , Google Antigravity , and Gemini CLI . Automate Storage Compatibility with GKE Dynamic Default Storage Classes Managing storage across mixed-generation VM clusters in GKE just got easier. With the new Dynamic Default Storage Class , Google Kubernetes Engine automatically selects between Persistent Disk (PD) and Hyperdisk based on a node's specific hardware compatibility. This abstraction eliminates the need for complex scheduling rules and manual pairing, ensuring your volumes \"just work\" regardless of the underlying infrastructure. By defining both variants in a single class, you reduce operational overhead while maintaining peak performance and cost-efficiency across your entire cluster. Explore automated disk type selection Community TechTalk: AI-Powered Apigee Development with strofa.io Join the Apigee community on February 26 for a deep dive into strofa.io . Guest speaker Denis Kalitviansky will demonstrate how this new AI-powered tool automates and orchestrates Apigee development, from local emulators to large-scale hybrid environments. Discover how to scale your API management and streamline team collaboration using the latest in AI-driven automation. Register now to reserve your spot. Jan 26 - Jan 30 Simplify API Governance with Native OpenAPI v3 Support Eliminate integration debt and accelerate deployment velocity with the General Availability of OpenAPI v3 (OASv3) support for API Gateway and Cloud Endpoints. You no longer need to downgrade modern specifications to OASv2. Instead, you can now define API contracts and enforce critical policies\u2014including telemetry, quotas, and security\u2014using native Google-specific extensions directly within your OASv3 files. This update ensures your APIs are secure by design while remaining fully compatible with the modern developer ecosystem and Google Cloud\u2019s AI services. Get started with OpenAPI v3 on API Gateway and Cloud Endpoints. Accelerate API Testing with the New Open Source API Tester Start validating your APIs with API Tester, a simple, YAML-based Test Driven Development (TDD) framework. Designed for the Apigee community, this tool allows you to write human-readable tests, run them instantly via a web client or CLI, and perform deep unit testing on Apigee proxies. With native support for JSONPath assertions and Apigee shared flows, you can verify everything from payload data to internal variables like proxy.basepath without leaving your terminal. Explore the API Tester guide and start testing your proxies today. Secure Sensitive Data with Kubernetes Secrets in Apigee hybrid Enhance security in Apigee hybrid by accessing Kubernetes Secrets directly within your API proxies. This hybrid-exclusive feature keeps sensitive credentials within your cluster boundary and prevents replication to the management plane. It supports strict separation of duties: operators manage secrets via kubectl , while developers reference them as secure flow variables\u2014ideal for high-compliance and GitOps workflows. Implement Kubernetes Secrets in your hybrid proxies. See the Console in a Whole New Light: Dark Mode is Now Generally Available in Google Cloud Elevate your cloud management workflow with Dark Mode, now generally available in the Google Cloud console. We have delivered a modern, cohesive, and accessible experience reimagined for maximum comfort and productivity\u2014especially during extended working hours and low-light environments. Dark Mode can be enabled automatically based on your operating system's preference, or manually through the Settings -> Appearance menu. Switch to Dark Mode today to enjoy a modern, comfortable, and productive environment! Apigee X Networking: PSC or VPC Peering? Deciding how to connect Apigee X? Watch this video to compare Private Service Connect and VPC Peering. We break down northbound and southbound routing, IP consumption, and how to reach targets on-prem or in the cloud. Learn to simplify your architecture and avoid common networking \"gotchas\" for a smoother deployment. Watch the video. Jan 19 - Jan 23 Bridge the Gap: Excel-to-API Conversion in Apigee Portals Give your customers more ways to connect! This new article by Tyler Ayers explores how to extend the Apigee Integrated Portal to support direct Excel file uploads. By leveraging SheetJS and custom portal scripts, you can enable users to upload spreadsheets, preview data, and submit it directly to your APIs, all without writing a single line of integration code themselves. It\u2019s a powerful way to simplify onboarding for those who aren't yet API-ready. Learn how to build it . Elevate your applications with Firestore\u2019s new advanced query engine We have fundamentally reimagined Firestore with pipeline operations for Enterprise edition. Experience a powerful new engine featuring over a hundred new query features, index-less queries, new index types, and observability tooling to improve query performance. Seamlessly migrate using built-in tools and leverage Firestore\u2019s existing differentiated serverless foundation, virtually unlimited scale, and industry-leading SLA. Join a community of 600K developers to craft expressive applications that maximize the benefits of rich queryability, real-time listen queries, robust offline caching, and cutting-edge AI-assistive coding integrations. Learn more about Firestore pipeline operations.",
-      "link": "https://cloud.google.com/blog/topics/inside-google-cloud/whats-new-google-cloud/",
-      "source": "Google Cloud Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-06-12T16:00:00+00:00",
-      "published_ts": 1781280000,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Linux / Unix",
-        "Cloud / SaaS",
-        "Network / OT / ICS",
-        "Crypto / Web3"
-      ],
-      "curated": true
     },
     {
       "title": "South Korea hits Coupang with record $409 million fine over data breach",
@@ -100784,391 +101020,6 @@
       "type_label": "OSINT, Communities & Subreddits",
       "published": "2026-05-20T19:30:11+00:00",
       "published_ts": 1779305411,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Splunk security advisory (AV26-493)",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/splunk-security-advisory-av26-493",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-20T19:24:03+00:00",
-      "published_ts": 1779305043,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Next-generation enterprise defense: Managing risk in the age of agentic AI",
-      "summary": "The advent of agentic AI demands re-engineered AI-powered SASE architectures.",
-      "link": "https://www.scworld.com/resource/next-generation-enterprise-defense-managing-risk-in-the-age-of-agentic-ai",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-20T19:22:28+00:00",
-      "published_ts": 1779304948,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Qwen 3.7 Max Preview: What Alibaba's New AI Gets Right and Where It Falls Short",
-      "summary": "Alibaba's Qwen 3.7 Max landed on Arena AI five days before the Cloud Summit and earned its spot. We tested it to see if the preview was as good as it seemed.",
-      "link": "https://decrypt.co/368499/alibaba-qwen-3-7-max-preview-review",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-20T19:10:44+00:00",
-      "published_ts": 1779304244,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Google publishes exploit code threatening millions of Chromium users",
-      "summary": "Google publishes exploit code before patch, reported 29 months earlier, is fixed.",
-      "link": "https://arstechnica.com/security/2026/05/google-publishes-exploit-code-threatening-millions-of-chromium-users/",
-      "source": "Security \u2013 Ars Technica",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-20T19:10:36+00:00",
-      "published_ts": 1779304236,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Cisco security advisory (AV26-491)",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/cisco-security-advisory-av26-491",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-20T19:06:36+00:00",
-      "published_ts": 1779303996,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "OpenAI Set to File for IPO Within Days, Targeting September Listing: WSJ",
-      "summary": "ChatGPT maker OpenAI is reportedly targeting a September public debut after the Elon Musk lawsuit dismissal clears legal obstacles.",
-      "link": "https://decrypt.co/368498/openai-file-ipo-targeting-september-listing-wsj",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-20T18:45:17+00:00",
-      "published_ts": 1779302717,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Is there no more privacy left in the world?",
-      "summary": "Seeing flock cameras everywhere and having apps that are able to track your every move whilst you are consistently being tracked online for your political beliefs and what you're interested in and then there are door cameras that can detect your face and cross reference it with all the previously mentioned, I feel as if I cannot hide myself anymore. This is especially concerning due to the number of data breaches that keep happening, and no company is held accountable for said breaches. Like, I will wake up and see Malwarebytes give me a notification about a data breach, and nothing will even happen to get any justice. There's also the concern of people search services where ordinary people (not megacorporations) can use OSINT software to track you using usernames, then easily recover your information using said information you may have leaked online that can lead to doxxing. Also, with the way the political climate is right now and seeing people get prosecuted for the things they say online, it feels like free speech is just dead. Like I want to live a private life away from these corporations, but I don't want to boot up TOR browser every day with a VPN, then every website I visit blocks me because of my private browsing practices (also not mentioning that these private browsers are EXTREMELY SLOW, making the web surfing experience horrendous). submitted by /u/NonstickFryingPans [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1tiuvkn/is_there_no_more_privacy_left_in_the_world/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-20T18:44:15+00:00",
-      "published_ts": 1779302655,
-      "smart_groups": [
-        "Malware / Payloads",
-        "Web / API Security",
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Microsoft Edge had a password blunder, and it raises a bigger browser trust problem",
-      "summary": "A browser password manager is one of those tools people rely on without thinking about it too much. That is why any password handling issue feels bigger than a normal software mistake. Security Now 1079 looks at Microsoft's Edge password blunder as part of a broader security conversation that also touches Waymo vehicles getting stuck for hours, Nvidia's China chip tensions, and Claude AI helping recover a long-lost Bitcoin wallet. The common thread is trust. We are handing more responsibility to browsers, AI systems, autonomous vehicles, and cloud infrastructure, but the failure points are getting more personal. Episode here: https://twit.tv/shows/security-now/episodes/1079 Disclosure: I work with TWiT, and this should be relevant to the security and tech policy conversations here. submitted by /u/TWiT_tv [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1titzgh/microsoft_edge_had_a_password_blunder_and_it/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-20T18:14:25+00:00",
-      "published_ts": 1779300865,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Huawei zero-day attack behind last year\u2019s crash of Luxembourg's entire telecoms network",
-      "summary": "submitted by /u/Steap-Edit [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1titugp/huawei_zeroday_attack_behind_last_years_crash_of/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-20T18:09:58+00:00",
-      "published_ts": 1779300598,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Drupal core - Highly critical - SQL injection - SA-CORE-2026-004",
-      "summary": "Project: Drupal core Date: 2026-May-20 Security risk: Highly critical 20 \u2215 25 AC:None/A:None/CI:All/II:All/E:Theoretical/TD:Uncommon Vulnerability: SQL injection Affected versions: >= 8.9.0 = 10.5.0 = 10.6.0 = 11.0.0 = 11.2.0 = 11.3.0 CVE IDs: CVE-2026-9082 Description: Drupal core includes a database abstraction API to ensure that queries executed against the database are sanitized to prevent SQL injection attacks. A vulnerability in this API allows an attacker to send specially crafted requests, resulting in arbitrary SQL injection for sites using PostgreSQL databases. This can lead to information disclosure, and in some cases privilege escalation, remote code execution, or other attacks. This vulnerability can be exploited by anonymous users. This SQL injection vulnerability only affects sites using PostgreSQL . However, the third-party dependency updates in this release apply to all sites. Upstream security advisories The Drupal releases for supported branches (11.3, 11.2, 10.6, and 10.5) in this advisory also include security updates for Symfony and Twig. Those projects have released important Security Advisories that were coordinated with this Drupal release, and Drupal is affected by some of the vulnerabilities. Depending on your site configuration and contrib modules, you may be vulnerable to one or more of these upstream issues, so updating these dependencies is highly recommended whether the SQL Injection vulnerability affects you or not . It is also recommended to review which user roles have the ability to update Twig templates, for example via Views or contributed modules. Solution: Install the latest version. The following releases will be available as soon as automated release packaging is complete. You may receive a 404 in the interim. The updates may also be available on Packagist sooner. Drupal 11 If you use Drupal 11.3.x, update to Drupal 11.3.10 . If you use Drupal 11.2.x, update to Drupal 11.2.12 . If you use Drupal 11.1.x or 11.0.x, update to Drupal 11.1.10 . Drupal 10 If you use Drupal 10.6.x, update to Drupal 10.6.9 . If you use Drupal 10.5.x, update to Drupal 10.5.10 . If you use Drupal 10.4.x or earlier, update to Drupal 10.4.10 . Drupal 9 and 8 If you use any version of Drupal 9, try manually applying the Drupal 9.5 patch for this issue . If you use Drupal 8.9, try manually applying the Drupal 8.9 patch for this issue . Drupal 11.1.x, Drupal 11.0.x, Drupal 10.4.x, and below are end-of-life and do not receive security coverage. ( Drupal 8 and Drupal 9 have both reached end-of-life.) Due to this issue's severity, the unsupported releases and patches for unsupported versions are provided as a best effort. Those unsupported versions will still have other, previously disclosed security vulnerabilities. Reported By: Michael Maturi (michaelmaturi) Fixed By: Bj\u00f6rn Brala (bbrala) Benji Fisher (benjifisher) of the Drupal Security Team catch (catch) of the Drupal Security Team Lee Rowlands (larowlan) of the Drupal Security Team Dave Long (longwave) of the Drupal Security Team Drew Webber (mcdruid) of the Drupal Security Team Jess (xjm) of the Drupal Security Team Coordinated By: Anna Kalata (akalata) of the Drupal Security Team Benji Fisher (benjifisher) of the Drupal Security Team catch (catch) of the Drupal Security Team Damien McKenna (damienmckenna) of the Drupal Security Team Neil Drumm (drumm) of the Drupal Security Team Greg Knaddison (greggles) of the Drupal Security Team Heine Deelstra (heine) of the Drupal Security Team Tim Hestenes Lehnen (hestenet) Dave Long (longwave) of the Drupal Security Team Drew Webber (mcdruid) of the Drupal Security Team Juraj Nemec (poker10) of the Drupal Security Team Pierre Rudloff (prudloff) of the Drupal Security Team Jess (xjm) of the Drupal Security Team Cathy Theys (yesct) of the Drupal Security Team",
-      "link": "https://www.drupal.org/sa-core-2026-004",
-      "source": "Security advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-20T18:08:21+00:00",
-      "published_ts": 1779300501,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Web / API Security"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Evidence sharing is the next inflection point for enterprise DFIR teams",
-      "summary": "Key Insights Think back to what collaborating on a PowerPoint used to look like. You emailed the deck around, everyone marked up their own copy, and someone got stuck merging the versions. If a group needed to work on it together, they got in a room. That was what real-time collaboration meant. Then Microsoft 365 \u2026 Continued The post Evidence sharing is the next inflection point for enterprise DFIR teams appeared first on Magnet Forensics .",
-      "link": "https://www.magnetforensics.com/blog/evidence-sharing-is-the-next-inflection-point-for-enterprise-dfir-teams/",
-      "source": "Magnet Forensics",
-      "type": "dfir",
-      "type_label": "DFIR & Forensics",
-      "published": "2026-05-20T18:06:26+00:00",
-      "published_ts": 1779300386,
-      "smart_groups": [
-        "Ransomware",
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Google's Stock Fell on Its Best I/O in Years. Here's Why BofA Is Still Buying",
-      "summary": "Bank of America analysts believe Alphabet is still a buy, seeing potential 10% upside in stock price following Google I/O 2026.",
-      "link": "https://decrypt.co/368481/google-stock-ai-gemini-why-bofa-bank-america-still-buying",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-20T18:04:50+00:00",
-      "published_ts": 1779300290,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Fairshake PAC\u2019s $20M backing pays off in three US state primaries",
-      "summary": "Five Republicans and one Democrat won or went to runoffs following primaries in Georgia, Alabama and Kentucky after a crypto-backed PAC and its affiliates spent a combined $20 million on media and ads.",
-      "link": "https://cointelegraph.com/news/fairshake-pac-investment-state-primaries?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-20T18:03:00+00:00",
-      "published_ts": 1779300180,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "YellowKey: The Unpatched BitLocker Bypass Hidden in Windows Recovery",
-      "summary": "A stolen Windows 11 laptop and a USB stick are enough to read a BitLocker-encrypted drive using nothing but Microsoft\u2019s own recovery tools, and the researcher is holding back a follow-on attack that also defeats the startup PIN defenders are scrambling to enable in response. Special thanks to Stas Lyakhov and John Loucaides for contributions [\u2026] The post YellowKey: The Unpatched BitLocker Bypass Hidden in Windows Recovery appeared first on Eclypsium | Supply Chain Security for the Modern Enterprise .",
-      "link": "https://eclypsium.com/blog/yellowkey-bitlocker-bypass-windows-recovery-environment/",
-      "source": "Eclypsium | Supply Chain Security for the Modern Enterprise",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-20T18:00:00+00:00",
-      "published_ts": 1779300000,
-      "smart_groups": [
-        "Ransomware",
-        "Windows / Microsoft",
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "How AI can trick you into making fake payments - 5 red flags",
-      "summary": "New Visa research calls AI-accelerated scams 'the fastest growing source of consumer harm.' Here's what you need to watch out for.",
-      "link": "https://www.zdnet.com/article/visa-fraud-ai-report-2026/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-20T17:56:28+00:00",
-      "published_ts": 1779299788,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "CISA with an absolutely embarrassing data leak.",
-      "summary": "submitted by /u/thirstysol [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1tit98i/cisa_with_an_absolutely_embarrassing_data_leak/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-20T17:50:15+00:00",
-      "published_ts": 1779299415,
-      "smart_groups": [
-        "Curated",
-        "Data Breaches / Leaks"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Mini Shai Hulud: Compromised @antv npm packages enable CI/CD credential theft",
-      "summary": "Compromised @antv npm packages deploy the Mini Shai-Hulud payload to steal CI/CD secrets from Linux-based automation environments. The malware executes during npm install and targets credentials across GitHub, AWS, Kubernetes, Vault, npm, and 1Password platforms. The post Mini Shai Hulud: Compromised @antv npm packages enable CI/CD credential theft appeared first on Microsoft Security Blog .",
-      "link": "https://www.microsoft.com/en-us/security/blog/2026/05/20/mini-shai-hulud-compromised-antv-npm-packages-enable-ci-cd-credential-theft/",
-      "source": "Microsoft Security Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-20T17:48:44+00:00",
-      "published_ts": 1779299324,
-      "smart_groups": [
-        "Linux / Unix",
-        "Cloud / SaaS",
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Processes and Culture Top Reasons Behind Data Breaches",
-      "summary": "Government leaders revealed that, in spite of state laws meant to improve cyber hygiene, an analysis of incidents showed issues persist and visibility falls short.",
-      "link": "https://www.darkreading.com/cyberattacks-data-breaches/processes-and-culture-top-reasons-behind-data-breaches",
-      "source": "darkreading",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-20T17:42:30+00:00",
-      "published_ts": 1779298950,
-      "smart_groups": [
-        "Cloud / SaaS",
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "DevilNFC Android Malware Uses Kiosk Mode to Trap Victims During NFC Relay Attacks",
-      "summary": "A dangerous new Android malware called DevilNFC has emerged, combining NFC relay attacks with a Kiosk Mode trap that locks victims inside a fake banking screen until their card data is stolen. The malware targets customers across Europe and LATAM with technical precision rarely seen in independently built tools. Unlike previous threats, DevilNFC does not [\u2026] The post DevilNFC Android Malware Uses Kiosk Mode to Trap Victims During NFC Relay Attacks appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/devilnfc-android-malware-uses-kiosk-mode/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-20T17:37:54+00:00",
-      "published_ts": 1779298674,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Tether buys SoftBank\u2019s stake in Bitcoin company Twenty One Capital",
-      "summary": "The stablecoin issuer bought SoftBank\u2019s 26% stake, expanding its control over the public Bitcoin holder as it moves into lending, mining and capital markets.",
-      "link": "https://cointelegraph.com/news/tether-buys-softbank-stake-twenty-one-capital-xxi-bitcoin-strategy?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-20T17:33:41+00:00",
-      "published_ts": 1779298421,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "AWS Security Hub Extended: Why enterprise security products should sell themselves",
-      "summary": "Our largest security services customers started the same way every customer does \u2013 with a click. They enabled Amazon GuardDuty, Amazon Inspector, AWS WAF, and AWS Security Hub, experienced the benefits in real time, and evaluated with transparent pay-as-you-go pricing. No RFP. No six-month evaluation. No multi-year commitment up front. Our field teams played a [\u2026]",
-      "link": "https://aws.amazon.com/blogs/security/aws-security-hub-extended-why-enterprise-security-products-should-sell-themselves/",
-      "source": "AWS Security Blog",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-20T17:32:58+00:00",
-      "published_ts": 1779298378,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Sophos Firewall and Synchronized Security",
-      "summary": "",
-      "link": "https://www.sophos.com/blog/sophos-firewall-and-synchronized-security",
-      "source": "Sophos News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-05-20T17:29:41+00:00",
-      "published_ts": 1779298181,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "FTC warns 12 major tech firms of violating Take It Down Act",
-      "summary": "The law mandates that platforms make it easy for people to ask that nonconsensual intimate images be removed and to delete them within 48 hours of a request.",
-      "link": "https://therecord.media/ftc-warns-12-firms-of-violating-take-it-down-act",
-      "source": "The Record",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-20T17:29:00+00:00",
-      "published_ts": 1779298140,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Microsoft is pulling the plug on SMS codes, wants you to switch to passkeys",
-      "summary": "submitted by /u/rkhunter_ [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1tiskod/microsoft_is_pulling_the_plug_on_sms_codes_wants/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-20T17:26:46+00:00",
-      "published_ts": 1779298006,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "ISC BIND security advisory (AV26-490)",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/isc-bind-security-advisory-av26-490",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-20T17:23:00+00:00",
-      "published_ts": 1779297780,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "PinTheft Linux Vulnerability Let Attackers Gain Root Access \u2013 PoC Released",
-      "summary": "A proof-of-concept (PoC) exploit was published for a new Linux Local Privilege Escalation (LPE) vulnerability dubbed \u201cPinTheft.\u201d Discovered by Aaron Esau of the V12 security team, the flaw allows local attackers to gain root access by exploiting an RDS zerocopy double-free bug. A kernel patch is currently available, prompting the researchers to release their PoC [\u2026] The post PinTheft Linux Vulnerability Let Attackers Gain Root Access \u2013 PoC Released appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/pintheft-linux-vulnerability/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-20T17:22:02+00:00",
-      "published_ts": 1779297722,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Linux / Unix"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Discord implements end-to-end encryption for voice and video calls",
-      "summary": "The popular platform, which serves an estimated 690 million registered users, extended its open-source DAVE encryption protocol to cover all its clients, including desktop, mobile, web browsers, and gaming consoles.",
-      "link": "https://www.scworld.com/brief/discord-implements-end-to-end-encryption-for-voice-and-video-calls",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-20T17:16:43+00:00",
-      "published_ts": 1779297403,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Microsoft security advisory (AV26-489)",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/microsoft-security-advisory-av26-489",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-20T17:16:09+00:00",
-      "published_ts": 1779297369,
       "smart_groups": [],
       "curated": false
     },
