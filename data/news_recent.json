@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-21T23:28:15.326783+00:00",
+  "generated_at": "2026-06-22T00:51:30.140714+00:00",
   "days_back": 30,
-  "total_items": 6805,
+  "total_items": 6802,
   "items": [
     {
       "title": "Black Hat USA",
@@ -24,6 +24,32 @@
       "type_label": "General Security & Blogs",
       "published": "2026-06-26T11:00:00+00:00",
       "published_ts": 1782471600,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "UNREDACTED Magazine 012",
+      "summary": "Issue #012 is now available (18 Articles - 66 Pages) by the IntelTechniques team for $10! https://unredactedmagazine.com https://payhip.com/b/fS2NA Contents: News & Updates Hardware TOTP: Revolving 2FA Codes Without an App Placing Telephone Orders to Avoid VPN Flags: Bypass IP Blocklists Minimal Android Emulation: Terminal-Based Mobile VMs The ID.me Challenge: Create Accounts with the Least Invasion [\u2026]",
+      "link": "https://inteltechniques.com/blog/2026/06/21/unredacted-magazine-012/",
+      "source": "IntelTechniques Blog",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-22T00:23:07+00:00",
+      "published_ts": 1782087787,
+      "smart_groups": [
+        "Identity / Access"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Mentorship Monday - Post All Career, Education and Job questions here!",
+      "summary": "This is the weekly thread for career and education questions and advice. There are no stupid questions; so, what do you want to know about certs/degrees, job requirements, and any other general cybersecurity career questions? Ask away! Interested in what other people are asking, or think your question has been asked before? Have a look through prior weeks of content - though we're working on making this more easily searchable for the future. submitted by /u/AutoModerator [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1uc56pw/mentorship_monday_post_all_career_education_and/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-06-22T00:00:20+00:00",
+      "published_ts": 1782086420,
       "smart_groups": [],
       "curated": false
     },
@@ -95010,74 +95036,6 @@
       "published_ts": 1779496158,
       "smart_groups": [
         "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Google leaks details for Chromium bug that can turn browsers into bots",
-      "summary": "Chromium \u2014 the open-source browser that underpins Google Chrome, Microsoft Edge, and Opera, among others \u2014 contains an unpatched vulnerability that attackers can exploit to execute JavaScript code persistently across browser restarts. As a result, the flaw can be used to hijack users\u2019 browsers for distributed denial-of-service attacks, run crypto miners, and more. The vulnerability was reported over three years ago by independent researcher Lyra Rebane and remained unfixed, or at least parts of it. The bug report was made public this week but was then closed again after Rebane reported on Mastodon that the flaw is still not properly fixed. The bug tracker entry that contains the technical details was accessible long enough to be archived by users, and a copy can be easily found online even though the original entry is now set to private again. The flaw abuses the Service Worker feature and the Background Fetch API, which allows websites to initiate downloads in the background, such as a video. This feature was introduced in 2018 and Google said at the time : \u201cIf the user closes pages to your site after step 1, that\u2019s ok, the download will continue. Because the fetch is highly visible and easily abortable, there isn\u2019t the privacy concern of a way-too-long background sync task. Because the service worker isn\u2019t constantly running, there isn\u2019t the concern that it could abuse the system, such as mining bitcoin in the background.\u201d Rabane found that neither of those promises are true, at least not on all platforms and not on all Chromium-based browsers. For example, in the stable Google Chrome version at the time, in December 2022, the download was visible in the download bar, but in the canary version that introduced a new UI, the download seemed like a glitch being stuck at 0B and not showing the source. On Microsoft Edge, the Download dropdown menu appeared but nothing was shown on it. In the most recent version, the background download is completely invisible and will continue even when the browser is closed. \u201cGenerally a Service Worker has a limited lifespan, but the PoC [proof-of-concept exploit] bypasses that by creating and aborting background fetches every 20 seconds once the Service Worker is active,\u201d Rabane wrote in her vulnerability report. \u201cIf the background fetch is created and aborted fast enough, it won\u2019t show up in the browser UI at all, but will still keep the Service Worker active.\u201d From the comments in the bug entry, the UI aspects were fixed at some point in January 2023. However, the ability to keep the service worker alive indefinitely by toggling between events would have required a deeper fix, including changing the specification for the API to introduce a hard time limit for quitting the service worker. The things a malicious website could do via a persistent service worker are limited, but they can be serious, including persistent user tracking, as service workers have access to browser open timestamps, IP addresses, and User-Agent info. The exploit can also be used to execute remote JavaScript payloads, which can be leveraged in a variety of ways, including to execute potential exploits for future bugs, side-channel attacks, or WebAssemply payloads like crypto miners. It\u2019s also possible to trigger requests to other websites, which could be abused in a distributed denial-of-service scenario if a compromised website is used to hijack thousands of browsers in this way.",
-      "link": "https://www.csoonline.com/article/4176504/google-leaks-details-for-chromium-bug-that-can-turn-browsers-into-bots.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-23T00:08:01+00:00",
-      "published_ts": 1779494881,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Bitcoin 'Pizza Day' was 16 years ago, here's how much that BTC is worth today",
-      "summary": "Laszlo Hanyecz's 2010 post, offering 10,000 BTC in exchange for two pizzas delivered to his home, marked the first recorded commercial BTC payment.",
-      "link": "https://cointelegraph.com/news/bitcoin-pizza-day-those-10k-btc-worth-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-05-22T23:16:38+00:00",
-      "published_ts": 1779491798,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Puedo conseguir trabajo?",
-      "summary": "Hola genteee , como estan? Tengo una duda. Soy fede tengo 31 a\u00f1os soy analista de sistemas y actualmente estoy estudiando ciberseguridad (diplomatura y algunos cursos) hice los certificados de ibm y cisco y estoy por hacer el examen de isc2 cc. Podre conseguir trabajo de soc? (Argentina) que me recomiendan? submitted by /u/Dekaito2 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1tkz8yq/puedo_conseguir_trabajo/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-05-22T23:16:08+00:00",
-      "published_ts": 1779491768,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Hackers Abuse Middle East Telecom Networks for Large-Scale Command-and-Control Operations",
-      "summary": "Hackers are using telecom networks and hosting providers across the Middle East as a foundation for massive command-and-control operations, turning trusted infrastructure into a launchpad for cyberattacks. A newly released threat intelligence report reveals that more than 1,350 active command-and-control (C2) servers were identified across 98 infrastructure providers in the region within just three months. [\u2026] The post Hackers Abuse Middle East Telecom Networks for Large-Scale Command-and-Control Operations appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/hackers-abuse-middle-east-telecom-networks/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-22T23:10:05+00:00",
-      "published_ts": 1779491405,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "World Cup Phishing Campaign Nearly Triples With 203 Unique IP Addresses",
-      "summary": "A large-scale phishing campaign targeting the 2026 FIFA World Cup has grown far beyond what security researchers originally thought. What began as a documented set of 79 fraudulent domains has ballooned into a network of at least 222 domains spread across 203 unique IP addresses, making it nearly three times larger than first reported. The [\u2026] The post World Cup Phishing Campaign Nearly Triples With 203 Unique IP Addresses appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/world-cup-phishing-campaign-nearly-triples/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-05-22T23:08:47+00:00",
-      "published_ts": 1779491327,
-      "smart_groups": [
-        "Phishing / Social Engineering"
       ],
       "curated": false
     },
