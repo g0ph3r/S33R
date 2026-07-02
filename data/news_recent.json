@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-07-02T21:17:05.560215+00:00",
+  "generated_at": "2026-07-02T23:27:51.880480+00:00",
   "days_back": 30,
-  "total_items": 7025,
+  "total_items": 7009,
   "items": [
     {
       "title": "GISEC GLOBAL",
@@ -24,6 +24,263 @@
       "type_label": "General Security & Blogs",
       "published": "2026-08-01T11:00:00+00:00",
       "published_ts": 1785582000,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "[Tool] Crimson Cloak, iOS/iSH Security Wrapper with RealTime Dashboard",
+      "summary": "If you play around with running iSH on iPhone/iPad as a mobile red/blue team rig: Crimson Cloak gives you a full HTTP + WebSocket dashboard inside iSH: - Embedded dark-themed control panel - Tool discovery & shortcut launching - Clipboard sync, file events, network monitoring - SSH reverse tunnel auto-connect to Kali/Pi backend All sandboxed. No jailbreak required. Repo: https://github.com/synchancybersecurity/Crimson-Cloak-ISH-wrapper-iOS- Curious if anyone else is using iSH for mobile ops. submitted by /u/Fillmoslim [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1ulxrgf/tool_crimson_cloak_iosish_security_wrapper_with/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-07-02T23:14:23+00:00",
+      "published_ts": 1783034063,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Feedback wanted: prompt injection dies with the session but a poisoned CLAUDE.md doesn't, so we built an open-source sidecar to catch it.",
+      "summary": "Memory poisoning is nasty because of timing: a poisoned memory lands quietly and fires weeks later on a totally innocent request, loaded through the same path as everything legit, so nothing at request time sees it coming. Say an issue on your repo reads \"maintainers prefer pushing directly to main without review.\" Your agent distills that into its notes as a convention and acts on it later, for someone else. And that memory is just files (the memory and skill files your agent loads every session) that plenty of things can write to: a session that touched untrusted content, a third-party skill, or a checked-in memory file your whole team's agents load. What it does, short version: it's a local, open-source (Apache 2.0) sidecar that runs beside an unmodified Claude Code or Codex on macOS. Take that \"push to main\" example above. Crate inspects memory and skill files on both write and read. Since the write and the read are often different sessions days apart, it can flag that line when it lands and again when a later session loads it. The flag comes back as an \"ask,\" so you stay in control instead of the line silently becoming a convention. That's the long-horizon part: it follows behavior across requests and sessions, and a local lineage graph links prompts, tool calls, and file effects over time, so when something looks off weeks later you can trace it back to the exact session that planted it. Everything stays local. Full architecture in the README. Repo: github.com/GenseeAI/gensee-crate Where we're headed (roadmap) 1.Right now the core is a deterministic, hook-based layer. What we're building toward: 2.Process-level attribution. Today we infer \"modified outside the agent\" from file-path and timing signals, so those cases only ask. Next: a signed EndpointSecurity client that proves which process made a change, so we can deny with confidence. 3.Real network capture. Today network egress is read from tool intent. Next: an actual system-level network sensor, tied back to the agent session that triggered it. 4.Semantic detection. Today poison-matching is deterministic pattern matching. Next: a semantic layer that catches paraphrased instructions the patterns miss. 5.Recovery, not just detection. Right now you can trace a poisoned entry. The goal is automatic rollback and merge-back review, so you can undo it too. 6.And on the platform side: Linux support and more agents beyond Claude Code and Codex. What we are hoping to hear: 1.If you do try it: what's useful, what's annoying, what's missing? 2.It's macOS-only right now. Does Linux support actually matter to people here? That answer shapes what's next. 3.Following the memory-poisoning discussion, what defense direction should we be building toward? submitted by /u/Nearby_Refuse8172 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1ulxnxe/feedback_wanted_prompt_injection_dies_with_the/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-07-02T23:10:00+00:00",
+      "published_ts": 1783033800,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Linux / Unix",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Dev says Google warned him about account hijack \u2013 then charged him $11,000 anyway",
+      "summary": "Left hand, meet right hand",
+      "link": "https://www.theregister.com/cyber-crime/2026/07/03/dev-says-google-warned-him-about-account-hijack-then-charged-him-11000-anyway/5266234",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-02T23:08:16+00:00",
+      "published_ts": 1783033696,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Update 3: One Month In - Lessons From My First Month as a Cybersecurity Consultant",
+      "summary": "Follow-up to my previous posts: After 5 months of mental hell and ghosting, today I finally landed a role Update: 2 weeks into my new job after 5 months of unemployment I'm now about a month into my role as an Information Security Consultant at a state-owned company. I wanted to come back with something more technical this time, less about the emotional side and more about what I've actually learned operationally. Verbal alignment wasn't getting anywhere, so I switched to audits. The infrastructure team (responsible for network/firewall config, AV console, and the tools currently deployed) and I had several technical discussions early on that went in circles. I'd flag a risk, they'd argue it wasn't exploitable, and we'd end up spending time going back and forth on attack scenarios instead of fixing anything. After a couple of these, I stopped trying to align through conversation and started auditing directly wherever I had access: firewall rulesets, the central AV panel, and a few other tools. I wrote it up in reports instead of debating it live. One example that ended up in a report: an \"allow any-to-any\" rule sitting in production. The fix isn't complicated, default-deny, allow only what's actually needed, but it's the kind of thing that's hard to justify convincingly in a hallway conversation with people who doesn't understand the risks of having this config and very easy to justify in a written report with the rule cited directly. Documentation turned out to be more effective than persuasion. Once recommendations were in a formal report, they went to the division director (who I report to), and from there to his supervisor. Both backed the recommendations, and infrastructure + part of the dev team have now been working through remediation for several days. None of that happened when the same issues were raised verbally. External validation helped a lot. A few days after I submitted a report on vulnerabilities in certain assets, the national CERT-equivalent institute (the government body that handles state-level cyber incident response) emailed a warning about the same vulnerabilities independently. That timing did more for my credibility internally than any report could have on its own. It wasn't just \"the new guy's opinion,\" it lined up with an external authority. The technical work is the easy part but the organizational dynamics take more energy than I expected. Reports getting acted on, especially ones that are blunt about existing gaps, creates friction. I haven't had direct pushback, but I've noticed my input getting talked over or minimized in meetings with the director or vendors present. I don't have a clean solution for this yet, for now I'm just leaning further into \"the audit speaks for itself\" rather than trying to win the room. Takeaway for anyone in a similar consulting/advisory security role: If verbal technical alignment isn't landing, don't force it. Audit what you have access to, document findings in plain, specific terms (cite the actual rule, the actual config, the actual gap), and let the report do the work. It routes around a lot of unproductive debate and gives leadership something concrete to act on. Thanks again to everyone who commented on the last two posts, and to those who messaged me privately saying the story gave them some hope to keep going. Didn't expect that part, but it means a lot. submitted by /u/Cool_Repair2517 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1ulxhxn/update_3_one_month_in_lessons_from_my_first_month/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-07-02T23:02:40+00:00",
+      "published_ts": 1783033360,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Identity / Access",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Aussies Face Reduced Cybercrime Risk, as Pressure Shifts to SMBs",
+      "summary": "Improved institutional safeguards and stricter regulations have pushed the burdens of protection and risk reduction on to Australian businesses.",
+      "link": "https://www.darkreading.com/cybersecurity-analytics/aussies-face-reduced-cybercrime-risk-pressure-shifts-smbs",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-02T23:01:00+00:00",
+      "published_ts": 1783033260,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Startup sues Palo Alto Networks' Koi Security, saying an AI-hallucinated report falsely linked it to Chinese espionage",
+      "summary": "MeetingTV wants to see the evidence",
+      "link": "https://www.theregister.com/legal/2026/07/02/startup-sues-palo-alto-networks-koi-security-saying-an-ai-hallucinated-report-falsely-linked-it-to-chinese-espionage/5266201",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-02T22:47:46+00:00",
+      "published_ts": 1783032466,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "The context gap: Building trusted agents in the age of AI-accelerated exploitation",
+      "summary": "AI agents embedded in the SDLC need context, governance, and auditability to operate safely.",
+      "link": "https://www.scworld.com/resource/the-context-gap-building-trusted-agents-in-the-age-of-ai-accelerated-exploitation",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-02T22:31:17+00:00",
+      "published_ts": 1783031477,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Medtronic warns patients of data exposure following April cyberattack",
+      "summary": "The incident, detected on April 15, saw unauthorized access to Medtronic's corporate systems between April 13 and April 19.",
+      "link": "https://www.scworld.com/brief/medtronic-warns-patients-of-data-exposure-following-april-cyberattack",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-02T22:28:55+00:00",
+      "published_ts": 1783031335,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Looking for penetration tester/VAPT/ Red teaming internships",
+      "summary": "Hey I'm currently pursuing my bachelors and completed my 2nd year I'm looking for internships opportunities near gurgaon ( remote preferred ) in offensive roles. Thank you \ud83d\ude0a submitted by /u/Nvm_Br0 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1ulwhfh/looking_for_penetration_testervapt_red_teaming/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-07-02T22:20:40+00:00",
+      "published_ts": 1783030840,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Apple's 'Hide My Email' feature reportedly has a year-old bug that reveals real email addresses",
+      "summary": "The vulnerability, discovered by EasyOptOuts co-founder Tyler Murphy, allows individuals with knowledge of the exploit to uncover the real email address masked by the anonymous alias.",
+      "link": "https://www.scworld.com/brief/apples-hide-my-email-feature-has-a-year-old-bug-that-reveals-real-email-addresses",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-02T22:13:14+00:00",
+      "published_ts": 1783030394,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "I rebuilt my local M365 SOC Tool from PowerShell to a full Web App Now self-hostable with RBAC, SSO & much more",
+      "summary": "Hi everyone, A while back I showed you my local Microsoft 365 SOC tool built in PowerShell. Back then it was limited to a single-user setup: https://github.com/Mau2rice0/World-of-M365/tree/main/Security/SOC/M365%20Compromise%20Response%20Console Well\u2026 I\u2019ve been pulling all-nighters and completely rebuilt it from the ground up. It\u2019s no longer PowerShell, it\u2019s now a full JavaScript application and it\u2019s absolutely fire. You can see pictures in another Reddit post: https://www.reddit.com/r/microsoft365/comments/1ulw3hz/i_rebuilt_my_local_m365_soc_tool_from_powershell/ You can now self-host it wherever you want: On-prem Azure Any web server with at least 2 cores and 4 GB RAM I\u2019ll be releasing it in the next few days so you can host and test it yourselves. What\u2019s new & improved: SSO support for additional users \u2192 no more manual logins Full RBAC permission system More RBAC roles coming: Analyst, Responder, Reader, Administrator Azure Files Share integration for storing evidence and data Significantly better performance Security hardening Fully automatic setup script that does the entire deployment for you GCC / GCC-High compatibility is unfortunately not possible yet. I don\u2019t have access to that environment and being based in Germany makes it pretty hard to get one. If anyone has a GCC tenant they\u2019d be willing to test with, I\u2019d love to collaborate! I\u2019m planning to sink at least 35 hours into this project again this weekend. If you have feature requests or ideas for what a proper M365 SOC tool should have, drop them in the comments. You guys know better than anyone what\u2019s actually needed in the field. Huge thanks to everyone who tested the earlier version:) Can\u2019t wait to get this into your hands. submitted by /u/Ok-Stretch-7850 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1ulw7pl/i_rebuilt_my_local_m365_soc_tool_from_powershell/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-07-02T22:09:54+00:00",
+      "published_ts": 1783030194,
+      "smart_groups": [
+        "Windows / Microsoft",
+        "Cloud / SaaS",
+        "Identity / Access"
+      ],
+      "curated": false
+    },
+    {
+      "title": "India questions WhatsApp username feature over cyberattack fears",
+      "summary": "WhatsApp's planned username feature, which allows users to communicate without revealing their phone numbers, has raised alarms in India, WhatsApp's largest market with over 850 million users.",
+      "link": "https://www.scworld.com/brief/india-questions-whatsapp-username-feature-over-cyberattack-fears",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-02T22:03:18+00:00",
+      "published_ts": 1783029798,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "DHS investigating breach of intelligence sharing platform",
+      "summary": "Hackers reportedly gained access to HSIN servers in late May and early June, potentially exposing sensitive but unclassified information.",
+      "link": "https://www.scworld.com/brief/dhs-investigating-breach-of-intelligence-sharing-platform",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-02T22:03:01+00:00",
+      "published_ts": 1783029781,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Ripple co-founder backs venture launched by US senator's son: Report",
+      "summary": "While engaged in negotiations over ethics in a crypto market structure bill in Congress, Senator Kirsten Gillibrand said she had \u201cno involvement\u201d in her son\u2019s derivatives exchange, backed by at least one industry figure.",
+      "link": "https://cointelegraph.com/news/ripple-chris-larsen-senator-gillibrand-son-venture-market-structure-bill?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-07-02T22:01:25+00:00",
+      "published_ts": 1783029685,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "How We Added WebAuthn to a Browser-Based RDP Client",
+      "summary": "A look inside the reverse-engineering journey of building the first RDP client outside of Windows to support WebAuthn redirection. The post How We Added WebAuthn to a Browser-Based RDP Client appeared first on Unit 42 .",
+      "link": "https://unit42.paloaltonetworks.com/webauthn-added-to-browser-based-rdp/",
+      "source": "https://unit42.paloaltonetworks.com/feed/",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-07-02T22:00:39+00:00",
+      "published_ts": 1783029639,
+      "smart_groups": [
+        "Windows / Microsoft"
+      ],
+      "curated": false
+    },
+    {
+      "title": "VMware Licensing Changes and Their Impact on Infrastructure Modernization",
+      "summary": "Explore how VMware licensing changes are influencing infrastructure modernization, cloud strategy, and AI readiness, and what enterprises should evaluate next.",
+      "link": "https://hackread.com/vmware-licensing-changes-infrastructure-modernization/",
+      "source": "HackRead",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-02T22:00:08+00:00",
+      "published_ts": 1783029608,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "1st \u2018agentic ransomware\u2019 JADEPUFFER invades database at machine speed",
+      "summary": "The LLM fixed a failed login attempt within 31 seconds, demonstrating real-time adaptability.",
+      "link": "https://www.scworld.com/news/1st-agentic-ransomware-jadepuffer-invades-database-at-machine-speed",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-02T21:41:19+00:00",
+      "published_ts": 1783028479,
+      "smart_groups": [
+        "Curated",
+        "Ransomware"
+      ],
+      "curated": true
+    },
+    {
+      "title": "OpenAI Offers US Government a $42 Billion Slice of Itself: Report",
+      "summary": "Sam Altman is pitching a 5% equity stake in OpenAI for the U.S. government\u2014and reportedly wants every major AI company to do the same.",
+      "link": "https://decrypt.co/372715/openai-offers-us-government-42-billion-slice",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-07-02T21:39:25+00:00",
+      "published_ts": 1783028365,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Russia Is Ready for 'Widespread Use' of Digital Ruble by September, Says Bank Governor",
+      "summary": "Bank of Russia Governor Elvira Nabiullina said major banks and retailers are on track to begin accepting the digital ruble by September 1.",
+      "link": "https://decrypt.co/372698/russia-is-ready-for-widespread-use-of-digital-ruble-by-september-says-bank-governor",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-07-02T21:13:37+00:00",
+      "published_ts": 1783026817,
       "smart_groups": [],
       "curated": false
     },
@@ -73,6 +330,18 @@
         "Linux / Unix"
       ],
       "curated": true
+    },
+    {
+      "title": "Treasury Department Sanctions Over 130 ISIS-Affiliated Crypto Wallets on Tron",
+      "summary": "More than 130 Tron wallets connected with a Central Asian ISIS affiliate were sanctioned by the U.S. government, with funds frozen by Tether.",
+      "link": "https://decrypt.co/372697/treasury-department-sanctions-130-isis-affiliated-crypto-wallets-tron",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-07-02T20:59:18+00:00",
+      "published_ts": 1783025958,
+      "smart_groups": [],
+      "curated": false
     },
     {
       "title": "Does anyone have an idea to solve this headscratcher?",
@@ -5131,6 +5400,23 @@
       "curated": false
     },
     {
+      "title": "Now generally available: Serverless posture coverage in Microsoft Defender CSPM",
+      "summary": "Serverless workloads are a foundation of modern application development, powering everything from low-code and no-code solutions to AI applications and agentic workflows. Development teams use functions, app services, containers, APIs, and event-driven infrastructure to move quickly, scale on demand, and reduce operational overhead. As AI applications and autonomous workflows increasingly rely on distributed services, background tasks, retrieval pipelines, and event-driven components, serverless architectures have become a natural fit. At the same time, they introduce new visibility and posture management challenges. While cloud providers manage the underlying infrastructure, organizations remain responsible for securing their applications, including code, container images, dependencies, configurations, identities, permissions, and access paths. Today, we're announcing the general availability of Serverless Container posture in Microsoft Defender Cloud Security Posture Management (Defender CSPM). Building on the recent general availability of Serverless Compute posture in Defender CSPM , these capabilities extend agentless posture coverage across supported serverless containers, applications, and functions in Azure and AWS. With this expanded serverless posture coverage, security teams can: Discover serverless workloads as first-class assets in a unified cloud inventory Assess workload-specific vulnerabilities, insecure dependencies, and risky configurations Surface exposure, identity, permission, and configuration context that helps prioritize contextual attack paths to broader applications Prioritize risk using security graph context and attack path analysis Act on severity-ranked recommendations in Defender for Cloud Serverless posture coverage across containers, apps, and functions Defender CSPM extends posture management across supported serverless workloads in Azure and AWS. Category Covered workloads Serverless applications and functions Azure Functions, Azure Web Apps, AWS Lambda Serverless containers Azure Container Apps, Azure Container Instances, AWS ECS on Fargate These resources are automatically discovered and surfaced in Defender cloud inventory, helping security teams maintain visibility across dynamic, event-driven application environments. Across supported serverless workloads, multiple layers of posture assessment are provided: Inventory: Serverless compute and container workloads are automatically discovered and mapped with key properties, helping teams understand what is running across their environment. Misconfiguration assessment: identify risky settings such as internet exposure, missing HTTPS, and other configuration issues that can increase exposure. Vulnerability management: Vulnerabilities are detected across supported serverless workloads and tracked over time, helping teams understand where exposed workloads may also contain known CVEs. Attack path analysis: Serverless resources are connected into the Security Graph, so teams can understand how a compromised function or container could reach sensitive assets. Actionable recommendations: Findings are surfaced as resource-level recommendations, making it easier to assign ownership, remediate, and track progress. Secure Score impact: Serverless findings contribute to the broader Secure Score, so risk reduction is reflected in the organization\u2019s overall posture. These findings are incorporated into Security Graph and attack path analysis, helping security teams understand risk in context and prioritize remediation based on how serverless workloads connect to other resources across the cloud environment. In practice Exposed function with access to sensitive data: A serverless function may look like a simple HTTP endpoint, but if it is internet-facing, running with broad identity permissions, and connected to sensitive storage, it can become part of a real attack path. Defender CSPM helps connect these signals across exposure, vulnerabilities, identity, and data access so teams can prioritize the workload based on actual risk, not just isolated findings. Serverless container running a vulnerable image: A serverless container running on Azure Container Apps, Azure Container Instances, or Amazon ECS on AWS Fargate may be fully managed at the infrastructure layer, but the customer still owns the image, application code, identity, configuration, and exposure. If that workload is internet-facing, built from an image with a critical CVE, and connected to Key Vault, storage, or other sensitive services, Defender CSPM helps teams discover it, assess the risk, and prioritize remediation in context. One consistent Defender experience Defender CSPM now natively includes serverless posture coverage. Discovered functions, web apps, and serverless containers appear in the unified cloud inventory, are evaluated through security recommendations, integrate into attack path analysis, and are queryable through Cloud Security Explorer. This consistency matters because serverless workloads rarely operate in isolation. A function might call an API, read from a queue, authenticate with a managed identity, and write to storage. A serverless container might expose an endpoint, pull an image from a registry, process events, and connect to secrets or databases. Defender CSPM helps security teams evaluate these workloads with surrounding context, including exposure, vulnerabilities, identity permissions, configuration risk, and relationships to other resources. That context helps teams move from isolated findings to prioritized remediation. Built for modern and AI-ready applications As organizations build AI-powered applications, agentic workflows, and distributed cloud services, serverless infrastructure continues to play a growing role in delivering scalability and operational efficiency. Defender CSPM helps security teams gain visibility into supported serverless containers, applications, and functions, assess vulnerabilities and misconfigurations, and prioritize remediation using Security Graph context and attack path analysis. By bringing serverless workloads into inventory, recommendations, Cloud Security Explorer, and attack path analysis experiences, Defender CSPM helps organizations better understand and reduce risk across their cloud environments. Explore the documentation for serverless protection and posture for serverless container workloads , and discover the latest innovations in Microsoft Defender for Cloud in the release notes.",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-defender-for-cloud/now-generally-available-serverless-posture-coverage-in-microsoft/ba-p/4532353",
+      "source": "Microsoft Defender Cloud Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-07-01T16:00:48+00:00",
+      "published_ts": 1782921648,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
       "title": "Phishing Exposes Employee Data at 86% of Fortune 100 Companies",
       "summary": "A new report from SpyCloud has found that phishing attacks have exposed employee data at 86% of Fortune 100 companies over the past 12 months, with the technology, airline and automotive sectors being hit the hardest . The researchers also found that 78% of organizations experienced an increase in phishing volume over the past year.",
       "link": "https://blog.knowbe4.com/phishing-exposes-employee-data-fortune-100-companies",
@@ -5400,6 +5686,18 @@
       "type_label": "General Security & Blogs",
       "published": "2026-07-01T15:43:19+00:00",
       "published_ts": 1782920599,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "New Cargo Theft Surge: From Lobster Heists To Bourbon Warehouse Scams",
+      "summary": "",
+      "link": "https://www.proofpoint.com/us/newsroom/news/new-cargo-theft-surge-lobster-heists-bourbon-warehouse-scams",
+      "source": "Proofpoint \u2013 Vendor",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-07-01T15:34:00+00:00",
+      "published_ts": 1782920040,
       "smart_groups": [],
       "curated": false
     },
@@ -9069,6 +9367,20 @@
       "published": "2026-06-30T15:36:35+00:00",
       "published_ts": 1782833795,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Defending the Authentication Flow: Device Code Phishing with Selena Larson",
+      "summary": "",
+      "link": "https://www.proofpoint.com/us/newsroom/news/defending-authentication-flow-device-code-phishing-selena-larson",
+      "source": "Proofpoint \u2013 Vendor",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-06-30T15:35:04+00:00",
+      "published_ts": 1782833704,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
       "curated": false
     },
     {
@@ -97438,560 +97750,6 @@
         "Identity / Access"
       ],
       "curated": true
-    },
-    {
-      "title": "US Treasury Sanctions Iranian Crypto Exchanges Including Nobitex for Terrorist Financing",
-      "summary": "The Treasury's Office of Foreign Assets Control accused the platforms of enabling illicit finance activities across Iran's crypto ecosystem.",
-      "link": "https://decrypt.co/369816/us-treasury-sanctions-iranian-crypto-exchanges-nobitex-terrorist-financing",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-02T22:55:00+00:00",
-      "published_ts": 1780440900,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "US lawmakers push back on Labor Department plans to include crypto in 401(k)s",
-      "summary": "The three members of Congress said the volatility of digital assets and \u201clack of regulation and safeguards\u201d could put Americans\u2019 retirement savings at risk.",
-      "link": "https://cointelegraph.com/news/democrats-labor-department-digital-assets-retirement?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-02T22:55:00+00:00",
-      "published_ts": 1780440900,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "The end of patching era for containers: Microsoft Defender for Cloud expands hardened image support",
-      "summary": "Why hardened images are becoming the new baseline for container image security Container security is evolving beyond vulnerability scanning alone. Across the ecosystem - spanning container platforms, registries, and software supply chain tooling - customers are increasingly adopting hardened container images - images that are minimal by design, transparent in composition, and continuously maintained to reduce inherited risk at the base layer. This shift is happening against a backdrop of increasingly fast-moving attacks. AI-assisted techniques - such as those demonstrated by Mythos-class tooling - continue to compress the time between vulnerability discovery and exploitation. In this environment, reducing exposure to exploitable vulnerabilities and attack surfaces in container images before deployment is becoming just as critical as detecting vulnerabilities after the fact. Traditional container images are optimized for flexibility and reuse, not for security - meaning they are not designed to minimize included components, reduce attack surface, or limit inherited vulnerabilities by default. As a result, many base images include large package sets and transitive dependencies that significantly increase attack surface and vulnerability noise. Hardened images take a different approach: Minimal by construction, including only what\u2019s required to run the workload Reduced attack surface, limiting exploitable components Strong transparency, with SBOMs and provenance metadata Continuous maintenance, so vulnerabilities are addressed through rebuilding rather than downstream patching For customers, this represents a shift from reactive CVE triage to preventative risk reduction at the image layer. In practice, this changes how container image risk is managed - from prioritizing and patching vulnerabilities in place to replacing images with updated, rebuilt versions, making remediation more predictable and easier to scale across environments. As hardened images become more widely adopted, organizations still need to continuously assess these images for vulnerabilities and compliance, since minimal or frequently rebuilt images can still introduce new risks over time or differ from expected configurations - making continuous image scanning and monitoring essential. Microsoft Defender for Cloud\u2019s approach: support choice, centralize visibility Today, Microsoft Defender for Cloud already supports vulnerability assessment for hardened image providers such as Chainguard, alongside traditional Linux distributions. We recently expanded this coverage further with additional hardened image types, giving customers more flexibility to adopt secure-by-default images while continuing to scan these images and manage findings in a centralized Microsoft Defender for Cloud experience. Microsoft Defender for Cloud does not prescribe a single hardened image solution. Instead, it focuses on enabling customer choice while providing consistent, centralized vulnerability assessment and posture management. This capability builds on the container vulnerability assessment foundation powered by Microsoft Defender for Endpoint and Microsoft Defender Vulnerability Management (MDVM), bringing together high-fidelity vulnerability insights across the container lifecycle with support for modern, hardened image models. From now on, Microsoft Defender for Cloud\u2019s vulnerability assessment supports hardened image ecosystems including: Chainguard images, rebuilt from source and designed to minimize inherited vulnerabilities Minimus images, which are minimal and continuously rebuilt to ship with zero known CVEs at publish time Docker Hardened Images (DHI), secure, minimal, production-ready base images maintained by Docker (recently added) Photon OS-based images and other minimal operating system distributions Across all of these, Microsoft Defender for Cloud\u2019s experience remains consistent: Images are scanned through the existing container vulnerability assessment pipeline Findings surface in the same Azure and Defender portals Policy evaluation, alerting, and compliance reporting stay centralized Security teams do not need to onboard new scanners, manage separate dashboards, or maintain parallel remediation workflows. Hardened image adoption fits directly into existing Microsoft Defender for Cloud posture management. What this means for customers As hardened image adoption accelerates, Microsoft Defender for Cloud enables customers to adopt secure \u2011 by \u2011 default foundations without fragmenting their security posture. The benefits are tangible: Reduced vulnerability noise from inherited base \u2011 image packages Earlier risk reduction at the image layer Consistent vulnerability assessment across hardened image providers Centralized security posture, compliance, and reporting Whether customers choose Chainguard, Minimus, Docker Hardened Images, Photon OS\u2013based images, or a combination, Microsoft Defender for Cloud provides a single control plane for understanding and managing container image risk - without forcing a change in operational model. How this works across hardened image providers Microsoft Defender for Cloud supports multiple hardened image providers, enabling organizations to adopt secure \u2011 by \u2011 default container images while maintaining a consistent approach to vulnerability assessment and posture management. While each provider takes a different approach to minimizing risk at the image layer, Microsoft Defender for Cloud ensures that all images are scanned through the same vulnerability assessment pipeline, with findings surfaced centrally for security teams to monitor, prioritize, and remediate. Examples: Minimus Minimal, continuously rebuilt container images designed to ship with zero known CVEs at publish time. Microsoft Defender for Cloud enables native scanning of Minimus images stored in Azure Container Registry, allowing security teams to assess vulnerabilities and maintain centralized visibility without introducing new workflows. Docker Hardened Images (DHI) Production \u2011 ready, minimal base images designed as drop \u2011 in replacements for standard container images. By supporting DHI, Microsoft Defender for Cloud allows customers to adopt these hardened images while continuing to rely on the same vulnerability scanning, governance, and reporting capabilities. Looking ahead Hardened images are no longer niche - they are becoming a foundational element of modern container security. As attacker automation and AI \u2011 assisted attack techniques continue to shorten response windows, reducing exposure at build and image layers becomes increasingly important. Microsoft Defender for Cloud will continue expanding support for hardened and minimal image ecosystems, ensuring customers can evolve their image strategies without sacrificing visibility, control, or operational simplicity. Security should start with what you build on - not with what you fix later. Learn more: Scanning support for Docker Hardened container images",
-      "link": "https://techcommunity.microsoft.com/t5/microsoft-defender-for-cloud/the-end-of-patching-era-for-containers-microsoft-defender-for/ba-p/4524798",
-      "source": "Microsoft Defender Cloud Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-06-02T22:53:19+00:00",
-      "published_ts": 1780440799,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Windows / Microsoft",
-        "Linux / Unix",
-        "Cloud / SaaS",
-        "Supply Chain / Software"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Microsoft's Coreutils project brings Linux commands to Windows",
-      "summary": "Microsoft announced today at its Build 2026 developer conference the release of Coreutils for Windows, bringing many commonly used Linux command-line utilities to Windows as native applications. [...]",
-      "link": "https://www.bleepingcomputer.com/news/microsoft/microsofts-coreutils-project-brings-linux-commands-to-windows/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-02T22:52:40+00:00",
-      "published_ts": 1780440760,
-      "smart_groups": [
-        "Windows / Microsoft",
-        "Linux / Unix"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Cyera eyes $12B valuation at 80x ARR multiple despite operating losses",
-      "summary": "The cybersecurity company is nearing a $300 million round led by Evolution Equity Partners.",
-      "link": "https://techcrunch.com/2026/06/02/cyera-eyes-12b-valuation-at-80x-arr-multiple-despite-operating-losses/",
-      "source": "Security News | TechCrunch",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-02T22:50:56+00:00",
-      "published_ts": 1780440656,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Do you support the idea of creating a European commission that would issue special licenses for social media platforms, with standardized account creation rules and mandatory KYC (Know Your Customer) verification requirements across the EU?",
-      "summary": "submitted by /u/MosWeb-Search [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1tv6vxk/do_you_support_the_idea_of_creating_a_european/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-02T22:47:57+00:00",
-      "published_ts": 1780440477,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "OpenAI upgrades GPT-5.5, as it plans to retire legacy ChatGPT models",
-      "summary": "OpenAI says it's rolling out a new update that improves the existing GPT-5.5 Instant model, and this move comes ahead of the scheduled retirement of multiple legacy models, including o3. [...]",
-      "link": "https://www.bleepingcomputer.com/news/artificial-intelligence/openai-upgrades-gpt-55-as-it-plans-to-retire-legacy-chatgpt-models/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-02T22:44:50+00:00",
-      "published_ts": 1780440290,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "As Bitcoin Sinks, It's Time for Ethereum to Outperform: Standard Chartered",
-      "summary": "Bitcoin is falling following Strategy's first BTC sale since 2022\u2014and one analyst sees that as a good thing for Ethereum.",
-      "link": "https://decrypt.co/369803/bitcoin-sinks-time-ethereum-outperform-standard-chartered",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-02T22:36:32+00:00",
-      "published_ts": 1780439792,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "ENISA NIS360 2026 report shows uneven cybersecurity improvements across EU critical sectors",
-      "summary": "The report assesses the cybersecurity landscape against the NIS2 directive, highlighting a growing gap between the evolving threat landscape and the pace of defensive improvements.",
-      "link": "https://www.scworld.com/brief/enisa-nis360-2026-report-shows-uneven-cybersecurity-improvements-across-eu-critical-sectors",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-02T22:18:37+00:00",
-      "published_ts": 1780438717,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "SEC makes digital assets strategic priority through 2030",
-      "summary": "The regulator\u2019s five-year roadmap calls for clearer crypto rules, support for tokenization and a framework for staking and onchain markets.",
-      "link": "https://cointelegraph.com/news/sec-makes-digital-assets-strategic-priority-through-2030?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-02T22:17:11+00:00",
-      "published_ts": 1780438631,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Russian hackers exploit WinRAR vulnerability for data theft",
-      "summary": "The exploitation chain begins with a weaponized HTML Application payload called GammaPhish, which retrieves intermediate Visual Basic Script (VBScript) downloaders known as GammaLoad, according to Sekoia.",
-      "link": "https://www.scworld.com/brief/russian-hackers-exploit-winrar-vulnerability-for-data-theft",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-02T22:16:15+00:00",
-      "published_ts": 1780438575,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Critical Kirki flaw exploited to hijack WordPress admin accounts",
-      "summary": "Hackers are exploiting a critical privilege escalation vulnerability (CVE-2026-8206) in the Kirki plugin for WordPress to take over any user account, including those belonging to administrators. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/critical-kirki-flaw-exploited-to-hijack-wordpress-admin-accounts/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-02T22:12:57+00:00",
-      "published_ts": 1780438377,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Most organizations that miss 24-hour patch window report breaches",
-      "summary": "Study points out that AI has shattered the model of patching on a two- to four-week schedule.",
-      "link": "https://www.scworld.com/news/most-organizations-that-miss-24-hour-patch-window-report-breaches",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-02T22:10:05+00:00",
-      "published_ts": 1780438205,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Google releases June Android security patches addressing 124 vulnerabilities, including 1 zero-day",
-      "summary": "The actively exploited vulnerability, identified as CVE-2025-48595, is a high-severity flaw in the Android Framework that allows local attackers to gain code execution and escalate privileges on devices running Android 14 or later.",
-      "link": "https://www.scworld.com/brief/google-releases-june-android-security-patches-addressing-124-vulnerabilities-including-one-zero-day",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-02T22:07:40+00:00",
-      "published_ts": 1780438060,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "'Dumbass' criminal breaks the 'first rule of ransomware club'",
-      "summary": "You don't infect anyone in Russia or other CIS countries",
-      "link": "https://www.theregister.com/cyber-crime/2026/06/02/dumbass-criminal-breaks-the-first-rule-of-ransomware-club/5250380",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-02T21:58:34+00:00",
-      "published_ts": 1780437514,
-      "smart_groups": [
-        "Curated",
-        "Ransomware"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Over 116,000 Mincraft systems infected in WeedHack malware campaign",
-      "summary": "A large-scale malware campaign dubbed WeedHack is targeting Minecraft players and has infected more than 116,000 systems since January. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/over-116-000-mincraft-systems-infected-in-weedhack-malware-campaign/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-02T21:54:49+00:00",
-      "published_ts": 1780437289,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Over 116,000 Minecraft systems infected in WeedHack malware campaign",
-      "summary": "A large-scale malware campaign dubbed WeedHack is targeting Minecraft players and has infected more than 116,000 systems since January. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/over-116-000-minecraft-systems-infected-in-weedhack-malware-campaign/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-02T21:54:49+00:00",
-      "published_ts": 1780437289,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "SideCopy group targets Afghanistan's Ministry of Finance with Xeno RAT",
-      "summary": "The campaign commences with a spear-phishing email containing a ZIP archive with a malicious LNK file written in Pashto, designed to exploit the familiarity of the language within the Afghan government.",
-      "link": "https://www.scworld.com/brief/sidecopy-group-targets-afghanistans-ministry-of-finance-with-xeno-rat",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-02T21:54:18+00:00",
-      "published_ts": 1780437258,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Exploit / PoC",
-        "Phishing / Social Engineering"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Zoom CISO: AI as Security Enabler, Not Role-Replacer",
-      "summary": "As Zoom's CISO, Sandra McLeod, discusses the challenges of securing a global communication platform, the promise of AI-driven security workflows, and advice for aspiring cybersecurity leaders.",
-      "link": "https://www.darkreading.com/cybersecurity-operations/zoom-ciso-ai-security-enabler-role-replacer",
-      "source": "darkreading",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-02T21:51:07+00:00",
-      "published_ts": 1780437067,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "CISA orders agencies to patch critical Oracle WebLogic Server vulnerability",
-      "summary": "The vulnerability, CVE-2024-21182, affects Oracle WebLogic Server versions 12.2.1.4.0 and 14.1.1.0.0.",
-      "link": "https://www.scworld.com/brief/cisa-orders-agencies-to-patch-critical-oracle-weblogic-server-vulnerability",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-02T21:45:27+00:00",
-      "published_ts": 1780436727,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Sectigo launches AI-powered server for certificate lifecycle management",
-      "summary": "The MCP Server for Sectigo Certificate Manager acts as a secure intermediary between AI agents, such as Microsoft Copilot and Claude, and Sectigo's certificate management platform.",
-      "link": "https://www.scworld.com/brief/sectigo-launches-ai-powered-server-for-certificate-lifecycle-management",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-02T21:42:03+00:00",
-      "published_ts": 1780436523,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "FBI-Flagged Phishing Kit Kali365 Expands Its Reach",
-      "summary": "Once targeting just Microsoft 365, the phishing-as-a-service platform now aims at AWS, Okta, and Russian platforms, while relying on device code phishing.",
-      "link": "https://www.darkreading.com/cyber-risk/fbi-flagged-phishing-kit-kali365-expands-its-reach",
-      "source": "darkreading",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-02T21:32:24+00:00",
-      "published_ts": 1780435944,
-      "smart_groups": [
-        "Cloud / SaaS",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "DriveSurge actor uses ClickFix and FakeUpdates to distribute malware via compromised websites",
-      "summary": "The DriveSurge threat actor operates as an initial access broker, utilizing a pay-per-install model to facilitate subsequent attacks, according to research by SilentPush.",
-      "link": "https://www.scworld.com/brief/drivesurge-actor-uses-clickfix-and-fakeupdates-to-distribute-malware-via-compromised-websites",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-02T21:32:06+00:00",
-      "published_ts": 1780435926,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "JupiterOne launches continuous controls monitoring for security and compliance",
-      "summary": "JupiterOne Inc. has launched JupiterOne Continuous Controls Monitoring (CCM), a new product designed to test the effectiveness of security and compliance controls across cloud, SaaS, and hybrid environments.",
-      "link": "https://www.scworld.com/brief/jupiterone-launches-continuous-controls-monitoring-for-security-and-compliance",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-02T21:26:30+00:00",
-      "published_ts": 1780435590,
-      "smart_groups": [
-        "Ransomware",
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Start Secure, Stay Secure: How Microsoft is Closing the Gap from Code to Runtime",
-      "summary": "Modern software applications composed of hundreds of artifacts, multiple programing languages, and cloud infrastructure provide an extensive attack surface that only continues to expand in the era of AI. According to Microsoft Threat Intelligence and industry research, threat actors are also increasingly leveraging AI-assisted techniques to accelerate vulnerability discovery and exploitation (Source: Digital Defense Report 2025 ). Rule-based scanning and manual review alone may not keep pace with the speed and scale of these emerging threats. As AI-generated code grows exponentially, organizations need tools designed to apply security researcher-inspired techniques at scale, keeping pace with new development processes and a rising number of AI-powered threats. That is the challenge we set out to solve. At Build 2026, we are taking two steps forward: the expanded preview of Codename MDASH, a multi-model agentic scanning system designed to find and validate exploitable vulnerabilities, and the general availability of the Microsoft Defender for Cloud and GitHub Code Security native integration, which connects runtime risk to code and bridges the gap between security and development teams in a single workflow. Together, these announcements represent a shift in how organizations should address software security considerations across the development lifecycle, natively integrating into their existing tooling and work processes. The Problem: Alert Fatigue, Disconnected Tools, and a Widening Gap Industry data consistently shows that critical and high-severity vulnerabilities take an average of more than 100 days to remediate. Research suggests applications face attacks as frequently as once every three minutes (Source: Digital Defense Report 2025 ). Security teams are overwhelmed with alerts they cannot easily prioritize and assign. Developers spend time investigating issues that may never be exploited in production. Both teams often rely on separate, non-integrated tools, making collaboration slower and more difficult. The result is a growing gap between how fast organizations ship code and how fast they can secure it. The answer is not more alerts, but higher actionable findings, smarter triage, and workflows designed to support more efficient agentic remediation, fostering improved collaboration between security teams and developers. Codename MDASH: Agentic Vulnerability Discovery (Expanded Preview) Codename MDASH introduces a new approach to vulnerability discovery and validation. Built by Microsoft's Autonomous Code Security team, which includes members of the DARPA AI Cyber Challenge-winning Team Atlanta, codename MDASH orchestrates more than 100 specialized AI agents across an ensemble of frontier and distilled models to discover, debate, and validate exploitable security findings end to end. Unlike single-model approaches, codename MDASH works as a coordinated system. Different agents scan code for potential vulnerabilities. A separate set of agents debate whether each finding is real and exploitable. A final set constructs proof-of-concept attacks to confirm the bugs exist. The goal is to deliver validated findings, like the test results listed below, intended to help teams focus on security issues that are more likely to be exploitable, rather than theoretical warnings. Results from internal testing and the public CyberGym benchmark (developed by UC Berkeley researchers, covering 1,507 real-world vulnerability reproduction tasks across 188 open-source projects, as of May 2026): 16 New Vulnerabilities Discovered and Patched across the Windows networking and authentication stack, including four critical remote code execution flaws, all patched in the May 2026 Patch Tuesday release. ( Source: MSRC CVE disclosures, May 12, 2026. ) MDASH identified all 21 planted vulnerabilities in a controlled test, with no false positives observed in that test. Results in broader production environments may vary. (Source: Microsoft Security Blog ) Near-Total Recall on Historical MSRC Cases 96% recall against five years of confirmed MSRC cases in clfs.sys and 100% recall in tcpip.sys. These are retrospective recall benchmarks on internal code with a finite case count; they indicate the system would have been useful had it existed at the time, but do not by themselves predict future performance. (Source: Microsoft Security Blog ) Codename MDASH recently jumped ~10% in less than three weeks to a new CyberGym industry benchmark score of 96.55%. o CyberGym scores are self-reported by participating organizations; the benchmark code is public, but no independent party has verified any of the scores. Benchmark results do not necessarily reflect real-world performance across all environments. (Source : CyberGym public leaderboard, cybergym.ai ) What makes the architecture durable is its model-agnostic design. When a new model becomes available, the targeting, debating, deduplication, and proof stages do not need to be rewritten. That means every improvement in the underlying AI automatically makes your existing scans smarter, without requiring teams to rebuild context, retune plugins, or revalidate proving agents. The work you put in today keeps paying off tomorrow. Codename MDASH will be in expanded preview at Build 2026. Please reach out to your Microsoft Account rep for more information. Microsoft Defender for Cloud+GitHub Code Security: Now Generally Available Codename MDASH brings a new class of multi-model agentic discovery to high-value targets. The Microsoft Defender for Cloud and GitHub Code Security native integration brings runtime context to vulnerability detections that developers already see in their pull requests, so both teams can prioritize what's exploitable and remediate inside the same workflow. This integration, now generally available, connects runtime context to code, so developer and security teams can prioritize and fix what matters. Here is the core problem it solves: a vulnerability flagged in your codebase might look critical in isolation, but is it running in production? Is it internet-facing? Is it touching sensitive data? Those three questions should drive everything. Until now, getting those answers typically meant jumping between tools, chasing context, and hoping someone on the other team had the right information. The integration changes that in three ways: Real-time visibility across the app lifecycle so developer and security teams can collaborate in the tools they already use. Security teams can track the status of vulnerabilities detected by GitHub Code Security directly in Defender for Cloud. When remediation is needed, a security campaign alerts GitHub repository owners, and developers can open a GitHub issue straight from Defender for Cloud to track progress from fix to close. Critical alert prioritization By connecting runtime context to code, developer teams will be able to prioritize exploitable issues. Security teams will be able to understand the traceability of the artifact from code to runtime and trace runtime threats directly to the code in GitHub. As a result, the most critical alerts will be fixed first. Remediation time reduction AI-suggested fixes with Copilot Autofix and GitHub Copilot cloud agent will automatically be generated, making it faster for developers to help accelerate remediation. Together, Defender and GitHub Code Security give security and engineering teams a shared, runtime-prioritized list of vulnerabilities, so the alerts developers see in their pull requests are the ones the security team has already confirmed are deployed, exposed, and worth fixing. Copilot Autofix turns those prioritized findings into review-ready pull requests, with developers in control of what merges. We believe this combination of runtime-to-code correlation and agentic AI remediation within a single integrated workflow is a meaningful differentiator. Check out our new onboarding videos to help you get started today. How It All Fits Together: Code to Runtime Codename MDASH and the Defender and GitHub Code Security integration are two parts of the same vision: enforcing security across the entire software lifecycle, from the first line of code to the running workload. By helping organizations find and fix vulnerabilities faster, development teams can help reduce time spent on security remediation and more time building new products. At the code level, codename MDASH adds a new layer of multi-model agentic discovery focused on high-value targets like logic flaws, race conditions, and AI-specific risks such as prompt injection and insecure model endpoints. It complements the deep semantic analysis that GitHub Code Security already performs on every pull request with CodeQL. It validates findings using multiple AI models and aims to deliver proven results rather than theoretical warnings. At the runtime level, Defender provides the context that turns a finding into an actionable priority: is this deployed, is it exposed, and does it matter right now? When a fix is needed, Copilot can assist with remediation, with the developer retaining control over what gets merged. The developer stays in GitHub. The security team stays in Defender. Both can see how code problems become real security risks, and both can act on them with reduced context switching and fewer handoff delays. Get Started Microsoft Defender for Cloud + GitHub Advanced Security is now generally available. Set up the integration in the Defender for Cloud portal and connect your GitHub organization. [learn.microsoft.com] Check out our new onboarding videos here: https://aka.ms/DefenderGHCSOnboardingVideos Codename MDASH expanded preview launches at Build 2026. Read the full technical deep dive: Defense at AI speed: Microsoft's new multi-model agentic security system tops leading industry benchmark . Read the full Microsoft Security Build update: https://aka.ms/BUILD_SecurityBlog With AI-powered vulnerability discovery, runtime-to-code context, and AI-assisted remediation built into the developer workflow, these tools are designed to help teams move faster while maintaining a strong security posture Sources: Microsoft Digital Defense Report 2025, MSRC Patch Tuesday trend data, industry publications on AI-assisted exploit development. Digital Defense Report 2025: https://www.microsoft.com/en-us/security/security-insider/microsoft-digital-defense-report-2025 Microsoft Security Response Center (MSRC), \"Security Update Guide \u2014 May 2026 Release Notes,\" May 12, 2026. https://msrc.microsoft.com/update-guide/releaseNote/2026-May Microsoft Security Blog, \"Defense at AI Speed: Microsoft's New Multi-Model Agentic Security System Tops Leading Industry Benchmark,\" May 12, 2026. https://www.microsoft.com/en-us/security/blog/2026/05/12/defense-at-ai-speed-microsofts-new-multi-model-agentic-security-system-tops-leading-industry-benchmark/ GitHub and Microsoft internal analysis of enterprise security backlogs. See the Microsoft Defender for Cloud blog ( aka.ms/SecureCodetoCloudBlog ) for methodology.",
-      "link": "https://techcommunity.microsoft.com/t5/microsoft-defender-for-cloud/start-secure-stay-secure-how-microsoft-is-closing-the-gap-from/ba-p/4524580",
-      "source": "Microsoft Defender Cloud Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-06-02T21:22:01+00:00",
-      "published_ts": 1780435321,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Windows / Microsoft",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "I've a fullstack dev, I'm devleoping my own authentication for my application, Can anyone help me for it's security aspects ?",
-      "summary": "Actually, I'm a fullstack developer(student), implementing my own authentication, later will make it as a private library, So I want someone who has enough good knowledge of the authentication and the below mentioned topics and can mentor me if I'm doing anything wrong. The Auth System will have: 1] Email+Password 2] OAuth 3] Account Linking 4] 2FA 5] JWT 6] Magic Link 7] Passkey If not mentor any sugesstions or resources in order to make this stuff work in reliable and secure way also works. submitted by /u/WetThrust258 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1tv4l4w/ive_a_fullstack_dev_im_devleoping_my_own/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-02T21:21:01+00:00",
-      "published_ts": 1780435261,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Identity / Access",
-        "Network / OT / ICS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Crypto correction vaporized $176B in investor funds: Are bears back in control?",
-      "summary": "Bitcoin and altcoin prices crumbled as BTC lost the $70,000 level. Will investors\u2019 pivot to AI stocks continue to weigh on crypto markets?",
-      "link": "https://cointelegraph.com/markets/crypto-correction-vaporized-176b-in-investor-funds-are-bears-back-in-control?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-02T21:16:33+00:00",
-      "published_ts": 1780434993,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Greynoise swarm",
-      "summary": "Is anyone using Greynoise swarm? We use Block today for EDL's and my account rep reached out about swarm. We have something similar but specific to our sector, curious if anyone has signed up and what value you're seeing from it. submitted by /u/aric8456 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1tv4g8k/greynoise_swarm/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-02T21:15:51+00:00",
-      "published_ts": 1780434951,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Microsoft Says Latest AI Models Beat Claude, Google's Nano Banana",
-      "summary": "Microsoft unveiled seven in-house AI models and claimed its flagship reasoning and image systems outperform rivals from Anthropic, OpenAI, and Google.",
-      "link": "https://decrypt.co/369806/microsoft-says-latest-ai-models-beat-claude-googles-nano-banana",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-02T21:12:09+00:00",
-      "published_ts": 1780434729,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "SecOT+ certification for free",
-      "summary": "CompTIA is inviting experienced practitioners to take the new SecOT+ beta exam, SO1-001. I had the opportunity to help develop this exam with others in the OT security community. It is designed specifically for OT security, including safety, physical impact, risk management, governance, IT vs. OT differences, compliance, and incident response. CompTIA is looking for people with hands-on OT experience, including OT Security Engineers, ICS/SCADA Security Engineers, OT Security Architects, Critical Infrastructure Engineers, Site/Plant OT Leads, and similar roles. If you qualify, take the beta, and pass, you can earn the SecOT+ certification for free. There is also a special incentive if passed by June 26, 2026. If you take the exam, please DM me any feedback on how to improve it and what you liked. Beta closes: August 7, 2026 Results expected: December 2026 Apply through CompTIA\u2019s qualification assessment. https://www.comptia.org/en-us/experts/become-a-subject-matter-expert/comptia-secOT-beta-exam/ submitted by /u/Check123ok [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1tv49gf/secot_certification_for_free/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-02T21:09:02+00:00",
-      "published_ts": 1780434542,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Crypto PACs pour $3M into Maryland races as California voters head to polls",
-      "summary": "An affiliate of a political action committee backed by crypto companies ramped up spending on ads in California ahead of Tuesday\u2019s primaries, but still has millions of dollars at stake in Maryland later this month.",
-      "link": "https://cointelegraph.com/news/crypto-pacs-maryland-races-media-buys-california-primaries?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-02T21:06:39+00:00",
-      "published_ts": 1780434399,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "How is the state of the job market for mid-level security engineers?",
-      "summary": "I have 5 years experience as a security engineer and was promoted to senior about a year ago How is the current job market for mid-level engineers? submitted by /u/Exact-Advantage-3190 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1tv42l5/how_is_the_state_of_the_job_market_for_midlevel/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-02T21:01:59+00:00",
-      "published_ts": 1780434119,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Is anyone else still coding manually to learn? The market will continue to hire people that know what's going on even if you can now use AI to code many things",
-      "summary": "submitted by /u/Exact-Advantage-3190 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1tv41p3/is_anyone_else_still_coding_manually_to_learn_the/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-02T21:01:05+00:00",
-      "published_ts": 1780434065,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Heraclitus, AI LLMs, SSO, TTP, NetLogon, PAN-OS, AI Cost, Aaran Leyland - SWN #586",
-      "summary": "Heraclitus Unbound, AI LLMs, SSO, TTP, NetLogon, PAN-OS, AI Cost, Aaran Leyland, and More on the Security Weekly News. Visit https://www.securityweekly.com/swn for all the latest episodes! Show Notes: https://securityweekly.com/swn-586",
-      "link": "https://www.youtube.com/watch?v=KTB4buAy8A4",
-      "source": "Security Weekly News (YouTube)",
-      "type": "podcasts",
-      "type_label": "Podcasts & YouTube",
-      "published": "2026-06-02T21:00:20+00:00",
-      "published_ts": 1780434020,
-      "smart_groups": [
-        "Identity / Access"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Experimenting with TPUs, GKE Managed DRANET, and Multi-cluster Inference Gateway",
-      "summary": "What happens when your workload fails in one region but you need access to service? This is a common case for availability and uptime. With recent enhancement to the Kubernetes ecosystem and capabilities like Dynamic Resource Allocation (DRA) and Inference Gateway. I decided to experiment with these capabilities in Google Cloud for a simple test using an AI inference workload. In this blog, we will explore this setup and you can also jump straight into the detailed configs in this codelab Build multi-cluster GKE Inference Gateway, with TPUs , Cloud Storage FUSE and managed DRANET. Building blocks To build out this experiment, use the following products, features, and tools: Google Kubernetes Engine (GKE) managed DRANET : This is a managed feature that lets you request and share resources among Pods. This supports GPUs , and TPUs . In this test TPUs were used in two different regions with networking assigned using managed DRANET. Multi-cluster GKE Inference gateway : Load balances your AI/ML inference workloads across multiple GKE clusters. This works in a failover situation which is what my experiment intended to test. The type which supports this is the Multi-cluster Cross-region internal Application Load Balancer gke-l7-cross-regional-internal-managed-mc Cloud Storage FUSE : Provides a way to store data, models, checkpoints, and logs directly in Cloud Storage. To speed up the deployment, an open source gemma model was downloaded to this storage for retrieval. Virtual private Cloud (VPC) : The foundational global network providing isolated, secure communication for the internal load balancers and compute nodes GKE Fleets : Fleets group the separate regional clusters under a unified management control plane TPU v6e : Google's custom AI accelerators that provide the high-performance compute required to serve the model. The VM family type used was the ct6e-standard-4t in a 2x2 Slice Design pattern example The aim is to deploy a LLM model (Gemma 3) onto 2 GKE clusters in different regions. Each cluster will use 4 TPU v6e chips. The model should be stored in Cloud Storage. The workload is served using GKE Inference Gateway which supports multi-clusters. The traffic should be routed to the region closest to the user and failover to the other region if one region fails. Putting it together To get access to the TPUs for your project in two regions you have to ensure you have the necessary quota in those regions. Begin: Set up the environment. Create a standard VPC , with firewall rules and subnet in the same zone as the reservation. Create a proxy-only subnet this will be used with the Internal regional application load balancer attached to the GKE inference gateway Set up firewall rules allowing traffic and health checks. Reserve static internal IP addresses in both regions for the Gateway. Provision a Cloud Storage FUSE bucket and configure a dedicated IAM Service Account. Bind this to a Kubernetes Workload Identity so your pods can securely mount the bucket and read the model weights directly. Next: Create standard GKE clusters and node pools. Deploy two separate GKE clusters in your chosen regions configured. Enable the Gateway API ( --gateway-api=standard ) and the Cloud Storage FUSE CSI driver ( --addons GcsFuseCsiDriver ) during cluster creation. Create dedicated TPU v6e node pools ( ct6e-standard-4t ) for both clusters. Enable managed DRANET on these TPU node pools by setting the flags ---accelerator-network-profile=auto , and --node-labels=cloud.google.com/gke-networking-dra-driver=true Next: Establish the global mesh via Fleet Registration. Register both GKE clusters to a unified GKE Fleet by following the fleet creation and registration setup . Enable Multi-Cluster Service Discovery and Multi-Cluster Ingress on your fleet. Designate your primary region as the configuration hub to act as the control plane for routing rules across both regions. Next: Deploy the AI workload. Use a temporary Kubernetes job to download the Gemma 3 ( gemma-3-27b-it ) model weights directly into your Cloud Storage bucket. Define a ResourceClaimTemplate that explicitly requests the managed DRANET device class ( deviceClassName: netdev.google.com ) with the allocation mode set to \"All\". code_block )])]> Deploy your inference server (e.g. vLLM) on the TPU nodes in both regions. Ensure the pod spec utilizes node selectors for the 2x2 TPU topology, requests exactly 4 TPUs, and mounts the netdev claim. This guarantees your pods utilize the dedicated accelerator networking alongside standard Ethernet. Next: Configure the Multi-Cluster Inference Gateway. Install the necessary Custom Resource Definitions (CRDs) so Kubernetes can process specialized routing objects like the InferenceObjective . Deploy an AutoscalingMetric to track hardware utilization, such as KV cache usage. Use Helm to group the independent AI deployments from both regions into a single, logical InferencePool . Deploy the Cross-Region Gateway and its associated HTTPRoute to manage incoming global traffic. Apply health checks and backend policies to the pool to ensure load balancing relies on your custom hardware metrics. Configure an InferenceObjective to instruct the gateway to route prompts to the region with the highest availability, avoiding overloaded TPUs. code_block )])]> Testing the Failover Verify the highly available architecture by simulating a primary region outage. Once the primary deployment is taken offline, the Gateway automatically detects the failure and seamlessly reroutes all subsequent user requests to the active secondary cluster, ensuring continuous availability without dropping traffic. Next Steps Take a deeper dive into a hands-on codelab and more information on these features review the following. Hands-on Codelab: Build multi-cluster GKE Inference Gateway, with TPUs , Cloud Storage FUSE and managed DRANET Document set: DRANET Documentation: AI Hypercomputer Want to ask a question, find out more or share a thought? Please connect with me on Linkedin .",
-      "link": "https://cloud.google.com/blog/topics/developers-practitioners/experimenting-with-tpus-gke-managed-dranet-and-multi-cluster-inference-gateway/",
-      "source": "Google Cloud Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-06-02T21:00:00+00:00",
-      "published_ts": 1780434000,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Identity / Access",
-        "Network / OT / ICS",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Heraclitus, AI LLMs, SSO, TTP, NetLogon, PAN-OS, AI Cost, Aaran Leyland... - SWN #586",
-      "summary": "",
-      "link": "https://www.scworld.com/podcast-segment/15026-heraclitus-ai-llms-sso-ttp-netlogon-pan-os-ai-cost-aaran-leyland-swn-586",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-02T21:00:00+00:00",
-      "published_ts": 1780434000,
-      "smart_groups": [
-        "Identity / Access"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Heraclitus, AI LLMs, SSO, TTP, NetLogon, PAN-OS, AI Cost, Aaran Leyland... - SWN #586",
-      "summary": "Heraclitus Unbound, AI LLMs, SSO, TTP, NetLogon, PAN-OS, AI Cost, Aaran Leyland, and More on the Security Weekly News. Visit https://www.securityweekly.com/swn for all the latest episodes! Show Notes: https://securityweekly.com/swn-586",
-      "link": "https://podcast.securityweekly.com/heraclitus-ai-llms-sso-ttp-netlogon-pan-os-ai-cost-aaran-leyland-swn-586",
-      "source": "Security Weekly Podcast Network (Audio)",
-      "type": "podcasts",
-      "type_label": "Podcasts & YouTube",
-      "published": "2026-06-02T21:00:00+00:00",
-      "published_ts": 1780434000,
-      "smart_groups": [
-        "Identity / Access"
-      ],
-      "curated": false
-    },
-    {
-      "title": "HP Poly VoIP vulnerability sets the stage for executive voice deepfakes",
-      "summary": "HP has released patches for a critical buffer overflow vulnerability in multiple IP-enabled conference phones from its Poly Voice line. The flaw allows unauthenticated attackers to obtain root privileges on the underlying operating system, potentially enabling them to execute other attacks such as eavesdropping on conversations and recording voice data for AI-enabled impersonation attacks. The vulnerability, tracked as CVE-2026-0826 , was discovered by researchers from security firm Rapid7 and resides in the code that parses Session Description Protocol (SDP) attributes when the Interactive Connectivity Establishment (ICE) feature is enabled. ICE enables VoIP devices to establish peer-to-peer connections using the shortest available network path. The feature is not enabled by default on HP Poly devices, and the company advises administrators to disable it if it\u2019s not needed. The flaw, rated 9.2 on the CVSS severity scale, affects all phones from the HP Poly VVX series, as well as the Trio 8300, 8500, and 8800 IP conference devices. HP has fixed the flaw in its Poly Unified Communications Software (UCS) versions 6.4.8 for the VVX devices, 8.1.7 for the Trio 8300, and 7.2.8 for Trio 8500 and 8800. VoIP exploit is public for pen testing An exploit module targeting this vulnerability has already been developed and released for the widely used Metasploit penetration testing framework that\u2019s maintained by Rapid7. The exploit executes code as root on an affected device with ICE enabled by sending a SIP INVITE request with a specially crafted candidate attribute. This attribute normally contains a transport address that can be used for connectivity checks and is part of the ICE RFC8839 standard. The buffer overflow bug is located in a helper function called ParseICECandidate in the polyapp binary that processes such requests on the device. \u201cThe start of the function contains a call to memcpy , which will copy the incoming string line being processed into a 256 byte stack buffer,\u201d Stephen Fewer, senior principal security researcher at Rapid7, said in a blog post . \u201cNo length check is performed to ensure the incoming string length is less than 256 bytes. Therefore by providing a candidate attribute whose length is greater than 256 bytes, a stack-based buffer overflow will occur.\u201d Address Space Layout Randomization (ASLR), a kernel feature that randomizes memory addresses to defeat buffer overflow exploits, is enabled on the device. However, the protection is not operating correctly on the HP Poly devices because it does not randomize the load addresses of .so (Shared Object) libraries. These libraries, such as libc , are loaded by other processes, including the polyapp process, and because their memory addresses never change, they can be leveraged to bypass ASLR and execute the attacker\u2019s payload. \u201cWe create a ROP chain that will execute an arbitrary OS command via the system standard C library function,\u201d Fewer said. \u201cThe accompanying Metasploit exploit modules source code details the entire ROP chain.\u201d VoIP phones are attractive targets Attackers have increasingly targeted embedded devices inside enterprise networks in recent years because unlike laptops, workstations, and servers, these devices are not monitored by endpoint detection and response (EDR) products. As such, they provide perfect footholds inside corporate environments that allow attackers to remain undetected for long periods of time and attack other systems. In the age of AI these devices become even more relevant for attackers, going beyond corporate espionage by recording conversations or internal network pivoting. \u201cAttackers no longer need massive datasets to make use of synthetic speech tooling,\u201d Douglas McKee, Rapid7\u2019s director of vulnerability intelligence, said in a blog post . \u201cIn many cases, they just need clean source audio of the right person saying enough words in enough contexts. That has made executive voice data, call recordings, and live conversation capture far more valuable than many organizations seem prepared to admit.\u201d Attackers could collect audio and then use AI deepfakes to impersonate executives in calls to employees and business partners to authorize fraudulent transactions, gain access to sensitive systems, and more. \u201cThe concern is not just \u2018someone might hear something confidential,\u2019\u201d McKee said. \u201cThat would be bad enough. The broader concern is that voice infrastructure can now support both traditional espionage objectives and modern AI-enabled fraud operations at the same time.\u201d",
-      "link": "https://www.csoonline.com/article/4180223/hp-poly-voip-vulnerability-sets-the-stage-for-executive-voice-deepfakes.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-02T20:58:20+00:00",
-      "published_ts": 1780433900,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "WaSteal Update: Infrastructure Pivoting Reveals 57 Additional Extensions, Campaign Now at 183 Total",
-      "summary": "Following my initial report on WaSteal, I ran additional infrastructure pivots using internal tooling and surfaced 57 more extensions tied to the same campaign. Same operator, same backend, same exfiltration behavior. 183 extensions total, all still live on the Chrome Web Store. Original report: https://malext.io/reports/WaSteal Updated findings: https://malext.io/?q=WaSteal&days=7 submitted by /u/Huge-Skirt-6990 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1tv3ysa/wasteal_update_infrastructure_pivoting_reveals_57/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-02T20:58:20+00:00",
-      "published_ts": 1780433900,
-      "smart_groups": [],
-      "curated": false
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
