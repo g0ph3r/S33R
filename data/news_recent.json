@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-07-08T21:19:20.515224+00:00",
+  "generated_at": "2026-07-08T23:30:28.459575+00:00",
   "days_back": 30,
-  "total_items": 6901,
+  "total_items": 6886,
   "items": [
     {
       "title": "GISEC GLOBAL",
@@ -40,6 +40,278 @@
         "Cloud / SaaS",
         "Network / OT / ICS"
       ],
+      "curated": false
+    },
+    {
+      "title": "Smashing Security podcast #475: JadePuffer &#8211; the AI that ran a ransomware attack all by itself",
+      "summary": "A 15-year-old boy asked a chatbot for help - and cancelled nearly 47,000 anime streaming subscriptions in under four hours. Meanwhile, researchers have documented the first fully autonomous, agentic AI-driven ransomware attack, \"JadePuffer\". What does this tell us about the future of cybersecurity? Also, Apple's \"Hide My Email\" feature turns out to hide rather less than it promises - despite Apple knowing it has a problem for over a year. All this and more in this episode of the \"Smashing Security\" podcast with cybersecurity expert and keynote speaker Graham Cluley, and special guest Zo\u00eb Rose.",
+      "link": "https://grahamcluley.com/smashing-security-podcast-475/",
+      "source": "Graham Cluley",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-08T23:19:18+00:00",
+      "published_ts": 1783552758,
+      "smart_groups": [
+        "Curated",
+        "Ransomware"
+      ],
+      "curated": true
+    },
+    {
+      "title": "GitHub\u2019s public APIs are becoming an enterprise reconnaissance tool",
+      "summary": "GitHub continues to be a scintillating target for attackers because it sits in the middle of the software supply chain and gives threat actors three things they crave: source code, secrets, and automated pipelines to run amok in. Datadog Security Research has been tracking what it calls a \u201csustained pattern\u201d of GitHub API abuse over the past several months that seeks to map organizations and their members. While individually these requests are \u201cunremarkable,\u201d they become dangerous when they move across environments for weeks at a time, and, worse, progress to full-out cloning. The biggest challenge is that they blend into normal API usage patterns. GitHub has been a goldmine for criminals looking to breach organizations because many development lifecycles are insecure, said David Shipley of Beauceron Security. Typically, threat actors are after API keys and cloud secrets. \u201cNow with everyone being pushed to do more, faster, with AI agents coding, the treasure trove of secrets is likely even bigger,\u201d he said. \u201cIn short, to steal a line from a previous gold rush of the analog era, \u2018there\u2019s gold in them thar hills.'\u201d Scott Miserendino, CTO at security and compliance company DataBee, agreed. \u201cGithub is the most popular source code repository for both open-source and enterprise projects,\u201d he said. \u201cIts sheer volume of projects, along with being home to some of the most popular and widely used software, make it a target.\u201d He noted that intellectual property theft such as the unauthorized cloning of private repositories can be used to gain use of proprietary software or find vulnerabilities that can be exploited. A second popular attack involves searching for repositories containing default credentials to popular software. Using them, attackers may develop and test assaults on accounts that are present in production environments or come installed by default on certain appliances. And, Datadog senior security engineer Julie Agnes Sparks wrote in a blog post , \u201cthe activity is not a single actor. Rather, it\u2019s a blend of custom automated scanner tools, opportunistic abuse of leaked credentials, and coordinated networks of burner (ghost) accounts.\u201d A simple but effective way to map GitHub users Sparks explained that a \u201clarge share\u201d of GitHub\u2019s API surface can be reached without authentication; it is public by design. Requests against APIs typically produce standard HTTP 200 responses. This means a threat actor can build detailed maps of organizations, their public repositories, their members, who they follow, their starred repos, and projects they interact with. This traffic blends into normal API usage and thus does not seem suspicious, she said. Furthermore, GitHub only collects geolocation data when a user interacts with private repositories, recording who they are and what access token they used, not when they interact with external resources. This limits geolocation and VPN/proxy-based attribution. Typically, threat actors have performed automated scraping with custom or legitimate-sounding user agents, taking advantage of GitHub \u201cghost\u201d accounts, profiles created anywhere from two to five years ago and left dormant. This is an attractive method because, Sparks noted, \u201can account with a multi-year history reads as more legitimate than one registered the same week it starts scraping.\u201d Typically, these accounts are used for a \u201cburst\u201d of just one to three weeks across many enterprises at once, then usage stops. The researchers identified more than 50 ghost accounts across multiple user agents, clustered into families with names like user432023 , user412023 , or kobalt* . Some campaigns did use the legitimate accounts of GitHub users who had inadvertently posted their OAuth tokens or personal access tokens (PATs), or have had their endpoints compromised or exposed in other ways. Attackers use a mix of data exfiltration agents with names like GitHub-Company-Scraper, GitHub-Scraper-Tool/1.0., and GitHubAnalytics/1.5 ,designed to blend into normal data analysis traffic. The bulk of requests target the open source query language /graphql , which is \u201cwell suited\u201d for bulk queries across enterprises, users, and repositories, Sparks noted. Normal REST endpoints are used for org-mapping. The focus of the campaigns was \u201cnarrow and consistent,\u201d and the concern \u201clies in the aggregate,\u201d Sparks said. In isolation, requests target public repositories without authentication and return successful responses. This rarely produces \u201cmeaningful access\u201d into an enterprise\u2019s repositories. But a group of accounts moving in sync across shared GitHub accounts with versioned, custom tooling over a period of weeks represents more troubling and systematic behavior. She cited one event in which dozens of distinct, legitimate, but compromised GitHub user accounts made API requests to a single organization within a window of only a few minutes, although in that case the attack failed, because they targeted private repository commit paths. How enterprises can protect their GitHub environments Sparks pointed out that these behaviors can be hunted for and detected \u201cif you are watching the right fields,\u201d such as those identifying the user agent, token type, autonomous system number (ASN), or attempted action. \u201cUser agents, event activity, and actor names are vital clues to unauthorized activity in your environment,\u201d Sparks emphasized. She suggested reviewing unusual user agent behavior across GitHub audit logs, particularly for those that extend to private repositories where the platform also captures the IP address, actor name, and programmatic access type. Enterprises should also enable GitHub audit log streaming, baseline user agents, and perform proactive threat hunting. Most importantly, she said, they should develop detections unique to their GitHub organization, noting, \u201cIt\u2019s important to know what normal looks like in your environment.\u201d Simply put, added Miserendino, enterprises should be following security best practices, including enabling multi-factor authentication (MFA) on all accounts, performing periodic user access reviews, removing any unused or unneeded accounts, and scanning repositories for credentials stored in plaintext rather than in a secret store. This article originally appeared on InfoWorld .",
+      "link": "https://www.csoonline.com/article/4194665/githubs-public-apis-are-becoming-an-enterprise-reconnaissance-tool-2.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-08T23:08:07+00:00",
+      "published_ts": 1783552087,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Web / API Security",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Supply Chain / Software"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Iris Recognition vs Fingerprint: Which Biometric Wins in 2026?",
+      "summary": "Compare iris recognition and fingerprint biometrics in 2026, from accuracy and speed to security, privacy, and where each technology works best.",
+      "link": "https://hackread.com/iris-recognition-vs-fingerprint-biometric-2026/",
+      "source": "HackRead",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-08T22:48:32+00:00",
+      "published_ts": 1783550912,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Google pays 250K for Linux vulnerability allowing guest VM escapes",
+      "summary": "submitted by /u/rkhunter_ [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1ur8bq0/google_pays_250k_for_linux_vulnerability_allowing/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-07-08T22:48:04+00:00",
+      "published_ts": 1783550884,
+      "smart_groups": [
+        "Vulnerabilities / CVEs",
+        "Linux / Unix"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Feeling like an impostor as a cybersecurity intern because I used AI to do my work",
+      "summary": "I'm doing a cybersecurity degree and currently interning at a small telecom/ICT provider. Over the past weeks I've built a small test infrastructure involving a FritzBox and firewall setup, with a segmented guest network and a second backup FritzBox in case the primary one goes down. I also set up an Ubuntu Server with RAID 5, and at one point the server actually crashed and booted into recovery mode, which I had to troubleshoot and fix. On paper that sounds like solid hands-on experience. The problem is I did most of it with AI help. asking it to explain concepts, walk me through configs, troubleshoot when something broke, including during that recovery mode incident. And now I keep thinking: is any of this actually \"mine\"? Would I have been able to do it without that help? Honestly, for a lot of it, no. About the RAID 5 setup, I could redo now almost without looking anything up. It just stuck. I keep telling myself things like \"well I understood the reasoning, I wasn't just copy-pasting\", but I don't fully know if that's true or if it's just something I tell myself to feel better about it. Can anyone advise me or have had similar experiences? Edit: Thanks everyone for the replies and advice! I will try to feel less guilty and use AI as wisely as possible. submitted by /u/Keis__ [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1ur7vgp/feeling_like_an_impostor_as_a_cybersecurity/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-07-08T22:29:59+00:00",
+      "published_ts": 1783549799,
+      "smart_groups": [
+        "Linux / Unix"
+      ],
+      "curated": false
+    },
+    {
+      "title": "The New Grok 4.5 Is Out. Elon Musk Says It Competes With Last Year's Claude Opus",
+      "summary": "SpaceXAI's new coding model is cheaper and faster than Anthropic and OpenAI's flagships\u2014and by Musk's own account, at least one generation behind them.",
+      "link": "https://decrypt.co/373094/grok-4-5-elon-musk-claude-opus",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-07-08T22:26:31+00:00",
+      "published_ts": 1783549591,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "PromptSpy Android Malware Uses Google Gemini to Adapt During Runtime Execution",
+      "summary": "A newly identified strain of Android spyware called PromptSpy has become the first mobile malware known to call on generative AI while it is actually running on a victim\u2019s device. Rather than relying purely on hardcoded commands, the malware reaches out to Google\u2019s Gemini model in real time to figure out how to interact with [\u2026] The post PromptSpy Android Malware Uses Google Gemini to Adapt During Runtime Execution appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/promptspy-android-malware-uses/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-08T22:24:22+00:00",
+      "published_ts": 1783549462,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "When AI-Accelerated Discovery Outruns Patching, Exploitability Proof Decides What Gets Fixed First",
+      "summary": "Why Qualys joined the Athena coalition, and what it means for how you prioritize risk. Qualys is proud to have joined Athena, the industry coalition Chainguard launched to coordinate the defense of open source software. It\u2019s a cause we strongly support, because the problem Athena is working to solve is the same one the Qualys [\u2026]",
+      "link": "https://blog.qualys.com/category/qualys-insights",
+      "source": "Qualys Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-07-08T22:15:08+00:00",
+      "published_ts": 1783548908,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "When AI-Accelerated Discovery Outruns Patching, Exploitability Proof Decides What Gets Fixed First",
+      "summary": "Why Qualys joined the Athena coalition, and what it means for how you prioritize risk. Qualys is proud to have joined Athena, the industry coalition Chainguard launched to coordinate the defense of open source software. It\u2019s a cause we strongly support, because the problem Athena is working to solve is the same one the Qualys [\u2026]",
+      "link": "https://blog.qualys.com/qualys-insights/2026/07/08/qualys-joins-chainguard-athena-turning-coalition-scale-findings-into-validated-action",
+      "source": "Qualys Insights \u2013 Qualys Security Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-07-08T22:15:08+00:00",
+      "published_ts": 1783548908,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "APT-C-20 Hackers Hide Shellcode in PNG Images to Launch Fileless C# Backdoor",
+      "summary": "A well known hacking group has found a clever way to sneak malicious code past security tools, using an ordinary picture file. The group, tracked as APT-C-20 and known as APT28 or Fancy Bear, hides shellcode inside PNG images to launch a fileless backdoor written in C#. This lets attackers avoid dropping malware files on [\u2026] The post APT-C-20 Hackers Hide Shellcode in PNG Images to Launch Fileless C# Backdoor appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/apt-c-20-hackers-hide-shellcode-in-png-images/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-08T22:13:44+00:00",
+      "published_ts": 1783548824,
+      "smart_groups": [
+        "Curated",
+        "Threat Actors / APT",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "FABLE 5 AND OPUS",
+      "summary": "Is it just me, or have both Claude Opus and Fable 5 become much more restrictive lately? I'm a cybersecurity engineer, and even for legitimate topics like malware analysis, AD, MITRE ATT&CK, or authorized lab work, I often get refusals or overly sanitized responses. It feels like I spend more time convincing the model my intentions are legitimate than actually discussing the technical problem. Has anyone else in the field experienced this? submitted by /u/Coshinomati [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1ur77pc/fable_5_and_opus/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-07-08T22:04:24+00:00",
+      "published_ts": 1783548264,
+      "smart_groups": [
+        "Malware / Payloads",
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Bitcoin tumbles back to key $60K support level: What\u2019s behind the sell pressure?",
+      "summary": "Bitcoin faces renewed sell pressure amid an oil price surge, Japan economic contagion risks and a fresh round of selling from Strategy.",
+      "link": "https://cointelegraph.com/markets/bitcoin-tumbles-back-to-key-60k-support-level-whats-behind-the-sell-pressure?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-07-08T21:55:17+00:00",
+      "published_ts": 1783547717,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Vulnerability disclosure program management",
+      "summary": "For those who run VDPs, how are you handling the influx of AI slop reports? Do you push back and ask for a full PoC before attempting your own validation? A lot of these report provide reproduction steps but no evidence the submitter actually validated the finding. Trying to figure out how to best approach this situation so I\u2019m not burning all my time trying to validate bunk reports. submitted by /u/PublicUniversity9586 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1ur6rs9/vulnerability_disclosure_program_management/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-07-08T21:47:21+00:00",
+      "published_ts": 1783547241,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Mexico's New Cyber Plan Faces Its First Real Test",
+      "summary": "The Latin American nation's cybersecurity plan \u2014 still in the expansion phase \u2014 has to survive its own knockout round during the FIFA World Cup.",
+      "link": "https://www.darkreading.com/cyber-risk/mexicos-cyber-plan-first-real-test",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-08T21:34:21+00:00",
+      "published_ts": 1783546461,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Seeing the unseen: Closing AI identity blind spots",
+      "summary": "Here's how ISPM provides the necessary visibility, governance and risk assessment to manage AI agents.",
+      "link": "https://www.scworld.com/resource/seeing-the-unseen-closing-ai-identity-blind-spots",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-08T21:30:51+00:00",
+      "published_ts": 1783546251,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Mount Royal University confirms breach as hackers claim attack",
+      "summary": "Mount Royal University in Calgary says hackers stole and then deleted data from its file storage systems after breaching the university's network. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/mount-royal-university-confirms-breach-as-hackers-claim-attack/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-08T21:26:59+00:00",
+      "published_ts": 1783546019,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "ClickFix Campaign Uses Fake Google Verification Page to Infect Mexican Bank Customers",
+      "summary": "A fake Google verification page is being used to infect customers of Mexican banks with a malware toolkit built for fraud, not just espionage. The campaign relies on a familiar ClickFix trick, where a victim is pushed to copy and run a command that quietly starts the infection chain. From there, the attackers can watch [\u2026] The post ClickFix Campaign Uses Fake Google Verification Page to Infect Mexican Bank Customers appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/clickfix-campaign-uses-fake-google-verification-page/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-08T21:23:03+00:00",
+      "published_ts": 1783545783,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Azure cert path for a senior firewall engineer : which one adds real value in France?",
+      "summary": "Senior firewall/network security engineer (6+ yrs, Fortinet/Palo Alto/Check Point/Illumio) in France, looking to add an Azure cert. AZ-500 retires Aug 2026, so choosing between: \u2022 AZ-700 (network-focused, closest to my background) \u2022 SC-500 (Identity) \u2022 SC-100 (Architect Expert) Which one actually carries weight with recruiters/clients here? And does AZ-700 \u2192 SC-100 make sense, or is SC-500 worth doing first? Thanks! submitted by /u/ConstantFluid7355 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1ur61pq/azure_cert_path_for_a_senior_firewall_engineer/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-07-08T21:19:49+00:00",
+      "published_ts": 1783545589,
+      "smart_groups": [
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "HIPAA Compliance Gap Assessment - amateur first timer",
+      "summary": "I work for a 20-person health tech company as the clinical lead (background is nursing, zero cybersecurity training). I've been assigned to lead the HIPAA compliance readiness project. I am handling all the responses and evidence items pertaining to policy, procedure, third party management and training (there are 196 total responses/evidence submissions required). I am managing all of the vendor review and security docs, as well as all of the other compliance management tasks in AccountableHQ. It was thought that a small platform like this would suit our needs since we are so small. It probably goes without saying, I'm flailing. My COO has no idea of the scope of this project and was pushing to get this done in weeks. The CTO is ... lacking. I'm using AI to interpret the evidence requests and submitting accordingly, but everything is being deemed insufficient. Our security protocols are immature; we are just putting this into place within the past 6 months. The additional information the auditor is asking for does not seem appropriate for a 20-person company in it's first year of doing this. I feel like I've been set up to fail and my frustration is immeasurable at this point. Some perspective might be helpful from someone with experience in this process. submitted by /u/fire_and_ice_321 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1ur5xe0/hipaa_compliance_gap_assessment_amateur_first/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-07-08T21:15:25+00:00",
+      "published_ts": 1783545325,
+      "smart_groups": [],
       "curated": false
     },
     {
@@ -1414,21 +1686,6 @@
       "published_ts": 1783522805,
       "smart_groups": [],
       "curated": false
-    },
-    {
-      "title": "Operationalizing Day Minus Seven: The Cloud-Native ROC",
-      "summary": "Summary Frontier AI models in the post-Mythos era are changing the speed and scale of exposure risk. Security teams are entering an era where AI can help discover, chain, and exploit weaknesses faster than traditional programs can absorb. The challenge is no longer finding more issues; it\u2019s knowing which exposures are real, reachable, urgent, and [\u2026]",
-      "link": "https://blog.qualys.com/category/qualys-insights",
-      "source": "Product and Tech \u2013 Qualys Security Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-07-08T14:56:19+00:00",
-      "published_ts": 1783522579,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC"
-      ],
-      "curated": true
     },
     {
       "title": "Operationalizing Day Minus Seven: The Cloud-Native ROC",
@@ -95522,453 +95779,6 @@
         "Exploit / PoC"
       ],
       "curated": true
-    },
-    {
-      "title": "FTC orders Illuminate Education to improve data security after student data breach",
-      "summary": "The FTC's order stems from allegations that Illuminate failed to implement reasonable security controls, contributing to a December 2021 cyberattack.",
-      "link": "https://www.scworld.com/brief/ftc-orders-illuminate-education-to-improve-data-security-after-student-data-breach",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-08T23:05:48+00:00",
-      "published_ts": 1780959948,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Guardz introduces agentic reporting to simplify MSP security communication",
-      "summary": "The new reporting feature introduces a conversational interface, allowing MSPs to interact directly with their security data using natural language.",
-      "link": "https://www.scworld.com/brief/guardz-introduces-agentic-reporting-to-simplify-msp-security-communication",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-08T23:01:45+00:00",
-      "published_ts": 1780959705,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "When \u201cHi, This Is IT\u201d Comes Through Microsoft Teams",
-      "summary": "Attackers are increasingly targeting collaboration platforms like Microsoft Teams. Learn the risks and key steps to strengthen your organization's security. The post When \u201cHi, This Is IT\u201d Comes Through Microsoft Teams appeared first on Unit 42 .",
-      "link": "https://unit42.paloaltonetworks.com/microsoft-teams-phishing/",
-      "source": "https://unit42.paloaltonetworks.com/feed/",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-06-08T23:00:45+00:00",
-      "published_ts": 1780959645,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Massachusetts lawmakers pass consumer data privacy bill",
-      "summary": "The Massachusetts House unanimously passed the Consumer Data Privacy Act, a bill that will give residents rights to access and delete their data held by large tech firms.",
-      "link": "https://www.scworld.com/brief/massachusetts-lawmakers-pass-consumer-data-privacy-bill",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-08T22:58:55+00:00",
-      "published_ts": 1780959535,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "I feel like ive lost my passion to tinker after 6 years in the industry, anyone else?",
-      "summary": "Ive been in the industry for around 6 years now, when I was much younger every second of my free time was spent learning computers as a whole and continuously tinkering with things like networking, pentesting, etc. Now after 6 years, I want to spend my time AWAY from the computer. Im writting this to ask, how do you all continue to advance your skills if youre in a similar boat, for me, my day-to-day work continues to challenge me and make me a better engineer. But, often times I wish I had the passion I used to. tldr: how do you continue to advance your skills after many years in the field submitted by /u/FragileEagle [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1u0nn3j/i_feel_like_ive_lost_my_passion_to_tinker_after_6/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-08T22:57:14+00:00",
-      "published_ts": 1780959434,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Silverfort integrates identity controls with Microsoft Copilot Studio agents",
-      "summary": "The new integration evaluates every access request made by a Copilot agent in real time, providing a decision before the action is executed.",
-      "link": "https://www.scworld.com/brief/silverfort-integrates-identity-controls-with-microsoft-copilot-studio-agents",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-08T22:55:38+00:00",
-      "published_ts": 1780959338,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "WhatsApp Says It Blocked Pegasus Spyware Campaign Linked to NSO",
-      "summary": "WhatsApp says it blocked Israeli firm NSO\u2019s Pegasus spyware activity and is asking a US court to treat the targeting as an injunction breach.",
-      "link": "https://hackread.com/whatsapp-blocked-pegasus-spyware-campaign-nso/",
-      "source": "HackRead",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-08T22:51:26+00:00",
-      "published_ts": 1780959086,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "University of Oxford discloses data breach via third-party career platform",
-      "summary": "The breach occurred on May 28, with attackers gaining access to users' first names, last names, email addresses, and encrypted passwords for those not using Single Sign-On.",
-      "link": "https://www.scworld.com/brief/university-of-oxford-discloses-data-breach-via-third-party-career-platform",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-08T22:48:42+00:00",
-      "published_ts": 1780958922,
-      "smart_groups": [
-        "Identity / Access",
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Ubiquiti UniFi OS server vulnerabilities allow unauthenticated remote code execution",
-      "summary": "The security flaws, tracked as CVE-2026-34908, CVE-2026-34909, and CVE-2026-34910, were addressed in May and impacted UniFi OS Server versions 5.0.6 and earlier.",
-      "link": "https://www.scworld.com/brief/ubiquiti-unifi-os-server-vulnerabilities-allow-unauthenticated-remote-code-execution",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-08T22:41:53+00:00",
-      "published_ts": 1780958513,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "I wrote a free, no sign up, defender guide for suspicious USB devices and rogue hardware, with copy-paste detection examples",
-      "summary": "I put together a 100% free defender-first copy-pasta guide for Security Teams dealing with malicious USB devices, rogue APs, cable implants, hardware keyloggers, RFID/NFC issues, exposed debug ports, and similar physical-access risks. No sign up, no BS - just get down to business and keep this shtuff out of our 127.0.0.1's! Top nav bar drops you straight to the meat. It came out of a separate DIY/offensive hardware research guide, but this version is structured for the practical applied defense: what IT, SOC, network, physical security, and leadership can actually monitor, restrict, document, and update / fix. Defender guide: https://rapidriverskunk.works/OffSecHWDefense.html Original influence DIY OffSec Tooling research guide: https://rapidriverskunk.works/DIY.html No signup or gated PDF. I\u2019d appreciate feedback from anyone who has any! Especially anyone using it for copy-pasta security rules, the way it's designed to be used! What's missing, what's it get wrong, what's it get right, where'd I put my pants? Those kinds of things are very useful so I can tighten it up. If you find it useful, adopt it, share it. Spread it. I appreciate you. Spex \u2310\u2b12.\u2b12 submitted by /u/PurchaseSalt9553 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1u0n4xw/i_wrote_a_free_no_sign_up_defender_guide_for/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-08T22:36:20+00:00",
-      "published_ts": 1780958180,
-      "smart_groups": [
-        "Malware / Payloads",
-        "Web / API Security"
-      ],
-      "curated": false
-    },
-    {
-      "title": "really need help with project ideas for MSc",
-      "summary": "i\u2019m an msc cybersecurity student and my final project is coming up i honestly have no idea what to do. i enjoy cloud and have a couple of certifications around it, so maybe something related to cloud security, but i\u2019m not sure i\u2019m feeling pretty confused about what makes a good master\u2019s project and what\u2019s actually achievable within a few months would be really if y\u2019all could put some suggestions, thank you! edit : i\u2019ve done an internship in vapt before and realized it\u2019s not really the area i want to focus on submitted by /u/gigizai [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1u0mvkj/really_need_help_with_project_ideas_for_msc/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-08T22:25:34+00:00",
-      "published_ts": 1780957534,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Norks blast 250+ fake job offers to developers over 6 weeks to try and snarf creds and crypto",
-      "summary": "When an unsolicited job offer sounds too good to be true \u2026",
-      "link": "https://www.theregister.com/security/2026/06/08/suspected-norks-send-250-fake-dev-job-pitches-to-steal-crypto/5252526",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-08T22:13:20+00:00",
-      "published_ts": 1780956800,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Which Course for an almost-complete noob? (SANS.edu)",
-      "summary": "So I'm taking a look at getting a cybersec certificate, and I was directed away from sans.org and towards sans.edu instead to look for one. I'm hoping to get this covered under the WIOA program, but I have yet to find out, just submitted my application. I see they have both Cybersecurity Fundamentals and Applied Cybersecurity certificates available. I'm 22, have a decent way of working around most basic computer troubleshooting knowhow, but I am still very much not educated in any code-related things. I have ever only taken one Network+ course, and didnt retain much, but I can easily pick up new content. Having said that, whats the advice for a cert, CSF or ACS? Would the ACS teach me the same things that I would learn with a CSF, but just more condensed, or would I be missing some key fundamental concepts from the CSF by skipping over it? submitted by /u/questiem [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1u0mkaw/which_course_for_an_almostcomplete_noob_sansedu/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-08T22:13:08+00:00",
-      "published_ts": 1780956788,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "NFCShare Android malware spreads via fake banking app updates on GitHub",
-      "summary": "New variants of the NFCShare Android malware are being distributed as fake updates for legitimate banking apps hosted on GitHub. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/nfcshare-android-malware-spreads-via-fake-banking-app-updates-on-github/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-08T22:11:58+00:00",
-      "published_ts": 1780956718,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "SoFi confirms third-party data breach at Hong Kong subsidiary",
-      "summary": "SoFi Hong Kong is warning that it suffered a data breach after hackers gained access to a database at a third-party vendor containing customer information. The company is a U.S.-based financial technology company that offers banking, investing, loans, and other personal finance services. The company also operates SoFi Hong Kong, which provides investment and securities services to customers in the region. In emails sent to customers and shared with BleepingComputer, SoFi said it discovered the incident on April 30, 2026, after detecting unauthorized access to a database of SoFi Securities (Hong Kong) Limited via one of its vendors. After discovering the incident, they engaged with a third-party cybersecurity firm to respond. The company says its investigation is ongoing and that it still does not know which specific data may have been exposed. \"We do not yet have complete information about the scope and impact of the incident, or whether (and, if so, which categories of) your personal data was involved,\" reads the email sent to SoFi customers. \"We are actively reviewing the situation and taking extra precautions to keep your account secure.\" Email sent to SoFi Hong Kong customers Source: BleepingComputer In a statement shared with BleepingComputer, a SoFi spokesperson confirmed the breach but declined to answer additional questions regarding the incident, including how many customers were affected, whether the company was extorted, or the identity of the third-party vendor involved. While SoFi has not disclosed what information may have been exposed, the company warned customers to remain vigilant for phishing attempts, suspicious communications, and unusual account activity. The company also advised customers to update passwords, enable two-factor authentication where possible, monitor financial accounts for suspicious activity, and avoid opening links or attachments in unsolicited emails or messages. SoFi says it has added additional safeguards and monitoring to affected accounts and may request additional verification information from customers who contact support or make account changes. The company provided a Hong Kong support line (+852 26938888) and email address ( hello@sofi.hk ) for customers seeking additional information. submitted by /u/Current-Attention-29 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1u0mea8/sofi_confirms_thirdparty_data_breach_at_hong_kong/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-08T22:06:33+00:00",
-      "published_ts": 1780956393,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Data Breaches / Leaks",
-        "Phishing / Social Engineering"
-      ],
-      "curated": true
-    },
-    {
-      "title": "AI Slop Will Kill Cybersecurity Storytelling If We Let It",
-      "summary": "AI-generated content threatens credibility in cybersecurity. This \"Ask the Expert\" column explores why human oversight matters and how to maintain authentic narratives.",
-      "link": "https://www.darkreading.com/cyber-risk/ai-slop-kill-cybersecurity-storytelling-we-let-it",
-      "source": "darkreading",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-08T22:05:49+00:00",
-      "published_ts": 1780956349,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "OpenAI Wants to Kill the Chatbot It Invented and Turn It Into a Superapp",
-      "summary": "The company that launched ChatGPT in 2022 is now betting its future on something closer to WeChat than a Q&A box",
-      "link": "https://decrypt.co/370467/openai-chagpt-chatbot-superapp",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-08T22:00:57+00:00",
-      "published_ts": 1780956057,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Dropping a 0day? Consider having it 0patched first.",
-      "summary": "This article was written for security researchers who, for some reason or another, have had disappointing experience with reporting vulnerabilities to software vendors, and are considering publishing a 0day. Where we are (again) The relationship between security researchers and software vendors has once again reached an unhealthy level these days - with several 0days in Microsoft's products having been dropped on the Internet, and the hundred-billion-dollar software giant responding with thinly veiled hints of legal threats to the research community. We've been here before, more than once. A debate that seemed settled - or at least exhausted - during previous cycles has resurfaced. The phrase \"Responsible disclosure\", quite possibly Microsoft's cleverest security PR invention, is being thrown around again and discussed in terms of who exactly is supposed to be responsible for what. These discussions typically convince no-one involved, as most participants are biased in one way or another.",
-      "link": "https://0patch.com/blog/dropping-a-0day-consider-having-it-0patched-first",
-      "source": "0patch Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-06-08T22:00:00+00:00",
-      "published_ts": 1780956000,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Extending LLVM's BOLT-based Binary Analyser to Validate Stack Variable Initialisation",
-      "summary": "The Open Source Technology Improvement Fund (OSTIF) commissioned Quarkslab to extend the BOLT-based static binary analyser in LLVM to support additional compiler flags for security hardening. This work resulted in the first iteration of a scanner for validating the implementation of -ftrivial-auto-var-init .",
-      "link": "http://blog.quarkslab.com/extending-llvms-bolt-based-binary-analyser-to-validate-stack-variable-initialisation.html",
-      "source": "Quarkslab Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-06-08T22:00:00+00:00",
-      "published_ts": 1780956000,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "SoFi confirms third-party data breach at Hong Kong subsidiary",
-      "summary": "SoFi Hong Kong is warning that it suffered a data breach after hackers gained access to a database at a third-party vendor containing customer information. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/sofi-confirms-third-party-data-breach-at-hong-kong-subsidiary/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-08T21:55:46+00:00",
-      "published_ts": 1780955746,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "For the 2nd time in weeks, Microsoft packages laced with credential stealer",
-      "summary": "Dozens of cryptographically verified open source packages from Microsoft were compromised late last week to add advanced credential-stealing code that was triggered when developers opened them in AI coding agents. submitted by /u/rkhunter_ [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1u0m2ha/for_the_2nd_time_in_weeks_microsoft_packages/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-08T21:53:55+00:00",
-      "published_ts": 1780955635,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Iran Signed a Ceasefire \u2014 Its Hackers Didn't",
-      "summary": "An extension of the Geneva Conventions could impose restrictions on cyberwarfare under ceasefire conditions and close a major loophole in international conflict. submitted by /u/rkhunter_ [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1u0ly0b/iran_signed_a_ceasefire_its_hackers_didnt/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-08T21:49:02+00:00",
-      "published_ts": 1780955342,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Attackers exploiting unpatched Cisco SD-WAN flaw",
-      "summary": "Cisco warns customers of an actively exploited high-severity vulnerability in Catalyst SD-WAN Manager, an enterprise network management system that has been targeted by hackers multiple times in the past. Located in the command-line interface, the flaw allows authenticated attackers to escalate privileges to root and take over the entire system. The vulnerability, tracked as CVE-2026-20245, is rated 7.8 (high) on the CVSS scale instead of critical because it requires local access and netadmin privileges to exploit. These privileges can be obtained via stolen credentials or by exploiting authentication bypass flaws, such as CVE-2026-20245 or CVE-2026-20127, which were fixed in May and February, respectively. The older authentication bypass flaws were exploited by a cyberespionage threat actor Cisco Talos tracks as UAT-8616 . It\u2019s not clear whether the new vulnerability was exploited by the same group as part of its campaigns against enterprise SD-WAN deployments, but it was reported to Cisco by Google\u2019s Mandiant division, which specializes in incident response. \u201cThis vulnerability is due to insufficient validation of user-supplied input,\u201d Cisco said in its advisory . \u201cAn attacker could exploit this vulnerability by uploading a crafted file to the affected system. A successful exploit could allow the attacker to perform command injection attacks on an affected system and elevate their privileges as the root user.\u201d Mitigation While a patch is not yet available, Cisco recommends upgrading to the latest available version to ensure the previous authentication bypass exploits don\u2019t work. Customers should also check the configuration of their edge devices because the company has observed cases where exploitation of this flaw resulted in configuration changes. Before upgrading SD-WAN deployments, users are advised to save all relevant log files and issue the request admin-tech command to collect the admin-tech file from each of the control components. Cisco has published indicators of compromise that should be visible in the scripts.log file from /var/log/ . However, it\u2019s hard to distinguish malicious and legitimate command calls in the logs, so if the indicators of compromise are present in the logs, customers should contact the Technical Assistance Center. \u201cIf the logs show indicators of compromise and the system is confirmed to be compromised, applying the software update alone will not resolve the vulnerability,\u201d the company said. \u201cIn such cases, follow the specific remediation steps that will be provided by the Cisco Technical Assistance Center (TAC) to help secure the system.\u201d",
-      "link": "https://www.csoonline.com/article/4182571/attackers-exploiting-unpatched-cisco-sd-wan-flaw.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-08T21:48:02+00:00",
-      "published_ts": 1780955282,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "OpenAI Confirms Confidential IPO Filing, Keeps Timing Open",
-      "summary": "The ChatGPT maker says it has filed paperwork for a potential public offering but may remain private while it pursues other priorities.",
-      "link": "https://decrypt.co/370468/openai-confidential-ipo-filing-keeps-timing-open",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-08T21:45:58+00:00",
-      "published_ts": 1780955158,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "New Shai-Hulud attack trojanizes 19 science-focused PyPI packages",
-      "summary": "submitted by /u/rkhunter_ [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1u0lrss/new_shaihulud_attack_trojanizes_19_sciencefocused/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-08T21:42:14+00:00",
-      "published_ts": 1780954934,
-      "smart_groups": [
-        "Curated",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "DSPM \u00e9tude marche",
-      "summary": "Bonjour je suis en r\u00e9flexion pour pour le lancement d\u2019un projet DSPM. Avez vous un avis sur les solutions du march\u00e9 ? J\u2019ai l\u2019impression que tous les acteurs cyber ont une brique DSPM. Quels \u00e9diteurs font la diff\u00e9rence ? submitted by /u/Personal-Beat9722 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1u0lnjx/dspm_\u00e9tude_marche/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-08T21:37:37+00:00",
-      "published_ts": 1780954657,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "CMMC Phase 2 November 2026: two readings of SR.1 \u2014 C3PAOs are applying the one that requires a verifiable chain, not just a file",
-      "summary": "Generating an SBOM satisfies SR.1 as a checkbox. Demonstrating a verifiable chain of custody satisfies it as a control. If your program does the former and assessors are applying the latter, you have a five-month window. https://dwightaspencer.com/posts/14-sbom-ai-provenance/ submitted by /u/denzuko [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1u0l0vu/cmmc_phase_2_november_2026_two_readings_of_sr1/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-08T21:13:34+00:00",
-      "published_ts": 1780953214,
-      "smart_groups": [
-        "Identity / Access"
-      ],
-      "curated": false
-    },
-    {
-      "title": "I quit Safari for Chrome, but these new MacOS 27 features could pull me back",
-      "summary": "Safari is getting a glow-up with Apple Intelligence, and I'm all set to make it my default browser, again.",
-      "link": "https://www.zdnet.com/article/i-quit-safari-for-chrome-but-these-new-macos-27-features-could-pull-me-back/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-08T21:12:50+00:00",
-      "published_ts": 1780953170,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "New Apple feature automatically changes your compromised passwords",
-      "summary": "At WWDC 26, Apple announced an Apple Intelligence-powered feature that can automatically fix weak and compromised passwords. This works in Safari, and it's rolling out with iOS 27. [...]",
-      "link": "https://www.bleepingcomputer.com/news/apple/new-apple-feature-automatically-changes-your-compromised-passwords/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-08T21:03:40+00:00",
-      "published_ts": 1780952620,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "ICYMI: May 2026 @AWS Security",
-      "summary": "Read all about the latest AWS security features, compliance updates, and hands-on resources in our new, monthly digest posts. You\u2019ll find expert blog posts, new service capabilities, code samples, and workshops. AWS Security Blog posts This month\u2019s AWS Security Blog posts covered AI security, network protection, identity management, compliance frameworks, and supply chain security. Read [\u2026]",
-      "link": "https://aws.amazon.com/blogs/security/icymi-may-2026-aws-security/",
-      "source": "AWS Security Blog",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-08T21:00:11+00:00",
-      "published_ts": 1780952411,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Silent Ransom Group Hits US Law Firms in Escalating Extortion Attacks",
-      "summary": "The financially motivated group is combining vishing, IT impersonation, and in-person office intrusions to steal data and extort victims.",
-      "link": "https://www.darkreading.com/cyberattacks-data-breaches/silent-ransom-us-law-firms-extortion-attacks",
-      "source": "darkreading",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-08T20:59:52+00:00",
-      "published_ts": 1780952392,
-      "smart_groups": [
-        "Ransomware",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "AppSec / Pentesting job market in Canada for experienced overseas applicants?",
-      "summary": "Hello everyone, I am an Application Security and Penetration Testing professional looking to get a realistic read on the current Canadian tech market. My Background: Software Engineer: 4.5 years (started my career here) Application Security / Pentesting: 7 years (current role) Skills: Web/mobile pentesting, network testing, secure code reviews, and architecture reviews. Certifications: OSWE, AWS Security Specialist, and currently pursuing the HTB Certified Penetration Testing Specialist (CPTS). I am planning a move to Canada and want to understand the layout of the land. I see a lot of posts on Reddit about the Canadian IT market being heavily saturated with widespread layoffs. Is this grim outlook also true for senior cybersecurity and AppSec roles? While LinkedIn shows several open roles that match my profile, my main concern is whether Canadian employers are willing to hire and sponsor someone who is currently outside the country. Would love to hear insights from anyone working in AppSec or hiring in Canada right now. Thanks! submitted by /u/Illustrious_Pin8051 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1u0klkv/appsec_pentesting_job_market_in_canada_for/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-08T20:58:05+00:00",
-      "published_ts": 1780952285,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "China's Xiaomi MiMo Is Now 15X Faster Than ChatGPT and Claude",
-      "summary": "Xiaomi's MiMo-V2.5-Pro-UltraSpeed blows past the speed threshold custom silicon companies spent years building toward\u2014on regular GPUs.",
-      "link": "https://decrypt.co/370449/xiaomi-mimo-ultraspeed-ai-model-faster-chatgpt-claude",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-08T20:57:07+00:00",
-      "published_ts": 1780952227,
-      "smart_groups": [],
-      "curated": false
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
