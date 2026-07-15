@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-07-15T19:18:02.887466+00:00",
+  "generated_at": "2026-07-15T23:14:42.219508+00:00",
   "days_back": 30,
-  "total_items": 6905,
+  "total_items": 6896,
   "items": [
     {
       "title": "GISEC GLOBAL",
@@ -26,6 +26,350 @@
       "published_ts": 1785582000,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "Dutch police bust investment fraud ring stealing over \u20ac100 million",
+      "summary": "The Dutch Police announced the arrest of multiple individuals suspected of being part of an international investment fraud scheme estimated to have tens of thousands of victims. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/dutch-police-bust-investment-fraud-ring-stealing-over-100-million/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T21:55:50+00:00",
+      "published_ts": 1784152550,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Why Analysts Aren\u2019t Worried About Coinbase\u2019s 30% Drop",
+      "summary": "William Blair slashed earnings estimates by 34% and held its Outperform call. But analysts think Bitcoin's chart may already be answering the bigger question.",
+      "link": "https://decrypt.co/373615/analysts-arent-worried-coinbase-drop",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-07-15T21:38:43+00:00",
+      "published_ts": 1784151523,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Forgotten Bootloaders Expose Secure Boot Blind Spot",
+      "summary": "Nearly a dozen vulnerable and now revoked UEFI shim bootloaders remained trusted for years, giving attackers a path to bypass Secure Boot.",
+      "link": "https://www.darkreading.com/cyber-risk/forgotten-bootloaders-expose-secure-boot-blind-spot",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T21:19:19+00:00",
+      "published_ts": 1784150359,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Here\u2019s the Truth About Whether Meta\u2019s NameTag Face Recognition Tech \u2018Exists\u2019",
+      "summary": "Since WIRED reported on Meta\u2019s NameTag face recognition system, company executives have made confusing and conflicting remarks about its very existence.",
+      "link": "https://www.wired.com/story/heres-the-truth-about-whether-metas-nametag-face-recognition-exists/",
+      "source": "Security News: Cybersecurity, Hacks, Privacy, National Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T20:58:16+00:00",
+      "published_ts": 1784149096,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "OpenAI Uses AI Red Team to Strengthen GPT-5.6 Against Prompt Injection Attacks",
+      "summary": "OpenAI said its new automated red-teaming model, GPT-Red, uncovered vulnerabilities that were used to make GPT-5.6 more resistant to prompt injection attacks.",
+      "link": "https://decrypt.co/373613/openai-ai-red-team-strengthen-gpt-5-6-prompt-injection-attacks",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-07-15T20:50:11+00:00",
+      "published_ts": 1784148611,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "NPM ecosystem hit with two new supply chain compromises",
+      "summary": "Attacks targeting developer ecosystems are increasing in frequency and sophistication, with Node.js developers firmly in this week\u2019s crosshairs, as multiple npm packages belonging to the open-source AsyncAPI and Jscrambler Code Integrity were poisoned with malware following compromised development credentials. The incidents highlight the cascading effect of software supply chain attacks in which stolen credentials are then used to perpetrate additional compromises. Security researchers advise organizations to completely rebuild from clean images any developer machines that have installed a poisoned package \u2014 and to rotate all npm tokens, source control access, cloud credentials, CI/CD secrets, SSH keys, signing keys, and browser sessions. Affected packages include: jscrambler@8.14.0 , jscrambler@8.16.0 , jscrambler@8.17.0 , jscrambler@8.18.0 , jscrambler@8.20.0 , @asyncapi/generator-helpers@1.1.1, @asyncapi/generator-components@0.7.1, @asyncapi/generator@3.3.1, @asyncapi/specs@6.11.2 and @asyncapi/specs@6.11.2-alpha.1. However, packages that list any of the above poisoned packages as dependencies may also be impacted, including those from the same projects, such as jscrambler-webpack-plugin 8.6.2, gulp-jscrambler 8.6.2, grunt-jscrambler 8.5.2, and jscrambler-metro-plugin 9.0.2. Vulnerable GitHub Actions workflow used as entry point The attack against AsyncAPI, an open-source reference specification and toolset for implementing event-driven architectures and asynchronous APIs, occurred on Tuesday and was independently detected by multiple security companies monitoring the npm registry, including Upwind, Socket.dev, Wiz, StepSecurity, and Aikido Security. According to the researchers\u2019 analysis, attackers took advantage of a known configuration vulnerability in a GitHub Actions CI/CD workflow that had been reported in April. The flaw involves the pull_request_target event, which executes whenever a new pull request is made. When triggered, the workflow automatically checks out and executes the developer\u2019s submitted pull request code in the Actions container, but this is done in the context of the base repository with full access to secrets. The AsyncAPI project had a proposed fix since May 17, but the fix had not yet gone through the full review and was not merged into the main branch. \u201cAt 05:08 UTC, the attacker opened PR #2155 containing a markdown file with obfuscated JavaScript hidden after approximately 1,000 bytes of whitespace,\u201d researchers from Wiz explained in their report . \u201cThe payload was designed to scan the GitHub Actions runner\u2019s environment for secrets and exfiltrate them to a dead-drop URL on the rentry.co pastebin.\u201d When a GitHub Actions workflow is triggered and is executed in an environment, a temporary GITHUB_TOKEN is generated to allow for authenticated git commands against the repository. Other tokens might also be included. In this case, the attackers managed to obtain a token associated with asyncapi-bot, a service account that had access across the entire AsyncAPI organization on GitHub. This allowed them to perform malicious code commits in two separate repositories. Those commits then triggered automated build workflows that generated and published the npm packages. The payload bundled in the packages shares some similarities with a malware framework called Miasma that was used in previous supply chain compromises. However, the malware code appears to be significantly different from previously documented variants. The first-stage code downloads a secondary trojan payload that has variants for Linux, Windows, and macOS. This is a modular malware framework with credential theft capabilities that targets passwords and cookies saved inside browsers, SSH keys, npm and GitHub tokens, AWS credentials, macOS Keychain, and cryptocurrency wallets. The trojan communicated with a command-and-control server and can accept remote commands to perform file operations, list directories, and exfiltrate data. Jscrambler compromised via leaked npm credential The Jscrambler attack happened over the weekend on July 11 with attackers publishing multiple trojanized versions in two waves. Jscrambler Code Integrity is a client-side security library designed to protect JavaScript-based web and mobile applications against tampering and reverse engineering. Jscrambler published an advisory in response to the incident in which it clarified that the attackers published malicious versions of the package using a npm publishing credential. However, unlike the AsyncAPI case, how that credential was leaked in the first place is not clear. Initially the attackers released new package versions with two malicious scripts that get executed at install time using a preinstall hook in the configuration script. The scripts also execute platform-specific binaries for Linux, macOS, and Windows embedded in an obfuscated container. Because preinstall or postinstall hooks are common ways to deliver malware in npm packages, they are automatically checked by security tools. To avoid detection, the attackers pivoted to a method that involved injecting the malicious code directly in the dist/index.js and dist/bin/jscrambler.js files. This changed the malware execution from package installation time to when the package gets imported into other projects or the Jscrambler CLI is invoked. The embedded malware executables for different platforms are written in Rust and, according to Socket.dev\u2019s analysis , were \u201ca broad, developer-focused credential and secret harvester\u201d that targeted browser-extension crypto wallets, API keys from AI coding assistants and MCP servers, cloud credentials for AWS, Azure and GCP, authentication tokens for messaging applications (such as Discord, Slack, and Telegram), password stores from browsers, Steam, and KDE.",
+      "link": "https://www.csoonline.com/article/4197499/npm-ecosystem-hit-with-two-new-supply-chain-compromises.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T20:33:40+00:00",
+      "published_ts": 1784147620,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Linux / Unix",
+        "Cloud / SaaS",
+        "Malware / Payloads",
+        "Identity / Access",
+        "Crypto / Web3",
+        "Supply Chain / Software"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Identity Attacks Overtake Exploits as Top Ransomware Cause",
+      "summary": "Email attacks overtook exploits as the top ransomware root cause last year. Multifactor authentication (MFA) was deployed in 97% of credential-based attacks but failed to prevent compromise.",
+      "link": "https://www.darkreading.com/identity-access-management-security/identity-attacks-overtake-exploits-top-ransomware-cause",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T20:16:13+00:00",
+      "published_ts": 1784146573,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Exploit / PoC",
+        "Identity / Access"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Zoom warns of critical account takeover vulnerability",
+      "summary": "Zoom is warning of a critical vulnerability in its desktop client and software development kit for Windows that could be exploited by an unauthenticated party to hijack accounts. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/zoom-warns-of-critical-account-takeover-vulnerability/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T20:16:02+00:00",
+      "published_ts": 1784146562,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Windows / Microsoft"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation.",
+      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-07-15T20:13:29+00:00",
+      "published_ts": 1784146409,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Stanford study says 5-minute Bitcoin prediction markets enable settlement manipulation",
+      "summary": "Researchers found that Polymarket\u2019s five-minute Bitcoin prediction markets create incentives to manipulate spot prices around contract settlement, proposing longer settlement windows as a potential fix.",
+      "link": "https://cointelegraph.com/news/stanford-study-5-minute-bitcoin-prediction-markets-enable-settlement-manipulation?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-07-15T20:05:08+00:00",
+      "published_ts": 1784145908,
+      "smart_groups": [
+        "Windows / Microsoft"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Trump administration unveils AI-supported clearinghouse for cyber vulnerabilities",
+      "summary": "The Gold Eagle program will allowe industry, critical infrastructure operators and the government to use artificial intelligence to rapidly detect, prioritize and patch cybersecurity vulnerabilities, officials said.",
+      "link": "https://therecord.media/gold-eagle-cybersecurity-vulnerabilities-clearinghouse",
+      "source": "The Record",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T20:00:00+00:00",
+      "published_ts": 1784145600,
+      "smart_groups": [
+        "Vulnerabilities / CVEs",
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Windows 0-day drops the same day Microsoft releases record number of patches",
+      "summary": "HiveLegacy is a \"powerful primitive\" that's likely capable of other nefarious actions.",
+      "link": "https://arstechnica.com/security/2026/07/windows-0-day-drops-the-same-day-microsoft-releases-record-number-of-patches/",
+      "source": "Security \u2013 Ars Technica",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T19:59:48+00:00",
+      "published_ts": 1784145588,
+      "smart_groups": [
+        "Ransomware",
+        "Windows / Microsoft"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Meet Bonsai: The First 27B AI Model That Fits on Your Phone",
+      "summary": "PrismML's Bonsai 27B runs full reasoning AI on an iPhone for free. We tested it, and it's as impressive as it sounds.",
+      "link": "https://decrypt.co/373578/meet-bonsai-first-27b-ai-model-fits-phone",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-07-15T19:55:41+00:00",
+      "published_ts": 1784145341,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Drupal core - Moderately critical - Cross-site scripting - SA-CORE-2026-012",
+      "summary": "Project: Drupal core Date: 2026-July-15 Security risk: Moderately critical 13 \u2215 25 AC:Basic/A:User/CI:Some/II:Some/E:Theoretical/TD:Default Vulnerability: Cross-site scripting Affected versions: =11.3.0 =11.4.0 CVE IDs: CVE-2026-55805 Description: The Layout Builder module doesn't sufficiently sanitize block labels in certain scenarios, which can lead to a cross-site scripting (XSS) vulnerability. This is mitigated by the fact that both the attacker and the targeted user need to be using the Layout Builder editing interface. Solution: Install the latest version: Drupal 11 If you use Drupal 11.4.x, update to Drupal 11.4.4 . If you use Drupal 11.3.x, update to Drupal 11.3.14 . Drupal 11.2.x and below are end-of-life and do not receive security coverage. Drupal 10 If you use Drupal 10.6.x, update to Drupal 10.6.13 . Drupal 10.5.x and below are end-of-life and do not receive security coverage. Drupal 8 and Drupal 9 have both reached end-of-life. Reported By: haii haii (hai27ii2o) Fixed By: danielveza Lee Rowlands (larowlan) of the Drupal Security Team Mingsong (mingsong) provisional member of the Drupal Security Team James Gilliland (neclimdul) of the Drupal Security Team Coordinated By: Greg Knaddison (greggles) of the Drupal Security Team Lee Rowlands (larowlan) of the Drupal Security Team Dave Long (longwave) of the Drupal Security Team Jess (xjm) of the Drupal Security Team",
+      "link": "https://www.drupal.org/sa-core-2026-012",
+      "source": "Security advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T19:52:26+00:00",
+      "published_ts": 1784145146,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Web / API Security"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Drupal core - Moderately critical - Cross-site scripting - SA-CORE-2026-011",
+      "summary": "Project: Drupal core Date: 2026-July-15 Security risk: Moderately critical 14 \u2215 25 AC:Basic/A:User/CI:Some/II:Some/E:Theoretical/TD:All Vulnerability: Cross-site scripting Affected versions: >=11.3.0 =11.4.0 CVE IDs: CVE-2026-15917 Description: Drupal core 11.2 and above integrate the HTMX JavaScript library. Drupal core's XSS filter does not sufficiently sanitize certain HTMX attributes, which can lead to a cross-site scripting (XSS) vulnerability. The vulnerability is mitigated by the fact an attacker must be able to insert HTML with specific attributes. Solution: Install the latest version: Drupal 11 If you use Drupal 11.4.x, update to Drupal 11.4.4 . If you use Drupal 11.3.x, update to Drupal 11.3.14 . Drupal 11.2.x and below are end-of-life and do not receive security coverage. Drupal 10 Drupal 10 core is not affected. However, certain contributed modules may be affected, so a Drupal 10.6 fix is included as hardening. Drupal 8 and Drupal 9 have both reached end-of-life. Reported By: Pierre Rudloff (prudloff) of the Drupal Security Team Fixed By: Shawn Duncan (fathershawn) Pierre Rudloff (prudloff) of the Drupal Security Team Coordinated By: catch (catch) of the Drupal Security Team Lee Rowlands (larowlan) of the Drupal Security Team Dave Long (longwave) of the Drupal Security Team Jess (xjm) of the Drupal Security Team",
+      "link": "https://www.drupal.org/sa-core-2026-011",
+      "source": "Security advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T19:51:57+00:00",
+      "published_ts": 1784145117,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Web / API Security"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Drupal core - Moderately critical - Information disclosure - SA-CORE-2026-010",
+      "summary": "Project: Drupal core Date: 2026-July-15 Security risk: Moderately critical 10 \u2215 25 AC:Complex/A:None/CI:Some/II:None/E:Theoretical/TD:Uncommon Vulnerability: Information disclosure Affected versions: =11.3.0 =11.4.0 CVE IDs: CVE-2026-15916 Description: The Image module allows you to define and configure image fields. The module doesn't sufficiently check access to image style derivatives when those files are served via a file stream other than private:// . This vulnerability is mitigated by the fact that Drupal must be configured to use a contributed (non-core) file scheme to serve private derived images. Information disclosure issues like this one are not generally given security advisories (as described in PSA-2023-07-12) ). This fix is provided as a hardening. Contributed modules implementing custom stream wrappers may need to add similar hardenings. Solution: Install the latest version: Drupal 11 If you use Drupal 11.4.x, update to Drupal 11.4.4 . If you use Drupal 11.3.x, update to Drupal 11.3.14 . Drupal 11.2.x and below are end-of-life and do not receive security coverage. Drupal 10 If you use Drupal 10.6.x, update to Drupal 10.6.13 . Drupal 10.5.x and below are end-of-life and do not receive security coverage. Drupal 8 and Drupal 9 have both reached end-of-life. Reported By: offensive-ai Fixed By: Benji Fisher (benjifisher) of the Drupal Security Team Kim Pepper (kim.pepper) Mohit Aghera (mohit_aghera) Coordinated By: Benji Fisher (benjifisher) of the Drupal Security Team catch (catch) of the Drupal Security Team Lee Rowlands (larowlan) of the Drupal Security Team Juraj Nemec (poker10) of the Drupal Security Team Jess (xjm) of the Drupal Security Team",
+      "link": "https://www.drupal.org/sa-core-2026-010",
+      "source": "Security advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T19:50:24+00:00",
+      "published_ts": 1784145024,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "5 smart home gadgets I consider completely non-negotiable - and why",
+      "summary": "These smart home gadgets elevate my home and routine. Here's why you may want them too.",
+      "link": "https://www.zdnet.com/article/5-smart-home-gadgets-i-consider-completely-non-negotiable-and-why/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T19:50:18+00:00",
+      "published_ts": 1784145018,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "What Is BIP-110 and Why Is It Dividing the Bitcoin Community?",
+      "summary": "A proposal to restrict non-financial data on Bitcoin has split prominent developers, miners, and industry leaders ahead of a key activation deadline, reopening one of the network's biggest governance debates since the Blocksize Wars.",
+      "link": "https://decrypt.co/373577/what-is-bip-110-why-dividing-bitcoin-community",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-07-15T19:43:10+00:00",
+      "published_ts": 1784144590,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Europe built the world's strongest privacy law. WhatsApp just found the gap it doesn't cover.",
+      "summary": "WhatsApp usernames boost privacy but weaken identity verification, raising fraud risks.",
+      "link": "https://www.scworld.com/perspective/europe-built-the-worlds-strongest-privacy-law-whatsapp-just-found-the-gap-it-doesnt-cover",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T19:37:27+00:00",
+      "published_ts": 1784144247,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Revolut receives in-principle approval from UAE authorities for crypto services",
+      "summary": "Dubai\u2019s Virtual Assets Regulatory Authority approved the London-headquartered fintech company for broker-dealer, management and investment, and exchange services in the UAE.",
+      "link": "https://cointelegraph.com/news/revolut-approval-uae-crypto-services?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-07-15T19:34:39+00:00",
+      "published_ts": 1784144079,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Cisco security advisory (AV26-706)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/cisco-security-advisory-av26-706",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T19:20:48+00:00",
+      "published_ts": 1784143248,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Oracle security advisory (AV26-526) \u2013 Update 2",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/oracle-security-advisory-av26-526",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T19:12:30+00:00",
+      "published_ts": 1784142750,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Multiple Vulnerabilities in Google Chrome Could Allow for Arbitrary Code Execution",
+      "summary": "Multiple vulnerabilities have been discovered in Google Chrome, the most severe of which could allow for arbitrary code execution. Successful exploitation of the most severe of these vulnerabilities could allow for arbitrary code execution in the context of the logged on user. Depending on the privileges associated with the user an attacker could then install programs; view, change, or delete data; or create new accounts with full user rights. Users whose accounts are configured to have fewer user rights on the system could be less impacted than those who operate with administrative user rights.",
+      "link": "https://www.cisecurity.org/advisory/multiple-vulnerabilities-in-google-chrome-could-allow-for-arbitrary-code-execution_2026-069",
+      "source": "CIS \u2013 Advisories",
+      "type": "government",
+      "type_label": "Government, CERT & Advisories",
+      "published": "2026-07-15T19:03:00+00:00",
+      "published_ts": 1784142180,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Identity / Access"
+      ],
+      "curated": true
+    },
+    {
+      "title": "US and allied Governments\u2019 Recommendations: Securing Network Devices Against Russian APT Groups",
+      "summary": "US and allies warn of Russian APT groups targeting routers and network devices to compromise critical infrastructure worldwide. The US and allied governments warn that Russian state-sponsored APT groups are scanning and exploiting poorly secured network devices, especially routers, to access critical infrastructure. Groups linked to FSB Center 16, including Berserk Bear, Energetic Bear, Ghost [\u2026]",
+      "link": "https://securityaffairs.com/195448/apt/us-and-allied-governments-recommendations-securing-network-devices-against-russian-apt-groups.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T18:59:09+00:00",
+      "published_ts": 1784141949,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC",
+        "Threat Actors / APT",
+        "Network / OT / ICS"
+      ],
+      "curated": true
     },
     {
       "title": "Getting mitre techniques a customer raw detection rule covers",
@@ -84,6 +428,18 @@
         "Network / OT / ICS"
       ],
       "curated": true
+    },
+    {
+      "title": "CIS Benchmarks July 2026 Update",
+      "summary": "These CIS Benchmarks and CIS Build Kits have been updated or recently released and include a full changelog that references all changes.",
+      "link": "https://www.cisecurity.org/insights/blog/cis-benchmarks-july-2026-update",
+      "source": "Blog Feed - Center for Internet Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T18:49:00+00:00",
+      "published_ts": 1784141340,
+      "smart_groups": [],
+      "curated": false
     },
     {
       "title": "Microsoft patches bug in video game Age of Empires II",
@@ -1228,6 +1584,21 @@
       "curated": false
     },
     {
+      "title": "U.S. sanctions VPN provider and cryptor seller for aiding ransomware gangs",
+      "summary": "The sanctioned entities include First VPN Service (1VPNS), a virtual private network provider, and its administrator Dmytro Rashevskyi.",
+      "link": "https://www.scworld.com/brief/u-s-sanctions-vpn-provider-and-cryptor-seller-for-aiding-ransomware-gangs",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T14:29:00+00:00",
+      "published_ts": 1784125740,
+      "smart_groups": [
+        "Curated",
+        "Ransomware"
+      ],
+      "curated": true
+    },
+    {
       "title": "Microsoft Urges Windows 11 Users to Install Updates Within Three Days",
       "summary": "Microsoft now recommends installing Windows 11 quality updates within three days, citing AI-driven cyberattacks that can exploit new vulnerabilities faster than ever. The post Microsoft Urges Windows 11 Users to Install Updates Within Three Days appeared first on TechRepublic .",
       "link": "https://www.techrepublic.com/article/news-microsoft-windows-11-updates-three-day-recommendation/",
@@ -1317,6 +1688,18 @@
       "curated": false
     },
     {
+      "title": "Spanish police dismantle \u20ac140 million investment fraud and BEC cybercrime ring",
+      "summary": "The cybercrime network operated on an industrial scale, utilizing at least 800 bank accounts and 120 business accounts, with 67 external accomplices acting as money mules.",
+      "link": "https://www.scworld.com/brief/spanish-police-dismantle-e140-million-investment-fraud-and-bec-cybercrime-ring",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T14:19:00+00:00",
+      "published_ts": 1784125140,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "Dutch police dismantle global crypto investment scam, arrest alleged mastermind",
       "summary": "Authorities said Wednesday that the group operated like a legitimate international business since at least 2021, running about two dozen call centers across several countries and employing more than 700 people who posed as professional financial advisers.",
       "link": "https://therecord.media/dutch-police-dismantle-global-crypto-investment-scam",
@@ -1341,6 +1724,22 @@
         "Cloud / SaaS"
       ],
       "curated": false
+    },
+    {
+      "title": "White House launches AI-backed Gold Eagle initiative for cybersecurity vulnerability coordination",
+      "summary": "The Gold Eagle initiative, established under a recent executive order promoting the secure use of advanced AI systems, brings together the White House, CISA, and the departments of Treasury and Defense with unnamed open-source software organizations and critical infrastructure providers.",
+      "link": "https://www.scworld.com/brief/white-house-launches-ai-backed-gold-eagle-initiative-for-cybersecurity-vulnerability-coordination",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T14:13:00+00:00",
+      "published_ts": 1784124780,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Network / OT / ICS"
+      ],
+      "curated": true
     },
     {
       "title": "Sophos: The State of Ransomware 2026: Payments are dropping but encryption is climbing",
@@ -1433,6 +1832,18 @@
       "curated": true
     },
     {
+      "title": "Telegram's t.me short-link domain inaccessible globally",
+      "summary": "The .me registry applied a serverHold status to the t.me domain, a registry-level action that prevents it from being published in the Domain Name System (DNS).",
+      "link": "https://www.scworld.com/brief/telegrams-t-me-short-link-domain-inaccessible-globally",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T14:02:00+00:00",
+      "published_ts": 1784124120,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "We built a vulnerability vending machine: AI tokens in, zero-days out",
       "summary": "Intruder built an AI-powered \"vulnerability vending machine\" that combines code slicing with LLMs to automatically discover complex software vulnerabilities. The company explains how the system found and exploited a previously unknown WordPress plugin zero-day, with additional discoveries already under responsible disclosure. [...]",
       "link": "https://www.bleepingcomputer.com/news/security/we-built-a-vulnerability-vending-machine-ai-tokens-in-zero-days-out/",
@@ -1509,6 +1920,32 @@
       "type_label": "General Security & Blogs",
       "published": "2026-07-15T13:54:46+00:00",
       "published_ts": 1784123686,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Iran reportedly used telecom vulnerabilities to track U.S. military personnel",
+      "summary": "Iran allegedly abused Signaling System 7 (SS7), a set of protocols fundamental to 2G and 3G networks, to route calls and texts globally.",
+      "link": "https://www.scworld.com/brief/iran-reportedly-used-telecom-vulnerabilities-to-track-u-s-military-personnel",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T13:53:00+00:00",
+      "published_ts": 1784123580,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Malicious ModHeader extension pulled from Chrome and Edge stores",
+      "summary": "Security researchers at Stripe OLT discovered that version 7.0.18 of ModHeader included a hidden spyware SDK.",
+      "link": "https://www.scworld.com/brief/malicious-modheader-extension-pulled-from-chrome-and-edge-stores",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-15T13:53:00+00:00",
+      "published_ts": 1784123580,
       "smart_groups": [],
       "curated": false
     },
@@ -1684,20 +2121,6 @@
       "published_ts": 1784121914,
       "smart_groups": [
         "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Here\u2019s what happened in crypto today",
-      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation.",
-      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-07-15T13:22:37+00:00",
-      "published_ts": 1784121757,
-      "smart_groups": [
-        "Crypto / Web3"
       ],
       "curated": false
     },
@@ -52746,18 +53169,6 @@
       "curated": false
     },
     {
-      "title": "Oracle security advisory (AV26-526) \u2013 Update 1",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/oracle-security-advisory-av26-526",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-29T17:32:51+00:00",
-      "published_ts": 1782754371,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
       "title": "Microsoft Edge security advisory (AV26-640)",
       "summary": "",
       "link": "https://cyber.gc.ca/en/alerts-advisories/microsoft-edge-security-advisory-av26-640",
@@ -95531,525 +95942,6 @@
         "Vulnerabilities / CVEs"
       ],
       "curated": true
-    },
-    {
-      "title": "1Password acquires Apono to bolster AI security",
-      "summary": "1Password, known for its password manager, will integrate Apono's just-in-time access management platform to secure cloud environments and manage AI agent access.",
-      "link": "https://www.scworld.com/brief/1password-acquires-apono-to-bolster-ai-security",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-15T22:31:00+00:00",
-      "published_ts": 1781562660,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Gigamon and Zscaler integrate network telemetry with zero-trust access",
-      "summary": "The integration connects Zscaler Private Access, which grants application access based on identity and policy without users landing on the corporate network, with Gigamon Application Metadata Intelligence.",
-      "link": "https://www.scworld.com/brief/gigamon-and-zscaler-integrate-network-telemetry-with-zero-trust-access",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-15T22:23:00+00:00",
-      "published_ts": 1781562180,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Trump crypto company's USD1 stablecoins backing UFC event bonuses",
-      "summary": "A spokesperson for the Democratic National Committee decried the move as \u201can opportunity to use the power of the presidency to make [Trump] and his family even richer.\u201d",
-      "link": "https://cointelegraph.com/news/donald-trump-crypto-company-ufc-fighter-bonuses-usd1-stablecoins?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-15T22:10:00+00:00",
-      "published_ts": 1781561400,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "DOJ seizes CFAKE, SOCFAKE deepfake nude sites under TAKE IT DOWN Act",
-      "summary": "The U.S. Department of Justice announced Friday that it has seized the CFAKE.com and SOCFAKE.com websites, which allegedly hosted nonconsensual AI-generated nude images and videos of women, in what appears to be the first publicly announced domain seizure under the TAKE IT DOWN Act. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/doj-seizes-cfake-socfake-deepfake-nude-sites-under-take-it-down-act/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-15T21:56:55+00:00",
-      "published_ts": 1781560615,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Stay Ahead of Your Next CJIS Audit",
-      "summary": "The post Stay Ahead of Your Next CJIS Audit appeared first on Eclypsium | Supply Chain Security for the Modern Enterprise .",
-      "link": "https://eclypsium.com/events/stay-ahead-of-your-next-cjis-audit/",
-      "source": "Eclypsium | Supply Chain Security for the Modern Enterprise",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-06-15T21:53:50+00:00",
-      "published_ts": 1781560430,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "The US government\u2019s Anthropic models ban was never about an AI jailbreak",
-      "summary": "The Trump administration's decision that forced Anthropic to pull its latest cybersecurity models could be reactionary, retaliatory, or both, but the message is clear: The AI industry isn't immune from U.S. government interference.",
-      "link": "https://techcrunch.com/2026/06/15/the-us-governments-anthropic-models-ban-was-never-about-an-ai-jailbreak/",
-      "source": "Security News | TechCrunch",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-15T21:50:21+00:00",
-      "published_ts": 1781560221,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Cisco SD-WAN make-me-root bug under attack",
-      "summary": "Second Catalyst SD-WAN Manager flaw exploited as an 0-day this month",
-      "link": "https://www.theregister.com/patches/2026/06/15/cisco-sd-wan-make-me-root-bug-under-attack/5255916",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-15T21:48:25+00:00",
-      "published_ts": 1781560105,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Trump crypto company's USD1 stablecoins backing UFC event bonuses",
-      "summary": "A spokesperson for the Democratic National Committee decried the move as \u201can opportunity to use the power of the presidency to make [Trump] and his family even richer.\u201d",
-      "link": "https://cointelegraph.com/news/donald-trump-crypto-company-ufc-fighter-bonuses-usd1-stablecoins?utm_source=rss&utm_medium=rss&utm_campaign=rss",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-15T21:10:00+00:00",
-      "published_ts": 1781557800,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Feds freaked over Fable 5 after simple 'fix this code' prompt, not jailbreak, says researcher",
-      "summary": "According to the one person who actually read the research paper",
-      "link": "https://www.theregister.com/security/2026/06/15/feds-freaked-over-fable-5-after-simple-fix-this-code-prompt-not-jailbreak-says-researcher/5255827",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-15T21:07:26+00:00",
-      "published_ts": 1781557646,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Elon Musk Loses Again to OpenAI as Judge Dismisses xAI Trade Secret Lawsuit",
-      "summary": "A federal judge handed Elon Musk his second defeat against OpenAI after finding xAI failed to show OpenAI improperly obtained confidential info.",
-      "link": "https://decrypt.co/371253/elon-musk-loses-again-openai-xai-trade-secret-lawsuit",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-15T21:05:00+00:00",
-      "published_ts": 1781557500,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Pudgy Penguins NFT Game 'Pudgy Party' Shuts Down Less Than a Year After Launch",
-      "summary": "Pudgy Party, a mobile battle royale game, has closed up shop as the Pudgy Penguins team shifts its focus to its Pudgy World experience.",
-      "link": "https://decrypt.co/371197/pudgy-penguins-nft-game-pudgy-party-shuts-down",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-15T20:47:53+00:00",
-      "published_ts": 1781556473,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Nintendo Alleged Data Breach: Threat Actor Demands $2M Ransom",
-      "summary": "Nintendo faces an alleged data extortion incident involving HR records, internal reports, and potential exposure of third-party vendors. The post Nintendo Alleged Data Breach: Threat Actor Demands $2M Ransom appeared first on TechRepublic .",
-      "link": "https://www.techrepublic.com/article/news-nintendo-alleged-data-leak-third-party-risk/",
-      "source": "TechRepublic \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-15T20:47:52+00:00",
-      "published_ts": 1781556472,
-      "smart_groups": [
-        "Ransomware",
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Empty-ciphertext panic in aws-encryption-provider (CVD with AWS)",
-      "summary": "While fuzzing the Kubernetes AWS KMS provider, researchers at Syntetisk found a denial-of-service issue in aws-encryption-provider where an empty ciphertext field could trigger an unrecovered Go panic and crash the plugin process. The writeup includes root-cause analysis, crash path details, reproducer examples, impact discussion, and disclosure timeline submitted by /u/Sandwich_1337 [link] [comments]",
-      "link": "https://www.reddit.com/r/netsec/comments/1u6smzb/emptyciphertext_panic_in_awsencryptionprovider/",
-      "source": "/r/netsec",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-15T20:38:45+00:00",
-      "published_ts": 1781555925,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "A Credit Score for Cyber Behavior",
-      "summary": "You can add verified AI skills to your LinkedIn profile. Certifications proving you know how to use the latest tools. This shows progress, but it is only half the problem.",
-      "link": "https://blog.knowbe4.com/credit-score-for-cyber-behavior-risk-portability",
-      "source": "KnowBe4 Blog",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-15T20:23:36+00:00",
-      "published_ts": 1781555016,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Inside a\u00a0malicious infrastructure delivering\u00a0EtherRAT,\u00a0phishing pages,\u00a0and malicious software",
-      "summary": "We found EtherRAT malware being distributed by a website with a strange homepage. Following the trail, we discovered a vast network of malicious infrastructures, distributing malware, malicious documents, remote desktop software, and phishing pages.",
-      "link": "https://www.malwarebytes.com/blog/threat-intel/2026/06/inside-a-malicious-infrastructure-delivering-etherrat-phishing-pages-and-malicious-software",
-      "source": "Malwarebytes Labs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-15T20:17:46+00:00",
-      "published_ts": 1781554666,
-      "smart_groups": [
-        "Malware / Payloads",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "What is your favourite SCA tool?",
-      "summary": "What is your favourite tool for SCA in enterprise? For example: Checkmarx Snyk BlackDuck Open source Freeware submitted by /u/Independent_Rip_9442 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1u6s1uj/what_is_your_favourite_sca_tool/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-15T20:17:36+00:00",
-      "published_ts": 1781554656,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Nvidia\u2019s $20 billion debt boom reinforces Bitcoin miners' AI pivot",
-      "summary": "Nvidia\u2019s planned bond sale reinforces booming AI infrastructure demand, strengthening the case for Bitcoin miners pivoting toward AI data centers.",
-      "link": "https://cointelegraph.com/news/nvidia-20-billion-debt-boom-reinforces-bitocin-minings-ai-pivot?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-15T20:15:43+00:00",
-      "published_ts": 1781554543,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "PAN-OS GlobalProtect bug actively exploited, added to CISA's KEV list",
-      "summary": "Unit 42 says exploited PAN-OS GlobalProtect flaw remains a VPN risk despite patches.",
-      "link": "https://www.scworld.com/news/pan-os-globalprotect-bug-actively-exploited-added-to-cisas-kev-list",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-15T20:13:06+00:00",
-      "published_ts": 1781554386,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "SimpleHelp bug lets hackers create rogue remote support accounts",
-      "summary": "A vulnerability in the SimpleHelp remote management software allows unauthenticated attackers to create privileged technician accounts on servers using the OpenID Connect (OIDC) authentication protocol. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/simplehelp-bug-lets-hackers-create-rogue-remote-support-accounts/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-15T20:06:52+00:00",
-      "published_ts": 1781554012,
-      "smart_groups": [
-        "Vulnerabilities / CVEs",
-        "Identity / Access"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Someone Just Lost $1 Million on Polymarket Over Spain World Cup Shocker",
-      "summary": "One trader lost $1 million betting Spain would win. Another bought \"No\" at 9\u00a2 and walked away with $4.3 million.",
-      "link": "https://decrypt.co/371227/polymarket-trader-loses-1-million-spain-world-cup-bet",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-15T20:06:36+00:00",
-      "published_ts": 1781553996,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Security Analyst vs IAM Consultant",
-      "summary": "I recently received two job offers and I'm having a hard time deciding which direction to take. The first offer is for an IAM (Identity & Access Management) Consultant role at an IT consulting company. The second is for a Security Analyst position at a product company. My background is more aligned with general incident investigations, vulnerability management and security operations, so the Security Analyst role feels more familiar. IAM, on the other hand, is relatively new to me. I understand the basics and have some exposure to it, but I don't have hands-on experience working in a dedicated IAM role. One thing that stood out during the IAM interview was that the interviewer seemed heavily focused on the specific project they currently need people for (the main project they mentioned is migrating users and applications from legacy systems to modern cloud IAM solutions). I'm not sure whether this type of work is something I'd enjoy long-term, so I'd love to hear from people who have worked on similar projects. So, that made me wonder about the long-term stability of the role and whether I'd be tied to a single project or client need. Since consulting companies compete heavily for contracts, I'm not sure how much that should factor into my decision. I'm looking for advice from people who have worked in either field (or both). What are the biggest pros and cons of IAM and Security Analyst roles? How do the stress levels compare? Which path offers better long-term career opportunities and growth? How transferable are the skills if I decide to pivot later? If you were early in your cybersecurity career and had to choose between these two paths, which would you pick and why? How is the work-life balance in both? A bit of context about me as a person: I have ADHD, and one of my biggest challenges is staying engaged with long-term projects that require extensive planning and breaking large tasks into many smaller steps. I tend to perform best in environments where I can solve problems, think critically, and interact with people on a regular basis. I get a lot of satisfaction from troubleshooting, investigating issues, and helping others. I also find it easier to stay motivated when I can see tangible results from my work. If a role involves spending months on a project before seeing any meaningful outcome, I sometimes struggle to maintain the same level of engagement. On the positive side, I'm very good at spotting patterns, connecting seemingly unrelated pieces of information, and understanding how things fit together. I tend to learn quickly when I'm exposed to real-world problems and practical situations. Any insights would be greatly appreciated. P.S. I used an LLM to help reword this post since English isn't my first language. submitted by /u/No_Hope5055 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1u6rdx7/security_analyst_vs_iam_consultant/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-15T19:53:39+00:00",
-      "published_ts": 1781553219,
-      "smart_groups": [
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Chainguard, Cyber Firms Use AI to Hunt for Open-Source Flaws",
-      "summary": "https://www.bloomberg.com/news/articles/2026-06-15/chainguard-cyber-firms-use-ai-to-hunt-for-open-source-flaws Interesting coalition being formed here: BNY, Cisco, Cloudflare, Docker, JP Morgan, PWC, and more. I'm not sure how different this is from what IBM recently announced but good to see these organizations taking action, in theory. submitted by /u/MadreHorse [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1u6r7wq/chainguard_cyber_firms_use_ai_to_hunt_for/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-15T19:47:43+00:00",
-      "published_ts": 1781552863,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Chinese Hackers Abused Google Workspace Rules to Steal Research and Defense Emails",
-      "summary": "A China-linked espionage group hid inside North American medical, academic, and military research networks for more than a year, quietly stealing sensitive research and defense email. The way in was a backdoor on their REDCap research servers that stole login credentials. The exfiltration was the unusual part: the attackers rewired the victims' own Google Workspace rules to copy any message",
-      "link": "https://thehackernews.com/2026/06/chinese-hackers-abused-google-workspace.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-15T19:44:06+00:00",
-      "published_ts": 1781552646,
-      "smart_groups": [
-        "Curated",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Rio de Janeiro Built an AI Model That Beat DeepSeek\u2014But Was Based on Someone Else's Work",
-      "summary": "Rio de Janeiro released a frontier-class AI model that claimed to beat Alibaba's best. Then Nex showed up with receipts.",
-      "link": "https://decrypt.co/371210/rio-ai-model-beat-deepseek-ownership-dispute-nex",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-15T19:43:48+00:00",
-      "published_ts": 1781552628,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Freelance",
-      "summary": "Ola a todos, venho amigavelmente pedir ajuda de voc\u00eas Alguem sabe como conseguir freelas de SI? Sou analista de SI como foco Microsoft, sei todos recursos de seguran\u00e7a da Microsoft hoje, domino todas habilidades e tenho a certifica\u00e7\u00e3o SC-200, mas to passando alguns problemas financeiros e queria saber uma forma, nao quero formula m\u00e1gica eu quero trabalhar pra ajudar no financeiro submitted by /u/PoetryOk9929 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1u6r2se/freelance/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-15T19:42:49+00:00",
-      "published_ts": 1781552569,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "CFTC hires SEC crypto task force adviser with blockchain forensics chops",
-      "summary": "The CFTC staff appointment came amid the US Congress seeking to overhaul federal financial regulators\u2019 roles over digital assets with the CLARITY Act.",
-      "link": "https://cointelegraph.com/news/sec-crypto-adviser-cftc-blockchain-forensics?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-15T19:41:24+00:00",
-      "published_ts": 1781552484,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Network / OT / ICS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "North Korean Hackers Are Turning Developer Tools Into Malware Delivery Channels",
-      "summary": "Cybersecurity researchers have flagged two malicious cyber campaigns that exhibit similarities with a persistent North Korean threat cluster known as Contagious Interview (aka Famous Chollima, HexagonalRodent, and Void Dokkaebi). According to a report published by Proofpoint, the threat actor has been found orchestrating phishing campaigns using developer role recruitment or code review themes",
-      "link": "https://thehackernews.com/2026/06/north-korean-hackers-are-turning.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-15T19:32:52+00:00",
-      "published_ts": 1781551972,
-      "smart_groups": [
-        "Malware / Payloads",
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "HTTP/2 Bomb Attacks Put Telcos, Healthcare Orgs at Risk",
-      "summary": "The denial-of-service (DoS) exploit takes advantage of two features in HTTP/2 that were designed to save Internet bandwith, not power massive amplification attacks.",
-      "link": "https://www.darkreading.com/vulnerabilities-threats/http-2-bomb-attacks-telcos-healthcare",
-      "source": "darkreading",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-15T19:31:37+00:00",
-      "published_ts": 1781551897,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "June 2026 Stealer Logs - 56,278,397 breached accounts",
-      "summary": "In June 2026, a collection of accumulated stealer logs from various sources was added to HIBP. The corpus comprised 56M unique email addresses across hundreds of millions of stealer log records. The data also contained 124M unique passwords, which have been added to Pwned Passwords and are now searchable. Individuals can view any records captured against their email address in the stealer logs section of their dashboard . Organisations can see logs affecting their domain via the stealer logs API .",
-      "link": "https://haveibeenpwned.com/Breach/June2026StealerLogs",
-      "source": "Have I Been Pwned \u2013 Latest Breaches",
-      "type": "leaks",
-      "type_label": "Leaks & Breaches",
-      "published": "2026-06-15T19:30:15+00:00",
-      "published_ts": 1781551815,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Copilot 'SearchLeak' Attack Allows 1-Click Data Theft",
-      "summary": "The critical, three-stage attack is now patched, but it's part of a new group of AI prompt-injection issues that use hidden URLs and other variables.",
-      "link": "https://www.darkreading.com/application-security/copilot-searchleak-attack-1-click-data-theft",
-      "source": "darkreading",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-15T19:27:48+00:00",
-      "published_ts": 1781551668,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "How the networks developed",
-      "summary": "Here's an Article that I wrote which demonstrates how the internet improved from past to present by explaining how the message is being transmitted through the network Good read! Here's the link submitted by /u/Fantastic-Net3168 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1u6ql91/how_the_networks_developed/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-15T19:25:31+00:00",
-      "published_ts": 1781551531,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "What the robot mower brands aren't telling you about their specs - and which ones are actually useful",
-      "summary": "Robot mowers aren't one-size-fits-all devices - many have overhyped specs you don't even need. Here's my advice after years of testing.",
-      "link": "https://www.zdnet.com/article/robot-mower-buying-guide-features-to-ignore-2026/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-15T19:25:00+00:00",
-      "published_ts": 1781551500,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "How 3 bugs made this LiteLLM vulnerability",
-      "summary": "https://thehackernews.com/2026/06/litellm-vulnerability-chain-lets-low.html?m=1 submitted by /u/Fantastic-Net3168 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1u6qfkx/how_3_bugs_made_this_litellm_vulnerability/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-15T19:20:06+00:00",
-      "published_ts": 1781551206,
-      "smart_groups": [
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Nvidia\u2019s $20 billion debt boom reinforces Bitcoin miners' AI pivot",
-      "summary": "Nvidia\u2019s planned bond sale reinforces booming AI infrastructure demand, strengthening the case for Bitcoin miners pivoting toward AI data centers.",
-      "link": "https://cointelegraph.com/news/nvidia-20-billion-debt-boom-reinforces-bitocin-minings-ai-pivot?utm_source=rss&utm_medium=rss&utm_campaign=rss",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-15T19:15:43+00:00",
-      "published_ts": 1781550943,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "25,000 miles later, my favorite Apple CarPlay apps remain functional, reliable, and mostly free",
-      "summary": "I drove over 25,000 miles in the past year alone with CarPlay running in the background. These apps made every ride easy.",
-      "link": "https://www.zdnet.com/article/carplay-best-apps-after-25000-miles-last-year/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-15T19:10:00+00:00",
-      "published_ts": 1781550600,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "FBI issues urgent Kali365 security warning for Teams, Outlook, OneDrive users",
-      "summary": "submitted by /u/Dash-Courageous [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1u6q2l5/fbi_issues_urgent_kali365_security_warning_for/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-15T19:07:27+00:00",
-      "published_ts": 1781550447,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Vulnerability Summary for the Week of June 8, 2026",
-      "summary": "https://www.cisa.gov/news-events/bulletins/sb26-166 submitted by /u/antdude [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1u6prbx/vulnerability_summary_for_the_week_of_june_8_2026/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-15T18:56:43+00:00",
-      "published_ts": 1781549803,
-      "smart_groups": [
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": false
-    },
-    {
-      "title": "BitMine boosts ETH holdings closer to $10B as bear market accumulation continues",
-      "summary": "BitMine continued buying Ether through the market downturn, growing its stake to nearly 5% of the circulating supply while generating staking yield amid mounting ecosystem challenges.",
-      "link": "https://cointelegraph.com/news/bitmine-eth-holdings-near-10b-bear-market-accumulation?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-15T18:55:11+00:00",
-      "published_ts": 1781549711,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
