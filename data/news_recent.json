@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-07-21T18:38:46.064020+00:00",
+  "generated_at": "2026-07-21T20:41:19.889785+00:00",
   "days_back": 30,
-  "total_items": 6922,
+  "total_items": 6941,
   "items": [
     {
       "title": "GISEC GLOBAL",
@@ -28,6 +28,286 @@
       "curated": false
     },
     {
+      "title": "CVE-2026-16317 and CVE-2026-16318: Issues with s2n-tls: an open-source implementation of the TLS/SSL protocols",
+      "summary": "Bulletin ID: 2026-062-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 07/21/2026 13:15 PM PDT Description: s2n-tls is an open source C99 implementation of the TLS/SSL protocol. We have identified two distinct issues: - CVE-2026-16317: Silent Drop of TLS 1.3 Encrypted Records in s2n-tls Missing validation of the outer content_type byte on TLS 1.3 encrypted records in s2n-tls allows an active man-in-the-middle to silently drop individual application data records without either endpoint detecting the modification. RFC 8446 Section 5.2 requires that the outer content_type of all encrypted TLS 1.3 records must be application_data (0x17). The s2n-tls AEAD implementation hardcodes this value in the additional authenticated data rather than using the actual wire byte, so the outer content_type is not covered by the authentication tag. All TLS 1.3 connections are affected. Both TLS clients and servers are affected. TLS 1.2 and QUIC connections are not affected. - CVE-2026-16318: QUIC Transport Parameters Memory Leak During HelloRetryRequest in s2n-tls Incorrect use of s2n_alloc instead of s2n_realloc in the QUIC transport parameters extension handler in s2n-tls causes one memory allocation to be leaked each time a QUIC-enabled TLS 1.3 connection goes through a HelloRetryRequest. This can occur during normal handshakes when a client offers a key share group the server does not prefer, and can lead to increased memory consumption on long-running server processes. Only QUIC-enabled deployments are affected. Impacted versions: Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin.",
+      "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-062-aws/",
+      "source": "Latest Bulletins",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-07-21T20:19:37+00:00",
+      "published_ts": 1784665177,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Qilin exploits Palo Alto Networks GlobalProtect VPN firewalls",
+      "summary": "Qilin exploited a patched Palo Alto VPN flaw, highlighting the cost of delayed patching.",
+      "link": "https://www.scworld.com/news/qilin-exploits-palo-alto-networks-globalprotect-vpn-firewalls",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-21T20:08:42+00:00",
+      "published_ts": 1784664522,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Critical SharePoint RCE flaw exploited to steal machine keys",
+      "summary": "Hackers are actively exploiting the critical CVE-2026-50522 vulnerability in Microsoft SharePoint to steal machine keys and maintain access even after affected servers are patched. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/critical-sharepoint-rce-flaw-exploited-to-steal-machine-keys/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-21T20:06:55+00:00",
+      "published_ts": 1784664415,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Trust Nothing: Tips to Secure AI Tools and Agents",
+      "summary": "So, you have some AI tools or are thinking about deploying them and want to know a bit about securing them. You are not alone, but there are significant challenges due to the rapidly growing capabilities of AI, and the issues around new types of vulnerabilities we may not be used to thinking of. This is a very challenging area to attempt to secure, but I hope to point you in the right direction and set you up with some resources.",
+      "link": "https://blog.knowbe4.com/tips-to-secure-ai-tools-and-agents",
+      "source": "KnowBe4 Blog",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-21T20:00:01+00:00",
+      "published_ts": 1784664001,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "CVE-2026-15957 - Uncontrolled recursion in smithy-rs generated JSON, CBOR, and XML deserializers allows unauthenticated remote denial of service via recursive shapes",
+      "summary": "Bulletin ID: 2026-061-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 07/21/2026 12:45 PM PDT Description: Smithy-RS is a Rust code generation and runtime framework that generates HTTP clients and servers from Smithy interface definitions, powering the AWS SDK for Rust and custom service implementations. We identified CVE-2026-15957, where uncontrolled recursion in the JSON, CBOR, and XML deserializer functions emitted by Amazon smithy-rs code generation could allow a third party to cause a denial of service (process abort via stack exhaustion) via a small request containing deeply nested data for a recursive model shape to a generated SDK or server. Impacted versions: aws-sdk-rust crates Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin.",
+      "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-061-aws/",
+      "source": "Latest Bulletins",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-07-21T19:45:45+00:00",
+      "published_ts": 1784663145,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "The quantum threat is what's keeping \"smart money\" away, acording to BlackRock. why is Bitcoin doing nothing?",
+      "summary": "I just watched a podcast episode where BlackRock's Head of Digital Assets Research (Will Su) said the quantum threat is a factor holding back Bitcoin adoption at the institutional level. From his words, \"some of the folks that would've certainly come in to engage with Bitcoin have probably held back a bit because of this quantum question,\" and when the host asked whether the concern is \"meaningfully affecting adoption,\" his answer was: \"Yes. 100%.\" What strikes me from a security perspective is that Bitcoin's quantum migration path is still in early stages. NIST has finalized its PQC standards and other systems are already planning transitions, but Bitcoin has nothing activated yet. The furthest along is BIP 360, but it feels like not much is happening to implement that either. And unlike TLS, where you rotate certs and move on, Bitcoin has millions of coins sitting in exposed-pubkey addresses that can't migrate without each owner acting, plus lost coins that never will. So my question is: given the harvest-now-decrypt-later dynamic and the long lead time any consensus change needs, is the timeline already a problem? Or is the CRQC horizon far enough out that waiting is defensible? Any thoughts? Am I missing something? This is the episode: https://youtu.be/Puv7Yyymy6M submitted by /u/NoUnderstanding6021 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1v2syv0/the_quantum_threat_is_whats_keeping_smart_money/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-07-21T19:41:46+00:00",
+      "published_ts": 1784662906,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "5 gaming accessories I refuse to play without",
+      "summary": "After years of gaming on PC, these are the five accessories I keep coming back to for their comfort, performance, and reliability.",
+      "link": "https://www.zdnet.com/article/my-top-5-essential-gaming-accessories-2026/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-21T19:30:13+00:00",
+      "published_ts": 1784662213,
+      "smart_groups": [
+        "Identity / Access"
+      ],
+      "curated": false
+    },
+    {
+      "title": "I lost over 100 pounds for an 80-mile hike with a friend - here's the tech that kept me on track",
+      "summary": "These are the wearables, scales, and apps I found most useful. While my iPhone and Apple Watch were core to everything, I also have Android recommendations.",
+      "link": "https://www.zdnet.com/article/100-pound-weight-loss-journey-gadgets-apps-tech/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-21T19:30:07+00:00",
+      "published_ts": 1784662207,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Hackers Turn Fake Games Into Multi-Stage Infostealers That Steal Passwords and Crypto Wallets",
+      "summary": "Criminals are using fake game downloads to slip a sophisticated information stealer onto Windows computers. The campaign hides behind supposed games, mods, cracks, and other software, exploiting the trust and urgency around free or hard-to-find downloads. A downloaded archive can appear harmless and may even display a loading or installation screen. Behind that screen, a [\u2026] The post Hackers Turn Fake Games Into Multi-Stage Infostealers That Steal Passwords and Crypto Wallets appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/hackers-fake-games-infostealers/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-21T19:23:05+00:00",
+      "published_ts": 1784661785,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Exploit / PoC",
+        "Windows / Microsoft",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Pakistan steps up crypto enforcement with dedicated federal unit",
+      "summary": "A senior official with Pakistan\u2019s Federal Investigation Agency reportedly recommended other agencies establish similar units to address crypto-related crime.",
+      "link": "https://cointelegraph.com/news/pakistan-crypto-enforcement-dedicated-unit-crimes?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-07-21T19:19:22+00:00",
+      "published_ts": 1784661562,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "DNI nominee Clayton wins Senate panel\u2019s approval",
+      "summary": "By a party-line vote, the Senate Intelligence Committee sent the nomination of Jay Clayton to lead ODNI to the Senate floor.",
+      "link": "https://therecord.media/jay-clayton-dni-nomination-senate-committee-approval",
+      "source": "The Record",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-21T19:00:00+00:00",
+      "published_ts": 1784660400,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Google Ships New Gemini Flash Models, But Pro Is Still Missing",
+      "summary": "As Gemini 3.5 Pro stalls in testing limbo, Google ships 3.6 Flash, 3.5 Flash-Lite, and a restricted cybersecurity model\u2014and quietly teases Gemini 4.",
+      "link": "https://decrypt.co/373975/google-new-gemini-flash-models-pro-still-missing",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-07-21T18:55:45+00:00",
+      "published_ts": 1784660145,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Qilin Ransomware Claims 1,358 Victims as Global Attacks Reach New Record",
+      "summary": "Qilin ransomware has grown from a fast-moving criminal operation into one of the most visible threats in the global extortion landscape. The group encrypts systems and steals data, then pressures victims with the risk of public leaks. Its campaigns have disrupted organizations across sectors and countries, creating both operational and reputational damage. Ransomware groups increasingly [\u2026] The post Qilin Ransomware Claims 1,358 Victims as Global Attacks Reach New Record appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/qilin-ransomware-claims-1358-victims/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-21T18:52:31+00:00",
+      "published_ts": 1784659951,
+      "smart_groups": [
+        "Curated",
+        "Ransomware"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Anubis ransomware claims Coca-Cola Fairlife attack, threatens data leak",
+      "summary": "The Anubis ransomware gang has claimed responsibility for the cyberattack on Coca-Cola's Fairlife dairy subsidiary, threatening to publish allegedly stolen corporate data unless the company pays a ransom. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/anubis-ransomware-claims-coca-cola-fairlife-attack-threatens-data-leak/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-21T18:50:54+00:00",
+      "published_ts": 1784659854,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Data Breaches / Leaks"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Apple Fixes Hide My Email Bug That Exposed Real Addresses in Mail Logs",
+      "summary": "Apple has moved to address a security flaw in its Hide My Email service that enabled users' real email addresses to be unmasked, effectively undermining the feature's privacy guarantees. 404 Media reported Tuesday that a fix for the issue was deployed by Apple on July 3, 2026, after more than a year, when it was disclosed to the company by Tyler Murphy, co-founder of EasyOptOuts. Hide My Email",
+      "link": "https://thehackernews.com/2026/07/apple-fixes-hide-my-email-bug-that.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-21T18:46:32+00:00",
+      "published_ts": 1784659592,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Hacker Turns AI Jailbreaks Into Offensive Attack Platform",
+      "summary": "A Russian-speaking actor, \"Trim,\" dismantled publicly available frontier models and integrated them with offensive security tools.",
+      "link": "https://www.darkreading.com/cyber-risk/hacker-ai-jailbreaks-offensive-attack-platform",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-21T18:38:52+00:00",
+      "published_ts": 1784659132,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "How are you guys securing sensitive conversations at work?",
+      "summary": "Besides the obvious answers of Signal and Telegram, ive been looking into something thats easier for non IT people, and in a way where verification HAS to happen between the people or for the person to sign up, not something too heavy where someone has to put in their ID to verify but something along the lines of that? I thought asking here would be wise as reddit basically knows all the in and outs submitted by /u/Economy-Movie7258 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1v2r47y/how_are_you_guys_securing_sensitive_conversations/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-07-21T18:37:02+00:00",
+      "published_ts": 1784659022,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "HPE security advisory (AV26-727)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/hpe-security-advisory-av26-727",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-21T18:33:37+00:00",
+      "published_ts": 1784658817,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Zimbra 10.1.20 patches multiple security issues, including a critical command injection bug",
+      "summary": "Zimbra patched nine flaws in version 10.1.20, including a critical SNMP monitoring command injection issue enabling arbitrary command execution. Zimbra released version 10.1.20 to fix nine security vulnerabilities, including a critical command injection flaw in the SNMP monitoring component. The vulnerability affects systems with SNMP notifications enabled and could allow attackers to execute arbitrary commands. [\u2026]",
+      "link": "https://securityaffairs.com/195752/security/zimbra-10-1-20-patches-multiple-security-issues-including-a-critical-command-injection-bug.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-21T18:25:39+00:00",
+      "published_ts": 1784658339,
+      "smart_groups": [
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Pavel Durov says Telegram to roll out native Gram crypto wallet",
+      "summary": "Telegram founder Pavel Durov said the messaging platform will roll out a native non-custodial Gram wallet this summer, bringing self-custody crypto transactions to its more than 1 billion users.",
+      "link": "https://cointelegraph.com/news/telegram-launch-native-self-custody-gram-wallet-for-over-1-billion-users-durov?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-07-21T18:20:58+00:00",
+      "published_ts": 1784658058,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "Trump Orders Defense Contractors to Map Software, Suppliers Across Critical Supply Chains",
       "summary": "New executive order calls for end-to-end visibility into defense supply chains, including software dependencies, foreign ownership and cyber-related supplier risks. The post Trump Orders Defense Contractors to Map Software, Suppliers Across Critical Supply Chains appeared first on SecurityWeek .",
       "link": "https://www.securityweek.com/trump-orders-defense-contractors-to-map-software-suppliers-across-critical-supply-chains/",
@@ -36,6 +316,18 @@
       "type_label": "General Security & Blogs",
       "published": "2026-07-21T18:16:09+00:00",
       "published_ts": 1784657769,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Augustus Raises $180 Million to Build a Stablecoin-Ready 'Global Dollar Bank'",
+      "summary": "The Tiger Global-led round values the startup at $1 billion as it wires stablecoin rails directly into a federally chartered bank, aiming to modernize the correspondent-banking plumbing behind cross-border payments.",
+      "link": "https://decrypt.co/373996/augustus-raises-180-million-stablecoin-global-dollar-bank",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-07-21T18:13:48+00:00",
+      "published_ts": 1784657628,
       "smart_groups": [],
       "curated": false
     },
@@ -93,6 +385,18 @@
       "title": "Crypto market breakout could accelerate as AI trade cools, analyst says",
       "summary": "Bitcoin topped $67,000 while crypto stocks rallied on optimism over US crypto legislation and signs investors may be rotating out of AI trades.",
       "link": "https://cointelegraph.com/news/crypto-market-breakout-ai-trade-cools-analyst-says?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-07-21T17:46:30+00:00",
+      "published_ts": 1784655990,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Crypto market breakout could accelerate as AI trade cools, analyst says",
+      "summary": "Bitcoin topped $67,000 while crypto stocks rallied on optimism over US crypto legislation and signs investors may be rotating out of AI trades.",
+      "link": "https://cointelegraph.com/markets/crypto-market-breakout-ai-trade-cools-analyst-says?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "Cointelegraph.com News",
       "type": "crypto",
       "type_label": "Crypto & Blockchain Security",
@@ -2221,6 +2525,23 @@
       "smart_groups": [
         "Curated",
         "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Generosity Under Conditions: Hardening Google Cloud Access Management",
+      "summary": "In Google Cloud, Identity and Access Management (IAM) helps you maintain access control over your cloud resources and operations. While it includes other features, this is its primary purpose. If you ever tried to harden security over your application, you know the importance of the Principle of Least Privilege ( PoLP ) \u2012 grant the absolute minimum permissions to your users and workloads to allow them to perform their tasks. You reach it through use of predefined roles and custom roles and setting up a combination of Allow and Deny IAM policies at project, folder, or organization level. Using a combination of Allow and Deny policies along the resource hierarchy is an effective way to control access. This approach lets you enforce PoLP across many different scenarios. The existing flexible control can be insufficient when resources in the project are shared between multiple workloads or used by more than one team. In many such scenarios, it is possible to bind IAM policies to a specific resource in the project. For example, consider the difference between granting the role Artifact Registry Editor ( roles/artifactregistry.editor ) on a project vs. granting it on a specific repository in the project. In the former case, the access is granted to ANY repository in the project. In the latter case, users will have the editor access only to a specific repository. However, binding IAM policies to a resource or service level isn't always possible. This is when it is time to use IAM conditions . Let\u2019s look at two distinct examples that demonstrate the power of conditions when hardening access management: one for traditional administrative roles, and one for modern AI integrations. Use Case 1: Constraining the Power of Admins This case demonstrates how to restrict the specific operations that broad IAM roles are authorized to perform. You can easily scope administrative privileges for managing specific resources in a project by granting a \"resource creator\" role at the project level and an editor role on a selected resource. It is far more challenging to constrain IAM Admin Roles that are intended to grant access to operations rather than specific resources. A representative example would be the IAM Admin role ( roles/iam.admin ). Users granted this role can grant themselves any other role or create a new one. It greatly exceeds practical needs. The first step is to narrow the access by using the Project IAM Admin role ( roles/resourcemanager.projectIamAdmin ) that provides administrative privileges only at the level of the project. It is possible, however, to restrict the granted privileges even further. For example, suppose you grant the Project IAM Admin role to your builder service account that creates resources and deploys workloads. The workloads only need access to the BigQuery and Agent Platform APIs (formerly Vertex APIs) and permission to write logs and traces. For such a case you can use the following gcloud CLI command or its alternative in Terraform: code_block )])]> The value of the condition parameter is defined using Common Expression Language ( CEL ) syntax . First it customizes a field delimiter to be a colon instead of a comma and then describes the condition fields title and expression . The expression field uses functions for API attributes to identify which roles are being granted to allow granting only the roles in the comma delimited list. The same operation in Terraform will look very similar. Using input variables instead of environment variables, it will look like this: code_block )])]> Use Case 2: Control over MCP Server Access This case is about hardening access to specific services behind a single set of permissions. Google exposes access to a subset of cloud resources and services via MCP Servers that expose Model Context Protocol (MCP) endpoints. The access to these servers is granted using the predefined MCP Tool User ( roles/mcp.toolUser ) role. This role grants access to ALL available MCP servers (for a project where an IAM policy is set). Using conditions helps to narrow the access to a specific MCP server. code_block )])]> Notice that the value compared to the resource.service attribute is not the MCP server endpoint (which is bigquery.googleapis.com/mcp ) but the endpoint of the service. It is possible to narrow the access scope further to the level of the specific MCP tools. For this you will need to use API attributes again. The following expression limits the service account access to the level of only two BigQuery MCP tools. code_block )])]> Note that if you condition the IAM policy binding at the MCP tool level, you don't need to validate the resource.service attribute. For experimenting with MCP server access you can use the Getting Started with Google MCP Servers codelab and modify its gcloud projects add-iam-policy-binding commands. And Even More Besides enforcing precise control when using predefined roles, IAM conditions let you craft access management based on the time of the request. For example, the following condition's expression allows access only during daytime on weekdays: code_block = 9 &&\\\\\\r\\nrequest.time.getHours('Europe/Berlin') = 1 &&\\\\\\r\\nrequest.time.getDayOfWeek('Europe/Berlin') )])]> The expression limits access from 9 o'clock in the morning to 5 o'clock in the evening according to the \"Europe/Berlin\" timezone from Monday to Friday (days of the week range from 0 to 6, starting with Sunday). IAM conditions allow controlling the identity of the actor using the principal attributes . However, it can easily become an anti-pattern. The recommended practice is to control the identity of actors allowed to use the policy through the list of the IAM policy's principals instead of using the conditions. Conclusion and More Resources While IAM conditions give you surgical precision over Allow policies, you can take your defense-in-depth strategy even further with IAM Deny policies . With Deny Policies you can grant access using the predefined IAM roles with Allow policies and remove excessive permissions of the role to enforce PoLP. See the following resources for additional information about Deny policies: Identify the permissions that are supported in deny policies . Get the format of principal identifiers in deny policies . Find out how to troubleshoot access issues with deny policies . Learn more about denying access to principals . Read the blog post about Build defense in depth . You can use Google Skills for hands-on experience with IAM policies.",
+      "link": "https://cloud.google.com/blog/topics/developers-practitioners/generosity-under-conditions-hardening-google-cloud-access-management/",
+      "source": "Google Cloud Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-07-21T11:19:00+00:00",
+      "published_ts": 1784632740,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS",
+        "Crypto / Web3"
       ],
       "curated": true
     },
@@ -96177,60 +96498,6 @@
         "Malware / Payloads"
       ],
       "curated": true
-    },
-    {
-      "title": "When an AI agent takes a real action, where is authorization actually enforced?",
-      "summary": "As agents move beyond chat and start deploying infrastructure, modifying databases, sending emails, approving transactions, and creating purchase orders, I keep running into the same question: Capability is straightforward. Give the agent tools and credentials and it can act. Authority is less clear. When an agent performs a consequential action: Where is authorization actually enforced? How are you implementing least-privilege access? Can permissions be revoked while an execution is already in progress? How do you prove later that a specific action was authorized under the policies that existed at that moment? Are you treating agents as identities, service accounts, delegated users, or something else entirely? Curious how teams running agents in production are approaching this. submitted by /u/ai8990 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1ubzn69/when_an_ai_agent_takes_a_real_action_where_is/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-21T19:59:52+00:00",
-      "published_ts": 1782071992,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "I spent a week learning how Wazuh actually works under the hood : here's what I learned",
-      "summary": "Most Wazuh tutorials focus on installation, but I was more interested in understanding what happens internally after an event occurs on an endpoint. I set up a small Wazuh lab and traced the complete path of an event: Log generation on the endpoint Agent collection Manager communication Decoding and rule matching Alert generation Indexing in OpenSearch Dashboard visualization I also dug into: File Integrity Monitoring (FIM) Vulnerability Detection Syscollector The new CTI platform How rules and decoders work together One thing that surprised me was how much of Wazuh's detection pipeline relies on the combination of decoders and rules rather than \"magic\" threat detection. I documented the architecture, log flow, and some hands-on examples here: https://soumyadahal.com.np/wazuh/ Would love feedback from people running Wazuh in production. Is there anything important about the internal architecture that I missed or misunderstood? submitted by /u/6f21311 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1ubzl37/i_spent_a_week_learning_how_wazuh_actually_works/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-21T19:57:28+00:00",
-      "published_ts": 1782071848,
-      "smart_groups": [
-        "Vulnerabilities / CVEs",
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "What would be the easiest way to create an \"information goes to the news stations\" dead man's switch?",
-      "summary": "I've watch lots of movies and tv where one or another character has some bit of info that they're having on to in a fucking flash drive or some other stupid shit like that and I always think to my-(infomercial-esque)-self \"there has got to be a better way!\" So I am curious, if I had information that I was planning on leaking but said information might cost me my life so I put the chunk of information I want public into a Deadman switch that will automatically activate if I or another uninvolved person doesn't interact with it how would I set that up so that it was cryptography foolproof? submitted by /u/moistiest_dangles [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uby03q/what_would_be_the_easiest_way_to_create_an/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-21T18:53:18+00:00",
-      "published_ts": 1782067998,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Is there an equivalent to Extreme Programming (XP) in information security?",
-      "summary": "This may not be a very unique idea, but I wanted to hear everyone\u2019s thoughts... For some background, I was an analyst and hardware technician for the military for about 3 years (Elastic distributed sensor deployments, network analysis, reporting, switch configurations, etc.). I've recently transitioned into a software development role (Java, PostgreSQL, TypeScript, React, TailwindCSS/shadcn, etc.). The long-term goal is to combine both skill sets into a security-focused engineering role. I'm currently in the middle of Extreme Programming Explained by Kent Beck, and it's very fascinating. My current job is all about agile development, balanced teams, iteration of valuable features, user-centered design, XP for development via pair programming, testing, and shared context. Looking back at my time as an analyst, the time that I spent debugging hardware/software, installing updates to our equipment (which never went smoothly lol), creating Suricata rules, or threat mapping was done somewhat individually. There was some collaboration during missions, but an emphasis on pairing was never as explicit as it is in my current work environment. I can't help but wonder if security teams could benefit from the same collaborative, rapid, feedback-driven culture that agile and XP promote. Then again, maybe it just comes down to what technical leadership thinks is valuable... Is this something you all do at your jobs or have considered? Do you think this is something security teams should attempt, if practical? submitted by /u/Chooksmagooks [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1ubx4ah/is_there_an_equivalent_to_extreme_programming_xp/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-21T18:17:36+00:00",
-      "published_ts": 1782065856,
-      "smart_groups": [],
-      "curated": false
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
