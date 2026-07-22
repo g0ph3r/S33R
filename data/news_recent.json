@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-07-21T22:25:51.883841+00:00",
+  "generated_at": "2026-07-22T00:17:45.580718+00:00",
   "days_back": 30,
-  "total_items": 6961,
+  "total_items": 6967,
   "items": [
     {
       "title": "GISEC GLOBAL",
@@ -24,6 +24,126 @@
       "type_label": "General Security & Blogs",
       "published": "2026-08-01T11:00:00+00:00",
       "published_ts": 1785582000,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Oracle Releases 1235 CVEs today.",
+      "summary": "It's a new record! submitted by /u/scooterthetroll [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1v2zpfk/oracle_releases_1235_cves_today/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-07-22T00:01:08+00:00",
+      "published_ts": 1784678468,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Blue Team Python Programming",
+      "summary": "Hello there. I hope all is well. I am a Python coder interested in exploring the realm of cyber security defense. I am hoping to ask this community for guidance. Are there any blue team related coding projects that are ongoing that I can look into contributing for? I see tons of offensive tools and frameworks but not much in this area. Any help is greatly appreciated! submitted by /u/AccountantEntire975 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1v2yn7d/blue_team_python_programming/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-07-21T23:16:57+00:00",
+      "published_ts": 1784675817,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Police dismantle Kratos phishing platform, arrest developer",
+      "summary": "Authorities in Germany and the U.S. dismantled the central infrastructure of Kratos, a phishing-as-a-service (PhaaS) platform with global reach, and its developer was arrested in Indonesia. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/police-dismantle-kratos-phishing-platform-arrest-developer/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-21T23:07:33+00:00",
+      "published_ts": 1784675253,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Why AI apps fail in production (And how Google solved it)",
+      "summary": "We are living in the golden age of the weekend AI side project. Thanks to agentic engineering and LLMs, the time to go from a blank IDE to a functional local application has dropped from quarters to hours. You can build your wildest ideas over a cup of coffee. But inside an enterprise ecosystem with rigid infrastructure and millions of users, vibe coding hits an invisible wall. Your local prototype falls apart against corporate networks, cascading errors, or getting blocked by leadership terrified of operational volatility. The data is sobering: only 5% of AI prototypes make it to production; the other 95% fall into the validation abyss. For developers, watching people on social media ship lightning-fast AI deployments while you\u2019re stuck in endless validation loops is maddening. To figure out how to bridge this chasm, I went into the engineering trenches at YouTube to see how they manage this exact speed-versus-risk paradox. What I discovered completely rewrites the playbook on AI software development lifecycle (SDLC) design. The risk-vs-speed paradox When you are solo-building, failure is cheap. Writing agentic code is like piloting a nimble jet fighter\u2014if an AI agent misbehaves, you rewrite the prompt and instantly restart the server. But as AI engineering leader Addy Osmani points out in our premiere of Emergent , unconstrained agentic orchestration inside an enterprise introduces an unpredictable blast radius. Addy recalls running ten parallel agents on a personal project, context-hopping and pushing code based purely on quick previews. The technical debt accumulated fast, breaking two apps catastrophically because the modifications weren't properly isolated. Amplify that risk to the scale of YouTube . Its infrastructure handles billions of users on a robust, 20-year-old codebase. It is essentially a public utility; you cannot risk overloading it with experimental technical debt. Protecting a platform of this scale requires extensive, slow guardrails: By the time you build a primitive demo through this pipeline, the underlying AI models have evolved, leaving your idea out of date. How do you move at lightspeed while minimizing systemic risk? YouTube\u2019s AI prototyping stack Deepmind and former YouTube software engineer, Benji Bear , solved this puzzle not by accelerating reviews, but by changing infrastructure philosophy. He and his team built a prototyping stack \u2014 a unified design-to-code lifecycle platform that completely decouples rapid experimentation from mainline production servers. It systematically solves the two primary friction points of developer velocity. Decoupling the data layer Isolating a standalone app completely causes a \"blank canvas\" problem where you can't test prototypes against realistic conditions. To solve this, developers bootstrap their ideas using pre-built Google AI Studio templates. These templates hook into a proxy server set up on Google Cloud for prototype-approved read-only data. This instantly grants the prototype pre-authenticated, read-only API access to live metadata bundles (playlists, videos, channels) via strict tokens. Developers get the technical accuracy of live production parameters without any ability to write back to, pollute, or crash core databases. Live UI injection When a concept requires true real-world validation, the stack offers client-side YouTube Extension wrappers . This wrapper acts as glue code, allowing developers to inject their experimental features directly into the actual, live production web surface of YouTube. Code-split chunk safeguards isolate this from production binaries, allowing prototype updates to deploy to a safe staging environment in minutes. The result? YouTube went from taking multiple quarters to vet an idea to launching several successful prototypes \u2014 including YouTube Recap and Ask YouTube \u2014 straight to user research studies (UXR) in weeks. Embrace throw-away code Implementing this stack requires a profound psychological shift. Engineers are trained to treat code as permanent infrastructure, polishing and refactoring it until it\u2019s pristine. But Benji\u2019s core enterprise AI philosophy here is simple: Embrace throw-away code. Google AI Studio prototypes are meant to be messy with some technical debt; their objective is to validate product-market fit using quantitative data. Trying to refactor a chaotic, AI-generated app into an enterprise codebase is an architectural trap that can create friction. But because Google AI Studio builds your prototype directly onto a mirrored version of production infrastructure, you establish a highly accurate baseline from day one. You still discard the messy, AI-generated script, but when an idea proves successful, rewriting it for production becomes significantly faster, cheaper, and safely positioned later in the development lifecycle\u2014giving you a verified blueprint to code against rather than a blank canvas. Move fast without breaking things The core realization here is that a 95% failure rate isn\u2019t a bug \u2014 it is the strategy. We should design environments that encourage our teams to fail more frequently and safely. AI has plummeted the cost of code generation. Consequently, our roles are shifting from syntax gatekeepers to system architects . Our job is to design the bridges, read-only sandboxes, and isolated pipelines that empower teams to test wild ideas without triggering catastrophic meltdowns. The biggest risk isn't breaking a server with messy AI code; it's missing the technological moment because validation loops are too slow. By building structural constraints that make failure safe, you give your team the freedom to run at hyper-speed. To see the full technical breakdown, interview clips with YouTube's core infrastructure engineers, and a look inside the Google AI Studio Proto-Stack, watch our premiere episode of Emergent on YouTube.",
+      "link": "https://cloud.google.com/blog/topics/developers-practitioners/why-ai-apps-fail-in-production/",
+      "source": "Google Cloud Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-07-21T23:00:00+00:00",
+      "published_ts": 1784674800,
+      "smart_groups": [
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "OpenAI Models Escaped Containment and Hacked Hugging Face",
+      "summary": "The cybersecurity-focused models, including GPT-5.6 Sol, broke out of a testing sandbox, exploited a zero-day, and gained access to the open internet to pull off the attack.",
+      "link": "https://www.wired.com/story/openai-models-escaped-containment-and-hacked-huggingface/",
+      "source": "Security News: Cybersecurity, Hacks, Privacy, National Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-21T22:50:01+00:00",
+      "published_ts": 1784674201,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "FakeGit campaign uses 7,600 GitHub repos to push SmartLoader malware",
+      "summary": "A large-scale operation dubbed 'FakeGit' is pushing SmartLoader and StealC malware through 7,600 malicious GitHub repositories that accumulated more than 14 million downloads. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/fakegit-campaign-uses-7-600-github-repos-to-push-smartloader-malware/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-21T22:34:17+00:00",
+      "published_ts": 1784673257,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "I tested the System76 Thelio Mira: it's the custom Linux desktop of my dreams",
+      "summary": "The System76 Thelio Mira Custom is a whisper-quiet 'boutique\" Linux workstation that actually feels practical.",
+      "link": "https://www.zdnet.com/article/system76-thelio-mira-custom-linux-desktop-review/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-21T22:30:40+00:00",
+      "published_ts": 1784673040,
+      "smart_groups": [
+        "Linux / Unix"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Frida 17.16.4 Released",
+      "summary": "Quick bug-fix release to restore some Python binding API and typing surface area that regressed in the recent bindgen rewrite: bindgen: Restore the remaining public names. The cancellable decorator, RPCResult, make_rpc_call_request(), make_auth_callback(), and ScriptExportsAsync are now exposed again from frida.core. bindgen: Generate signal callback overloads for the facade\u2019s on()/off() helpers. This means malformed signal handlers should now be caught by type checkers instead of silently passing as any callable. bindgen: Restore missing facade members omitted by the .gir-based generator: get_device(), get_device_matching(), enumerate_devices(), shutdown(), Cancellable.connect(), and Cancellable.disconnect(). bindgen: Restore the facade typing surface. The generated package once again ships the expected type aliases and annotations, including module functions, read-only options properties, and the _frida.pyi entries that went missing.",
+      "link": "https://frida.re/news/2026/07/22/frida-17-16-4-released/",
+      "source": "https://frida.re/feed.xml",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-21T22:30:23+00:00",
+      "published_ts": 1784673023,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "We Wrote an Academic Paper on Conficker in 2026",
+      "summary": "And it\u2019s over 16,000 words. While the rest of the cybersecurity world moves on with AI and next generation technologies, the OT cybersecurity community is oft left behind, dealing with increasingly unique legacy challenges and tech debt. One of the biggest issues we have had to start tackling is the discovery of deep, embedded commodity [\u2026]",
+      "link": "https://tisiphone.net/2026/07/21/we-wrote-an-academic-paper-on-conficker-in-2026/",
+      "source": "tisiphone.net",
+      "type": "dfir",
+      "type_label": "DFIR & Forensics",
+      "published": "2026-07-21T22:08:52+00:00",
+      "published_ts": 1784671732,
       "smart_groups": [],
       "curated": false
     },
@@ -96732,52 +96852,6 @@
         "Vulnerabilities / CVEs"
       ],
       "curated": true
-    },
-    {
-      "title": "Fantastic clear-text passwords and where to collect them (Part 1 - Linux)",
-      "summary": "1. Introduction During Digital Forensics and Incident Response (DFIR) investigations, we frequently observe Threat Actors (TAs) using various methods to harvest clear-text credentials on Linux endpoints. While defense teams focus heavily on Windows credential dumping (like LSASS parsing), Linux infrastructure remains a fertile ground for credential theft. In many discussions with clients and security experts, the question often arises: If an attacker has already gained root privileges on a Linux server, why is it still relevant to collect additional plaintext passwords?",
-      "link": "https://dfir.ch/posts/fantastic_passwords_linux/",
-      "source": "https://dfir.ch/index.xml",
-      "type": "dfir",
-      "type_label": "DFIR & Forensics",
-      "published": "2026-06-21T23:03:20+00:00",
-      "published_ts": 1782083000,
-      "smart_groups": [
-        "Windows / Microsoft",
-        "Linux / Unix",
-        "Network / OT / ICS",
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "The systemd 261 release brings a software TPM, new OS installer",
-      "summary": "Linux distributions that ship systemd as their init system now have a new version to track. The systemd 261 update adds a cloud metadata subsystem, carries process state through kexec reboots, and continues a long-running effort to load external libraries on demand. Cloud metadata gets a local interface systemd 261 adds an IMDS subsystem for cloud instance metadata. A daemon, systemd-imdsd, provides a local Varlink API that gives programs access to instance metadata services. A \u2026 More \u2192 The post The systemd 261 release brings a software TPM, new OS installer appeared first on Help Net Security .",
-      "link": "https://www.helpnetsecurity.com/2026/06/22/systemd-261-released/",
-      "source": "Help Net Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-21T22:30:29+00:00",
-      "published_ts": 1782081029,
-      "smart_groups": [
-        "Ransomware",
-        "Linux / Unix"
-      ],
-      "curated": false
-    },
-    {
-      "title": "I've ripped and replaced a security product. Ask me anything.",
-      "summary": "CISO Series presents this AMA. For this edition, we've assembled a panel of security leaders to discuss a critical challenge every practitioner faces: ripping and replacing a security product. They're here all week to share their real-world experiences, lessons learned, and answer your questions about navigating product migrations, vendor switches, and tool consolidations. This week's participants are: Bil Harmer, ( u/wilharm3 ), CISO, Supabase Steve Zalewski, ( u/cybersecsteve ), co-host, Defense in Depth Adam Glick, ( u/CISOAdam ), CISO, PSG Equity Joshua Scott, ( u/threatrelic ), CISO, Hydrolix Howard Holton, ( u/cxo-analyst ), outgoing CEO, GigaOm Proof photos This AMA will run all week from 06-21-2026 to 06-27-2026. Our participants will check in throughout the week to answer your questions. All AMA participants were chosen by the editors at CISO Series ( /r/CISOSeries ), a media network for security professionals delivering the most fun you'll have in cybersecurity. Check out our podcasts and weekly Friday event, Super Cyber Friday , at cisoseries.com/subscribe . submitted by /u/thejournalizer [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uc31pl/ive_ripped_and_replaced_a_security_product_ask_me/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-21T22:22:33+00:00",
-      "published_ts": 1782080553,
-      "smart_groups": [
-        "Identity / Access"
-      ],
-      "curated": false
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
