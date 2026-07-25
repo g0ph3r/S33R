@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-07-24T22:33:09.848593+00:00",
+  "generated_at": "2026-07-25T05:21:18.819341+00:00",
   "days_back": 30,
-  "total_items": 7038,
+  "total_items": 7027,
   "items": [
     {
       "title": "GISEC GLOBAL",
@@ -25,6 +25,133 @@
       "published": "2026-08-01T11:00:00+00:00",
       "published_ts": 1785582000,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "France Exposes Russia's Secret Cyber Espionage Network",
+      "summary": "submitted by /u/Qomplete [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1v5yg9d/france_exposes_russias_secret_cyber_espionage/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-07-25T04:45:47+00:00",
+      "published_ts": 1784954747,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Foxit Updater Vulnerability Gives Standard Users SYSTEM-Level Control of Windows Devices",
+      "summary": "Foxit PDF Reader has been found vulnerable to a local privilege escalation flaw that allows standard Windows users to gain full SYSTEM-level control under specific conditions. The issue, tracked as CVE-2026-57239, was disclosed following research into Foxit\u2019s updater and service architecture and represents a high-impact post-exploitation pathway, although it requires prior code execution on the [\u2026] The post Foxit Updater Vulnerability Gives Standard Users SYSTEM-Level Control of Windows Devices appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/foxit-updater-vulnerability/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-25T03:36:03+00:00",
+      "published_ts": 1784950563,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Windows / Microsoft"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Reverse Engineering Windows Data Deduplication: From Research to an Open-Source Recovery Tool",
+      "summary": "Hi everyone, I've been researching Windows Data Deduplication and built DedupInspector, an open-source tool for offline reconstruction of deduplicated files from the Chunk Store. I'd love to hear your feedback, suggestions, or testing results. Research: https://7h3kn0w3r.github.io/blog/windows-data-deduplication/ GitHub: https://github.com/7h3kn0w3r/DedupInspector submitted by /u/mostafa___mahmoud [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1v5vgex/reverse_engineering_windows_data_deduplication/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-07-25T02:20:19+00:00",
+      "published_ts": 1784946019,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Engineering a zero-copy SQLite carver for NIST's 425GB NSRL database on free-tier CI \u2014 and the two production surprises that broke our first design",
+      "summary": "Hey r/cybersecurity , I've been building a zero-disk-footprint pipeline ( nist-live-cvt1-feed , open source) that carves MD5/SHA-1/SHA-256 hashes out of the NIST NSRL (National Software Reference Library) RDSv3 \"modern\" dataset \u2014 the reference set used for known-good file whitelisting in DFIR/malware triage workflows \u2014 entirely on GitHub Actions free-tier runners (6h job limit, 14GB disk). I want to focus less on \"here's my project\" and more on the constraint-driven engineering decisions, including two things that broke in production and forced a redesign. The actual constraint The published archive ( RDS_*_modern.zip ) is ~124GB compressed . Once inflated, the real SQLite database is ~425GB \u2014 I verified this directly two ways that had to agree: the ZIP64 extra field's declared uncompressed size, and independently, page_size (4096) \u00d7 page_count (111,560,036) read straight from the SQLite file header. Both gave the identical 456,949,907,456 bytes . Extracting that to disk is impossible under a 14GB limit. Loading it into RAM is impossible under a 7GB limit. So this meant dropping the sqlite3 engine entirely and parsing the raw B-tree binary format ourselves, streamed, never touching disk. Two things that broke in production (the actually interesting part) 1. Compression doesn't work on hash output, and we proved it before shipping the fix. Our SHA-256 output cleared GitHub's 2GB single-asset limit (~72M unique digests). Instinct says \"just gzip it.\" We measured first, on 3,000,000 real digests: gzip -9 and zip -9 both landed at 100.0% of the original size \u2014 literally zero benefit. Cryptographic hashes are uniformly-distributed bytes by construction, so there's no redundancy for DEFLATE to exploit. The real fix was splitting into numbered parts with a header-preserving format, so cat clean_sha256_part*.bin > clean_sha256_full.bin reconstructs a byte-exact original \u2014 not compression at all. 2. Unconditional 3-way parallelism hurt small runners. Our checkpoint-compaction step (sort + dedup, one thread per hash algorithm) originally spawned exactly 3 threads, always. Standard GitHub-hosted runners often only expose 2-4 vCPUs and constrained disk I/O \u2014 always launching 3 concurrent read/write streams can cause CPU/IO contention instead of a speedup on a small runner. Fixed with a bounded semaphore sized to min(3, detected_core_count) . Verified empirically: with 4 detected cores the checkpoint takes identical time to 3 cores (confirming no wasted 4th thread for only 3 fixed tasks), while 1-2 cores correctly fall back toward sequential execution instead of thrashing. Architecture Parsing - SQLite B-tree page carving \u2014 never starts the SQLite engine; parses table leaf pages ( 0x0D ) and cell pointer arrays directly, plus custom SQLite varint decoding. - Schema-positional matching \u2014 instead of scanning for \"anything hex-shaped,\" a record only counts if its trailing column signature exactly matches text(8)/text(32)/text(40)/text(64) (crc32/md5/sha1/sha256). This structurally rejects unrelated hash-shaped columns and cache-style filenames elsewhere in the row, by construction rather than by heuristic. - Zero-copy streaming \u2014 HTTP \u2192 zlib inflate \u2192 parse, continuously, with the full file never written to disk. Concurrency - Ping-pong double buffering to overlap network fill with CPU-bound parsing. - Thread-local sharding \u2014 each worker thread owns its own 256 buckets (partitioned by first hash byte), eliminating lock contention during the hot path. - Bounded semaphore concurrency for checkpoint compaction, as above \u2014 dynamically sized to the runner's actual detected core count, not a hardcoded constant. Memory/disk bounding - Scatter-gather : carve (map) and merge (reduce) are fully separate phases/jobs. - External sort-merge + k-way merge for the final cross-checkpoint deduplication \u2014 deliberately not an in-memory hash set, since total unique count can run into the tens of millions and RAM is capped at 7GB. - Periodic checkpoint compaction ( std::sort + std::unique , then flush) bounds local disk usage regardless of total database size \u2014 closer to LSM-tree compaction than a naive single final merge. Output format - A compact custom binary format (magic/version/algo/timestamp/count header + sorted, fixed-width digest array) designed for mmap() + binary search lookups from consuming tools, with no parsing overhead. Networking - HTTP Range-based reconnect : if the TCP connection drops mid-download, the pipeline reopens with a byte-exact Range header and keeps feeding the same in-memory zlib decompressor \u2014 this works because the process itself never dies, only the socket does. Worth noting: I checked whether this specific file's deflate stream has any Z_SYNC_FLUSH restart points (which would allow resuming decompression after a full process restart, not just a dropped connection) \u2014 scanned 30+MB of real compressed data and found zero. So this trick is strictly a same-process connection-drop mitigation, not a general resumable-download mechanism; a killed process genuinely has to restart the decompression from byte zero. - Pre-flight throughput probe : before committing to a multi-hour carve, a dedicated job measures this runner's actual sustained throughput to the host and skips the expensive job entirely if the measured speed projects it won't finish in time \u2014 cheap failure over expensive failure. Repo's linked in my profile if anyone wants to dig into the actual carving/varint code or the schema-positional matching logic specifically \u2014 genuinely curious if anyone here has hit similar constraints processing large reference datasets (NSRL, VirusTotal exports, etc.) in constrained CI environments, and how you approached it. submitted by /u/shroudy-bit32 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1v5rczs/engineering_a_zerocopy_sqlite_carver_for_nists/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-07-24T23:17:01+00:00",
+      "published_ts": 1784935021,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Malware / Payloads",
+        "Web / API Security",
+        "Identity / Access"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Click to Pray, Click to Leak: The Pope's Official App Exposes 700,000+ User Emails",
+      "summary": "submitted by /u/HumbleRestaurant790 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1v5r8j1/click_to_pray_click_to_leak_the_popes_official/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-07-24T23:11:43+00:00",
+      "published_ts": 1784934703,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "The FCC wants to ban burner phones. CNET Senior Writer Joe Supan is covering this story, and he's answering your questions\u2026",
+      "summary": "submitted by /u/_clickfix_ [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1v5qssh/the_fcc_wants_to_ban_burner_phones_cnet_senior/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-07-24T22:53:49+00:00",
+      "published_ts": 1784933629,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Pope's official prayer app commits cardinal sin, leaks 700K+ users' info",
+      "summary": "(Security) hole-ier than thou",
+      "link": "https://www.theregister.com/security/2026/07/24/popes-official-prayer-app-commits-cardinal-sin-leaks-700k-users-info/5278603",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-24T22:19:16+00:00",
+      "published_ts": 1784931556,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Man charged for using phone's 'duress' password to wipe data",
+      "summary": "The U.S. Justice Department is prosecuting an American man for allegedly providing U.S. border authorities with a passcode that wiped the contents of his phone, a case believed to be the first of its kind in the United States where federal prosecutors have charged someone for the alleged destruction of data using a \"duress\" password, as first reported by TechCrunch.",
+      "link": "https://www.scworld.com/brief/man-charged-for-using-phones-duress-password-to-wipe-data",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-24T22:16:31+00:00",
+      "published_ts": 1784931391,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Golden Chickens malware-as-a-service resurfaces with four new families",
+      "summary": "The Hacker News disclosed that the threat actors behind the Golden Chickens malware-as-a-service (MaaS) ecosystem have resurfaced with four new malware families, indicating that the operators are showing no signs of stopping despite extensive public disclosures into their inner workings.",
+      "link": "https://www.scworld.com/brief/golden-chickens-malware-as-a-service-resurfaces-with-four-new-families",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-24T22:16:12+00:00",
+      "published_ts": 1784931372,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
       "curated": false
     },
     {
@@ -106,6 +233,18 @@
       "curated": false
     },
     {
+      "title": "Stocks Just Topped Crypto on Hyperliquid. ARK Says That Changes Everything",
+      "summary": "For the first time, real-world assets\u2014stocks, commodities, and market indices\u2014outpaced crypto on the world's biggest decentralized derivatives exchange.",
+      "link": "https://decrypt.co/374334/stocks-crypto-hyperliquid-ark-invest",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-07-24T22:03:16+00:00",
+      "published_ts": 1784930596,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "AI assistant used in cyberattack on Thailand's Ministry of Finance",
       "summary": "An open-source AI assistant named Hermes was used in a cyberattack targeting Thailand's Ministry of Finance, compromising sensitive personnel data and internal systems.",
       "link": "https://www.scworld.com/brief/ai-assistant-used-in-cyberattack-on-thailands-ministry-of-finance",
@@ -156,6 +295,20 @@
       "smart_groups": [
         "Linux / Unix",
         "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "EU authorities include HTX exchange in Russian sanctions",
+      "summary": "The exchange, already sanctioned by the UK, is now on a list of 18 entities \u201cproviding crypto-assets services or payment services\u201c in defiance of the EU\u2019s measures against Russia.",
+      "link": "https://cointelegraph.com/news/htx-exchange-european-union-russia-sanctions?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-07-24T21:53:05+00:00",
+      "published_ts": 1784929985,
+      "smart_groups": [
+        "Crypto / Web3"
       ],
       "curated": false
     },
@@ -292,6 +445,18 @@
       "type_label": "Vendors & Product Blogs",
       "published": "2026-07-24T20:30:32+00:00",
       "published_ts": 1784925032,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Europol flags 4,340 'horrific' URLs linked to The Com",
+      "summary": "Stop the spread (of online recruiting and propaganda)",
+      "link": "https://www.theregister.com/cyber-crime/2026/07/24/europol-flags-4340-horrific-urls-linked-to-the-com/5278556",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-24T20:20:57+00:00",
+      "published_ts": 1784924457,
       "smart_groups": [],
       "curated": false
     },
@@ -627,6 +792,18 @@
     },
     {
       "title": "Tego AI Discloses Second Claude Flaw in a Week: Hidden Link Silently Sends Files to Attackers",
+      "summary": "Tel Aviv, Israel, July 24th, 2026, CyberNewswire One week after disclosing that Anthropic\u2019s Claude Tag Slack integration could be driven by plain \u201c@Claude\u201d text, Tego AI today published a second piece of research on the Claude ecosystem. This one focuses on Claude Code, Anthropic\u2019s agentic command-line coding tool. Cloning an ordinary repository and starting Claude [\u2026] The post Tego AI Discloses Second Claude Flaw in a Week: Hidden Link Silently Sends Files to Attackers appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/tego-ai-discloses-second-claude-flaw-in-a-week-hidden-link-silently-sends-files-to-attackers/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-24T17:20:57+00:00",
+      "published_ts": 1784913657,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Tego AI Discloses Second Claude Flaw in a Week: Hidden Link Silently Sends Files to Attackers",
       "summary": "Tel Aviv, Israel, July 24th, 2026, CyberNewswire One week after disclosing that Anthropic\u2019s Claude Tag Slack integration could be driven by plain \u201c@Claude\u201d text, Tego AI today published a second piece of research on the Claude ecosystem. This one focuses on Claude Code, Anthropic\u2019s agentic command-line coding tool. Cloning an ordinary repository and starting Claude [\u2026] The post Tego AI Discloses Second Claude Flaw in a Week: Hidden Link Silently Sends Files to Attackers appeared first on Cyber Security News .",
       "link": "https://cybersecuritynews.com/tego-ai-discloses-second-claude-flaw-in-a-week-hidden-link-silently-sends-files-to-attackers/",
       "source": "Cyber Security News (FeedBurner)",
@@ -827,6 +1004,18 @@
         "Crypto / Web3"
       ],
       "curated": true
+    },
+    {
+      "title": "What is a remote MCP server?",
+      "summary": "",
+      "link": "https://circleci.com/blog/what-is-a-remote-mcp-server/",
+      "source": "https://circleci.com/blog/feed.xml",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-24T16:00:00+00:00",
+      "published_ts": 1784908800,
+      "smart_groups": [],
+      "curated": false
     },
     {
       "title": "Bing Images Vulnerability Lets Attackers Execute Remote Code on Microsoft Servers",
@@ -1278,6 +1467,21 @@
       "curated": false
     },
     {
+      "title": "Foxit PDF Reader Flaw Lets Local Attackers Gain SYSTEM Privileges via DLL Sideloading",
+      "summary": "A recently disclosed vulnerability in Foxit PDF Reader may allow a local attacker with existing code execution to elevate their privileges to NT AUTHORITY\\SYSTEM. This issue, tracked as CVE-2026-57239, affects Foxit PDF Reader installations prior to version 2026.2 and arises from the insecure handling of an updater workflow triggered by a user-writable file in the [\u2026] The post Foxit PDF Reader Flaw Lets Local Attackers Gain SYSTEM Privileges via DLL Sideloading appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/foxit-pdf-reader-flaw/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-24T13:15:56+00:00",
+      "published_ts": 1784898956,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
       "title": "Google Adds Selfie Video Sign-In to Help Users Recover Locked Accounts",
       "summary": "Google added selfie video recovery for eligible accounts, using encrypted videos and liveness checks to help users regain access when locked out. The post Google Adds Selfie Video Sign-In to Help Users Recover Locked Accounts appeared first on TechRepublic .",
       "link": "https://www.techrepublic.com/article/news-google-selfie-video-account-recovery/",
@@ -1305,6 +1509,23 @@
         "Ransomware",
         "Exploit / PoC",
         "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Cl0p Targets Internet-Exposed Windchill Servers in Global Engineering Data-Theft Campaign",
+      "summary": "Cl0p ransomware affiliates are actively exploiting internet-exposed PTC Windchill and FlexPLM deployments in a global data-theft campaign targeting high-value engineering environments. Observed post-exploitation activity includes filesystem enumeration via files such as \u201cflst.txt,\u201d followed by staging and exfiltration of sensitive engineering and product design data. This chaining enables unauthenticated remote code execution, allowing attackers to deploy [\u2026] The post Cl0p Targets Internet-Exposed Windchill Servers in Global Engineering Data-Theft Campaign appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/cl0p-targets-internet-exposed-windchill/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-24T13:04:41+00:00",
+      "published_ts": 1784898281,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
       ],
       "curated": true
     },
@@ -1346,6 +1567,20 @@
       "published": "2026-07-24T13:00:00+00:00",
       "published_ts": 1784898000,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Illinois Man Pleads Guilty to Phishing 4,500 Snapchat Users to Steal Private Photos",
+      "summary": "An Illinois man has pleaded guilty to a phishing and account-compromise scheme that targeted thousands of Snapchat users, leading to the theft of private images from numerous women. Federal prosecutors stated that Kyle Svara, 27, of Oswego, Illinois, admitted to charges including aggravated identity theft, wire fraud, computer fraud, conspiracy to commit computer fraud, and [\u2026] The post Illinois Man Pleads Guilty to Phishing 4,500 Snapchat Users to Steal Private Photos appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/illinois-man-pleads-guilty-to-phishing-4500-snapchat-users/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-07-24T12:57:50+00:00",
+      "published_ts": 1784897870,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
       "curated": false
     },
     {
@@ -4700,6 +4935,23 @@
       "curated": false
     },
     {
+      "title": "Russian Espionage Group Exploited Zimbra Zero-Day to Steal Mail and 2FA Codes",
+      "summary": "",
+      "link": "https://www.proofpoint.com/us/newsroom/news/russian-espionage-group-exploited-zimbra-zero-day-steal-mail-and-2fa-codes",
+      "source": "Proofpoint \u2013 Vendor",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-07-23T16:13:08+00:00",
+      "published_ts": 1784823188,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Identity / Access"
+      ],
+      "curated": true
+    },
+    {
       "title": "Millions of California-bought cars can be hijacked via Bluetooth",
       "summary": "Aftermarket dealer-installed KARR/SWDS security systems all use the same secure key, say UCSD researchers",
       "link": "https://www.theregister.com/security/2026/07/23/millions-of-california-bought-cars-can-be-hijacked-via-bluetooth/5277315",
@@ -4709,6 +4961,20 @@
       "published": "2026-07-23T16:12:58+00:00",
       "published_ts": 1784823178,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "US and allies say Russian hackers stole emails without social engineering",
+      "summary": "",
+      "link": "https://www.proofpoint.com/us/newsroom/news/us-and-allies-say-russian-hackers-stole-emails-without-social-engineering",
+      "source": "Proofpoint \u2013 Vendor",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-07-23T16:09:25+00:00",
+      "published_ts": 1784822965,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
       "curated": false
     },
     {
@@ -9393,6 +9659,18 @@
       "type_label": "General Security & Blogs",
       "published": "2026-07-22T16:15:00+00:00",
       "published_ts": 1784736900,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "If you pay a hacker\u2019s ransom, chances are that they\u2019ll come back for more",
+      "summary": "",
+      "link": "https://www.proofpoint.com/us/newsroom/news/if-you-pay-hackers-ransom-chances-are-theyll-come-back-more",
+      "source": "Proofpoint \u2013 Vendor",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-07-22T16:14:27+00:00",
+      "published_ts": 1784736867,
       "smart_groups": [],
       "curated": false
     },
@@ -97391,427 +97669,6 @@
       "type_label": "OSINT, Communities & Subreddits",
       "published": "2026-06-25T05:07:05+00:00",
       "published_ts": 1782364025,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Nation-state actors cracked critical Australian infrastructure to \u2018cripple it at a time of their choosing\u2019",
-      "summary": "To defuse another attack, Oz spies called foreign counterparts to tell them an op was a bust",
-      "link": "https://www.theregister.com/security/2026/06/25/nation-state-actors-cracked-critical-australian-infrastructure-to-cripple-it-at-a-time-of-their-choosing/5261877",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-25T04:31:01+00:00",
-      "published_ts": 1782361861,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Crowdstrike Falcon Fusion SOAR workflows not firing for real alerts (but Test Mode works)?",
-      "summary": "Hey everyone, I\u2019m stuck on a weird Fusion SOAR issue. I have three separate workflows set up for Identity , Endpoint , and NG-SIEM . When I use Test Execution with a mock payload, everything runs perfectly. However, when a real detection happens, absolutely nothing triggers. To make sure it wasn't a filtering issue, I set the severity condition to > Low just to catch everything, but still nothing. The workflow is enabled, but I\u2019m getting zero execution history for live events. What could be the blocker here? Any advice on how to get live alerts flowing would be greatly appreciated! submitted by /u/ExcitingSalamander57 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uezxnu/crowdstrike_falcon_fusion_soar_workflows_not/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-25T04:28:15+00:00",
-      "published_ts": 1782361695,
-      "smart_groups": [
-        "Ransomware",
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "(ARCHIVE) How many wishlists should I have when I launch my game?",
-      "summary": "This content is now out of date. For the latest \u201cYou don\u2019t have to run faster than the bear to get away. You just have to run faster than the guy next to you.\u201d Jim Butcher So, you put your Steam page up nice and early, you have been marketing Continue Reading",
-      "link": "https://howtomarketagame.com/2026/06/25/archive-how-many-wishlists-should-i-have-when-i-launch-my-game/?utm_source=rss&utm_medium=rss&utm_campaign=archive-how-many-wishlists-should-i-have-when-i-launch-my-game",
-      "source": "https://howtomarketagame.com/feed/",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-25T04:23:24+00:00",
-      "published_ts": 1782361404,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Large Workflows with Local LLMs",
-      "summary": "Over the last few months, I have been digging into local LLMs and Frontier models. Frontier models have huge context windows, which gives them an advantage because it can keep the entire project in its context, but with\u2026",
-      "link": "https://trustedsec.com/blog/large-workflows-with-local-llms",
-      "source": "https://trustedsec.com/feed.rss",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-25T04:00:00+00:00",
-      "published_ts": 1782360000,
-      "smart_groups": [
-        "Windows / Microsoft"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Chrome 149 Security Update \u2014 Patch for Critical Flaws that Enable Code Execution Attacks",
-      "summary": "Google has released a critical security update for its Chrome browser, pushing the Stable channel to version 149.0.7827.196/197 for Windows and Mac, and 149.0.7827.196 for Linux. The update addresses 18 security vulnerabilities, including four rated Critical and fourteen rated High severity, several of which could allow attackers to execute arbitrary code on affected systems. The [\u2026] The post Chrome 149 Security Update \u2014 Patch for Critical Flaws that Enable Code Execution Attacks appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/chrome-149-security-update/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-25T03:28:57+00:00",
-      "published_ts": 1782358137,
-      "smart_groups": [
-        "Vulnerabilities / CVEs",
-        "Windows / Microsoft",
-        "Linux / Unix",
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Abracadabra takes emergency action as MIM stablecoin depeg worsens",
-      "summary": "The protocol is raising interest rates across all Cauldrons to encourage debt repayment and reduce supply.",
-      "link": "https://cointelegraph.com/news/abracadabra-takes-emergency-measures-as-magic-internet-money-depeg-worsens?utm_source=rss&utm_medium=rss&utm_campaign=rss",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-25T03:22:05+00:00",
-      "published_ts": 1782357725,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "First AI Recognizes Itself. Then It Learns Not to Get Caught",
-      "summary": "Further reading Thumbnail image credit: Figure AI Text used in video and more: AI Model Misbehavior in 2026: Scheming, Reward Hacking, and What Comes Next https://hatchworks.com/blog/gen-ai/ai\u2026 We Trust Embodied Agents? Exploring Backdoor Attacks against Embodied LLM-Based Decision-Making Systems https://openreview.net/forum?id=S1Bv3\u2026 BadRobot: Jailbreaking Embodied LLM Agents in the Physical World https://arxiv.org/html/2407.20242v5 AI Model Misbehavior in 2026: Scheming, [\u2026]",
-      "link": "https://lifeboat.com/blog/2026/06/first-ai-recognizes-itself-then-it-learns-not-to-get-caught",
-      "source": "Lifeboat \u2013 Cybercrime & Malcode",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-06-25T03:07:20+00:00",
-      "published_ts": 1782356840,
-      "smart_groups": [
-        "Curated",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "15 Malicious JetBrains Plugins Stole AI API Keys from 70,000 Developers",
-      "summary": "submitted by /u/halting_problems [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uey894/15_malicious_jetbrains_plugins_stole_ai_api_keys/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-25T03:03:51+00:00",
-      "published_ts": 1782356631,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Kalshi seeks funding at $40B valuation, nearly doubling last raise: FT",
-      "summary": "Kalshi is reportedly in talks to raise new capital at a $40 billion valuation, reflecting growing investor confidence in regulated prediction markets.",
-      "link": "https://cointelegraph.com/news/kalshi-seeks-funding-at-40b-valuation-nearly-doubling-last-raise-ft?utm_source=rss&utm_medium=rss&utm_campaign=rss",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-25T02:23:39+00:00",
-      "published_ts": 1782354219,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Anthropic Accuses Alibaba of \u2018Illicitly\u2019 Accessing Its Claude AI Models in Largest Known Distillation Attack",
-      "summary": "Anthropic has formally accused Chinese tech and e-commerce giant Alibaba of orchestrating a massive, unauthorized extraction campaign targeting its Claude AI model, marking what the company describes as the largest known distillation attack in its history. In a letter dated June 10, 2026, and addressed to U.S. Senate Banking Committee Chair Tim Scott and Ranking [\u2026] The post Anthropic Accuses Alibaba of \u2018Illicitly\u2019 Accessing Its Claude AI Models in Largest Known Distillation Attack appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/anthropic-accuses-alibaba/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-25T02:11:37+00:00",
-      "published_ts": 1782353497,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "red team leaders - good training content?",
-      "summary": "Hi, Got a post from red team leaders shared by a LinkedIn connection. Anyone bought training from them? I am eyeing a AI security, but I never heard of them. Thanks! submitted by /u/pappabearct [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uew03q/red_team_leaders_good_training_content/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-25T01:18:09+00:00",
-      "published_ts": 1782350289,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "48 hours later with the Google Home Speaker, I can't stop talking to Gemini (even if it's imperfect)",
-      "summary": "Here's how the new Google Home Speaker has fared against the likes of my Apple HomePod Mini and Echo Dot Max so far.",
-      "link": "https://www.zdnet.com/article/google-home-speaker-review-2026/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-25T01:02:10+00:00",
-      "published_ts": 1782349330,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "codfish/semantic-release-action GitHub Action Tag Hijack",
-      "summary": "An attacker force-pushed a malicious composite action into codfish/semantic-release-action and moved fifteen published tags to that commit, exposing GitHub Actions runners that still trusted mutable refs such as v3, v4, and v5. submitted by /u/halting_problems [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uevhoj/codfishsemanticreleaseaction_github_action_tag/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-25T00:54:36+00:00",
-      "published_ts": 1782348876,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Snyk laid off up to 30% of their staff today",
-      "summary": "Ex employee here and I\u2019m hearing up to 30% of Snyk\u2019s team was let go. All teams impacted. Leadership says it\u2019s to pivot to AI security. This comes a day after their big Agentic Security announcement. submitted by /u/iamacheeto1 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uev09q/snyk_laid_off_up_to_30_of_their_staff_today/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-25T00:32:47+00:00",
-      "published_ts": 1782347567,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "12 rules of agentic AI for successful enterprise transformation",
-      "summary": "Most AI pilots focus on capability and speed - and skip the hard work of earning trust from the business.",
-      "link": "https://www.zdnet.com/article/12-rules-of-agentic-ai/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-25T00:00:42+00:00",
-      "published_ts": 1782345642,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Discord Update: June 25, 2026 Changelog",
-      "summary": "Here's the Discord Changelog from June 25, 2026, so you can stay informed on what\u2019s new in recent app updates!",
-      "link": "https://discord.com/blog/discord-update-june-25-2026-changelog",
-      "source": "https://discord.com/blog/rss.xml",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-25T00:00:00+00:00",
-      "published_ts": 1782345600,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Pride Month: Meet Chris Houckham-West, Senior Customer Success Manager",
-      "summary": "For years, our Pride Employee Resource Group (ERG) has been building something that goes far beyond a single month on the calendar: a community rooted in connection, visibility, and belonging for employees and allies across 1Password. This Pride Month, we're spotlighting Chris Houckham-West, a Senior Customer Success Manager based in EMEA and a leader within our Pride ERG. In his time at 1Password, Chris has built a high-performing Customer Success team, earned recognition as part of President's Club, and helped bring our very first in-person Pride event in EMEA to life. What stands out most about Chris beyond his accomplishments is the way he leads: with openness, authenticity, and a genuine belief that when people feel like they belong, everyone does better work. We sat down with Chris to talk about his career journey, his philosophy on building inclusive teams, and why creating spaces for connection and belonging remains as important as ever. Can you walk us through your career journey and what drew you to Customer Success? Was this a path you always envisioned for yourself, or did it evolve through unexpected opportunities and experiences? Customer Success definitely wasn't a career path I set out to follow. Like many people who have been in the industry for a while, I found my way into it before it was really called Customer Success. I've always been drawn to understanding people, solving problems, and building relationships. Early in my career I worked in customer-facing roles across retail, travel, and technology, and what I enjoyed most wasn't closing a deal or handling a support ticket. It was helping customers achieve something meaningful and seeing the impact that had on their business. Over time, I realised the most rewarding conversations were the strategic ones. The conversations about outcomes, adoption, growth, and long-term partnerships. Customer Success brought all of those things together. I've been fortunate to work in a number of high-growth companies and build teams along the way. Each role taught me something different, whether that was scaling processes, leading through change, or developing people. Looking back, the path wasn't planned, but it makes perfect sense. Customer Success sits at the intersection of people, technology, and business outcomes, which are the three things I've always been most passionate about. You've built a Customer Success team that reflects a wide range of backgrounds, identities, and perspectives. What's your philosophy on building, developing, and retaining a team like that, and what does inclusive leadership look like in practice for you? I've never believed there is a single profile of what makes a great Customer Success Manager. Some of the best people I've hired have come from completely different backgrounds and brought skills that wouldn't necessarily have shown up on a traditional checklist. For me, building a great team starts with recognising that diversity of thought, experience, identity, and perspective makes teams stronger. When everyone approaches a challenge in the same way, you tend to get the same answers. Diverse teams challenge assumptions, bring fresh ideas, and ultimately make better decisions for customers. Inclusive leadership isn't something that happens during a hiring process or a company event. It's the day-to-day work. It's making sure everyone has a voice, creating an environment where people feel safe to contribute, and understanding that different people need different things to do their best work. As a leader, my job isn't to create a team of people who think like me. It's to create a team where people can be themselves, grow their careers, and succeed on their own terms. When people feel valued and supported, performance tends to follow. You were recently recognized as part of the President's Club in GTM, a significant acknowledgment of the impact you've had. What did that recognition mean to you personally, and what do you think has been key in building such a strong, high-performing team? Being recognised as part of President's Club was incredibly meaningful, particularly because Customer Success is such a team sport. While it's a personal recognition on paper, the reality is that achievements like that are only possible because of the people around you. I lead a fantastic team, and I work alongside colleagues across Sales, Support, Product, Marketing, and many other functions who all contribute to our customers' success. The thing I'm most proud of isn't the recognition itself; it's seeing the growth of the team. Several members of my team joined 1Password relatively recently, and watching them build confidence, deepen their expertise, and deliver great outcomes for customers has been incredibly rewarding. If there's one thing that's contributed to our success, it's creating a culture where we openly share both successes and failures. We celebrate wins, learn from challenges, and encourage people to be honest about what's working and what isn't. Combined with a shared focus on helping customers achieve their goals, that openness helps us continuously improve, support one another, and ultimately deliver better outcomes for our customers. This year you joined the leadership team for our Pride ERG and helped bring our first in-person Pride event in EMEA to life. What has that experience meant to you, and what do you hope attendees took away from it? Joining the Pride ERG leadership team has been incredibly rewarding because I've seen both sides of the equation throughout my career. I've worked in organisations where LGBTQ+ employee groups didn't exist, or where there was a perception that they weren't really needed anymore. The reality is that, for many LGBTQ+ people, there are experiences that never fully go away. Every time you start a new job, there's a moment where you're deciding whether to come out, how much of yourself to share, and how people might respond. And while we've seen a huge amount of progress over the years, it's also hard to ignore that some members of our community continue to face increased scrutiny and uncertainty. That's why ERGs matter. They create visibility, support, education, and a sense of connection. They remind people that they're not the only person navigating those experiences, and they help foster understanding across the wider organisation. Bringing our first in-person Pride event in EMEA to life was something I was particularly proud of. What stood out to me wasn't just the attendance from LGBTQ+ employees, but the number of allies who showed up to learn, listen, and show their support. That sends a powerful message. The educational sessions sparked some fantastic conversations and gave people the space to ask questions, share experiences, and deepen their understanding. What I hope people took away from the event was a sense of belonging. Whether someone identifies as part of the LGBTQ+ community or is an ally, I wanted people to leave feeling connected, supported, and reminded that inclusion isn't just something we talk about during Pride Month. It's something we build together every day. What does it mean to work somewhere that not only celebrates Pride, but actively invests in building community and belonging throughout the year? For me, the difference is authenticity. Anyone can put a rainbow logo on a website in June. What matters is what happens during the rest of the year. Working somewhere that invests in employee communities, gives ERGs a genuine voice, and creates opportunities for people to connect demonstrates that inclusion isn't being treated as a campaign or a checkbox exercise. It's part of the culture. As someone who has spent much of his career in organisations where these kinds of communities either didn't exist or weren't prioritised, I don't take that for granted. Having spaces where people can share experiences, learn from one another, and feel supported makes a real difference. When organisations create environments where people feel comfortable bringing their whole selves to work, everyone benefits. Teams become stronger, collaboration improves, and people spend less energy worrying about whether they fit in and more energy doing their best work. Chris's leadership shows the impact that authenticity, openness, and community can have on both individual growth and collective success. Whether he's supporting customers, developing team members, or helping strengthen our Pride community, Chris leads with a belief that people do their best work when they can show up as themselves. As we celebrate Pride Month, we're grateful for leaders like Chris who help make 1Password a place where LGBTQ+ employees and allies can connect, contribute, and belong\u2014not just in June, but throughout the year. null Want to learn more about what it\u2019s like to be part of the 1Password team? __[Check out our careers page.](https://1password.com/careers)__",
-      "link": "https://1password.com/blog/pride-month-meet-chris-houckham-west",
-      "source": "https://blog.1password.com/index.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-06-25T00:00:00+00:00",
-      "published_ts": 1782345600,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "How we saved over $3 million in idle compute costs with Datadog Kubernetes Autoscaling",
-      "summary": "See how how multidimensional autoscaling reduced overprovisioning and mitigated reliability risks at scale.",
-      "link": "https://www.datadoghq.com/blog/how-we-saved-with-kubernetes-autoscaling/",
-      "source": "https://www.datadoghq.com/blog/index.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-06-25T00:00:00+00:00",
-      "published_ts": 1782345600,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Protecting a Twitch password with Bitwarden",
-      "summary": "Whether you are new to Twitch or a long time user, setting up your account with the right protection will help you stay safe.",
-      "link": "https://bitwarden.com/blog/protecting-your-twitch-account-with-bitwarden/",
-      "source": "https://bitwarden.com/blog/feed.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-06-25T00:00:00+00:00",
-      "published_ts": 1782345600,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Google releases new privacy controls for activity history, personalization",
-      "summary": "Google is rolling out new privacy controls for Search services and Google Play, giving you more control over saved history and personalized recommendations. [...]",
-      "link": "https://www.bleepingcomputer.com/news/google/google-releases-new-privacy-controls-for-activity-history-personalization/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-24T23:46:17+00:00",
-      "published_ts": 1782344777,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Conditional access bypass",
-      "summary": "https://dirkjanm.io/bypassing-conditional-access-with-resource-exclusion/ submitted by /u/cydex_cx [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uet9v2/conditional_access_bypass/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-06-24T23:17:10+00:00",
-      "published_ts": 1782343030,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Smashing Security podcast #473: How a hacker could have Rickrolled the entire World Cup",
-      "summary": "A polite caller from your bank says there is a problem with your account. Don't worry - they'll send someone round to help. They'll even take your cards away to keep them safe. The scam has run rampant, until Dutch police plastered blurred photos of 100 suspects across billboards, supermarkets, and TikTok, with a two-week ultimatum to turn themselves in... or else. Meanwhile, a security researcher called Bob DaHacker got her hands on the live broadcast controls for every match of the 2026 FIFA World Cup. She could have Rickrolled the entire planet, but actually spent days trying to find anyone at FIFA who would pick up the phone. Plus! Don't miss our featured interview with Black Kite's Jeffrey Wheatman exploring ransomware and extortion attacks across Europe. All this and more in episode 473 of the \"Smashing Security\" podcast with cybersecurity expert and keynote speaker Graham Cluley, and special guest Danny Palmer.",
-      "link": "https://grahamcluley.com/smashing-security-podcast-473/",
-      "source": "Graham Cluley",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-24T23:10:57+00:00",
-      "published_ts": 1782342657,
-      "smart_groups": [
-        "Curated",
-        "Ransomware"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Nationwide GSM-R outage halts German trains",
-      "summary": "The outage, which began at 10:30 p.m., affected municipal, regional, and long-distance Deutsche Bahn trains, leading to suspensions in major cities like Berlin and Stuttgart.",
-      "link": "https://www.scworld.com/brief/nationwide-gsm-r-outage-halts-german-trains",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-24T22:30:09+00:00",
-      "published_ts": 1782340209,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "The hits keep on coming for Cisco vulnerabilities",
-      "summary": "CVE-2026-20230 under exploitation, while an earlier SD-WAN 0-day looks even worse than we thought",
-      "link": "https://www.theregister.com/security/2026/06/24/the-hits-keep-on-coming-for-cisco-vulnerabilities/5261797",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-24T22:27:53+00:00",
-      "published_ts": 1782340073,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "EvilTokens phishing service scales attacks 1,380% with AI integration",
-      "summary": "The Huntress report highlights how EvilTokens operates like a modern tech startup, offering sophisticated phishing capabilities through subscription tiers ranging from $600 to $1,500.",
-      "link": "https://www.scworld.com/brief/eviltokens-phishing-service-scales-attacks-1380-with-ai-integration",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-24T22:27:35+00:00",
-      "published_ts": 1782340055,
-      "smart_groups": [
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Aave Token Could Climb 50x by End of 2030, Standard Chartered Says\u2014Here's Why",
-      "summary": "Bitcoin to $500K, Ethereum to $40K, and Aave to $3,500 by the end of 2030? Standard Chartered just laid out some bullish price targets.",
-      "link": "https://decrypt.co/372056/aave-token-climb-50x-end-2030-standard-chartered",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-06-24T22:27:05+00:00",
-      "published_ts": 1782340025,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Be on the lookout for Mistic, a new backdoor used by ransomware broker",
-      "summary": "Researchers have identified a new backdoor program that has been used in enterprise intrusions since April and appears to be linked to an initial access broker that sells network footholds to ransomware gangs. Dubbed Mistic by researchers from Symantec , the malware program has been deployed on networks belonging to organizations from multiple sectors, including insurance, education, IT, and professional services. In some cases it has been used alongside ModeloRAT, a piece of malware written in Python that\u2019s associated with threat actor Woodgnat, also known as KongTuke. \u201cWoodgnat reportedly functions primarily as an IAB [initial access broker],\u201d the Symantec researchers said in their report. \u201cIts goal is not to deliver the final payload, but to establish highly durable remote access within an enterprise and sell this high-level access to ransomware affiliates and other attackers for a fee. The Symantec Threat Hunter Team has observed ModeloRAT being used in attacks delivering the Qilin ransomware.\u201d Woodgnat has been operating since at least May 2024 and has served multiple ransomware gangs over the past two years, including Interlock, Rhysida, Akira, 8Base, and Black Basta. Its attacks are largely opportunistic by routing web visitors through a variety of ClickFix social engineering campaigns . A backdoor with credential stealing capabilities The Mistic backdoor is launched through a technique called DLL sideloading , where a legitimate executable belonging to another program is executed first and searches for a DLL of a particular name to load into memory. This is a very popular technique for avoiding detection, as many legitimate programs perform dynamic DLL searches across multiple folders and are vulnerable to DLL poisoning. Ironically in this case the attackers deliver and execute a file called MpExtMs.exe, which is digitally signed and belongs to Microsoft Defender. This file searches for a DLL called version.dll, which in turn searchers for and loads another one called EndpointDlp.dll. The attackers have named their backdoor EndpointDlp.dll so it gets loaded directly in memory. The backdoor itself reaches out to a command-and-control (C2) server and can execute code delivered from it directly in memory, without saving any file on disk. Other features include the ability to write, delete, and move files on the victim machine and to download and upload files to the C2 server. The researchers have also observed a credential-stealing .NET DLL being downloaded and executed on victims\u2019 networks, in addition to ModeloRAT. Common system tools used by the attackers include curl, reg.exe, net.exe, PowerShell, certutil.exe, and the Windows Management Instrumentation (WMIC). \u201cThe fact that Mistic executes in memory and also has a kill switch built in means that it is very stealthy, potentially allowing for long-term, stealthy access for attackers,\u201d the researchers said. ClickFix infection chains The Woodgnat group\u2019s attack campaigns often involved tricking users into executing malicious PowerShell commands on their computers using a variety of social engineering tricks that include displaying fake CAPTCHA tests on websites and crashing the user\u2019s browser and asking them to paste commands to fix the crash. Since April the attackers have also started messaging victims on Microsoft Teams impersonating IT support staff and guiding them through a series of malicious paste-and-run steps. \u201cWhile the initial compromise may be opportunistic, the attackers profile the machines for potential interest to determine their value and if they can sell access to them,\u201d the researchers said. The Mistic backdoor is the latest example of initial access brokers and ransomware gangs returning to the use of custom malware tools they developed in-house instead of solely relying on living-off-the-land and dual-use system administration tools. The Symantec report includes a list of indicators of compromise for this new backdoor and other malicious files and IP addresses used in the recent Woodgnat attacks.",
-      "link": "https://www.csoonline.com/article/4189132/be-on-the-lookout-for-mistic-a-new-backdoor-used-by-ransomware-broker.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-24T22:20:25+00:00",
-      "published_ts": 1782339625,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Windows / Microsoft",
-        "Threat Actors / APT",
-        "Malware / Payloads",
-        "Identity / Access",
-        "Phishing / Social Engineering"
-      ],
-      "curated": true
-    },
-    {
-      "title": "London police to expand live facial recognition use",
-      "summary": "Static LFR involves temporarily mounting cameras on infrastructure like lampposts, with remote monitoring and officers on the ground identifying individuals matched against a watchlist.",
-      "link": "https://www.scworld.com/brief/london-police-to-expand-live-facial-recognition-use",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-24T22:18:44+00:00",
-      "published_ts": 1782339524,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "UK cybersecurity managers question speed-focused certification programs",
-      "summary": "Research from IO reveals that 87% of UK cybersecurity managers doubt the credibility of speed-focused certification programs.",
-      "link": "https://www.scworld.com/brief/uk-cybersecurity-managers-question-speed-focused-certification-programs",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-24T22:17:02+00:00",
-      "published_ts": 1782339422,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "macOS attack technique bypasses endpoint security tools",
-      "summary": "The attack technique leverages weakly-validated XPC connections and the injection of malicious payloads into application Interface Builder files.",
-      "link": "https://www.scworld.com/brief/macos-attack-technique-bypasses-endpoint-security-tools",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-24T22:09:57+00:00",
-      "published_ts": 1782338997,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "DraftKings hacker 'Snoopy' sentenced to 18 months in prison",
-      "summary": "A 21-year-old using the alias \"Snoopy\" was sentenced to 18 months in prison for his role in hacking DraftKings accounts in the November 2022 cyberattack. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/draftkings-hacker-snoopy-sentenced-to-18-months-in-prison/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-06-24T21:55:43+00:00",
-      "published_ts": 1782338143,
       "smart_groups": [],
       "curated": false
     },
