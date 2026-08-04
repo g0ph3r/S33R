@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-08-04T19:05:00.320137+00:00",
+  "generated_at": "2026-08-04T22:40:16.470759+00:00",
   "days_back": 30,
-  "total_items": 7403,
+  "total_items": 7439,
   "items": [
     {
       "title": "GISEC GLOBAL",
@@ -30,6 +30,511 @@
       "curated": false
     },
     {
+      "title": "TP-Link patches Omada ZTP flaws allowing hackers to breach networks",
+      "summary": "TP-Link has patched 15 vulnerabilities in the zero-touch provisioning (ZTP) mechanism of its Omada network devices that could be chained with previously disclosed flaws to achieve remote code execution (RCE). [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/tp-link-patches-omada-ztp-flaws-allowing-hackers-to-breach-networks/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T22:18:20+00:00",
+      "published_ts": 1785881900,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "When Attackers Hijack Your Inbox: Detecting Mailbox Forwarding Rules with Microsoft Defender XDR",
+      "summary": "Business Email Compromise (BEC) attacks continue to be one of the most common and costly cyber threats for organizations today. Once attackers gain access to a user\u2019s Microsoft 365 account, whether through phishing, stolen credentials, or session hijacking, they often seek ways to maintain long-term visibility into the victim\u2019s mailbox without repeatedly signing in. One of the simplest and most effective persistence techniques is creating a mailbox forwarding rule that silently sends copies of emails to an attacker-controlled account. Because mailbox forwarding rules are legitimate Exchange Online features, they can easily blend in with normal user activities. A forwarding rule created for an executive, finance employee, or legal team member may go unnoticed for weeks or even months, allowing attackers to silently monitor conversations, intercept sensitive information, and continue collecting intelligence without repeatedly signing in to the compromised account. Fortunately, these attacker activities are not invisible. Microsoft Purview Audit captures mailbox operations, including the creation of forwarding rules, and these audit events are also available in Microsoft Defender XDR Advanced Hunting. This allows security teams to proactively hunt for suspicious mailbox activities and create custom detection rules that can automatically alert on malicious behavior. In this article, we\u2019ll explore how to leverage Microsoft Purview Audit events in Defender XDR Advanced Hunting to detect suspicious mailbox forwarding rules and build increasingly sophisticated detections through telemetry correlation. We\u2019ll start with simple hunting queries before progressing to more advanced detection scenarios that correlate mailbox activity with identity and security alert telemetry to uncover potential Business Email Compromise attacks. Specifically, we\u2019ll cover how to: \u00b7 Discover newly created mailbox forwarding rules across the tenant. \u00b7 Detect forwarding rules created for high-value or high-risk users. \u00b7 Identify multiple user mailboxes forwarding to the same email address. \u00b7 Detect forwarding rules that forward email to suspicious or unapproved external domains. \u00b7 Correlate suspicious Microsoft Entra ID sign-ins with subsequent mailbox forwarding rule creation. \u00b7 Correlate Defender XDR security alerts with mailbox forwarding rules created shortly afterward to identify potential post-compromise persistence. By the end of this article, you\u2019ll have a collection of practical KQL queries that can be used for proactive threat hunting or converted into custom detection rules. Together, they help your security team identify and respond to Business Email Compromise attacks more quickly and effectively. A Quick Introduction to Purview Audit Log Microsoft Purview Audit captures user and administrator actions across Microsoft 365 services, including Exchange Online, SharePoint, OneDrive, Teams, Entra ID, Microsoft Copilot, Security Copilot, and more. These audit events log who did what, where, and when . They serve as a trusted source for security investigations, compliance reporting, legal discovery, and threat hunting. For mailbox investigations, Microsoft Purview Audit records Exchange Online operations such as creating, modifying, and deleting inbox rules, which include mailbox forwarding rules. These events can be searched directly from the Microsoft Purview Audit portal or from the integrated audit experience in Microsoft Defender XDR ( https://security.microsoft.com/auditlogsearch ). As an example, the screenshot below shows an audit search configured to find inbox rule events. The detailed audit record for one of the returned events is shown below: While the Purview Audit portal is useful for reviewing individual events, one of the lesser-known capabilities of Defender XDR is that the same audit events are also available in Advanced Hunting. This allows you to investigate mailbox activity alongside endpoint, identity, email, cloud application, and security alert telemetry within a single hunting experience. More importantly, it enables correlation of mailbox events with other signals to build behavioral detections that would be difficult to achieve using audit logs alone. As an example, the following KQL query returns a summary of inbox rule creation events observed in the last 15 days. // This query returns a summary of inbox rule creation events in the last 15 days CloudAppEvents | where ActionType == \"New-InboxRule\" and Timestamp > ago (15d) | extend ParsedData = parse_json(RawEventData) | extend User = tostring(ParsedData.UserId) | project Timestamp, ActionType, Application, User, IPAddress, City, CountryCode, ISP | sort by Timestamp asc A portion of the data returned by the query is shown in the following screenshot: Detecting Mailbox Forwarding Rules Not all inbox rules are suspicious. Users frequently create rules to organize their inboxes, move messages into folders, or automatically categorize incoming email. From a security perspective, however, mailbox forwarding rules deserve special attention because they are commonly used by attackers to establish persistence after compromising an account. To demonstrate how these activities are captured in Microsoft Purview Audit, I set up three different mailbox forwarding scenarios in a test tenant. The events generated by these scenarios serve as the data queried by the KQL queries presented throughout this article. Using known events makes it easier to understand how each query works and how to interpret its results. On June 28, 2026, at 3:55 PM MT , I created an inbox rule named \u201cForward Mail to Personal Account\u201d that forwards messages to bxx@yahoo.com. The rule configuration is shown below. On June 28, 2026, at 11:03 PM MT, I deleted this mail forwarding rule. On June 28, 2026, at 11:05 PM MT , I created a mailbox redirect rule that redirects messages to my personal email account at bxx@yahoo.com. Unlike the \u201cForward to\u201d feature, where recipients can see that the message was forwarded by me, the \u201cRedirect to\u201d option preserves the original sender information, making the email appear to come directly from the original sender. The following screenshot shows the inbox redirect rule configuration. In addition to creating an inbox rule, Outlook also allows you to enable mailbox forwarding, which automatically forwards all incoming messages to another email address. On June 28, 2026, at 10:09 PM MT , I enabled mailbox forwarding by turning on \u201cEnable forwarding\u201d and configured all incoming messages to be forwarded to my personal Yahoo account, as shown in the following screenshot. Unlike inbox rules, mailbox forwarding configured this way does not have a rule name. As I configured the different email forwarding settings, these activities were captured by Microsoft Purview Audit and became available in Defender Advanced Hunting in near real time. The following KQL query lists various mailbox forwarding rule creation events, including the three scenarios just described: // This query lists mailbox forwarding rule creation events CloudAppEvents | where ActionType has_any (\"New-InboxRule\", \"Set-Mailbox\") | extend ParsedData = parse_json(RawEventData) | extend User = tostring(ParsedData.UserId) | extend ParameterValue = tostring(ParsedData.Parameters) | mv-expand parsejson(ParameterValue) | extend ParameterJson = parse_json(ParameterValue) | extend ForwardingRuleName = ObjectName, Action = tostring(ParameterJson.Name), ForwardingEmailAddress = tostring(ParameterJson.Value) | where Action contains \"forward\" or Action contains \"redirect\" | where ForwardingEmailAddress contains \"@\" | project Timestamp, ActionType, Application, Action, ForwardingRuleName, ForwardingEmailAddress, User, IPAddress, City, CountryCode, ISP | sort by Timestamp asc As shown in the next screen capture, the query successfully identifies the three different types of mailbox forwarding scenarios that were just discussed. Security Use Cases: Turning Mailbox Forwarding Telemetry into Actionable Detections Detecting mailbox forwarding rules is a good starting point. The real power comes from connecting the dots across Microsoft Defender XDR telemetry to uncover attack patterns that may otherwise go unnoticed. By correlating mailbox forwarding activity with user risk, external destinations, identity signals, and existing security alerts, security teams can transform simple audit events into powerful behavioral detections. Use Case 1: Detecting and Alerting on Mailbox Forwarding Rules Created for High-Risk Users Attackers don\u2019t always target random mailboxes. They often prioritize accounts with access to valuable information, such as executives, finance teams, legal departments, HR personnel, and security leaders. By creating mailbox forwarding rules on these high-value accounts, attackers can quietly monitor sensitive communications and collect intelligence while remaining unnoticed. Security teams can reduce this risk by prioritizing mailbox forwarding activities involving high-risk users. By adding a user-based filter, the mailbox forwarding query introduced earlier can be easily customized to focus only on specific accounts that require additional monitoring. For example, the following filter limits the query to three predefined high-risk users: | where User has_any (\"axx@mycompany.com\", \"bxx@mycompany.com\", \"cxx@mycompany.com\") In a production environment, this list can be customized based on organization\u2019s privileged accounts, executive users, sensitive business roles, or other identities requiring enhanced monitoring. The complete updated query, including the high-risk user filter, is shown below: // This query detects mailbox forwarding rules created for high-risk users CloudAppEvents | where ActionType has_any (\"New-InboxRule\", \"Set-Mailbox\") | extend ParsedData = parse_json(RawEventData) | extend User = tostring(ParsedData.UserId) | where User has_any (\"axx@mycompany.com\", \"bxx@ mycompany.com\", \"cxx@mycompany.com\") | extend ParameterValue = tostring(ParsedData.Parameters) | mv-expand parsejson(ParameterValue) | extend ParameterJson = parse_json(ParameterValue) | extend ForwardingRuleName = ObjectName, Action = tostring(ParameterJson.Name), ForwardingEmailAddress = tostring(ParameterJson.Value) | where Action contains \"forward\" or Action contains \"redirect\" | where ForwardingEmailAddress contains \"@\" | project Timestamp, ActionType, Application, Action, ForwardingRuleName, ForwardingEmailAddress, User, IPAddress, City, CountryCode, ISP | sort by Timestamp asc Operationalizing Threat Hunting with Custom Detection Rules Threat hunting queries are valuable for investigating suspicious activity, but security teams can take it a step further by converting these queries into custom detection rules. This allows Microsoft Defender XDR to continuously run the KQL query in the background and automatically generate an alert when matching activity is detected. As shown below, the \u201cCreate detection rule\u201d option (highlighted in the red box) allows you to turn any hunting query into an automated detection. The next screenshot shows the configuration experience for creating the custom detection rule. Use Case 2: Detecting Multiple Mailboxes Forwarding to the Same External Email Address A single mailbox forwarding rule set to an external address may be legitimate. However, multiple user mailboxes forwarding to the same external email address can be suspicious. This pattern may indicate a large-scale compromise, insider activity, or an attacker systematically collecting sensitive communications from multiple users. KQL makes it easy to uncover this type of activity by aggregating mailbox forwarding events. The following query detects when three or more user mailboxes are configured to forward email to the same external email address. // This query finds multiple mailboxes forwarding to the same external recipient CloudAppEvents | where ActionType has_any (\"New-InboxRule\", \"Set-Mailbox\") | extend ParsedData = parse_json(RawEventData) | extend User = tostring(ParsedData.UserId) | extend ParameterValue = tostring(ParsedData.Parameters) | mv-expand parsejson(ParameterValue) | extend ParameterJson = parse_json(ParameterValue) | extend ForwardingRuleName = ObjectName, Action = tostring(ParameterJson.Name), ForwardingEmailAddress = tostring(ParameterJson.Value) | where Action contains \"forward\" or Action contains \"redirect\" | where ForwardingEmailAddress contains \"@\" and ForwardingEmailAddress !endswith \"@mycompany.com\" // Change from mycompany.com to your own domain | summarize Users = make_set(User), UserCount = dcount(User), RuleNames = make_set(ForwardingRuleName) by ForwardingEmailAddress | where UserCount >= 3 In this query, the threshold is controlled by the following filter: | where UserCount >= 3 You can easily adjust this value to suit your environment. Additionally, to reduce noise, this query also excludes your organization\u2019s email domain by using the following filter: ForwardingEmailAddress !endswith \"@mycompany.com\" Don\u2019t forget to replace @mycompany.com with your organization\u2019s email domain so the query focuses only on mail forwarded to external recipients. Use Case 3: Detecting Mailbox Forwarding Rules to Specific External Domains Security analysts are often interested in identifying unauthorized or suspicious email forwarding to external email services such as Gmail, Yahoo, and other personal email providers. This is more than just a compliance concern; these services are also common destinations for mailbox forwarding rules created by attackers. Monitoring forwarding activity to these domains provides a simple but effective way to detect potential Business Email Compromise and unauthorized data exfiltration. The following query identifies mailbox forwarding rules configured to a predefined list of external domains, including Gmail, Yahoo, Outlook.com, and Proton Mail. // This query finds mailbox forwarding rules set to specific external domains CloudAppEvents | where ActionType has_any (\"New-InboxRule\", \"Set-Mailbox\") | extend ParsedData = parse_json(RawEventData) | extend User = tostring(ParsedData.UserId) | extend ParameterValue = tostring(ParsedData.Parameters) | mv-expand parsejson(ParameterValue) | extend ParameterJson = parse_json(ParameterValue) | extend ForwardingRuleName = ObjectName, Action = tostring(ParameterJson.Name), ForwardingEmailAddress = tostring(ParameterJson.Value) | where Action contains \"forward\" or Action contains \"redirect\" | where ForwardingEmailAddress contains \"@\" | where ForwardingEmailAddress has_any (\"gmail.com\", \"yahoo.com\", \"outlook.com\", \"proton.me\") // Customize this list by adding or removing external domains of interest | project Timestamp, ActionType, Application, Action, ForwardingRuleName, ForwardingEmailAddress, User, IPAddress, City, CountryCode, ISP | sort by Timestamp asc Note, the external domain list in the KQL query is fully customizable. You can update the query filter by adding or removing domains based on the email services or destinations that are most relevant to your organization\u2019s security monitoring needs. Use Case 4: One Event is Interesting. Two Related Events Tell a Story. Correlating Suspicious Sign-ins with Mailbox Forwarding Rules A mailbox forwarding rule by itself may not be enough to indicate malicious activity. However, when it is created shortly after a suspicious sign-in, the story becomes much more compelling. Instead of investigating mailbox activity in isolation, you can correlate mailbox forwarding telemetry with suspicious Microsoft Entra ID sign-in events to uncover post-compromise persistence commonly seen in Business Email Compromise attacks. The EntraIdSignInEvents table in Defender Advanced Hunting contains Microsoft Entra ID sign-in events, including sign-ins to Microsoft 365 and other applications authenticated through Entra ID. It also provides additional identity context, such as device name, IP address, geographic location, and session details. This allows the identification of unusual or suspicious sign-in activity. By combining this information with mailbox forwarding events, security teams can identify suspicious behavioral sequences rather than isolated events. For example, the user, as shown below, normally signs in from Denver, Colorado using a registered device named FamilyPC1 . This user consistently accesses resources through the Microsoft Edge browser with the same user agent. However, as seen from the screenshot below, one sign-in event stands out. It originates from Cheyenne, Wyoming , using a different browser, is not associated with a registered device, and contains no user agent information. This suspicious sign-in becomes even more interesting when it is followed by a mailbox forwarding event involving the same user account. The following KQL query correlates such suspicious Entra ID sign-ins with subsequent mailbox forwarding rule creation to identify those potential attack patterns. // This query identifies suspicious sign-in followed by the creation of a mail forwarding rule let SuspiciousSignIns = EntraIdSignInEvents | where State != \"Colorado\" | where Application == \"Office 365 Exchange Online\" | extend User = AccountUpn, SignInTime = Timestamp, UserSignInIP = IPAddress | project SignInTime, User, UserSignInIP, Country, State, City, Application, LogonType, DeviceName, OSPlatform, DeviceTrustType, IsManaged, Browser, UserAgent; let MailForwarding = CloudAppEvents | where ActionType has_any (\"New-InboxRule\", \"Set-Mailbox\") | extend ParsedData = parse_json(RawEventData) | extend User = tostring(ParsedData.UserId), ForwardTime = Timestamp | extend ParameterValue = tostring(ParsedData.Parameters) | mv-expand parsejson(ParameterValue) | extend ParameterJson = parse_json(ParameterValue) | extend ForwardingRuleName = ObjectName, Action = tostring(ParameterJson.Name), ForwardingEmailAddress = tostring(ParameterJson.Value) | where Action contains \"forward\" or Action contains \"redirect\" | where ForwardingEmailAddress contains \"@\" | project ForwardTime, ActionType, Application, Action, ForwardingRuleName, ForwardingEmailAddress, User, IPAddress, City, CountryCode, ISP; SuspiciousSignIns | join kind=inner MailForwarding on User | where ForwardTime between (SignInTime .. SignInTime + 1d) | project SignInTime, ForwardTime, TimeToForwardRule = ForwardTime - SignInTime, User, UserSignInIP, Country, State, City, Application, LogonType, DeviceName, OSPlatform, DeviceTrustType, IsManaged, Browser, UserAgent, ActionType, Action, ForwardingRuleName, ForwardingEmailAddress | sort by SignInTime asc, ForwardTime asc Using the events from the previous three test scenarios along with the suspicious Entra ID sign-in discussed earlier, this query connects the dots across multiple security signals and brings the entire attack sequence together in a single query output. It identifies an unusual sign-in from Wyoming, followed by the creation of multiple mailbox forwarding rules, allowing analysts to see the related activities and timeline in one view. The next two screenshots highlight different portions of the KQL query output. The first screenshot shows the beginning of the results, while the second displays a later section of the output. This KQL query uses geographic deviation as the signal to identify potentially suspicious sign-ins, for example, sign-ins originating outside of Colorado. However, location is only one piece of the puzzle. You can further enhance this detection by incorporating additional identity signals that indicate a user\u2019s behavior has changed. For example, you can look for sign-ins from countries where your organization has no presence, unfamiliar or unmanaged devices, unexpected operating systems or browsers, unusual user agents, or other authentication patterns that differ from a user\u2019s normal activity. The query can be customized using attributes such as IP address, country, device OS platform, managed device status, device trust type, browser, user agent, and other available sign-in properties. Note: You may be wondering how the new EntraIdSignInEvents table differs from the familiar AADSignInEventsBeta table. Functionally, they contain the same sign-in data, with EntraIdSignInEvents serving as the successor to AADSignInEventsBeta. Microsoft plans to officially replace AADSignInEventsBeta with EntraIdSignInEvents on October 19, 2026. Use Case 5: One Alert Is Not the End of the Story \u2014 Detecting Mailbox Forwarding After a Security Alert A security alert is usually the beginning of an investigation, not the end. Once a user is flagged, security analysts need to answer a critical question: What did the attacker do next using this compromised identity? For example, what happens if the same user involved in a security alert creates a mailbox forwarding rule shortly afterward? This sequence of events may indicate an attacker attempting to establish persistence, maintain visibility, or continue collecting sensitive information after an initial compromise. By correlating Microsoft Defender XDR alert telemetry with mailbox forwarding activity, security teams can uncover suspicious follow-on actions. The KQL query shown below identifies a user who is flagged in a security alert then creates a mailbox forwarding rule within a defined time window. // This query identifies mailbox forwarding rules created after security alert let AlertedUsers = AlertEvidence | where isnotempty(AccountUpn) | summarize AlertTimestamp = min(Timestamp), AlertTitle = any(Title) by AlertId, User = AccountUpn; let MailForwardingEvents = CloudAppEvents | where ActionType has_any (\"New-InboxRule\", \"Set-Mailbox\") | extend ParsedData = parse_json(RawEventData) | extend User = tostring(ParsedData.UserId) | extend ParameterValue = tostring(ParsedData.Parameters) | mv-expand parsejson(ParameterValue) | extend ParameterJson = parse_json(ParameterValue) | extend ForwardingRuleName = ObjectName, Action = tostring(ParameterJson.Name), ForwardingEmailAddress = tostring(ParameterJson.Value), MailboxRuleTimestamp = Timestamp | where Action contains \"forward\" or Action contains \"redirect\" | where ForwardingEmailAddress contains \"@\" | project MailboxRuleTimestamp, ActionType, Application, Action, ForwardingRuleName, ForwardingEmailAddress, User, IPAddress, City, CountryCode, ISP; AlertedUsers | join kind=inner MailForwardingEvents on User | where MailboxRuleTimestamp between (AlertTimestamp .. AlertTimestamp + 8h) | extend MinutesAfterAlert = datetime_diff(\"minute\", MailboxRuleTimestamp, AlertTimestamp) | project AlertTimestamp, MailboxRuleTimestamp, MinutesAfterAlert, AlertId, AlertTitle, User, ActionType, ForwardingRuleName, ForwardingEmailAddress | sort by AlertTimestamp asc For example, a suspicious sign-in alert was generated on 6/28 at 4:24 PM MT , and the same user created two mailbox forwarding rules that day after 11:00 PM MT , the query output brings these related events together. As shown in the following screenshot, the query output includes the alert details, mailbox forwarding timestamps, forwarding destinations, and other relevant metadata. When Attackers Hijack Your Inbox: Detecting Mailbox Forwarding Rules with Microsoft Defender XDR was originally published in Detect FYI on Medium, where people are continuing the conversation by highlighting and responding to this story.",
+      "link": "https://detect.fyi/when-attackers-hijack-your-inbox-detecting-mailbox-forwarding-rules-with-microsoft-defender-xdr-56a71567c6f2?source=rss----d5fd8f494f6a---4",
+      "source": "Detect.fyi",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T21:53:17+00:00",
+      "published_ts": 1785880397,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Identity / Access",
+        "Phishing / Social Engineering",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Attackers Don\u2019t Need Your Devices Anymore They Just Need Your Identity.",
+      "summary": "The Silent Lateral Move You\u2019re Not Seeing Your EDR watches every endpoint. But modern attackers have learned to move between identities instead of devices. The good news is that the telemetry for every step of this movement exists across your hunting tables. The trick is knowing which table holds which evidence and how to correlate across them. Let me show you a real-world attack path that many SOC teams still miss. Sarah in accounts payable clicks a DocuSign link in a phishing email. She enters her credentials on a fake login page that relays everything in real time to Microsoft. She completes MFA and the attacker steals her session token after login. Her laptop is still clean, her password still works and nothing has been installed. Now the attacker has Sarah\u2019s cloud identity. But they do not touch her device. Instead, they use her token to make Graph API calls like GET /users, GET /groups, GET /directoryRoles and GET /applications. In other words, they map the tenant and look for valuable access. After that, they do something more dangerous. Using Sarah\u2019s token, they register a new app in Entra ID, give it a boring name like SP-Migration-Helper-Prod, create a client secret and add Mail.Read and Mail.Send permissions. In many tenants, this is possible because users are allowed to register apps and consent to permissions by default. Sarah is not an admin, but the attacker does not need her to be one. Now the attacker has a second identity a service principal. It has no device, no MFA and no conditional access. It only needs a secret to authenticate and it can read mailboxes. They use it to read the CFO\u2019s email, find a wire transfer thread and reply with updated banking details. The message comes from the CFO\u2019s mailbox through Graph API, so it looks legitimate and passes SPF and DKIM checks. That is how the money disappears. Three identities were involved:- Sarah, the malicious service principal and the CFO. No device was compromised after the initial phishing attack. Every step was logged somewhere in your data, but most SOC teams do not yet have the correlation logic to connect the dots. Why this attack needs its own detection Traditional lateral movement usually happens between devices. Think PSExec, RDP or WMI. In those cases, you normally see process activity on the target machine and network traffic between endpoints, so EDR tools are built to catch that well. But this attack is different. It moves between identities instead of devices. Sarah\u2019s identity leads to a service principal and then that service principal is used to access David\u2019s mailbox. After the phishing click, no device is involved. The good news is that the telemetry is available in you Defender XDR. MicrosoftGraphActivityLogs can show the API enumeration, CloudAppEvents can show the app registration, permission changes and mailbox access and IdentityLogonEvents can show the authentication activity. The challenge is connecting those signals together so the full attack becomes visible. The identity-plane kill chain To detect this kind of attack, it helps to break it into stages. Each stage leaves different clues in different tables. Stage 1: Identity compromise The attacker takes over a user account through phishing or token theft. At this point, everything happens through cloud authentication. You may see unusual sign-ins in IdentityLogonEvents and AADSignInEventsBeta, such as new IPs, strange locations, Anomalous Token or logins to apps the user does not normally use. Stage 2: Permission discovery Next, the attacker uses that account to look around the tenant through Graph API. They enumerate users, groups, roles, applications and service principals. This is like scanning the environment without touching endpoints. You can see this in MicrosoftGraphActivityLogs as GET requests to enumeration endpoints. Stage 3: Pivot Then the attacker creates a new non-human identity, such as a new app registration or adds credentials to an existing service principal. After that, they grant it access to resources they want to target. The evidence usually appears in CloudAppEvents, with actions like adding an application, adding service principal credentials or assigning app roles. Stage 4: Cross-identity access Now the attacker uses the service principal to access data that belongs to other users who were never directly compromised. That may include mailbox access or file downloads. In CloudAppEvents this often shows up as AccountType = \"Application\" and in MicrosoftGraphActivityLogs as requests to endpoints like /users/{id}/messages from a ServicePrincipalId. Stage 5: Action on objective Finally, the attacker uses that access to send fraudulent emails, steal data or create more identities for persistence. You can usually see this across CloudAppEvents and EmailEvents. How to correlate data across the kill chain: To catch this attack, you need to follow the trail across multiple tables. The first step is to spot directory enumeration in MicrosoftGraphActivityLogs. When an attacker is exploring the tenant, they usually send many GET requests to different endpoints in a short time. Normal apps usually keep hitting the same few endpoints, but an attacker is trying to map the environment quickly. Microsoft\u2019s Graph activity logs are designed to give you that API-level visibility. 1.Detecting directory enumeration through Graph API This is where MicrosoftGraphActivityLogs becomes critical. When an attacker enumerates your directory, they make GET requests to multiple resource endpoints in a short window. Legitimate applications tend to hit one or two endpoints repeatedly. An attacker doing reconnaissance hits many different endpoints quickly. Focus on users not service principals: As a Best practice build a baseline of which AppIds normally query which endpoints. Most legitimate applications have a narrow, consistent pattern. An AppId suddenly querying endpoints it has never touched before or a UserId making direct Graph calls through tools like Graph Explorer or PowerShell should trigger review. let ReconEndpoints = dynamic([\"users\", \"groups\", \"directoryRoles\",\"applications\", \"servicePrincipals\",\"roleManagement\", \"organization\",\"devices\", \"oauth2PermissionGrants\",\"administrativeUnits\"]); MicrosoftGraphActivityLogs | where TimeGenerated > ago(7d) | where RequestMethod == \"GET\" | where ResponseStatusCode == 200 | where isnotempty(UserId) and isempty(ServicePrincipalId) | extend ParsedPath = tostring(parse_url(RequestUri).Path) | extend CleanPath = tolower(replace_string(replace_string(ParsedPath, \"//\", \"/\"),\"v1.0/\", \"\")) | extend CleanPath = replace_string(CleanPath, \"beta/\", \"\") | extend GraphResource = tostring(split(CleanPath, \"/\")[1]) | where GraphResource in (ReconEndpoints) | summarize TotalRequests = count(), UniqueEndpoints = dcount(GraphResource), EndpointsHit = make_set(GraphResource), TotalResponseSize = sum(ResponseSizeBytes), DistinctAppIds = dcount(AppId), AppsUsed = make_set(AppId), FirstRequest = min(TimeGenerated), LastRequest = max(TimeGenerated) by UserId, bin(TimeGenerated, 1h) | where UniqueEndpoints >= 4 and TotalRequests > 50 Look for the attacker tooling signature: Tools like AzureHound, ROADtools and GraphRunner hit a very specific combination of high-value recon endpoints in rapid succession. Narrow the endpoint list to the ones that matter most for attack path mapping and raise the threshold. let HighValueRecon = dynamic([ \"servicePrincipals\", \"applications\", \"directoryRoles\", \"roleManagement\", \"oauth2PermissionGrants\"]); MicrosoftGraphActivityLogs | where TimeGenerated > ago(7d) | where RequestMethod == \"GET\" | where ResponseStatusCode == 200 | extend ParsedPath = tostring(parse_url(RequestUri).Path) | extend CleanPath = tolower(replace_string(replace_string(ParsedPath, \"//\", \"/\"),\"v1.0/\", \"\")) | extend CleanPath = replace_string(CleanPath, \"beta/\", \"\") | extend GraphResource = tostring(split(CleanPath, \"/\")[1]) | where GraphResource in (HighValueRecon) | extend ActorId = coalesce(UserId, ServicePrincipalId) | summarize TotalRequests = count(), UniqueEndpoints = dcount(GraphResource), EndpointsHit = make_set(GraphResource), TotalResponseSize = sum(ResponseSizeBytes) by ActorId, AppId, bin(TimeGenerated, 1h) | where UniqueEndpoints >= 3 2.Enriching recon detection with sign-in context (Stage 1 to Stage 2 correlation) When the enumeration query returns a suspicious UserId, cross-reference it with authentication data to see if the identity was recently compromised or any risky sign-in patterns observed. let ReconEndpoints = dynamic([\"users\", \"groups\", \"directoryRoles\",\"applications\", \"servicePrincipals\",\"roleManagement\", \"organization\",\"devices\", \"oauth2PermissionGrants\"]); let SuspectUsers =MicrosoftGraphActivityLogs | where TimeGenerated > ago(7d) | where RequestMethod == \"GET\" | where ResponseStatusCode == 200 | where isnotempty(UserId) and isempty(ServicePrincipalId) | extend ParsedPath = tostring(parse_url(RequestUri).Path) | extend GraphResource = tostring(split(replace_string(replace_string(tolower(ParsedPath),\"v1.0/\", \"\"), \"beta/\", \"\"), \"/\")[1]) | where GraphResource in (ReconEndpoints) | summarize UniqueEndpoints = dcount(GraphResource), RequestCount = count(), EndpointsHit = make_set(GraphResource), TotalResponseBytes = sum(ResponseSizeBytes) by UserId, bin(TimeGenerated, 1h) | where UniqueEndpoints >= 4 | distinct UserId; SigninLogs | where TimeGenerated > ago(7d) | where UserId in (SuspectUsers) | where RiskLevelDuringSignIn in (\"medium\", \"high\") or RiskState == \"atRisk\" | project TimeGenerated,UserPrincipalName,IPAddress,Location,AppDisplayName,RiskLevelDuringSignIn,RiskState,RiskEventTypes_V2,AuthenticationRequirement,ConditionalAccessStatus If the same identity shows a sign-in from an unusual IP followed by a burst of Graph API enumeration within a few hours, you have strong evidence of stages 1 and 2 happening in sequence. 3.Detecting identity pivots through app registration (Stage 3) Run this regularly and maintain a baseline of which accounts normally register applications. In most organizations that list should be short and limited to IT administrators. Any account outside that baseline registering an app or adding credentials to a service principal deserves immediate investigation. CloudAppEvents | where Timestamp > ago(7d) | where ActionType in ( \"Add application.\", \"Add service principal.\", \"Add service principal credentials.\", \"Update application - Certificates and secrets management \", \"Add app role assignment to service principal.\", \"Consent to application.\", \"Add delegated permission grant.\") | where AccountType != \"Application\" | project Timestamp, ActorAccount = AccountDisplayName,ActorUPN = AccountId,ActionType,TargetApp = tostring(RawEventData.Target[0].ID),TargetAppName = tostring(RawEventData.Target[1].ID) If above query brings High False Positives then Detect attack chain sequences not individual events: Instead of alerting on every single action, look for users who performed multiple distinct actions in a short window. A legitimate admin might do one of these actions in isolation. An attacker building a pivot does three or more within an hour. let AdminRoles = dynamic([\"Global Administrator\",\"Application Administrator\",\"Cloud Application Administrator\",\"Privileged Role Administrator\"]); let KnownAdmins = IdentityInfo | where Timestamp > ago(30d) | where AssignedRoles has_any (AdminRoles) | distinct AccountUpn; CloudAppEvents | where Timestamp > ago(7d) | where ActionType has_any( \"Add application\", \"Add service principal\", \"Add service principal credentials\", \"Update application - Certificates and secrets management\", \"Add app role assignment to service principal\", \"Consent to application\", \"Add delegated permission grant\") | where AccountType != \"Application\" | extend UserID=tostring(RawEventData.UserId) | summarize EventCount = count(), DistinctActions = dcount(ActionType), ActionSequence = make_list(ActionType), TargetApps = make_set(tostring(RawEventData.Target[0].ID)), TargetAppNames = make_set(tostring(RawEventData.Target[1].ID)), FirstEvent = min(Timestamp), LastEvent = max(Timestamp) by UserID, AccountDisplayName, bin(Timestamp, 1h) | extend DurationMinutes = datetime_diff('minute', LastEvent, FirstEvent) | extend IsAdmin = UserID in (KnownAdmins) | where (IsAdmin == false and DistinctActions >= 3) | project FirstEvent,LastEvent,DurationMinutes,ActorUPN = UserID,ActorAccount = AccountDisplayName,IsAdmin,DistinctActions,EventCount,ActionSequence,TargetApps,TargetAppNames Detecting credential drops on dormant service principals (Stage 3 variant): This query looks for service principals that had no Microsoft Graph activity for the last 30 days but suddenly got new credentials. In a normal environment, active apps usually make Graph API calls as part of their regular use. So if a service principal has been quiet for a long time and then gets new credentials, that is suspicious. It may mean someone is preparing a dormant identity for abuse. The query checks inactivity from two sides: the service principal itself did not make Graph API calls and no one accessed it through Graph API either. If both are true and credentials were just added, the query highlights the event and shows who added them and which service principal was targeted. //Get credential additions and extract both SP IDs let CredentialAdds = CloudAppEvents | where Timestamp > ago(7d) | where ActionType has_any (\"Add service principal credentials\",\"Certificates and secrets\") | extend Targets = tostring(RawEventData.Target) | extend TargetSPId = extract(@'ServicePrincipal_([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})',1, Targets) | extend TargetSPName = extract( @'\"Type\"\\s*:\\s*1[^}]*\"Name\"\\s*:\\s*\"([^\"]+)\"', 1, Targets) | where isnotempty(TargetSPId) | summarize arg_min(Timestamp, *) by ReportId, TargetSPId | project CredAddTime = Timestamp,ActorUPN = AccountId,ActorAccount = AccountDisplayName,AccountType,ActionType,TargetSPId, TargetSPName; // SPs that made Graph calls in last 30 days (as caller) let ActiveCallers =MicrosoftGraphActivityLogs | where TimeGenerated > ago(30d) | where isnotempty(ServicePrincipalId) | distinct ServicePrincipalId; //SPs that were referenced in Graph API URLs in last 30 days let ActiveTargets =MicrosoftGraphActivityLogs | where TimeGenerated > ago(30d) | where RequestUri has \"servicePrincipals/\" | extend ReferencedSPId = extract(@'servicePrincipals/([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})',1, RequestUri) | where isnotempty(ReferencedSPId) | distinct ReferencedSPId; // Flag credential adds where SP had zero Graph activity CredentialAdds | extend WasActiveCaller = TargetSPId in (ActiveCallers),WasActiveTarget = TargetSPId in (ActiveTargets) | extend HasAnyGraphActivity =WasActiveCaller or WasActiveTarget | where HasAnyGraphActivity == false | project CredAddTime,ActorUPN,ActorAccount,AccountType,ActionType,TargetSPId,TargetSPName 4.Detecting non-human identities accessing user resources This query looks for application identities that had no history of accessing Exchange, SharePoint or OneDrive in the last 23 days, but suddenly started doing so in the last 7 days. It flags cases where the app touched 3 or more user resources or made 20 or more access calls in a single hour. In a normal environment, legitimate apps like email archivers or DLP tools usually show steady activity over time. If an app appears for the first time and immediately starts reading mailboxes, downloading files or accessing SharePoint sites, it should be checked. It could be a new tool or it could be a malicious service principal created to steal data without triggering user-based alerts. let Lookback = 7d; let KnownApps = CloudAppEvents | where Timestamp between (ago(30d) .. ago(Lookback)) | where AccountType == \"Application\" | where Application in (\"Microsoft Exchange Online\",\"Microsoft SharePoint Online\",\"Microsoft OneDrive for Business\") | where ActionType in ( \"MailItemsAccessed\",\"FileDownloaded\",\"FileAccessed\",\"FolderBind\",\"MessageBind\",\"Send\") | distinct AccountId; // Current activity from apps never seen in baseline CloudAppEvents | where Timestamp > ago(Lookback) | where AccountType == \"Application\" | where Application in (\"Microsoft Exchange Online\",\"Microsoft SharePoint Online\",\"Microsoft OneDrive for Business\") | where ActionType in ( \"MailItemsAccessed\", \"FileDownloaded\",\"FileAccessed\",\"FolderBind\",\"MessageBind\",\"Send\") | where AccountId !in (KnownApps) | extend Parsed = parse_json(RawEventData) | extend Resource = coalesce(tostring(Parsed.MailboxOwnerUPN),tostring(Parsed.UserId),tostring(Parsed.SiteUrl)) | summarize AccessCount = count(), DistinctResources = dcount(Resource), Resources = make_set(Resource, 20), ActionTypes = make_set(ActionType), Applications = make_set(Application), FirstSeen = min(Timestamp), LastSeen = max(Timestamp) by AccountId, AppName = AccountDisplayName,bin(Timestamp, 1h) | where DistinctResources >= 3 or AccessCount >= 20 | project Timestamp,AppName,AccountId,Applications,AccessCount,DistinctResources,Resources,ActionTypes,FirstSeen,LastSeen Star of the Day **Identity-Plane Lateral Movement Investigation for a Specific User This query takes a user\u2019s email address and investigates whether that identity was involved in an identity-plane lateral movement chain. It first resolves the UPN to the user\u2019s Object ID from IdentityInfo so it can search consistently across tables that use different ID formats. Then it checks three stages: did the user enumerate the directory through Graph API calls to check users, groups, roles and applications (Stage 2 reconnaissance), did the user create or modify any apps, service principals, credentials or permission grants (Stage 3 pivot) and did any of those newly created apps start accessing mailboxes or files belonging to other users (Stage 4 cross-identity access). The output is a single chronological timeline across MicrosoftGraphActivityLogs and CloudAppEvents. If all three stages appear in sequence, you are looking at a compromised identity that was used to build a non-human identity and access another user\u2019s data without ever touching a device. let TargetUser = \"rohit.ashok@example.com\"; let Window = 7d; // Resolve user to all possible IDs let UserInfo = IdentityInfo | where Timestamp > ago(30d) | where AccountUpn =~ TargetUser | summarize arg_max(Timestamp, *) by AccountUpn | project AccountUpn, AccountObjectId,AccountDisplayName; let UserUPN = toscalar(UserInfo | project AccountUpn); let UserObjectId = toscalar(UserInfo | project AccountObjectId); let UserDisplayName = toscalar(UserInfo | project AccountDisplayName); let Recon =MicrosoftGraphActivityLogs | where TimeGenerated > ago(Window) | where UserId == UserObjectId | where RequestMethod == \"GET\" | where ResponseStatusCode == 200 | extend GraphResource = tostring(split(replace_string(replace_string(tolower(tostring(parse_url(RequestUri).Path)),\"v1.0/\", \"\"), \"beta/\", \"\"), \"/\")[1]) | where GraphResource in (\"users\", \"groups\", \"directoryRoles\", \"applications\", \"servicePrincipals\",\"roleManagement\", \"oauth2PermissionGrants\") | project EventTime = TimeGenerated, Stage = \"2-Recon\",Detail = strcat(\"GET /\", GraphResource),TargetResource = GraphResource,IPAddress,Source = \"GraphActivityLogs\"; let Pivots =CloudAppEvents | where Timestamp > ago(Window) | where AccountId == UserUPN or AccountObjectId == UserObjectId or tostring(RawEventData.UserId) == UserUPN | where ActionType has_any (\"Add application\",\"Add service principal\",\"service principal credentials\",\"Certificates and secrets\", \"app role assignment\",\"Consent to application\",\"delegated permission grant\") | extend Targets = tostring(RawEventData.Target) | extend TargetSPId = extract(@'ServicePrincipal_([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})',1, Targets) | extend TargetAppName = extract(@'\"ID\"\\s*:\\s*\"([^\"]+)\"\\s*,\\s*\"Type\"\\s*:\\s*1',1, Targets) | extend TargetAppName = iff(TargetAppName in (\"Application\", \"ServicePrincipal\",\"NotAgentic\", \"ManagedServiceIdentity\", \"Property\"),\"\", TargetAppName) | project EventTime = Timestamp, Stage = \"3-Pivot\",Detail = strcat(ActionType,iff(isnotempty(TargetAppName),strcat(\" > \", TargetAppName), \"\"),iff(isnotempty(TargetSPId),strcat(\" [SP:\", TargetSPId, \"]\"), \"\")),Application,TargetResource = coalesce(TargetAppName, TargetSPId),IPAddress,Source = \"CloudAppEvents\"; let CreatedSPIds =CloudAppEvents | where Timestamp > ago(Window) | where AccountId == UserUPN or AccountObjectId == UserObjectId or tostring(RawEventData.UserId) == UserUPN | where ActionType has_any (\"Add application\",\"Add service principal\") | extend SPId = extract(@'ServicePrincipal_([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})',1, tostring(RawEventData.Target)) | where isnotempty(SPId) | distinct SPId; let AppAccess = CloudAppEvents | where Timestamp > ago(Window) | where AccountType == \"Application\" | where AccountObjectId in (CreatedSPIds)or AccountId in (CreatedSPIds) | where ActionType in (\"MailItemsAccessed\",\"FileDownloaded\",\"FileAccessed\",\"Send\",\"FolderBind\",\"MessageBind\") | extend Mailbox = tostring(parse_json(RawEventData).MailboxOwnerUPN) | project EventTime = Timestamp,Stage = \"4-AppAccess\",Detail = strcat(AccountDisplayName,\" > \", ActionType,iff(isnotempty(Mailbox),strcat(\" > \", Mailbox), \"\")), Application,TargetResource = coalesce(Mailbox, \"\"),IPAddress,Source = \"CloudAppEvents\"; union Recon, Pivots, AppAccess | extend InvestigatedUser = strcat(UserDisplayName,\" (\", UserUPN, \")\") | project InvestigatedUser,EventTime,Stage,Detail,Application,TargetResource,IPAddress,Source | sort by EventTime asc Best practices for operationalizing this Restrict app registration: If non-admin users can register apps, then every user can become a pivot point. Limiting app registration to admins removes one of the easiest paths for identity-based lateral movement. Build a Graph activity baseline: Use MicrosoftGraphActivityLogs to learn what normal looks like for each app and user which endpoints they call, how often and how much. Alert on the important transitions: One of the best detections is a rule that fires when a human identity registers an app and that app then starts accessing another user\u2019s resources within 24 hours. This catches the move from account compromise to data access. Maintain a service principal allowlist: Keep track of which service principals are allowed to access user data. If an app accesses resources outside that list it should be investigated. A Sentinel watchlist works well for this. Check pivot risk during incident closure: When you close a compromised identity incident, check whether the user also created apps, added credentials or granted permissions before marking it resolved (Use above Identity-Plane Lateral Movement Investigation KQL) . Review dormant service principals regularly: Look at high-privilege service principals that have not been active. A dormant identity with powerful permissions is an easy target if an attacker can add new credentials. Closing Identity-plane lateral movement is not a theory. It is happening in real production tenants today. Attackers know that the quickest way to reach the CFO\u2019s mailbox often does not involve a device at all. It can go through a service principal created by a compromised user. The queries in this article are not meant to be used exactly as written. They are starting points. Adjust the thresholds for your tenant, build baselines that match your environment and add the investigation query to your normal incident response process. The data is already there in CloudAppEvents, MicrosoftGraphActivityLogs, and IdentityLogonEvents it just needs to be connected. The teams that catch this are not the ones with the most expensive tools. They are the ones that understand lateral movement is not just a device problem anymore. Attackers Don\u2019t Need Your Devices Anymore They Just Need Your Identity. was originally published in Detect FYI on Medium, where people are continuing the conversation by highlighting and responding to this story.",
+      "link": "https://detect.fyi/attackers-dont-need-your-devices-anymore-they-just-need-your-identity-the-ba51f1cd6641?source=rss----d5fd8f494f6a---4",
+      "source": "Detect.fyi",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T21:52:47+00:00",
+      "published_ts": 1785880367,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Linux / Unix",
+        "Cloud / SaaS",
+        "Identity / Access",
+        "Phishing / Social Engineering"
+      ],
+      "curated": true
+    },
+    {
+      "title": "OpenAI Dumps Apple Employees' Text Messages to Fight Trade Secret Suit",
+      "summary": "The ChatGPT maker released emails and text messages it says expose factual errors in Apple's lawsuit and undercut claims that former Apple employees brought confidential information to the company.",
+      "link": "https://decrypt.co/374928/openai-emails-text-messages-apple-trade-secrets-lawsuit",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-04T21:46:03+00:00",
+      "published_ts": 1785879963,
+      "smart_groups": [
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Phishing service spoofs RingCentral to steal Microsoft 365 accounts",
+      "summary": "The Greatness phishing-as-a-service (PhaaS) platform has expanded from credential phishing to adversary-in-the-middle attacks and device-code phishing targeting Microsoft 365 accounts. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/phishing-service-spoofs-ringcentral-to-steal-microsoft-365-accounts/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T21:45:36+00:00",
+      "published_ts": 1785879936,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Private sector job offer",
+      "summary": "This is kind of obvious, but still have some reserve about it. Current job Government, hybrid situation couple days a week remote. Pay is ok job is laid back, never stressed, no micromanaging involved. Job offer Full remote, more pay by 25k with opportunities with equity in the company. Company is fairly new, last 6 years and associated with AI as its product. I\u2019ve been working in public sector for about 10 years, this would be my first private sector job. I wonder what the job security is like, they have about 90 employees currently and they\u2019re fairly new. I wonder what\u2019s the work life balance? It\u2019s fin tech to be exact my role on paper is virtually the same. What are some thoughts or concerns you would have? submitted by /u/Ch4m6er [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1vfnzfn/private_sector_job_offer/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-08-04T21:42:42+00:00",
+      "published_ts": 1785879762,
+      "smart_groups": [
+        "Identity / Access"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Ledger Says Coldcard Exploit Shows Bitcoin Wallet Security Must Adapt to AI",
+      "summary": "Ledger CTO Charles Guillemet says the Coldcard exploit underscores why certified hardware randomness matters\u2014and why AI is reshaping wallet security.",
+      "link": "https://decrypt.co/374914/ledger-coldcard-exploit-bitcoin-wallet-security-ai",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-04T21:16:03+00:00",
+      "published_ts": 1785878163,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Randomness, Grey, Deepseek, Sonicwall, Spice, CaptiveCrunch, eBay, and Aaran Leyland  - SWN #604",
+      "summary": "Randomness, 50 Shades of Grey, Deepseek, Sonicwall, Spice Weasels, CaptiveCrunch, eBay, Aaran Leyland, and More on the Security Weekly News. Visit https://www.securityweekly.com/swn for all the latest episodes! Show Notes: https://securityweekly.com/swn-604",
+      "link": "https://www.youtube.com/watch?v=onM1G8TvN3A",
+      "source": "Security Weekly News (YouTube)",
+      "type": "podcasts",
+      "type_label": "Podcasts & YouTube",
+      "published": "2026-08-04T21:00:39+00:00",
+      "published_ts": 1785877239,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Randomness, Grey, Deepseek, Sonicwall, Spice, CaptiveCrunch, eBay, and Aaran Leyland  - SWN #604",
+      "summary": "",
+      "link": "https://www.scworld.com/podcast-segment/15062-randomness-grey-deepseek-sonicwall-spice-captivecrunch-ebay-and-aaran-leyland-swn-604",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T21:00:00+00:00",
+      "published_ts": 1785877200,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Randomness, Grey, Deepseek, Sonicwall, Spice, CaptiveCrunch, eBay, and Aaran Leyland  - SWN #604",
+      "summary": "Randomness, 50 Shades of Grey, Deepseek, Sonicwall, Spice Weasels, CaptiveCrunch, eBay, Aaran Leyland, and More on the Security Weekly News. Visit https://www.securityweekly.com/swn for all the latest episodes! Show Notes: https://securityweekly.com/swn-604",
+      "link": "https://podcast.securityweekly.com/randomness-grey-deepseek-sonicwall-spice-captivecrunch-ebay-and-aaran-leyland-swn-604",
+      "source": "Security Weekly Podcast Network (Audio)",
+      "type": "podcasts",
+      "type_label": "Podcasts & YouTube",
+      "published": "2026-08-04T21:00:00+00:00",
+      "published_ts": 1785877200,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Jim Cramer Is Selling His Bitcoin Over Quantum Threat\u2014Crypto Twitter Is Thrilled",
+      "summary": "The CNBC host announced the decision on air after interviewing IBM CEO Arvind Krishna, asking him whether quantum computers could eventually crack the cryptography protecting his coins.",
+      "link": "https://decrypt.co/374923/jim-cramer-selling-bitcoin-quantum-computing-threat",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-04T20:45:18+00:00",
+      "published_ts": 1785876318,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Police Have Arrested 37 Americans Over AI Data Center Protests This Year",
+      "summary": "Dozens of arrests tied to opposition against AI data centers underscore how local disputes over massive computing projects are growing into a national political movement.",
+      "link": "https://decrypt.co/374921/ai-data-center-protest-arrests",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-04T20:30:52+00:00",
+      "published_ts": 1785875452,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Apple battles it out again with the UK over encrypted iCloud access",
+      "summary": "Apple is fighting another attempt by the UK's Home Office to get a backdoor providing access to encrypted iCloud data.",
+      "link": "https://www.malwarebytes.com/blog/news/2026/08/apple-battles-it-out-again-with-uk-over-encrypted-icloud-access",
+      "source": "Malwarebytes Labs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T20:30:13+00:00",
+      "published_ts": 1785875413,
+      "smart_groups": [
+        "Curated",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Android app developers may be unwittingly sharing their users\u2019 location data with advertisers",
+      "summary": "New findings by the Electronic Frontier Foundation aim to warn app developers that some of the third-party code they place in their apps may also collect their users' location data when they grant permission to the app.",
+      "link": "https://techcrunch.com/2026/08/04/android-app-developers-may-be-unwittingly-sharing-their-users-location-data-with-advertisers/",
+      "source": "Security News | TechCrunch",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T20:26:53+00:00",
+      "published_ts": 1785875213,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "OpenAI: Cambodian scam centers used ChatGPT to lure Indian nationals, conduct investment fraud",
+      "summary": "A tip from WhatsApp led OpenAI to ban multiple accounts associated with investment scams and human trafficking operations based in Cambodian scam centers.",
+      "link": "https://therecord.media/openai-chatgpt-cambodia-scam-centers-disruption",
+      "source": "The Record \u2013 Cybercrime",
+      "type": "cybercrime",
+      "type_label": "Cybercrime, Darknet & Leaks",
+      "published": "2026-08-04T20:15:00+00:00",
+      "published_ts": 1785874500,
+      "smart_groups": [
+        "Identity / Access"
+      ],
+      "curated": false
+    },
+    {
+      "title": "SharePoint Flaws Used to Hack Switzerland\u2019s Federal IT Agency",
+      "summary": "Swiss Federal IT Agency FOITT says attackers exploited SharePoint flaws to compromise about 200 accounts. Servers are being rebuilt as investigations continue. Switzerland\u2019s Federal Office for Information Technology and Communications, known as BIT or FOITT, disclosed that unknown attackers had compromised approximately 200 accounts on its on-premises SharePoint servers. The FOITT said the unknown attackers [\u2026]",
+      "link": "https://securityaffairs.com/196625/hacking/sharepoint-flaws-used-to-hack-switzerlands-federal-it-agency.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T20:12:47+00:00",
+      "published_ts": 1785874367,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Exploit / PoC",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Mythic 4 Public Beta: More Than a New Coat of Paint",
+      "summary": "TL;DR: Mythic 4 is now available on the Mythic-v4.0.0 branch and is entering a public beta for the next few months for the community to update their services. Mythic 4 has some breaking changes, new features, AI chat container support, and so much more. Mythic 4 is entering a public beta for the next few [\u2026] The post Mythic 4 Public Beta: More Than a New Coat of Paint appeared first on SpecterOps .",
+      "link": "https://specterops.io/blog/2026/08/04/mythic-4-public-beta/",
+      "source": "https://specterops.io/feed/",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T20:09:00+00:00",
+      "published_ts": 1785874140,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "New npm packages deliver remote access trojan targeting Alibaba developers",
+      "summary": "A new set of malicious npm packages were discovered targeting users of Alibaba developer tools with a cross-platform remote access trojan (RAT).",
+      "link": "https://www.scworld.com/brief/new-npm-packages-deliver-remote-access-trojan-targeting-alibaba-developers",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T20:05:22+00:00",
+      "published_ts": 1785873922,
+      "smart_groups": [
+        "Curated",
+        "Malware / Payloads",
+        "Supply Chain / Software"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Data Encryption at rest advantages?",
+      "summary": "Hi, I'm a software engineer working on a SaaS in a highly regulated environment. ### Context My client's SaaS includes Monetary transactions through a payment gateway, registration of business owners and users to provide a service that supports the merits of a business by the reviews of the users (we won't go into the mechanics of it but it's solid), offering compensation for the users without discrimination off of their opinion, the kind of data we save are names, phone numbers, emails, and the reviews along with their evidence(receipts). ### Question How may I say it's enough security on it?, is data encryption at rest necessary or overkill? ### my efforts I use spring boot for the backend, which handels most of the the trivial things like xss(tested it) Strict rate limits on all endpoints Authentication on all endpoints except for minor public ones like terms and conditions and and documents of public nature. I tried following OWSAP guidelines as much as I could, top 10 are out of the question, I've implemented ASVS V1 & still in need for 8 steps to get to V2, things like security headers, dependabot, some env vars defaults for development, and MFA for the business side login Using static analysis tools to keep code in check (ex. SonarQube) ### Thoughts I think I should Aim for a full ASVS V2 coverage + V3 for the transactions modules, What do you think? submitted by /u/EmbeddedZeyad [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1vfle75/data_encryption_at_rest_advantages/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-08-04T20:05:11+00:00",
+      "published_ts": 1785873911,
+      "smart_groups": [
+        "Cloud / SaaS",
+        "Web / API Security",
+        "Identity / Access",
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Bogus SQLite vulnerabilities highlight flaws in CVE pipeline",
+      "summary": "The Register reports that a batch of critical and high-rated SQLite CVEs, which were recently added to the National Vulnerability Database (NVD) with enrichment from CISA, were identified as technically invalid by security researchers.",
+      "link": "https://www.scworld.com/brief/bogus-sqlite-vulnerabilities-highlight-flaws-in-cve-pipeline",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T20:05:06+00:00",
+      "published_ts": 1785873906,
+      "smart_groups": [
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS",
+        "Web / API Security"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Veeam security advisory (AV26-777)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/veeam-security-advisory-av26-777",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T20:03:24+00:00",
+      "published_ts": 1785873804,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Fake Roblox Xeno executor installers distribute malware",
+      "summary": "Fake Xeno Executor installers are targeting Roblox players with malware that provides remote access and steals sensitive information.",
+      "link": "https://www.scworld.com/brief/fake-roblox-xeno-executor-installers-distribute-malware",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T20:01:52+00:00",
+      "published_ts": 1785873712,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Guidance required \"saviynt\"",
+      "summary": "Hi, I have an interview opportunity with Saviynt for a SOC Analyst role. I heard about Saviynt through my brother, but he doesn't know much about the company. I also did some research online, but insights from someone working there would be much more valuable. I'd really appreciate any suggestions on the interview process, topics I should focus on, the day-to-day work of the SOC team, the security tools commonly used, what Saviynt as a company is known for, what its main product does, and the overall work culture. Even a few pointers or preparation tips would really help. Thank you in advance for your time and guidance! submitted by /u/Large-Assistant-3663 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1vfl8nc/guidance_required_saviynt/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-08-04T19:59:54+00:00",
+      "published_ts": 1785873594,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation.",
+      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-04T19:59:26+00:00",
+      "published_ts": 1785873566,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "US, UK reaffirm support for stablecoins, tokenization in joint financial regulation talks",
+      "summary": "In a July 8 meeting, US and UK regulators highlighted the implementation of the GENIUS Act, payment modernization and cross-border cooperation, reinforcing a shared framework for digital asset oversight.",
+      "link": "https://cointelegraph.com/news/us-uk-deepen-crypto-regulatory-cooperation-genius-act-stablecoins?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-04T19:58:48+00:00",
+      "published_ts": 1785873528,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Adobe security advisory (AV26-776)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/adobe-security-advisory-av26-776",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T19:46:09+00:00",
+      "published_ts": 1785872769,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "CVE-2026-18656 & CVE-2026-18657 - Issue with Kiro IDE and CLI - Executable Resolution from Untrusted Project Directory on Windows",
+      "summary": "Bulletin ID: 2026-074-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 08/04/2026 12:30 PM PDT Description: Kiro is an agentic IDE and command-line interface users install on their desktop. We identified CVE-2026-18656 and CVE-2026-18657, an issue where an uncontrolled search path element on Windows might allow an actor to execute arbitrary code via a maliciously crafted project directory containing a planted executable that is resolved before the system PATH when a local user opens the directory. Impacted versions: - Kiro IDE for Windows between versions 1.0.0 through 1.0.212 - Kiro CLI for Windows prior to v2.10.0 Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin.",
+      "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-074-aws/",
+      "source": "Latest Bulletins",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-08-04T19:43:11+00:00",
+      "published_ts": 1785872591,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Russia-linked Midnight Blizzard targets hotel Wi-Fi networks in US, Europe",
+      "summary": "Hotel Wi-Fi phishing campaign targets business travelers, Microsoft warns.",
+      "link": "https://www.scworld.com/news/russia-linked-midnight-blizzard-targets-hotel-wi-fi-networks-in-us-europe",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T19:33:18+00:00",
+      "published_ts": 1785871998,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Nvidia doesn\u2019t mess around: A week after open AI industry group formed, it\u2019s already showing progress",
+      "summary": "The week-old Open Secure AI Alliance, spearheaded by Nvidia and grown to over 120 companies, already has proposals out for defending against AI agents.",
+      "link": "https://techcrunch.com/2026/08/04/nvidia-doesnt-mess-around-a-week-after-open-ai-industry-group-formed-its-already-showing-progress/",
+      "source": "Security News | TechCrunch",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T19:28:49+00:00",
+      "published_ts": 1785871729,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Coldcard Bitcoin Exploit Explained: Entropy, How Keys Are Generated, and Why Bits Matter",
+      "summary": "A flaw in Coldcard wallets cost Bitcoin holders more than $100 million\u2014and reopened an old fight about whether you can trust dice.",
+      "link": "https://decrypt.co/374916/coldcard-bitcoin-exploit-explained-entropy-keys-bits",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-04T19:11:36+00:00",
+      "published_ts": 1785870696,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "New XCSSET variant targets macOS devs via compromised Xcode projects",
+      "summary": "A new version of the XCSSET malware is targeting thousands of macOS users through compromised Xcode projects and GitHub repositories. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/new-xcsset-variant-targets-macos-devs-via-compromised-xcode-projects/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T19:03:09+00:00",
+      "published_ts": 1785870189,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Iran Cyberattacks Against Minnesota Water Systems",
+      "summary": "Attribution is preliminary , and so far it seems no real damage. And it seems like this is a campaign that has targeted at least seven states . And, because this is where the US is right now, Trump doesn\u2019t believe it\u2019s Iran and that Minnesota\u2026I guess\u2026hacked itself. \u201cI think I blame it on Minnesota because they\u2019re grossly incompetent,\u201d Trump said. \u201cI would blame it on Minnesota and the governor, the corrupt governor of Minnesota. They like to say, \u2018Oh, it\u2019s Iran.\u2019 Iran should be so lucky. Iran\u2019s got bigger problems than worrying about Minnesota.\u201d...",
+      "link": "https://www.schneier.com/blog/archives/2026/08/iran-cyberattacks-against-minnesota-water-systems.html",
+      "source": "Schneier on Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T19:00:53+00:00",
+      "published_ts": 1785870053,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "How bad was this answer?",
+      "summary": "I had a call with a recruiter about a role I applied to and she asked me a few behaviorial-type questions about my experiences. One question was \"when do you not use AI-generated code?\" I said that I've never used AI-generated code (I don't remember if I used the word 'never' but I meant that I haven't in my current role) and that I write my own for my own experience. I said that it's better for debugging as well, since I know the variable names and what I wrote (I meant the logic of it). I also mentioned that I can't trust code that was written by something else other than me and that since I work in highly regulated environments (I meant government stuff), it'd be a disaster to use it. I DO however, have an LLM/AI-implemented project I made for my current role under my resume, so I'm not against using AI or anything. I just don't use it the times I code at work.. I feel like I should have mentioned saying \"I think I'd be open to it if it wasn't a regulated environment\". Did I screw up? This is stupid but I was also worried it's a trick question to see if I can write my own code or not.. I'm so dumb submitted by /u/mysecret52 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1vfji4g/how_bad_was_this_answer/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-08-04T18:57:09+00:00",
+      "published_ts": 1785869829,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "77 Open VSX extensions found harvesting developer info",
+      "summary": "77 extensions on the Open VSX marketplace impersonated legitimate developer tools while transmitting information about the systems and development environments where they were installed. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/77-open-vsx-extensions-found-harvesting-developer-info/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T18:50:55+00:00",
+      "published_ts": 1785869455,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Solana Proposal Would Increase Daily SOL Burns More Than 10-Fold",
+      "summary": "Validators are considering changes that would increase the amount of SOL permanently removed from circulation while reducing the rate of new token issuance.",
+      "link": "https://decrypt.co/374915/solana-proposal-increase-daily-sol-burns-10-fold",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-04T18:46:11+00:00",
+      "published_ts": 1785869171,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Smoke#Screen RMM Takeover Gambit Exposes Threat Actor Playbook",
+      "summary": "The attacks use diverse social engineering lures and rotating payloads to deliver ScreenConnect for persistent remote access to compromised networks.",
+      "link": "https://www.darkreading.com/cyberattacks-data-breaches/latest-rmm-fueled-phishing-attack-exposes-threat-actor-playbook",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T18:37:35+00:00",
+      "published_ts": 1785868655,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
       "title": "Shai-Hulud npm Worm Returns, Poisoning Over 1,280 npm Packages",
       "summary": "Shai-Hulud npm worm spreads through Keyv and hundreds of packages with 2 billion monthly downloads, stealing npm, GitHub, cloud and CI credentials in real time.",
       "link": "https://hackread.com/shai-hulud-npm-worm-poisoning-1280-packages/",
@@ -38,6 +543,18 @@
       "type_label": "General Security & Blogs",
       "published": "2026-08-04T18:31:10+00:00",
       "published_ts": 1785868270,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Advance Zero Trust for AI: New tools and guidance to secure AI agents and DevSecOps",
+      "summary": "Microsoft expands its Zero Trust for AI strategy to enhance security for AI and DevSecOps environments with new tools and guidance. The post Advance Zero Trust for AI: New tools and guidance to secure AI agents and DevSecOps appeared first on Microsoft Security Blog .",
+      "link": "https://www.microsoft.com/en-us/security/blog/2026/08/04/advance-zero-trust-for-ai-new-tools-and-guidance-to-secure-ai-agents-and-devsecops/",
+      "source": "Microsoft Security Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-08-04T18:30:00+00:00",
+      "published_ts": 1785868200,
       "smart_groups": [],
       "curated": false
     },
@@ -74,6 +591,18 @@
       "type_label": "Vendors & Product Blogs",
       "published": "2026-08-04T18:11:28+00:00",
       "published_ts": 1785867088,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Open Secure AI Alliance Expands at Black Hat: What You Should Know",
+      "summary": "The Open Secure AI Alliance introduced SAFE guidelines and open agent-security tools at Black Hat, giving enterprises a framework for safer AI deployment. The post Open Secure AI Alliance Expands at Black Hat: What You Should Know appeared first on TechRepublic .",
+      "link": "https://www.techrepublic.com/article/news-open-secure-ai-alliance-safe-guidelines-black-hat/",
+      "source": "TechRepublic \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T18:11:27+00:00",
+      "published_ts": 1785867087,
       "smart_groups": [],
       "curated": false
     },
@@ -1159,6 +1688,22 @@
       "curated": false
     },
     {
+      "title": "Six Flowise Vulnerabilities Enable Remote Code Execution on AI Workflow Servers",
+      "summary": "Six newly disclosed vulnerabilities in Flowise, a popular open\u2011source platform for building AI agents and LLM workflows, allow unauthenticated and low\u2011privileged attackers to achieve remote code execution (RCE) on self\u2011hosted and cloud AI workflow servers running vulnerable versions. These flaws collectively expose organizations to full server compromise, data exfiltration, and AI pipeline manipulation if instances [\u2026] The post Six Flowise Vulnerabilities Enable Remote Code Execution on AI Workflow Servers appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/six-flowise-vulnerabilities/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T14:24:30+00:00",
+      "published_ts": 1785853470,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
       "title": "Home batteries cost thousands. So why would 91% of owners buy one again?",
       "summary": "Up-front cost is a big barrier for those considering battery systems, but homeowner experience shows why the value overshadows the sticker shock almost every time.",
       "link": "https://www.zdnet.com/article/home-batteries-cost-thousands-so-why-do-91-of-owners-say-they-would-buy-one-again/",
@@ -1319,20 +1864,6 @@
       "curated": true
     },
     {
-      "title": "Here\u2019s what happened in crypto today",
-      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation.",
-      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-08-04T13:45:02+00:00",
-      "published_ts": 1785851102,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
       "title": "Microsoft finally realized Windows 11 is too annoying. Can it be fixed?",
       "summary": "Microsoft's latest progress report details much-needed Windows 11 improvements in reliability, performance, stability, and usability. But pressure to monetize key features remains.",
       "link": "https://www.zdnet.com/article/microsoft-finally-realized-windows-11-is-too-annoying-can-it-be-fixed/",
@@ -1368,6 +1899,20 @@
       "published": "2026-08-04T13:39:16+00:00",
       "published_ts": 1785850756,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "The Binary Hiding in Your Registry: Cracking Windows UCPD\u2019s Dynamic Rules",
+      "summary": "Is Microsoft shipping a hidden binary to your computer \u2013 inside the registry? A few weeks ago I was watching a YouTube video that covered my earlier research on the UCPD driver, and for a split second I saw a registry key that I have been searching for an example of for some time. I contacted the video\u2019s author and obtained the key from his machine. It was Base64 encoded and to my surprise, once I decoded it, it started with MZ. Sure enough, it\u2019s a valid Windows executable sitting inside a registry key. This post is the story of both taking it apart as well as the bug I found that means the whole mechanism is dead anyway.",
+      "link": "https://binary.ninja/2026/08/04/ucpd-dynamic-rules.html",
+      "source": "https://binary.ninja/feed.xml",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T13:37:00+00:00",
+      "published_ts": 1785850620,
+      "smart_groups": [
+        "Windows / Microsoft"
+      ],
       "curated": false
     },
     {
@@ -1596,6 +2141,18 @@
       "type_label": "Vendors & Product Blogs",
       "published": "2026-08-04T13:06:10+00:00",
       "published_ts": 1785848770,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Airlock Digital Unveils Agentic AI Control & Governance to Extend Preventative Endpoint Security",
+      "summary": "Atlanta, GA, August 4th, 2026, CyberNewswire Airlock Digital announces Agentic AI Control & Governance, extending its preventative endpoint security solution with visibility into trusted AI agent behavior and governance over what trusted agents are allowed to do on endpoints. Airlock Digital, a leader in preventative endpoint security, today announced Agentic AI Control & Governance at [\u2026] The post Airlock Digital Unveils Agentic AI Control & Governance to Extend Preventative Endpoint Security appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/airlock-digital-unveils-agentic-ai-control-governance-to-extend-preventative-endpoint-security/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T13:05:00+00:00",
+      "published_ts": 1785848700,
       "smart_groups": [],
       "curated": false
     },
@@ -2191,6 +2748,18 @@
       "source": "SecurityWeek",
       "type": "general",
       "type_label": "General Security & Blogs",
+      "published": "2026-08-04T12:00:00+00:00",
+      "published_ts": 1785844800,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "NCSC statement in response to recent incidents resulting from frontier AI evaluations",
+      "summary": "A statement from Ollie Whitehouse, Chief Technology Officer at the NCSC, on AI security following recent incidents.",
+      "link": "https://www.ncsc.gov.uk/news/ncsc-statement-in-response-to-recent-incidents-resulting-from-frontier-ai-evaluations",
+      "source": "NCSC News Feed",
+      "type": "government",
+      "type_label": "Government, CERT & Advisories",
       "published": "2026-08-04T12:00:00+00:00",
       "published_ts": 1785844800,
       "smart_groups": [],
@@ -3856,6 +4425,18 @@
         "Phishing / Social Engineering",
         "Crypto / Web3"
       ],
+      "curated": false
+    },
+    {
+      "title": "Secure Agent Harness Execution: Preventing Escape",
+      "summary": "",
+      "link": "https://www.crowdstrike.com/en-us/blog/secure-agent-harness-execution-preventing-escape/",
+      "source": "CrowdStrike Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-08-04T00:00:00-05:00",
+      "published_ts": 1785819600,
+      "smart_groups": [],
       "curated": false
     },
     {
@@ -102846,86 +103427,6 @@
         "Cloud / SaaS"
       ],
       "curated": true
-    },
-    {
-      "title": "Cortex Security Audit",
-      "summary": "At the request of the Open Source Technology Improvement Fund (OSTIF), Quarkslab performed a security audit of Cortex , evaluating the security of its multi-tenant design and the mechanisms protecting tenant isolation.",
-      "link": "http://blog.quarkslab.com/cortex-security-audit.html",
-      "source": "https://blog.quarkslab.com/feeds/all.atom.xml",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-05T22:00:00+00:00",
-      "published_ts": 1783288800,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "How do you see pentest evolve in 10 years, considering the AI evolution?",
-      "summary": "I have some vision what the blue team would look like, but I cannot imagine red team being a viable career anymore. submitted by /u/moostacha [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uodgfy/how_do_you_see_pentest_evolve_in_10_years/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-05T21:03:44+00:00",
-      "published_ts": 1783285424,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "COSMIC Cypher Encryption",
-      "summary": "I would love some feedback submitted by /u/Extension-Cap-6807 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uocxu9/cosmic_cypher_encryption/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-05T20:42:41+00:00",
-      "published_ts": 1783284161,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Building an interactive career simulator for network engineers: From CCNA basics to SOC and Pentest operations.",
-      "summary": "I\u2019m currently developing a cybersecurity sim game that bridges the gap between theory and practice. The journey starts with 30 networking tasks (based on the CCNA curriculum), where you build and troubleshoot infrastructure. Once that's mastered, the game expands into SOC analysis (log monitoring, threat detection) and finishes with a Pentesting consultant role. My goal is to make technical training feel like a real career progression. I\u2019d love to get some feedback from you folks on the realism and the workflow! https://www.youtube.com/watch?v=xzRin4oz5kw https://www.youtube.com/watch?v=pZBsk50Sjpo instagram: jr.netengineer submitted by /u/Mindless_Base_2445 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uobinj/building_an_interactive_career_simulator_for/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-05T19:44:33+00:00",
-      "published_ts": 1783280673,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "free certifications",
-      "summary": "what are some free certifications that are genuinely helpful while learning as well as look good on your resume? submitted by /u/shutupanddanc3wme [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uo9o5x/free_certifications/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-05T18:31:58+00:00",
-      "published_ts": 1783276318,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Medtronic Notifies 3.8 Million After ShinyHunters Data Breach",
-      "summary": "Medtronic says a ShinyHunters attack exposed the personal and medical data of over 3.8 million people. Products and operations were unaffected. Medtronic is notifying 3,834,294 individuals after a cyberattack by the ShinyHunters extortion group exposed personal and medical information. In April 2026, Medtronic confirmed a cyberattack on its corporate IT systems after the hacker group ShinyHunters claimed [\u2026]",
-      "link": "https://securityaffairs.com/194788/cyber-crime/medtronic-notifies-3-8-million-after-shinyhunters-data-breach.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-05T18:31:18+00:00",
-      "published_ts": 1783276278,
-      "smart_groups": [
-        "Ransomware",
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
