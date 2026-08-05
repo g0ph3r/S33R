@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-08-04T22:40:16.470759+00:00",
+  "generated_at": "2026-08-05T00:17:35.047459+00:00",
   "days_back": 30,
-  "total_items": 7439,
+  "total_items": 7441,
   "items": [
     {
       "title": "GISEC GLOBAL",
@@ -30,6 +30,83 @@
       "curated": false
     },
     {
+      "title": "OpenAI, Anthropic AI agents targeted real people and systems in cyber tests",
+      "summary": "OpenAI and Anthropic have confirmed that their AI models were involved in separate, newly disclosed third-party cybersecurity testing incidents that resulted in a real website being breached and social engineering attacks against people outside the intended testing boundaries. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/openai-anthropic-ai-agents-targeted-real-people-and-systems-in-cyber-tests/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T23:39:59+00:00",
+      "published_ts": 1785886799,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "OK, Well, Rogue AI Agents Are Hacking Again",
+      "summary": "Rogue AI agents from OpenAI and Anthropic have again been caught trying to disrupt servers and software\u2014and leaving instructions for future bad behavior.",
+      "link": "https://www.wired.com/story/ok-well-there-are-even-more-ai-agent-hacking-incidents/",
+      "source": "Security News: Cybersecurity, Hacks, Privacy, National Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T23:11:31+00:00",
+      "published_ts": 1785885091,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Frida 17.17.0 Released",
+      "summary": "This is a big release with lots of bare-metal goodness. The Barebone agent\u2014 written in Rust and embedding the GumJS devkit\u2014previously supported only XNU. It can now also run in the Linux kernel, where a small C shim provides the kernel glue. The agent is packaged as a .ko : load it with insmod , then exchange length-prefixed GVariant messages through /dev/frida . Configure the Barebone backend to use this transport, and run frida-server --device=barebone on the device. Here it is running on my Pixel 6 Pro: Full changelog: gumjs: Fix a detach hang when a native fault inside JS is recovered by a later handler. We now rebalance the Interceptor transaction when the thread survives, instead of ending it twice. Kudos to @pandasauce for reporting the issue and helping track it down. arm64: Detect branches into the range being relocated, preventing Interceptor from rewriting a branch so that it lands in the middle of its own redirect patch. Thanks to @WHW0x455 for this fix. python: Fix the linker_notifier_offsets keyword argument to attach() , restore the default port for Script.enable_debugger() , and reinstate marshalling of certificate options for remote devices and related APIs. barebone: Add support for running the agent as a Linux kernel module. The agent now starts inside the target as a .ko , exposes a character device for transport, and can be reached through a regular frida-server --device=barebone instance. deps: Add a soft-float bare-metal SDK comprising picolibc and compiler-rt. This gives the none-arm64-softfloat flavour a libc and runtime that agree on passing floating-point values through general-purpose registers. deps: Build the soft-float SDK in CI, check for published bundles before spending time installing a toolchain, keep libc headers out of devkit headers, use the SDK as the sysroot, and ensure configure-time link checks resolve libc correctly. deps: Bump GLib, libffi, and QuickJS for freestanding fixes, vector assembler directive fixes, the precedence-climbing parser, and the corresponding x18 fix. arm64: Avoid FP and SIMD code on soft-float targets by using scalar fallbacks for memcpy , pointer scanning, and Interceptor\u2019s register shuffling. gumjs: Bound the QuickJS stack on bare metal, re-enabling its stack check so the parser stops before exhausting the small stacks such hosts may provide.",
+      "link": "https://frida.re/news/2026/08/05/frida-17-17-0-released/",
+      "source": "https://frida.re/feed.xml",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T22:47:29+00:00",
+      "published_ts": 1785883649,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Linux / Unix"
+      ],
+      "curated": true
+    },
+    {
+      "title": "This Bitcoin Bridge Shut Itself Down Because AI Was Finding Bugs Too Fast",
+      "summary": "Non-custodial Bitcoin swap provider Boltz says attackers are finding vulnerabilities faster than its team can fix them, forcing it to suspend swaps indefinitely.",
+      "link": "https://decrypt.co/374933/bitcoin-bridge-shuts-down-ai-finding-bugs-too-fast",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-04T22:46:03+00:00",
+      "published_ts": 1785883563,
+      "smart_groups": [
+        "Vulnerabilities / CVEs",
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "ChainDrop credential stealing worm infects over 400 npm packages",
+      "summary": "A self-propagating worm-like attack is hitting the npm registry, having infected 444 packages from more than a dozen publishers so far. The impact is massive, with the packages affected amounting to more than 2 billion monthly downloads combined. The attack began with the compromise of a GitHub account belonging to Jared Wray, who maintains Keyv, a package with over 150 million weekly downloads that provides an interface for interacting with key-value storage across multiple backends. Version 6.0.0 published at around 9:00 UTC on Tuesday contained a new version of the Shai-Hulud credential stealing malware. The compromised account is also used to maintain a number of other popular packages, including cacheable, flat-cache, file-entry-cache, cacheable-request, cache-manager, ecto, and more. All of these had trojanized versions published as well. Soon after, the attack expanded beyond this account, infecting packages from other organizations on npm \u2014 @deliveroo/reevent, @or-sdk/invitations , @picsart/ai-sdk, @qlik/embed-runtime, picasso.js, to name a few. As of 18:10 UTC, StepSecurity had detected the malicious code across 444 packages and 2,212 versions . \u201cEvery poisoned version carries the same infection pattern: a preinstall dropper that downloads the legitimate Bun JavaScript runtime, and a 710KB obfuscated second stage that steals credentials, publishes more malicious packages, and burrows into AI developer tooling,\u201d researchers from StepSecurity said. Although the code appears to be a new variant of Shai-Hulud \u2014 a supply-chain credential stealing worm that has plagued the npm and PyPI repositories since last year in different variations \u2014 researchers have decided to dub this new attack campaign ChainDrop because this new version uses the Ethereum blockchain for command and control, a technique known as EtherHiding. \u201cThe compromise was carried out by pushing malicious files directly to the main branch and then immediately cutting a new release, meaning the poisoned versions were published to npm with valid provenance signed by GitHub Actions,\u201d researchers from Aikido Security said in a report . Wray confirmed via X that he uses OpenID Connect (OIDC) with npm and one-time codes for GitHub, so he was not using long-term static tokens. The developer regained access to his GitHub account at around 20:00 UTC and said he\u2019s doing a full audit . The malware infects AI code assistants The malicious files added to packages are setup.mjs and Math_Symbol.js \u2014 renamed math_init.js in some cases. These get executed by a preinstall script during the npm installation process of the packages and then proceed to download and execute a secondary obfuscated payload on the computer. The malware searches the local environment for cloud credentials, infrastructure secrets, developer access tokens, AI-related configuration files, and cryptocurrency wallets. It also identifies CI/CD workflows and build runners and tries to scrape their memory for temporary secrets injected during the build process. New to this variant are persistent mechanisms deployed inside code editors such as VS Code via tasks.json and AI code assistants such as Claude Code through hooks. \u201cTargets for credential theft have been expanded by almost 70%, with new additions including AI-agent credential stores for Claude, OpenAI, Codex, Cursor and Gemini; cryptocurrency keystores for Foundry, Solana and Monero; self-hosted CI and registry secrets such as Jenkins\u2019 master.key, Argo CD and Harbor; Alibaba Cloud and Tencent Cloud CLI configurations; and system files including /etc/shadow ,\u201d researchers from security firm Wiz said in their own analysis . Mitigation Unfortunately, enterprise security teams must perform full audits of developer machines. The compromised packages are transient dependencies for thousands of others and if any of the poisoned versions were installed during the attack window, all possible credentials accessible on that machine, or other machines accessible from that machine, need to be rotated. \u201cRotate, at minimum: npm automation tokens, GitHub personal access tokens and SSH keys, cloud provider credentials ( ~/.aws , ~/.config/gcloud , Azure), Kubernetes service accounts, and any secrets in environment variables or .env files present at install time,\u201d the StepSecurity researchers said. \u201cMaintainers of npm packages should treat their publish credentials as exposed. The second wave of this campaign demonstrates exactly why: additional maintainer accounts published the identical payload within the same hour.\u201d The StepSecurity report includes indicators of compromise, a list of infected packages, as well as defense-in-depth recommendations for developer machines and processes that could have stopped this compromise. Using the -\u2014ignore-scripts npm flag in CI workflows, a technique known as script gating, would have ignored the preinstall script that delivers the payload. Package managers like npm, pnpm, Yarn and Bun now support minimum release age policies for package installation. Configuring this setting to between 3 to 7 days buys users some time in case a newly released version turns out to be poisoned. Security companies continuously scan and monitor the npm registry and new supply chain compromises are usually discovered within minutes or hours. In this case the malicious versions began being removed by the npm team within two hours, but being a worm, the attack keeps propagating via newly compromised developer accounts.",
+      "link": "https://www.csoonline.com/article/4205276/chaindrop-credential-stealing-worm-infects-over-400-npm-packages.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-04T22:37:24+00:00",
+      "published_ts": 1785883044,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Cloud / SaaS",
+        "Malware / Payloads",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
       "title": "TP-Link patches Omada ZTP flaws allowing hackers to breach networks",
       "summary": "TP-Link has patched 15 vulnerabilities in the zero-touch provisioning (ZTP) mechanism of its Omada network devices that could be chained with previously disclosed flaws to achieve remote code execution (RCE). [...]",
       "link": "https://www.bleepingcomputer.com/news/security/tp-link-patches-omada-ztp-flaws-allowing-hackers-to-breach-networks/",
@@ -44,6 +121,18 @@
         "Cloud / SaaS"
       ],
       "curated": true
+    },
+    {
+      "title": "AI Enthusiast Bugs His Toddler's Sleepover and Feeds It to Claude\u2014The Internet Bugs Back",
+      "summary": "Nicholas Charriere turned an hour of nonsense into a family website with named tracks. One reply calling him creepy got more likes than his post.",
+      "link": "https://decrypt.co/374930/ai-enthusiast-bugged-toddler-sleepover-claude",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-04T22:16:03+00:00",
+      "published_ts": 1785881763,
+      "smart_groups": [],
+      "curated": false
     },
     {
       "title": "When Attackers Hijack Your Inbox: Detecting Mailbox Forwarding Rules with Microsoft Defender XDR",
@@ -4768,6 +4857,20 @@
         "Ransomware"
       ],
       "curated": true
+    },
+    {
+      "title": "Bitwarden upholds high security standards with annual third-party audits",
+      "summary": "Bitwarden will continue to uphold high cybersecurity standards through annual third-party security audits of the Bitwarden product and service.",
+      "link": "https://bitwarden.com/blog/third-party-security-audit/",
+      "source": "https://bitwarden.com/blog/feed.xml",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-08-04T00:00:00+00:00",
+      "published_ts": 1785801600,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
     },
     {
       "title": "New Pass-ta-key attacks let malware hijack Google-synced passkeys",
@@ -103361,72 +103464,6 @@
       "published_ts": 1783296000,
       "smart_groups": [],
       "curated": false
-    },
-    {
-      "title": "Cyber Security Analyst vs. Insider Threat / DLP Analyst?",
-      "summary": "Hey everyone, I just graduated with my bachelor\u2019s degree in Cyber Security and I\u2019m fortunate enough to have two job offers on the table for entry-level positions (IT-01 tier in the Canadian Federal Government). I am honestly feeling stuck and a bit anxious about making the right choice. I want to make sure I pick the path that offers the best long-term career growth, high future salary potential, and a solid resume bump if I decide to pivot into the private sector later on. Here are the two options: \\*\\*Option 1: Cyber Security Analyst\\*\\* \\*\\*The Work:\\*\\* Actively monitoring security alerts for external threats using SIEM and EDR tools. Analyzing potential incidents, investigating suspicious activities, participating in incident response, doing threat hunting when needed, and improving detection mechanisms. \\*\\*Option 2: Insider Threat / DLP Analyst\\*\\* \\*\\*The Work:\\*\\* Working within the internal fraud management solutions team. Focusing on technical data loss prevention (DLP) and insider risk management. Monitoring user activities through logs, analyzing DLP alerts, investigating anomalous behavior or potential internal data exfiltration, and improving security controls to protect highly sensitive citizen data. On one hand, the \\*\\*Cyber Security Analyst\\*\\* role feels like the traditional \"golden path\" for a new grad. It builds broad, universal technical skills, but I am worried about junior-level market saturation and future burnout. On the other hand, the \\*\\*Insider Threat / DLP Analyst\\*\\* role skips the entry-level SOC grind and moves straight into a specialized domain. However, I\u2019m terrified that this might be too niche, or that it might pigeonhole me away from general cyber. If I take this job and decide I don't like it after 6 months, will I struggle to pivot back to traditional external cyber defense? Looking at the long-term horizon (career progression, salary ceiling, AI automation impact, and work-life balance), which path would you recommend for a fresh graduate? Is Insider Threat/DLP experience highly transferable in today's global private market (banks, tech, enterprise)? Thanks a lot for your insights! submitted by /u/Gullible-Ad-457 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uoh4vs/cyber_security_analyst_vs_insider_threat_dlp/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-05T23:38:52+00:00",
-      "published_ts": 1783294732,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Dubai tops Asian crypto hubs, Taiwan passes crypto laws: Asia Express",
-      "summary": "Japan's SBI Crypto shuts down 12th largest Bitcoin mining pool in the world, Russia gears up to launch digital ruble despite EU sanctions, and more: Asia Express.",
-      "link": "https://cointelegraph.com/features/asia-express?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-07-05T23:35:03+00:00",
-      "published_ts": 1783294503,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Hello there, i need some help with the idea im having.",
-      "summary": "Hello there, thank you for helping me, if anyone can i think this subreddit can. Currently i work on a project {nothing real, just a personal project}. My goal in this project is to have the information i need without the real information. I want this document to be converted into a token, id etc. but i want it to be recognized if another same document is presented, a token that can be stored but not reversed even with the seed of the original. but if the original is presented can communicate since the token generated the same token from the original document. for example i want a method so that an id can be converted into a non reversible string of code or tokens, but if for example another use tries to use the same document would be the same token behind the curtain and flag it as in already in use. the main problem for this is that the original document is not needed to be stored on servers only the token. So my main question is something like this possible? I have an idea for the use of this and kind off stuck because i don't have any experience in this field. submitted by /u/Tight-Sample8588 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uogmk8/hello_there_i_need_some_help_with_the_idea_im/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-05T23:16:21+00:00",
-      "published_ts": 1783293381,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Cybersecurity awards?",
-      "summary": "Really interested to hear people's experience on the multiple cybersecurity awards. I came across a post this weekend, referring cybersecurity woman of the year and of the world, backed by United Cybersecurity alliance. I noticed that the winners were mostly based in Europe, and people selling products. Is that typical? Is UCA reputable?Have a great weekend! submitted by /u/Suspicious-Drink9725 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uogh1v/cybersecurity_awards/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-05T23:09:47+00:00",
-      "published_ts": 1783292987,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "New ClamAV security patch closes seven scanner bugs dating back two decades",
-      "summary": "Open source antivirus scanning sits inside mail gateways, file upload checks, and endpoint tooling at organizations of every size. Much of that work runs through ClamAV, the scanning engine maintained by Cisco\u2019s Talos group. The project released two patch versions, 1.5.3 and 1.4.5, carrying fixes for seven security flaws along with smaller hardening changes. Packer and PE parsing flaws Most of the patched bugs sit in the code that unpacks and parses executable formats, the \u2026 More \u2192 The post New ClamAV security patch closes seven scanner bugs dating back two decades appeared first on Help Net Security .",
-      "link": "https://www.helpnetsecurity.com/2026/07/06/clamav-security-patch-versions/",
-      "source": "Help Net Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-05T22:30:13+00:00",
-      "published_ts": 1783290613,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": true
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
