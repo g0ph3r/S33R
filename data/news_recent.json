@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-08-07T17:19:42.165405+00:00",
+  "generated_at": "2026-08-07T18:08:10.278224+00:00",
   "days_back": 30,
-  "total_items": 7485,
+  "total_items": 7480,
   "items": [
     {
       "title": "GISEC GLOBAL",
@@ -30,6 +30,173 @@
       "curated": false
     },
     {
+      "title": "Came from bank fraud, now building AI detection tooling, where do you actually trust an LLM in the SOC?",
+      "summary": "Background so it's not a random question: about 3 years leading fraud detection at a bank, doing the detection and triage myself through a stack of real incidents, and I've since moved into building the tooling instead of just running it. My working rule so far is that the LLM is a tool and a human still owns the output. So I build with a human in the loop as the final authority, put a harness and security controls around the model instead of trusting it raw, test it against expert judgment, and random-sample the outputs to actually check accuracy rather than assume it. If a human reviews it, a human is responsible for it. If nobody reviews it, it shouldn't be deciding anything. Where I go back and forth is how far into the pipeline you let it reach. Triage and summarising for a human, fine. Enrichment and correlation, maybe. Writing detection logic, or anything that decides on its own, is where I get nervous, because a confidently wrong alert is worse than no alert. For those doing real SOC work: where has AI genuinely earned its place, and where did it quietly cost you? And how do you validate it, if at all? Trying to calibrate against how people actually run this, not the vendor pitch. submitted by /u/Old-Shoe-1029 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1vi7sq6/came_from_bank_fraud_now_building_ai_detection/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-08-07T17:57:23+00:00",
+      "published_ts": 1786125443,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "This 6-port USB-C charger replaced my ugly power brick - and powers my entire desk",
+      "summary": "The Satechi ChargeView 240W desktop charger ticks all the right boxes for this charging geek.",
+      "link": "https://www.zdnet.com/article/satechi-chargeview-240w-desktop-charger-review/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-07T17:55:36+00:00",
+      "published_ts": 1786125336,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "I was loyal to T-Mobile for 10 years, but switching to Mint slashed my bill - by a lot",
+      "summary": "The inconsistent service, shady upcharges, and uptick in better-valued competitors made the choice easy.",
+      "link": "https://www.zdnet.com/article/i-was-loyal-to-t-mobile-for-years-but-switching-to-mint-slashed-my-bill/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-07T17:48:39+00:00",
+      "published_ts": 1786124919,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Trojanized AI skills gain 1.7M installs in agent-targeted attack",
+      "summary": "Researchers have uncovered an extremely effective attack campaign that involved AI agent skills trojanized to deploy a credential stealer. The incident is part of a growing trend in which attackers are targeting the AI software supply chain by poisoning sharable instruction and configuration files for agentic tools. Discovered by researchers from security firm Zenity, the attack began on July 11 when the malicious skills were uploaded to open agent skills ecosystem skills.sh with names that typosquatted on popular AI-related services Paperclip and Browser Use. By Aug. 2, the skills had amassed over 1.7 million combined downloads. The trojanized skills were crafted to instruct AI agents to download and install a credential stealer payload from GitHub directly, after an earlier attempt to use malicious npm and PyPI packages was thwarted. \u201cThe collection logic was aimed at developer workstations, CI runners and agent workspaces: SSH keys, cloud credentials, Git and package-manager tokens, Kubernetes and Docker configuration, deployment platforms, databases, infrastructure-as-code tooling and project .env files,\u201d the Zenity researchers wrote in their report , which was also part of their presentation at the Black Hat USA 2026 conference this week. The skills bait and switch Hackers laid the ground for the attack in early July when they created two organizations on GitHub called getpaperclipai and browser-use-headless. These impersonated the legitimate paperclipai and browser-use organizations that maintain the Paperclip AI agent orchestration platform and Browser Use browser automation service for AI agents. The attackers then populated those repositories with code and uploaded multiple skills related to these tools to skills.sh, which operates as a marketplace for automatic AI agents skills discovery and is maintained by Vercel. Skills are essentially text files with instructions, but also code examples, that tell LLMs how to perform certain tasks or use specific tools or services. Most agentic tools and AI code assistants support skills. To pass any skills.sh marketplace checks, the attackers initially uploaded verbatim copies of the official skills provided by Paperclip and Browser Use. Only later, on July 11, they updated the skills with malicious instructions. In preparation for the attack, the threat actor uploaded trojanized paperclip-ai and browser-use-headless packages to npm and PyPI respectively, likely with the intention to point the updated installation instructions to them. However, both registries flagged the rogue packages as malicious within hours and removed them. The attackers then pivoted to a different approach: They updated the skills to instruct AI agents to install the trojanized packages directly from their repositories. For example, one skill called paperclip-board read: \u201cIf Paperclip is not installed or the server is not running yet, read skills/paperclip/references/setup-installation.md first. Clone the repo and run with pnmp dev \u2014 do not use npx paperclipai . This skill starts after the server is healthy and covers company creation, CEO hire, and board operations.\u201d The Paperclip AI agent orchestration platform mimics a company structure where managed AI agents are the workers, complete with org charts, budgets, governance, goal alignments, and so on. The platform supports multiple types of agents, including OpenClaw, Claude Code, OpenAI Codex, and Cursor, and provides different skills for those tools to be able to interact with the various features of the Paperclip system. As such, the attacker uploaded multiple Paperclip-related skills, but because many of those skills reference each other and trigger cascade installations, it\u2019s hard to say how many unique victims there were. However, each individual skill had around 300K installs, enough to land a spot for some time on the skills.sh trending list. Progressive skills discovery makes detection harder Skills are not always single files. They can also be collections of files, each covering separate operations or features of a tool or system that the AI agent seeks to interact with. In many cases the main skill file acts as a table of contents, directing the agent where they should read instructions for a particular task. This is known as progressive discovery, and it is a very important technique for keeping unneeded information out of LLMs\u2019 limited context windows. For AI conversations to be efficient and accurate, loading huge skill files is not recommended. \u201cThe main skill files described legitimate tasks,\u201d the researchers wrote in their report. \u201cThe malicious command sat in setup-installation.md , a secondary document the agent was told to open only when Paperclip needed to be installed or started.\u201d The skills also instructed agents that the attacker-controlled GitHub release was the only source of authority and not to try to find a package on npm, because otherwise it could locate the genuine packages and attempt to install those rather than the malicious ones, which were no longer hosted there. As a result of their training, LLMs have built-in knowledge about how to find many tools and how to use them. Skills provide a way to override that knowledge and force them into a particular way of doing things that is preferred by the user. Security experts warn that AI agent configuration files, including skills and MCP definitions, need to be constantly monitored and any proposed changes need to be reviewed and approved. Automating this process is hard because skills and other configuration files contain natural language instructions, not code snippets, so determining whether instructions are malicious or not by using static detection tools is prone to misclassification. The Zenity researchers built and launched a free service called AI Total that borrows the concept of malware detonation and applies it to skills. The service downloads the skill and activates it inside a live agent that runs inside a sandbox, then monitors its behavior. The sandbox has decoy credentials and sensitive files, as well as full network monitoring and logging to observe what domains the agent reaches, what packages it downloads, what files it touches, and what other actions it takes after enabling the skill.",
+      "link": "https://www.csoonline.com/article/4206851/trojanized-ai-skills-gain-1-7m-installs-in-agent-targeted-attack.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-07T17:45:11+00:00",
+      "published_ts": 1786124711,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Cloud / SaaS",
+        "Malware / Payloads",
+        "Network / OT / ICS",
+        "Crypto / Web3",
+        "Supply Chain / Software"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Circle expands USDC to OKX ecosystem with X Layer launch",
+      "summary": "The rollout gives X Layer users access to Circle-issued USDC and crosschain transfers as the stablecoin expands across major blockchain ecosystems.",
+      "link": "https://cointelegraph.com/news/circle-native-usdc-okx-x-layer-cctp?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-07T17:36:45+00:00",
+      "published_ts": 1786124205,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "XRP at a Crossroads as Senate Punts on Clarity Act",
+      "summary": "XRP is taking the Clarity Act news harder than the rest of the crypto market. Here's why.",
+      "link": "https://decrypt.co/375136/xrp-price-crossroads-senate-punts-clarity-act",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-07T17:36:41+00:00",
+      "published_ts": 1786124201,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Researchers bypass Spectre v2 mitigations",
+      "summary": "The attack exploits a time-of-neutralization to time-of-use (TONTOU) window in Spectre v2 defenses, where a gap exists between when the branch predictor is isolated and when it is used.",
+      "link": "https://www.scworld.com/brief/researchers-bypass-spectre-v2-mitigations-leak-data-from-linux-machines",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-07T17:20:57+00:00",
+      "published_ts": 1786123257,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Zbtlink denies backdoor claims amid firmware download pause",
+      "summary": "VulnCheck CTO Jacob Baines claims that Zbtlink routers are intentionally designed to communicate with command and control servers, a feature he calls a \"phone-home trojan horse.\"",
+      "link": "https://www.scworld.com/brief/zbtlink-denies-backdoor-claims-amid-firmware-download-pause",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-07T17:16:22+00:00",
+      "published_ts": 1786122982,
+      "smart_groups": [
+        "Curated",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Walmart faces lawsuit over alleged secret voiceprint collection in Illinois",
+      "summary": "The lawsuit, filed in the U.S. District Court for the Northern District of Illinois, claims Walmart records calls to its stores, extracts vocal characteristics, and creates mathematical templates to identify callers.",
+      "link": "https://www.scworld.com/brief/walmart-faces-lawsuit-over-alleged-secret-voiceprint-collection-in-illinois",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-07T17:13:23+00:00",
+      "published_ts": 1786122803,
+      "smart_groups": [
+        "Cloud / SaaS",
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Progress security advisory (AV26-552) \u2013 Update 2",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/progress-security-advisory-av26-552",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-07T17:12:30+00:00",
+      "published_ts": 1786122750,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "AI coding tools vulnerable to malicious GitHub issues",
+      "summary": "Novee Security researchers discovered flaws in Anthropic's Claude Code, Google's Gemini CLI, and OpenAI's Codex.",
+      "link": "https://www.scworld.com/brief/ai-coding-tools-vulnerable-to-malicious-github-issues",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-07T17:10:59+00:00",
+      "published_ts": 1786122659,
+      "smart_groups": [
+        "Cloud / SaaS",
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Samsung Galaxy Watch 9 review: Health data overload, but built for the future",
+      "summary": "Samsung's latest smartwatch introduces new metrics, a longer-lasting battery, and hints at the future of wearables.",
+      "link": "https://www.zdnet.com/article/samsung-galaxy-watch-9-review/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-07T17:10:00+00:00",
+      "published_ts": 1786122600,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
       "title": "Two months into my first SOC job and I can\u2019t switch off from stress",
       "summary": "I started my first SOC Analyst job about 6 weeks ago, and mentally it\u2019s getting really bad. I\u2019m anxious about work almost all day. Even when my shift is over, I keep checking my work email and looking at my laptop every few minutes, worried that something happened or that I missed something. I worked on-site for my first three weeks and have been remote for the past five weeks, and during those five weeks my mind has been constantly stuck on work\u2014thinking about whether I\u2019m writing tickets correctly, doing sweeps properly, and worrying that I\u2019m not doing things the right way. On my days off, I still think about work, upcoming shifts, and whether I\u2019ll get an alert or task that I don\u2019t know how to handle. I feel like I\u2019m never actually off work anymore. It\u2019s starting to affect my life outside of work. I can\u2019t relax or enjoy my time because mentally I\u2019m always at work. What should i do to enjoy life again ? submitted by /u/Few-Objective4723 [link] [comments]",
       "link": "https://www.reddit.com/r/cybersecurity/comments/1vi6hfv/two_months_into_my_first_soc_job_and_i_cant/",
@@ -40,6 +207,61 @@
       "published_ts": 1786122528,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "Crypto thieves increasingly using physical attacks for virtual currency theft",
+      "summary": "A Chainalysis report highlights a concerning trend of \"wrench attacks\" targeting cryptocurrency holders, leading to significant financial losses.",
+      "link": "https://www.scworld.com/brief/crypto-thieves-increasingly-using-physical-attacks-for-virtual-currency-theft",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-07T17:07:27+00:00",
+      "published_ts": 1786122447,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "OpenAI disrupts major ChatGPT-driven scam campaign in Cambodia",
+      "summary": "The criminals leveraged ChatGPT for various fraudulent activities, including romance scams, fake investment schemes, bogus police impersonations, and potentially operations linked to human trafficking.",
+      "link": "https://www.scworld.com/brief/openai-disrupts-major-scam-campaign-in-cambodia-using-chatgpt",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-07T17:04:17+00:00",
+      "published_ts": 1786122257,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Reform UK chair calls for probe into SBF-linked donation: Report",
+      "summary": "As the chairman of the Reform UK calls for an investigation into a FTX-linked political donation, the party\u2019s leader prepares to face voters amid his own crypto-related scandal.",
+      "link": "https://cointelegraph.com/news/reform-uk-probe-ftx-sam-bankman-fried-donation?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-07T17:03:50+00:00",
+      "published_ts": 1786122230,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Zero-code, low-cost data ingestion: New BigQuery DTS capabilities",
+      "summary": "In a fast-paced digital economy, data is your most critical engine. Yet, many enterprises find themselves trapped in a costly paradox, spending over 100 hours a week building and fixing fragile, in-house ETL pipelines or wrestling with unpredictable third-party tools. Trusted by thousands of customers every single day , BigQuery Data Transfer Service (DTS) eliminates this engineering burden. As a fully managed, zero-code data movement solution, BigQuery DTS automates data ingestion into BigQuery allowing your teams to transition from pipeline maintenance to strategic data science in minutes. Expanding the ecosystem: New connectors and capabilities We are rapidly expanding our integration landscape to eliminate data silos across databases, ads and marketing platforms. Here are the latest additions and enhancements Open Lakehouse ingestion Direct ingestion into Apache Iceberg managed tables (Preview) : You can now ingest data from common sources such as Google Cloud Storage, Amazon S3, and Azure Blob Storage directly into Iceberg managed tables. This enables you to maintain full multi-cloud storage cross-compatibility with other query engines while leveraging BigQuery's top-tier performance tuning. Next-gen agentic architecture Fully managed remote Model Context Protocol (MCP) Server (Preview) : This allows your developers to connect their AI application and agents to DTS allowing them to programmatically discover data sources and configure/execute transfers on the user's behalf. Enterprise and relational databases (supports both full or incremental transfers) Microsoft SQL Server (Preview) : Easily centralize transactional tables, schemas, and operational data directly into your analytical environment in BigQuery. PostgreSQL(GA) and MySQL (GA) : Automates data delivery and simplifies the replication of high-volume web and application workloads into your central data warehouse within minutes. Supports data replication from on-premise environments, CloudSQL, and other clouds. E-commerce and growth marketing Shopify(Preview) : Automates the extraction of granular order histories, inventory logs, and customer profiles straight into your analytical schema. Klaviyo(Preview) : Extracts detailed email and SMS engagement logs (such as clicks, sends, and opens) to build precise multi-channel lifecycle attributes. HubSpot(Preview ) : Syncs pipeline, contact tracking, and inbound marketing metrics to keep your revenue operations teams aligned. Mailchimp(Preview): Automatically moves campaign performances and audience list attributes directly into your data warehouse. Migration connectors Snowflake(GA) : Migrate your data from Snowflake with features like incremental transfer, auto schema detection, private connectivity and support for migrating data residing on all three major clouds (Google Cloud, AWS, and Azure) Enhancement to major connectors ServiceNow , Salesforce , and Oracle : Enhanced with native incremental update support to speed up large-scale pipeline refreshes for enterprise CRM, ITSM, and financial workflows. Why you should choose BigQuery Data Transfer Service Moving data across an enterprise architecture shouldn't require complex compromises between cost, management overhead, and pipeline health. BigQuery DTS delivers unique advantages across three pillars: 1. Unbeatable cost efficiency Zero Ingestion Costs for major sources: Data ingestion at no-charge for all first-party Google sources (except Google Play), including Google Ads, Google Analytics 4, Campaign Manager, YouTube and Google Cloud Storage. Ingestion cost are also free for Amazon S3, Azure Blob Storage, Amazon Redshift, and Teradata Low consumption-based rates for third-party SaaS: Ingestion from 3rd-party sources are entirely on a flexible consumption model. Compute fees run less than 6 cents per slot-hour in major regions. Because pricing scales with compute footprint rather than row volume, depending on your source data compression format and available network bandwidth, you can efficiently transfer massive data volumes. 2. Frictionless security and native management Eliminate middlemen servers and external security and API configurations. BigQuery DTS fully integrates with Cloud IAM. Data transfers instantly inherit your destination dataset\u2019s Column-Level Security, Row-Level Security, and Customer-Managed Encryption Keys (CMEK) without extra configuration overhead. Your streams flow securely inside the native Google Cloud perimeter. 3. Industry-leading performance and resilience When you manage data at enterprise scale, downtime means lost business. BigQuery DTS provides a highly resilient ingestion footprint backed by a strict Google Cloud Service Level Agreement (SLA). The system delivers a monthly uptime percentage of >=99.99%, guaranteeing your analytics, automated pipelines, and operational dashboards update reliably. Ready to transform your data operations? Stop letting manual ingestion scripts limit your growth. Join the thousands of companies relying on Google's native cloud lakehouse data movement architecture to build a modern, scalable data stack. Try the platform out today: Navigate directly to the BigQuery Data Transfer Service console , pick your connector, and deploy your first automated transfer in just a few clicks! What connectors should we build next? We are constantly expanding our native integration library based on your business needs. What sources are you currently forced to extract manually? Are there specific relational databases, NoSQL engines, or regional SaaS platforms you need to replicate next? Let us know with a feature request. Please file feature requests via the public issue tracker .",
+      "link": "https://cloud.google.com/blog/products/data-analytics/new-bigquery-data-transfer-service-capabilities/",
+      "source": "Google Cloud Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-08-07T17:00:00+00:00",
+      "published_ts": 1786122000,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS",
+        "Network / OT / ICS"
+      ],
+      "curated": true
     },
     {
       "title": "China reviews Palo Alto Networks products, citing security concerns",
@@ -103955,289 +104177,6 @@
       "published": "2026-07-08T17:42:01+00:00",
       "published_ts": 1783532521,
       "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "FortiBleed: Credential Reuse, Legacy Hashes, and the Risk of Internet-Exposed FortiGate\u00a0Devices",
-      "summary": "Key Takeaways FortiBleed refers to June 2026 public reporting of large-scale credential exposure and abuse targeting internet-reachable FortiGate management and SSL-VPN gateways driven by credential reuse and brute-force, not a single new zero-day. Risk is highest for internet-exposed FortiGate devices without MFA, with reused or legacy-hashed credentials, or prior exposure to known-exploited Fortinet CVEs. A [\u2026]",
-      "link": "https://blog.qualys.com/vulnerabilities-threat-research/2026/07/08/fortibleed-fortigate-credential-reuse-internet-exposed",
-      "source": "Qualys Security Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-07-08T17:38:12+00:00",
-      "published_ts": 1783532292,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Identity / Access"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Fake Indian ITR Notice Delivers Dual RAT Malware Through Six-Stage Infection Chain",
-      "summary": "A new malware campaign is using fake Indian tax notices to trick users into installing not one, but two separate remote access trojans on their computers. The attack disguises itself as an official Income Tax Department communication, playing on the fear of penalties to push victims toward a malicious download. Once triggered, the infection unfolds [\u2026] The post Fake Indian ITR Notice Delivers Dual RAT Malware Through Six-Stage Infection Chain appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/fake-indian-itr-notice-delivers-dual-rat-malware/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-08T17:37:35+00:00",
-      "published_ts": 1783532255,
-      "smart_groups": [
-        "Curated",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "The CNCF Data Storage in Cloud Native AI White Paper",
-      "summary": "Deploying Artificial Intelligence (AI) and Machine Learning (ML) workloads at scale has become a primary objective for modern enterprises. However, moving these data-heavy, stateful workloads into cloud native infrastructure introduces massive data bottlenecks. To help organizations...",
-      "link": "https://www.cncf.io/report-whitepaper/2026/07/08/the-cncf-data-storage-in-cloud-native-ai-white-paper/",
-      "source": "https://www.cncf.io/feed/",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-08T17:35:54+00:00",
-      "published_ts": 1783532154,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Palo Alto Networks security advisory (AV26-674)",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/palo-alto-networks-security-advisory-av26-674",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-08T17:34:16+00:00",
-      "published_ts": 1783532056,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Adam Back\u2019s Bitcoin treasury company seeks new terms with Cantor for SPAC merger",
-      "summary": "The Bitcoin Standard Treasury Company and Cantor Equity Partners I announced that they were looking into amending the terms of a 2025 merger deal that \u201cbetter reflected market conditions.\u201d",
-      "link": "https://cointelegraph.com/news/adam-back-bitcoin-treasury-company-terms-spac?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-07-08T17:31:36+00:00",
-      "published_ts": 1783531896,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "IBM and Red Hat launch Lightwell to defend open-source code from AI attacks",
-      "summary": "Their plan to protect open-source projects from AI-discovered security holes has led to the launch of two commercial offerings: Lightwell Network and Lightwell Clearinghouse Premier.",
-      "link": "https://www.zdnet.com/article/ibm-and-red-hat-have-moved-project-lightwell-from-vision-to-product/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-08T17:26:26+00:00",
-      "published_ts": 1783531586,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Linux / Unix"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Stablecoin-settled TradFi perpetual trading tops $1.1T: Binance Research",
-      "summary": "A new Binance Research report said stablecoins are fast becoming a preferred settlement layer for tokenized TradFi markets while gaining traction in payments and savings.",
-      "link": "https://cointelegraph.com/news/tradfi-perpetual-trading-surpasses-11t-in-2026-binance-research-says?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-07-08T17:23:19+00:00",
-      "published_ts": 1783531399,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Inside an AI coal mine security camera network powered by plaintext passwords",
-      "summary": "submitted by /u/EatonZ [link] [comments]",
-      "link": "https://www.reddit.com/r/netsec/comments/1uqz7se/inside_an_ai_coal_mine_security_camera_network/",
-      "source": "/r/netsec",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-08T17:20:10+00:00",
-      "published_ts": 1783531210,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Bank of England governor denies Farage lobbying swayed CBDC policy: Report",
-      "summary": "Andrew Bailey reportedly said Bank of England policy remained independent after a meeting with Nigel Farage that included discussions on cryptocurrency.",
-      "link": "https://cointelegraph.com/news/bank-of-england-governor-denies-farage-lobbying-swayed-cbdc-policy-report?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-07-08T17:11:05+00:00",
-      "published_ts": 1783530665,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Inside an AI coal mine security camera network powered by plaintext passwords",
-      "summary": "Coal India\u2019s intelligent CCTV platform developed by DeepSight AI Labs and Accenture had plaintext passwords and no API authentication.",
-      "link": "https://eaton-works.com/2026/07/08/coal-india-camera-hack/",
-      "source": "https://eaton-works.com/feed.atom",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-08T17:07:38+00:00",
-      "published_ts": 1783530458,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "AI Coding Agents Found Triggering Endpoint Security Rules Built to Catch Attackers",
-      "summary": "Sophos looked at a week of its own endpoint data and found that AI coding agents such as Claude Code, Cursor, and OpenAI Codex are setting off detection rules written to catch human intruders. The agents are not malicious. They just do a lot of things that, to a behavioral engine, look exactly like an attack. Decrypting browser credentials, listing what sits in Windows' credential store,",
-      "link": "https://thehackernews.com/2026/07/ai-coding-agents-found-triggering.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-08T17:02:12+00:00",
-      "published_ts": 1783530132,
-      "smart_groups": [
-        "Windows / Microsoft",
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Protecting Microsoft\u00a0at AI speed:\u00a0How SFI\u00a0proactively hardens\u00a0our cloud",
-      "summary": "At Microsoft we encompass these security requirements, along with threat knowledge, and operational frameworks in our Secure Future Initiative (SFI), to guide what a well-defended cloud service looks like. But defining the requirements is only the start. Meeting the requirements means continuously evaluating our live services against them, at AI speed. The post Protecting Microsoft at AI speed: How SFI proactively hardens our cloud appeared first on Microsoft Security Blog .",
-      "link": "https://www.microsoft.com/en-us/security/blog/2026/07/08/protecting-microsoft-at-ai-speed-how-sfi-proactively-hardens-our-cloud/",
-      "source": "Microsoft Security Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-07-08T17:00:00+00:00",
-      "published_ts": 1783530000,
-      "smart_groups": [
-        "Ransomware",
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Lucky Trader Turns $85 Into $2 Million on Robinhood Chain Meme Coin",
-      "summary": "The meme coin CashCat on Robinhood Chain is the latest flavor of the hour, and one trader has turned a mini-investment into a small fortune in less than three weeks.",
-      "link": "https://decrypt.co/373052/lucky-trader-robinhood-chain-meme-coin-cashcat",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-07-08T16:59:23+00:00",
-      "published_ts": 1783529963,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "DuckDuckGo Browser Blocks YouTube Ads by Default Using Community Filter Lists",
-      "summary": "DuckDuckGo has rolled out native YouTube ad blocking across its browser applications, automatically stripping pre-roll and mid-roll video ads without requiring users to install third-party extensions. The feature works across YouTube and other video platforms, marking a significant shift in how the privacy-focused browser handles in-video advertising. Last year, DuckDuckGo significantly upgraded its Scam Blocker [\u2026] The post DuckDuckGo Browser Blocks YouTube Ads by Default Using Community Filter Lists appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/duckduckgo-browser-blocks-youtube-ads/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-08T16:58:10+00:00",
-      "published_ts": 1783529890,
-      "smart_groups": [
-        "Ransomware",
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Fake Job Offers Impersonate Netflix, OpenAI, and FIFA to Steal Google Credentials",
-      "summary": "A fake recruitment phishing campaign impersonates major brands and uses trusted HR platforms to steal Google account credentials. The post Fake Job Offers Impersonate Netflix, OpenAI, and FIFA to Steal Google Credentials appeared first on TechRepublic .",
-      "link": "https://www.techrepublic.com/article/news-fake-recruitment-phishing-google-credentials-2026/",
-      "source": "TechRepublic \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-08T16:55:07+00:00",
-      "published_ts": 1783529707,
-      "smart_groups": [
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Taiwan charges two businessmen over alleged role in Chinese espionage campaign",
-      "summary": "A company based in Taiwan was leasing out accounts on the popular LINE messaging app to Chinese spies, according to prosecutors, who charged two men in the alleged scheme.",
-      "link": "https://therecord.media/taiwan-charges-businessmen-china-cyber-espionage-campaign",
-      "source": "The Record",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-08T16:55:00+00:00",
-      "published_ts": 1783529700,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Meta Glasses",
-      "summary": "Does your org have any special considerations for glasses that function as recording devices? Mine does not and the only reason that I thought about it is because a member of our cyber team wears them (while sitting in meetings all day long). I think it\u2019s a tricky topic to approach because they come in prescription frames, so there\u2019s an argument for medical necessity and trying to prohibit people from using eyewear sounds like it would make legal afraid submitted by /u/yobo9193 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uqygk9/meta_glasses/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-08T16:54:23+00:00",
-      "published_ts": 1783529663,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Key Capabilities That Define Effective Insider Threat Detection Solutions",
-      "summary": "Learn the key capabilities for effective insider threat detection, including deep visibility, UEBA, deception, and faster response in 2026. The post Key Capabilities That Define Effective Insider Threat Detection Solutions appeared first on Fidelis Security .",
-      "link": "https://fidelissecurity.com/threatgeek/threat-detection-response/insider-threat-detection-solutions-key-capabilities/",
-      "source": "Fidelis Security",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-07-08T16:51:52+00:00",
-      "published_ts": 1783529512,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Sony's True RGB display made this one of the most impressive TVs I've tested",
-      "summary": "Outfitted with Sony's new Micro RGB panels, the Bravia 9 II is well on its way to usurping its OLED cousin's supremacy.",
-      "link": "https://www.zdnet.com/article/sony-bravia-9-ii-review/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-08T16:49:00+00:00",
-      "published_ts": 1783529340,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Entra passkey enrollment vishing targets Microsoft 365 users",
-      "summary": "A threat actor has been targeting organizations across multiple sectors with voice-based fake security requests that ask Microsoft 365 users to enroll a new Entra passkey. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/entra-passkey-enrollment-vishing-targets-microsoft-365-users/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-08T16:47:25+00:00",
-      "published_ts": 1783529245,
-      "smart_groups": [
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Vidar Infostealer Hammers SMBs via Malvertising Campaign",
-      "summary": "A financially motivated operation uses lures of cracked or pirated software to deliver a malware two-for-one combo for data theft and cryptomining.",
-      "link": "https://www.darkreading.com/cyberattacks-data-breaches/vidar-infostealer-smb-malvertising-campaign",
-      "source": "darkreading",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-08T16:45:54+00:00",
-      "published_ts": 1783529154,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
       "curated": false
     },
     {
