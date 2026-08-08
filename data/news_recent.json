@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-08-07T23:09:51.797299+00:00",
+  "generated_at": "2026-08-08T00:00:17.873652+00:00",
   "days_back": 30,
-  "total_items": 7464,
+  "total_items": 7457,
   "items": [
     {
       "title": "GISEC GLOBAL",
@@ -27,6 +27,30 @@
       "smart_groups": [
         "Vulnerabilities / CVEs"
       ],
+      "curated": false
+    },
+    {
+      "title": "OpenAI pledges to add Astra security as Anthropic loosens Fable's leash",
+      "summary": "Or how I learned to stop worrying and love dangerous AI",
+      "link": "https://www.theregister.com/ai-and-ml/2026/08/08/openai-pledges-to-add-astra-security-as-anthropic-loosens-fables-leash/5285161",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-07T23:41:07+00:00",
+      "published_ts": 1786146067,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "New AI for SOC L1? ChatGPT keeps doing the opposite of what I ask",
+      "summary": "I\u2019m looking for a new AI while studying SOC L1 because ChatGPT keeps doing the opposite of what I ask. The problem is not that it makes a small mistake. It often behaves as if it is a senior SOC analyst trying to solve the incident as fast as possible instead of teaching a beginner. Examples of the nonsense I keep seeing: I ask for a step-by-step SOC L1 analysis, it jumps directly to the final answer. I ask \u201cwhere should I look first?\u201d, it gives a complete incident response workflow. I ask it to use only the data visible in the screenshot/log, it adds fields, assumptions, domains, users, or telemetry that are not even on the screen. I ask it not to guess, it still fills in the blanks confidently. I ask it to stay within TryHackMe SOC L1 material, it starts talking about advanced detections and enterprise workflows. Honestly, this is dangerous for a beginner because the answer sounds professional even when parts of it are invented. I even tried very strict prompts such as: \u201cUse only the visible data.\u201d \u201cDo not guess.\u201d \u201cIf you are not sure, say \u2018I don\u2019t know\u2019.\u201d \u201cStop after the first analysis step.\u201d \u201cTeach me like a SOC L1 analyst.\u201d \u2026but the behavior barely changed. So I\u2019m asking people who actually study or work in a SOC: What AI would you use instead of ChatGPT for SOC L1 learning? Claude, Gemini, Copilot, something else? Do you have a prompt or tactic that genuinely prevents the model from hallucinating and jumping to expert-level answers? I\u2019m not looking for the fastest answer; I\u2019m looking for an AI that helps me build the analyst mindset. submitted by /u/xBadKarma [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1vigac4/new_ai_for_soc_l1_chatgpt_keeps_doing_the/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-08-07T23:33:24+00:00",
+      "published_ts": 1786145604,
+      "smart_groups": [],
       "curated": false
     },
     {
@@ -505,6 +529,25 @@
         "Crypto / Web3"
       ],
       "curated": false
+    },
+    {
+      "title": "MCP safety & evaluation with the Agent 365 CLI & Agent Governance Toolkit",
+      "summary": "Co Author: JiteshThakur\u200b AI agents are useful because they can act. They call tools, query databases, send messages, and hand work to other agents. That same freedom creates a problem: access control can tell you which service an agent may reach, but it does not always tell you whether a particular action is sensible, safe, or permitted. MCP is how most agents now act. Two Control Points: This post examines two control points that address different parts of the MCP lifecycle. Agent 365 CLI evaluates the MCP server before an agent uses it. Agent Governance Toolkit (AGT) governs sensitive tool calls while the agent runs. One improves what the agent sees. The other governs what the agent does. The Agent 365 CLI is a cross-platform command-line tool for Agent 365 applications on Azure. Its evaluation command examines MCP tool definitions and scores their quality. AGT evaluates actions against policy and records each decision. Together, these tools support a practical model: evaluate the server first, then provide proper scaffolding for the developer to test this in a dry run. Agent 365 CLI: Score an MCP server from the command line: The Agent 365 CLI can evaluate an MCP server against research-based practices for production readiness. The result is more useful than a simple pass or fail. The evaluation gives you: A score for each tool name, description, and parameter schema; A prioritized list of improvements; An overall maturity score for the server; and Local output that you can use early in development. This report turns a vague question, \"Is this MCP server ready?\", into a concrete list of work. The evaluate command a365 develop-mcp evaluate --server-url [--auth-token ] [options] The command reads the tool schemas from the server. It then produces guidance for names, descriptions, parameters, and schema structure. A local coding-agent CLI scores the semantic checks. You can use GitHub Copilot CLI or Claude Code under your account and AI subscription. The command does not send tool-schema data to Microsoft. Prerequisites: Install the following software: Agent 365 CLI ; Node.js 18 or later for GitHub Copilot CLI; and A supported coding-agent CLI for semantic scoring. For example, install GitHub Copilot CLI with this command: powershell npm install -g @github/copilot This bring-your-own-LLM model keeps the scoring step in your local development environment. It is useful when model calls must remain inside an approved deployment. How the evaluation works The command runs a five-step pipeline and logs progress as it goes. Fig 1: MCP Evaluation using Agent 365 Cli Connect to the MCP server and collect its tool schemas. Generate an evaluation checklist in the output directory. Score the semantic checks with the selected coding agent. Calculate the maturity level and action priorities. Write the JSON and HTML reports. The evaluation contains two types of checks: Deterministic checks use exact rules in the CLI. For example, a tool name cannot be empty. Semantic checks use a coding agent to score clarity and meaning. Each result includes a reason for the score. Examples Set the authentication token in an environment variable. Then evaluate an authenticated server and write the artifacts to a subfolder. powershell $env:A365_MCP_AUTH_TOKEN = \" \" a365 develop-mcp evaluate --server-url \"https://my-mcp-server.contoso.com/mcp\" --output-dir \"./eval\" Use a specific scoring engine with the `--eval-engine` option: powershell a365 develop-mcp evaluate --server-url \"http://localhost:5000/mcp\" --eval-engine claude-code Scenario: Evaluate a malicious MCP server For this demonstration, we hosted a deliberately malicious MCP server at `http://127.0.0.1:8124/`. It exposes tools that demonstrate tool poisoning, credential leakage, prompt injection, schema mismatch, sandbox escape, and other attacks. The server is intentionally unsafe and is for demonstration only . Fig 2: Setting up a test MCP server for evaluation We ran the evaluation in two steps. First, we generated the checklist without automatic semantic scoring: a365 develop-mcp evaluate --server-url \"http://127.0.0.1:8124/\" --eval-engine none Fig 3: Agent365CLI MCP Evaluation The command wrote the checklist and a semantic-evaluation prompt to the output directory. It also displayed the next steps. Second, we gave the prompt and checklist to a coding agent. The agent completed each unscored semantic check with a Boolean score and a short reason. After we saved the completed checklist, we ran the command again to generate the report: a365 develop-mcp evaluate --server-url \"http://127.0.0.1:8124/\" --output-dir \"C:\\temp\\MaliciousMCP\" Fig 4: Creating the report with Agent365 CLI MCP Evaluate command Understanding the evaluation report Open ` _eval_report.html` from the output directory. The report contains: The overall score from 0 to 100; The maturity level from 0 to 4; Scores for each tool and quality category; and A prioritized action list for the next maturity level. Fig 5: MCP Evaluation Report In our demonstration, the server scored 86.0 and reached Level 3: Optimized for AI . That strong overall score did not mean that every tool was safe or clear. The report found 58 action items , including one critical item and 33 high-priority items. That contrast matters. A server can have valid schemas and consistent names while still exposing misleading or dangerous tools. Fig 6: MCP Evaluation Report - Tool-By-Tool Detail What to look for Read the per-tool results before the overall score. A single weak tool can create more risk than the server average suggests. Focus on these report sections: Tool names: Can an agent select the correct tool from its name? Tool descriptions: Does each description explain the purpose and correct use? Parameter names: Do the names identify the data that the tool requires? Parameter descriptions: Do they explain the format, type, and constraints? Schema structure: Are the schemas valid and processable? Action items: Which changes have the highest effect on tool selection and use? The command processes static tool schemas from `tools/list` . It does not process runtime payloads, end-user data, or personal data. The command keeps the ` --auth-token` value in memory. It sends the value only in the HTTP `Authorization` header. It does not write the token to disk or give it to the coding agent. AGT: Put governance in the execution path: Microsoft's open-source Agent Governance Toolkit (AGT) evaluates an action before execution. It adds identity and policy context, records the decision, and can send risky work for approval. This can be used by developers during the build time for dynamic evaluation of the MCP server. AGT lets developers put part of that intent into the execution path. Remote tools still need secure implementations, sandboxes need hard boundaries, and audit records need appropriate storage and access controls. You do not need to replace your agent framework to use it. What sits in the decision path? AGT wraps the tools that an agent already uses. You can start to govern a tool with two lines of Python: python from agentmesh.governance import govern safe_tool = govern(my_tool, policy=\"policy.yaml\") On each call, `safe_tool` evaluates the configured policy. An allowed action reaches the original tool. A denied action raises `GovernanceDenied` and creates a decision record. This wrapper model reduces the cost of adoption. Teams can add governance to an existing agent stack without rebuilding it. AGT supports Python, TypeScript, .NET, Rust, and Go . Its documented integrations include popular agent frameworks, MCP, and A2A. Teams can also adopt AGT in stages. A team can begin with policy checks and audit records. It can add identity, approvals, sandboxing, and operational controls as risk increases. Each control answers a different question: Policy: Is this action allowed? Identity and trust: Which agent made the request? Runtime controls: What limits apply to execution? Audit evidence: Why did AGT allow or deny the action? A low-risk assistant can need only a deny rule and basic logging. An agent that moves money or changes production systems needs stronger controls. Fig 7: AGT Architecture Scenario: Govern the same malicious MCP server For this scenario demonstration, we used AGT Python packages as an MCP gateway. The gateway sat between an agent and the same malicious server from the earlier evaluation. This setup let us examine both control points against one target. The Agent 365 CLI examined the server's static tool definitions. The AGT gateway examined real requests and responses for the developer during its testing. Fig 8: AGT findings at runtime In the policy interface , a developer can edit runtime limits and detection rules. The developer can also validate the policy against sample tool metadata, save a revision, and activate it with a recorded reason. Fig 9: AGT control coverage The control-coverage view shows which AGT capabilities are active in the gateway. It also links each capability to package checks and end-to-end evidence. In our demonstration, we included the following controls: Tool metadata poisoning detection; Tool change and rug-pull detection; Dangerous argument blocking; Tool-response content scanning; Per-client tool-call budgets; and A redacted decision audit trail. You can build your detection & input security by reading more about it here . The gateway detected malicious content. For one blocked `tools/list` request, it recorded the findings. The important result was not only that AGT blocked the request. It also preserved the matched evidence, affected tool locations, policy modes, and request context. Fig 10: Example detection via AGT The dashboard then summarized block-mode findings, leading risk drivers, and tools that required review. This evidence can help a team prioritize policy changes and investigate repeated attacks. Fig 11: Sample AGT metrics AGT does not require this UI, gateway, or architecture. Its structured decisions can feed an admin console, SIEM, incident workflow, or approval queue. AGT also includes an Agent Compliance package with mappings for OWASP and other controls. These mappings give developers and governance teams a common record of applied controls. Teams do not need to reconstruct the agent's behavior after an incident. Check Compliance - Agent Governance Toolkit for more information. Conclusion: MCP safety needs controls before and during execution. The Agent 365 CLI improves the MCP interface before deployment. It exposes unclear tool definitions, scores server maturity, and turns quality gaps into prioritized work. While AGT is implemented at the build phase, it provides developers the ability to test policy, identity, execution context & preserve evidence for allowed or denied decisions. Neither tool replaces secure server code, strong sandbox boundaries, or protected audit storage. Instead, they make those controls easier to evaluate and explain. Start with one MCP server and one consequential tool call. Evaluate the server with the Agent 365 CLI. Then put an AGT policy around the action that carries the most risk. While these controls help secure the build phase of an agent, once agents move into production, runtime controls become essential. Agent365 provides those controls at runtime. With thanks to Ashik Kuppili Sarah_Young\u200b for his inputs and collaboration on this post.",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-community/mcp-safety-evaluation-with-the-agent-365-cli-agent-governance/ba-p/4543969",
+      "source": "Microsoft Security Blog (TechCommunity)",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-08-07T18:25:07+00:00",
+      "published_ts": 1786127107,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Cloud / SaaS",
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": true
     },
     {
       "title": "The CISO\u2019s Guide to Catching Data Leaks Before They Hit ChatGPT and Other LLMs",
@@ -9165,25 +9208,6 @@
       "published_ts": 1785951053,
       "smart_groups": [],
       "curated": false
-    },
-    {
-      "title": "MCP safety & evaluation with the Agent 365 CLI & Agent Governance Toolkit",
-      "summary": "Co Author: JiteshThakur\u200b AI agents are useful because they can act. They call tools, query databases, send messages, and hand work to other agents. That same freedom creates a problem: access control can tell you which service an agent may reach, but it does not always tell you whether a particular action is sensible, safe, or permitted. MCP is how most agents now act. Two Control Points: This post examines two control points that address different parts of the MCP lifecycle. Agent 365 CLI evaluates the MCP server before an agent uses it. Agent Governance Toolkit (AGT) governs sensitive tool calls while the agent runs. One improves what the agent sees. The other governs what the agent does. The Agent 365 CLI is a cross-platform command-line tool for Agent 365 applications on Azure. Its evaluation command examines MCP tool definitions and scores their quality. AGT evaluates actions against policy and records each decision. Together, these tools support a practical model: evaluate the server first, then provide proper scaffolding for the developer to test this in a dry run. Agent 365 CLI: Score an MCP server from the command line: The Agent 365 CLI can evaluate an MCP server against research-based practices for production readiness. The result is more useful than a simple pass or fail. The evaluation gives you: A score for each tool name, description, and parameter schema; A prioritized list of improvements; An overall maturity score for the server; and Local output that you can use early in development. This report turns a vague question, \"Is this MCP server ready?\", into a concrete list of work. The evaluate command a365 develop-mcp evaluate --server-url [--auth-token ] [options] The command reads the tool schemas from the server. It then produces guidance for names, descriptions, parameters, and schema structure. A local coding-agent CLI scores the semantic checks. You can use GitHub Copilot CLI or Claude Code under your account and AI subscription. The command does not send tool-schema data to Microsoft. Prerequisites: Install the following software: Agent 365 CLI ; Node.js 18 or later for GitHub Copilot CLI; and A supported coding-agent CLI for semantic scoring. For example, install GitHub Copilot CLI with this command: powershell npm install -g @github/copilot This bring-your-own-LLM model keeps the scoring step in your local development environment. It is useful when model calls must remain inside an approved deployment. How the evaluation works The command runs a five-step pipeline and logs progress as it goes. Fig 1: MCP Evaluation using Agent 365 Cli Connect to the MCP server and collect its tool schemas. Generate an evaluation checklist in the output directory. Score the semantic checks with the selected coding agent. Calculate the maturity level and action priorities. Write the JSON and HTML reports. The evaluation contains two types of checks: Deterministic checks use exact rules in the CLI. For example, a tool name cannot be empty. Semantic checks use a coding agent to score clarity and meaning. Each result includes a reason for the score. Examples Set the authentication token in an environment variable. Then evaluate an authenticated server and write the artifacts to a subfolder. powershell $env:A365_MCP_AUTH_TOKEN = \" \" a365 develop-mcp evaluate --server-url \"https://my-mcp-server.contoso.com/mcp\" --output-dir \"./eval\" Use a specific scoring engine with the `--eval-engine` option: powershell a365 develop-mcp evaluate --server-url \"http://localhost:5000/mcp\" --eval-engine claude-code Scenario: Evaluate a malicious MCP server For this demonstration, we hosted a deliberately malicious MCP server at `http://127.0.0.1:8124/`. It exposes tools that demonstrate tool poisoning, credential leakage, prompt injection, schema mismatch, sandbox escape, and other attacks. The server is intentionally unsafe and is for demonstration only . Fig 2: Setting up a test MCP server for evaluation We ran the evaluation in two steps. First, we generated the checklist without automatic semantic scoring: a365 develop-mcp evaluate --server-url \"http://127.0.0.1:8124/\" --eval-engine none Fig 3: Agent365CLI MCP Evaluation The command wrote the checklist and a semantic-evaluation prompt to the output directory. It also displayed the next steps. Second, we gave the prompt and checklist to a coding agent. The agent completed each unscored semantic check with a Boolean score and a short reason. After we saved the completed checklist, we ran the command again to generate the report: a365 develop-mcp evaluate --server-url \"http://127.0.0.1:8124/\" --output-dir \"C:\\temp\\MaliciousMCP\" Fig 4: Creating the report with Agent365 CLI MCP Evaluate command Understanding the evaluation report Open ` _eval_report.html` from the output directory. The report contains: The overall score from 0 to 100; The maturity level from 0 to 4; Scores for each tool and quality category; and A prioritized action list for the next maturity level. Fig 5: MCP Evaluation Report In our demonstration, the server scored 86.0 and reached Level 3: Optimized for AI . That strong overall score did not mean that every tool was safe or clear. The report found 58 action items , including one critical item and 33 high-priority items. That contrast matters. A server can have valid schemas and consistent names while still exposing misleading or dangerous tools. Fig 6: MCP Evaluation Report - Tool-By-Tool Detail What to look for Read the per-tool results before the overall score. A single weak tool can create more risk than the server average suggests. Focus on these report sections: Tool names: Can an agent select the correct tool from its name? Tool descriptions: Does each description explain the purpose and correct use? Parameter names: Do the names identify the data that the tool requires? Parameter descriptions: Do they explain the format, type, and constraints? Schema structure: Are the schemas valid and processable? Action items: Which changes have the highest effect on tool selection and use? The command processes static tool schemas from `tools/list` . It does not process runtime payloads, end-user data, or personal data. The command keeps the ` --auth-token` value in memory. It sends the value only in the HTTP `Authorization` header. It does not write the token to disk or give it to the coding agent. AGT: Put governance in the execution path: Microsoft's open-source Agent Governance Toolkit (AGT) evaluates an action before execution. It adds identity and policy context, records the decision, and can send risky work for approval. This can be used by developers during the build time for dynamic evaluation of the MCP server. AGT lets developers put part of that intent into the execution path. Remote tools still need secure implementations, sandboxes need hard boundaries, and audit records need appropriate storage and access controls. You do not need to replace your agent framework to use it. What sits in the decision path? AGT wraps the tools that an agent already uses. You can start to govern a tool with two lines of Python: python from agentmesh.governance import govern safe_tool = govern(my_tool, policy=\"policy.yaml\") On each call, `safe_tool` evaluates the configured policy. An allowed action reaches the original tool. A denied action raises `GovernanceDenied` and creates a decision record. This wrapper model reduces the cost of adoption. Teams can add governance to an existing agent stack without rebuilding it. AGT supports Python, TypeScript, .NET, Rust, and Go . Its documented integrations include popular agent frameworks, MCP, and A2A. Teams can also adopt AGT in stages. A team can begin with policy checks and audit records. It can add identity, approvals, sandboxing, and operational controls as risk increases. Each control answers a different question: Policy: Is this action allowed? Identity and trust: Which agent made the request? Runtime controls: What limits apply to execution? Audit evidence: Why did AGT allow or deny the action? A low-risk assistant can need only a deny rule and basic logging. An agent that moves money or changes production systems needs stronger controls. Fig 7: AGT Architecture Scenario: Govern the same malicious MCP server For this scenario demonstration, we used AGT Python packages as an MCP gateway. The gateway sat between an agent and the same malicious server from the earlier evaluation. This setup let us examine both control points against one target. The Agent 365 CLI examined the server's static tool definitions. The AGT gateway examined real requests and responses for the developer during its testing. Fig 8: AGT findings at runtime In the policy interface , a developer can edit runtime limits and detection rules. The developer can also validate the policy against sample tool metadata, save a revision, and activate it with a recorded reason. Fig 9: AGT control coverage The control-coverage view shows which AGT capabilities are active in the gateway. It also links each capability to package checks and end-to-end evidence. In our demonstration, we included the following controls: Tool metadata poisoning detection; Tool change and rug-pull detection; Dangerous argument blocking; Tool-response content scanning; Per-client tool-call budgets; and A redacted decision audit trail. You can build your detection & input security by reading more about it here . The gateway detected malicious content. For one blocked `tools/list` request, it recorded the findings. The important result was not only that AGT blocked the request. It also preserved the matched evidence, affected tool locations, policy modes, and request context. Fig 10: Example detection via AGT The dashboard then summarized block-mode findings, leading risk drivers, and tools that required review. This evidence can help a team prioritize policy changes and investigate repeated attacks. Fig 11: Sample AGT metrics AGT does not require this UI, gateway, or architecture. Its structured decisions can feed an admin console, SIEM, incident workflow, or approval queue. AGT also includes an Agent Compliance package with mappings for OWASP and other controls. These mappings give developers and governance teams a common record of applied controls. Teams do not need to reconstruct the agent's behavior after an incident. Check Compliance - Agent Governance Toolkit for more information. Conclusion: MCP safety needs controls before and during execution. The Agent 365 CLI improves the MCP interface before deployment. It exposes unclear tool definitions, scores server maturity, and turns quality gaps into prioritized work. While AGT is implemented at the build phase, it provides developers the ability to test policy, identity, execution context & preserve evidence for allowed or denied decisions. Neither tool replaces secure server code, strong sandbox boundaries, or protected audit storage. Instead, they make those controls easier to evaluate and explain. Start with one MCP server and one consequential tool call. Evaluate the server with the Agent 365 CLI. Then put an AGT policy around the action that carries the most risk. While these controls help secure the build phase of an agent, once agents move into production, runtime controls become essential. Agent365 provides those controls at runtime.",
-      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-community/mcp-safety-evaluation-with-the-agent-365-cli-agent-governance/ba-p/4543969",
-      "source": "Microsoft Security Blog (TechCommunity)",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-08-05T17:24:44+00:00",
-      "published_ts": 1785950684,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Windows / Microsoft",
-        "Cloud / SaaS",
-        "Network / OT / ICS",
-        "Crypto / Web3"
-      ],
-      "curated": true
     },
     {
       "title": "DHS Is Hiring Bounty Hunters to Find and Photograph Deported People\u2019s Homes Abroad",
@@ -103850,138 +103874,6 @@
         "Vulnerabilities / CVEs"
       ],
       "curated": true
-    },
-    {
-      "title": "Smashing Security podcast #475: JadePuffer &#8211; the AI that ran a ransomware attack all by itself",
-      "summary": "A 15-year-old boy asked a chatbot for help - and cancelled nearly 47,000 anime streaming subscriptions in under four hours. Meanwhile, researchers have documented the first fully autonomous, agentic AI-driven ransomware attack, \"JadePuffer\". What does this tell us about the future of cybersecurity? Also, Apple's \"Hide My Email\" feature turns out to hide rather less than it promises - despite Apple knowing it has a problem for over a year. All this and more in this episode of the \"Smashing Security\" podcast with cybersecurity expert and keynote speaker Graham Cluley, and special guest Zo\u00eb Rose.",
-      "link": "https://grahamcluley.com/smashing-security-podcast-475/",
-      "source": "Graham Cluley",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-08T23:19:18+00:00",
-      "published_ts": 1783552758,
-      "smart_groups": [
-        "Curated",
-        "Ransomware"
-      ],
-      "curated": true
-    },
-    {
-      "title": "ownCloud Server 11.0.0-rc1: First Release Candidate for the Next Major Version",
-      "summary": "The first release candidate for ownCloud Server 11 is out. This is the release that surfaces breakage: PHP 7 support dropped, deprecated database and group-management classes removed, major version bumps to Doctrine DBAL and Symfony, subadmin disabled by default. Three security fixes underneath. Do not deploy in production. Do test against your apps and integrations.",
-      "link": "https://owncloud.com/blogs/owncloud-server-11-0-0-rc1-first-release-candidate-for-the-next-major-version/",
-      "source": "https://owncloud.com/feed/",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-07-08T23:09:26+00:00",
-      "published_ts": 1783552166,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "GitHub\u2019s public APIs are becoming an enterprise reconnaissance tool",
-      "summary": "GitHub continues to be a scintillating target for attackers because it sits in the middle of the software supply chain and gives threat actors three things they crave: source code, secrets, and automated pipelines to run amok in. Datadog Security Research has been tracking what it calls a \u201csustained pattern\u201d of GitHub API abuse over the past several months that seeks to map organizations and their members. While individually these requests are \u201cunremarkable,\u201d they become dangerous when they move across environments for weeks at a time, and, worse, progress to full-out cloning. The biggest challenge is that they blend into normal API usage patterns. GitHub has been a goldmine for criminals looking to breach organizations because many development lifecycles are insecure, said David Shipley of Beauceron Security. Typically, threat actors are after API keys and cloud secrets. \u201cNow with everyone being pushed to do more, faster, with AI agents coding, the treasure trove of secrets is likely even bigger,\u201d he said. \u201cIn short, to steal a line from a previous gold rush of the analog era, \u2018there\u2019s gold in them thar hills.'\u201d Scott Miserendino, CTO at security and compliance company DataBee, agreed. \u201cGithub is the most popular source code repository for both open-source and enterprise projects,\u201d he said. \u201cIts sheer volume of projects, along with being home to some of the most popular and widely used software, make it a target.\u201d He noted that intellectual property theft such as the unauthorized cloning of private repositories can be used to gain use of proprietary software or find vulnerabilities that can be exploited. A second popular attack involves searching for repositories containing default credentials to popular software. Using them, attackers may develop and test assaults on accounts that are present in production environments or come installed by default on certain appliances. And, Datadog senior security engineer Julie Agnes Sparks wrote in a blog post , \u201cthe activity is not a single actor. Rather, it\u2019s a blend of custom automated scanner tools, opportunistic abuse of leaked credentials, and coordinated networks of burner (ghost) accounts.\u201d A simple but effective way to map GitHub users Sparks explained that a \u201clarge share\u201d of GitHub\u2019s API surface can be reached without authentication; it is public by design. Requests against APIs typically produce standard HTTP 200 responses. This means a threat actor can build detailed maps of organizations, their public repositories, their members, who they follow, their starred repos, and projects they interact with. This traffic blends into normal API usage and thus does not seem suspicious, she said. Furthermore, GitHub only collects geolocation data when a user interacts with private repositories, recording who they are and what access token they used, not when they interact with external resources. This limits geolocation and VPN/proxy-based attribution. Typically, threat actors have performed automated scraping with custom or legitimate-sounding user agents, taking advantage of GitHub \u201cghost\u201d accounts, profiles created anywhere from two to five years ago and left dormant. This is an attractive method because, Sparks noted, \u201can account with a multi-year history reads as more legitimate than one registered the same week it starts scraping.\u201d Typically, these accounts are used for a \u201cburst\u201d of just one to three weeks across many enterprises at once, then usage stops. The researchers identified more than 50 ghost accounts across multiple user agents, clustered into families with names like user432023 , user412023 , or kobalt* . Some campaigns did use the legitimate accounts of GitHub users who had inadvertently posted their OAuth tokens or personal access tokens (PATs), or have had their endpoints compromised or exposed in other ways. Attackers use a mix of data exfiltration agents with names like GitHub-Company-Scraper, GitHub-Scraper-Tool/1.0., and GitHubAnalytics/1.5 ,designed to blend into normal data analysis traffic. The bulk of requests target the open source query language /graphql , which is \u201cwell suited\u201d for bulk queries across enterprises, users, and repositories, Sparks noted. Normal REST endpoints are used for org-mapping. The focus of the campaigns was \u201cnarrow and consistent,\u201d and the concern \u201clies in the aggregate,\u201d Sparks said. In isolation, requests target public repositories without authentication and return successful responses. This rarely produces \u201cmeaningful access\u201d into an enterprise\u2019s repositories. But a group of accounts moving in sync across shared GitHub accounts with versioned, custom tooling over a period of weeks represents more troubling and systematic behavior. She cited one event in which dozens of distinct, legitimate, but compromised GitHub user accounts made API requests to a single organization within a window of only a few minutes, although in that case the attack failed, because they targeted private repository commit paths. How enterprises can protect their GitHub environments Sparks pointed out that these behaviors can be hunted for and detected \u201cif you are watching the right fields,\u201d such as those identifying the user agent, token type, autonomous system number (ASN), or attempted action. \u201cUser agents, event activity, and actor names are vital clues to unauthorized activity in your environment,\u201d Sparks emphasized. She suggested reviewing unusual user agent behavior across GitHub audit logs, particularly for those that extend to private repositories where the platform also captures the IP address, actor name, and programmatic access type. Enterprises should also enable GitHub audit log streaming, baseline user agents, and perform proactive threat hunting. Most importantly, she said, they should develop detections unique to their GitHub organization, noting, \u201cIt\u2019s important to know what normal looks like in your environment.\u201d Simply put, added Miserendino, enterprises should be following security best practices, including enabling multi-factor authentication (MFA) on all accounts, performing periodic user access reviews, removing any unused or unneeded accounts, and scanning repositories for credentials stored in plaintext rather than in a secret store. This article originally appeared on InfoWorld .",
-      "link": "https://www.csoonline.com/article/4194665/githubs-public-apis-are-becoming-an-enterprise-reconnaissance-tool-2.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-08T23:08:07+00:00",
-      "published_ts": 1783552087,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Web / API Security",
-        "Identity / Access",
-        "Network / OT / ICS",
-        "Supply Chain / Software"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Iris Recognition vs Fingerprint: Which Biometric Wins in 2026?",
-      "summary": "Compare iris recognition and fingerprint biometrics in 2026, from accuracy and speed to security, privacy, and where each technology works best.",
-      "link": "https://hackread.com/iris-recognition-vs-fingerprint-biometric-2026/",
-      "source": "HackRead",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-08T22:48:32+00:00",
-      "published_ts": 1783550912,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Google pays 250K for Linux vulnerability allowing guest VM escapes",
-      "summary": "submitted by /u/rkhunter_ [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1ur8bq0/google_pays_250k_for_linux_vulnerability_allowing/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-08T22:48:04+00:00",
-      "published_ts": 1783550884,
-      "smart_groups": [
-        "Vulnerabilities / CVEs",
-        "Linux / Unix"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Google pays $250K for Linux vulnerability allowing guest VM escapes",
-      "summary": "submitted by /u/rkhunter_ [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1ur8b77/google_pays_250k_for_linux_vulnerability_allowing/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-08T22:47:28+00:00",
-      "published_ts": 1783550848,
-      "smart_groups": [
-        "Vulnerabilities / CVEs",
-        "Linux / Unix"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Feeling like an impostor as a cybersecurity intern because I used AI to do my work",
-      "summary": "I'm doing a cybersecurity degree and currently interning at a small telecom/ICT provider. Over the past weeks I've built a small test infrastructure involving a FritzBox and firewall setup, with a segmented guest network and a second backup FritzBox in case the primary one goes down. I also set up an Ubuntu Server with RAID 5, and at one point the server actually crashed and booted into recovery mode, which I had to troubleshoot and fix. On paper that sounds like solid hands-on experience. The problem is I did most of it with AI help. asking it to explain concepts, walk me through configs, troubleshoot when something broke, including during that recovery mode incident. And now I keep thinking: is any of this actually \"mine\"? Would I have been able to do it without that help? Honestly, for a lot of it, no. About the RAID 5 setup, I could redo now almost without looking anything up. It just stuck. I keep telling myself things like \"well I understood the reasoning, I wasn't just copy-pasting\", but I don't fully know if that's true or if it's just something I tell myself to feel better about it. Can anyone advise me or have had similar experiences? Edit: Thanks everyone for the replies and advice! I will try to feel less guilty and use AI as wisely as possible. submitted by /u/Keis__ [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1ur7vgp/feeling_like_an_impostor_as_a_cybersecurity/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-08T22:29:59+00:00",
-      "published_ts": 1783549799,
-      "smart_groups": [
-        "Linux / Unix"
-      ],
-      "curated": false
-    },
-    {
-      "title": "The New Grok 4.5 Is Out. Elon Musk Says It Competes With Last Year's Claude Opus",
-      "summary": "SpaceXAI's new coding model is cheaper and faster than Anthropic and OpenAI's flagships\u2014and by Musk's own account, at least one generation behind them.",
-      "link": "https://decrypt.co/373094/grok-4-5-elon-musk-claude-opus",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-07-08T22:26:31+00:00",
-      "published_ts": 1783549591,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "PromptSpy Android Malware Uses Google Gemini to Adapt During Runtime Execution",
-      "summary": "A newly identified strain of Android spyware called PromptSpy has become the first mobile malware known to call on generative AI while it is actually running on a victim\u2019s device. Rather than relying purely on hardcoded commands, the malware reaches out to Google\u2019s Gemini model in real time to figure out how to interact with [\u2026] The post PromptSpy Android Malware Uses Google Gemini to Adapt During Runtime Execution appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/promptspy-android-malware-uses/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-08T22:24:22+00:00",
-      "published_ts": 1783549462,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
