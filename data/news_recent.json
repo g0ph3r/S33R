@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-08-10T22:10:33.337202+00:00",
+  "generated_at": "2026-08-10T23:01:49.119791+00:00",
   "days_back": 30,
-  "total_items": 7271,
+  "total_items": 7277,
   "items": [
     {
       "title": "GISEC GLOBAL",
@@ -30,6 +30,35 @@
       "curated": false
     },
     {
+      "title": "Is there a way to see if a legitimate Windows program is secretly infected?",
+      "summary": "I guess sometimes malware likes to hide malicious code in legitimate windows processes so I guess stuff like Microsoft defender doesn\u2019t flag it so I\u2019m wondering is there a way to know what to look at and how to spot if it\u2019s infected for the program in your PC? submitted by /u/Petargaming9999 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1vkzz98/is_there_a_way_to_see_if_a_legitimate_windows/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-08-10T22:49:36+00:00",
+      "published_ts": 1786402176,
+      "smart_groups": [
+        "Windows / Microsoft",
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Exposed Automatic Tank Gauges Dropped 55%: What Changed?",
+      "summary": "After more than 11 years, ATG exposure dropped 55% in a couple of months. What happenned? And can we replicate it to other ICS/OT critical infrastructure exposures, like water? submitted by /u/JollyCartoonist3702 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1vkz8k2/exposed_automatic_tank_gauges_dropped_55_what/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-08-10T22:19:00+00:00",
+      "published_ts": 1786400340,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
       "title": "Working with Israeli cyber security companies - how can I resolve concerns around ethics?",
       "summary": "I've been offered an opportunity to do some work with an Israeli cybersecurity company. I've met some of the staff and have used some of the company's products - no issues on a personal level. The company offers defensive cyber security services. My concerns are that the founding members held high profile roles in IDF Unit 8200, which has been linked to human rights abuses, mass surveillance and lethal targeting. The company is based in Tel Aviv. I have no idea whether this company is supporting human rights abuses now or in the past and I'm not sure on the best way to ease my conscience. submitted by /u/Either-Log8798 [link] [comments]",
       "link": "https://www.reddit.com/r/cybersecurity/comments/1vkysl0/working_with_israeli_cyber_security_companies_how/",
@@ -42,6 +71,23 @@
         "Network / OT / ICS"
       ],
       "curated": false
+    },
+    {
+      "title": "Follow the File Hash: Hunting for Sensitive Files Leaving Your Organization with Defender Advanced\u2026",
+      "summary": "Follow the File Hash: Hunting for Sensitive Files Leaving Your Organization with Defender Advanced Hunting Imagine you\u2019re asked a seemingly simple question: \u201cShow me files labeled as Confidential that were sent as email attachments to free public domains such as Gmail.\u201d Microsoft Purview can address this question through Activity Explorer and DLP. But what if you could go beyond simply finding the activity and actually trace the file across your environment? That\u2019s where Microsoft Defender Advanced Hunting takes things to the next level, giving you the flexibility to connect the dots across endpoint, email, and data security telemetry. In this blog, you will see how to use Microsoft Defender for Endpoint (MDE) file telemetry, Defender for Office 365 (MDO) email attachment data, and Purview Insider Risk Management (IRM) information to correlate the sensitive file across the endpoint, email, and Purview telemetry, trace where the file was observed, and identify when it was sent to which free public domain. First, Let\u2019s Talk About Sensitivity Labels Microsoft Purview helps organizations classify and protect information using sensitivity labels. Think of the label as a digital tag that stays with a file, carrying information about how the file should be handled and protected. You can use Microsoft Purview Activity Explorer and other Purview capabilities, such as Content Explorer and Insider Risk Management, to investigate activities involving sensitivity-labeled content. However, did you know that the same sensitivity labels are also surfaced in Microsoft Defender for Endpoint (MDE) telemetry? This opens up another layer of visibility for security teams. To begin with, knowing what sensitive files are present on a compromised endpoint can change how the investigator prioritizes and responds to the incident. For some organizations, the presence of specific sensitive data on a compromised asset may automatically elevate the incident\u2019s severity and trigger a higher level of investigation and response workflow. You can query the DeviceFileEvents table in Defender Advanced Hunting to quickly determine whether a compromised device contains files with specific sensitivity labels. MDE continuously collects endpoint file activities, including operations such as file creation, modification, renaming, and deletion. When MDE identifies that a file involved in one of these events is protected by a Purview sensitivity label, it populates the SensitivityLabel and SensitivitySubLabel fields with the labels assigned to the file. To see this in action, the following KQL query finds files with sensitivity labels on endpoint devices, and summarizes the results by device, file name, file path, sensitivity label, sublabel, and SHA256 hash. DeviceFileEvents | where isnotempty(SensitivityLabel) and SHA256 !startswith \"00000000\" | summarize by DeviceName, FileName, FolderPath, SensitivityLabel, SensitivitySubLabel, SHA256 | sort by DeviceName asc, SensitivityLabel asc, FileName asc The query results, shown below, provide a useful inventory of sensitivity-labeled files observed on endpoints. Note: You may notice file paths in the query results such as: C:\\Users\\i***\\OneDrive \u2014 AlpineSkiHouse\\Test document.docx. This is a local path on the endpoint that points to a file stored in a OneDrive-synchronized folder. In other words, MDE is observing file activity on the local device for a file that is also managed and synchronized by OneDrive. Now back to the security use case mentioned earlier, the next KQL query identifies files with sensitivity labels on a specific device: DeviceFileEvents | where DeviceName contains \"DeviceName\" // change DeviceName to your specific device name | where isnotempty( SensitivityLabel) and SHA256 !startswith \"00000000\" | summarize by DeviceName, FileName, FolderPath, SensitivityLabel,SensitivitySubLabel, SHA256 | sort by SensitivityLabel asc, FileName asc Or you can use the following query to identify the endpoint devices that have a specific sensitive file. DeviceFileEvents | where SHA256 == \"a5be31cbe6763b3de8adf99732a9b73c9af831d50aa53f20ba7731\" // replace the file hash with the hash of the file you want to track | project Timestamp, DeviceName, ActionType, FileName, FolderPath, SensitivityLabel, SensitivitySubLabel, SHA256 | sort by Timestamp MDO Knows Where the Attachment Went MDE gives us visibility into sensitivity-labeled files observed on endpoints. But how do we determine whether one of those files was actually sent outside the organization? One approach is to correlate endpoint telemetry with Microsoft Defender for Office 365 (MDO) email events. MDO logs a wealth of email metadata you can query through Defender Advanced Hunting. For example, its EmailAttachmentInfo table provides detailed information about email attachments, including the sender, recipient, file name, file type, SHA256 hash, and NetworkMessageId. The SHA256 hash is particularly useful because it gives us a reliable way to correlate an email attachment back to the same sensitive file observed on the endpoint. This allows us to move from simply knowing that a sensitive file exists on an endpoint to determining whether that specific file was sent by email, who sent it, and who received it. Before getting into the more advanced query, here\u2019s a simple KQL query that finds outbound email attachments and provides details such as when the email was sent, who sent it, who received it, the attachment file name and type, and the file hash. // Email Attachment Information EmailAttachmentInfo | extend RecipientDomain = tostring(split(RecipientEmailAddress,\"@\")[-1]) | where RecipientDomain != \"mycompanydomain.com\" // Replace mycompanydomain.com with your own organization's domain so emails are not inbound sent to your corporate domain | project Timestamp, SenderFromAddress, RecipientEmailAddress, FileName, FileType, SHA256, NetworkMessageId | sort by NetworkMessageId asc, Timestamp asc For your reference, the query results are shown in the screenshot below: So far, we\u2019ve looked at two different telemetry sources: MDE: File \u2192 Sensitivity Label \u2192 SHA256 MDO: Email Attachment \u2192 Recipient \u2192 SHA256 Both sides have the SHA256 hash, which we can use to connect the two datasets. Specifically, when the same file hash appears in both MDE and MDO telemetry, we can correlate the endpoint file activity with the email activity to identify sensitivity-labeled files observed on endpoints that were sent as email attachments to external recipients. The following query brings these two telemetry sources together to perform this correlation. // Tracking Sensitivity-Labeled Files Sent as Outbound Email Attachments let LabeledFiles = DeviceFileEvents | where isnotempty(SensitivityLabel) | where SHA256 !startswith \"00000000\" | where SensitivityLabel == \"Highly Confidential\" | summarize by DeviceName, FileName, FolderPath, SensitivityLabel, SensitivitySubLabel, SHA256; EmailAttachmentInfo | extend RecipientDomain = tostring(split(RecipientEmailAddress, \"@\")[-1]) | extend EmailSentTime = Timestamp | where RecipientDomain != \"mycompany.com\" | join kind=inner LabeledFiles on SHA256 | project EmailSentTime, SenderFromAddress, RecipientEmailAddress, FileName, DeviceName, FolderPath, SensitivityLabel, SensitivitySubLabel, SHA256, NetworkMessageId | sort by EmailSentTime asc As shown below, the query result reveals that a file named US_Financial_SampleFile (1).csv, with a \u201cHighly Confidential\u201d sensitivity label, was sent to an external recipient, lesley***@gmail.com, on May 13, 2026. The results also include the file path and device name, providing additional endpoint context for the file. There are two parts of this query you\u2019ll need to customize for your environment: 1. Specify the sensitivity label This line in the query: | where SensitivityLabel == \"Highly Confidential\" Needs to be replaced with the sensitivity label you want to track. 2. Specify your organization\u2019s email domain This line in the query: | where RecipientDomain != \"mycompany.com\" Should be changed to your organization\u2019s email domain. The goal is to exclude emails sent to recipients within your organization, allowing the query to focus on external recipients. Additionally, you can add another filter to the KQL query to narrow the results to specific external email domains, such as Gmail, Yahoo, or Proton Mail: | where RecipientDomain has_any (\"gmail.com\", \"yahoo.com\", \"proton.me\") This allows you to specifically look for sensitivity-labeled files sent to selected public email services. However, there\u2019s an even better option: Microsoft Purview Insider Risk Management (IRM) can automatically detect potentially risky email activity involving public email destinations. This gives security teams another valuable source of telemetry for investigating this type of data movement. Next, let\u2019s take a look at the Purview IRM telemetry. Telemetry from Purview Insider Risk Management Purview doesn\u2019t just look at files. Its IRM solution takes a broader, data-centric view of user activity, helping security teams understand not only what happened to a file, but also the context and sequence of potentially risky user activities surrounding it. This broader view is also reflected in Defender Advanced Hunting. Purview\u2019s DataSecurityEvents table (in Public Preview) contains telemetry for activities such as emails sent to free public domains, along with detailed metadata including the sender, recipient, email subject, attachment information, and file hashes for attached files. The following KQL query uses Purview IRM telemetry to identify emails with attachments sent to free public domains. // Purview - Email Sent to Public Domains DataSecurityEvents | where ActionType contains \"email sent to free public domains\" | extend Attachments = parse_json(AttachmentInfo) | mv-expand Attachments | extend AttachmentFileName=tostring(Attachments.FileName), AttachmentFileExtension=tostring(Attachments.FileExtension), AttachmentSHA256=tostring(Attachments.SHA256), SenderAccountUpn=AccountUpn | project EventTime, SenderAccountUpn, ActionType, Recipients, EmailSubject, AttachmentFileName, AttachmentFileExtension, AttachmentSHA256, Workload | sort by EventTime The query results shown below illustrate that Purview has identified users sending emails to public domains such as Gmail, along with information about the messages and their attachments. And once again, look at what we have: Purview \u2192 SHA256 That means we can correlate it back to the sensitive file observed on the endpoint through MDE. Let\u2019s say you\u2019re investigating files with the \u201c General\u201d sensitivity label that were sent to public email domains. We can first build a list of the files that we\u2019re interested in tracking: let FilesToTrack = DeviceFileEvents | where SensitivityLabel == \"General\" | summarize by FileName, SHA256, SensitivityLabel; Next, we retrieve the Purview events involving emails sent to public domains: let EmailsToPublicDomains = DataSecurityEvents | where ActionType contains \"free public domains\" | extend Attachments = parse_json(AttachmentInfo) | mv-expand Attachments | extend AttachmentFileName = tostring(Attachments.FileName), AttachmentFileExtension = tostring(Attachments.FileExtension), SHA256 = tostring(Attachments.SHA256), SenderAccountUpn = AccountUpn; Finally, we join the two datasets using the SHA256 hash: FilesToTrack | join kind=inner EmailsToPublicDomains on SHA256 | project EventTime, SenderAccountUpn, ActionType, Recipients, EmailSubject, AttachmentFileName, AttachmentFileExtension, SensitivityLabel, SHA256, Workload The result is a cross-solution correlation that connects MDE endpoint file telemetry with Purview email activity. Here is the final KQL query which identifies files with specific sensitivity label (e.g. General) that were sent as email attachments to external recipients at public email domains. // Files with specific sensitivity label emailed to public domains let FilesToTrack = DeviceFileEvents | where SensitivityLabel == \"General\" | summarize by FileName, SHA256, SensitivityLabel; let EmailsToPublicDomains = DataSecurityEvents | where ActionType contains \"free public domains\" | extend Attachments = parse_json(AttachmentInfo) | mv-expand Attachments | extend AttachmentFileName=tostring(Attachments.FileName), AttachmentFileExtension=tostring(Attachments.FileExtension), SHA256=tostring(Attachments.SHA256), SenderAccountUpn=AccountUpn; FilesToTrack | join kind=inner EmailsToPublicDomains on SHA256 | project EventTime, SenderAccountUpn, ActionType, Recipients, EmailSubject, AttachmentFileName, AttachmentFileExtension, SensitivityLabel, SHA256, Workload The query result is shown in the screenshot below: Follow the File Hash: Hunting for Sensitive Files Leaving Your Organization with Defender Advanced\u2026 was originally published in Detect FYI on Medium, where people are continuing the conversation by highlighting and responding to this story.",
+      "link": "https://detect.fyi/follow-the-file-hash-hunting-for-sensitive-files-leaving-your-organization-with-defender-advanced-d6a7810619e4?source=rss----d5fd8f494f6a---4",
+      "source": "Detect.fyi",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T22:00:29+00:00",
+      "published_ts": 1786399229,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft"
+      ],
+      "curated": true
     },
     {
       "title": "The Permanent Threat: Analyzing Aeternum\u2019s Blockchain-Based C2 Operations and Communications",
@@ -82,6 +128,46 @@
       "type_label": "General Security & Blogs",
       "published": "2026-08-10T21:57:00+00:00",
       "published_ts": 1786399020,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Hunting Web Activity Before a Device Code Authentication (KQL Query)",
+      "summary": "We are seeing more and more Device Code Phishing cases, and we already have good reports, TI feeds and IOC lists with URLs and domains used in these campaigns. They are very useful, but there is always the same limitation when we hunt using IOCs: someone needs to discover and report the infrastructure first. xWhat happens if the attacker registered the phishing domain today? What if the URL has never been reported and our user is one of the first targets? So I wanted to try something different. Instead of starting with \u201cDo I know this URL is malicious?\u201d , I started from something we already know happened: a Device Code authentication. From there, my question was simple: What was the user doing immediately before it? Detecting the behaviour Using the Cmsi:Cmsi event in EntraIdSignInEvents as the reference point, I look 5 minutes backwards in DeviceNetworkEvents for the same user and collect the last three URLs visited before the authentication. I also enrich the remote IPs with their countries. The idea is to reconstruct a very small piece of the user\u2019s activity: URL \u2192 URL \u2192 URL \u2192 Device Code authentication Why only three URLs and five minutes? Because I am not interested in reconstructing the complete browsing history of the user. I want to understand what happened immediately before the Device Code flow and base on some results the last three sites say what I am looking for. The KQL first creates a unique DeviceCodeId for every authentication. Then it joins each Device Code event with network activity from the same account, keeps only connections generated during the previous five minutes, and uses partition with top 3 to preserve the three most recent URLs for each authentication. After that, the URLs and their countries are converted into three simple pairs: FirstURL / FirstURLCountry SecondURL / SecondURLCountry ThirdURL / ThirdURLCountry Now we can start removing what we expect to see: Microsoft services, known websites and countries that make sense for our environment. What remains is where the hunt becomes interesting. Imagine one of those URLs is a completely new domain. No reputation. No match in your TI platform. No report mentioning it. Looking only at IOCs, we probably have nothing. But if that website was visited before a Device Code authentication from an unfamiliar country and unknown site, we have behaviour and context worth investigating. // Whitelisted Countries let CountryList=dynamic([\"Switzerland\",\"France\"]); // Whitelisted Sites let WebSiteList=dynamic([\"login.windows.net\",\"mobile.events.data.microsoft.com\"]); let DeviceCode = EntraIdSignInEvents | where EndpointCall =~ \"Cmsi:Cmsi\" | extend DeviceCodeId=strcat(AccountUpn,\"_\",tostring(Timestamp)),SignInCountry=tostring(geo_info_from_ip_address(IPAddress).country) | summarize by TimeGenerated,AccountUpn,DeviceCodeId,DeviceCodeTime=Timestamp,SignInIP=IPAddress,SignInCountry,Application; let LastUrls = DeviceCode | join kind=leftouter (DeviceNetworkEvents| where isnotempty(RemoteUrl)| extend WebCountry=tostring(geo_info_from_ip_address(RemoteIP).country) | summarize by AccountUpn=InitiatingProcessAccountUpn,WebTime=Timestamp,RemoteUrl,RemoteIP,WebCountry ) on AccountUpn | where isnull(WebTime) or (WebTime >= DeviceCodeTime - 5m and WebTime | summarize URLs=make_list(RemoteUrl,3),Countries=make_list(WebCountry,3) by DeviceCodeId; DeviceCode | join kind=leftouter LastUrls on DeviceCodeId | extend FirstURL=tostring(URLs[0]), SecondURL=tostring(URLs[1]), ThirdURL=tostring(URLs[2]), FirstURLCountry=tostring(Countries[0]), SecondURLCountry=tostring(Countries[1]), ThirdURLCountry=tostring(Countries[2]) | extend FirstURL=iff(isempty(FirstURL),\"NA\",FirstURL), SecondURL=iff(isempty(SecondURL),\"NA\",SecondURL), ThirdURL=iff(isempty(ThirdURL),\"NA\",ThirdURL), FirstURLCountry=iff(isempty(FirstURLCountry),\"NA\",FirstURLCountry), SecondURLCountry=iff(isempty(SecondURLCountry),\"NA\",SecondURLCountry), ThirdURLCountry=iff(isempty(ThirdURLCountry),\"NA\",ThirdURLCountry) | where FirstURL != \"NA\" and SecondURL != \"NA\" and ThirdURL != \"NA\" // Optional: show cases where at least one previous URL is hosted outside expected countries //| where FirstURLCountry !in (CountryList) or SecondURLCountry !in (CountryList) or ThirdURLCountry !in (CountryList) // Optional: show cases where at least one previous URL is not expected //| where FirstURL !in (WebSiteList) or SecondURL !in (WebSiteList) or ThirdURL !in (WebSiteList) | summarize by TimeGenerated,DeviceCodeTime,AccountUpn,SignInIP,SignInCountry,FirstURL,FirstURLCountry,SecondURL,SecondURLCountry,ThirdURL,ThirdURLCountry,DeviceCodeId Summary And this is the important point: I am not trying to detect Device Code authentication itself. Device Code can be completely legitimate. I am trying to understand the behaviour around it and, especially, what happened immediately before. Threat Intelligence is still extremely valuable and I use it every day. But I don\u2019t want to depend only on someone else finding the bad infrastructure before me. Sometimes the behaviour can give us the first clue. \ud83c\udff9 The IOC can change, the domain can be new and the URL can have zero reputation. But the attack still needs a sequence. That sequence is what I want to hunt. Hunting Web Activity Before a Device Code Authentication (KQL Query) was originally published in Detect FYI on Medium, where people are continuing the conversation by highlighting and responding to this story.",
+      "link": "https://detect.fyi/hunting-web-activity-before-a-device-code-authentication-kql-query-005337a661bc?source=rss----d5fd8f494f6a---4",
+      "source": "Detect.fyi",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T21:56:58+00:00",
+      "published_ts": 1786399018,
+      "smart_groups": [
+        "Ransomware",
+        "Windows / Microsoft",
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "'GhostJacking' Exposes Identity Governance Gaps in AI Agents",
+      "summary": "New research shows how attackers can use security alerts and blocked events to manipulate and hijack AI agents.",
+      "link": "https://www.darkreading.com/cyber-risk/ghostjacking-identity-governance-gaps-ai-agents",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T21:54:22+00:00",
+      "published_ts": 1786398862,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Vitalik Buterin Says Ethereum Is Betting Its Future on Quantum Security and AI",
+      "summary": "Ethereum\u2019s updated roadmap puts quantum resistance, privacy and AI-assisted formal verification at the center of the network\u2019s technical ambitions.",
+      "link": "https://decrypt.co/375285/vitalik-buterin-ethereum-betting-future-quantum-ai",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-10T21:48:22+00:00",
+      "published_ts": 1786398502,
       "smart_groups": [],
       "curated": false
     },
@@ -134,6 +220,18 @@
       "type_label": "General Security & Blogs",
       "published": "2026-08-10T21:12:10+00:00",
       "published_ts": 1786396330,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "DEF CON hackers add new muscle to water utility protection",
+      "summary": "Franklin project adds new security providers, employs digital twins and AI",
+      "link": "https://www.theregister.com/security/2026/08/10/def-con-hackers-add-new-muscle-to-water-utility-protection/5285715",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T21:08:04+00:00",
+      "published_ts": 1786396084,
       "smart_groups": [],
       "curated": false
     },
@@ -501,6 +599,18 @@
         "Identity / Access"
       ],
       "curated": true
+    },
+    {
+      "title": "Klaviyo Sign-Up Bug May Have Exposed Passwords to Ad Trackers",
+      "summary": "Klaviyo says fewer than 200 people are known to be affected by a sign-up bug that may have exposed passwords to third-party trackers. The post Klaviyo Sign-Up Bug May Have Exposed Passwords to Ad Trackers appeared first on TechRepublic .",
+      "link": "https://www.techrepublic.com/article/news-klaviyo-sign-up-password-tracker-exposure/",
+      "source": "TechRepublic \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T17:41:37+00:00",
+      "published_ts": 1786383697,
+      "smart_groups": [],
+      "curated": false
     },
     {
       "title": "Shipping 10\u201350\u00d7 More Code? Watch This Webinar on Securing AI-Speed Development",
@@ -101236,33 +101346,6 @@
       "type_label": "Crypto & Blockchain Security",
       "published": "2026-07-12T01:05:00+00:00",
       "published_ts": 1783818300,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Ransomware negotiator hired to represent victims was working for the attackers",
-      "summary": "submitted by /u/DerBootsMann [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1utwvzj/ransomware_negotiator_hired_to_represent_victims/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-11T21:56:42+00:00",
-      "published_ts": 1783807002,
-      "smart_groups": [
-        "Curated",
-        "Ransomware"
-      ],
-      "curated": true
-    },
-    {
-      "title": "I regret transferring to cybersecurity, im gonna start my senior year",
-      "summary": "Back in my 1st year i decided to transfer to cybersecurity instead of transferring into radiography or respiratory therapy major. Now that im starting my final year i regret this decision mainly because i dont have the practical skills yet. My coursework till now was just theory in which i dont remember the content after giving their exams. The reason i chose Cybersecurity was this classic reason- it has a good demand and that it pays well. I recently started with google professional cybersecurity certificate program to help somewhat with this gap. But i realized that maybe i made a mistake choosing this degree. Maybe id have been satisfied with the allied health degree. Due to this transfer my graduation is delayed and i still haven\u2019t gained any practical knowledge. Pls help me on - where can i get started to help with this gap. If anyone was in the same situation as me before, how did u overcome this? [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1utwi4p/i_regret_transferring_to_cybersecurity_im_gonna/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-11T21:39:33+00:00",
-      "published_ts": 1783805973,
       "smart_groups": [],
       "curated": false
     },
