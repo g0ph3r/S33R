@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-08-11T01:20:20.988043+00:00",
+  "generated_at": "2026-08-11T03:23:06.969279+00:00",
   "days_back": 30,
-  "total_items": 7284,
+  "total_items": 7294,
   "items": [
     {
       "title": "GISEC GLOBAL",
@@ -12,6 +12,127 @@
       "type_label": "General Security & Blogs",
       "published": "2026-09-16T11:00:00+00:00",
       "published_ts": 1789556400,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Cybersecurity",
+      "summary": "Projects for beginners in Cybersecurity submitted by /u/NoNegotiation7516 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1vl5o6a/cybersecurity/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-08-11T03:03:52+00:00",
+      "published_ts": 1786417432,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Check company leaks",
+      "summary": "Is there a website/forum where i can check if there are any information about my company? Any web forum, darknet and etc with information if any account, address or anything else was leaked or is used in bot net. Best option is if is possible to check it for free of course and pay only when domain will be in list. Make a account is not probl\u00e9m but a would like to install anything to my servers or connect via api. Thx submitted by /u/ghostman147 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1vl5l6o/check_company_leaks/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-08-11T03:00:09+00:00",
+      "published_ts": 1786417209,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "What Data Meta Actually Collects From You \u2014 And Four Settings That Pull It Back",
+      "summary": "Substack post summarizing Meta data collection, what you can and cannot opt-out of, including Mera AI training. submitted by /u/nuzfutz [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1vl5l06/what_data_meta_actually_collects_from_you_and/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-08-11T02:59:55+00:00",
+      "published_ts": 1786417195,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "The future of AI security research isn\u2019t autonomous, it\u2019s human-amplified",
+      "summary": "Meet HTTP Terminator, a new AI system that has identified hundreds of websites vulnerable to HTTP request smuggling, hacked them live at scale, and even identified a \u201cgenuinely new class\u201d of vulnerability, dubbed \u201cshared-parser confusion.\u201d But it didn\u2019t do it alone; it was guided by a human the entire time, which may be the most interesting finding of all. A researcher from security company PortSwigger used his own processes to design and build the AI, HTTP Terminator, posed narrow, high-value questions, ruled out weak answers, applied anomaly-detection logic, used deterministic code to restrict agent behavior, and applied findings to subsequent \u2018cascade\u2019 research. \u201cThis inverts the accepted narrative by showing an expert can be a massive amplifier for an AI research system,\u201d James Kettle , PortSwigger\u2019s director of research, explained in a white paper . \u201cA human in the loop can still add significant value, as opposed to just building the loop, then stepping back.\u201d Disrupting HTTP request flow HTTP desync attacks, also known as HTTP request smuggling , interfere with the way web sites process HTTP requests from various users. In this architecture, users send requests to a front-end server, which then forwards them to back-end servers. The issue is in the inherently \u201cweak\u201d isolation of requests, Kettle pointed out: The front-end server typically sends several requests at once over the same back-end network connection to improve performance and efficiency. \u201cHTTP requests are sent one after another, and the receiving server has to determine where one request ends and the next one begins,\u201d he explained. But front-end and back-end systems must \u201cagree\u201d on where each request ends, otherwise, attackers can send ambiguous messages that are interpreted as two requests by the back end. Through response query poisoning (RQP), those attackers can inject false information into subsequent requests or otherwise manipulate data flows so that systems lose track of which responses came from where. They can then intercept responses intended for other users, which can sometimes include sensitive information, credentials, or API keys. While request smuggling is typically associated with HTTP/1 requests, websites that support HTTP/2 might also be vulnerable, depending on their back-end architecture, Kettle noted. \u201cRequest smuggling vulnerabilities are often critical in nature, allowing an attacker to bypass security controls, gain unauthorized access to sensitive data, and directly compromise other application users,\u201d he said. HTTP Terminator\u2019s methodology Kettle built HTTP Terminator around his own research methodologies. The initial phase is ideation: It autonomously generates hypothetical testable RQP attacks, such as, for instance, desync triggers, patterns, or weaponization techniques. The next step is evaluation : hypotheses are tested at large scale to identify which actually worked. HTTP Terminator used live websites that allow security testing via bug-bounty and Vulnerability Disclosure Programs (VDPs). A built-in anomaly detection layer flagged unusual responses. Following that is a weaponization phase, which determines whether findings actually have real-life impact. In some cases, they did: HTTP Terminator initially generated 30,000 unique attack vectors that it tested continuously, soon identifying 700 vulnerable targets, including financial institutions and government infrastructure. The system even stole a live API key from one of these banks, and other breaches were traced back to flaws in popular enterprise products like Apache Traffic Server, Citrix NetScaler, and BeyondTrust. Finally, there\u2019s a step Kettle calls \u2018cascade.\u2019 Each finding may be a clue to an overlooked target or detection path. \u201cWhen you discover something, if you explore back up the tree you may find other undiscovered branches,\u201d he explained. For instance: How could you detect similar behavior elsewhere? And could the behavior enable other types of attacks? Essentially, each finding becomes \u201cthe seed for the next.\u201d \u201cThat might not look like much, but it creates a positive feedback loop which can spiral into a cascade of discoveries taking you beyond predictable findings, into the unknown,\u201d Kettle said. Ultimately, \u201cI realized that autonomous vs human is the wrong framing,\u201d he explained. \u201cIt\u2019s better to frame system design as AI vs code vs human.\u201d A new tool for security teams HTTP Terminator was able to invent and prove several novel desync triggers, one novel desync pattern, and a desync weaponization technique. Notably, though, it identified a new \u201cshared-parser confusion\u201d technique that allows attackers to parse requests and responses and thus increase their attack surface. \u201cThat, by itself, is absolutely huge,\u201d Kettle said. But, he emphasized, \u201cthis discovery was not fully autonomous \u2014 the HTTP Terminator proposed it, and I validated it. Neither of us would have discovered it alone.\u201d Kettle has open-sourced HTTP Terminator along with his research blueprint so other security teams can \u201cturn their own methodology and instincts into an autonomous research weapon.\u201d The researcher advised tackling tasks in four steps: Set an objective, create an evaluation strategy, establish inspiration sources, and explore cascade routes for new discoveries. \u201cEvaluation is the first concrete step for both design and implementation,\u201d he said, \u201cbecause any issues there will derail the entire project.\u201d It\u2019s also important to \u201caggressively\u201d identify and resolve data quality issues, as those will be difficult to correct later on. Further, ask high-value questions without being too broad; review outputs in initial test runs and use them to rule out low-value hypotheses; and remember that \u201cevery extra sentence of prompt risks context-contamination,\u201d Kettle said. When a system is fully AI-driven and also reliant on AI-built code, it\u2019s near-impossible for it to improve over time, he said. It\u2019s better to start quickly with an AI-heavy approach, then move responsibility to deterministic code for speed and accuracy. \u201cFully autonomous research is real,\u201d Kettle acknowledged. However, \u201chumans are a massive power amplifier for AI research systems.\u201d",
+      "link": "https://www.csoonline.com/article/4207666/the-future-of-ai-security-research-isnt-autonomous-its-human-amplified.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-11T02:18:14+00:00",
+      "published_ts": 1786414694,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS",
+        "Identity / Access"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Looking for feedback on a blog post/video I made about Linux Process injection.",
+      "summary": "Howdy all, recently I made a TUI recreation of the 2009 game lose/lose by Zach Gage (A Galaga like game except killing a spaceship means deleting a random file on your machine). During this I thought it would be fun to find a way to find a way to \"force\" the game onto a user's terminal. I thought this was the perfect oppertunity to finally learn about process injection. I wasn't too familiar with how process injection works on Linux so I started there. I found it difficult to learn this so naturally I took good notes and decided to make a blog post and video about this incase anyone else ends up where I was. I would be really appreciated if anyone is able to provide feedback to either the video or blogpost: Blog post: https://loser404.dev/posts/linux_process_injection/ Video: https://youtu.be/196Fg3jUWVo submitted by /u/Joeseph_Schmoe [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1vl4k3v/looking_for_feedback_on_a_blog_postvideo_i_made/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-08-11T02:11:09+00:00",
+      "published_ts": 1786414269,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Linux / Unix"
+      ],
+      "curated": true
+    },
+    {
+      "title": "NVD has been down for while now, any info on this?",
+      "summary": "submitted by /u/AverageCowboyCentaur [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1vl4irw/nvd_has_been_down_for_while_now_any_info_on_this/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-08-11T02:09:22+00:00",
+      "published_ts": 1786414162,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Thailand\u2019s 0% crypto tax. Bitcoin Red Team forced to use Chinese AI: Asia Express",
+      "summary": "The Bitcoin Red Team has been forced to rely on open source Chinese AI, after OpenAI restricts access. Thailand sets crypto tax to 0% in bid to become crypto hub.",
+      "link": "https://cointelegraph.com/magazine/thailands-0-crypto-tax-bitcoin-red-team-forced-to-use-chinese-ai-asia-express?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-11T02:08:36+00:00",
+      "published_ts": 1786414116,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "ISC Stormcast For Tuesday, August 11th, 2026 https://isc.sans.edu/podcastdetail/10046, (Tue, Aug 11th)",
+      "summary": "(c) SANS Internet Storm Center. https://isc.sans.edu Creative Commons Attribution-Noncommercial 3.0 United States License.",
+      "link": "https://isc.sans.edu/diary/rss/33232",
+      "source": "SANS Internet Storm Center",
+      "type": "government",
+      "type_label": "Government, CERT & Advisories",
+      "published": "2026-08-11T02:00:03+00:00",
+      "published_ts": 1786413603,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Certification problem and advice",
+      "summary": "Hi everyone, I\u2019m currently looking for some guidance. I\u2019m a university student aiming to build a career in penetration testing. I\u2019ve studied and practiced the fundamentals and now I\u2019m looking for a certification that has good credibility in the cybersecurity industry while also being practical and hands-on. Ideally, I\u2019d like something that isn\u2019t extremely difficult or advanced, but still holds value on a CV and demonstrates practical pentesting skills. Unfortunately, eJPT and the other INE certifications are no longer an option for me, even though eJPT was originally going to be my first stepping stone into the field. So I\u2019m currently looking for good alternatives. What certifications would you recommend for me ? appreciate all help. submitted by /u/ConsiderationHeavy81 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1vl3r9d/certification_problem_and_advice/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-08-11T01:34:26+00:00",
+      "published_ts": 1786412066,
       "smart_groups": [],
       "curated": false
     },
@@ -1740,6 +1861,20 @@
       "curated": false
     },
     {
+      "title": "Defense supplier IEH Corporation discloses Microsoft 365 mailbox breach via phishing",
+      "summary": "The breach occurred when an employee fell victim to a phishing scam, impersonating a business contact and presenting a fake Microsoft sharing link.",
+      "link": "https://www.scworld.com/brief/defense-supplier-ieh-corporation-discloses-microsoft-365-mailbox-breach-via-phishing",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T14:10:00+00:00",
+      "published_ts": 1786371000,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
       "title": "HashiCorp security advisory (AV26-791)",
       "summary": "",
       "link": "https://cyber.gc.ca/en/alerts-advisories/hashicorp-security-advisory-av26-791",
@@ -1749,6 +1884,20 @@
       "published": "2026-08-10T14:09:21+00:00",
       "published_ts": 1786370961,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "CISA cautions against overly restrictive legislation for global vulnerability program",
+      "summary": "A funding scare last year highlighted the program's reliance on a single U.S. contract, prompting legislative proposals to formalize CISA's role.",
+      "link": "https://www.scworld.com/brief/cisa-cautions-against-overly-restrictive-legislation-for-global-vulnerability-program",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T14:08:00+00:00",
+      "published_ts": 1786370880,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
       "curated": false
     },
     {
@@ -1766,6 +1915,20 @@
         "Exploit / PoC"
       ],
       "curated": true
+    },
+    {
+      "title": "Updoc data breach exposes customer contact information",
+      "summary": "The incident at Updoc, an Australian telehealth service, was detected on July 31 and involved unauthorized access to an external system used for operational support.",
+      "link": "https://www.scworld.com/brief/updoc-data-breach-exposes-customer-contact-information",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T14:05:00+00:00",
+      "published_ts": 1786370700,
+      "smart_groups": [
+        "Data Breaches / Leaks"
+      ],
+      "curated": false
     },
     {
       "title": "WebPros security advisory (AV26-790)",
@@ -1819,6 +1982,18 @@
       "curated": false
     },
     {
+      "title": "AI inference attacks pose new data privacy risks",
+      "summary": "Gartner predicts that by 2029, most privacy incidents will arise from AI-generated inferences rather than direct exposure of personal information.",
+      "link": "https://www.scworld.com/brief/ai-inference-attacks-pose-new-data-privacy-risks-surpassing-traditional-breaches",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T13:59:00+00:00",
+      "published_ts": 1786370340,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "IBM security advisory (AV26-789)",
       "summary": "",
       "link": "https://cyber.gc.ca/en/alerts-advisories/ibm-security-advisory-av26-789",
@@ -1843,6 +2018,22 @@
         "Vulnerabilities / CVEs"
       ],
       "curated": false
+    },
+    {
+      "title": "New NatJack attack class exploits NAT vulnerabilities to hijack TCP sessions",
+      "summary": "NatJack exploits a fundamental assumption in many NAT implementations: that systems behind the same NAT will not interfere with each other's connection states.",
+      "link": "https://www.scworld.com/brief/new-natjack-attack-class-exploits-nat-vulnerabilities-to-hijack-tcp-sessions",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T13:47:00+00:00",
+      "published_ts": 1786369620,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
     },
     {
       "title": "British \u2018Com\u2019 member who abused more than 100 girls worldwide jailed for two years",
@@ -1882,6 +2073,23 @@
         "Vulnerabilities / CVEs",
         "Exploit / PoC",
         "Data Breaches / Leaks"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Windows Hello for Business keys can be silently abused by malware",
+      "summary": "Researcher Dirk-jan Mollema demonstrated that malware can exploit Windows Hello for Business keys on TPM-backed systems without extracting private keys, recovering PINs, or triggering biometric prompts.",
+      "link": "https://www.scworld.com/brief/windows-hello-for-business-keys-can-be-silently-abused-by-malware",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-10T13:41:00+00:00",
+      "published_ts": 1786369260,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC",
+        "Windows / Microsoft",
+        "Malware / Payloads"
       ],
       "curated": true
     },
@@ -101384,68 +101592,6 @@
       "type_label": "OSINT, Communities & Subreddits",
       "published": "2026-07-12T04:14:56+00:00",
       "published_ts": 1783829696,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Looking for security specialist who has experience with ios and apple products.",
-      "summary": "Im looking to speak with a security specialist who would like a job to help analyze some very strange activity on both my iphones (11 and 16) I've been the target of some very strange activity/attacks on my devices that has been going on for 6 years and apple has not been helpful at all. Will provide more details upon request. submitted by /u/KeyFox3370 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uu36z9/looking_for_security_specialist_who_has/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-12T02:42:38+00:00",
-      "published_ts": 1783824158,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Is it worth pursuing a career in cyber security anymore? Or is it a bad goal in the current era of AI",
-      "summary": "submitted by /u/Ok_Tap940 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uu36bc/is_it_worth_pursuing_a_career_in_cyber_security/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-12T02:41:42+00:00",
-      "published_ts": 1783824102,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Career Shifter: From SAP Basis Admin to Cybersecurity Defense Analyst",
-      "summary": "Best roadmap for a career shifter/ Best training or certifications to enroll? submitted by /u/Deep-West-8078 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uu2de9/career_shifter_from_sap_basis_admin_to/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-12T02:02:17+00:00",
-      "published_ts": 1783821737,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Microsoft is rewriting Windows patch guidance because of AI - Help Net Security",
-      "summary": "submitted by /u/Dash-Courageous [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uu1l0i/microsoft_is_rewriting_windows_patch_guidance/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-12T01:24:33+00:00",
-      "published_ts": 1783819473,
-      "smart_groups": [
-        "Windows / Microsoft"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Empery Digital shares rise after selling BTC to fund AI data center project",
-      "summary": "The sales come months after a major Empery shareholder demanded the firm ditch its Bitcoin treasury strategy and sought the resignation of its CEO and board.",
-      "link": "https://cointelegraph.com/news/empery-digital-shares-rise-after-selling-bitcoin-treasury-to-fund-ai-data-center-project?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-07-12T01:05:00+00:00",
-      "published_ts": 1783818300,
       "smart_groups": [],
       "curated": false
     },
