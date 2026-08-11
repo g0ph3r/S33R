@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-08-11T22:56:30.812032+00:00",
+  "generated_at": "2026-08-11T23:55:05.356677+00:00",
   "days_back": 30,
-  "total_items": 7547,
+  "total_items": 7546,
   "items": [
     {
       "title": "GISEC GLOBAL",
@@ -14,6 +14,24 @@
       "published_ts": 1789556400,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "Zoom zero-click RCE flaws allow attackers to compromise meeting participants",
+      "summary": "Zoom has fixed four vulnerabilities across its applications, including two that could allow attackers who join a meeting to execute malicious code on the systems of all other meeting participants with no interaction required from them. Three of the vulnerabilities affect all Zoom client applications for all platforms before versions 7.1.5 and 7.0.6, while the fourth impacts Zoom Workplace VDI Client for Windows and VDI Plugins on all supported platforms before versions 7.0.11 and 6.6.15. Products such as Zoom Rooms and Zoom Meeting SDK before versions 7.1.0 are also affected. The three client vulnerabilities are memory corruption issues in the text annotation function and were found by a researcher from A Security by using an AI agent. \u201cThe entire operation, from finding the flaw to building a working exploit, was carried out by A [Security] using fewer than 20 prompts on publicly available AI models in under 24 hours,\u201d the company said in its report . \u201cThis class of capability would previously have only been available to nation-state threat actors, but the model requiring elite teams, months of effort, and weapons-grade budgets has collapsed. Today, a single researcher was able to develop a nation-state-level exploit in less than a day.\u201d The researchers point out the massive potential blast radius of such an exploit, with Zoom being used by 70% of the Fortune 100 companies, most of the Fortune 500 ones, and federal agencies. In addition, this exploit doesn\u2019t need meeting participants to perform any type of action such as clicking or downloading anything. It all happens silently with no indication that the attacker has executed malicious code on their computer. How the vulnerability works When a participant draws, writes, or highlights text on a shared screen or whiteboard in Zoom, their client doesn\u2019t send pixels. Instead, it builds a typed in-memory object that describes the action, then serializes this object into a byte stream and sends it to Zoom\u2019s Multimedia Router, which then forwards it to all meeting participants, whose client application deserializes the object. Data serialization and deserialization operations have been a big source of memory corruption vulnerabilities in applications because it\u2019s easy to get wrong and the input is attacker-controlled. Zoom allocates four fixed 128-byte buffers to write the deserialized annotation packets in, but the code only checks that the packets are non-zero, not their size. Therefore, if an attacker can generate a packet that fills and exceeds the four fixed buffers, they have a buffer overflow condition they can exploit to insert malicious code in the application\u2019s memory. The A Security researcher has identified a buffer overflow vulnerability, CVE-2026-53413 , and a use-after-free memory error, CVE-2026-53415 , both of which can read to remote code execution. A third flaw, CVE-2026-53414 , is a missing bounds check that can lead to a denial-of-service condition. Zoom also patched a path traversal flaw, CVE-2026-53416 , in the VDI client and plugins that could lead to information disclosure. Zoom VDI (Virtual Desktop Infrastructure) is a special version of the Zoom app that\u2019s designed to run on virtual desktops such as Citrix, VMware Horizon, and Azure Virtual Desktop. Mitigation Aside from updating Zoom clients, organizations can disable the end-to-end encryption (E2EE) setting for their meetings. That\u2019s because Zoom has deployed server-side mitigation for this flaw that filters malicious annotation messages. When E2EE is enabled, the server only sees encrypted messages and cannot perform such filtering. Another mitigation is to set the per-platform minimum version for guests and staff in the meeting preferences and only allow patched clients to join meetings. \u201cThis exploit needed only presence in the meeting, so joining rules are access control: waiting rooms, passcodes, authenticated-users-only, no published personal meeting link,\u201d the researchers said. \u201cThen cut what nobody uses, because every optional feature is another parser. In Zoom, consider locking annotation, file transfer, whiteboarding, remote control and third-party apps, and limiting screen sharing to hosts.\u201d",
+      "link": "https://www.csoonline.com/article/4208223/zoom-zero-click-rce-flaws-allow-attackers-to-compromise-meeting-participants.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-11T22:56:27+00:00",
+      "published_ts": 1786488987,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Windows / Microsoft",
+        "Cloud / SaaS"
+      ],
+      "curated": true
     },
     {
       "title": "Usereste un \u201cmarketplace\u201d per professionisti della cybersecurity?",
@@ -105109,32 +105127,6 @@
       "smart_groups": [
         "Network / OT / ICS"
       ],
-      "curated": false
-    },
-    {
-      "title": "Robinhood L2 sparks ETH optimism, Saylor 'muddies waters.' Hodler's Digest, July 5-12, 2026",
-      "summary": "Even Ethereum's critics believe Robinhood Chain is bullish for ETH. Nigel Farage and Donald Trump become embroiled in crypto related scandals, and more.",
-      "link": "https://cointelegraph.com/features/ethereum-climbs-as-robinhood-l2-takes-off?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-07-12T23:24:26+00:00",
-      "published_ts": 1783898666,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Russia's FSB blamed for Poland grid attack as UK and EU impose first joint cyber sanctions",
-      "summary": "The allies blamed Center 16, the FSB\u2019s signals intelligence arm, for acts of attempted cyber sabotage targeting Poland\u2019s energy sector and water treatment facilities, alongside \u201ca wide range of malicious cyber activities with growing severity.\u201d",
-      "link": "https://therecord.media/russia-blamed-for-poland-grid-cyberattack-in-joint-uk-eu-sanctions-package",
-      "source": "The Record",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-12T23:00:00+00:00",
-      "published_ts": 1783897200,
-      "smart_groups": [],
       "curated": false
     },
     {
