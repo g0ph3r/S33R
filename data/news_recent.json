@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-12T01:29:19.404374+00:00",
+  "generated_at": "2026-08-12T04:31:11.804137+00:00",
   "days_back": 30,
   "total_items": 7548,
   "items": [
@@ -16,6 +16,83 @@
       "curated": false
     },
     {
+      "title": "AI deployments are stretching enterprise security to its limits",
+      "summary": "CISOs and CTOs expect AI deployments to increase their organizations\u2019 attack surface by an average of 14% over the next year. Nearly all lack visibility into AI deployments, and 90% are concerned about employees using unapproved AI tools outside formal oversight, according to NetFoundry\u2019s 2026 State of Secure AI Access survey. Key aspects of AI deployments contributing most to attack surface changes (Source: NetFoundry) Organizations are under pressure to secure AI deployments, particularly in the \u2026 More \u2192 The post AI deployments are stretching enterprise security to its limits appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/08/12/netfoundry-securing-ai-deployments-report/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-12T04:00:55+00:00",
+      "published_ts": 1786507255,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "What makes a vulnerability finding useful, to the person fixing it?",
+      "summary": "When a pentest finding reaches a developer, they may not know what to do. The technical details of the vulnerability finding are not enough. The vulnerability finding is more useful when it has steps to reproduce the problem, evidence of the vulnerability, and information about which parts of the system are affected by the vulnerability finding. It is also helpful to know how bad the impact of the vulnerability finding really is. For people who work with pentest reports or vulnerability reports, what information do you think is most useful when you have to look into a vulnerability finding and fix the vulnerability finding? submitted by /u/Prestigiousabby [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1vm2rdw/what_makes_a_vulnerability_finding_useful_to_the/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-08-12T03:24:51+00:00",
+      "published_ts": 1786505091,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Metabase SQLi exploit grants attackers total access",
+      "summary": "Business intelligence (BI) platform provider Metabase has disclosed a zero-day SQL Injection vulnerability, warning that customers\u2019 sensitive credentials, tokens, API keys, and other data may have been exposed. The Metabase vulnerability revealed on August 6, designated CVE-2026-72898 , is identified as critical, with a severity score of 10, the highest possible rating. It is present in versions 1.58 and up. \u201cYou don\u2019t see a perfect 10/10 on CVSS often, but when you do, be worried,\u201d noted David Shipley , CEO of Beauceron Security. SQL injection is \u201cold school and painful, as there\u2019s now working proof of concept exploit code.\u201d \u2018Unmitigated, raw\u2019 database access Metabase is an open-source BI tool that customers can connect to popular databases, including Databricks, MongoDB, Oracle, Snowflake, Amazon, BigQuery, and many others. They can use the platform to access analytics, query and visualize data, and build dashboards, among other actions. Search engine Shodan has tracked roughly 2,500 Metabase instances, and security company Wiz reported that around 13% of cloud environments have deployed self-hosted Metabase instances; of those, about 25% are fully accessible on the internet. According to Metabase\u2019s disclosure, a threat actor used a zero-day SQL injection vulnerability in the company\u2019s platform to gain access. The entry point is /api/session/reset_password . Metabase said that after it discovered the attack, it immediately blocked the exploited endpoints, patched the vulnerability, terminated relevant sessions, and revoked credentials used in the incident. Metabase Cloud customers have already been upgraded and patched against the vulnerability, but self-hosted Metabase customers may still be vulnerable unless they have patched. \u201cThis vulnerability allows attackers to have unmitigated, raw SQL access to the Metabase database,\u201d said Scott Miserendino , CTO at DataBee. They can steal or alter account credentials for connected databases, create new administrator accounts, change app configurations, escalate privileges, or even \u201cdegrade, alter or destroy\u201d information. He emphasized that this vulnerability can also affect platforms that use original equipment manufacturer (OEM) versions of Metabase as part of their infrastructure. This means affected users may not even know they are affected, because they are not aware that Metabase is part of the product they purchased. \u201cIt is a very serious vulnerability,\u201d Miserendino cautioned. Victims so far Companies that have been impacted by the breach seem, at least to so far, to be smaller organizations and startups. They include Kilo Code , which was recently acquired by Anaconda; Y Combinator backed Tally , which is building autonomous accounting agents; personal computer manufacturer Framework ; workflow automation platform n8n ; and AI testing and monitoring platform provider ChecklyHQ . The impacted companies report that threat actors accessed records containing usernames, email addresses, cloud passwords, cryptographic hashes of OpenTelemetry (OTel) API keys used for trace collection, Slack access tokens, and other sensitive information. They all report that they are directly contacting impacted customers and have taken mitigation actions, including rotating potentially impacted credentials and API keys, resetting all user passwords, invalidating all Slackbot authentication tokens for impacted users, removing compromised admin accounts, and reviewing internal audit logs. \u201cThe vulnerability was in a vendor\u2019s product, but protecting your data is our job, and this incident put some of it at risk,\u201d Checkly said in its notice. It said it is rethinking internal processes around analytics tools, improving sanitation when storing check configurations and data, and performing extensive audits to limit exposure. Its on-call engineers will also be paged when future vendor security notices are released to allow for faster response. \u201cRotating credentials fixes the immediate problem,\u201d the company noted. \u201cIt does not fix the reason this hurt: Our analytics environment held more sensitive data and had broader access than it needed.\u201d What affected customers should do The attack pattern, according to Metabase, is: A call to POST /api/session/reset_password with a 400 status code This is followed by a call to GET /api/user/current with a 200 status code \u201cIf you find that pattern in your application logs or in your Metabase server ingress logs, it is likely that your instance has been compromised,\u201d the company said. Customers should upgrade to an appropriate patch as soon as possible. For instance, if running Metabase 0.58.6, move to 0.58.24 or later. Those unable to immediately upgrade can implement a temporary workaround by blocking the /api/session/reset_password endpoint. If the /api/session/reset_password endpoint of a Metabase instance is publicly accessible, enterprises should revoke all active user sessions; review and delete any unrecognized API keys; audit data warehouse logs and admin accounts for unauthorized access or other unexpected changes; rotate credentials for all connected databases; and review Metabase activity and query histories. If wrapping a third-party\u2019s REST interface, enterprises should always perform their own SQLi detection, DataBee\u2019s Miserendino advised. This can be done by incorporating a web access firewall (WAF) or reverse proxy. \u201cEnterprises should also monitor their security and database logs for the creation of new or recently elevated administrator accounts,\u201d he said, \u201cor other unusual activity such as large volumes of data drops.\u201d Anaconda, for its part, urges customers to remain diligent: \u201cBe on alert for phishing/social engineering, and maintain credential hygiene (including auditing, reviewing, and rotating credentials regularly) and spam monitoring.\u201d",
+      "link": "https://www.csoonline.com/article/4208307/metabase-sqli-exploit-grants-attackers-total-access.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-12T02:40:58+00:00",
+      "published_ts": 1786502458,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Web / API Security",
+        "Network / OT / ICS",
+        "Phishing / Social Engineering"
+      ],
+      "curated": true
+    },
+    {
+      "title": "ISC Stormcast For Wednesday, August 12th, 2026 https://isc.sans.edu/podcastdetail/10048, (Wed, Aug 12th)",
+      "summary": "(c) SANS Internet Storm Center. https://isc.sans.edu Creative Commons Attribution-Noncommercial 3.0 United States License.",
+      "link": "https://isc.sans.edu/diary/rss/33238",
+      "source": "SANS Internet Storm Center",
+      "type": "government",
+      "type_label": "Government, CERT & Advisories",
+      "published": "2026-08-12T02:00:03+00:00",
+      "published_ts": 1786500003,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "EC-Council CSA v2 \u2013 Study Materials & Exam Preparation Advice",
+      "summary": "Hi everyone \ud83d\udc4b I\u2019m currently preparing for the EC-Council Certified SOC Analyst (CSA v2) exam and planning to take the exam soon. I\u2019d really appreciate some advice from people who have already taken the exam or are currently preparing for it. I\u2019m mainly looking for: \u2022 \ud83d\udcda Good CSA v2 study notes / revision notes \u2022 \ud83d\udcdd Sample or practice questions \u2022 \ud83d\udcd6 Question banks or mock tests that are useful for preparation \u2022 \ud83c\udfaf Important topics to focus on \u2022 \ud83e\uddea Useful labs or practical exercises \u2022 \ud83e\udde0 Recent exam experiences and preparation tips \u2022 \ud83d\udccc Any resources you personally found helpful If you have any CSA v2 notes, practice questions, mock exams, or other useful study resources, I\u2019d really appreciate it if you could share them or point me in the right direction. Also, if you\u2019ve recently taken the exam, I\u2019d love to hear what your preparation was like and what topics you would recommend focusing on. Thanks! \ud83d\ude4f submitted by /u/Defiant-Standard-547 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1vm0lvu/eccouncil_csa_v2_study_materials_exam_preparation/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-08-12T01:43:00+00:00",
+      "published_ts": 1786498980,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
       "title": "Google says Chrome cuts 7 billion unwanted Android notifications a day to fight abuse",
       "summary": "Google says Chrome's anti-abuse systems reduced unwanted notifications on Android by more than 7 billion per day during the first quarter of 2026. [...]",
       "link": "https://www.bleepingcomputer.com/news/security/google-says-chrome-cuts-7-billion-unwanted-android-notifications-a-day-to-fight-abuse/",
@@ -26,6 +103,21 @@
       "published_ts": 1786497355,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "Ravencoin hits record low as network exploit puts transactions at risk",
+      "summary": "Mining pools controlling most of Ravencoin\u2019s hash rate are building a competing chain that could trigger a three-day reorganization.",
+      "link": "https://cointelegraph.com/markets/ravencoin-rvn-record-low-consensus-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-12T01:11:51+00:00",
+      "published_ts": 1786497111,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC"
+      ],
+      "curated": true
     },
     {
       "title": "How we will deal against frontier abliterated models?",
@@ -105082,78 +105174,6 @@
       "smart_groups": [
         "Windows / Microsoft"
       ],
-      "curated": false
-    },
-    {
-      "title": "Participants Needed: Master's Research on AI Governance & the EU AI Act",
-      "summary": "Hi everyone, I'm looking for participants for my Master's practicum research at Dublin City University (DCU). The study is an interactive simulation based on the EU AI Act, where you'll make decisions about the governance of a high-risk AI recruitment system. It takes around 10\u201315 minutes to complete, and all responses are completely anonymous. I'm hoping to gather perspectives from people interested in AI, whether you're a professional, student, or enthusiast. Your participation would really help with my research. Thank you so much! submitted by /u/Cathal_or01 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uv05x7/participants_needed_masters_research_on_ai/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-13T03:29:40+00:00",
-      "published_ts": 1783913380,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Citrix Unveils NetScaler MCP Gateway With Centralized Security for AI Agents",
-      "summary": "Citrix has introduced new NetScaler capabilities designed to secure and govern enterprise AI agents that use the Model Context Protocol (MCP). Announced on July, the NetScaler MCP Gateway provides a centralized entry point for AI agents connecting to approved MCP servers, while expanded NetScaler AI Gateway features add model routing and token-level visibility for large [\u2026] The post Citrix Unveils NetScaler MCP Gateway With Centralized Security for AI Agents appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/citrix-unveils-netscaler-mcp-gateway/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-13T03:26:42+00:00",
-      "published_ts": 1783913202,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Gang Behind Fake Noida Airport Job Scam Busted; Five Arrested in Cyber Fraud Case",
-      "summary": "Cyber Fraud Ring Disrupted After Five Arrested in Noida for Fake Aviation Job Scam Operation... The post Gang Behind Fake Noida Airport Job Scam Busted; Five Arrested in Cyber Fraud Case appeared first on .",
-      "link": "https://www.news4hackers.com/gang-behind-fake-noida-airport-job-scam-busted-five-arrested-in-cyber-fraud-case/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-13T03:04:31+00:00",
-      "published_ts": 1783911871,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Two Arrested in 49-Lakh Cyber Fraud Case: Bank Account Renting Exposed",
-      "summary": "Two individuals have been detained in Greater Noida for their involvement in a \u20b949.40 lakh... The post Two Arrested in 49-Lakh Cyber Fraud Case: Bank Account Renting Exposed appeared first on .",
-      "link": "https://www.news4hackers.com/two-arrested-in-49-lakh-cyber-fraud-case-bank-account-renting-exposed/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-13T03:02:20+00:00",
-      "published_ts": 1783911740,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "ISC Stormcast For Monday, July 13th, 2026 https://isc.sans.edu/podcastdetail/10004, (Mon, Jul 13th)",
-      "summary": "(c) SANS Internet Storm Center. https://isc.sans.edu Creative Commons Attribution-Noncommercial 3.0 United States License.",
-      "link": "https://isc.sans.edu/diary/rss/33148",
-      "source": "SANS Internet Storm Center",
-      "type": "government",
-      "type_label": "Government, CERT & Advisories",
-      "published": "2026-07-13T02:00:03+00:00",
-      "published_ts": 1783908003,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Bitcoin ETFs draw $197M, snap 8-week outflow streak",
-      "summary": "Analysts are not yet ready to call it a recovery in institutional demand for Bitcoin.",
-      "link": "https://cointelegraph.com/news/bitcoin-etfs-draw-197m-snap-8-week-outflow-streak?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-07-13T01:49:17+00:00",
-      "published_ts": 1783907357,
-      "smart_groups": [],
       "curated": false
     },
     {
