@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-08-13T22:10:27.333404+00:00",
+  "generated_at": "2026-08-13T23:54:30.329265+00:00",
   "days_back": 30,
-  "total_items": 7567,
+  "total_items": 7559,
   "items": [
     {
       "title": "GISEC GLOBAL",
@@ -16,6 +16,118 @@
       "curated": false
     },
     {
+      "title": "The Ancient Art of SIEM: Why 2003 Problems Look So Familiar in 2026",
+      "summary": "Lately, I\u2019ve been reading a lot of insightful posts related to best practices in SIEM, detection, and logs (written in 2026). The interesting bit is that a lot of these best practices looked good to me and made sense \u2014 and yet, they felt incredibly familiar\u2026 As I dug deeper, I realized they reminded me of things I had written 10, or sometimes even 20 (23 in one case) years ago. Dark and ancient art of SIM/SEM to become SIEM What does this mean? I hope you don\u2019t take this post as something written purely to prove that I\u2019m very smart and totally prescient (I am smart / I am not prescient). No, the actual lesson here is that things changed much less at many organizations than people assume. So, let\u2019s review some of the older wisdom from the mid-2000s and early 2010s and match it up against what people report as today\u2019s best practices. #1 Centralization Let\u2019s start with pure comedy. In 2003, I recommended that people \u2026 wait for it\u2026 centralize security data (funny enough, in 2023, I briefly questioned this idea ). But on a more serious note, this is still \u2014 mostly \u2014 good advice, with some notable exceptions [A.C. \u2014 look at that emdash sucker there, got it?]. Excerpt from Anton Chuvakin 2003 slide #2 Context I am surprised about it myself, but back in 2003 I was a big fan of adding what later became known as context data into a SIEM. Asset info, vulnerability scans, etc need to go into your SIEM (well, SIM and SEM at the time; SIEM was born in 2005). Excerpt from Anton Chuvakin 2003 slide #3 Planning Since the day I first laid my eyes on a SIEM in January 2002 (well, technically, it was a SIM), I realized that project planning makes or breaks a SIEM deployment. 20+ years did NOT teach many this lesson, as modern advice, sadly, is the same. Generic advice? Sure, but also evergreen! Excerpt from Anton Chuvakin 2011 slide #4 Buy vs DIY You may think because I worked for vendors, I was always a fan of \u201cbuy from a vendor\u201d as a default choice, and only resort to \u201cbuild\u201d or \u201cbuy then build\u201d as an exception.No, I saw too many DIY SIEM disasters . Here we confirm that despite major changes in tooling (AI agents), for most organizations build vs buy decision remained largely the same, for now. Excerpt from Anton Chuvakin 2010 slide (a fun ancient exception: a certain \u201cI-suspect-who\u201d had to analyze 300TB (~ 1 trillion messages) of logs in 2005, and advice they were given is: DIY, nothing commercial can handle it \u2026 and as we learned later won\u2019t for another 5\u20137 years at least) #5 Output-driven SIEM The idea of \u201cOutput-driven SIEM\u201d was stolen by me in 2011 and then popularized widely my Gartner \u201cmegaphone.\u201d I did a refresh on this in 2025 , but, in brief, it means \u201cdeploying your SIEM in such a way that NOTHING comes into your SIEM unless and until you know how it would be utilized and/or presented.\u201d This is very relevant today, because in the past it was hardware and not perhaps it means tokens. But \u201cSIEM costs kill\u201d message remains. #6 Crown Jewels Sometime around 2013, I was giving many clients this advice: do NOT start your security monitoring (really, D&R) scope from the most important assets, or crown jewels. Many a CISO argued hard (\u2018but Anton, what about \u201cimportant first.\u201d\u2019 Yes, SAP is important but if you onboard SAP logs before firewall logs, you will probably die in the process. And step 2 will never happen. Modern advice seems to match perfectly. #7 Retention \u201cKeep logs. If you don\u2019t know better, keep logs for a year.\u201d I said around 2006\u20132008 . Then in 2019 , I got somewhat shocked that keeping logs for a year is seen as a luxury by many. Today with data lakes and all sorts of crazy cloud storage people \u2026 well\u2026 often still don\u2019t keep logs long enough. Excerpt from Anton Chuvakin 2011 slide #8 SIEM vs Log Management SIEM vs LM was a hot topic in the mid-2000s . We had architectured for broad collection in LM and security focused subset in a SIEM. Today this just means SIEM and a data lake. So, this also aged very well. #9 Log Data Mining aka UEBA A lot of my early work in what I called \u201dlog data mining\u201d predated UEBA, and my predictions that rules will be complemented by analytics (hi Captain Obvious!) aged weirdly. They agend well, then not well, then well again. Today we have non-deterministic AI analyzing logs, and back then we had Marcus Ranum \u201cNBS\u201d for Never Before Seen\u2026. #10 Misc In my consulting days (pre-Gartner, which means pre-2011), I did a lot of \u201cbest / worst practices\u201d presentations, such as this one . I think these aged well, but perhaps because they were a bit generic. Example that aged very well include: \u201cPhased Approach: Rather than feeding \u201call\u201d logs into a SIEM immediately, organizations should start with limited devices (e.g., DMZ) and events (e.g., authentication)\u201d then expand. \u201cFocus on Use Cases: SIEM requirements should be driven by specific problems the organization wants to solve, such as tracking unauthorized access or detecting web application hacking.\u201d \u201cTuning Ability: The organization must accept responsibility for customizing and tuning the tool, as \u201cout-of-the-box\u201d SIEM deployments rarely succeed.\u201d All of the above are from the early to mid 2000s. These also aged well, despite being almost \u00bc of a century old\u2026 Lessons ? So what does it mean that advice from 2003 still works in 2026? A few uncomfortable lessons: SIEM problems were never technology problems. They were \u2014 and are, and perhaps will be \u2014 people, process, and organizational physics problems wearing a technology costume. This is why 23-year-old advice still applies: the vendors shipped new tech, but nobody shipped new organizations. The \u201cwhat\u201d aged well; the \u201chow\u201d got replaced. Output-driven collection, phasing, use cases, context, tuning ownership \u2014 all still true. What changed is the plumbing: appliances became data lakes, EPS became tokens, correlation rules got a non-deterministic AI sidekick. If your strategy changes every time the plumbing changes, you never had a strategy. Good news!? Yes! Cost pain is eternal; only the currency changes. In 2003 you ran out of hardware, in 2015 you ran out of ingest budget, in 2026 you run out of tokens. \u201cSIEM costs kill\u201d is apparently a law of nature, so architect for it (output-driven!) rather than being surprised by it. Again. If the advice didn\u2019t change, but you still don\u2019t follow it, the advice was never the problem. Everyone \u201cknows\u201d to plan the deployment, start with use cases, and own the tuning. Knowing isn\u2019t the bottleneck. Doing is. AI won\u2019t fix that either \u2014 it will just help you not-do it faster. The industry has a roughly 7-year memory. Every cycle, \u201cnew\u201d best practices get rediscovered \u2014 at $xxx/hour consulting rates \u2014 by people who could have read my 2005 SlideShare for free. Reading old stuff is the cheapest security investment you\u2019ll make this year? So no, I\u2019m not prescient. The organizations are just slow (as I said after leaving Gartner: \u201cIT inertia is the most powerful force in the Universe\u201d). We had 23 years of progress, and the best practice is still \u201chave a plan and don\u2019t ingest garbage.\u201d See you in 2043, when this post ages well too\u2026 Related posts: 20 Years of SIEM: Celebrating My Dubious Anniversary 20 Years of SIEM Webinar Q&A and slides Security Correlation Then and Now: A Sad Truth About SIEM Stop Building a 2003 SOC with AI: Triage Must Die (Part 2) Stop Building a 2003 SOC with AI: A Modern People & Process Framework (Part 1) A Fair Weather SOC: 5 Signs It\u2019s Time to Panic (and Fix It!) WTH is Modern SOC, Part 1 (There is no part 2. Yet?) Beware: Clown-grade SOCs Still Abound The Return of the Baby ASO: Why SOCs Still Suck? The Ancient Art of SIEM: Why 2003 Problems Look So Familiar in 2026 was originally published in Anton on Security on Medium, where people are continuing the conversation by highlighting and responding to this story.",
+      "link": "https://medium.com/anton-on-security/the-ancient-art-of-siem-why-2003-problems-look-so-familiar-in-2026-b4944de3b1cc?source=rss----8e8c3ed26c4c---4",
+      "source": "Anton on Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-13T23:09:57+00:00",
+      "published_ts": 1786662597,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Identity / Access",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "China-linked Jewelbug group conducts espionage and cryptocurrency theft",
+      "summary": "Jewelbug operates a single, custom command-and-control (C2) panel to manage its dual operations.",
+      "link": "https://www.scworld.com/brief/china-linked-jewelbug-group-conducts-espionage-and-cryptocurrency-theft",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-13T23:02:04+00:00",
+      "published_ts": 1786662124,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Rubrik rebuilds code review pipeline after AI model finds numerous security flaws",
+      "summary": "Rubrik gained access to Anthropic's Project Glasswing, which provides early access to the Mythos Preview model, a tool designed to find software flaws and construct attack chains.",
+      "link": "https://www.scworld.com/brief/rubrik-rebuilds-code-review-pipeline-after-ai-model-finds-numerous-security-flaws",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-13T22:58:38+00:00",
+      "published_ts": 1786661918,
+      "smart_groups": [
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Market for AI watermark removal tools emerges after Anthropic's Claude update",
+      "summary": "This development includes a GitHub project with over 4,500 stars, various new web tools, and existing AI detection evasion services.",
+      "link": "https://www.scworld.com/brief/market-for-ai-watermark-removal-tools-emerges-after-anthropics-claude-update",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-13T22:58:14+00:00",
+      "published_ts": 1786661894,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Loongson processors vulnerable to LoongLeak cache attack",
+      "summary": "German researchers from the Helmholtz Center for Information Security discovered that Loongson processors, which utilize the LoongArch instruction set architecture, possess caches that leak data.",
+      "link": "https://www.scworld.com/brief/loongson-processors-vulnerable-to-loongleak-cache-attack",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-13T22:53:20+00:00",
+      "published_ts": 1786661600,
+      "smart_groups": [
+        "Identity / Access"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Trump allows private companies to conduct cyber operations against criminals",
+      "summary": "The new policy permits \"Cyber Effects Operations,\" which involve manipulating, disrupting, or destroying information systems and networks.",
+      "link": "https://www.scworld.com/brief/trump-allows-private-companies-to-conduct-cyber-operations-against-criminals",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-13T22:51:52+00:00",
+      "published_ts": 1786661512,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Pennsylvania budget boosts cybersecurity and digital services funding",
+      "summary": "The newly enacted budget allocates an additional $10 million for cybersecurity initiatives and $3.7 million for the Commonwealth Office of Digital Experience (CODE PA).",
+      "link": "https://www.scworld.com/brief/pennsylvania-budget-boosts-cybersecurity-and-digital-services-funding",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-13T22:49:21+00:00",
+      "published_ts": 1786661361,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "'Bitcoin Is Burning': Red Team Turns to Chinese AI to Find Flaws",
+      "summary": "Bitcoin Red Team member Calle said Chinese models, including Moonshot AI\u2019s Kimi K3, are finding bugs across Bitcoin\u2019s open-source software.",
+      "link": "https://decrypt.co/375609/bitcoin-burning-red-team-chinese-ai-kimi",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-13T22:36:07+00:00",
+      "published_ts": 1786660567,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
       "title": "Flock says its new tool will help identify police abuse, but hasn\u2019t explained how it works",
       "summary": "The surveillance company announced it's making a tool called \"Audit Assistance\" mandatory for all customers, claiming it's already helped catch abuse. But the company has yet to explain how the tool works in detail, raising questions about its effectiveness.",
       "link": "https://techcrunch.com/2026/08/13/flock-says-its-new-tool-will-help-identify-police-abuse-but-hasnt-explained-how-it-works/",
@@ -28,6 +140,22 @@
       "curated": false
     },
     {
+      "title": "When Patching Isn't Enough: What the Fairlife Ransomware Attack Says About Network Edge Risk",
+      "summary": "A recent ransomware incident at Coca-cola owned dairy company Fairlife provides a potent example of network edge devices being targeted for exploitation, and of the scale of outcomes attackers can achieve by exploiting them. According to reporting from MSN and others, the ransomware attack caused Fairlife to temporarily suspend production across its U.S. facilities after [\u2026] The post When Patching Isn't Enough: What the Fairlife Ransomware Attack Says About Network Edge Risk appeared first on Eclypsium | Supply Chain Security for the Modern Enterprise .",
+      "link": "https://eclypsium.com/blog/fairlife-ransomware-citrixbleed-network-edge-risk/",
+      "source": "Eclypsium | Supply Chain Security for the Modern Enterprise",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-08-13T21:55:16+00:00",
+      "published_ts": 1786658116,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
       "title": "If Apple sends you a push notification alerting you to a spyware attack, take it seriously",
       "summary": "Apple now sends out push notifications to iPhone lock screens when the company identifies government spyware targeting someone's devices.",
       "link": "https://techcrunch.com/2026/08/13/if-apple-sends-you-a-push-notification-alerting-you-to-a-spyware-attack-take-it-seriously/",
@@ -37,6 +165,20 @@
       "published": "2026-08-13T21:50:11+00:00",
       "published_ts": 1786657811,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Anthropic's AI Agents Started a Virtual War. The Chat Logs Are Unhinged",
+      "summary": "In a new red-team study, Claude models deployed self-replicating malware against each other\u2014and the transcripts explain why.",
+      "link": "https://decrypt.co/375596/anthropic-ai-agents-virtual-war-quotes-unhinged",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-13T21:45:04+00:00",
+      "published_ts": 1786657504,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
       "curated": false
     },
     {
@@ -734,6 +876,24 @@
       "title": "U.S. CISA adds Metabase, Windows, and Cisco Secure Firewall flaws to its Known Exploited Vulnerabilities catalog",
       "summary": "U.S. Cybersecurity and Infrastructure Security Agency (CISA) adds Metabase, Windows, and Cisco Secure Firewall flaws to its Known Exploited Vulnerabilities catalog. The U.S. Cybersecurity and Infrastructure Security Agency (CISA) added the following vulnerabilities to its Known Exploited Vulnerabilities (KEV) catalog: CVE-2026-20349 is a vulnerability in Cisco Secure Firewall ASA and FTD software that could allow unauthenticated, [\u2026]",
       "link": "https://securityaffairs.com/197110/uncategorized/u-s-cisa-adds-metabase-windows-and-cisco-secure-firewall-flaws-to-its-known-exploited-vulnerabilities-catalog.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-13T17:12:45+00:00",
+      "published_ts": 1786641165,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Windows / Microsoft",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "U.S. CISA adds Metabase, Windows, and Cisco Secure Firewall flaws to its Known Exploited Vulnerabilities catalog",
+      "summary": "U.S. Cybersecurity and Infrastructure Security Agency (CISA) adds Metabase, Windows, and Cisco Secure Firewall flaws to its Known Exploited Vulnerabilities catalog. The U.S. Cybersecurity and Infrastructure Security Agency (CISA) added the following vulnerabilities to its Known Exploited Vulnerabilities (KEV) catalog: CVE-2026-20349 is a vulnerability in Cisco Secure Firewall ASA and FTD software that could allow unauthenticated, [\u2026]",
+      "link": "https://securityaffairs.com/197110/hacking/u-s-cisa-adds-metabase-windows-and-cisco-secure-firewall-flaws-to-its-known-exploited-vulnerabilities-catalog.html",
       "source": "Security Affairs",
       "type": "general",
       "type_label": "General Security & Blogs",
@@ -2095,6 +2255,22 @@
       "published_ts": 1786624743,
       "smart_groups": [
         "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Security Review for Microsoft Edge version 150",
+      "summary": "We have reviewed the new settings in Microsoft Edge version 150 and determined that there are no additional security settings that require enforcement. The Microsoft Edge version 139 security baseline continues to be our recommended configuration which can be downloaded from the Microsoft Security Compliance Toolkit . Microsoft Edge version 150 introduced 8 new Computer and User settings; we have included a spreadsheet listing the new settings to make it easier for you to find. As a friendly reminder, all available settings for Microsoft Edge are documented here , and all available settings for Microsoft Edge Update are documented here . Please continue to give us feedback through the Security Baselines Discussion site or this post.",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-security-baselines/security-review-for-microsoft-edge-version-150/ba-p/4546730",
+      "source": "Microsoft Security Baselines",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-08-13T12:35:54+00:00",
+      "published_ts": 1786624554,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
         "Vulnerabilities / CVEs"
       ],
       "curated": true
@@ -105188,276 +105364,6 @@
         "Network / OT / ICS"
       ],
       "curated": true
-    },
-    {
-      "title": "White House launches AI cybersecurity clearinghouse",
-      "summary": "submitted by /u/cnn [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uwoye1/white_house_launches_ai_cybersecurity/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-14T23:27:21+00:00",
-      "published_ts": 1784071641,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Old Microsoft-signed UEFI applications can bypass Secure Boot",
-      "summary": "These vulnerable UEFI applications, primarily older versions of the shim bootloader, can allow attackers to execute untrusted code during system startup, according to ESET researcher Martin Smol\u00e1r.",
-      "link": "https://www.scworld.com/brief/old-microsoft-signed-uefi-applications-can-bypass-secure-boot",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-14T23:09:14+00:00",
-      "published_ts": 1784070554,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Synopsys denies data breach claims by new ransomware group D1R",
-      "summary": "The ransomware group D1R claimed to have accessed a database of 40,000 entries from Synopsys and subsequently used this information to target Bosch, alleging the theft of valuable intellectual property.",
-      "link": "https://www.scworld.com/brief/synopsys-denies-data-breach-claims-by-new-ransomware-group-d1r",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-14T23:06:34+00:00",
-      "published_ts": 1784070394,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Data Breaches / Leaks"
-      ],
-      "curated": true
-    },
-    {
-      "title": "European lawmakers criticize Anthropic for AI policy hearing representation",
-      "summary": "The hearing, the first of its kind in Brussels regarding advanced AI risks, focused on Anthropic's cyber-capable models, Mythos and Fable, which are capable of identifying and exploiting software vulnerabilities.",
-      "link": "https://www.scworld.com/brief/european-lawmakers-criticize-anthropic-for-ai-policy-hearing-representation",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-14T23:01:21+00:00",
-      "published_ts": 1784070081,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Looking to switch to splunk from Crowdstrike NG-SIEM",
-      "summary": "Looking to see if anyone has made this switch, how it affected them and how setting up the data connectors are. submitted by /u/Hour-Account4844 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uwoauh/looking_to_switch_to_splunk_from_crowdstrike/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-14T23:00:45+00:00",
-      "published_ts": 1784070045,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Man sentenced for role in swatting attacks",
-      "summary": "A Welshman has been sentenced to prison for his involvement in numerous swatting incidents across the UK, US, and Canada. Callum Dare, 26, was an administrator for Doxbin, a dark web platform used for doxxing and facilitating harassment, according to a recent report by The Register.",
-      "link": "https://www.scworld.com/brief/man-sentenced-for-role-in-swatting-attacks",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-14T22:59:00+00:00",
-      "published_ts": 1784069940,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "ShinyHunters group exploits OAuth trust, prompting Microsoft security upgrades",
-      "summary": "The ShinyHunters group targeted Salesforce users by tricking them into authorizing a malicious Salesforce Data Loader application, which then requested OAuth permissions.",
-      "link": "https://www.scworld.com/brief/shinyhunters-group-exploits-oauth-trust-prompting-microsoft-security-upgrades",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-14T22:55:30+00:00",
-      "published_ts": 1784069730,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Malware / Payloads",
-        "Identity / Access"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Cursor vulnerability allows execution of malicious binaries",
-      "summary": "The vulnerability centers on how Cursor resolves Git binaries. An attacker can place a malicious file named \"git.exe\" at the root of a Git repository.",
-      "link": "https://www.scworld.com/brief/cursor-vulnerability-allows-execution-of-malicious-binaries",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-14T22:51:37+00:00",
-      "published_ts": 1784069497,
-      "smart_groups": [
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Google Cloud open-sources tool to manage shadow AI",
-      "summary": "K8s-aibom functions as a controller that surfaces a bill of materials (BOM) for AI operations, exposing them across a user's cloud estate.",
-      "link": "https://www.scworld.com/brief/google-cloud-open-sources-tool-to-manage-shadow-ai",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-14T22:49:11+00:00",
-      "published_ts": 1784069351,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Fortinet enhances endpoint security with AI monitoring and data loss prevention",
-      "summary": "Fortinet Inc. has expanded its FortiEndpoint platform with new features designed to help companies monitor employee use of artificial intelligence tools and prevent sensitive data from leaking into them.",
-      "link": "https://www.scworld.com/brief/fortinet-enhances-endpoint-security-with-ai-monitoring-and-data-loss-prevention",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-14T22:46:39+00:00",
-      "published_ts": 1784069199,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Over 95% of Coinbase\u2019s code is now written with help of AI",
-      "summary": "Coinbase\u2019s Rob Witoff said the company is leaning more on AI to help with execution, but still needs high-agency humans for judgment and strategy.",
-      "link": "https://cointelegraph.com/news/over-95-of-coinbases-code-is-now-written-with-ai?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-07-14T22:30:00+00:00",
-      "published_ts": 1784068200,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "UK and EU Sanction Russian Cyber Networks",
-      "summary": "Alleged Russian cyber activity targeting European security and institutions. How much of a threat are Russian hackers? submitted by /u/Specialist_Rub2362 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uwnhdv/uk_and_eu_sanction_russian_cyber_networks/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-14T22:28:41+00:00",
-      "published_ts": 1784068121,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "New Rust-based RAT named LabubaRAT impersonates NVIDIA software",
-      "summary": "LabubaRAT operates by impersonating NVIDIA's container runtime toolkit, using an executable named \"nvidia-sysruntime.exe.\"",
-      "link": "https://www.scworld.com/brief/new-rust-based-rat-named-labubarat-impersonates-nvidia-software",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-14T22:23:14+00:00",
-      "published_ts": 1784067794,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Microsoft\u2019s Secure Boot has been broken for a decade and no one noticed until now",
-      "summary": "Old and forgotten \"shims\" Microsoft failed to revoke have made Secure Boot bypasses simple.",
-      "link": "https://arstechnica.com/security/2026/07/microsoft-secure-boot-has-been-broken-for-most-of-its-existence/",
-      "source": "Security \u2013 Ars Technica",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-14T22:20:48+00:00",
-      "published_ts": 1784067648,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Hochul halts new data center approvals via executive order",
-      "summary": "submitted by /u/news-10 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uwmy0h/hochul_halts_new_data_center_approvals_via/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-14T22:07:40+00:00",
-      "published_ts": 1784066860,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "ownCloud Web and oCIS Are Now One Codebase. All Apache-2.0.",
-      "summary": "Two codebases just became one. The ownCloud Web frontend now lives inside owncloud/ocis under web/, all under Apache-2.0. One repository, one licence, one CI pipeline, one contribution surface. Years of contribution history preserved, everything moved into a single home. This is what the OSPO relicensing programme looks like when it reaches the core product.",
-      "link": "https://owncloud.com/blogs/owncloud-web-and-ocis-are-now-one-codebase/",
-      "source": "https://owncloud.com/feed/",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-07-14T22:06:53+00:00",
-      "published_ts": 1784066813,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "SonicWall warns of SMA1000 flaws exploited in zero-day attacks, patch now",
-      "summary": "SonicWall warns that threat actors have been exploiting two SMA1000 vulnerabilities, tracked as CVE-2026-15409 and CVE-2026-15410, in zero-day attacks and urges customers to install the newly released security updates. CVE-2026-15409 is a critical (CVSS 10.0) server-side request forgery (SSRF) vulnerability in the SMA1000 Appliance Work Place interface that allows a remote, unauthenticated attacker to force an appliance to make requests to unintended locations. CVE-2026-15410 is a high-severity (CVSS 7.2) post-authentication code injection flaw in the SMA1000 Appliance Management Console that could allow a remote authenticated administrator to execute arbitrary operating system commands. submitted by /u/cybrscrty [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uwmpyr/sonicwall_warns_of_sma1000_flaws_exploited_in/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-14T21:59:04+00:00",
-      "published_ts": 1784066344,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "[ Removed by Reddit ]",
-      "summary": "[ Removed by Reddit on account of violating the content policy . ] submitted by /u/dazzling_merkle [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1uwmpf1/removed_by_reddit/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-14T21:58:27+00:00",
-      "published_ts": 1784066307,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Records Are Made to Be Broken: Patch Tuesday Raises Triage Stakes",
-      "summary": "Three of the 622 CVEs for which Microsoft issued patches this week are zero-days; there are more than 60 critical vulnerabilities.",
-      "link": "https://www.darkreading.com/vulnerabilities-threats/records-broken-patch-tuesday-raises-triage-stakes",
-      "source": "darkreading",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-14T21:50:56+00:00",
-      "published_ts": 1784065856,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "KeycloakCon Japan 2026: Navigating cloud native identity and the AI frontier",
-      "summary": "The countdown is officially on. In just a few weeks, the cloud-native ecosystem meets in Yokohama for KubeCon + CloudNativeCon Japan 2026. Taking place on Tuesday, July 28 from 09:00 \u2013 12:30, KeycloakCon Japan brings together...",
-      "link": "https://www.cncf.io/blog/2026/07/14/keycloakcon-japan-2026-navigating-cloud-native-identity-and-the-ai-frontier/",
-      "source": "https://www.cncf.io/feed/",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-14T21:34:55+00:00",
-      "published_ts": 1784064895,
-      "smart_groups": [],
-      "curated": false
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
