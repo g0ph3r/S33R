@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-08-19T07:51:59.019801+00:00",
+  "generated_at": "2026-08-19T08:48:16.651926+00:00",
   "days_back": 30,
-  "total_items": 7447,
+  "total_items": 7464,
   "items": [
     {
       "title": "GISEC GLOBAL",
@@ -14,6 +14,241 @@
       "published_ts": 1789556400,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "CISOs are struggling to threat-model AI. Can 15-minute sessions help?",
+      "summary": "A few weeks ago, on a busy day, threat-modeling expert Adam Shostack opened an email from a client. Someone at that organization had vibe-coded an app and put it to work with customer data. Now, the client wanted to know what risks the tool posed. And what it should do about them. They needed answers quickly, so Shostack gave himself 15 minutes to analyze the system. Soon, he had \u201ca list of meaningful threats,\u201d including hallucination and bias, problems that STRIDE , a widely used application-security threat model framework, would not have shown. \u201cI found some interesting stuff that wasn\u2019t obvious to me when I started,\u201d Shostack says. During those 15 minutes, he used PHANTOM-B , a threat modeling framework he developed. It starts with the standard question \u201cWhat can go wrong?\u201d but applies it specifically to the LLM components of a system. Each letter in the name represents a specific threat: Prompt injection, Hallucination, Anthropomorphization, Non-explainability, Training issues, Overreliance (including data quality or \u201cpoison\u201d), Missing security engineering, and Bias. The new framework is meant to complement STRIDE, not replace it. Whereas STRIDE applies across the entire application, PHANTOM-B can be used for the components that interact with LLMs. The framework is designed to produce useful results quickly, making threat modeling less daunting and less costly. And, therefore, more likely to happen. \u201cI\u2019m a big fan of: Let\u2019s make it inexpensive to do this work,\u201d says Shostack, who presented PHANTOM-B at Black Hat USA 2026. Shostack adds that CISOs and their organizations are caught between two challenges: the pressure to secure AI quickly and the difficulty of applying existing security tools to it. \u201cBusinesses need an entry point, which is something that you can fit into a one-hour meeting or a 10-minute conversation with an executive,\u201d he says. The need to use tools like PHANTOM-B is becoming more urgent, as companies increasingly rely on AI. \u201cThreat modeling is more important than ever because AI is introducing genuinely new application architectures and novel risks,\u201d says Jeff Williams, founder of OWASP and founder and CTO of Contrast Security. Why traditional threat modeling falls short Threat modeling has always been a struggle. Organizations of all sizes struggle to do it consistently because it takes time and often can\u2019t keep pace with the number of applications being built and updated. As a result, many companies reserve it for their most critical systems, leaving much of their software without the same scrutiny. \u201cAI didn\u2019t break threat modeling. It exposed weaknesses that were already there,\u201d Williams says. The uncomfortable reality, he argues, is that threat modeling has never been standardized or automated enough to scale. The hardest part is not naming threats but figuring out which applications work. \u201cTraditionally, we\u2019ve attempted that with surveys, questionnaires, interviews, stale Visio diagrams, and spreadsheets,\u201d Williams says. \u201cThe resulting model is often incomplete before the exercise even begins, and it becomes obsolete as soon as the application changes.\u201d Generative and agentic AI amplify those weaknesses, because their behavior is not easy to predict. Conventional software follows rules that engineers can trace from input to output. AI systems interpret natural-language instructions and generate probabilistic responses, so the same request may produce different results. And when agents can access data or call tools, those results can trigger actions elsewhere. \u201cTraditional threat modeling was applied to systems that were generally deterministic. The modern generative and agentic AI systems are non-deterministic, so modification of how we view their risk profiles is needed,\u201d says Brian Glas, vice president of consulting services at CODIFIC and one of the project leads for the OWASP Top 10 . This distinction also appears in Microsoft\u2019s AI threat modeling guidance , which notes that the boundary between data and commands can blur, creating new attack surfaces and enabling failures to spread across tools, memory, and agents. At the same time, faster development cycles are leaving teams with less time to think through how systems should be designed and secured. And complexity also makes it harder to examine threats in isolation. A weakness in a document, for instance, could alter a model\u2019s response and cause an agent or tool to take an unsafe action in another system. OWASP warns that these risks can spread across the entire retrieval-augmented generation pipeline . \u201cA chaining of threats or weaknesses results in the exploitation of the application,\u201d Glas says. The answer to these is to make threat modeling an ongoing practice, a recommendation that is made in NIST\u2019s Artificial Intelligence Risk Management Framework . But despite a growing body of guidance \u2014 including Shostack\u2019s PHANTOM-B , Microsoft\u2019s AI threat modeling recommendations , NIST\u2019s Generative AI Profile , and OWASP\u2019s Top 10 for LLM Applications \u2014 there is still no definitive playbook for threat modeling AI systems. \u201cThreat modeling is not a mature practice,\u201d Glas says. \u201cI believe we are still trying to figure this out.\u201d Improving threat modeling in the age of AI A 15- or 30-minute threat-modeling exercise sounds deceptively manageable. But how much useful security work can teams really accomplish in such a short time? Shostack says a short session is not supposed to be exhaustive. It should, however, identify enough meaningful risks to guide the next decision: Is the risk acceptable, does the system need to change, or is a deeper review required? \u201cOne of the things that we\u2019ve learned from the agile world is that when you make the period of work small, you iterate more and faster,\u201d he says. If the first session misses the mark, the team can erase the whiteboard and try again without losing days or weeks of work. \u201cYou make the experiments cheap, and when the experiment is cheap, you can run it repeatedly.\u201d The result should be a set of concrete stories about how the system could fail. Those scenarios can help CISOs understand the risks they are accepting and help technical teams choose appropriate controls, which can mean limiting data access, narrowing tool permissions, adding human approval points, or even reconsidering whether an LLM is needed at all. PHANTOM-B aims to fill in gaps left by other frameworks. It touches on relevant but sometimes exotic concepts such as anthropomorphization, asking whether users or developers are treating the model as if it understands intent, reasons like a person, or will reliably follow an instruction such as \u201cDo not do X.\u201d That misplaced trust can shape how a system is designed and how much authority it receives. Non-explainability raises another problem. If an LLM screens r\u00e9sum\u00e9s, evaluates medical images, or makes business decisions, an organization may need to justify its output. But asking the model to explain itself may produce a plausible-sounding answer rather than an accurate record of how it reached the original result. Because LLMs are probabilistic, rerunning the same request may not reproduce the same output, making investigation and debugging more difficult. The \u201cmissing security engineering\u201d prompt is a reminder that adding an LLM does not eliminate conventional software risks. According to Shostack\u2019s white paper , it can magnify them, particularly when organizations rush to deploy vibe-coded software that no one fully understands. This tool, together with the work from OWASP, NIST, CISA, and others can help teams understand the emerging risk landscape. \u201cThreat modeling is a creative process,\u201d Williams says. Mistakes to avoid when threat-modeling AI systems LLM-powered tools may be relatively new, but they are still apps. They use third-party libraries, process untrusted input, handle sensitive data, expose APIs, and depend on identity and authorization controls. Focusing heavily on new AI threats while ignoring the basics can leave organizations exposed to preventable vulnerabilities. \u201cThe biggest mistake is forgetting that all the existing risks still apply,\u201d Williams says. He advises CISOs not to jump straight to prompt injection or model manipulation while skipping the fundamentals. \u201cThat\u2019s backwards,\u201d Williams says. \u201cTraditional application security has to be the foundation. The novel AI risks are an additional layer on top of it, not a replacement for it.\u201d Glas agrees. \u201cDetails have changed; fundamentals of risk have not,\u201d he says. \u201cDon\u2019t throw away the security lessons learned in the last 25 years to chase velocity.\u201d Glas also points to another common problem: missing context. Teams may not fully understand how an LLM fits into the broader application, including its access controls, trust boundaries, inputs, and data flows. Without that view, important risks can easily slip through the cracks. Trying to catalog every conceivable attack is not the answer, either. \u201cYou can\u2019t possibly track them all,\u201d Glas says. \u201cThe number of possible attacks is almost limitless.\u201d Instead, he recommends starting with the assets that need protection and the preventive and detective controls already in place. From there, teams can model different attack types to uncover weak or missing controls and determine what is needed to reduce risk to an acceptable level.",
+      "link": "https://www.csoonline.com/article/4206412/cisos-are-struggling-to-threat-model-ai-can-15-minute-sessions-help.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T08:25:00+00:00",
+      "published_ts": 1787127900,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Chrome, Firefox Updates Patch Dozens of Vulnerabilities",
+      "summary": "The bugs could lead to code execution, privilege escalation, sandbox escape, and information disclosure. The post Chrome, Firefox Updates Patch Dozens of Vulnerabilities appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/chrome-firefox-updates-patch-dozens-of-vulnerabilities/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T08:19:09+00:00",
+      "published_ts": 1787127549,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Cyberattack Forces UT San Antonio to Delay Fall Semester Start",
+      "summary": "Cyberattack forces UT San Antonio to delay start of fall semester Incident Overview The University... The post Cyberattack Forces UT San Antonio to Delay Fall Semester Start appeared first on .",
+      "link": "https://www.news4hackers.com/cyberattack-forces-ut-san-antonio-to-delay-fall-semester-start/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T08:18:43+00:00",
+      "published_ts": 1787127523,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Nationwide Cybercrime Probe Foils 10 Digital Scam Operations After One Arrest",
+      "summary": "One Arrest Helps Foil 10 Digital Arrest Scams in Massive Nationwide Cybercrime Probe Arrest of... The post Nationwide Cybercrime Probe Foils 10 Digital Scam Operations After One Arrest appeared first on .",
+      "link": "https://www.news4hackers.com/nationwide-cybercrime-probe-foils-10-digital-scam-operations-after-one-arrest/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T08:16:21+00:00",
+      "published_ts": 1787127381,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Elderly Man Scammed Out of Lakhs via Fake Dating App Profile",
+      "summary": "New Delhi: A 67-year-old man from Delhi allegedly lost \u20b91.30 lakh after being targeted through... The post Elderly Man Scammed Out of Lakhs via Fake Dating App Profile appeared first on .",
+      "link": "https://www.news4hackers.com/elderly-man-scammed-out-of-lakhs-via-fake-dating-app-profile/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T08:14:13+00:00",
+      "published_ts": 1787127253,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Microsoft Links 30+ Domains to MacSync Stealer\u2019s Credential-Theft and Data-Exfiltration Infrastructure",
+      "summary": "More than 30 domains tied to MacSync Stealer, exposing a rotating macOS-focused infrastructure that supports payload delivery, command-and-control, credential theft, staging, and chunked data exfiltration. The investigation shows why defenders should prioritize repeatable endpoint and network behavior over static domain-based detections. Observed executions originate from interactive zsh sessions and use curl to fetch payloads from [\u2026] The post Microsoft Links 30+ Domains to MacSync Stealer\u2019s Credential-Theft and Data-Exfiltration Infrastructure appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/microsoft-links-30-domains/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T08:13:57+00:00",
+      "published_ts": 1787127237,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Today I fucked up big.",
+      "summary": "I just want to vent out that this is my biggest fuck up in my career. I totally forgot an instruction relating a particularly high severity case and as I understand that fucked up the whole line (I\u2019m in SOC btw). So now im waiting for any news if I still have a job in the coming days. Sorry but I can\u2019t disclose any detail related to the incident. For those who had experienced this, I really need your words and what will happen next in my career. Is this career ending? fuck. submitted by /u/CyberSecWannaBe [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1vsg74c/today_i_fucked_up_big/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-08-19T08:13:45+00:00",
+      "published_ts": 1787127225,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "CareCloud Data Breach Affects 3.7 Million Individuals",
+      "summary": "CareCloud Data Breach Impact Grows to 3.7 Million Individuals Breach Details and Scope CareCloud disclosed... The post CareCloud Data Breach Affects 3.7 Million Individuals appeared first on .",
+      "link": "https://www.news4hackers.com/carecloud-data-breach-affects-3-7-million-individuals/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T08:12:07+00:00",
+      "published_ts": 1787127127,
+      "smart_groups": [
+        "Data Breaches / Leaks"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Delhi Businessman Loses Lakhs in Fake App Scam: Private Data Theft Exposed",
+      "summary": "A Delhi-based individual reported a financial loss of \u20b96 lakh after being targeted by cybercriminals... The post Delhi Businessman Loses Lakhs in Fake App Scam: Private Data Theft Exposed appeared first on .",
+      "link": "https://www.news4hackers.com/delhi-businessman-loses-lakhs-in-fake-app-scam-private-data-theft-exposed/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T08:09:26+00:00",
+      "published_ts": 1787126966,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Shopkeeper\u2019s Account: Money Missing Without OTP \u2013 Suspicious Call Alert!",
+      "summary": "A 60-year-old shopkeeper in Mira Road reported the unauthorized withdrawal of \u20b92.22 lakh from his... The post Shopkeeper\u2019s Account: Money Missing Without OTP \u2013 Suspicious Call Alert! appeared first on .",
+      "link": "https://www.news4hackers.com/shopkeepers-account-money-missing-without-otp-suspicious-call-alert/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T08:07:35+00:00",
+      "published_ts": 1787126855,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Gwalior Woman Scammed via Instagram Ad, Loses Thousands from Bank Account",
+      "summary": "Gwalior Woman Clicks Instagram Ad, Loses Thousands From Bank Account A resident of Gwalior reported... The post Gwalior Woman Scammed via Instagram Ad, Loses Thousands from Bank Account appeared first on .",
+      "link": "https://www.news4hackers.com/gwalior-woman-scammed-via-instagram-ad-loses-thousands-from-bank-account/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T08:05:29+00:00",
+      "published_ts": 1787126729,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Banks Detect Fraud Signals Through Customer Behavior Analysis",
+      "summary": "Banks are intensifying efforts to identify fraudulent activity by analyzing customer behavior during financial transactions.... The post Banks Detect Fraud Signals Through Customer Behavior Analysis appeared first on .",
+      "link": "https://www.news4hackers.com/banks-detect-fraud-signals-through-customer-behavior-analysis/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T08:03:27+00:00",
+      "published_ts": 1787126607,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "The 6 AI-free Linux distros I recommend most - and why they're likely to stay that way",
+      "summary": "If AI isn't your jam, and you're looking for an operating system that doesn't (and won't) force it on you, look no further than these Linux distributions.",
+      "link": "https://www.zdnet.com/article/top-6-ai-free-linux-distros/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T08:01:05+00:00",
+      "published_ts": 1787126465,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Linux / Unix"
+      ],
+      "curated": true
+    },
+    {
+      "title": "CISA: Medusa ransomware hit over 500 critical infrastructure orgs",
+      "summary": "The FBI said Tuesday that the Medusa ransomware gang has breached more than 500 critical infrastructure organizations in the United States since June 2021. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/cisa-medusa-ransomware-hit-over-500-critical-infrastructure-orgs/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T08:00:48+00:00",
+      "published_ts": 1787126448,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Bitcoin ETFs add $189M as August net inflows approach $1B",
+      "summary": "US spot Bitcoin ETFs took in $189 million on Tuesday, lifting August net inflows to $951 million, while Ether ETFs added $71.5 million.",
+      "link": "https://cointelegraph.com/markets/bitcoin-etf-august-net-inflows-approach-1b?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-19T07:59:16+00:00",
+      "published_ts": 1787126356,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "D-Link DWR-M961 Router Hit by 15 Command Injection and Buffer Overflow Vulnerabilities",
+      "summary": "D-Link has disclosed and patched 15 Common Vulnerabilities and Exposures (CVEs) affecting its DWR-M961 4G/LTE router, specifically hardware revision C1. This follows the discovery of multiple command injection and buffer overflow vulnerabilities in the device\u2019s web management components. These vulnerabilities affect non-US DWR-M961 devices running firmware versions 1.1.2_C1_202602110044 and earlier revisions. D-Link DWR-M961 Router Flaw [\u2026] The post D-Link DWR-M961 Router Hit by 15 Command Injection and Buffer Overflow Vulnerabilities appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/d-link-dwr-m961-router-hit-by-15-command-injection-flaw/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T07:54:41+00:00",
+      "published_ts": 1787126081,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "RAVEN Tool Steals Entire Elasticsearch Databases and Rebuilds Deleted Backdoors",
+      "summary": "The RAVEN offensive framework can turn compromised Elasticsearch and Kibana environments into durable data-theft and persistence operations. RAVEN, short for Reconnaissance & Attack on Vulnerable Elasticsearch Nodes, is an open-source modular framework built to assess Elasticsearch and Kibana security posture across reconnaissance, exploitation, exfiltration, persistence, and cleanup workflows. Its latest walkthrough focuses on post-exploitation against [\u2026] The post RAVEN Tool Steals Entire Elasticsearch Databases and Rebuilds Deleted Backdoors appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/elasticsearch-databases-theft/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T07:46:04+00:00",
+      "published_ts": 1787125564,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Malware / Payloads",
+        "Network / OT / ICS"
+      ],
+      "curated": true
     },
     {
       "title": "Looking for a good real-world digital forensics case study",
@@ -52,6 +287,50 @@
       "curated": true
     },
     {
+      "title": "Critical Apache HttpComponents Client Flaw Lets Attackers Impersonate Servers",
+      "summary": "A critical vulnerability in the Apache HttpComponents Client can allow man-in-the-middle attackers to impersonate trusted servers when applications use the asynchronous version of HttpClient. This vulnerability is tracked as CVE-2026-71290 and arises from improper TLS hostname verification in Apache HttpComponents Client versions 5.4 through 5.6.3. Apache HttpComponents Client Flaw The issue specifically affects applications configured [\u2026] The post Critical Apache HttpComponents Client Flaw Lets Attackers Impersonate Servers appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/critical-apache-httpcomponents-client-flaw/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T07:36:04+00:00",
+      "published_ts": 1787124964,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Cyberattack forces UT San Antonio to delay start of fall semester",
+      "summary": "The University of Texas at San Antonio pushed back the start of its fall semester by three days after a cyberattack targeted its academic network over the weekend. Classes that were due to begin on Wednesday, August 19 will now start on Monday, August 24. UT San Antonio is one of the largest universities in Texas, serving more than 42,000 students. According to a statement issued by Andrea Marks, Senior Executive Vice President of Enterprise \u2026 More \u2192 The post Cyberattack forces UT San Antonio to delay start of fall semester appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/08/19/ut-san-antonio-cyberattack-fall-semester-delay/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T07:29:29+00:00",
+      "published_ts": 1787124569,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Balonx Sistema: The Face Behind the PhaaS Affecting Mexican Banking",
+      "summary": "Group-IB exposes a Mexican PhaaS operation targeting over 20 financial institutions with live phishing, AI vishing, and mobile RAT capabilities.",
+      "link": "https://www.group-ib.com/blog/balonx-sistema-mexico-phaas/",
+      "source": "Group-IB Blog",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T07:28:09+00:00",
+      "published_ts": 1787124489,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
       "title": "Prison for data analyst who tried to extort $2.5 million from his employer",
       "summary": "When Cameron Curry discovered that his contract as a data analyst wasn't going to be renewed, he could have updated his LinkedIn profile. He could have started sending out his resume. But what the 27-year-old from Charlotte, North Carolina, did instead was turn to extortion. Read more in my article on the Hot for Security blog.",
       "link": "https://www.bitdefender.com/en-us/blog/hotforsecurity/prison-data-analyst-extort-employer",
@@ -84,6 +363,22 @@
       "curated": true
     },
     {
+      "title": "F5 enhances AI Gateway to control AI costs, access, and security",
+      "summary": "F5 has introduced enhancements to the F5 AI Gateway and integrated the solution into the F5 AI Security Platform. The enhanced F5 AI Gateway seamlessly enforces policies on every AI request, giving enterprises a unified control plane to govern how AI models, agents, and tools are accessed and used, while optimizing the economics of AI at scale. The F5 AI Guardrails dashboard (Source: F5) Enterprises have moved past AI experimentation, but governance has not kept \u2026 More \u2192 The post F5 enhances AI Gateway to control AI costs, access, and security appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/08/19/f5-ai-gateway-enhancements/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T07:14:54+00:00",
+      "published_ts": 1787123694,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
       "title": "\u20b92.21 Crore Digital Scam: Fake Money Laundering Scheme Used to Force Fund Transfers",
       "summary": "A Ghaziabad resident was reportedly defrauded of \u20b92.21 crore after criminals impersonating officials from the... The post \u20b92.21 Crore Digital Scam: Fake Money Laundering Scheme Used to Force Fund Transfers appeared first on .",
       "link": "https://www.news4hackers.com/%e2%82%b92-21-crore-digital-scam-fake-money-laundering-scheme-used-to-force-fund-transfers/",
@@ -111,6 +406,21 @@
         "Data Breaches / Leaks"
       ],
       "curated": false
+    },
+    {
+      "title": "BSides Amsterdam | November 2026",
+      "summary": "Het bericht BSides Amsterdam | November 2026 verscheen eerst op FalconForce .",
+      "link": "https://falconforce.nl/bsides-amsterdam-november-2026/",
+      "source": "https://falconforce.nl/feed/",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T06:53:04+00:00",
+      "published_ts": 1787122384,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
     },
     {
       "title": "Changing career to cyber security in Australia",
@@ -1053,6 +1363,27 @@
       "published_ts": 1787079464,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "Smarter signals, broader coverage: UEBA anomalies on top of Behaviors layer and new data sources",
+      "summary": "Co-authors: Ron Shlomo and Ryan Smith Security teams don't struggle with a lack of security signals. The real challenge is understanding which activity matters, why it stands out, and where to focus first. Microsoft Sentinel's Behaviors layer already helps analysts transform raw security events into meaningful behavioral patterns. Today, we're making that experience both smarter and broader. What if every behavior could immediately tell you not only what happened, but why it matters ? We're bringing UEBA anomaly intelligence directly into the Behaviors layer , so every behavior now includes anomaly insights together with explainable context. At the same time , UEBA expands beyond identity signals to support network and cloud data sources, enabling richer behavioral insights across more of your environment and helping security teams detect suspicious activity wherever it occurs. If you're new to these capabilities, we recommend reviewing our previous announcements on the UEBA expansion and the Behaviors public preview , which provide additional background on the Behaviors layer and its underlying UEBA capabilities. What's new in Sentinel UEBA and B ehaviors layer Microsoft Sentinel\u2019s Behaviors layer aggregates and sequences individual events into meaningful behavioral patterns, giving SOC teams the security context of who did what to whom and why it matters in one place, instead of sifting through raw telemetry in separated tables. With this release, we're expanding the Behaviors layer. It now includes UEBA Anomalies and contextual enrichments directly within each behavior. In addition, the Behaviors layer now supports Fortinet logs via the CommonSecurityLog table. We're also expanding Classical UEBA beyond identity signals by adding support for network and cloud data sources: AWS GuardDuty, Check Point, Zscaler and Fortinet (via CommonSecurityLog). Together, these enhancements allow the SOC to receive a richer context and explainable anomaly detection for every behavior across a broader portion of the environment. Adding context to every behavior \u2014use case The following example illustrates how UEBA Anomalies on Behaviors help analysts quickly identify suspicious activity by adding context to every behavior. Scenario: Detecting a compromised FortiGate device An attacker gains administrative access to a FortiGate firewall and begins making configuration changes to establish persistence and enable future access. Individually, each action may appear legitimate. Together, however, they form a potentially suspicious behavioral pattern. UEBA then layers anomaly insights and explainability on top of these Behaviors, providing the additional context needed to identify suspicious activity. Examples of observed behaviors include: Firewall administrator signs in from a new geographic location. Configuration changes occur outside normal maintenance windows. A new administrator account is created. VPN settings or firewall rules are modified to enable new access paths. Unusual outbound traffic is detected through the FortiGate device. Rather than presenting these as isolated events, UEBA enriches each behavior with anomaly insights and explainable context. Analysts can immediately understand why the activity stands out. For example, because the administrator has never performed this combination of actions before, the changes occurred at an unusual time, and multiple high-risk modifications happened within a short period. This helps security teams quickly identify high-risk activity, reduce investigation time, and respond before attackers can expand their access within the environment. KQL examples //Query 1: Logon and Configuration Change by user for the first time BehaviorInfo | where Timestamp > ago(30d) | where ActionType == \"BehaviorFortiGateReconfiguration\" | where Insights has \"FirstSeen\" | extend AdditionalFields = todynamic(AdditionalFields) | extend Hostname = AdditionalFields.ApplianceId | extend User = AdditionalFields.ChangedBy[0] | extend uebaEnrichments = AdditionalFields [\"ueba.enrichments\"] | extend uebaInsights = todynamic(Insights).Explainability | project ActionType, Description, Categories, AttackTechniques, ServiceSource, DataSources, User, Hostname, AdditionalFields, uebaInsights, uebaEnrichments //Query 2: get HighVolumeAnomaly behaviors to detect high traffic for the suspicious host / IP BehaviorInfo | where Timestamp > ago(30d) | where DataSources has \"CommonSecurityLog\" | invoke GetAnomalousBehaviorsByValue( \" \", //Extracted from Hostname in query 1 \"HighVolumeAnomaly\") Expanding visibility scross the environment \u2014use cases The following examples show how the new network data sources extend Behavioral analytics and UEBA Anomalies, helping uncover suspicious activity across more of your environment. Scenario: I dentifying suspicious web access with Zscaler telemetry A user attempts to access a URL categorized as phishing, malware, spyware, or command-and-control. On its own, the event may appear as just another web-proxy log among thousands generated every day. With Zscaler telemetry incorporated into behavioral analytics, UEBA identifies that the user has never accessed this high-risk URL category before and enriches the activity with user, destination, source IP, location, ISP, and threat intelligence context, helping analysts immediately understand why the event stands out. Rather than investigating an isolated web access event, analysts can quickly determine whether the activity indicates a phishing attempt or attacker-controlled infrastructure and respond before the compromise spreads. KQL example //Query 3: First-time high-risk web category access from an unusual location or ISP Returns phishing, malware, spyware, or C2 category hits that are new for the user and come from an unusual location or network. Check RequestURL and UrlCategory for the destination. BehaviorAnalytics | where TimeGenerated > ago(7d) | where EventSource == \"CommonSecurityLog\" | where ActivityType == \"UnusualHighRiskWebCategoryAccess\" | where ActivityInsights.DeviceVendor == \"Zscaler\" | where ActivityInsights.DeviceProduct == \"NSSWeblog\" | extend UrlCategory = ActivityInsights.UrlCategory | extend RequestURL = ActivityInsights.RequestURL | extend ISP = DevicesInsights.ISP | extend ThreatIntel = DevicesInsights.ThreatIntelIndicatorType | extend RiskyCategory = ActivityInsights.FirstTimeUserAccessedHighRiskUrlCategory == True or ActivityInsights.FirstTimeHighRiskUrlCategoryObservedInTenant == True | extend UnusualLocation = ActivityInsights.FirstTimeUserConnectedFromCountry == True or ActivityInsights.FirstTimeConnectionFromCountryObservedInTenant == True or ActivityInsights.CountryUncommonlyConnectedFromByUser == True | extend UnusualISP = ActivityInsights.FirstTimeUserConnectedViaISP == True or ActivityInsights.ISPUncommonlyUsedByUser == True or ActivityInsights.IPRegOrgUncommonlyUsedByUser == True | where RiskyCategory and (UnusualLocation or UnusualISP or isnotempty(ThreatIntel)) The following example illustrates how Behaviors built on top of new network data source help analysts identify sensitive administrative activity that might otherwise appear routine. Scenario: Identifying suspicious FortiGate configuration backups A network administrator exports a FortiGate configuration backup. On its own, this action is common during maintenance, upgrades, or disaster recovery and is unlikely to trigger immediate investigation. With Behaviors built on top of Fortinet telemetry, Microsoft Sentinel transforms this raw administrative event into a meaningful security context. Analysts can immediately see who performed the backup, which device was involved, how it was executed (GUI, API, RESTAPI, ssh or CLI), and whether the activity deviates from the user's normal behavior or occurred alongside other suspicious activity. Instead of reviewing isolated firewall events, analysts can quickly determine whether the configuration export is part of legitimate administration or an early indicator of compromise, reconnaissance, or preparation for persistence. KQL example // Query 4: FortiGate configuration backup activity BehaviorInfo | where ActionType == \"BehaviorFortiGateBackup\" | extend ParsedData = parse_json(AdditionalFields) | extend Device = tostring(ParsedData.ApplianceId), User = tostring(ParsedData.Account), SourceIP = tostring(ParsedData.LoginSourceIP) | project TimeGenerated, Device, User, SourceIP, Description, AdditionalFields | order by TimeGenerated Getting started In the Microsoft Defender portal, make sure the Behaviors layer is enabled and supported data sources are connected Baselines are built for approximately one week for high-quality anomalies. Explore the insights column in the BehaviorInfo table in Advanced Hunting. Enabling the new data sources for UEBA and Behaviors layer: UEBA user interface. We\u2019d love to hear how your team is using these capabilities. Share your feedback to help us improve and expand coverage. Why it matters These updates represent another step in our commitment to making Behaviors and UEBA in Microsoft Sentinel more powerful, more explainable, and more broadly applicable across the environments your security team defends.",
+      "link": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/smarter-signals-broader-coverage-ueba-anomalies-on-top-of/ba-p/4544384",
+      "source": "Microsoft Sentinel Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-08-18T18:39:45+00:00",
+      "published_ts": 1787078385,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Cloud / SaaS",
+        "Malware / Payloads",
+        "Web / API Security",
+        "Network / OT / ICS",
+        "Phishing / Social Engineering"
+      ],
+      "curated": true
     },
     {
       "title": "Control Plane Gaps Create Invisible Cloud Risk",
@@ -9418,6 +9749,21 @@
       "published_ts": 1786874760,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "ADE training in NL | September 2026",
+      "summary": "Het bericht ADE training in NL | September 2026 verscheen eerst op FalconForce .",
+      "link": "https://falconforce.nl/ade-training-in-nl-september-2026/",
+      "source": "https://falconforce.nl/feed/",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-16T09:40:33+00:00",
+      "published_ts": 1786873233,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
     },
     {
       "title": "Live Webinar: Shai-Hulud in the Wild \u2013 What Security and IR Teams Need to Know",
@@ -21828,6 +22174,18 @@
         "Vulnerabilities / CVEs"
       ],
       "curated": true
+    },
+    {
+      "title": "Incident Response vs. Crisis Management: Why Treating Them as the Same Thing Is Dangerous",
+      "summary": "Incident response contains the attack. Crisis management protects the business. Learn why conflating the two is dangerous and how to align them. The post Incident Response vs. Crisis Management: Why Treating Them as the Same Thing Is Dangerous appeared first on Sygnia .",
+      "link": "https://www.sygnia.co/blog/incident-response-vs-crisis-management/",
+      "source": "https://www.sygnia.co/feed/",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-08-12T10:43:38+00:00",
+      "published_ts": 1786531418,
+      "smart_groups": [],
+      "curated": false
     },
     {
       "title": "Microsoft SharePoint RCE Vulnerability Lets Remote Attackers Execute Code",
@@ -34864,27 +35222,6 @@
         "Curated",
         "Ransomware",
         "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Smarter signals, broader coverage: UEBA anomalies on top of Behaviors layer and new data sources",
-      "summary": "Co-authors: Ron Shlomo and Ryan Smith Security teams don't struggle with a lack of security signals. The real challenge is understanding which activity matters, why it stands out, and where to focus first. Microsoft Sentinel's Behaviors layer already helps analysts transform raw security events into meaningful behavioral patterns. Today, we're making that experience both smarter and broader. What if every behavior could immediately tell you not only what happened, but why it matters ? We're bringing UEBA anomaly intelligence directly into the Behaviors layer , so every behavior now includes anomaly insights together with explainable context. At the same time , UEBA expands beyond identity signals to support network and cloud data sources, enabling richer behavioral insights across more of your environment and helping security teams detect suspicious activity wherever it occurs. If you're new to these capabilities, we recommend reviewing our previous announcements on the UEBA expansion and the Behaviors public preview , which provide additional background on the Behaviors layer and its underlying UEBA capabilities. What's new in Sentinel UEBA and B ehaviors layer Microsoft Sentinel\u2019s Behaviors layer aggregates and sequences individual events into meaningful behavioral patterns, giving SOC teams the security context of who did what to whom and why it matters in one place, instead of sifting through raw telemetry in separated tables. With this release, we're expanding the Behaviors layer. It now includes UEBA Anomalies and contextual enrichments directly within each behavior. In addition, the Behaviors layer now supports Fortinet logs via the CommonSecurityLog table. We're also expanding Classical UEBA beyond identity signals by adding support for network and cloud data sources: AWS GuardDuty, Check Point, Zscaler and Fortinet (via CommonSecurityLog). Together, these enhancements allow the SOC to receive a richer context and explainable anomaly detection for every behavior across a broader portion of the environment. Adding context to every behavior \u2014use case The following example illustrates how UEBA Anomalies on Behaviors help analysts quickly identify suspicious activity by adding context to every behavior. Scenario: Detecting a compromised FortiGate device An attacker gains administrative access to a FortiGate firewall and begins making configuration changes to establish persistence and enable future access. Individually, each action may appear legitimate. Together, however, they form a potentially suspicious behavioral pattern. UEBA then layers anomaly insights and explainability on top of these Behaviors, providing the additional context needed to identify suspicious activity. Examples of observed behaviors include: Firewall administrator signs in from a new geographic location. Configuration changes occur outside normal maintenance windows. A new administrator account is created. VPN settings or firewall rules are modified to enable new access paths. Unusual outbound traffic is detected through the FortiGate device. Rather than presenting these as isolated events, UEBA enriches each behavior with anomaly insights and explainable context. Analysts can immediately understand why the activity stands out. For example, because the administrator has never performed this combination of actions before, the changes occurred at an unusual time, and multiple high-risk modifications happened within a short period. This helps security teams quickly identify high-risk activity, reduce investigation time, and respond before attackers can expand their access within the environment. KQL examples //Query 1: Logon and Configuration Change by user for the first time BehaviorInfo | where Timestamp > ago(30d) | where ActionType == \"BehaviorFortiGateReconfiguration\" | where Insights has \"FirstSeen\" | extend AdditionalFields = todynamic(AdditionalFields) | extend Hostname = AdditionalFields.ApplianceId | extend User = AdditionalFields.ChangedBy[0] | extend uebaEnrichments = AdditionalFields [\"ueba.enrichments\"] | extend uebaInsights = todynamic(Insights).Explainability | project ActionType, Description, Categories, AttackTechniques, ServiceSource, DataSources, User, Hostname, AdditionalFields, uebaInsights, uebaEnrichments //Query 2: get HighVolumeAnomaly behaviors to detect high traffic for the suspicious host / IP BehaviorInfo | where Timestamp > ago(30d) | where DataSources has \"CommonSecurityLog\" | invoke GetAnomalousBehaviorsByValue( \" \", //Extracted from Hostname in query 1 \"HighVolumeAnomaly\") Expanding visibility scross the environment \u2014use cases The following examples show how the new network data sources extend Behavioral analytics and UEBA Anomalies, helping uncover suspicious activity across more of your environment. Scenario: I dentifying suspicious web access with Zscaler telemetry A user attempts to access a URL categorized as phishing, malware, spyware, or command-and-control. On its own, the event may appear as just another web-proxy log among thousands generated every day. With Zscaler telemetry incorporated into behavioral analytics, UEBA identifies that the user has never accessed this high-risk URL category before and enriches the activity with user, destination, source IP, location, ISP, and threat intelligence context, helping analysts immediately understand why the event stands out. Rather than investigating an isolated web access event, analysts can quickly determine whether the activity indicates a phishing attempt or attacker-controlled infrastructure and respond before the compromise spreads. KQL example //Query 3: First-time high-risk web category access from an unusual location or ISP Returns phishing, malware, spyware, or C2 category hits that are new for the user and come from an unusual location or network. Check RequestURL and UrlCategory for the destination. BehaviorAnalytics | where TimeGenerated > ago(7d) | where EventSource == \"CommonSecurityLog\" | where ActivityType == \"UnusualHighRiskWebCategoryAccess\" | where ActivityInsights.DeviceVendor == \"Zscaler\" | where ActivityInsights.DeviceProduct == \"NSSWeblog\" | extend UrlCategory = ActivityInsights.UrlCategory | extend RequestURL = ActivityInsights.RequestURL | extend ISP = DevicesInsights.ISP | extend ThreatIntel = DevicesInsights.ThreatIntelIndicatorType | extend RiskyCategory = ActivityInsights.FirstTimeUserAccessedHighRiskUrlCategory == True or ActivityInsights.FirstTimeHighRiskUrlCategoryObservedInTenant == True | extend UnusualLocation = ActivityInsights.FirstTimeUserConnectedFromCountry == True or ActivityInsights.FirstTimeConnectionFromCountryObservedInTenant == True or ActivityInsights.CountryUncommonlyConnectedFromByUser == True | extend UnusualISP = ActivityInsights.FirstTimeUserConnectedViaISP == True or ActivityInsights.ISPUncommonlyUsedByUser == True or ActivityInsights.IPRegOrgUncommonlyUsedByUser == True | where RiskyCategory and (UnusualLocation or UnusualISP or isnotempty(ThreatIntel)) The following example illustrates how Behaviors built on top of new network data source help analysts identify sensitive administrative activity that might otherwise appear routine. Scenario: Identifying suspicious FortiGate configuration backups A network administrator exports a FortiGate configuration backup. On its own, this action is common during maintenance, upgrades, or disaster recovery and is unlikely to trigger immediate investigation. With Behaviors built on top of Fortinet telemetry, Microsoft Sentinel transforms this raw administrative event into a meaningful security context. Analysts can immediately see who performed the backup, which device was involved, how it was executed (GUI, API, RESTAPI, ssh or CLI), and whether the activity deviates from the user's normal behavior or occurred alongside other suspicious activity. Instead of reviewing isolated firewall events, analysts can quickly determine whether the configuration export is part of legitimate administration or an early indicator of compromise, reconnaissance, or preparation for persistence. KQL example // Query 4: FortiGate configuration backup activity BehaviorInfo | where ActionType == \"BehaviorFortiGateBackup\" | extend ParsedData = parse_json(AdditionalFields) | extend Device = tostring(ParsedData.ApplianceId), User = tostring(ParsedData.Account), SourceIP = tostring(ParsedData.LoginSourceIP) | project TimeGenerated, Device, User, SourceIP, Description, AdditionalFields | order by TimeGenerated Getting started In the Microsoft Defender portal, make sure the Behaviors layer is enabled and supported data sources are connected Baselines are built for approximately one week for high-quality anomalies. Explore the insights column in the BehaviorInfo table in Advanced Hunting. Enabling the new data sources for UEBA and Behaviors layer: UEBA user interface. We\u2019d love to hear how your team is using these capabilities. Share your feedback to help us improve and expand coverage. Why it matters These updates represent another step in our commitment to making Behaviors and UEBA in Microsoft Sentinel more powerful, more explainable, and more broadly applicable across the environments your security team defends.",
-      "link": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/smarter-signals-broader-coverage-ueba-anomalies-on-top-of/ba-p/4544384",
-      "source": "Microsoft Sentinel Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-08-07T20:14:53+00:00",
-      "published_ts": 1786133693,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Windows / Microsoft",
-        "Cloud / SaaS",
-        "Malware / Payloads",
-        "Web / API Security",
-        "Network / OT / ICS",
-        "Phishing / Social Engineering"
       ],
       "curated": true
     },
@@ -103480,114 +103817,6 @@
         "Windows / Microsoft"
       ],
       "curated": false
-    },
-    {
-      "title": "GoldenEyeDog Hackers Group Behind DigiCert Breach that Hijacks Code-Signing Certificates",
-      "summary": "GoldenEyeDog, a Chinese cybercrime group linked to the Golden Gh0st malware family, is back in focus after an intrusion at DigiCert exposed the risks around code-signing certificates. The attackers used the access to intercept customer certificate activation codes and sign their own malicious files. The operation relied on a simple but effective route into a [\u2026] The post GoldenEyeDog Hackers Group Behind DigiCert Breach that Hijacks Code-Signing Certificates appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/goldeneyedog-behind-digicert-breach/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-20T08:21:28+00:00",
-      "published_ts": 1784535688,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "AI Agents Turned Into Attackers: Hugging Face Reveals Autonomous Intrusion Campaign",
-      "summary": "Hugging Face says an autonomous AI agent breached part of its production infrastructure and accessed internal data and service credentials. Hugging Face is one of the world\u2019s leading open-source AI companies. It provides a platform where developers and organizations can build, share, and deploy machine learning and generative AI models. Hugging Face disclosed that an [\u2026]",
-      "link": "https://securityaffairs.com/195658/ai/ai-agents-turned-into-attackers-hugging-face-reveals-autonomous-intrusion-campaign.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-20T08:21:07+00:00",
-      "published_ts": 1784535667,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Escalating All The Privileges With Foxit PDF Reader (CVE-2026\u201357239)",
-      "summary": "submitted by /u/luke-paradoxis [link] [comments]",
-      "link": "https://www.reddit.com/r/netsec/comments/1v1ffuz/escalating_all_the_privileges_with_foxit_pdf/",
-      "source": "/r/netsec",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-20T08:19:53+00:00",
-      "published_ts": 1784535593,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Exploit brokers pay $500,000 for a WordPress RCE. I found one with GPT5.6 Sol Ultra and $25",
-      "summary": "submitted by /u/Mempodipper [link] [comments]",
-      "link": "https://www.reddit.com/r/netsec/comments/1v1fbe1/exploit_brokers_pay_500000_for_a_wordpress_rce_i/",
-      "source": "/r/netsec",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-20T08:12:31+00:00",
-      "published_ts": 1784535151,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Chrome 150 Update Patches Severe Memory Safety Bugs",
-      "summary": "The fresh security update resolves six critical and high-severity use-after-free vulnerabilities. The post Chrome 150 Update Patches Severe Memory Safety Bugs appeared first on SecurityWeek .",
-      "link": "https://www.securityweek.com/chrome-150-update-patches-severe-memory-safety-bugs/",
-      "source": "SecurityWeek",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-20T08:12:19+00:00",
-      "published_ts": 1784535139,
-      "smart_groups": [
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": false
-    },
-    {
-      "title": "WP2Shell WordPress Vulnerabilities Exploited in the Wild",
-      "summary": "Exploitation of the new WordPress vulnerabilities tracked as CVE-2026-60137 and CVE-2026-63030 started soon after disclosure. https://www.securityweek.com/wp2shell-wordpress-vulnerabilities-exploited-in-the-wild/ submitted by /u/sunychoudhary [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1v1em3j/wp2shell_wordpress_vulnerabilities_exploited_in/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-20T07:31:27+00:00",
-      "published_ts": 1784532687,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Volexity Uncovers Zero-Day Campaign Targeting SonicWall VPN Appliances",
-      "summary": "Unknown hackers exploited two SonicWall SMA 1000 zero-days to gain root access on VPN appliances before patches became available. Volexity published its findings after conducting an incident response investigation involving a compromised organization whose SonicWall SMA 1000 series VPN appliances were hit with zero-day exploits starting June 22, 2026. The threat actor, which Volexity tracks [\u2026]",
-      "link": "https://securityaffairs.com/195626/hacking/volexity-uncovers-zero-day-campaign-targeting-sonicwall-vpn-appliances.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-20T07:29:26+00:00",
-      "published_ts": 1784532566,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
