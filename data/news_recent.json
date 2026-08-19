@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-19T01:09:59.749120+00:00",
+  "generated_at": "2026-08-19T04:05:12.134197+00:00",
   "days_back": 30,
   "total_items": 7455,
   "items": [
@@ -12,6 +12,89 @@
       "type_label": "General Security & Blogs",
       "published": "2026-09-16T11:00:00+00:00",
       "published_ts": 1789556400,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "THM vs HTB vs LetsDefend \u2014 Which Platform Is Best for a Beginner (and Why Your Brain Will Thank You Later)?",
+      "summary": "Hey everyone! \ud83d\udc4b I\u2019m currently diving into cybersecurity and trying to figure out which platform I should stick with before my brain starts opening 47 tabs and forgetting why I opened them in the first place. Right now I\u2019m looking at: TryHackMe (THM) \u2014 super beginner-friendly, guided paths, and feels like a \u201ccybersecurity training wheels\u201d experience \ud83d\udeb2 Hack The Box (HTB) \u2014 harder, more realistic, and sometimes makes you question your life choices \ud83d\ude05 LetsDefend \u2014 SOC, blue-team, and incident-response focused, basically \u201cbe the cyber detective\u201d mode \ud83d\udd75\ufe0f\u200d\u2642\ufe0f For someone still building fundamentals (and occasionally Googling what a port is again), I\u2019d love some advice. Especially from people who\u2019ve survived all three: Which platform actually boosted your skills the most (not just your ego \ud83d\ude04)? Which one is the most beginner-friendly without causing panic attacks? Which one feels closest to real job-ready cybersecurity work? Should I commit to one platform or mix them like a cybersecurity smoothie \ud83e\udd64? If you could time-travel and start over, what would your learning path look like? My goal is simple: real, practical cybersecurity skills \u2014 not just collecting badges like Pok\u00e9mon. Would really appreciate your honest experiences, tips, and maybe even your \u201cI got stuck for 3 days on this one box\u201d stories \ud83d\ude4f THM vs HTB vs LetsDefend \u2014 which one wins your vote and why? submitted by /u/Warm-Brick6373 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1vsab6q/thm_vs_htb_vs_letsdefend_which_platform_is_best/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-08-19T02:58:59+00:00",
+      "published_ts": 1787108339,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Microsoft finally patches critical one-click Copilot vulnerability, almost eight months after learning of it",
+      "summary": "Almost eight months after confirming a critical security vulnerability within the personal version of its AI assistant, Copilot, Microsoft on Tuesday issued a patch to close the hole, which relies on an LLM\u2019s inability to distinguish the data in a query from an instruction. The CoSnitch hole was discovered by Varonis, and marked the third Copilot bug that Varonis has reported to Microsoft this year, following Reprompt , which bypassed Copilot guardrails by repeating queries, and SearchLeak , which Varonis said turned Microsoft 365 Copilot Enterprise into \u201ca silent exfiltration tool. All three share the same exploit pattern: one click on a legitimate-looking link is enough.\u201d A detailed blog , posted by Varonis on Tuesday, said the hole\u2019s capabilities were significant. CoSnitch relied on an attacker leveraging three different Copilot flaws, Varonis wrote: Automatic prompt execution . \u201cThe ?q= URL parameter, combined with an undocumented parameter, causes any attacker-supplied prompt to execute instantly on page load: no click, no confirmation, no user action. One link is all it takes.\u201d Data exfiltration to external servers . \u201cAn injected prompt can query the victim\u2019s connected apps, such as Gmail, Drive, Calendar or OneDrive, encode the results into a URL and exfiltrate them via Copilot\u2019s built-in URL-fetch capability to an attacker-controlled webhook.\u201d Persistent memory poisoning via web summarization. \u201cA crafted webpage, when summarized by Copilot, injects attacker instructions into the victim\u2019s permanent memory store. The injection survives password changes, session revocation, and device re-enrollment, persisting forever.\u201d But the potentially most intriguing element of the CoSnitch bug was how it was discovered: Copilot essentially revealed the hole itself. Copilot revealed its own flaw \u201cWe prompted Copilot to explain why auto-execution was impossible, and each refusal came with a technical justification, which mapped the architecture,\u201d the Varonis post said. Varonis then \u201creframed every refusal as a follow-up question, and each answer narrowed the attack surface further. Copilot then disclosed an undocumented URL parameter, unprompted, mid-refusal, including its historical behavior and every protection put in place to disable it. We built the URL exactly as described. With no click or confirmation from the user, the prompt was successfully executed automatically. Copilot wasn\u2019t breached; it was played.\u201d Microsoft confirmed both the flaw and the fix, emailing a statement that said, \u201cour customers are already protected and do not need to take any action. We continuously update our guardrails to strengthen our protections against similar techniques.\u201d It also issued an MSRC disclosure labeling the hole \u201ccritical.\u201d But Microsoft\u2019s emailed comments also included a statement that is not strictly accurate: It said, \u201centerprise customers using Microsoft 365 Copilot are not affected.\u201d But analysts and others stressed that the complex nature of enterprise environments would often also house some consumer-grade Copilots from the personal accounts of workforce members, meaning that the flaw in the personal version could have absolutely impacted the enterprise version. This is further complicated by the fact that Microsoft also said that it \u201cis in the process of moving toward a more unified Copilot experience,\u201d referred to as Copilot Fusion; details of the planned product merger began to leak last month. That means that enterprise CISOs need to be concerned about flaws in the personal version of Copilot that may be carried over into the merged offering. The timing of Microsoft\u2019s fix was also fragmented. Varonis reported the CoSnitch hole on December 31, and the company patched one element of the hole, its auto-execution capability, on February 1, noted Lior Adar , a Varonis senior security researcher, in an interview, but it didn\u2019t complete the fix until Tuesday. That February patch \u201clowered the other vulnerabilities significantly,\u201d Adar said. And, added his colleague, Chen Levy Ben Aroy , the Varonis Cloud Security Research Team leader, \u201cLLMs are a whole new world of vulnerabilities.\u201d Mark Tauschek , VP and distinguished analyst at Info-Tech Research Group, said that he found the Varonis methodology of tricking Copilot into revealing its own flaws powerful. Varonis used \u201ca very sophisticated combination of social engineering on an LLM, a variety of jailbreaks, and a prompt injection attack that is very concerning in its capability,\u201d he said. \u201cThe combination of hack vectors is what makes it more startling, as we\u2019ve seen all of those methods alone before, but I think all three working for one exploit is new, at least from a disclosure perspective.\u201d For CISOs, Tauschek said urgent action might be required. \u201cMuch like in the old macro virus days in the late 90s and early 2000s, the only way to definitively stop it is to turn it off. Disable macros back then. Disable Copilot now,\u201d Tauschek said. \u201cThere are many mitigation steps that can reduce risk to negligible, but that\u2019s not zero. The point is, it\u2019s just the beginning.\u201d The money trail will make this fix difficult Aman Mahapatra , chief strategy officer for Tribeca Softtech, a New York City-based technology consulting firm, said there is a much more difficult issue involved in this case. He argued that the financial incentives for the major AI companies will make meaningfully fixing these kinds of holes almost impossible. He pointed out that every guardrail that would fully close this class of attack degrades the product, because the same capabilities being exploited are the features that Microsoft is marketing as Copilot\u2019s value. \u201cThe fix and the feature are in direct tension, which means these will not be cleanly patched so much as perpetually mitigated, and the eight-month window is what it looks like when a vendor is negotiating between its security obligation and its product roadmap on every single fix,\u201d Mahapatra said. \u201cThis is the pattern CISOs must internalize: in agentic systems, the malicious action and the legitimate action are the same action with different intent, which collapses the entire signature-and-anomaly detection model that enterprise security has been built on for twenty years,\u201d Mahapatra said. \u201cCoSnitch is serious, but its defining property is that nothing was broken. Three chained flaws: an autorun URL parameter firing a prompt with no click, OAuth connector abuse reading full Gmail bodies rather than metadata, and persistent memory poisoning through web summarization, and every one is Copilot doing exactly what it was designed to do.\u201d Mahapatra added that the third element of the CoSnitch flaw is the most troubling. \u201cThe memory-poisoning component is the one being undersold, and it is the most dangerous. A single summarized webpage writes attacker instructions into Copilot\u2019s persistent memory, and that memory survives password changes, session revocation, and device re-enrollment,\u201d he said. \u201cEvery standard incident response step leaves the injection intact. The attacker needs no persistent infrastructure after the initial write, because every future session runs under attacker-controlled context, recorded only in a memory settings UI almost no user has opened.\u201d Flavio Villanustre , CISO for the LexisNexis Risk Solutions Group, also pointed to a bigger-picture issue that impacts all agentic and genAI deployments. \u201cThe mechanisms behind the prompt injection part of the attack are based on the inability of the LLM to differentiate between data, the unsafe data stream coming from an external web page, and instructions which happen to be embedded in that data stream by the attacker controlling that external web page,\u201d Villanustre said. \u201cThis is another example of why a different architectural approach to LLMs that separates data and instructions is needed to better guarantee the safety of their operation. This is not something that Microsoft or any other AI vendor has addressed to date.\u201d This article originally appeared on Computerworld .",
+      "link": "https://www.csoonline.com/article/4211342/microsoft-finally-patches-critical-one-click-copilot-vulnerability-more-than-eight-months-after-learning-of-it-2.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T02:27:16+00:00",
+      "published_ts": 1787106436,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Cloud / SaaS",
+        "Identity / Access",
+        "Phishing / Social Engineering",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Australian hotel chain leaks guests\u2019 PII after breach at third-party database operator",
+      "summary": "Unknown parties know where you stayed last summer, down under, across 120 Quest properties",
+      "link": "https://www.theregister.com/cyber-crime/2026/08/19/australian-hotel-chain-leaks-guests-pii-after-breach-at-third-party-database-operator/5289341",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T02:16:03+00:00",
+      "published_ts": 1787105763,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "ISC Stormcast For Wednesday, August 19th, 2026 https://isc.sans.edu/podcastdetail/10058, (Wed, Aug 19th)",
+      "summary": "(c) SANS Internet Storm Center. https://isc.sans.edu Creative Commons Attribution-Noncommercial 3.0 United States License.",
+      "link": "https://isc.sans.edu/diary/rss/33258",
+      "source": "SANS Internet Storm Center",
+      "type": "government",
+      "type_label": "Government, CERT & Advisories",
+      "published": "2026-08-19T02:00:03+00:00",
+      "published_ts": 1787104803,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "GoPassSecure",
+      "summary": "GoPassSecure is a lightweight, password manager written in Go. It securely derives encryption keys using Argon2id and encrypts passwords using AES-GCM before storing them locally in a SQLite database. submitted by /u/cdtrmnbaell [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1vs8fhn/gopasssecure/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-08-19T01:33:00+00:00",
+      "published_ts": 1787103180,
+      "smart_groups": [
+        "Web / API Security"
+      ],
+      "curated": false
+    },
+    {
+      "title": "China-Linked Hacker Shows AI Capabilities in APAC Attack",
+      "summary": "In the first purported \"near-autonomous\" attack on a nation-state, a Chinese-language operator used a complex AI framework to target and compromise government agencies, likely in Taiwan.",
+      "link": "https://www.darkreading.com/cyberattacks-data-breaches/china-linked-hacker-ai-capabilities-apac-attack",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-19T01:00:00+00:00",
+      "published_ts": 1787101200,
       "smart_groups": [],
       "curated": false
     },
@@ -103616,87 +103699,6 @@
         "Vulnerabilities / CVEs"
       ],
       "curated": true
-    },
-    {
-      "title": "15-Year-Old NGINX Vulnerability Lets Attackers Crash Workers and Achieve Remote Code Execution",
-      "summary": "A newly disclosed flaw tracked as CVE-2026-42533 affects nginx\u2019s script engine and has been silently exploitable since March 2011, when the map directive gained regex support. Security researcher Stan Shaw reported the bug to F5 SIRT, which coordinated a fix released in nginx 1.30.4 (stable) and 1.31.3 (mainline), along with corresponding patches for NGINX Plus [\u2026] The post 15-Year-Old NGINX Vulnerability Lets Attackers Crash Workers and Achieve Remote Code Execution appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/15-year-old-nginx-vulnerability/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-20T03:14:39+00:00",
-      "published_ts": 1784517279,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Allbridge pauses cross-chain bridge after $1.65M exploit",
-      "summary": "The attacker allegedly used a flash loan and rapid swaps to manipulate the bridge\u2019s stablecoin exchange rate.",
-      "link": "https://cointelegraph.com/news/allbridge-core-pauses-cross-chain-bridge-after-165m-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-07-20T02:23:36+00:00",
-      "published_ts": 1784514216,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "ISC Stormcast For Monday, July 20th, 2026 https://isc.sans.edu/podcastdetail/10014, (Mon, Jul 20th)",
-      "summary": "(c) SANS Internet Storm Center. https://isc.sans.edu Creative Commons Attribution-Noncommercial 3.0 United States License.",
-      "link": "https://isc.sans.edu/diary/rss/33166",
-      "source": "SANS Internet Storm Center",
-      "type": "government",
-      "type_label": "Government, CERT & Advisories",
-      "published": "2026-07-20T02:00:02+00:00",
-      "published_ts": 1784512802,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Japanese logistics company eyes JPYC stablecoin to pay drivers",
-      "summary": "The planned rollout would let thousands of transportation contractors receive digital yen payments more frequently and quickly.",
-      "link": "https://cointelegraph.com/news/japanese-logistics-company-eyes-jpyc-stablecoin-to-pay-drivers?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-07-20T01:27:42+00:00",
-      "published_ts": 1784510862,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Predicting 2050: The Convergent Power of Emerging Technologies",
-      "summary": "Dear Friends and Colleagues, In this issue of the Security & Tech Insights newsletter titled Predicting 2050: The Convergent Power of Emerging Technologies, I offer insights on what our world may technologically appear to be in the not-so-distant future. I compiled much of the content from my prior writings and podcasts and they are my [\u2026]",
-      "link": "https://lifeboat.com/blog/2026/07/predicting-2050-the-convergent-power-of-emerging-technologies",
-      "source": "Lifeboat \u2013 Cybercrime & Malcode",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-07-20T01:05:59+00:00",
-      "published_ts": 1784509559,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Cyber Hygiene In The AI Era\u2014Our First Line Of Digital Defense",
-      "summary": "By Chuck Brooks From normal maintenance to strategic resilience, cyber hygiene is changing. The AI era is incredibly promising. It can enhance government services, healthcare, education, productivity, scientific research, and economic expansion. However, those same technologies are giving cybercriminals previously unheard-of capabilities. Fear is not the answer. It is getting ready. The easiest, cheapest, and [\u2026]",
-      "link": "https://lifeboat.com/blog/2026/07/cyber-hygiene-in-the-ai-era-our-first-line-of-digital-defense",
-      "source": "Lifeboat \u2013 Cybercrime & Malcode",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-07-20T01:05:20+00:00",
-      "published_ts": 1784509520,
-      "smart_groups": [],
-      "curated": false
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
