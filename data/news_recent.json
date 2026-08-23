@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-08-23T15:38:14.001071+00:00",
+  "generated_at": "2026-08-23T16:47:43.248860+00:00",
   "days_back": 30,
-  "total_items": 7082,
+  "total_items": 7074,
   "items": [
     {
       "title": "GISEC GLOBAL",
@@ -12,6 +12,32 @@
       "type_label": "General Security & Blogs",
       "published": "2026-09-16T11:00:00+00:00",
       "published_ts": 1789556400,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Three Arrested in Kolkata\u2019s \u20b93.26 Crore Digital Fraud Scandal",
+      "summary": "Three individuals have been detained in a \u20b93.26 crore financial fraud scheme involving deceptive tactics.... The post Three Arrested in Kolkata\u2019s \u20b93.26 Crore Digital Fraud Scandal appeared first on .",
+      "link": "https://www.news4hackers.com/three-arrested-in-kolkatas-%e2%82%b93-26-crore-digital-fraud-scandal/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-08-23T16:02:15+00:00",
+      "published_ts": 1787500935,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Fed study finds crypto investors driven by beliefs, easily swayed by returns",
+      "summary": "A Federal Reserve Bank of Cleveland study finds crypto investors hold sharply different views on returns and risk, while information about Bitcoin\u2019s past gains can increase both desired allocations and actual crypto purchases.",
+      "link": "https://cointelegraph.com/news/fed-study-finds-crypto-investors-driven-by-beliefs-easily-swayed-by-returns?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-08-23T15:30:53+00:00",
+      "published_ts": 1787499053,
       "smart_groups": [],
       "curated": false
     },
@@ -98409,146 +98435,6 @@
       "published": "2026-07-24T16:17:37+00:00",
       "published_ts": 1784909857,
       "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Internet Freedom Foundation calls India\u2019s BitChat GitHub takedown order \u2018unconstitutional\u2019",
-      "summary": "The digital rights group says India\u2019s order to remove Jack Dorsey\u2019s BitChat repositories from GitHub exceeds the government\u2019s legal authority and threatens free speech.",
-      "link": "https://cointelegraph.com/news/internet-freedom-foundation-calls-indias-bitchat-github-takedown-order-unconstitutional?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-07-24T16:04:30+00:00",
-      "published_ts": 1784909070,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Open Knowledge format v0.2 tackles agentic trust",
-      "summary": "When we introduced the Open Knowledge Format (OKF) in June 2026, we asserted that the context that agents need (table schemas, metric definitions, runbooks) should live in a format, not in a proprietary service, and not scattered across unstructured text blobs. Accordingly, OKF v0.1 started simple: just markdown, YAML frontmatter, and a handful of conventions. The strong response and contributions from the developer community informed our focus for the next version. Since launch, contributors opened extension proposals (typed relationship edges, agent-routing hint fields, an optional erasure conformance profile, an .okfignore convention, and more), sent new sample bundles, and begun cataloging OKF ecosystem tools built outside Google. Many of these contributions and contributor feedback reflected a larger concern about OKF: once agents are writing to the corpus, can it really be trusted? The most valuable OKF bundles won't be written by hand once and then read forever. They're written continuously, by agents, and consumed by a different set of agents. A human-authored wiki page comes with an implicit guarantee: a person wrote it, and you can hold them accountable if it is wrong. When an agent generates ten thousand concepts overnight, that guarantee is gone. To provide accountability, a consumer (often another agent) has to judge each concept on explicit signals instead, and needs to answer five questions: What was this created from? ( provenance ) How much should I trust it? ( trust ) Is it still true? ( freshness ) Is it the current version? ( lifecycle ) Was this number produced the way we said it must be? ( attestation ) In OKF v0.2, it is now possible to answer all five of those questions from frontmatter, while the format remains as minimally opinionated as v0.1. It adds vocabulary, not rules: type is still the only always-required field, every new field is opt-in, custom keys are still preserved rather than rejected, and a bundle that adopts none of the additions is exactly as valid as it was under v0.1. Everything new below is optional, but its absence now carries meaning: an unverified concept is distinguishable from a verified one (although never rejected for the difference). From describing to deciding v0.1 already kept metadata in frontmatter: type , title , description , resource , tags . Those fields describe a concept: what it is and what it points at. v0.2 adds a second kind of frontmatter field, the kind you use to decide something about a concept before you read it: who produced it, whether it has been verified, whether it is still current, and how a value it reports should be computed. The reason these fields belong in frontmatter is that most interactions with a concept never actually progress to accessing the information in the body of the file. A consumer, whether a person, deterministic code, or an agent scanning during search and discovery, first has to decide whether a concept is relevant at all. Everything in a concept should be concise, but frontmatter has the narrower job of elevating exactly the signals needed to make decisions about relevance and trustworthiness, so it can be made cheaply and often, without spending tokens on prose. The content that must be read in full stays in the body, accessed only once a concept is chosen. Trust becomes something you can filter on before you commit to reading. To make the sections that follow concrete, every example below draws from a small OKF v0.2 bundle we've prepared as a companion to this post: acme_retail , a fictional US retail company's shared knowledge for AI-assisted analytics over BigQuery: code_block )])]> Each section that follows shows the corresponding file. Here is tables/orders.md , a concept carrying the new signals: code_block )])]> Each of those families answers one of the five questions. Provenance: sources, not a score The new sources field records the materials a concept derives from: an external doc, a bundle-relative path, or even a scope descriptor like \"all queries in project X.\" At the same time, an entry can carry objective credibility signals : author , usage_count , last_modified . The deliberate choice here is what we didn't add. OKF records the signals, not a credibility score. A score is subjective, doesn't port across consumers, and goes stale the moment it's written. Instead, credibility is inferred from the signals by whoever is consuming (and can be dynamically scored by the consumer, if desired), the same way you'd trust a heavily used, recently updated, authoritatively authored source more than an anonymous one. And when the body cites a specific source, it does so with an ordinary markdown footnote keyed to the source id ( [^export-schema] ), so attribution is per-claim instead of a dangling list at the bottom. Trust: generated , verified Trust is established using two fields, kept deliberately distinct, because who wrote something need not be who confirmed it : generated: { by, at } : how the current content was produced, and when it last meaningfully changed. verified: [ { by, at } ] : a list of independent confirmations against the sources or the underlying resource; a human sign-off, a nightly finance process, or both. From verified , a consumer derives a trust tier : no verified key is unverified; confirmation by machine actors only is machine-confirmed; confirmation by a human: actor is human-reviewed. Tiers are advisory signals, not access control, but they let a consumer say \"only surface human-reviewed metrics in the executive dashboard\" as a frontmatter filter. In acme_retail : metrics/revenue.md is authored by the reference agent and verified by the VP of Finance, which places it in the human-reviewed tier. An executive-dashboard consumer configured with a trust-tier filter surfaces it; a throwaway testing environment can accept lower-tier concepts: code_block )])]> Freshness and lifecycle: stale_after , status OKF v0.2 establishes freshness and lifecycle with the stale_after and status fields. status moves a concept through draft \u2192 stable \u2192 deprecated (absent means stable ). stale_after is a single absolute date. We chose an absolute date over a relative TTL on purpose: staleness becomes a plain date comparison with no reference to when the concept happened to be read, which is exactly the kind of determinism a non-LLM consumer wants. In acme_retail : metrics/revenue.md and metrics/gross-margin.md both carry stale_after : 2026-12-31 because Acme's finance team re-approves the underlying policies every January. On 2027-01-01 both concepts require re-verification against the FY2027 policy before serving. And metrics/gross-margin-legacy.md is status: deprecated . Acme changed its cost allocation standard in Feb 2026 (the old formula excluded shipping and fulfillment from its cost of goods sold). The legacy definition is preserved for historical query reproducibility but not surfaced to new work: code_block )])]> Attestation: Was this number computed the sanctioned way? Provenance answers where a claim came from. Attestation answers a harder question that matters the moment an agent reports a dollar figure: was this number produced the way we said it must be, or did the agent improvise its own SQL? OKF v0.2 introduces a new concept type, Attested Computation . It carries not just what a value means but a sanctioned way to compute it, and the means to check that the sanctioned thing actually ran. Here is acme_retail/computations/revenue-ytd.md : code_block = 30\\r\\n AND EXTRACT(YEAR FROM o.order_ts) = @year\"), ('language', ''), ('caption', )])]> The agent may only fill the declared parameters ; it must never author or edit the computation. A consumer runs the computation through the executor , which returns a receipt (here: a BigQuery job_id , the SQL that was actually executed, and the result). Then a deterministic, no-LLM attester inspects that receipt and returns a verdict: did the query that ran equal the sanctioned computation bound with the claimed parameters, and does the displayed value match the receipt's authoritative source? Because the comparison is mechanical, a rewritten query, a swapped computation file, or a mutated dependency fails the check. In acme_retail : the attester at attesters/sql_equality.py canonicalizes both SQLs (strips comments, collapses whitespace, uppercases known keywords) and refuses to return ok if the canonical forms differ. A swapped table name, an added filter, a dropped JOIN all fail attestation. The consumer refuses to display the value when the verdict comes back false. While we used BigQuery (and SQL) in this example, the abstraction is deliberately flexible. Attested computations can correspond to invoking semantic models (in Looker, AtScale, or other systems), querying structured knowledge graphs, or even making arbitrary API calls. Crucially, OKF records the computation and how to check it; it never executes anything itself. And attestation is distinct from verification: verified confirms the definition still matches policy (slow, doc-level, stored in the bundle); attestation confirms a single run produced the value correctly (per-call, runtime, never stored in the bundle). A stale definition can still attest cleanly; a freshly-verified definition still needs attestation on every run. That's why both exist. What we're releasing with v0.2 As with v0.1, the reference implementations are deliberately proofs of concept; nothing about OKF requires them. Here\u2019s what\u2019s changing in the Github repo: reference_agent now emits the provenance and trust families as it generates, so a freshly-minted bundle arrives with generated sources , and citations already in place. The static visualizer surfaces trust tier, status, and staleness alongside the concept graph, so these signals are visible, not just parseable. Updated sample bundles (GA4 e-commerce, Stack Overflow, Bitcoin, and the acme retail example used in this blog post) carry the v0.2 fields. A Knowledge Catalog demo shows a bundle round-tripping through Google Cloud's Knowledge Catalog (formerly Dataplex): clean OKF on disk, trust and provenance signals preserved through the catalog and back. Compatibility v0.2 is a minor version bump that is additive, backward-compatible, with two deliberate renames: timestamp is superseded by generated.at , and the body # Citations list is superseded by sources ; in both cases a v0.2 consumer can fall back to the v0.1 form. A v0.1 bundle drops in unchanged. Where we go from here Read the spec (it's still short). Write a producer that emits trust signals for your source system. Write a consumer that filters on them. Try an Attested Computation against your own finance definitions. File issues, send PRs, propose extensions. A lingua franca is only as good as the number of parties who speak it, and now they can also check each other's work. OKF v0.2 spec, samples, and reference implementations: github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf",
-      "link": "https://cloud.google.com/blog/products/data-analytics/okf-v0-2-adds-trust-signals/",
-      "source": "Google Cloud Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-07-24T16:00:00+00:00",
-      "published_ts": 1784908800,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Web / API Security",
-        "Network / OT / ICS",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "What is a remote MCP server?",
-      "summary": "",
-      "link": "https://circleci.com/blog/what-is-a-remote-mcp-server/",
-      "source": "https://circleci.com/blog/feed.xml",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-24T16:00:00+00:00",
-      "published_ts": 1784908800,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Bing Images Vulnerability Lets Attackers Execute Remote Code on Microsoft Servers",
-      "summary": "Three critical remote code execution (RCE) vulnerabilities in Microsoft\u2019s infrastructure, with two flaws in Bing Images allowing attackers to hijack backend image-processing servers using nothing more than a crafted SVG file. The findings, disclosed responsibly by XBOW and now patched, expose how an \u201cordinary\u201d image-handling feature became a gateway to full SYSTEM-level access on production [\u2026] The post Bing Images Vulnerability Lets Attackers Execute Remote Code on Microsoft Servers appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/bing-images-vulnerability/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-24T15:56:46+00:00",
-      "published_ts": 1784908606,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "'Wrench' attacks against crypto holders appear to be on the rise",
-      "summary": "There are more reports than ever before of strong-arm tactics like home invasions and kidnappings against cryptocurrency holders, researchers say.",
-      "link": "https://therecord.media/wrench-attacks-against-cryptocurrency-holders",
-      "source": "The Record \u2013 Cybercrime",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-07-24T15:55:00+00:00",
-      "published_ts": 1784908500,
-      "smart_groups": [
-        "Network / OT / ICS",
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Microsoft blames massive Microsoft 365 outage on maintenance bug",
-      "summary": "Microsoft says a bug in its automated network maintenance request system caused Thursday's massive outage by mistakenly removing IP routes from more devices than intended, disrupting Azure and Microsoft 365 services. [...]",
-      "link": "https://www.bleepingcomputer.com/news/microsoft/microsoft-blames-massive-microsoft-365-outage-on-maintenance-bug/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-24T15:41:44+00:00",
-      "published_ts": 1784907704,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "5 minute anonymous survey on remote working cybersecurity controls final year UNI PROJECT",
-      "summary": "Hi all, I'm a final year Computing and IT student at The Open University completing my degree project on cybersecurity controls for remote working. I need remote or hybrid workers to complete a short 5-minute anonymous survey. No personal details collected. Link: https://docs.google.com/forms/d/e/1FAIpQLScpIMab4L0TElOZk9d1qR_t9Nmfj3VmWZRKyDjHQmW3GtZPDA/formResponse Thanks in advance submitted by /u/HauntingMusician4448 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1v5ewxm/5_minute_anonymous_survey_on_remote_working/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-07-24T15:39:13+00:00",
-      "published_ts": 1784907553,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Shahed-Type Drones Filmed During Mali Village Attacks",
-      "summary": "Bellingcat has geolocated footage showing Shahed-136 type kamikaze drones in operation in Mali. Defence Blog and France 24 previously published reports that these drones were being deployed on the battlefield in northern Mali. But Bellingcat and Jeune Afrique subsequently verified two recent strikes using geolocation, satellite imagery and expert analysis to provide some of the [\u2026] The post Shahed-Type Drones Filmed During Mali Village Attacks appeared first on bellingcat .",
-      "link": "https://www.bellingcat.com/news/2026/07/24/shahed-type-drones-filmed-during-attack-on-mali-villages/",
-      "source": "Bellingcat",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-24T15:39:05+00:00",
-      "published_ts": 1784907545,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Crypto Biz: Is the AI-to-crypto rotation underway?",
-      "summary": "Bitcoin ETF inflows, cooling AI momentum and potential regulatory progress under the CLARITY Act are fueling speculation that capital is rotating back into crypto.",
-      "link": "https://cointelegraph.com/news/crypto-biz-ai-to-crypto-rotation-bitcoin-etf-inflows-clarity-act?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-07-24T15:15:57+00:00",
-      "published_ts": 1784906157,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "BlueNoroff Zoom Phishing Kit Profiles Crypto Wallets Before Malware Delivery",
-      "summary": "The North Korean threat actors behind the ClickFix-style campaigns that employ typosquatted Zoom and Microsoft Teams domains have been found to operate an active phishing kit to impersonate the videoconferencing platforms in social engineering campaigns designed to deliver malware. \"BlueNoroff has operationalised trust abuse by combining compromised industry contacts, social engineering, wallet",
-      "link": "https://thehackernews.com/2026/07/bluenoroff-zoom-phishing-kit-profiles.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-07-24T15:12:35+00:00",
-      "published_ts": 1784905955,
-      "smart_groups": [
-        "Malware / Payloads",
-        "Phishing / Social Engineering"
-      ],
       "curated": false
     },
     {
