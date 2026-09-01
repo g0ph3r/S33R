@@ -10,5 +10,844 @@
     "published_ts": 1789556400,
     "smart_groups": [],
     "curated": false
+  },
+  {
+    "title": "Financially Motivated Threat Actor BREEZE COMET Targets Brazil",
+    "summary": "Introduction Beginning in 2024 Mandiant investigated a string of compromises affecting Brazilian financial services, retail, and eCommerce organizations. Google Threat Intelligence Group (GTIG) tracks this activity as BREEZE COMET (formerly UNC5669), a financially motivated threat actor specializing in manipulating payment systems and banking software in Brazil to conduct fraudulent transfers. This activity overlaps with operations publicly reported as Plump Spider and SHADOW-AETHER-064 . In this blog, we detail BREEZE COMET’s tactics and toolkit, and provide mitigation recommendations and detections to support organizations in defending against this active and developing threat. BREEZE COMET tactics have evolved over time to leverage a customized malware suite and compromised, trusted websites to facilitate initial access, command and control (C2), and to interact with financial software and payment APIs. BREEZE COMET’s operational infrastructure may also indicate intent to expand their infrastructure footprint to other countries in Latin America and Africa. Additionally, we have evidence that BREEZE COMET is using generative artificial intelligence (AI) to support malware development, which may further increase the scale, speed, and sophistication of their operations in the future. BREEZE COMET Targets Brazilian Financial Technology BREEZE COMET operations target organizations with permission to conduct transactions through banking software, APIs, and payment systems such as Pix, STR, and Boleto. This typically includes banks, payment processors, retailers, exchanges, as well as fintech and banking software providers. To achieve their objective of conducting fraudulent transfers, BREEZE COMET must maintain: Access to the National Financial System Network (Rede Nacional do Setor Financeiro, RSFN) through an entity with this access. Access to mTLS credentials that allow sending authenticated payloads with transactional orders to Pix, STR (Brazilian Reserves Transfer System), or any transactional listener to be executed with minimal restrictions in the name of an organization with available funds. Persistent access to multiple accounts in targeted organizations’ Active Directory and/or cloud environments. Understanding of an organization’s transfer processing procedures, network controls, fintech integrations and anti-fraud systems. In order to support these requirements, BREEZE COMET evolved to operate in multiple compromised environments at the same time, crafting custom C2 malware to automate activities such as reconnaissance, lateral movement, persistence, and exfiltration. Initial Compromise and Establish Foothold BREEZE COMET has used various methods for initial access. In early compromises, Mandiant observed this threat actor use password spraying as well as voice calls impersonating IT support teams to convince users to install Remote Monitoring and Management (RMM) tools such as AnyDesk. Axur corroborates use of voice phishing, and suggests that the group has also attempted to recruit insiders at targeted organizations. In mid-2025, GTIG observed BREEZE COMET using compromised Brazilian small government websites to stage RMM tools, infostealers disguised as legitimate tax or receipt documents (e.g., ComprovantePDF.exe ) , or backdoors such as XWORM set to persist via automated startup shortcut modifications. XWORM is a backdoor that is widely available for purchase on cyber crime forums, with leaked or “cracked” versions also available. BREEZE COMET then used these compromised government websites to facilitate social engineering operations for initial access, and as C2 endpoints. The use of compromised, trusted infrastructure allowed the threat actors to avoid detection by network domain reputation filters. GTIG also observed BREEZE COMET replicating this behavior with municipal domains in Nigeria, Paraguay, Ghana, and Venezuela, suggesting a potentially growing targeting focus. Analysis of compromised municipal domains indicated that BREEZE COMET reused the same staging infrastructure to host and deliver XWORM payloads across operations targeting multiple organizations. In 2025, we first observed BREEZE COMET connect rogue hardware devices directly into retail store networks to establish footholds into targeted environments. From this initial network access, BREEZE COMET moved laterally to internal systems then downloaded the Netcat utility alongside custom scripts to pull down subsequent post-exploitation frameworks from external open directories. Trend Micro has reported that the group also exploited vulnerabilities in JBoss AS servers to gain initial access. Escalate Privileges & Internal Reconnaissance BREEZE COMET used publicly available reconnaissance utilities such as Impacket, ADRecon and ADVipscan, as well as with custom malware, often profiting from environments with low observability. These utilities were often observed being downloaded from GitHub repositories and executed in memory via PowerShell for defense evasion. The threat actor deployed the custom LDAP brute-forcing utility REALBREEZE . Beyond traditional Active Directory compromise, BREEZE COMET specifically targets development and cloud environments to escalate privileges. The group actively mines continuous integration and continuous delivery (CI/CD) environments to steal hard-coded pipeline credentials, application programming interface (API) keys, and highly privileged cloud access tokens. BREEZE COMET used custom scripts to search internal host files and environmental variables to identify mTLS credentials and administrative certificates necessary to authenticate against core banking systems. Observed search terms included: boleto , cnab , remessa , webhook.*pix and instant.*payment . Move Laterally BREEZE COMET abuses standard protocols to navigate the network, using hijacked service accounts to initiate unauthorized Remote Desktop Protocol (RDP) sessions and execute commands via SMB network file shares. BREEZE COMET was observed executing network scanning tools across internal subnets specifically to enumerate available SMB pathways. To maneuver through segmented financial networks and bypass strict internal firewalls, BREEZE COMET deploys specialized routing malware: COBALTSPIN . Written in Rust, COBALTSPIN operates as a lightweight, evasive network tunneler, used to communicate with and maintain persistent network access to financial API infrastructure. By establishing a reverse SOCKS5 proxy over a WebSocket connection, COBALTSPIN routes network traffic securely back and forth between the C2 and internal targets, enabling lateral movement directly through boundary firewalls without requiring built-in persistence mechanisms that might trigger detection. Maintain Presence: Orchestrating the Compromise via Bespoke C2 Frameworks In 2024, BREEZE COMET relied on commercial RMM tools to maintain access to targeted environments. In 2025, BREEZE COMET also deployed malicious Kubernetes pods to maintain persistence and steal cloud secrets, exfiltrating them to public facing notepad websites (such as dontpad[.]com ). In 2025 and 2026 Mandiant identified multiple backdoors that BREEZE COMET developed to establish redundant access and expand their foothold in targeted environments. LIGHTPAINT : This custom Java-based backdoor is specifically designed to install a legitimate VPN, such as SoftEther, and configure it for automated persistence. To protect this access, GTIG observed BREEZE COMET programmatically adding inbound Windows Defender Firewall rules to allow all traffic from the deployed VPN manager, while subsequently clearing the Windows Networking Vpn Plugin Platform event logs to erase forensic evidence of the connection. MILDFROST : Operating as a passive Java JAR backdoor hiding inside the JVM process space, MILDFROST uses classes like DnsCommandBeacon.class to establish slow, covert DNS tunnels. It also serves as a fallback C2; it dynamically queries delegated subdomains to receive instructions and pull down fresh copies of the C++ executables. KICKPLATE : To continuously deliver auxiliary payloads and enforce host-level persistence, BREEZE COMET uses KICKPLATE. This custom Nim-based backdoor impersonates Windows Update Health Tools. It executes commands to control SOCKS5 tunnelers, update registry startup keys, and silently modify Windows services. The group supplements KICKPLATE by abusing native scheduled tasks ( schtasks.exe running as SYSTEM) and malicious shortcut (.lnk) modifications in user startup folders. BOATBEAM : Adding a final layer to their redundant architecture, BREEZE COMET deploys BOATBEAM, a Golang backdoor that initiates a fake IIS HTTPS server on port 443. This artifact hides backdoor traffic by masquerading as a legitimate web server, only activating its C2 functionalities when it receives a specific session cookie. To ensure these persistence mechanisms survive, BREEZE COMET actively impairs endpoint defenses. Telemetry confirms the threat actors executing direct PowerShell commands ( Set-MpPreference -DisableRealtimeMonitoring $true ) to disable Windows Defender's real-time monitoring across compromised hosts, guaranteeing their malware suite remains operational. Furthermore, Mandiant identified evidence that BREEZE COMET used large language models (LLMs) to accelerate the creation of custom scripts for network reconnaissance, credential validation, mass deployment, victim-specific pivoting, and data extraction. Analysis of recovered BREEZE COMET scripts has shown the tools are highly customized and functional, but lack human idiosyncrasies, heavily relying on unrolled code structures, verbose explanatory comments, and standardized execution headers. #!/bin/bash # RODA DENTRO DO 10.0.9.9 - DIRETO NA REDE INTERNA echo \"###############################################\" echo \"### STEP 1: ENUM ALL LINUX (SSH PORT 22) ###\" echo \"###############################################\" # Scan SSH em todos os ranges conhecidos echo \"=== SCANNING SSH PORTS ===\" > /tmp/ssh_open.txt Figure 1: Excerpt of script showing verbose comments Complete Mission: Mass Fraudulent Transactions Forensic evidence analyzed by Mandiant demonstrates that BREEZE COMET used COBALTSPIN and compromised privileged accounts to access core financial applications. Within 24-48 hours of establishing this access, the threat actor executed two waves of hundreds of fraudulent transactions, based on reporting by a client and third party forensic analysis. Subsequently, BREEZE COMET cleared event logs across compromised hosts to hide evidence of their lateral movement, privilege escalation, and interactions with APIs associated with financial software and payment systems. The attacker also deleted directories they had created during the compromise. Outlook and Implications Since 2024, BREEZE COMET has steadily increased the complexity and effectiveness of their operations manipulating Brazilian financial systems and software, and has successfully executed at least one heist of tens of thousands of USD in assets. This analysis is intended to support financial services, fintech, retail, and government organizations, particularly in Brazil, to track and defend against BREEZE COMET. While the Latin American cybercrime ecosystem has historically been defined by client-side, high-volume retail fraud, BREEZE COMET’s campaigns represent a notable shift that may serve as a model for future financially motivated threats against organizations in this region.This transition from opportunistic retail banking fraud to direct intrusions into the core financial switch and instant payment infrastructure is notable not just for this shift in targeting, but also the capabilities of the threat actor. BREEZE COMET exemplifies how threat actors are operationalizing generative AI to enhance the speed, scale, and sophistication of their campaigns. By leveraging LLMs to generate bespoke reconnaissance scripts, validate credentials, and automate deployment workflows on the fly, the actor compresses the development lifecycle. This automation also lowers the operational threshold required to coordinate synchronized, multi-environment attacks. Finally, orchestrating their usage of AI-generated tooling alongside bespoke multi-language C2 architectures demonstrates how actors can elevate their overall capabilities and lower technical barriers to entry. The progression to a multi-tiered ecosystem—combining custom-built Rust, Nim, and Go backdoors with AI-accelerated operational scripts—demonstrates a measurable maturation in BREEZE COMET's technical capability. As threat groups increasingly leverage LLMs to streamline routine tradecraft, defenders must anticipate shorter adversary turnaround times and heightened pressure on interconnected financial ecosystems. Remediation and Hardening Application Control & Unapproved Remote Management (RMM) Blocking Enforce Application Control (e.g. Windows WDAC, macOS Gatekeeper/MDM, or Linux fapolicyd) to block execution in user-writable directories (Windows %APPDATA%, macOS ~/Downloads, Linux /tmp or /var/tmp). Partition Linux hosts to mount /tmp and /home with the noexec flag. Audit software inventory to alert on portable RMM execution and unapproved system service/daemon registrations. Train users on social engineering tactics impersonating IT Support. Network Access Control & Branch Physical Hardening Deploy 802.1X Network Access Control (NAC) across physical Ethernet switch ports at branch/retail locations to prevent unauthorized hardware devices from obtaining an internet protocol (IP) address or communicating on internal subnets. Disable unused switch ports and enforce Port Security (e.g. MAC limiting) on critical network drops. Physically restrict access to networking closets and secure public-facing jacks. Active Directory & Credential Hardening Restrict administrative utilities (e.g. ntdsutil.exe, vssadmin.exe) and alert on volume shadow copy creation/deletion. Enforce PowerShell Constrained Language Mode (CLM), Script Block Logging (Event ID 4104), and Antimalware Scan Interface (AMSI) to detect in-memory execution of reconnaissance scripts. Mandate phishing-resistant multifactor authentication (MFA) and lockout controls across all external portals (VPNs, Software-as-a-Service (SaaS)). Deep Packet Inspection & Egress Traffic Control Perform SSL/TLS Decryption and Deep Packet Inspection (DPI) on outbound web traffic rather than relying on domain reputation or .gov top-level domain (TLD) allowlists. Block non-essential egress ports and protocols (e.g., outbound Internet Control Message Protocol (ICMP)) and restrict tunneling utilities like Chisel or GSocket). Segment networks to block lateral SMB (port 445) and RDP (port 3389) traffic between workstations and servers. Kubernetes & Cloud Workload Isolation Enforce strict Kubernetes Role-Based Access Control (RBAC) using least privilege for service accounts. Use dynamic admission controllers (e.g., OPA Gatekeeper or Kyverno) and native Pod Security Admission (PSA) to block privileged containers. Apply egress network policies to block nodes and pods from accessing unauthorized public platforms. Secrets Management & Financial System Micro-Segmentation Mandate a centralized Secrets Manager (e.g., HashiCorp Vault) with access logging; eliminate plaintext keys in code. Implement identity-based / Layer 7 micro-segmentation for financial workloads. Limit administrative access exclusively to dedicated jump hosts via privileged access management (PAM). Indicators of Compromise (IOCs) File Indicators Indicator Notes 3b22605244dbace8f0c07c2c599f88c4b831bb07e9998b869a5da2759d27ceec COBALTSPIN 2214907e696bad85bde1d90c943ef66e413d7a5c6d7596ced25b74441200439a REALBREEZE c0db6ddd6222d02ad7490399d33c61ded0076f0037409dc8498924458646d78a MILDFROST 6d4012e0dd3b56a3e52857734fa0d582cdf3c56f0e5decc8005c882d1d1c6ceb BOATBEAM f139b4ca15feffb7a6633ec1a431c5c604b397576b56b5c863ae8fe4fa14db4f KICKPLATE 51fdd83b3737add7f3832bd0ad0b56863c0a8f7cf9bcc16fd787d1ae4b403ce6 XWORM d2aa40cc53b40c6e76ac0677c4a54387b3f27ee94c85d9b2c3a3d66aeef92a66 XWORM 447e3a131e62bd33b1297739a7b959a92358a97f58554469044636a3c4f244e8 XWORM Table 1: File Indicators Network Indicators Indicator Notes dontpad[.]com Paste site used for data exfiltration hxxps://procon[.]go[.]gov[.]br/ComprovantePDF[.]exe Compromised malware Staging Domain hxxps://cmgovernadorluizrocha[.]ma[.]gov[.]br/Comprovantepdf[.]exe Compromised malware Staging Domain hxxp://gcm[.]setelagoas[.]mg[.]gov[.]br/files/ti[.]zip Compromised malware Staging Domain hxxp://gcm[.]setelagoas[.]mg[.]gov[.]br/files/notepadd[.]exe Compromised malware Staging Domain hxxp://gcm[.]setelagoas[.]mg[.]gov[.]br/files/tes[.]exe Compromised malware Staging Domain hxxps://minacu[.]go[.]gov[.]br/ComprovantePDF[.]exe Compromised malware Staging Domain hxxps://conseg[.]ssp[.]go[.]gov[.]br/COAF-POLICIAFEDERAL[.]exe Compromised malware Staging Domain hxxps://conseg[.]ssp[.]go[.]gov[.]br/ComprovanteBBpix[.]exe Compromised malware Staging Domain hxxps://suporte[.]camaratunapolis[.]sc[.]gov[.]br/ti/attvpn[.]zip Compromised malware Staging Domain hxxps://suporte[.]camaratunapolis[.]sc[.]gov[.]br/ti/1[.]exe Compromised malware Staging Domain hxxps://tisup[.]camaratunapolis[.]sc[.]gov[.]br/SoftEther[.]exe Compromised malware Staging Domain hxxp://suporte[.]ourinhos[.]sp[.]gov[.]br/files/s[.]zip Compromised malware Staging Domain hxxp://suporte[.]ourinhos[.]sp[.]gov[.]br:443/files/s[.]exe Compromised malware Staging Domain hxxp://suporte[.]ourinhos[.]sp[.]gov[.]br/files/a[.]exe Compromised malware Staging Domain hxxps://servicos[.]salto[.]sp[.]gov[.]br/j[.]jar Compromised malware Staging Domain hxxps://www.mrtb[.]gov[.]ng/apps/attvpn[.]vip Compromised malware Staging Domain hxxp://credeb[.]gov[.]gn/r[.]zip Compromised malware Staging Domain hxxps://sit[.]baer[.]gob[.]ve/r[.]exe Compromised malware Staging Domain hxxps://jmcov[.]gov[.]py/cxv[.]exe Compromised malware Staging Domain Table 2: Network Indicators Detections Google Security Operations (SecOps) Google SecOps customers have access to these broad category rules and more under the \"Mandiant Hunting Rules\" rule pack. The activity discussed in the blog post is detected in Google SecOps under the rule names: \"Network DNS Connections To Pastebin\" \"Powershell Downloadstring Method With Suspicious Arguments\" \"Powershell Loading Net Assembly\" YARA Rules rule M_Utility_REALBREEZE_2 { meta: author = \"Google Threat Intelligence Group\" strings: $s1 = \"IP/REDE\" wide $s2 = \"SENHA\" wide $s3 = \"U\\x00S\\x00U\\x00\\xc1\\x00R\\x00I\\x00O\\x00:\" $s4 = \"Arquivo de Texto (*.txt)|*.txt\" wide $s5 = \"get_SamAccountName\" $s6 = \"get_txtHostname\" condition: uint16(0) == 0x5A4D and all of them } rule G_Tunneler_COBALTSPIN_1 { meta: author = \"Google Threat Intelligence Group\" strings: $p00_0 = {488985[4]72??4c8b47??4c8b6f??488985[4]eb??4989f04989c5488b85} $p00_1 = {4d8bae[4]4d85ed4c897d??897d??4c8975??89b5[4]74??498bbe[4]4d89ee} condition: uint16(0) == 0x5A4D and uint32(uint32(0x3C)) == 0x00004550 and ( ($p00_0 in (560000..600000) and $p00_1 in (1500000..1600000)) ) } rule G_Backdoor_BOATBEAM_1 { meta: author = \"Google Threat Intelligence Group\" strings: $p00_0 = {4d89d84889ce488bbc24[4]e9[4]0f82[4]4c89ac24[4]4c89e74d29ec4c896424} $p00_1 = {e8[4]498903498973??498953??4d8943??488942??488957??4889f8488b4c24} condition: uint16(0) == 0x5A4D and uint32(uint32(0x3C)) == 0x00004550 and ( ($p00_0 in (1500000..1600000) and $p00_1 in (2700000..2800000)) ) } rule G_Backdoor_MILDFROST_1 { meta: author = \"Google Threat Intelligence Group\" strings: $s1 = \"sc tcp ok\" fullword $s2 = \"fl comando vazio\" fullword $s3 = \"noop\" fullword $s4 = \"wait:\" fullword $s5 = \"shell:\" fullword $s6 = \"exec:\" fullword $s7 = \"upload,\" fullword $s8 = \"dl|\" fullword $s9 = \"tc|\" fullword condition: uint16(0)==0x5a4d and 7 of them }",
+    "link": "https://cloud.google.com/blog/topics/threat-intelligence/financially-motivated-threat-actor-breeze-comet-targets-brazil/",
+    "source": "Threat Intelligence",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T14:00:00+00:00",
+    "published_ts": 1788271200,
+    "smart_groups": [
+      "Curated",
+      "Ransomware",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC",
+      "Windows / Microsoft",
+      "Linux / Unix",
+      "Cloud / SaaS",
+      "Malware / Payloads",
+      "Identity / Access",
+      "Network / OT / ICS",
+      "Phishing / Social Engineering",
+      "Crypto / Web3"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Chris Hadnagy vs. DEF CON Lawsuit update",
+    "summary": "",
+    "link": "https://storage.courtlistener.com/recap/gov.uscourts.wawd.329575/gov.uscourts.wawd.329575.84.0.pdf",
+    "source": "https://defcon.org/defconrss.xml",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": null,
+    "published_ts": 1788251948.120692,
+    "smart_groups": [
+      "Cloud / SaaS"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
+    "summary": "A data breach involving Talleres Palomares was reported on February 2, 2026. Learn about the incident details, impact on customers, and recommended security measures.",
+    "link": "https://www.upguard.com/news/talleres-palomares-data-breach-2026-04-02",
+    "source": "UpGuard – News",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": null,
+    "published_ts": 1788251948.120683,
+    "smart_groups": [
+      "Data Breaches / Leaks"
+    ],
+    "curated": false
+  },
+  {
+    "title": "When No One Holds the Keys, Removing Authority by Design",
+    "summary": "https://codesyo.com/blog/no-signing-key submitted by /u/Jealous_Pea_3915 [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1w447s2/when_no_one_holds_the_keys_removing_authority_by/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-09-01T06:56:23+00:00",
+    "published_ts": 1788245783,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Fire Ant Hackers Compromise Cisco Routers and TACACS Servers to Target Critical Infrastructure",
+    "summary": "China-nexus threat actor Fire Ant has expanded its espionage operations from VMware hypervisors to the trusted infrastructure layer, compromising Cisco IOS XR routers, TACACS authentication servers, and Linux management hosts. Security firm Sygnia, which investigated the activity, said Fire Ant has remained active since it was first reported in 2025. The actor’s latest operations show […] The post Fire Ant Hackers Compromise Cisco Routers and TACACS Servers to Target Critical Infrastructure appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/fire-ant-campaign/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T06:48:02+00:00",
+    "published_ts": 1788245282,
+    "smart_groups": [
+      "Linux / Unix",
+      "Network / OT / ICS"
+    ],
+    "curated": false
+  },
+  {
+    "title": "PoC Released for Microsoft Exchange CVE-2026-62911 Pre-Auth RCE Attack Chain",
+    "summary": "A public proof-of-concept (PoC) repository has garnered attention for a pre-authentication remote code execution chain targeting Microsoft Exchange Server. This repository highlights CVE-2026-62911, an Exchange authentication-bypass vulnerability disclosed following Pwn2Own Berlin 2026. Defenders should treat the published code as unverified until it is independently validated in an isolated laboratory environment. Both the official advisory and […] The post PoC Released for Microsoft Exchange CVE-2026-62911 Pre-Auth RCE Attack Chain appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/poc-released-for-microsoft-exchange-cve-2026-62911/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T06:24:56+00:00",
+    "published_ts": 1788243896,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC",
+      "Windows / Microsoft"
+    ],
+    "curated": true
+  },
+  {
+    "title": "PaperCut issues emergency patches as threat actors target chained vulnerabilities",
+    "summary": "submitted by /u/DerBootsMann [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1w43kfm/papercut_issues_emergency_patches_as_threat/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-09-01T06:19:10+00:00",
+    "published_ts": 1788243550,
+    "smart_groups": [
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Hackers Launch Password Spraying Attacks Against AWS Root Accounts at 150+ Organizations",
+    "summary": "Research has discovered a password-spraying campaign targeting AWS root user accounts across more than 150 organizations. This highlights ongoing efforts by attackers to compromise the most privileged identities in cloud environments. The campaign ran from July 24 to August 23, 2026, and involved multiple failed authentication attempts against AWS root accounts. Most affected organizations recorded […] The post Hackers Launch Password Spraying Attacks Against AWS Root Accounts at 150+ Organizations appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/hackers-launch-password-spraying-attacks-against-aws-root-accounts-at-150-organizations/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T06:18:22+00:00",
+    "published_ts": 1788243502,
+    "smart_groups": [
+      "Cloud / SaaS"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Ensure NIS2 Compliance: IAM & Access Control Fixes for the 2026 Deadline",
+    "summary": "As EU member states transition to enforcing NIS2 requirements, organizations must address identity and access... The post Ensure NIS2 Compliance: IAM & Access Control Fixes for the 2026 Deadline appeared first on .",
+    "link": "https://www.news4hackers.com/ensure-nis2-compliance-iam-access-control-fixes-for-the-2026-deadline/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T06:14:37+00:00",
+    "published_ts": 1788243277,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "CREST CPSA 2026 — anyone have solid prep tips or resources?",
+    "summary": "Studying for the CPSA exam and want to avoid wasting time on outdated material. If you've taken it recently: What resources actually matched the exam content (books, courses, labs)? How much hands-on practice (TryHackMe, HTB, etc.) mattered vs. pure theory? Any topics that got heavier weighting than the syllabus suggests? How long did you study before sitting it? Not looking for brain dumps — just realistic prep advice from people who've actually passed. Appreciate any pointers. submitted by /u/Agile_Catch4071 [link] [comments]",
+    "link": "https://www.reddit.com/r/cybersecurity/comments/1w43h1s/crest_cpsa_2026_anyone_have_solid_prep_tips_or/",
+    "source": "/r/cybersecurity",
+    "type": "osint",
+    "type_label": "OSINT, Communities & Subreddits",
+    "published": "2026-09-01T06:13:46+00:00",
+    "published_ts": 1788243226,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Network / OT / ICS"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Bot Detection in CrowdSec 1.8.0: Two Critical DoS Fixes",
+    "summary": "CrowdSec 1.8.0 introduces bot detection capabilities alongside critical DoS vulnerability patches. Bot Detection Capabilities The... The post Bot Detection in CrowdSec 1.8.0: Two Critical DoS Fixes appeared first on .",
+    "link": "https://www.news4hackers.com/bot-detection-in-crowdsec-1-8-0-two-critical-dos-fixes/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T06:12:41+00:00",
+    "published_ts": 1788243161,
+    "smart_groups": [
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Askeal: AI Cybersecurity Assistant with Expert-Backed Answers",
+    "summary": "Askeal introduces a novel AI-driven cybersecurity tool combining machine learning with human expertise to deliver... The post Askeal: AI Cybersecurity Assistant with Expert-Backed Answers appeared first on .",
+    "link": "https://www.news4hackers.com/askeal-ai-cybersecurity-assistant-with-expert-backed-answers/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T06:10:33+00:00",
+    "published_ts": 1788243033,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "13 Malicious Packagist Themes Exploit iPhone Vulnerabilities to Steal Crypto Wallet Seeds",
+    "summary": "13 malicious Composer theme packages on Packagist that turn Vietnamese movie and comic streaming websites into delivery points for iPhone spyware, gambling redirects, ad fraud, and cryptocurrency-wallet theft. Once an operator installs one of the trojanized themes through Composer, the bundled front-end JavaScript is served to every visitor. Mobile users are selectively targeted, while iPhone […] The post 13 Malicious Packagist Themes Exploit iPhone Vulnerabilities to Steal Crypto Wallet Seeds appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/iphone-vulnerabilities-exploited/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T06:08:55+00:00",
+    "published_ts": 1788242935,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC",
+      "Malware / Payloads",
+      "Crypto / Web3"
+    ],
+    "curated": true
+  },
+  {
+    "title": "LastPass Enhancements Boost Visibility, Governance, and Control",
+    "summary": "LastPass introduced a series of strategic product updates, customer experience improvements, and industry achievements aimed... The post LastPass Enhancements Boost Visibility, Governance, and Control appeared first on .",
+    "link": "https://www.news4hackers.com/lastpass-enhancements-boost-visibility-governance-and-control/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T06:07:56+00:00",
+    "published_ts": 1788242876,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Hackers Target AWS Root Accounts at 150+ Organizations in Password-Spraying Campaign",
+    "summary": "Datadog Security Research observed a password-spraying campaign targeting AWS root accounts at more than 150 organizations between July 24 and August 23, 2026, with repeated failed console login attempts against highly privileged identities. The AWS root user is the original identity created when an AWS account is registered. It has unrestricted access to cloud resources, […] The post Hackers Target AWS Root Accounts at 150+ Organizations in Password-Spraying Campaign appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/hackers-target-aws-root-accounts/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T06:07:16+00:00",
+    "published_ts": 1788242836,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Cloud / SaaS"
+    ],
+    "curated": true
+  },
+  {
+    "title": "PaperCut Vulnerability Exploited in Active Cyber Attacks",
+    "summary": "Recent cyberattacks targeting PaperCut NG/MF print management solutions have intensified, with threat actors transitioning from... The post PaperCut Vulnerability Exploited in Active Cyber Attacks appeared first on .",
+    "link": "https://www.news4hackers.com/papercut-vulnerability-exploited-in-active-cyber-attacks/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T06:05:17+00:00",
+    "published_ts": 1788242717,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Cybersecurity Jobs Available Today: September 1, 2026",
+    "summary": "Explore current cybersecurity job opportunities across various roles and locations. Cybersecurity Job Opportunities A Security... The post Cybersecurity Jobs Available Today: September 1, 2026 appeared first on .",
+    "link": "https://www.news4hackers.com/cybersecurity-jobs-available-today-september-1-2026/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T06:03:03+00:00",
+    "published_ts": 1788242583,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Don't Let Abliteration Abliterate Your Bug Hunting: Discovering Verdict Bias in Uncensored Models",
+    "summary": "Abliterated models never refuse, which makes them tempting for bug hunting. But on the same kernel source, they graduate three to four times as many findings to VALID, including false positives the base correctly rejects, and across a 28-file scan of FreeBSD's sys/rpc the most aggressive build never surfaced the real CVE at all.",
+    "link": "https://clearbluejar.github.io/posts/does-abliteration-skew-your-bug-hunting/",
+    "source": "https://clearbluejar.github.io/feed",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T06:00:00+00:00",
+    "published_ts": 1788242400,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Here’s what happened in crypto today",
+    "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation.",
+    "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-09-01T05:58:48+00:00",
+    "published_ts": 1788242328,
+    "smart_groups": [
+      "Crypto / Web3"
+    ],
+    "curated": false
+  },
+  {
+    "title": "LastPass enhancements improve visibility, governance, and control",
+    "summary": "LastPass announced a series of strategic product innovations, customer experience enhancements, and industry milestones. These advancements reflect the company’s continued focus on providing practical tools to protect access and identity in an increasingly AI-driven threat landscape. Highlights include new tools that simplify access management, enhancements that help customers get more value from LastPass, and milestones that demonstrate the company’s continued growth and industry leadership. The LastPass commitment to visibility, governance, and control comes at a … More → The post LastPass enhancements improve visibility, governance, and control appeared first on Help Net Security .",
+    "link": "https://www.helpnetsecurity.com/2026/09/01/lastpass-security-product-enhancements-innovations/",
+    "source": "Help Net Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T05:52:08+00:00",
+    "published_ts": 1788241928,
+    "smart_groups": [
+      "Ransomware"
+    ],
+    "curated": false
+  },
+  {
+    "title": "How to Choose Trust Center Software | UpGuard",
+    "summary": "Compare trust center software on the capabilities that matter: NDA gating, watermarks, access logs, and two-sided answering. Plus a vendor checklist for 20",
+    "link": "https://www.upguard.com/blog/how-to-choose-trust-center-software",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T05:42:13+00:00",
+    "published_ts": 1788241333,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Askeal, the AI cybersecurity assistant that gives verifiable, expert-backed answers",
+    "summary": "Askeal takes the opposite approach to omniscient Gen AI: rather than pretending to know everything, it combines AI with community expertise. Vetted vendors, researchers, and practitioners contribute their intelligence and tools to help users conduct manual investigations. The startup, backed by a $1.1 million pre-seed round, is launching the tool with an international community of early testers and contributors. A SOC analyst can start the day to 50 alerts requiring manual review. An IT manager … More → The post Askeal, the AI cybersecurity assistant that gives verifiable, expert-backed answers appeared first on Help Net Security .",
+    "link": "https://www.helpnetsecurity.com/2026/09/01/askeal-ai-cybersecurity-assistant/",
+    "source": "Help Net Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T05:30:27+00:00",
+    "published_ts": 1788240627,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "PaperCut Exploitation Escalates to Active Intrusions",
+    "summary": "CISA has added the vulnerabilities tracked as CVE-2026-82078 and CVE-2026-81578 to its KEV catalog. The post PaperCut Exploitation Escalates to Active Intrusions appeared first on SecurityWeek .",
+    "link": "https://www.securityweek.com/papercut-exploitation-escalates-to-active-intrusions/",
+    "source": "SecurityWeek",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T05:27:18+00:00",
+    "published_ts": 1788240438,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC"
+    ],
+    "curated": true
+  },
+  {
+    "title": "AI Security Questionnaire Software (2026 Guide) | UpGuard",
+    "summary": "Compare AI security questionnaire software with this buyer's guide. Key criteria, red flags, and vendor comparisons to help you avoid choosing the wrong to",
+    "link": "https://www.upguard.com/blog/ai-security-questionnaire-software",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T05:27:15+00:00",
+    "published_ts": 1788240435,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Broadcom Unveils VMware AI Factory With Secure Sandboxes for Enterprise AI Workloads",
+    "summary": "Broadcom has announced the VMware AI Factory, a software-defined private AI platform designed to accelerate the transition from bare-metal servers to production-ready AI models. This platform enhances governance, infrastructure automation, and workload isolation. Unveiled during VMware Explore 2026, the VMware AI Factory serves as the foundation for VMware’s Private AI Cloud. It combines VMware Cloud […] The post Broadcom Unveils VMware AI Factory With Secure Sandboxes for Enterprise AI Workloads appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/broadcom-unveils-vmware-ai-factory/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T05:21:40+00:00",
+    "published_ts": 1788240100,
+    "smart_groups": [
+      "Crypto / Web3"
+    ],
+    "curated": false
+  },
+  {
+    "title": "BGP Hijacking Attack Delivers Malicious Virtualizor Updates to Servers",
+    "summary": "A BGP hijacking incident targeting Softaculous infrastructure redirected traffic for Virtualizor update services to attacker-controlled systems, allowing a malicious update package to be delivered to a small number of servers. The incident impacted the IP range 162.55.80.0/24, which is hosted within Hetzner’s infrastructure, from approximately 20:57 UTC on August 28 to 06:10 UTC on August […] The post BGP Hijacking Attack Delivers Malicious Virtualizor Updates to Servers appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/bgp-hijacking-attack-delivers-malicious-virtualizor-updates/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T05:13:19+00:00",
+    "published_ts": 1788239599,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Bot detection arrives in CrowdSec 1.8.0, along with two DoS fixes",
+    "summary": "Failed SSH logins pile up in an auth log, and a scanner walks a website looking for exposed admin paths. CrowdSec reads log sources and HTTP requests, works out which addresses are misbehaving, and hands the block to a separate remediation component sitting in front of the service. Users report what they see back to the project, which curates it into a community blocklist every installation can pull down. Version 1.8.0 landed on August 31. … More → The post Bot detection arrives in CrowdSec 1.8.0, along with two DoS fixes appeared first on Help Net Security .",
+    "link": "https://www.helpnetsecurity.com/2026/09/01/crowdsec-1-8-0-bot-detection/",
+    "source": "Help Net Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T05:04:35+00:00",
+    "published_ts": 1788239075,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "NIS2 compliance: Fixing IAM and access control before the 2026 audit",
+    "summary": "The NIS2 Directive places direct obligations on organizations across supply chain risk management, incident reporting, and board-level accountability. October brings a new wave of legally binding deadlines across the EU, as member states move from transposition into enforcement. In Austria, the national implementation law enters into force once adopted; in Poland, mandatory self-registration closes on a fixed date set by the national authority. Broader NIS2 non-compliance exposes essential entities to fines up to €10 million … More → The post NIS2 compliance: Fixing IAM and access control before the 2026 audit appeared first on Help Net Security .",
+    "link": "https://www.helpnetsecurity.com/2026/09/01/nis2-credential-compliance-before-audit/",
+    "source": "Help Net Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T05:00:08+00:00",
+    "published_ts": 1788238808,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Questel - 1,226,209 breached accounts",
+    "summary": "In August 2026, the French intellectual property software and services company Questel was the target of a ShinyHunters \"pay or leak\" extortion campaign . The group subsequently published an extensive corpus of data they alleged was obtained from the company, largely comprising corporate contact information associated with sales leads, support cases and marketing activities, with 1.2M unique email addresses. The data also included names, employers and job titles, along with physical addresses and phone numbers.",
+    "link": "https://haveibeenpwned.com/Breach/Questel",
+    "source": "Have I Been Pwned – Latest Breaches",
+    "type": "leaks",
+    "type_label": "Leaks & Breaches",
+    "published": "2026-09-01T04:49:35+00:00",
+    "published_ts": 1788238175,
+    "smart_groups": [
+      "Ransomware",
+      "Identity / Access"
+    ],
+    "curated": false
+  },
+  {
+    "title": "BlackRock drives $217M Bitcoin ETF rebound as altcoin funds continue streaks",
+    "summary": "Ether ETFs extended their inflow streak to 11 trading sessions, while XRP and Solana funds each logged a 10th consecutive positive session.",
+    "link": "https://cointelegraph.com/markets/blackrock-bitcoin-etf-inflow-rebound?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-09-01T04:48:47+00:00",
+    "published_ts": 1788238127,
+    "smart_groups": [
+      "Ransomware"
+    ],
+    "curated": false
+  },
+  {
+    "title": "CISA Flags Multiple PaperCut NG/MF Flaws Exploited in the Wild",
+    "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) has added two critical vulnerabilities related to PaperCut NG/MF to its Known Exploited Vulnerabilities (KEV) catalog, warning that these flaws are being actively exploited. The vulnerabilities, identified as CVE-2026-81578 and CVE-2026-82078, can be combined to enable unauthenticated attackers to modify server configurations and execute arbitrary Java bytecode […] The post CISA Flags Multiple PaperCut NG/MF Flaws Exploited in the Wild appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/cisa-flags-multiple-papercut-ng-mf-flaws/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T04:47:27+00:00",
+    "published_ts": 1788238047,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC",
+      "Cloud / SaaS"
+    ],
+    "curated": true
+  },
+  {
+    "title": "What your vendor says about PQC tells you if they are ready",
+    "summary": "In this interview with Help Net Security, Dr. Yaakov Stein, VP CTO of Allot, discusses what post-quantum readiness looks like inside a mobile network. The discussion covers which operator traffic stays sensitive for years, including subscriber identity mappings, billing records and call metadata, and which becomes worthless within hours. It walks through the order of work, starting with a crypto inventory and hybrid key exchange on TLS interfaces, then IPsec links. It also names the … More → The post What your vendor says about PQC tells you if they are ready appeared first on Help Net Security .",
+    "link": "https://www.helpnetsecurity.com/2026/09/01/yaakov-stein-allot-telecom-pqc-migration/",
+    "source": "Help Net Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T04:30:41+00:00",
+    "published_ts": 1788237041,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Anthropic Hardens Claude Security After AI Models Gain Unauthorized Access to Real Systems",
+    "summary": "Anthropic has hardened security around its Claude models after several incidents in which the systems gained unauthorized access to real computers during cybersecurity evaluations. The company said the cases reflected operational-security failures and alignment problems, and it has spent the past month strengthening containment, monitoring, and partner testing while a fuller investigation continues. On July […] The post Anthropic Hardens Claude Security After AI Models Gain Unauthorized Access to Real Systems appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/anthropic-hardens-claude-security/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T04:25:23+00:00",
+    "published_ts": 1788236723,
+    "smart_groups": [
+      "Ransomware"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Cybersecurity jobs available right now: September 1, 2026",
+    "summary": "Security Engineer, PSO Google | USA | On-site – View job details As a Security Engineer, you will provide technical guidance to customers adopting Google Cloud Platform, helping them navigate their cloud journey with the Professional Services team. The role includes advising on secure foundational cloud implementations, automated provisioning of infrastructure and applications, and cloud-ready application architectures. Cyber Security Analyst Spait Infotech | Ireland | Hybrid – View job details As a Cyber Security Analyst, … More → The post Cybersecurity jobs available right now: September 1, 2026 appeared first on Help Net Security .",
+    "link": "https://www.helpnetsecurity.com/2026/09/01/cybersecurity-jobs-available-right-now-september-1-2026/",
+    "source": "Help Net Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T04:00:30+00:00",
+    "published_ts": 1788235230,
+    "smart_groups": [
+      "Cloud / SaaS"
+    ],
+    "curated": false
+  },
+  {
+    "title": "BGP Hijack Diverts Softaculous Traffic to Deliver Malicious Virtualizor Update",
+    "summary": "Attackers hijacked BGP routing for Softaculous last week and delivered a malicious Virtualizor update to a handful of hypervisor servers, according to a vendor incident report. Hosting providers use Virtualizor to manage VPS nodes on KVM, Xen, LXC, OpenVZ, and Proxmox, and a single master can control hundreds of virtualization servers, placing a poisoned update […] The post BGP Hijack Diverts Softaculous Traffic to Deliver Malicious Virtualizor Update appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/virtualizor-compromise/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-09-01T03:59:48+00:00",
+    "published_ts": 1788235188,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Thailand SEC proposes retail access to regulated overseas crypto derivatives",
+    "summary": "Thailand’s SEC seeks comments on rules requiring retail-accessible overseas crypto derivatives to trade on qualifying, centrally cleared exchanges.",
+    "link": "https://cointelegraph.com/news/thailand-sec-retail-overseas-crypto-derivatives?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-09-01T03:49:00+00:00",
+    "published_ts": 1788234540,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "ISC Stormcast For Tuesday, September 1st, 2026 https://isc.sans.edu/podcastdetail/10076, (Tue, Sep 1st)",
+    "summary": "(c) SANS Internet Storm Center. https://isc.sans.edu Creative Commons Attribution-Noncommercial 3.0 United States License.",
+    "link": "https://isc.sans.edu/diary/rss/33302",
+    "source": "SANS Internet Storm Center",
+    "type": "government",
+    "type_label": "Government, CERT & Advisories",
+    "published": "2026-09-01T02:00:03+00:00",
+    "published_ts": 1788228003,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Higher Education Community Vendor Assessment Toolkit (Free Template) | UpGuard",
+    "summary": "Utilize this free questionnaire template to evaluate third-party vendors against the Higher Education Community Vendor Assessment Toolkit.",
+    "link": "https://www.upguard.com/blog/free-template-hecvat",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:53:26+00:00",
+    "published_ts": 1788227606,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "ISO 27001 Explained: Key Concepts and Benefits | UpGuard",
+    "summary": "ISO 27001: Learn about the leading international standard for ISMS, its key components, and benefits for robust data protection.",
+    "link": "https://www.upguard.com/blog/what-is-iso-27001",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:09:42+00:00",
+    "published_ts": 1788224982,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Human Risk Management Platforms: How to Choose the Right Software | UpGuard",
+    "summary": "Protect your workforce with human risk management software that fits. Compare 10 platforms, the features that matter, and how to choose the right one.",
+    "link": "https://www.upguard.com/blog/best-human-risk-management-platforms",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:09:42+00:00",
+    "published_ts": 1788224982,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "UpGuard’s Future: The Strategic Edge Your Security Team Needs | UpGuard",
+    "summary": "Discover every risk, act with AI, and prove it's working. See how UpGuard's Risk Operations Center connects vendor, attack surface, and workforce risk.",
+    "link": "https://www.upguard.com/blog/strategic-edge-your-security-team-needs",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:09:42+00:00",
+    "published_ts": 1788224982,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Jira + UpGuard: Automating Risk Management Together | UpGuard",
+    "summary": "UpGuard’s Risk Automations route vendor, breach, and user risk signals into Jira, eliminating manual back-and-forth updates between the two platforms.",
+    "link": "https://www.upguard.com/blog/risk-automations-jira-integration",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:09:42+00:00",
+    "published_ts": 1788224982,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "ServiceNow + UpGuard: Automating Risk Management Together | UpGuard",
+    "summary": "See how UpGuard’s Risk Automations ServiceNow integration turns vendor, breach, and user risk findings into tickets and syncs without manual data entry.",
+    "link": "https://www.upguard.com/blog/risk-automations-servicenow-integration",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:09:42+00:00",
+    "published_ts": 1788224982,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Best Vendor Risk Management Software for 2026 | UpGuard",
+    "summary": "Compare top vendor risk management software solutions and learn how to choose, implement, and integrate the right tool for your organization’s needs.",
+    "link": "https://www.upguard.com/blog/best-vendor-risk-management-software-solutions",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:09:42+00:00",
+    "published_ts": 1788224982,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "AI Assurance: The Third Head of Your AI Governance Watchdog | UpGuard",
+    "summary": "AI governance needs three things: policy, enforcement, and assurance. Most organizations have built the first two. Here's why the third one matters now.",
+    "link": "https://www.upguard.com/blog/ai-governance-to-ai-assurance",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:09:42+00:00",
+    "published_ts": 1788224982,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Biggest Data Breaches in Education (Updated August 2026) | UpGuard",
+    "summary": "Explore the 30 largest education data breaches as of August 2026, from PowerSchool to Canvas, alongside key sector statistics and US student privacy laws.",
+    "link": "https://www.upguard.com/blog/biggest-data-breaches-in-education-updated-august-2026",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:09:42+00:00",
+    "published_ts": 1788224982,
+    "smart_groups": [
+      "Cloud / SaaS",
+      "Network / OT / ICS",
+      "Data Breaches / Leaks"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Open House: How an Unauthenticated MCP Server Exposed India's Largest Real Estate Platform | UpGuard",
+    "summary": "An exposed DBHub instance leaked millions of records from India's largest real estate platform—the biggest MCP server breach to date.",
+    "link": "https://www.upguard.com/breaches/open-house-how-an-unauthenticated-mcp-server-exposed-indias-largest-real-estate-platform",
+    "source": "UpGuard – Breaches",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:09:42+00:00",
+    "published_ts": 1788224982,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "What is Vendor Risk Monitoring in Cybersecurity? | UpGuard",
+    "summary": "Learn why vendor risk monitoring is a critical component of every Vendor Risk Management and Third-Party Risk Management program.",
+    "link": "https://www.upguard.com/blog/vendor-risk-monitoring",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:09:42+00:00",
+    "published_ts": 1788224982,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Best TPRM Software for Higher Education: What to Look For | UpGuard",
+    "summary": "Learn how to evaluate higher education TPRM software, including HECVAT workflows, vendor monitoring, remediation, audit readiness, and reporting.",
+    "link": "https://www.upguard.com/blog/best-tprm-software-higher-education",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:09:42+00:00",
+    "published_ts": 1788224982,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Enterprise Vendor Risk Management: 2026 Guide | UpGuard",
+    "summary": "Discover how enterprise VRM programs help large-scale organizations remain robust and resilient against growing third-party risks from outside vendors.",
+    "link": "https://www.upguard.com/blog/enterprise-vendor-risk-management",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:09:42+00:00",
+    "published_ts": 1788224982,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "What is Third-Party Risk? | UpGuard",
+    "summary": "Third-party risk is any risk brought on to an organization by external parties in its ecosystem or supply chain. Learn more about its importance.",
+    "link": "https://www.upguard.com/blog/what-is-third-party-risk",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:09:42+00:00",
+    "published_ts": 1788224982,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Vendor Risk Management: Strategies for Protecting Your Business | UpGuard",
+    "summary": "Explore the fundamentals of vendor risk management, including strategies, best practices, and tools to safeguard your organization from third-party risks.",
+    "link": "https://www.upguard.com/blog/vendor-risk-management",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:09:42+00:00",
+    "published_ts": 1788224982,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Vendor Risk Assessments: An Ultimate Guide | UpGuard",
+    "summary": "Master vendor risk assessment: frameworks, real examples, and tools. Learn how automation and continuous monitoring strengthen your security.",
+    "link": "https://www.upguard.com/blog/vendor-risk-assessment",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:09:42+00:00",
+    "published_ts": 1788224982,
+    "smart_groups": [
+      "Ransomware"
+    ],
+    "curated": false
+  },
+  {
+    "title": "TPRM Lifecycle Guide with Examples and Framework Integration | UpGuard",
+    "summary": "Explore the six critical phases of a TPRM lifecycle, including key strategies to help organizations mitigate and manage third-party cybersecurity risks.",
+    "link": "https://www.upguard.com/blog/tprm-lifecycle",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:09:42+00:00",
+    "published_ts": 1788224982,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "15 KPIs & Metrics to Measure the Success of Your TPRM Program | UpGuard",
+    "summary": "Learn more about the importance of KPIs and discover what metrics your organization should track to measure the health of its TPRM program.",
+    "link": "https://www.upguard.com/blog/kpis-to-measure-tprm",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:09:42+00:00",
+    "published_ts": 1788224982,
+    "smart_groups": [
+      "Network / OT / ICS"
+    ],
+    "curated": false
+  },
+  {
+    "title": "11 Third-Party Risk Management Best Practices in 2026 | UpGuard",
+    "summary": "Discover 11 third-party risk management practices your organization should implement in 2026.",
+    "link": "https://www.upguard.com/blog/11-tprm-best-practices-2024",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:09:42+00:00",
+    "published_ts": 1788224982,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "In-House vs Outsourced Third-Party Risk Management | UpGuard",
+    "summary": "Learn more about the differences between in-house and outsourced TPRM and discover which TPRM method is best for your team.",
+    "link": "https://www.upguard.com/blog/in-house-vs-outsourced-tprm",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:09:42+00:00",
+    "published_ts": 1788224982,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Why is Third-Party Risk Management Important in 2026? | UpGuard",
+    "summary": "This is a complete overview that outlines why third-party risk management is important. Learn about successful TPRM programs in this in-depth post.",
+    "link": "https://www.upguard.com/blog/third-party-risk-management-important",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:09:42+00:00",
+    "published_ts": 1788224982,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "How to Automate Vendor Risk Management in 2026 | UpGuard",
+    "summary": "Third-party vendors are an important source of strategic advantage, cost savings, and expertise. Yet outsourcing is not without cybersecurity risk.",
+    "link": "https://www.upguard.com/blog/automate-vendor-risk-management",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:09:42+00:00",
+    "published_ts": 1788224982,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Third-Party Risk Management vs Vendor Risk Management | UpGuard",
+    "summary": "Explore what distinguishes vendor risk management from third-party risk management and how to implement VRM strategies into your existing TPRM framework.",
+    "link": "https://www.upguard.com/blog/third-party-risk-management-vs-vendor-risk-management",
+    "source": "UpGuard Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-09-01T01:09:42+00:00",
+    "published_ts": 1788224982,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Guildma (Astaroth) malware infection from Brazilian Portuguese email, (Tue, Sep 1st)",
+    "summary": "Introduction",
+    "link": "https://isc.sans.edu/diary/rss/33300",
+    "source": "SANS Internet Storm Center",
+    "type": "government",
+    "type_label": "Government, CERT & Advisories",
+    "published": "2026-09-01T00:33:21+00:00",
+    "published_ts": 1788222801,
+    "smart_groups": [
+      "Malware / Payloads"
+    ],
+    "curated": false
   }
 ]
