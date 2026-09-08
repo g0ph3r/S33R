@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-09-08T20:17:30.649082+00:00",
+  "generated_at": "2026-09-08T22:39:02.911737+00:00",
   "days_back": 30,
-  "total_items": 6728,
+  "total_items": 6756,
   "items": [
     {
       "title": "[Virtual Event] What Every Enterprise Should Know About Securing Cloud Assets in the Age of AI",
@@ -38,6 +38,390 @@
       "published_ts": 1789556400,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "One man team",
+      "summary": "I'm the sole cybersecurity person for mid-size local government municipality (around 600 users), came in about 8 months ago. Landscape here is pretty wild west\u2026minimal governance, no real established program but slowly building it out. I\u2019m running EDR/NDR, a firewall/log platform, email security, and phishing awareness training (all different platforms) while also owning policy development, policy gap analysis (establishing NIST CSF 2.0 framework), risk assessments, audits and quarterly reporting to leadership. It\u2019s a lot of work and something always loses. Policy work in particular keeps getting bumped because incidents/investigations always outrank it in the moment. The problem isn't any one part of the job.. i can do investigations, I can write policy, I can run the security tools, I can build training programs. I actually enjoy those things\u2026The problem is all of it landing on my desk at the same time. I honestly am starting to question if I\u2019m even good at my job because I can\u2019t make it all work. Questions for anyone who's been here: -If you've been a solo practitioner..how did you actually prioritize across investigation, GRC, tooling, and training without letting any one of them rot? -Is this genuinely a \"normal growing pain\" for a first year solo, or a sign to run.. Not looking for sympathy, just want to know if I'm missing a better way to run this! submitted by /u/ComfortableYou333 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1wb3ea5/one_man_team/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-09-08T22:30:50+00:00",
+      "published_ts": 1788906650,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Survival of the Basics: Which Security Fundamentals Were Secretly Relying on Lazy Attackers?",
+      "summary": "A few weeks ago I asked on X and LinkedIn a deceptively simple question: which \u201csecurity basics\u201d matter more against AI-armed attackers, and which ones don\u2019t matter anymore? What Gemini think of this blog [before you freak out about \u2018\u2026but Anton, we don\u2019t even have a consensus definition of \u201csecurity basics\u2019 , read on \u2014 I gracefully sidestep this critical issue :-)] I got about 60 answers. Most of them converged on the same reasonable, practitioner-approved, completely unsurprising consensus: the basics aren\u2019t dead, AI just punishes sloppy execution faster. This is true. It has also been true of every attack trend since 1998 (hi Satan! hi Metasploit! hi fuzzing!). If that were the whole story, this post would end here. But one reply challenged the premise, and it turned out to be the most useful comment in the thread: what can an \u201cAI attacker\u201d actually do that a skilled human attacker couldn\u2019t? The honest answer today is: nothing . Still, this has implications related to scale, speed, coverage and a whole lot of other things. Sometimes changing the speed on the attack side should NOT lead to \u201cwell, defense should also run faster\u201d arguments. We should \u201cdo different\u201d, not run \u201calmost as fast\u201d as the attacker. Let\u2019s think about it! The scarce resource was never technology. It was attention. This is also the \u201csecret\u201d why \u201cluck-based\u201d security works for some organizations. Even if they have glaring holes, DMZ CVSS 10s unpatched since 2016, Windows 2003, Red Hat Linux 9 and PHP (oh god, so much PHP!) they may still be in business, and doing sort of OK. That is why I always say that people with 10K unpatched HIGHs do NOT fear Mythos-induced \u201cvuln-apoc\u201d of having 300K unpatched HIGHs. The lift won\u2019t change risk for them ( IMHO ) So let\u2019s say 30x more vulnerabilities leads to \u2026 I dunno \u2026 3% more risk? Anyhow, for the entire history of this field, the single scarcest resource on the offensive side was skilled (defined broadly, perhaps semi-skilled too) attacker hours. There were never enough competent humans to exploit every reachable vulnerability at every company, craft a convincing lure for every employee, abuse every public S3 bucket and work through every organization\u2019s attack surface. The attackers did what any rational actor does with a scarce resource: they allocated it. They went after the easiest targets, the juiciest ones, or the ones that happened to be in front of them. Here is the uncomfortable part. Perhaps you think it is obvious? A surprising share of what we call \u201csecurity basics\u201d were never really about stopping attackers. They were about not being worth the effort at the moment : Patch cadence was about closing the window before someone got around to you. Not before someone could , before someone would (This is a profound idea, IMHO. Thanks Claude Fable 5.1!) Phishing awareness training worked, to the extent it ever did, because mass phishing was sloppy. Crafting a good lure was expensive, so most lures were bad, so \u201cspot the typo\u201d was a real signal. \u201cWe\u2019re not a target\u201d was a risk-acceptance strategy that only made sense if the attacker was choosing targets. Again, \u201cluck based security\u201d was very much a thing. Coverage metrics like \u201c80% of assets patched within SLA of 30 days\u201d implicitly assumed the remaining 20% was hiding in a pile the attacker wouldn\u2019t bother to sift through. IT sure couldn\u2019t ;-) None of these controls fail because attackers got smarter. They fail because attacker labor became elastic . When the marginal cost of one more exploitation attempt, one more tailored lure, one more recon pass drops toward zero, there is no such thing as low-hanging fruit anymore. All the fruit gets picked. Ok, this is new! This is fun! Still, we have seen a similar movie before, and I was there for the first showing. Network scanners in the late 1990s and Shodan in the 2010s did not invent new vulnerabilities. They removed obscurity from the discovery phase and forced everyone to admit that \u201cnobody knows about that server\u201d was not a control. In my view, AI is doing the same thing one layer deeper: removing scarcity from the exploitation and social-engineering phases. Whatever you believe about the exact numbers in the recent frontier-model evaluations (end-to-end corporate takeover chains, three-figure attack costs, and so on), the direction is not in dispute. The attacker is no longer rate-limited by their headcount and \u201cattention count.\u201d The sorting rule This gives us something better than a list. It gives us a rule. A [security] basic survives if it works by physics or math. A basic dies if its risk reduction was proportional to attacker effort. No wire, no access. Network isolation does not care whether the probe came from a bored teenager or an agent running 1,000 recon passes a second. Hey Cisco ;-) No binary, no execution. Application allowlisting does not care how the entry point was found. No phishable auth factor, no phish . FIDO2 does not care how convincing the lure is, or whether it arrived as a flawless email or a cloned voice. No chip \u2014 no access. No software, nothing to patch. You cannot exploit what has been removed. In the \u201c1990s speak\u201d, AI cannot scan your ports, if you don\u2019t have ports. Get rid of the TCP/IP stack while you are at it :-) Conversely, anything that reduces risk by making you slightly harder to attack than the next guy is on the wrong side of this line. So your zero-day laden security tool that runs \u201cinput filtering\u201d is shot in the butt\u2026 The matrix: AI resilience \u00d7 modern feasibility Back in my Gartner days , we wrote a paper on IT hygiene and which controls actually constitute a foundation. Oh those endless debates on whether NIDS is a basic control in 2016\u2026. I recall you so fondly! The list below is a first pass at re-running a similar exercise with two axes: Does it hold against a tireless attacker , and Can anyone actually deploy it in a modern environment? BTW, the second axis matters more than people think. A control that is AI-proof, but undeployable is not a security basic. It is a wish at best\u2026 Master table From this, three things that are emerging as basics, done by a few now and needing to become universal: Identity verification for humans at hiring and high-risk moments. In-person or equivalent anti-deepfake process for video hiring. This sounded paranoid in 2023. This sounds routine in 2026. Anything that cuts off network access still works well. If you can gracefully limit connectivity, no attacker \u2014 with AI or without \u2014 can touch it. This of course wins some degree of Easier Said Than Done prize\u2026 but it is still real. Identity and inventory for non-humans. If you cannot enumerate your agents and service identities, \u201cintent enforcement\u201d is a slide, not a control. Agent security (however defined) cannot be solved unless we solve agent identity. AI-driven code and data discovery. If your data classification project has been \u201cin progress\u201d since 2019 (or:1989?), the attacker\u2019s is not. So, here you do need to run faster than the attacker, yes. The patching dilemma, properly stated Now back to patching. According to many, patching is the ultimate \u201csecurity basic,\u201d so it deserves its own math. BTW, others say that it is neither security nor basic\u2026 Review these first , perhaps. Under a human attacker, patch coverage was roughly linear. Going from 30% to 80% of assets patched within SLA removed 50 \u201cpoints of exposure\u201d, because the attacker was not going to find and exploit every one of the remaining gaps. Some of them were effectively hidden by the attacker\u2019s own bandwidth. Under a tireless attacker (read: AI), exposure stops being \u201cwhat fraction is unpatched\u201d and becomes \u201cis there at least one reachable, usable, exploitable gap.\u201d That number stays stubbornly close to 1 until coverage approaches 100% for reachable assets . Improving from 30% to 80% may produce close to zero risk reduction. The remaining 20% is not hiding anymore. This is new, and a bit scary. But this is an assumption to test, not a law. We need data! But if it holds even partially, the levers change: Shrink the denominator. Fewer things that need patching. This is why attack surface reduction jumps up in importance. Make the gaps unreachable. Network isolation converts \u201cunpatched\u201d into \u201cunpatched yet irrelevant.\u201d This is why segmentation is back. Microsegmentation grows in importance. Make patching a rebuild, not a maintenance window. If you cannot rebuild a workload from code in minutes, you are not going to win a speed contest against a vuln storm. This is less a security basic than an IT cornerstone, which is exactly the problem. So \u201cpatch faster\u201d and \u201cpatching doesn\u2019t cut it\u201d are both right. The goal survives. The implementation everyone recognizes as \u201cpatching\u201d does not. That pattern repeats across the table: many basics survive as objectives and die as the specific practice we associated with them . Similarly, awareness training survives as \u201chumans exercise judgment\u201d and dies as \u201cannual click-through module.\u201d Least privilege survives as a principle and dies as \u201csomeone reviews IAM policies quarterly.\u201d What this means, operationally If you take one thing from this: subtract before you add. Before buying the AI-vs-AI tooling that every vendor is now pitching, remove the software you don\u2019t need, cut the wires that don\u2019t need to exist, and finish the asset inventory you\u2019ve been not-finishing since your first CMDB project. These are not exciting. They are also the only controls on the list that a tireless attacker cannot outrun. Niels Provos reminds us of the same . One more honest observation. Several of the \u201cpromoted\u201d basics above (remove unnecessary software, segment aggressively, fix least privilege) have been recommended for 20 years, and no previous threat trend actually motivated organizations to do them. Maybe an attacker who never sleeps and never gets bored finally will. Or \u2026 maybe we will spend the budget on AI-powered SOC dashboards instead. I am, as always, an optimist\u2026 Related : The Feynman Bet: Why You Still Won\u2019t Vibe Code Your SIEM (Today) Beyond the Vulnerability Apocalypse: Scaling Your Basics and Vulnerability Management Breaking the Patch Sound Barrier Part 2: So Is The Apocalypse Coming and What Is It? The Ancient Art of SIEM: Why 2003 Problems Look So Familiar in 2026 \u201cAI Normal Tech\u201d vs \u201cAGI by Tuesday\u201d: Security Advice That Survives Either Future Survival of the Basics: Which Security Fundamentals Were Secretly Relying on Lazy Attackers? was originally published in Anton on Security on Medium, where people are continuing the conversation by highlighting and responding to this story.",
+      "link": "https://medium.com/anton-on-security/survival-of-the-basics-which-security-fundamentals-were-secretly-relying-on-lazy-attackers-bb1bfaceadf6?source=rss----8e8c3ed26c4c---4",
+      "source": "Anton on Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-08T21:48:17+00:00",
+      "published_ts": 1788904097,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Windows / Microsoft",
+        "Linux / Unix",
+        "Cloud / SaaS",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Phishing / Social Engineering",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Microsoft Plugs Nearly 1,000 Security Holes",
+      "summary": "Microsoft Corp. today issued updates to plug at least 974 security holes in its Windows operating systems and other software, by far its biggest single patch batch ever. Microsoft says artificial intelligence is helping to speed the discovery of vulnerabilities, but security experts warn that many organizations already are struggling to prioritize the more human-intensive endeavor of testing and deploying so many fixes each month.",
+      "link": "https://krebsonsecurity.com/2026/09/microsoft-plugs-nearly-1000-security-holes/",
+      "source": "Krebs on Security",
+      "type": "cybercrime",
+      "type_label": "Cybercrime, Darknet & Leaks",
+      "published": "2026-09-08T21:44:22+00:00",
+      "published_ts": 1788903862,
+      "smart_groups": [
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft"
+      ],
+      "curated": false
+    },
+    {
+      "title": "OpenAI Says It Solved a $1M Math Problem. A Rival Mathematician Says He Did It First",
+      "summary": "NYU's Tristan Buckmaster accuses OpenAI's S\u00e9bastien Bubeck of racing to claim credit for a Navier-Stokes proof after learning about his unpublished work with Anthropic's Levent Alp\u00f6ge.",
+      "link": "https://decrypt.co/resources/openai-solved-1m-math-problem-rival-mathematician",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-09-08T21:38:34+00:00",
+      "published_ts": 1788903514,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "New York town weighs crypto mining and AI data center ban",
+      "summary": "One of the first towns in the US to ban Bitcoin mining for 18 months is considering another temporary moratorium extending to data centers and other crypto mining operations.",
+      "link": "https://cointelegraph.com/news/new-york-plattsburgh-crypto-mining-ai-ban?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-09-08T21:33:49+00:00",
+      "published_ts": 1788903229,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Patch Tuesday Sets Another Record With 974 CVEs",
+      "summary": "Attackers are actively exploiting two of the vulnerabilities and another 58 are more likely to be exploited, according to Microsoft.",
+      "link": "https://www.darkreading.com/vulnerabilities-threats/patch-tuesday-another-record-974-cves",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-08T21:26:02+00:00",
+      "published_ts": 1788902762,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "OpenAI's Artifactory opened covert data-stealing channel alongside Hugging Face attack",
+      "summary": "Researchers disclosed the cross-account trick the same day rogue agents exploited another zero-day for admin access",
+      "link": "https://www.theregister.com/security/2026/09/08/openais-artifactory-opened-covert-data-stealing-channel-alongside-hugging-face-attack/5295124",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-08T21:12:19+00:00",
+      "published_ts": 1788901939,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Why this month&#039;s Microsoft patch release is a doozy",
+      "summary": "Security gnomes are pumping out patches ahead of an expected onslaught of AI-assisted attacks.",
+      "link": "https://arstechnica.com/security/2026/09/microsoft-patches-a-record-972-vulnerabilities-112-of-them-critical/",
+      "source": "Security \u2013 Ars Technica",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-08T21:11:46+00:00",
+      "published_ts": 1788901906,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Attackers Use Multi-Hop Google Redirects for Phishing Campaign",
+      "summary": "Threat actors are abusing multiple Google services to evade detection, ultimately harvesting credentials or installing ScreenConnect remote access.",
+      "link": "https://www.darkreading.com/cyberattacks-data-breaches/attackers-multi-hop-google-redirects-phishing-campaign",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-08T21:03:46+00:00",
+      "published_ts": 1788901426,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Cybercabs, Robohobos, BigBear, Nightmare Eclipse, weChat, Flock, ASCII, Aaran Leyland - SWN #614",
+      "summary": "Cybercabs, Robohobos, BigBear, Nightmare Eclipse, weChat, Flock, ASCII, Aaran Leyland, and More on the Security Weekly News. Visit https://www.securityweekly.com/swn for all the latest episodes! Show Notes: https://securityweekly.com/swn-614",
+      "link": "https://www.youtube.com/watch?v=it-AXAuT608",
+      "source": "Security Weekly News (YouTube)",
+      "type": "podcasts",
+      "type_label": "Podcasts & YouTube",
+      "published": "2026-09-08T21:00:35+00:00",
+      "published_ts": 1788901235,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Cybercabs, Robohobos, BigBear, Nightmare Eclipse, weChat, Flock, ASCII, Aaran Leyland - SWN #614",
+      "summary": "",
+      "link": "https://www.scworld.com/podcast-segment/15296-cybercabs-robohobos-bigbear-nightmare-eclipse-wechat-flock-ascii-aaran-leyland-swn-614",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-08T21:00:00+00:00",
+      "published_ts": 1788901200,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Cybercabs, Robohobos, BigBear, Nightmare Eclipse, weChat, Flock, ASCII, Aaran Leyland - SWN #614",
+      "summary": "Cybercabs, Robohobos, BigBear, Nightmare Eclipse, weChat, Flock, ASCII, Aaran Leyland, and More on the Security Weekly News. Visit https://www.securityweekly.com/swn for all the latest episodes! Show Notes: https://securityweekly.com/swn-614",
+      "link": "https://podcast.securityweekly.com/cybercabs-robohobos-bigbear-nightmare-eclipse-wechat-flock-ascii-aaran-leyland-swn-614",
+      "source": "Security Weekly Podcast Network (Audio)",
+      "type": "podcasts",
+      "type_label": "Podcasts & YouTube",
+      "published": "2026-09-08T21:00:00+00:00",
+      "published_ts": 1788901200,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Franklin Templeton digital asset veteran takes helm at StablecoinX",
+      "summary": "Former Franklin Templeton digital asset executive Christopher Jensen will lead StablecoinX, the largest corporate holder of Ethena\u2019s ENA token.",
+      "link": "https://cointelegraph.com/news/stablecoinx-franklin-templeton-veteran-to-oversee-roughly-480m-ena-treasury?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-09-08T20:59:20+00:00",
+      "published_ts": 1788901160,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Scammer behind $245 million crypto heist pleads guilty to RICO charges",
+      "summary": "Malone Lam was indicted on scamming charges in September 2024 after drawing law enforcement scrutiny for parlaying stolen crypto into lavish Hamptons vacations, cars and private jets.",
+      "link": "https://therecord.media/scammer-behind-245-million-crypto-heist-pleads-guilty-rico",
+      "source": "The Record \u2013 Cybercrime",
+      "type": "cybercrime",
+      "type_label": "Cybercrime, Darknet & Leaks",
+      "published": "2026-09-08T20:52:00+00:00",
+      "published_ts": 1788900720,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Vulnerability Summary for the Week of August 31, 2026",
+      "summary": "submitted by /u/antdude [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1wb0rhs/vulnerability_summary_for_the_week_of_august_31/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-09-08T20:51:44+00:00",
+      "published_ts": 1788900704,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "$47M Still Missing After Liquid Hack as Blockstream Bargains With 'White Hats'",
+      "summary": "The hackers have returned 3,400 of the roughly 4,000 BTC drained from the sidechain, but about 600 BTC remains outstanding\u2014and some doubt the actors' \"white hat\" claims.",
+      "link": "https://decrypt.co/377723/liquid-hack-47m-blockstream-bargains-white-hat",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-09-08T20:46:34+00:00",
+      "published_ts": 1788900394,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "OpenAI Agents Took Over Wiki Site Before Hugging Face Attack",
+      "summary": "Researchers and OpenAI disagree on whether the earlier incident involving DseWiki was a \u201chack\u201d that the company did not disclose.",
+      "link": "https://www.darkreading.com/cyberattacks-data-breaches/openai-agents-wiki-site-hugging-face-attack",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-08T20:36:15+00:00",
+      "published_ts": 1788899775,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Hackers Drain $320 Million From Liquid Network, Then Return Most of It",
+      "summary": "Crypto exchange network Liquid Network lost $320 million overnight, then got most of it back after the hackers demanded a bug fix instead of a ransom Bitcoin\u2019s Liquid Network, a sidechain built by Blockstream and used by dozens of exchanges to move funds faster and more privately than the main Bitcoin blockchain allows, got drained [\u2026]",
+      "link": "https://securityaffairs.com/198697/cyber-crime/hackers-drain-320-million-from-liquid-network-then-return-most-of-it.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-08T20:35:34+00:00",
+      "published_ts": 1788899734,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "DoppelCart fraud network uses 119,000 fake shops to steal credit cards",
+      "summary": "A massive operation dubbed \"DoppelCart\" uses more than 119,000 domains to run a network of fake e-shops that steal payment card details. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/doppelcart-fraud-network-uses-119-000-fake-shops-to-steal-credit-cards/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-08T20:35:14+00:00",
+      "published_ts": 1788899714,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Identity Security Posture Management (ISPM): Visibility, Risk, and Remediation",
+      "summary": "",
+      "link": "https://www.scworld.com/tech-explainer/identity-security-posture-management-ispm-visibility-risk-and-remediation",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-08T20:32:21+00:00",
+      "published_ts": 1788899541,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "The EU CRA's Real Question: What Shipped, and When Did You Know?",
+      "summary": "The EU Cyber Resilience Act's vulnerability reporting requirements take effect September 11, giving software vendors as little as 24 hours to report actively exploited flaws. ActiveState explains why knowing exactly what shipped and when vulnerabilities were discovered will be critical to meeting the new requirements. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/the-eu-cras-real-question-what-shipped-and-when-did-you-know/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-08T20:24:16+00:00",
+      "published_ts": 1788899056,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Book material for CCSE R82?",
+      "summary": "Do you have book material? submitted by /u/Internal_Mud_459 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1wazze0/book_material_for_ccse_r82/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-09-08T20:23:22+00:00",
+      "published_ts": 1788899002,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Closing the accountability divide: How to prove what happened in a breach",
+      "summary": "It's not enough to contain an incident. You must also understand why and how it happened.",
+      "link": "https://www.scworld.com/resource/closing-the-accountability-divide-how-to-prove-what-happened-in-a-breach",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-08T20:17:03+00:00",
+      "published_ts": 1788898623,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation.",
+      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-09-08T20:13:27+00:00",
+      "published_ts": 1788898407,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Muse, Meta\u2019s New Personal AI Agent, Needs You to Trust It",
+      "summary": "Designed to compete with OpenClaw and Instinct, the company says Muse can do everything from sell your car to book you a plane ticket.",
+      "link": "https://www.wired.com/story/meta-releases-muse-a-personal-ai-agent-with-privacy-built-into-it/",
+      "source": "Security News: Cybersecurity, Hacks, Privacy, National Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-08T20:12:51+00:00",
+      "published_ts": 1788898371,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "OAuth and OIDC: Token Flows, Scopes, and Common Attack Vectors",
+      "summary": "",
+      "link": "https://www.scworld.com/tech-explainer/oauth-and-oidc-token-flows-scopes-and-common-attack-vectors",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-08T20:11:46+00:00",
+      "published_ts": 1788898306,
+      "smart_groups": [
+        "Identity / Access"
+      ],
+      "curated": false
+    },
+    {
+      "title": "How We Built Safety Into Muse by Meta",
+      "summary": "submitted by /u/ni5arga [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1wazm81/how_we_built_safety_into_muse_by_meta/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-09-08T20:10:28+00:00",
+      "published_ts": 1788898228,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Hackers breach F5 BIG-IP APM devices to deploy Linux rootkit",
+      "summary": "A Linux rootkit targeting devices in F5 BIG-IP APM environments can intercept PHP file loading and inject a fileless web shell directly into memory, avoiding the need to write malicious code to disk. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/hackers-breach-f5-big-ip-apm-devices-to-deploy-linux-rootkit/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-08T20:08:55+00:00",
+      "published_ts": 1788898135,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Linux / Unix",
+        "Malware / Payloads"
+      ],
+      "curated": true
     },
     {
       "title": "CVE-2026-84942 - Stored Cross-Site Scripting via Vega Expression Function Bypass in OpenSearch Dashboards",
@@ -93,6 +477,24 @@
         "Linux / Unix"
       ],
       "curated": false
+    },
+    {
+      "title": "Multiple Vulnerabilities in Adobe Products Could Allow for Arbitrary Code Execution",
+      "summary": "Multiple vulnerabilities have been discovered in Adobe products, the most severe of which could allow for arbitrary code execution. Adobe Experience Manager (AEM) is an enterprise-grade digital experience platform that combines content management, digital asset management, and digital enrollment into a single cloud-native solution. Adobe ColdFusion is a commercial rapid web application development platform used to build, deploy, and scale dynamic enterprise web and mobile applications. Adobe Photoshop is a professional raster graphics editor used to create, edit, and manipulate digital images. Adobe Illustrator is an industry-standard vector graphics editor and design software used to create infinitely scalable artwork, logos, icons, typography, and complex illustrations. Adobe Animate is computer animation and multimedia authoring software. Adobe Commerce is a flexible, enterprise-level e-commerce platform built on top of Magento technology that helps businesses create and manage online stores. Adobe Acrobat Reader is a free software application used to view, print, sign, share, and annotate PDF (Portable Document Format) files. Adobe Campaign Classic is an enterprise marketing automation and cross-channel campaign management platform used to design, execute, and orchestrate customer journeys across online and offline channels. Successful exploitation of the most severe of these vulnerabilities could allow for arbitrary code execution in the context of the logged on user. Depending on the privileges associated with the user, an attacker could then install programs; view, change, or delete data; or create new accounts with full user rights. Users whose accounts are configured to have fewer user rights on the system could be less impacted than those who operate with administrative user rights.",
+      "link": "https://www.cisecurity.org/advisory/multiple-vulnerabilities-in-adobe-products-could-allow-for-arbitrary-code-execution_2026-091",
+      "source": "CIS \u2013 Advisories",
+      "type": "government",
+      "type_label": "Government, CERT & Advisories",
+      "published": "2026-09-08T19:24:50+00:00",
+      "published_ts": 1788895490,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Identity / Access",
+        "Network / OT / ICS"
+      ],
+      "curated": true
     },
     {
       "title": "Ivanti security advisory (AV26-897)",
@@ -454,6 +856,37 @@
       "curated": true
     },
     {
+      "title": "Phishing Powers 80% of Attacks on US Companies: How SOCs Can Detect It Early",
+      "summary": "Phishing remains one of the most effective ways for attackers to gain access to corporate environments. From 2013-2023, the FBI recorded 158,436 US victims of Business Email Compromise (BEC), with over $20 billion in reported losses. The FBI specifically warns that phishing is used to obtain corporate credentials and gain access to business networks. While security teams have invested heavily [\u2026] The post Phishing Powers 80% of Attacks on US Companies: How SOCs Can Detect It Early appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/phishing-powers-80-of-attacks-on-us-companies-how-socs-can-detect-it-early/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-08T17:54:52+00:00",
+      "published_ts": 1788890092,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Massive Microsoft Patch Tuesday September 2026 \u2013 973 Vulnerabilities Fixed, Including 2 Zero-Days",
+      "summary": "Microsoft released its September 2026 Patch Tuesday security updates on September 8, addressing 973 vulnerabilities, including two zero-days already exploited in attacks. This massive patch follows the recent Microsoft update on artificial intelligence in vulnerability discovery, deploying a proprietary multi-model agentic scanning system across the Windows codebase. The release spans Windows, Microsoft Office, SQL Server, Exchange, [\u2026] The post Massive Microsoft Patch Tuesday September 2026 \u2013 973 Vulnerabilities Fixed, Including 2 Zero-Days appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/microsoft-patch-tuesday-update-september-2026/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-08T17:46:31+00:00",
+      "published_ts": 1788889591,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Windows / Microsoft"
+      ],
+      "curated": true
+    },
+    {
       "title": "Strive Buys $109 Million in Bitcoin, Pushes Preferred Stock Toward $1 Billion",
       "summary": "The Vivek Ramaswamy-founded asset manager added 1,375 BTC last week, its third straight week of 5%-plus growth.",
       "link": "https://decrypt.co/377689/strive-buys-109-million-bitcoin-preferred-stock-1-billion",
@@ -741,6 +1174,18 @@
       "type_label": "General Security & Blogs",
       "published": "2026-09-08T17:00:00+00:00",
       "published_ts": 1788886800,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Belgian Researcher Held in China-Linked Semiconductor Espionage Probe",
+      "summary": "A Belgian researcher is held in a probe into whether sensitive BelGaN semiconductor technology and trade secrets were unlawfully transferred to China. The post Belgian Researcher Held in China-Linked Semiconductor Espionage Probe appeared first on TechRepublic .",
+      "link": "https://www.techrepublic.com/article/news-belgan-chip-espionage-china-emea-belgium/",
+      "source": "TechRepublic \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-08T16:52:04+00:00",
+      "published_ts": 1788886324,
       "smart_groups": [],
       "curated": false
     },
@@ -1891,20 +2336,6 @@
       "published_ts": 1788873960,
       "smart_groups": [
         "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Here\u2019s what happened in crypto today",
-      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation.",
-      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-08T13:24:08+00:00",
-      "published_ts": 1788873848,
-      "smart_groups": [
-        "Crypto / Web3"
       ],
       "curated": false
     },
@@ -3824,6 +4255,22 @@
       "published": "2026-09-08T00:00:00+00:00",
       "published_ts": 1788825600,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Hunting Vulnerabilities Using Frontier Models",
+      "summary": "Okta used early access to GPT 5.5 Cyber Preview and Anthropic's Mythos Preview to hunt vulnerabilities in our own codebase. The big lesson: agents alone generate noisy leads, but pairing them with human experts who steer investigations produces real, high-confidence findings, plus a reusable pipeline architecture for future AI-driven security work.",
+      "link": "https://sec.okta.com/articles/2026/09/hunting-vulnerabilities-using-frontier-models/",
+      "source": "https://sec.okta.com/rss.xml",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-08T00:00:00+00:00",
+      "published_ts": 1788825600,
+      "smart_groups": [
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS",
+        "Identity / Access"
+      ],
       "curated": false
     },
     {
@@ -93638,57 +94085,6 @@
       "type_label": "OSINT, Communities & Subreddits",
       "published": "2026-08-09T23:11:45+00:00",
       "published_ts": 1786317105,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Beyond Prompt Injection: Hacking Apple's Private Cloud Compute",
-      "summary": "submitted by /u/smaury [link] [comments]",
-      "link": "https://www.reddit.com/r/netsec/comments/1vk1ybs/beyond_prompt_injection_hacking_apples_private/",
-      "source": "/r/netsec",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-08-09T21:33:04+00:00",
-      "published_ts": 1786311184,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Mac for cybersecurity masters?",
-      "summary": "Can I get a MacBook for my cybersecurity masters? I definitely like Mac better than Windows for school, and there is only one class in my program that is not compatible with Mac but I have an old windows laptop that has decent enough specs that I can use for it. Other than that, will I have a bad time running most VMs and labs on a Mac? submitted by /u/Accomplished-Ebb1600 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1vk1eer/mac_for_cybersecurity_masters/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-08-09T21:09:41+00:00",
-      "published_ts": 1786309781,
-      "smart_groups": [
-        "Windows / Microsoft",
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "AI pre interview - How do we feel about these",
-      "summary": "I\u2019ve been poking around for open positions as I\u2019m trying to make a big move and keep running into AI interviews. Says it would take about 45 min of my time. Immediately felt like that wasn\u2019t for me and don\u2019t want to waste my time with a company that would do a test pre interview and potentially waste even more of my time, making me work for free. Plus I had to submit my resume before it revealed this and now they have all my info ? Feels predatory and sketchy. How do we feel about AI interview/ pre interviews taking up our time ? Would you do one or do you pass on companies that use these practices ? submitted by /u/cellooitsabass [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1vjzzt1/ai_pre_interview_how_do_we_feel_about_these/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-08-09T20:12:43+00:00",
-      "published_ts": 1786306363,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Security Of Signing In With Google Account",
-      "summary": "I think I may use \"Sign In With Google\" too often. From a security aspect, is this a secure option? I don't understand how Google itself or Government entity couldn't just access my accounts w/out permission. Something like a Tailscale subnet router could expose a private network in this way, could it not? submitted by /u/MyModemIsSlow [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1vjz5g9/security_of_signing_in_with_google_account/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-08-09T19:39:11+00:00",
-      "published_ts": 1786304351,
       "smart_groups": [],
       "curated": false
     },
