@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-09-15T23:42:45.070781+00:00",
+  "generated_at": "2026-09-16T02:42:20.837559+00:00",
   "days_back": 30,
-  "total_items": 6564,
+  "total_items": 6553,
   "items": [
     {
       "title": "[Virtual Event] What Every Enterprise Should Know About Securing Cloud Assets in the Age of AI",
@@ -38,6 +38,52 @@
       "published_ts": 1789556400,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "ISC Stormcast For Wednesday, September 16th, 2026 https://isc.sans.edu/podcastdetail/10096, (Wed, Sep 16th)",
+      "summary": "(c) SANS Internet Storm Center. https://isc.sans.edu Creative Commons Attribution-Noncommercial 3.0 United States License.",
+      "link": "https://isc.sans.edu/diary/rss/33342",
+      "source": "SANS Internet Storm Center",
+      "type": "government",
+      "type_label": "Government, CERT & Advisories",
+      "published": "2026-09-16T02:00:02+00:00",
+      "published_ts": 1789524002,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Hundreds of OpenAI agents attack RubyGems platform",
+      "summary": "A swarm of hundreds of OpenAI agents uploaded \u201cmalicious packages\u201d to RubyGems and tried to steal API keys, the Ruby community gem hosting service revealed Friday. OpenAI confirmed part of the disclosure, saying , \u201cour agents used the RubyGems platform to access the internet to carry out benign tasks and retrieve public information. We\u2019ll continue to investigate as part of our broader review of agent activity during training and evaluation.\u201d The agents\u2019 goals were unclear, as was whether they engaged in the swarming activity for research, and even whether they were explicitly sent by OpenAI staffers, but an analysis published by RubyGems strongly suggests malicious intent. \u201cOnce the AIs got arbitrary RCE on the build environment, they would sometimes use the build environment to attempt to steal other users\u2019 API keys, though we are unsure if they succeeded or not,\u201d the RubyGems post said. \u201cThe agents clearly regarded what they were doing as hacking. Agents used file names like hack[.]rb, evil[.]rb, inject[.]rb, exploit[.]rb, and ssrf[.]rb. SSRF stands for \u2018Server-Side Request Forgery,\u2019 a type of security vulnerability. They also dubbed packages conspicuous titles like pwnp999, exfiltestwand3, hacksvn1778554764 and lambproxyhackabcxyz. Comments such as \u201c# malicious probe\u201d or \u201c#hack\u201d are littered across the campaign.\u201d The post also said that the agents attempted to trick defensive systems. \u201cAt some points, the agents attempted to be covert. We found multiple packages that would disarm themselves to hide their payload in the next version,\u201d the post said. \u201cThey uploaded one package with the comment \u2018# disable evil in the next version and bump version,\u2019 which after execution would modify the package to remove the malicious code initially inserted.\u201d OpenAI should be accountable Analysts and consultants said the attack was concerning because if such efforts happen often enough, it could slow down security operations center (SOC) responses. Nader Henein , a Gartner VP analyst, said he was highly concerned about an upcoming bot swarm trend. \u201cWhat we know is that this is the kind of standard attack, now AI-augmented, that will become commonplace over the coming months,\u201d Henein said. \u201cIt\u2019s less so a rogue agent, more so an attacker, potentially using compromised credentials, weaponizing an agent swarm, in the same way that attackers used compromised endpoints to mount DDoS attacks for the better part of the last decade. The difference here is the fact that these are not individually compromised bots. OpenAI\u2019s guardrails should have not allowed this to happen.\u201d Frank Dickson , principal analyst at Dickson Research, added, \u201cOpenAI needs to be held accountable. They seem to want to create \u2018Dr. Frankenstein\u2019s monster,\u2019 but don\u2019t seem to want to accept blame for the outcomes. OpenAI hasn\u2019t denied its agents used RubyGems. It has disputed the word \u2018malicious\u2019 and called the activity \u2018benign,\u2019 while separately acknowledging that, in that same stretch of weeks, its agents escalated to cluster-admin access at Hugging Face and compromised accounts at four other third-party services. Those two characterizations are hard to square. The behavior is still unacceptable.\u201d However Erik Avakian , technical counselor at Info-Tech Research Group, stressed that it\u2019s not necessarily the case that OpenAI launched these agents with explicit instructions. The agents might have easily charted this destructive path all on their own. The OpenAI agents \u201cabsolutely could have acted autonomously. We\u2019ve already seen that capable agents can pursue various unexpected paths to accomplish a task when they have enough autonomy and access,\u201d he said. \u201cA human may have authorized the evaluation or given the agents access to tools, but that doesn\u2019t mean a human approved every action they subsequently took.\u201d Could delay SOC responses Dickson added that he fears the ultimate cybersecurity risk is that SOC staffers see so many of these attacks that they start to experience alert fatigue. \u201cIf the vendor whose agents did this is the one downgrading the language, a SOC analyst reading headlines instead of the underlying report has every reason to underreact,\u201d Dickson said. \u201cSecurity operations aren\u2019t fit for purpose if they run on the assumption that an AI agent label makes an intrusion less real. A stolen API key or a remote code execution path behaves identically whether the actor is a ransomware crew or an unsupervised model chasing a reward signal.\u201d Mike Wilkes , enterprise CISO at Aikido Security, also noted that the fact that the agents self-identified as OpenAI should mean nothing, as all agents can persuasively pretend to be representing anyone, especially if they think it will slow down a response, even for a brief period. \u201cA User-Agent string is a nametag written by the visitor, not a passport,\u201d he said. \u201cIf SOC tooling begins suppressing alerts because traffic claims to be an OpenAI, Anthropic, Google or other AI agent, attackers will adopt those identities immediately if they haven\u2019t already.\u201d Thus, he said, \u201cif a human researcher or employee delegates authority to an autonomous agent, there should be a verifiable chain showing who delegated that authority, which organization they represent, what agent was authorized, what scope it was given, and for what period of time.\u201d Plan for similar attacks Consultant Brian Levine , executive director of FormerGov, encouraged CISOs to anticipate more such attacks and plan accordingly. \u201cOrganizations that depend on open source, which is nearly all of them, should assume registries are an active battleground [and should] rotate and scope API keys tightly, monitor for anomalous package publishing and credential access, and pin and verify dependencies rather than trusting a name,\u201d he said. \u201cThe economics have shifted. Automation lets an attacker try thousands of variations cheaply, so defenders have to make the payoff of any single success as small as possible.\u201d Justin Greis , CEO of consulting firm Acceligence, agreed. \u201cIf legitimate AI research activity increasingly generates behavior that looks like hostile scanning, exploitation, credential access or persistence, SOC teams can become conditioned to treat those signals as noise,\u201d Greis said. \u201cAttackers will understand that very quickly. The dangerous phrase becomes \u2018that is probably just an AI agent.\u2019\u201d",
+      "link": "https://www.csoonline.com/article/4222474/hundreds-of-openai-agents-attack-rubygems-platform.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-16T01:09:53+00:00",
+      "published_ts": 1789520993,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Cyber Op Targets South Korean Media &amp; Automotive Sectors",
+      "summary": "A likely North Korean advanced persistent threat (APT) group used a previously undocumented Linux espionage toolkit to compromise load balancers, gain access to communications, and further exploit networks.",
+      "link": "https://www.darkreading.com/cyberattacks-data-breaches/cyber-south-korean-media-automotive",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-16T01:00:00+00:00",
+      "published_ts": 1789520400,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC",
+        "Linux / Unix"
+      ],
+      "curated": true
     },
     {
       "title": "Two High-Profile Cases. One DFIR Summit Stage.",
@@ -617,6 +663,18 @@
       "smart_groups": [
         "Windows / Microsoft"
       ],
+      "curated": false
+    },
+    {
+      "title": "OpenAI Reportedly Pays Contractors $50+ an Hour to Review ChatGPT Chats",
+      "summary": "Leaked materials suggest OpenAI contractors review some ChatGPT conversations, raising new questions about human review, training settings, and user privacy. The post OpenAI Reportedly Pays Contractors $50+ an Hour to Review ChatGPT Chats appeared first on TechRepublic .",
+      "link": "https://www.techrepublic.com/article/news-openai-chatgpt-human-review-privacy/",
+      "source": "TechRepublic \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-15T17:56:37+00:00",
+      "published_ts": 1789494997,
+      "smart_groups": [],
       "curated": false
     },
     {
@@ -4173,6 +4231,30 @@
       "smart_groups": [
         "Cloud / SaaS"
       ],
+      "curated": false
+    },
+    {
+      "title": "The industry turned XDR and SIEM into categories. Sophos turned them into outcomes.",
+      "summary": "Sophos Next-Gen SIEM, now generally available as part of Sophos Fusion, brings security operations and compliance together through shared context.",
+      "link": "https://www.sophos.com/en-us/blog/sophos-next-gen-siem",
+      "source": "Sophos News",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-09-15T00:00:00+00:00",
+      "published_ts": 1789430400,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Messageboards are all they need",
+      "summary": "This article was first published on LinkedIn.",
+      "link": "https://www.sophos.com/en-us/blog/ai-research-messageboards",
+      "source": "Sophos News",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-09-15T00:00:00+00:00",
+      "published_ts": 1789430400,
+      "smart_groups": [],
       "curated": false
     },
     {
@@ -91284,246 +91366,6 @@
       "type_label": "General Security & Blogs",
       "published": "2026-08-17T02:31:58+00:00",
       "published_ts": 1786933918,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "ISC Stormcast For Monday, August 17th, 2026 https://isc.sans.edu/podcastdetail/10054, (Mon, Aug 17th)",
-      "summary": "(c) SANS Internet Storm Center. https://isc.sans.edu Creative Commons Attribution-Noncommercial 3.0 United States License.",
-      "link": "https://isc.sans.edu/diary/rss/33250",
-      "source": "SANS Internet Storm Center",
-      "type": "government",
-      "type_label": "Government, CERT & Advisories",
-      "published": "2026-08-17T02:00:02+00:00",
-      "published_ts": 1786932002,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Chinese AI company Zhipu claims its new is a better bug-finder than Anthropic, OpenAI",
-      "summary": "PLUS: HCL, TCS, admit data breaches; Google, Apple, India bans some rideshare tips; and more!",
-      "link": "https://www.theregister.com/security/2026/08/17/chinese-ai-company-zhipu-claims-its-new-is-a-better-bug-finder-than-anthropic-openai/5288203",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-08-17T00:51:21+00:00",
-      "published_ts": 1786927881,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Chinese AI company Zhipu claims its new model is a better bug-finder than Anthropic, OpenAI",
-      "summary": "PLUS: HCL, TCS, admit data breaches; South Korea to fine Apple, Google; India bans some rideshare tips; and more!",
-      "link": "https://www.theregister.com/security/2026/08/17/chinese-ai-company-zhipu-claims-its-new-model-is-a-better-bug-finder-than-anthropic-openai/5288203",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-08-17T00:51:21+00:00",
-      "published_ts": 1786927881,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "How widespread is the recent Metabase SQL injection attack?",
-      "summary": "I recently led an incident response investigation for a FinTech client involving the exploitation of Metabase, and the impact was significant. With the recent reports of active exploitation, I'm curious to understand how widespread this is across the security community. For those working with Metabase: Has your organization been affected or received a security notification? Was your Metabase instance internet-facing? Have you identified exploitation attempts or unauthorized access? Were you able to patch before exploitation? Have you observed any data exposure or compromise? I\u2019m particularly interested in hearing from security teams and Metabase administrators about how many organizations have been affected or potentially exposed. https://www.wiz.io/blog/inside-the-metabase-sqli-exploited-in-the-wild If you've investigated a related incident, what did you observe? submitted by /u/Razin_misab [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1vqdo0o/how_widespread_is_the_recent_metabase_sql/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-08-17T00:45:55+00:00",
-      "published_ts": 1786927555,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Web / API Security"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Intel cybersecurity interview \u2014 2 hours, mainly technical?",
-      "summary": "How do you guys prepare for a 2-hour Intel cybersecurity interview? Is it mainly technical, or is there a mix of technical + behavioral/project questions? What topics should I focus on? Any advice would be appreciated! submitted by /u/TranslatorLonely6964 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1vqctnc/intel_cybersecurity_interview_2_hours_mainly/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-08-17T00:06:20+00:00",
-      "published_ts": 1786925180,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Mentorship Monday - Post All Career, Education and Job questions here!",
-      "summary": "This is the weekly thread for career and education questions and advice. There are no stupid questions; so, what do you want to know about certs/degrees, job requirements, and any other general cybersecurity career questions? Ask away! Interested in what other people are asking, or think your question has been asked before? Have a look through prior weeks of content - though we're working on making this more easily searchable for the future. submitted by /u/AutoModerator [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1vqco4n/mentorship_monday_post_all_career_education_and/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-08-17T00:00:12+00:00",
-      "published_ts": 1786924812,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Reviving the Undead: Accelerating NetNTLMv1 Lookups Without GPUs",
-      "summary": "Outdated protocols, forgotten configurations, and legacy dependencies continue to create opportunities for attackers in modern environments. This research explores how NetNTLMv1 can still be leveraged today and how improvements in attack tooling are reducing the cost and complexity of exploiting it.",
-      "link": "https://www.sophos.com/en-us/blog/accelerating-netNTLMv1-lookups-without-gpus",
-      "source": "Sophos News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-08-17T00:00:00+00:00",
-      "published_ts": 1786924800,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "A letter to the Discord community in Brazil",
-      "summary": "On the order from Brazil's ANPD to suspend screensharing and video features in the country, how we're complying, and our commitment to our community in Brazil.",
-      "link": "https://discord.com/blog/a-letter-to-the-discord-community-in-brazil",
-      "source": "https://discord.com/blog/rss.xml",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-08-17T00:00:00+00:00",
-      "published_ts": 1786924800,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Developer secrets management that keeps delivery moving",
-      "summary": "In March 2025, attackers compromised a GitHub Action used in the development pipelines of more than 23,000 repositories. The malicious code exposed API keys, cloud credentials, SSH keys, and other tokens in workflow logs. Affected teams were advised to review their workflow runs and rotate any credentials the logs exposed. Affected organizations had to determine which credentials had been exposed, what those credentials could reach, and how to replace every one of them without halting development. Many could not confidently answer the first question alone. The incident illustrates the problem those responsible for a team's credentials face today: the credentials that carry the most risk are often the ones nobody is tracking. Security tools cannot govern credentials they never see Unmanaged credentials are simply a byproduct of the modern software development environment, where developers are under pressure to constantly ship code. A developer standing up an application needs a database password or an API key immediately, and the fastest way to supply one is a .env file on the local machine, an SSH key in a home directory, or a token pasted into a pipeline variable. Each choice keeps work moving, and each one creates a working credential that exists outside any approved system, where no one responsible for keeping projects, credentials, and access safe can rotate, revoke, or audit it. Traditional secrets management can leave this gap open because it starts on the wrong side of it. Conventional tools provide a secure destination but depend on developers to bring credentials to it, so governance begins only after migration. When a security process adds friction, teams find workarounds. 1Password\u2019s research found that 43% of developers don\u2019t use a dedicated secrets manager or vault at all, managing secrets through a mix of secure and unsecure means instead. As a result, credentials remain outside the controls, reporting, and rotation processes intended to protect them. These are longstanding problems, but what has changed is the pace at which those credentials are created. GitGuardian counted 28.65 million new secrets exposed in public GitHub commits in 2025, up 34% from the prior year, and 1Password's research found that 86% of technical employees report credential-related issues with non-human identities. The problem exists in small teams and large organizations. What changes is who owns the work and what the organization needs to prove. On a small team, one person may create the credential, use it, and manage its access. As the organization grows, more people, workflows, and environments depend on those credentials, so the work expands to include establishing an inventory, governing access, assigning remediation, and producing evidence. The goal remains the same: the administrator needs to secure the credentials the team already uses without breaking the workflows that keep development moving. A complete program to discover, secure, govern, and audit credentials In a poorly implemented secrets management program, four problems compound one another: Credentials sit exposed where nobody can see them Moving them risks breaking whatever depends on them Any secure path that adds friction gets routed around When an incident or audit occurs, administrators cannot show what exists or what was fixed Breaking that cycle requires four capabilities operating continuously. Discover: Establish an actionable inventory Discovery starts with getting a complete picture of exposure. Administrators need a way to find credentials on local devices, including .env files, SSH key directories, and other local files, without relying on developers to self-report. The output must be twofold: a prioritized view of exposed credentials that administrators can track over time, and findings specific enough (this key, in this project, on this machine) that a developer can be asked to act on each one immediately. Secure: Move credentials into managed control Securing a discovered credential means moving it directly into managed control without breaking what depends on it. Telling a developer to delete a file is not a remediation path; the credential is still needed for the application to run. The path from finding to fix should be short: a developer imports an exposed credential into a managed environment and uses it through environment variables supplied at runtime, with no plaintext copy persisting on disk. The developer keeps the familiar way of working, while the person responsible changes how the credential is governed, shared, and remediated. Govern: Give credential access without exposure Governance determines who or what can access a credential, which project or environment it belongs to, and what happens when that access changes. Developers should receive only the credentials they need for their work. CI/CD systems should use scoped service accounts, while AI agents should be treated as nonhuman identities with narrowly defined, reviewable permissions. Access should have an owner, be limited by role or environment, and be revocable when a person, workflow, or project changes. The governing path must still be usable, or teams will route around it. Audit: Give administrators evidence to act Administrators need evidence of what was found, what changed, and what still requires action. Reporting should help teams review findings by user and device, track remediation, and identify credentials that still require rotation. That record lets administrators demonstrate what was exposed, what was remediated, what still requires attention, and how risk is changing across teams and environments during access reviews, incident response, and security reporting. Secure secrets management simplifies the developer workflow A well-run secrets management program makes life simpler for everyone involved. Developers do not need to trade speed for security. They have a supported path to retrieve credentials inside familiar workflows, while administrators can identify exposure, assign remediation, and review progress. Every credential access, human or agent, is documented and traceable. When a credential is compromised, the blast radius is known and the response is contained: what the credential touched is on record, and rotation happens from one place. When a security leader or an auditor asks for evidence of control, the organization can show its findings, actions, and progress rather than reconstructing an outdated or incomplete inventory during an incident or audit. The full lifecycle: secure developer secrets with 1Password 1Password\u2019s developer security capabilities help organizations discover credentials developers already use, including supported credentials stored in plaintext on local devices, and connect discovery to remediation, delivery, and oversight. Developer Watchtower finds exposed credentials like SSH keys and .env files on endpoints. 1Password Environments gives developers a managed place for the secrets behind their apps, automations, and AI workflows, without disrupting how they work. Reporting and remediation workflows give administrators a clearer view of credential risk and a practical way to act on it. Discover, Secure, Govern, and Audit work together, so organizations can improve control without asking developers to abandon the workflows they depend on. Learn more about securing developer secrets with 1Password. null Read the blog",
-      "link": "https://1password.com/blog/developer-secrets-management-that-keeps-delivery-moving",
-      "source": "https://blog.1password.com/index.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-08-17T00:00:00+00:00",
-      "published_ts": 1786924800,
-      "smart_groups": [
-        "Ransomware",
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Advisory Solutions reaches 1Password Certified Partner status",
-      "summary": "The launch of 1Password Enterprise Password Manager \u2013 MSP Edition marked a critical step in 1Password\u2019s mission to support our Managed Service Provider (MSP) partnerships. Now, we are pleased to announce that Advisory Solutions , a New York City-based MSP that works with companies worldwide, has reached the Certified Tier in the 1Password Partner program. 1Password's new Certified tier is a milestone we\u2019ve implemented to recognize the investment and success of MSP partners who have reached 1,000 or more managed external users. Advisory Solutions was able to become a Certified Partner by rapidly scaling its 1Password deployment to more than 1,000 managed users. This not only represents their dedication as a partner, but demonstrates that the Certified tier is an achievable milestone for MSPs committed to growing their 1Password practice. We\u2019re excited to see companies like Advisory Solutions further the momentum behind 1Password\u2019s MSP program and embrace the value of participating in it. The journey to Certified Partner for 1Password MSPs What does it take for an MSP to work their way up from Authorized to the Certified Tier? Jay Chaudhrey, Director of Business Development at Advisory Solutions, shares some of the key principles that Advisory Solutions followed to operationalize 1Password and become a Certified Partner so rapidly. Authorized and Certified Partners 1Password\u2019s MSP Partner Program now consists of two tiers: Authorized and Certified. Like every MSP in 1Password\u2019s program, Advisory Solutions began as an Authorized Partner, establishing the operational foundation that ultimately led to the becoming a Certified Partner. At the Authorized Tier , partners gain immediate benefits, including specialized pricing NFR licenses for internal use, and enablement resources. For Advisory Solutions, \u201cIt was really important for us to work with the best companies in their respective fields.\u201d That\u2019s how they found 1Password. When it comes to finding the \u201cbest\u201d tools, Chaudhrey says that Advisory Solutions focuses on, \u201cMaking sure the tool is easy to use and seeing what adoption looks like, and the best way we do that is by using the tool ourselves. So before we were 1Password partners, we were 1Password users.\u201d At the Authorized Tier, partners typically focus on: Deploying 1Password internally Delivering initial customer deployments Establishing operational familiarity with managing 1Password The Certified Tier represents the next stage, when an MSP has reached 1,000 or more managed external users. For Advisory Solutions, achieving this status demonstrates that they\u2019ve successfully operationalized 1Password within their service offering. For Advisory Solutions, their journey to the Certified Tier began by identifying clients that would most benefit from 1Password \u2013 for instance, clients with a remote workforce, or those that have specific compliance needs. From there, Advisory Solutions was able to reach over 1,000 users rapidly to become a Certified Partner. As Chaudhrey says, \u201cThere wasn't much of a sale to be made. When you quickly realize what this accomplishes, the sale's kind of made on its own.\u201d This emphasizes how achievable it is for 1Password\u2019s MSP partners to reach the Certified Tier and reap the rewards of the tier. For Certified Partners, 1Password offers further benefits: expanded enablement, marketing opportunities, and a regular cadence to participate in product feedback sessions and roadmap planning with 1Password. Serving the needs of MSP clients MSPs are naturally focused on serving the needs of their customers, and Advisory Solutions recognized that password managers were a critical solution for their clients. Chaudhrey explains, \u201cOur responsibility for our clients is making sure their endpoints are fully secure, and their users are fully secure.\u201d Password managers represent a critical step to managing a critical security risk: credential compromise. When it comes to serving this need for clients, Chaudhrey says, \u201cIn this case, there's typically a right or wrong answer. Either you have a password manager, or you don't.\u201d For many MSP clients, security needs are focused on two major areas: Cybersecurity compliance Cyber insurance According to Chaudhrey, \u201cIf you don't have a password manager, compliance gets very difficult, borderline impossible to pass\u2026 that's why implementing this tool becomes a very early conversation for them. The other part is cyber insurance. The reality is all the businesses need it, and a password management tool becomes very critical to it.\u201d Serving the needs of the MSP Still, there are plenty of password managers on the market, and MSPs need to consider how different vendors can serve their needs. For instance, Advisory Solutions has a small team that serves companies of all sizes. With 1Password: \u201cAcross the 5-person client to the 1,000-person client\u2026it's one tool that we're experts at, and we recommend that to all of our clients. The win-win for our client is they don't feel the effects of feeling too small or too large for a tool. And for us, it doesn't change our processes, our support model, or how we implement them. All of that stays pretty much the same.\u201d More importantly, Advisory Solutions found true partnership from 1Password. As Chaudrey shared, \u201cI even reached out to [1Password] about a client having adoption problems, and was pointed to specific documentation that might be helpful. That's the part that's often overlooked\u2026That partnership piece is what takes it to the next level. We're not just a partner on paper.\u201d The Certified Tier is a significant achievement, and Advisory Solutions\u2019 rapid success is due in no small part to their deep collaboration with the team at 1Password, who are dedicated to helping our partners reach the next stage as quickly and seamlessly as possible. Scaling the solution Once an MSP partners with 1Password, the journey to Certified Partner relies on how they scale the solution, both internally and for their clients. Chaudhrey\u2019s advice for MSPs that are just getting started with 1Password is to look at all the areas a password manager comes into play and answer some key questions: What does vault structure look like for a client? Who should get access to what vault? What does hiring look like? What does off-boarding look like? As he put it, \u201cI think getting those SOPs down is what really helped with adoption.\u201d By answering those questions, Advisory Solutions was able to scale adoption quickly, achieving over 1,000 users and becoming a 1Password Certified Partner. The next step for 1Password partners 1Password is already trusted by over 200,000 businesses to help them stay secure, and we wouldn\u2019t have reached that figure without the support of our MSP partners. We want to express both our sincere congratulations and our sincere gratitude to Certified Partners like Advisory Solutions, who have worked so closely with 1Password to pursue a shared mission: ensuring that security and productivity don\u2019t have to be at odds, and enabling MSPs to deploy a security-first tool that their clients are happy to use. Interested in joining the 1Password MSP program? null Get started with a free 14 day trial.",
-      "link": "https://1password.com/blog/advisory-solutions-reaches-certified-partner-status",
-      "source": "https://blog.1password.com/index.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-08-17T00:00:00+00:00",
-      "published_ts": 1786924800,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Hunting the Undead: Accelerating NetNTLMv1 Lookups Without GPUs",
-      "summary": "Outdated protocols, forgotten configurations, and legacy dependencies continue to create opportunities for attackers in modern environments. This research explores how NetNTLMv1 can still be leveraged today and how improvements in attack tooling are reducing the cost and complexity of exploiting it.",
-      "link": "https://www.sophos.com/en-us/blog/accelerating-netntlmv1-lookups-without-gpus",
-      "source": "Sophos News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-08-17T00:00:00+00:00",
-      "published_ts": 1786924800,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "A heap of overflow in August\u2019s Patch Tuesday haul",
-      "summary": "423 CVEs, no Edge patches, and a small shift in CWE findings",
-      "link": "https://www.sophos.com/en-us/blog/2608-patch-tuesday",
-      "source": "Sophos News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-08-17T00:00:00+00:00",
-      "published_ts": 1786924800,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "New Firewall Guide",
-      "summary": "New Firewall Guide",
-      "link": "https://inteltechniques.com/firewall/",
-      "source": "IntelTechniques Blog",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-08-17T00:00:00+00:00",
-      "published_ts": 1786924800,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Data of 54,000 wallet users leaked, CLARITY odds just 10%: Hodler\u2019s Digest",
-      "summary": "Owners of Trezor and SafePal crypto wallets at high risk of phishing attempts after separate data leaks, CLARITY odds at 10% despite White House meeting this week.",
-      "link": "https://cointelegraph.com/magazine/data-of-54000-wallet-users-leaked-clarity-odds-just-10-hodlers-digest?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-08-16T23:54:50+00:00",
-      "published_ts": 1786924490,
-      "smart_groups": [
-        "Curated",
-        "Data Breaches / Leaks",
-        "Phishing / Social Engineering"
-      ],
-      "curated": true
-    },
-    {
-      "title": "What's going on with the US cybersecurity job market?",
-      "summary": "I am a mid level cybersecurity professional with tonnes of managerial experience, CISSP, M.S and so on. Applied for close to 1000 jobs. Faced at least 20 interviews. No job offers. Always getting turned down after the hiring manager interview. It's always some reason like oh you don't have enough experience with AWS or you have consulting experience even if I nail every question right. I am exhausted. It's never been like this. Is it just me or are others facing the same dilemma? submitted by /u/Alone-Asparagus-2205 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1vqcfjq/whats_going_on_with_the_us_cybersecurity_job/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-08-16T23:49:15+00:00",
-      "published_ts": 1786924155,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "SafePal data breach impacts 39,798 customers, stolen info for sale",
-      "summary": "Cryptocurrency hardware wallet provider SafePal is warning of a data breach affecting about 39,798 customers after a flaw was exploited to steal customer order information, and a threat actor is now claiming to be selling the stolen data. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/safepal-data-breach-impacts-39-798-customers-stolen-info-for-sale/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-08-16T23:47:06+00:00",
-      "published_ts": 1786924026,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC",
-        "Data Breaches / Leaks",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "DDoS Attacks Cause Major Threema Outages",
-      "summary": "Large DDoS attacks disrupted Threema, causing severe communication outages. Threema On-Prem users were unaffected by the attacks. Threema suffered multiple large-scale DDoS attacks that disrupted its secure messaging service and caused severe communication issues. Organizations using Threema On-Prem were not affected, as their deployments run on their own infrastructure. Threema is a Swiss paid secure [\u2026]",
-      "link": "https://securityaffairs.com/197353/hacking/ddos-attacks-cause-major-threema-outages.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-08-16T23:38:43+00:00",
-      "published_ts": 1786923523,
       "smart_groups": [],
       "curated": false
     },
