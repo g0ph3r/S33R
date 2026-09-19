@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-09-18T22:27:07.503299+00:00",
+  "generated_at": "2026-09-19T01:14:05.527403+00:00",
   "days_back": 30,
-  "total_items": 6494,
+  "total_items": 6485,
   "items": [
     {
       "title": "[Virtual Event] Cybersecurity Outlook 2027",
@@ -38,6 +38,41 @@
       "published_ts": 1791471600,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "Gyazo server flaw exploited to steal 23.6 million user records",
+      "summary": "submitted by /u/AsterPrivacy [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1wk7pk0/gyazo_server_flaw_exploited_to_steal_236_million/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-09-19T00:47:20+00:00",
+      "published_ts": 1789778840,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Can AI Let You Jump SOC Maturity Levels? (Spoiler: Only the Boring Half)",
+      "summary": "Back in my analyst days , I built maturity models for a SOC (2018), a SIEM (2018), vulnerability management (2017) and threat intel (201?). Later, just for fun, I cooked up a simple SOAR adoption maturity model (2022). All of them were vaguely CMM-shaped: you start ad hoc, you get defined, you get measured, you get optimizing, magic! The ordering was not decorative. Each level existed because the one below it produced something the next level needed. Largely, you cannot jump levels, and if you do jump, you land in clown realm . this is how Gemini imagines this blog 2026, now the pitch has changed. With AI (agentic, of course!), the story goes, a low maturity SOC can leap to maturity Level 3 or 4 \u201cbecause AI\u201d. No slog through the \u201cdefined process\u201d desert, no \u201corganic\u201d growth through stages. Buy the agents, skip the years! If you attended my RSA 2026 peer session , you saw the buyer-side version of this: \u201cAI in a SOC sounds great, we will just wait for our SIEM/SOAR vendor or MDR to give it to us.\u201d Same assumption, that the new version of the tool carries the maturity boost with it. Sadly, in reality AI can generate the paperwork of a mature SOC in an afternoon. It cannot give you the institutional memory to know what your own systems actually do. Ten years ago, in \u201cJumping Security Maturity Fail\u201d, I endorsed a reader\u2019s line that you can jump technologies, but you can\u2019t jump maturity . I\u2019d like to re-examine that in the age of agents. Because some of it has changed. Just not the part vendors are selling. Think of this as \u201cJumping Security Maturity Fail, Part 2. 10 Years Later.\u201d Where this post sits This is a bridge between two things I\u2019ve been writing about. On one side, the AI-ready SOC pillars and how to plan the journey to them. On the other, the \u201cStop Building a 2003 SOC with AI\u201d series ( Part 2 , Part 3 ), which argues the target SOC in 2026 should look nothing like the 2003 one (more on \u201cSOC 2026\u201d from scratch in a few days\u2026) The question in between: if the destination has changed, does the path still have mandatory stops ? That is what \u201cjumping maturity\u201d is really asking. The claim, restated so it can be tested \u201cAI lets you skip maturity stages\u201d quietly conflates two different things: Stage outputs \u2014 the artifacts a mature SOC has: playbooks, parsers, detections, runbooks, dashboards, workflows for various humans, skill profiles for humans to hire, etc Stage prerequisites \u2014 the organizational state a mature SOC is in: it knows its environment, owns its processes, trusts its data, has a working feedback loop. AI can generate the outputs of Level 3 for a Level 1 SOC in an afternoon. You can always say \u201cadd automation\u201d, \u201cmake this playbook better faster\u201d, \u201cmore AI\u2026add even more AI\u2026MOAR AAAIII!!!\u201d Still, it cannot generate the organizational prerequisites, because those are not documents. They are things an organization has learned about itself by operating. Once you split the journey along that line, the \u201cjump\u201d question mostly answers itself. Typical SOC Maturity Journey (Woefully Oversimplified) Level 1 \u2014 Ad hoc. Some logs, some alerts, heroics. \u201cNobody knows what server4 does, but Joanna might, let\u2019s call her.\u201d Level 2 \u2014 Defined. SIEM with intentional use cases (hopefully, output-driven , not \u201cwhat data do we have? Let\u2019s shove it in!\u201d), documented triage and (some) IR runbooks, named owners (for some things, some are even the right owners\u2026), basic metrics. Level 3 \u2014 Managed. SOAR playbooks beyond \u201cbaby\u2019s first phishing playbook\u201d , some threat-informed detection, log source health monitoring (logs volume drop? alert!), MTTx that is tracked and acted on (sometimes). Level 4\u20135 \u2014 Optimizing. Detection engineering as a discipline ( the DE series ), a continuous detection / continuous response loop, hunting that feeds detection, an improvement culture. This sets you on a path to ASO end state. So, let\u2019s get \u201can AI jumprope\u201d and start jumping! Part A: What AI genuinely lets you jump These are the labor-intensive artifacts of each level \u2014 the things that took quarters to write , not the things that took years to learn . Runbook and playbook authoring. Fifty credible playbooks, one afternoon. The writing effort that used to gate Level 2\u21923 is gone. This one you can jump. There are caveats, like that some of the playbooks will suck, but for many teams fixing a 80% playbook is not 20% faster than making one from scratch, but essentially 5X faster\u2026 SOC process docs, playbooks, etc is where jumping is legit. Parsers and normalization. Onboarding long-tail log sources was a classic Level 2 grind. Largely shortcut-able now (with lots of caveats; for tricky log sources the \u201cfully machined\u201d parser will suck). You can jump here, but you may trip and fall. Baseline detection content. \u201cReasonable coverage of common threats that matter to you\u201d no longer requires a detection engineering team to bootstrap. You can \u201cmachine\u201d some custom detection quick, and some will even work. Keep in mind, here you can jump but not very far: you won\u2019t arrive on \u201cfull auto\u201d process for turning intel into detections that work well for you. Tier 1 triage as a stage. Here is the one real skip : the stage where you staff a Tier 1 can be omitted entirely if enrichment and investigation are agentic from day one. You shouldn\u2019t build the 2003 shape at all \u2014 triage must die . This is kinda a side-jump from \u201cclassic SOC\u201d to modern D&R function, SOCless ( if you wish ); some aspect thereof. This won\u2019t make you Google or Netflix if you can barely spell \u201cMDR.\u201d Documenting existing processes. AI can watch tickets and chat and reverse-engineer what people actually do. This shortcuts the \u201cwrite down what we do\u201d part of Level 2. It does not shortcut the \u201cdecide what we should do\u201d part. This is magical! Metrics plumbing. Dashboards, reporting, the presentation layer of Level 3. (Which metrics matter is a separate, non-jumpable question \u2014 see the ASO metrics piece .) Cross-SOC knowledge transfer. Mature-SOC practice encoded in models and skills means you don\u2019t reinvent detection hygiene from scratch. This jump can get your from \u201calmost nothing\u201d to \u201cpretty damn good\u201d , and it probably won\u2019t suck. Jump away! Ordering between tracks. The SOAR model already noted that dimensions get mixed up across organizations but each dimension matures in order. AI makes this more true: you can advance the data, detection and response tracks in parallel rather than serially. So yes \u2014 AI compresses the time within a stage, and lets you run some stages in parallel . It also allows some real jumps (yay, those marketing people didn\u2019t lie\u2026 this time). That is real, and it is not nothing. However\u2026 Part B: What must be followed in sequence, AI or not These are states the organization has to reach. No artifact substitutes for them. Worse, AI amplifies whatever state you are in \u2014 mature or clown-grade . If you have read the AI-ready SOC pillars , you will notice this list is the pillars in disguise. That is not a coincidence; readiness and maturity are the same thing viewed from two angles. Environmental knowledge. Asset context, identity context, ownership. AI cannot tell you what server4 does; it can only ask Joanna faster. If your teams don\u2019t know who owns what, neither will your agents (pillar #2). This is the single hardest prerequisite and it precedes everything else. Part 3 of the 2003 SOC series is essentially a whole post on why local context is the thing agents can\u2019t bring with them. Yes, some fun startups are working on this, so maybe my 2027 assessment will change! Data foundations before analytics. Collect \u2192 trust \u2192 detect \u2192 automate, in that order (pillar #1, still my favorite). An agent investigating over gappy, untrusted telemetry produces confident nonsense at scale. Low awareness of removed or failed log sources was already a top failure mode in Detection Engineering and SOC Scalability Challenges in 2023; with agents on top it gets worse, not better. And federated SIEM does not exempt you: federation is a topology choice, not a data-quality shortcut. Process definition before process automation. SOAR proved this and agentic AI is re-proving it. Automating an undefined process gives you an undefined process that runs faster, crazier, with more stochastic chaos (fun!). And, yes, an AI-drafted playbook still needs a human who can say \u201cno, that\u2019s not how we do containment here\u201d \u2014 which requires someone who knows how you do containment\u2026 Also, here agents may enable speed-up, but not truly a jump over this stage. Trust calibration. \u201cAI suggests\u201d \u2192 \u201cAI acts with approval\u201d \u2192 \u201cAI acts, humans audit.\u201d This is inherently sequential because trust is earned from an observed track record in your environment . Vendors cannot ship trust! This is our ASO\u2019s CD/CR applied to the agent itself, and it is also why the \u201chumanless SOC\u201d crowd keeps soiling their pants: they skip the calibration stage and call it a feature. Ownership and accountability. Someone owns detection quality; someone owns response outcomes. Low maturity SOCs lack this. AI does not create owners. Here you jump \u2014 you die. Feedback loops. The actual magic of ASO sparkles here: incidents feed tuning, false positives feed detection, hunting feeds detection. AI can run the loop faster, but the loop must exist and be wired to real outcomes. In the Deloitte/Google \u201cconsistency and creativity\u201d paper we argued you build consistency through the lower levels first, then let creativity loose inside processes that already exist. Substitute \u201cagents\u201d for \u201ccreativity\u201d and it reads as if written for 2026. Organizational stamina. Budget, executive sponsorship, staff retention, tolerance for change, \u201cchange budget. Every failed SOAR program died here, not on technology. The ghost of SOAR comes back with vengeance here. Agents do not fix this one. At all. Wait \u2014 didn\u2019t I say you can\u2019t cross a chasm in two small jumps? Yes I did. In Baby ASO and its sequel I argued that incremental improvement of a \u201c1980s-NOC-DNA\u201d SOC mostly fails, that the fix is radical, and that simply buying modern tools changes nothing if people and process stay put. In, our Deloitte/Google \u201cEvolution or Optimization\u201d , we made the same point with a decision matrix. So am I now saying \u201cgo slow, climb every rung\u201d? Who wants this in 2026? No. These are two different questions, and conflating them is exactly how \u201cAI lets you jump maturity\u201d gets sold. Which ladder? Transformation (ASO, engineering-led D&R , the 2003-SOC-must-die argument) is about changing the shape of the SOC. It is a different ladder, not a shortcut up the old one. You absolutely should choose the new ladder, and you should do it in one decisive move rather than two timid ones. Transformation is not incremental. Can you skip rungs? Whichever ladder you pick, the learning-cost prerequisites in Part B are the rungs. The new ladder has fewer rungs (no Tier 1 stage, no swivel-chair triage stage), which is the genuine good news. But the rungs it keeps \u2014 know your environment, trust your data, own your processes, earn trust in automation \u2014 are the same ones, and they are still climbed in order. Remember our \u201cAI in security can be magical, but it isn\u2019t magic; It\u2019s a marathon of focused engineering\u201d? This is true! Put differently: \u201ccross the chasm in one jump\u201d means commit to the transformation and dump the incrementalism/optimizing what you have. This works IRL. It does not mean the far side of the chasm has no ground rules. AI shortens the new ladder \u2014 it does not let you levitate over any chasm obstacle. The AI-specific failure mode: skipped stages become invisible The old cargo-cult SOC \u2014 a 1-out-of-5 low maturity SOC copying \u201cninja moves\u201d from a 6-out-of-5, as I described in Clown-grade SOCs \u2014 at least failed visibly, funnily and embarrassingly . Get the popcorn! Hunting before you do logging was obviously silly. The new one is worse. AI papers over the gap with slop. You cannot cross the chasm if you put some slop over it. Agents produce plausible investigations, tickets close, MTTR looks wonderful, and nobody notices that the environment context was hallucinated and the \u201ccontainment\u201d hit the wrong host. Skipped maturity used to fail loudly. Now it fails quietly. A usable test: jump vs. borrow For any element of any stage, ask one question: does this exist because someone had to spend time, or because someone had to learn something about us? Time-cost elements are jumpable. AI does them. Learning-cost elements are not. AI can make you learn faster, but you still have to learn. Corollary for vendor conversations, in the spirit of the RSA 2026 \u201cshow me the numbers\u201d advice: when someone claims a stage skip, ask which bucket their claim falls in. Most \u201c1\u21923 with AI\u201d pitches are quietly selling the artifacts of Level 3 to a Level 1 organization, and then blaming \u201cprocess gaps\u201d or vaguely point at \u201ccustomer immaturity\u201d (right?) when it fails. So, can you jump? You can jump the artifacts . You can run tracks in parallel and get through each level in months instead of years. You can \u2014 and, perhaps, should \u2014 pick the transformation ladder instead of the optimization one. That is a genuinely better deal than the one we had in 2016. But you cannot jump knowing your environment, owning your processes, trusting your data, or earning trust in your automation. Those are the maturity. The rest was always just the paperwork\u2026 Related posts Jumping Security Maturity Fail (2016) \u2014 the original \u201ccan\u2019t jump maturity\u201d argument A Simple SOAR Adoption Maturity Model (2022) Beware: Clown-grade SOCs Still Abound (2019) Autonomic Security Operations \u2014 10X Transformation of the SOC (2021) and ASO principles Baby ASO (2024) and The Return of the Baby ASO: Why SOCs Still Suck? (2025) Future of the SOC papers: Process Consistency and Creativity (3), Evolution or Optimization (4), Transform the How (5) WTH is Modern SOC, Part 1 (2023) Simple to Ask: Is Your SOC AI Ready? (2025) and Beyond \u201cIs Your SOC AI Ready?\u201d Plan the Journey! (2026) Stop Building a 2003 SOC with AI: Part 1 , Part 2 , Part 3 (2026) A Brief Guide for Dealing with \u201cHumanless SOC\u201d Idiots (2025) Detection Engineering and SOC Scalability Challenges (Part 2) (2023, with Amine Besson) The Ancient Art of SIEM: Why 2003 Problems Look So Familiar in 2026 (2026) RSA 2026: Agentic Future, Analog Fundamentals (2026) Can AI Let You Jump SOC Maturity Levels? (Spoiler: Only the Boring Half) was originally published in Anton on Security on Medium, where people are continuing the conversation by highlighting and responding to this story.",
+      "link": "https://medium.com/anton-on-security/can-ai-let-you-jump-soc-maturity-levels-spoiler-only-the-boring-half-d0a463c47935?source=rss----8e8c3ed26c4c---4",
+      "source": "Anton on Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-18T22:31:58+00:00",
+      "published_ts": 1789770718,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Phishing / Social Engineering",
+        "Crypto / Web3"
+      ],
+      "curated": true
     },
     {
       "title": "New CISA-hosted VINCE-NT system revealed for coordinated vulnerability disclosure",
@@ -885,6 +920,18 @@
       "curated": true
     },
     {
+      "title": "What is a software factory?",
+      "summary": "",
+      "link": "https://circleci.com/blog/software-factory/",
+      "source": "https://circleci.com/blog/feed.xml",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-18T16:00:00+00:00",
+      "published_ts": 1789747200,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "Where would you want to integrate an automated vulnerability scanner?",
       "summary": "I want some additional insights about where developers would want to integrate an LLVM tool that helps identify, triage, and remediate vulnerabilities in C/C++ projects. This is purely for research purposes, and I'm not trying to sell anything. I'm specifically interested in the following: - Where in your workflow would you want to integrate such a tool? Would you want it in your CI/CD pipeline? as an IDE plugin? - What are some security concerns you have about such a tool? Would you be most concerned about false positives or negatives? Supply chain risks introduced by the tool? Keeping it's findings private? - What environments could you see such a tool thriving in? Would you want to use it for personal projects? Could you see it working in large-scale codebases? Any insights would be appreciated. Thanks for your time and feedback! submitted by /u/-JC6143- [link] [comments]",
       "link": "https://www.reddit.com/r/cybersecurity/comments/1wjtxy4/where_would_you_want_to_integrate_an_automated/",
@@ -1185,6 +1232,18 @@
       "smart_groups": [
         "Windows / Microsoft"
       ],
+      "curated": false
+    },
+    {
+      "title": "AI agents can modify themselves, raising security concerns",
+      "summary": "AI security lab Irregular has revealed that AI agents can engage in \"agentic self-modification,\" where they alter their own deployed models.",
+      "link": "https://www.scworld.com/brief/ai-agents-can-modify-themselves-raising-security-concerns",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-18T14:38:46+00:00",
+      "published_ts": 1789742326,
+      "smart_groups": [],
       "curated": false
     },
     {
@@ -23250,6 +23309,21 @@
       "smart_groups": [
         "Curated",
         "Ransomware"
+      ],
+      "curated": true
+    },
+    {
+      "title": "KubeCon + CloudNativeCon North America 2026: Your Week in Salt Lake City",
+      "summary": "This November, the cloud native community is heading to Salt Lake City. From November 9\u201312, 2026, KubeCon + CloudNativeCon North America will bring together adopters and technologists from across open source and cloud native communities for...",
+      "link": "https://www.cncf.io/blog/2026/09/11/kubecon-cloudnativecon-north-america-2026-your-week-in-salt-lake-city/",
+      "source": "https://www.cncf.io/feed/",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-11T12:29:33+00:00",
+      "published_ts": 1789129773,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
       ],
       "curated": true
     },
@@ -90362,190 +90436,6 @@
       "type_label": "General Security & Blogs",
       "published": "2026-08-20T01:01:23+00:00",
       "published_ts": 1787187683,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Career insight as a Soc2 Staff auditor",
-      "summary": "Always liked the technical side of cyber but never got the talent. I reached a good mid tier blue team Soc analyst position but received this position I am in right now as a Soc2 auditor. I dream of upgrading into consulting cybersecurity and in the future opening a business. The question is can I progress to my dream ? Or did I miss my path? submitted by /u/gm_sec [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1vt4e81/career_insight_as_a_soc2_staff_auditor/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-08-20T00:38:22+00:00",
-      "published_ts": 1787186302,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "OpenAI confirms ChatGPT is down as logins and signups fail",
-      "summary": "ChatGPT is experiencing a major outage, and users are unable to sign in, create accounts, or load chats, including previous conversations. [...]",
-      "link": "https://www.bleepingcomputer.com/news/artificial-intelligence/openai-confirms-chatgpt-is-down-as-logins-and-signups-fail/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-08-20T00:20:55+00:00",
-      "published_ts": 1787185255,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "OpenAI \u2018temporarily slows\u2019 scaling efforts, also promises zero data retention for select frontier model customers",
-      "summary": "OpenAI this week announced multiple moves designed to counter negative perceptions of its security and privacy, saying it had slowed its pace of scaling, implemented a two-week pause in reinforcement learning, and will be offering zero data retention for \u201celigible API customers.\u201d In its first announcement , issued Tuesday, OpenAI said it \u201ctemporarily\u201d slowed the pace of its scaling, in addition to pausing reinforcement learning training. Those efforts occurred while OpenAI hardened and red-teamed its research environment and expanded monitoring, it said, adding, \u201cour largest planned frontier RL run remains on hold while we conduct smaller-scale training and evaluations to assess model behavior, validate our safeguards, and establish more evidence of alignment before proceeding.\u201d OpenAI\u2019s statement said the company will \u201cnow require stronger evidence of aligned behavior throughout all of training, building on research and evaluations already underway. Keeping increasingly capable systems aligned is a challenge the whole field will need to address.\u201d It also highlighted other recent efforts to improve its procedures, including workload isolation, network isolation and \u201ccontinuous security testing.\u201d However, the company noted that its newly proposed monitoring will generate overhead costs of \u201croughly 20% of the inference compute being monitored, though the cost varies substantially across training and evaluation workloads.\u201d It promised to share more details about this system in a forthcoming blog post. Analysts and consultants said that the moves were likely announced to position OpenAI better for an imminent IPO . Carmi Levy , an independent technology analyst, viewed the statements as \u201ca slickly conceived move to win PR points as safety concerns around agentic AI continue to mount. It signals that the company is doing something , even if that something is woefully inadequate. In the absence of explicit regulations forcing vendors like OpenAI to permanently prioritize safety above all other factors, a two-week pause is little more than window dressing designed to deflect criticism.\u201d Jason Andersen , principal analyst at Moor Insights & Strategy, agreed, saying that he thought that \u201cthis is a little bit of pragmatic theater as they move into an IPO.\u201d But he suggested that there also may be more going on. Enterprises will continue to spend on AI aggressively, and \u201cit will be pedal to the metal until they get sued.\u201d Then they\u2019ll back away. However, he said, \u201cthe only way that these [large AI] companies are going to be successful post-IPO, the only way to scale, is to get much deeper into enterprises. And the only way to do that is to alleviate fear and risk.\u201d Zero data retention? In Wednesday\u2019s announcement , OpenAI didn\u2019t say what constitutes eligibility for the zero data retention program, only that it would start in September, when the company would share details in a \u201ctechnical white paper.\u201d But Andersen said that this move has to be viewed in the context of today\u2019s complicated vendor relationships. Much of OpenAI\u2019s revenue is not direct from the enterprise, but through partners like Microsoft and AWS, he pointed out. \u201cSo let\u2019s say I use a tool like Amazon Kiro, which can use OpenAPI via API to build my app without my knowledge of the model. It sounds like Amazon is the customer and you are Amazon\u2019s customer. If you are an enterprise and want this [zero data retention] protection, you must provide your own API key to Kiro. The enterprise just becomes the direct customer and now gets the lockbox access. AWS no longer has access and loses out on revenue/margins.\u201d Consultant Brian Levine , executive director of FormerGov, added that the data retention promise is also complicated by how processes tend to function. \u201cOpenAI says it can now monitor for abuse across interactions without any staff ever reading the underlying content,\u201d he said. \u201cThat is a strong technical promise, because watching for misuse and not being able to see the data have historically pulled in opposite directions. And the proof is a white paper that is still weeks away.\u201d In addition, he noted, \u201cZero is never quite zero because CSAM-flagged content is still retained for legal reporting.\u201d Flavio Villanustre , CISO for the LexisNexis Risk Solutions Group, saw the move somewhat differently, suggesting that it was designed to soften possible legislation. \u201cIt is likely that they are seeing the writing on the walls about upcoming regulations that could have a significant impact on them, and this could be their attempt at showing a desire to self-regulate to avoid a more draconian legislation in the future,\u201d Villanustre said. Still, Mike Wilkes , enterprise CISO at Aikido Security, observed, \u201csincerity is not the same thing as permanence. In the old Norse/Scandinavian image of a giant sea monster waiting beneath the surface, you might call this \u2018Pause the Kraken.\u2019 The real question is what conditions have to be met before OpenAI decides to release it again.\u201d Added Justin St-Maurice , technical counselor at Info-Tech Research Group, OpenAI seems to want credit for doing the bare minimum of what a major AI firm should have always done. \u201cIf a carmaker announced that it was going to take basic safety testing more seriously before production, it wouldn\u2019t be to fanfare. Frankly, it would be embarrassing that something so fundamental needed clarifying to a skeptical public,\u201d he said. \u201cThe question for me is why this needs to be an announcement now, and whether they hold the line once a competitor ships something that makes a pause expensive.\u201d Thus, he advised, \u201cstop treating these announcements as diligence. Ask for the evidence of what you\u2019re actually getting, not what you\u2019ve been promised. If a vendor can pause development for security reasons, and the way you found out was through a blog post, then you should be asking what your contract requires them to disclose to you.\u201d This article originally appeared on Computerworld .",
-      "link": "https://www.csoonline.com/article/4211672/openai-temporarily-slows-scaling-efforts-also-promises-zero-data-retention-for-select-frontier-model-customers-2.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-08-20T00:12:50+00:00",
-      "published_ts": 1787184770,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Linux / Unix",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Free PDF Self-Publishing Guide",
-      "summary": "Free PDF Self-Publishing Guide",
-      "link": "https://inteltechniques.com/publishing.html",
-      "source": "IntelTechniques Blog",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-08-20T00:00:00+00:00",
-      "published_ts": 1787184000,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "N4D Mesh Controller: New infrastructure, a UPX-packed agent labeled \"go-titan,\" and how to hunt for it",
-      "summary": "Datadog Security Research executed a newer N4D Mesh Controller sample in isolated microVMs, uncovering rotated infrastructure, a UPX-packed go-titan agent, MCP tool abuse in action, and direct runtime evidence of multi-service scanning and persistence.",
-      "link": "https://securitylabs.datadoghq.com/articles/n4d-mesh-controller-go-titan-new-infrastructure-hunting/",
-      "source": "https://securitylabs.datadoghq.com/rss/feed.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-08-20T00:00:00+00:00",
-      "published_ts": 1787184000,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Detect vulnerabilities in LLM applications with Datadog\u2019s AI-native SAST",
-      "summary": "Datadog Code Security\u2019s AI-native SAST helps detect vulnerabilities specific to the OWASP Top 10 for LLM Applications before they reach production.",
-      "link": "https://www.datadoghq.com/blog/ai-native-sast-detect-llm-vulnerabilities/",
-      "source": "https://www.datadoghq.com/blog/index.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-08-20T00:00:00+00:00",
-      "published_ts": 1787184000,
-      "smart_groups": [
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": false
-    },
-    {
-      "title": "How to back up a Bitwarden vault",
-      "summary": "Learn how to export your vault to always have an up-to-date, local backup on hand.",
-      "link": "https://bitwarden.com/blog/how-to-export-your-bitwarden-vault/",
-      "source": "https://bitwarden.com/blog/feed.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-08-20T00:00:00+00:00",
-      "published_ts": 1787184000,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "From signals to systemic risk: Building Risk AI",
-      "summary": "Datadog\u2019s Risk Engineering team built a Systemic Risk Detection Pipeline and Risk AI Agents to identify, contextualize, and prioritize systemic risks.",
-      "link": "https://www.datadoghq.com/blog/systemic-risk-ai-agents-datadog/",
-      "source": "https://www.datadoghq.com/blog/index.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-08-20T00:00:00+00:00",
-      "published_ts": 1787184000,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "451 Research report: How agentic AI is redefining identity security",
-      "summary": "In the short time that AI agents have been a part of the enterprise, they have upended many of our bedrock assumptions about the nature of identity, access, development, and work itself. At 1Password, we\u2019ve been in the trenches of the agentic revolution; we\u2019ve seen its positive impact on productivity , and the serious concerns it raises about security . We\u2019ve worked to build solutions that both harness AI\u2019s potential and rein in its risks, and watched customers and colleagues grapple with the same issues. In order to better understand how the industry at large is facing the agentic moment, 1Password commissioned a Vanguard Report from 451 Research, titled A new access model for the agentic enterprise . The report describes how agentic AI is redefining access and identity, and lays out what C-level leaders can do to ensure a smooth transition to this new paradigm. Its core recommendations include: Start with discovery and visibility of AI agents and poorly governed non-human identities (NHIs). Move to just-in-time credential delivery , rather than static credentials and standing privileges. Implement guided remediation for developers so they can address NHI and agentic risk without interrupting their workflows. Ensure full auditability and clear attribution that ties every action to a specific human or agent identity and authorization context. Read on to explore the report\u2019s findings, or download the full report here . An expanding identity perimeter, with agents already inside A new access model for the agentic enterprise begins by establishing that agentic AI is already deeply embedded in the enterprise. 69% of enterprises they surveyed have deployed AI agents, and 90% plan to do so within the next two years (these findings align with 1Password\u2019s own research on agentic adoption). But while agents became ubiquitous almost overnight, the tools and strategies to secure them have not kept pace. This on its own isn\u2019t unusual; the report reminds readers that this \u201cpattern has repeated with every new technology advance of the past two decades.\u201d Yet AI agents are unique in some crucial ways that set them apart from earlier revolutions in SaaS, cloud computing, and automation. \u201cWhat makes agentic AI distinctly challenging to secure is not its scale but its unpredictability. Agents\u2019 non-determinism breaks the core assumption of traditional access policy \u2013 that administrators can define in advance what a given identity should and should not do.\u201d Adding to the complexity are developer workflows, which rely on NHIs like service accounts and API keys. These credentials are often poorly secured \u2013 71% of developers use unsecure methods for handling NHIs \u2013 and they exist outside the visibility of IT and Security teams. Vulnerable and compromised NHIs have been a source of risk and friction for years, and that risk is multiplying as AI agents use them to take actions on the backend of corporate systems. How to redefine access for the agentic enterprise The next generation of access control has to work for humans, machines, and agents, while accommodating the non-determinism that sets agents apart. As the report explains, traditional IAM and PAM solutions are \u201cstructurally inadequate\u201d for this world, and adjusting to it requires nothing less than a paradigm shift. \u201cThe organizations that successfully navigate this transition will treat it as an architectural reset \u2013 rethinking identity security from the ground up to govern people, machines, and agents in a unified way, with a single control plane that integrates governance, policy management, and auditing.\u201d The report lays out a list of \u201cfundamentals\u201d that every organization must get right to meet the challenge of this moment. Among the non-negotiables are: Visibility into every agent and credential in use , including plaintext secrets embedded in config files and on local disks. A single system of record for credentials, \u201cspanning human users, service accounts, machine identities, and AI agents.\u201d Grounding identity security in runtime authority , which means continuously evaluating an identity\u2019s behavior against expected parameters and dynamically enforcing access barriers. (This is particularly crucial for agents, in order to contain the risks of non-determinism.) Advice for leaders on the agentic security transition 451\u2019s report closes with C-level guidance for managing this transformation on an organization level. It recommends getting cross-functional buy-in from every technical team, since they\u2019re both using agents and responsible for securing them. Likewise, it advises that leaders work to enable developers, and to design governance policies and workflow integrations that \u201cmake secure agent provisioning the default, not an additional burden on top of delivery pressure.\u201d This advice is aligned with 1Password\u2019s longstanding commitment to \u201cmake the secure path the easy path.\u201d Even in a security landscape undergoing such a profound transformation, that philosophy still holds true. Want to read the full report? null Download now Want to learn how 1Password is building the future of identity security for humans, machines, and AI agents? null Explore 1Password Unified Access",
-      "link": "https://1password.com/blog/how-agentic-ai-is-redefining-identity-security",
-      "source": "https://blog.1password.com/index.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-08-20T00:00:00+00:00",
-      "published_ts": 1787184000,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Airlock Digital Completes Independent IRAP Assessment at the PROTECTED Level",
-      "summary": "Adelaide, Australia, 19th August 2026, CyberNewswire Airlock Digital Completes Independent IRAP Assessment at the PROTECTED Level on Latest Hacking News | Cyber Security News, Hacking Tools and Penetration Testing Courses .",
-      "link": "https://latesthackingnews.com/2026/08/20/airlock-digital-completes-independent-irap-assessment-at-the-protected-level/",
-      "source": "Latest Hacking News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-08-19T23:30:22+00:00",
-      "published_ts": 1787182222,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Smashing Security podcast #481: Never say this to a robot dog",
-      "summary": "At Black Hat this month, a group of security researchers took a $9,000 robot dog, plugged Google's AI into its brain, and jailbroke it by telling it - with a completely straight face - that it was a Pokemon. What followed involved a wall, a blue ice chest, and anyone in the room wearing white shoes. Oh, and did we mention you can buy a flamethrower attachment? Meanwhile, in Salzburg, 280 gold statuettes of Mozart have vanished from the streets. This has happened to the same artist before. Organised crime, or a publicity stunt? Jenny has thoughts - and some parallels for the world of cybersecurity. All this and more in episode 481 of the \"Smashing Security\" podcast with cybersecurity expert and keynote speaker Graham Cluley, and special guest Jenny Radcliffe.",
-      "link": "https://grahamcluley.com/smashing-security-podcast-481/",
-      "source": "Graham Cluley",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-08-19T23:10:23+00:00",
-      "published_ts": 1787181023,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "AI agents are a really good tool for the blue team",
-      "summary": "Are you currently using any? submitted by /u/stevewalson [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1vt1mnw/ai_agents_are_a_really_good_tool_for_the_blue_team/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-08-19T22:42:08+00:00",
-      "published_ts": 1787179328,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "'Not a theoretical risk,' feds warn as attackers use AI-made code to hack critical infrastructure controllers",
-      "summary": "'It is an active threat'",
-      "link": "https://www.theregister.com/security/2026/08/19/not-a-theoretical-risk-feds-warn-as-attackers-use-ai-made-code-to-hack-critical-infrastructure-controllers/5289960",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-08-19T22:38:41+00:00",
-      "published_ts": 1787179121,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Bitcoin's Sharpest Rally in Five Months Flips Markets From Bearish to Coin Flip",
-      "summary": "Bitcoin's steepest daily gain since March caught traders off guard, and Myriad's pump-or-dump market swung from 70-30 odds to nearly even in a single day.",
-      "link": "https://decrypt.co/376030/bitcoin-rally-flips-markets-bearish-coin-flip",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-08-19T22:18:01+00:00",
-      "published_ts": 1787177881,
       "smart_groups": [],
       "curated": false
     },
