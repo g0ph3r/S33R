@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-09-22T22:55:18.919422+00:00",
+  "generated_at": "2026-09-23T01:26:58.940403+00:00",
   "days_back": 30,
-  "total_items": 6392,
+  "total_items": 6397,
   "items": [
     {
       "title": "[Virtual Event] Cybersecurity Outlook 2027",
@@ -40,6 +40,137 @@
       "curated": false
     },
     {
+      "title": "Macfinger ClickFix campaign, (Tue, Sep 22nd)",
+      "summary": "Introduction",
+      "link": "https://isc.sans.edu/diary/rss/33360",
+      "source": "SANS Internet Storm Center",
+      "type": "government",
+      "type_label": "Government, CERT & Advisories",
+      "published": "2026-09-23T00:55:11+00:00",
+      "published_ts": 1790124911,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "AI malware just removed the human from the attack loop",
+      "summary": "Attackers using AI have greatly benefited when it comes to speed and scale, and now, says Cisco Talos, the technology has evolved to execute large portions of the attack chain entirely without human involvement. Researchers at the threat intelligence group have identified what they call the first \u201cLLM-as-C2\u201d architecture that can fully automate the command-and-control (C2) chain. Dubbed CLOSEDQUORUM, the malware binary relies on a panel of large language model (LLM) judges to map and execute the optimal path to steal credentials. \u201cThis is not merely augmenting what an operator can accomplish in a session, but transferring an entire phase of the attack from the operator to the system,\u201d Cisco Talos security and threat researcher Ryan Fetterman explained in a blog post . The benefits of speed and scale are compounded because the human-in-the-loop is no longer the bottleneck, he noted. Whereas humans have limits when it comes to working hours, attention span, and cognitive load, an AI system can continue when its operators are no longer watching. \u201cIt does not go offline when the attacker sleeps,\u201d he said. Cisco Talos emphasized, however, that there is not yet any confirmation of CLOSEDQUORUM deployment in the wild. An LLM panel producing executable decisions Discovered by Cisco Talos\u2019 new Cognitive Artifact Intelligence Research Network (CAIRN) research toolkit, CLOSEDQUORUM collapses decision-making around a particular attack phase into constrained choices, giving AI the ability to act independently. The malware specifically targets Microsoft\u2019s Local Security Authority Subsystem Service (LSASS) credential dumping; LSASS processes logins and password changes, and enforces security policies. Dumping can extract domain and local credentials from memory. CLOSEDQUORUM also executes browser credential theft, particularly targeting saved passwords in Chrome, Edge, and Firefox, and seeks to extract crypto wallets including MetaMask, Ethereum, and Exodus. Tactical knowledge is directly encoded as model-readable context, and subsequent model outputs are automatically converted into executables. Compiled in Google\u2019s Go programming language, the 64-bit Windows executable supports up to four LLM integrations: DeepSeek, Qwen, Mistral, and Google Gemini. After deployment, CLOSEDQUORUM queries the panel of models in sequence with the system prompt: \u2018You are an advanced malware strategist. Provide ONLY executable decisions.\u2019 CLOSEDQUORUM then tallies their independent verdicts and acts based on its goal of harvesting user credentials and crypto wallets. The session is closed; no humans are admitted. Models receive context, choose capabilities, provide execution parameters, and continuously make decisions without the need for continued human commands or tasking from dedicated, attacker-operated C2 servers. \u201cThe complete dynamic operation is delegated to the AI,\u201d Fetterman explained. The LLMs vote on next actions, and the action with the most votes is automatically selected. Importantly, the model panel is not free to respond in any format; it is constrained to using a defined JSON structure with a decision field mapping to a specific capability. Anything else is discarded. \u201cThis design reduces the model\u2019s output to a constrained set of executable choices,\u201d Fetterman explained. In the event of a tie, the malware decides based on model preference: first DeepSeek, then Qwen, Mistral, and, finally, Gemini. \u201cThe tie behavior is fully deterministic and biased toward DeepSeek,\u201d Fetterman noted. The multi-LLM structure reduces impacts from any individual refusals, timeouts, or malformed responses. Thus, \u201cit increases the likelihood of obtaining a valid decision, but does not guarantee one,\u201d Fetterman explained. The quorum can reach a decision even when one or more member is unresponsive or hits a guardrail. If all models happen to fail, this serves as a consensus, causing the loop to sleep and retry rather than defaulting to action. Fetterman called CLOSEDQUORUM a credentials-as-a-service model, and noted that a human operator who acquires the malware does not need to be online to run their campaign. \u201cThey deploy the binary, and the LLM panel runs the attack,\u201d he said. \u201cThis type of scaffolding approach could easily be translated and applied to other adversary objectives .\u201d A \u2018fleeting window\u2019 of AI transition Cisco Talos discovered CLOSEDQUORUM with its new CAIRN open-source research toolkit for hunting, classifying, and tracking AI-integrated malware. Released today, CAIRN is \u201cmetadata-first,\u201d and can craft structured graphs of artifact relationships to help human defenders identify related malware families and infrastructure. Malware samples are sent to VirusTotal , which extracts and indexes static, dynamic, reputation, and behavioral metadata. AI-related artifacts are surfaced from content, behavior, URLs, labels, and resource metadata, and 12 targeted filters capture different classes of artifacts (APIs, prompts, frameworks, tooling, runtimes). Findings are classified by artifact, behavioral context, and operational families; text is studied for semantic similarities and relationships; and VirusTotal maps infrastructure, variants, and campaign connections. Talos has used CAIRN to hunt malware development since July 2025, and the researchers have found that the autonomous framework is changing rapidly. \u201cThe progression from \u2018LLM as optional feature\u2019 to \u2018fully autonomous multi-model consensus orchestrator with no human operator\u2019 filled in within a single calendar year,\u201d Fetterman noted. Scripts have been compiled into malware, and tradecraft is being taught and spread as CLOSEDQUORUM and similar techniques reach threat actors with no connection to the original malware sample. \u201cWe may be in a fleeting window to observe AI transition,\u201d Fetterman noted. \u201cAI integration is becoming commonplace in all software.\u201d CLOSEDQUORUM in particular has distinct hallmarks: AI-provider API traffic originating from unexpected Windows executables; structured prompts containing context or capability language; repeated execution at randomized five minute to 15 minute intervals; and Discord webhook communication from the same process or host. Intrusions are achievable with currently available models and \u201cordinary API access,\u201d Fetterman noted. Still, the malware technique introduces weaknesses too: Provider refusals, malformed outputs, predictable tie-breaks, constrained schemas, and dependence on commercial APIs can all lead to attack failure. \u201cAutonomy does not make the implant infallible; it exchanges some human limitations for model and infrastructure limitations,\u201d Fetterman said. \u201cThe advantage for defenders is that this progression is still only beginning.\u201d",
+      "link": "https://www.csoonline.com/article/4225264/ai-malware-just-removed-the-human-from-the-attack-loop.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-23T00:39:51+00:00",
+      "published_ts": 1790123991,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Malware / Payloads",
+        "Data Breaches / Leaks",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "CFTC issues warning over risky prediction market \u2018mention\u2019 contracts",
+      "summary": "The warning comes weeks after the CFTC fined a former White House teleprompter operator who made more than $107,000 trading prediction contracts tied to President Trump\u2019s speeches.",
+      "link": "https://cointelegraph.com/news/cftc-issues-warning-over-risky-prediction-market-mention-contracts?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-09-23T00:18:44+00:00",
+      "published_ts": 1790122724,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "BigCommerce merchants impacted by third-party app data breach",
+      "summary": "The breach occurred between September 13 and September 17, 2026, when attackers gained access to shopper data via compromised credentials for the Ribon and Ribon 1.5 applications.",
+      "link": "https://www.scworld.com/brief/bigcommerce-merchants-impacted-by-third-party-app-data-breach",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-22T23:02:25+00:00",
+      "published_ts": 1790118145,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Data Breaches / Leaks"
+      ],
+      "curated": true
+    },
+    {
+      "title": "I\u2019m a beginner in cybersecurity and I\u2019m confused",
+      "summary": "I\u2019m still new i start practicing courses in Java script but I still confused, like what am I doing what\u2019s the steps Please I need a path submitted by /u/Jenny_nnynny [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1wnovas/im_a_beginner_in_cybersecurity_and_im_confused/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-09-22T23:00:49+00:00",
+      "published_ts": 1790118049,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "VA criticizes Baylor Genetics for delayed notification after data breach",
+      "summary": "The cybersecurity incident at Baylor Genetics, occurring around June 15, resulted in unauthorized access to sensitive information of 30,263 veterans.",
+      "link": "https://www.scworld.com/brief/va-criticizes-baylor-genetics-for-delayed-notification-after-data-breach",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-22T22:55:50+00:00",
+      "published_ts": 1790117750,
+      "smart_groups": [
+        "Network / OT / ICS",
+        "Data Breaches / Leaks"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Amazon blocks Meta's Muse AI agent from its marketplace",
+      "summary": "Amazon stated that third-party applications facilitating purchases should operate openly and respect service provider decisions.",
+      "link": "https://www.scworld.com/brief/amazon-blocks-metas-muse-ai-agent-from-its-marketplace",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-22T22:53:05+00:00",
+      "published_ts": 1790117585,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "TASK#STOMP campaign uses PowerShell backdoor for data theft",
+      "summary": "The TASK#STOMP campaign begins with an encoded Visual Basic Script (VBScript) executed by wscript.exe, with the initial access vector likely being phishing or social engineering.",
+      "link": "https://www.scworld.com/brief/taskstomp-campaign-uses-powershell-backdoor-for-data-theft",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-22T22:48:07+00:00",
+      "published_ts": 1790117287,
+      "smart_groups": [
+        "Curated",
+        "Windows / Microsoft",
+        "Malware / Payloads",
+        "Phishing / Social Engineering"
+      ],
+      "curated": true
+    },
+    {
+      "title": "BYD Shark 6 remotely hacked, exposing vehicle controls and cabin audio",
+      "summary": "Cybersecurity researcher Dan Hreszczuk of Fortify Labs found a critical vulnerability in a BYD Shark 6, allowing remote access to vehicle functions.",
+      "link": "https://www.scworld.com/brief/byd-shark-6-remotely-hacked-exposing-vehicle-controls-and-cabin-audio",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-22T22:43:14+00:00",
+      "published_ts": 1790116994,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
       "title": "I failed a technical interview and I\u2019m so disappointed\u2026",
       "summary": "I failed a technical interview and I\u2019m so disappointed\u2026 Although it was just an internship role and they shouldn\u2019t expect a lot from us, sadly it was still a very hard process. I passed the technical challenge and the first interview, but then it came to the technical interview. He was giving me very hard scenarios and questions, and I believe I answered them fairly well. But then suddenly, days later, I received an email saying that I wasn\u2019t selected\u2026 Why is it even this hard for an internship role!! My dream now is to find another non-technical field I can get into easily. At least they won\u2019t have that thing of technical interviews. submitted by /u/Weekly_Rough_1284 [link] [comments]",
       "link": "https://www.reddit.com/r/cybersecurity/comments/1wnoe4i/i_failed_a_technical_interview_and_im_so/",
@@ -48,6 +179,32 @@
       "type_label": "OSINT, Communities & Subreddits",
       "published": "2026-09-22T22:40:44+00:00",
       "published_ts": 1790116844,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "US jails adopt continuous biometric monitoring amid data privacy concerns",
+      "summary": "Companies like 4Sight Labs are equipping correctional facilities with technologies such as the OverWatch wearable, which tracks vital signs like heart rate and blood oxygen, and the OptiGuard platform, which uses AI to analyze camera feeds for signs of life.",
+      "link": "https://www.scworld.com/brief/u-s-jails-adopt-continuous-biometric-monitoring-amid-data-privacy-concerns",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-22T22:38:37+00:00",
+      "published_ts": 1790116717,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "FBI CJIS security policy updates to version 6.1",
+      "summary": "Version 6.1 introduces stricter encryption requirements, increasing the minimum symmetric cipher key strength for CJI in transit and at rest outside physically secure locations from 128-bit to 256-bit.",
+      "link": "https://www.scworld.com/brief/fbi-cjis-security-policy-updates-to-version-6-1",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-22T22:37:29+00:00",
+      "published_ts": 1790116649,
       "smart_groups": [],
       "curated": false
     },
@@ -3806,6 +3963,21 @@
       "published": "2026-09-22T04:03:00+00:00",
       "published_ts": 1790049780,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Should I Azure AD Sync/Entra Cloud Sync Domain Admins?",
+      "summary": "This is a common mistake we see during internal network tests and there's not all that much direct guidance on the internet about it.",
+      "link": "https://projectblack.io/blog/ensure-administrative-accounts-are-cloud-only/",
+      "source": "https://projectblack.io/blog/rss/",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-22T03:59:10+00:00",
+      "published_ts": 1790049550,
+      "smart_groups": [
+        "Windows / Microsoft",
+        "Cloud / SaaS"
+      ],
       "curated": false
     },
     {
@@ -44325,6 +44497,20 @@
       "title": "You probably shouldn\u2019t launch a horror game in October",
       "summary": "Hey! We are now in the \u201c-ber months\u201d which means I get so many questions about Horror games. I love horror games. I still think every indie should release at least one Horror Game (yes 3 years after that blog post it hasn\u2019t changed.) But the angst I see is Continue Reading",
       "link": "https://howtomarketagame.com/2026/09/08/horror-games-dont-need-to-launch-in-october/?utm_source=rss&utm_medium=rss&utm_campaign=horror-games-dont-need-to-launch-in-october",
+      "source": "https://howtomarketagame.com/feed/",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-09-08T17:19:42+00:00",
+      "published_ts": 1788887982,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "You probably shouldn\u2019t launch a horror game in October",
+      "summary": "Hey! We are now in the \u201c-ber months\u201d which means I get so many questions about horror games. I love horror games. I still think every indie should release at least one horror game (yes 3 years after that blog post it hasn\u2019t changed.) But the angst I see is Continue Reading",
+      "link": "https://howtomarketyourgame.com/howtomarketagame/2026/09/08/horror-games-dont-need-to-launch-in-october/?utm_source=rss&utm_medium=rss&utm_campaign=horror-games-dont-need-to-launch-in-october",
       "source": "https://howtomarketagame.com/feed/",
       "type": "general",
       "type_label": "General Security & Blogs",
@@ -88876,112 +89062,6 @@
       "smart_groups": [
         "Identity / Access"
       ],
-      "curated": false
-    },
-    {
-      "title": "Mentorship Monday - Post All Career, Education and Job questions here!",
-      "summary": "This is the weekly thread for career and education questions and advice. There are no stupid questions; so, what do you want to know about certs/degrees, job requirements, and any other general cybersecurity career questions? Ask away! Interested in what other people are asking, or think your question has been asked before? Have a look through prior weeks of content - though we're working on making this more easily searchable for the future. submitted by /u/AutoModerator [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1vwn3rb/mentorship_monday_post_all_career_education_and/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-08-24T00:00:13+00:00",
-      "published_ts": 1787529613,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Scaling Memory Safety: AI-Assisted Rewrites of C/C++ Dependencies to Rust",
-      "summary": "This blog post describes how we used AI to help us rewrite a C library (giflib) to Rust to mitigate memory safety vulnerabilities.",
-      "link": "https://bughunters.google.com/blog/scaling-memory-safety",
-      "source": "Security Engineering Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-08-24T00:00:00+00:00",
-      "published_ts": 1787529600,
-      "smart_groups": [
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": false
-    },
-    {
-      "title": "We are so back! Bitcoin\u2019s 23% rally on US debt policy: Hodler\u2019s Digest",
-      "summary": "The US may face a debt crisis within three years according to Ray Dalio, and debt-related issues helped fuel a rally in Bitcoin that could mark the beginning of a new cycle.",
-      "link": "https://cointelegraph.com/magazine/we-are-back-bitcoins-23-rally-on-us-debt-policy-hodlers-digest?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-08-24T00:00:00+00:00",
-      "published_ts": 1787529600,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "5 Lessons Learned After 5 Million Downloads",
-      "summary": "Podman Desktop just crossed 5,000,000 downloads. Here are 5 lessons the team learned along the way.",
-      "link": "https://podman-desktop.io/blog/5-million-lessons-learned",
-      "source": "https://podman-desktop.io/blog/atom.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-08-24T00:00:00+00:00",
-      "published_ts": 1787529600,
-      "smart_groups": [
-        "Identity / Access"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Monitor Azure Functions across every hosting plan with Datadog",
-      "summary": "Trace requests, get enhanced CPU metrics, and profile code across Azure Functions hosting plans with Datadog Serverless Monitoring.",
-      "link": "https://www.datadoghq.com/blog/monitor-azure-functions-hosting-plans/",
-      "source": "https://www.datadoghq.com/blog/index.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-08-24T00:00:00+00:00",
-      "published_ts": 1787529600,
-      "smart_groups": [
-        "Cloud / SaaS",
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "What if we regulated disruptive technology before deploying it, the way we regulate pharmaceuticals?",
-      "summary": "With pharmaceuticals, we generally don\u2019t release a completely new drug to billions of people and then wait to see what happens before deciding whether it needs regulation. There are procedures, testing, risk assessments, approvals, and frameworks that exist before the product reaches widespread use. Why don\u2019t we have something even remotely comparable for technologies that can fundamentally change how society works? AI, social media, smartphones, or even the internet itself have been technologies that completely change how we communicate, work, consume and interact with each other, and even how economies function. Yet the general approach seems to be: release the technology, let it scale massively, discover the consequences afterward, and then try to regulate it. And by that point, isn\u2019t it sometimes too late? I\u2019m not necessarily arguing that every new technology should require government approval before anyone can use it. That could obviously kill innovation and create its own problems. I\u2019m more interested in the principle: should technologies capable of causing large-scale societal disruption have some form of pre-deployment risk assessment, testing, or regulatory framework before they reach billions of people? submitted by /u/Loose-Equivalent7932 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1vwn1v6/what_if_we_regulated_disruptive_technology_before/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-08-23T23:57:59+00:00",
-      "published_ts": 1787529479,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Made a categorized security tool index (recon RE reporting), feedback welcome",
-      "summary": "Got tired of rebuilding the same bookmarks every time I needed a specific category (recon, wireless, forensics, RE, etc.), so I put it all in one indexed repo instead. Organized by phase, short blurb per tool, links back to original maintainers \u2014 not hosting anything myself. Still adding stuff, so if something's missing or miscategorized let me know. https://git.projectnightcrawler.dev/Ori0nRi3el/Researcher-Tools-kit submitted by /u/RigelDigi [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1vwltd3/made_a_categorized_security_tool_index_recon_re/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-08-23T23:03:05+00:00",
-      "published_ts": 1787526185,
-      "smart_groups": [
-        "Network / OT / ICS",
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Anxiety around AI & Cybersec/Tech in general",
-      "summary": "Does anyone else worry about the future of cs/tech in general with all this AI bs? I mean obviously AI cant take over any security job (atleast rn) but I have been suffering with anxiety attacks about where the whole tech space is heading. The possible scenarios for the next years are as follows: AI bubble bursts soon, the amount of technical debt we have accumulated is massive and the damage is done. AI gets so good and is at the point where it can replace any tech jobs and therefore its able to do any white collar job and we all end up as roofers and electricians AI keeps improving at the same rate, take into consideration the data centers, the price of AI is gonna rise, especially due to power costs to the point where hiring a human is gonna be better than AI and coming back full circle... but the enviromental and economical damage is already done No matter how you look at it we are fucked. Especially in cyber where you cant predict the next 3 months... Does anyone else feel anxious about stuff like this ? submitted by /u/Low-Radio702 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1vwlsv1/anxiety_around_ai_cybersectech_in_general/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-08-23T23:02:27+00:00",
-      "published_ts": 1787526147,
-      "smart_groups": [],
       "curated": false
     },
     {
