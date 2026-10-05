@@ -14,6 +14,20 @@
     "curated": false
   },
   {
+    "title": "Field Notes: Reconstructing the Attacker's LSASS Dump",
+    "summary": "One of the things I find fascinating is how much effort attackers sometimes put into avoiding traditional forensic artefacts. And yet, very often, they leave just enough behind for us to reconstruct what happened. This was exactly the case during a recent incident. While analysing one of the compromised systems, we found a suspicious archive in the C:\\Users\\Public directory. Inside were four files: barrel.json lock.json shock.json trick.zip A quick search led us to Ricardo J. Ruiz’s TrickDump project.",
+    "link": "http://localhost:1313/posts/field_notes_trickdump/",
+    "source": "https://dfir.ch/index.xml",
+    "type": "dfir",
+    "type_label": "DFIR & Forensics",
+    "published": "2026-09-30T23:58:20+00:00",
+    "published_ts": 1790812700,
+    "smart_groups": [
+      "Ransomware"
+    ],
+    "curated": false
+  },
+  {
     "title": "FTC is Investigating OpenAI and Anthropic Over Possible risks to Consumers",
     "summary": "An FTC spokesperson confirmed the investigation but declined further comment. The post FTC is Investigating OpenAI and Anthropic Over Possible risks to Consumers appeared first on SecurityWeek .",
     "link": "https://www.securityweek.com/ftc-is-investigating-openai-and-anthropic-over-possible-risks-to-consumers/",
@@ -28388,6 +28402,20 @@
     "curated": false
   },
   {
+    "title": "The .zshrc.zwc You Forgot to Check",
+    "summary": "Introduction Shell startup files are well-known macOS persistence locations. In a recent MacSync Stealer/RAT intrusion documented by Huntress, the malware temporarily modified ~/.zshrc and appended a curl | zsh command. The goal was simple: when the victim opened Terminal again, the malicious code would execute in the new interactive zsh session. So during a macOS investigation, checking files such as these should be standard practice: ~/.zshrc ~/.zprofile ~/.zlogin ~/.zshenv Csaba Fitzl dedicated the first post in his Beyond the good ol' LaunchAgents series to shell startup files. But there is a small zsh feature that makes this slightly more interesting. These files can be compiled. For example:",
+    "link": "http://localhost:1313/posts/compiled_zsh/",
+    "source": "https://dfir.ch/index.xml",
+    "type": "dfir",
+    "type_label": "DFIR & Forensics",
+    "published": "2026-09-21T23:03:20+00:00",
+    "published_ts": 1790031800,
+    "smart_groups": [
+      "Malware / Payloads"
+    ],
+    "curated": false
+  },
+  {
     "title": "Vulnerability Summary for the Week of September 14, 2026",
     "summary": "submitted by /u/antdude [link] [comments]",
     "link": "https://www.reddit.com/r/cybersecurity/comments/1wmse3y/vulnerability_summary_for_the_week_of_september/",
@@ -42167,6 +42195,20 @@
     "title": "Living Inside the Shell: zsh Modules on macOS",
     "summary": "Introduction When investigating shell-based activity on macOS, it is tempting to focus on the usual suspects: curl , osascript , python , xattr , and similar utilities. But zsh itself provides considerably more functionality than simply executing commands. macOS uses zsh as the default interactive shell, and zsh ships with a module system that can extend the shell with networking, file manipulation, extended-attribute access, and other functionality. Functionality commonly associated with separate utilities can instead be performed by builtins inside the already-running zsh process. As a result, there may be no corresponding curl , rm , or xattr process for an analyst to find. Detection gaps can arise when detection logic relies primarily on process execution and command-line telemetry.",
     "link": "https://dfir.ch/posts/zsh_modules/",
+    "source": "https://dfir.ch/index.xml",
+    "type": "dfir",
+    "type_label": "DFIR & Forensics",
+    "published": "2026-09-16T17:58:20+00:00",
+    "published_ts": 1789581500,
+    "smart_groups": [
+      "Identity / Access"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Living Inside the Shell: zsh Modules on macOS",
+    "summary": "Introduction When investigating shell-based activity on macOS, it is tempting to focus on the usual suspects: curl , osascript , python , xattr , and similar utilities. But zsh itself provides considerably more functionality than simply executing commands. macOS uses zsh as the default interactive shell, and zsh ships with a module system that can extend the shell with networking, file manipulation, extended-attribute access, and other functionality. Functionality commonly associated with separate utilities can instead be performed by builtins inside the already-running zsh process. As a result, there may be no corresponding curl , rm , or xattr process for an analyst to find. Detection gaps can arise when detection logic relies primarily on process execution and command-line telemetry.",
+    "link": "http://localhost:1313/posts/zsh_modules/",
     "source": "https://dfir.ch/index.xml",
     "type": "dfir",
     "type_label": "DFIR & Forensics",
@@ -57701,6 +57743,18 @@
     "curated": false
   },
   {
+    "title": "Field Notes: From AV Alert to Impacket",
+    "summary": "When analysing AV alerts, always look left and right of the alert . If you’ve been following me for a while, you probably know that I’m a big fan of analysing the MFT ( Master File Table ) during incident response. This case is a good example of why. When starting a new IR case, one of the first things I collect is AV/EDR telemetry. Why? Because attackers very often trigger at least one alert somewhere along the way. Even when the alert itself is not particularly exciting, it gives you something extremely valuable: a timestamp and a system to pivot from .",
+    "link": "http://localhost:1313/posts/field_notes_av_impacket/",
+    "source": "https://dfir.ch/index.xml",
+    "type": "dfir",
+    "type_label": "DFIR & Forensics",
+    "published": "2026-09-11T04:04:20+00:00",
+    "published_ts": 1789099460,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
     "title": "Top Information Security Products Launching This Week: September 11, 2026",
     "summary": "A curated overview of recent advancements in cybersecurity solutions highlights innovations from Akeyless, Orchid Security,... The post Top Information Security Products Launching This Week: September 11, 2026 appeared first on .",
     "link": "https://www.news4hackers.com/top-information-security-products-launching-this-week-september-11-2026/",
@@ -59530,6 +59584,21 @@
     "title": "BSides Frankfurt: Deconstructing Modern macOS Initial Access Vectors",
     "summary": "Abstract For years, a persistent myth suggested that macOS was inherently immune to malware. Today, threat actors are aggressively shattering that illusion by deploying sophisticated initial access chains tailored to bypass macOS defenses. This talk provides a deep-dive analysis of how modern adversaries gain their first foothold on Apple hardware. We will dissect the entire initial access pipeline, starting with Infection Vectors like deceptive Google Ads, malicious ClickFix campaigns, and sophisticated malvertising that trick users into lowering their guard. From there, we explore the Execution Phase, analyzing how attackers weaponize scripting languages, including traditional Bash and Python, as well as native AppleScript, Compiled AppleScript, Perl, and JavaScript for Automation (JXA). Finally, we will examine the delivery mechanisms, contrasting the abuse of native Binaries (Mach-O, Platypus-packaged apps, and Electron frameworks) with the trojanization of Storage and Installer Formats (DMGs and PKGs).",
     "link": "https://dfir.ch/talks/bsides_frankfurt_2026/",
+    "source": "https://dfir.ch/index.xml",
+    "type": "dfir",
+    "type_label": "DFIR & Forensics",
+    "published": "2026-09-10T14:04:20+00:00",
+    "published_ts": 1789049060,
+    "smart_groups": [
+      "Curated",
+      "Malware / Payloads"
+    ],
+    "curated": true
+  },
+  {
+    "title": "BSides Frankfurt: Deconstructing Modern macOS Initial Access Vectors",
+    "summary": "Abstract For years, a persistent myth suggested that macOS was inherently immune to malware. Today, threat actors are aggressively shattering that illusion by deploying sophisticated initial access chains tailored to bypass macOS defenses. This talk provides a deep-dive analysis of how modern adversaries gain their first foothold on Apple hardware. We will dissect the entire initial access pipeline, starting with Infection Vectors like deceptive Google Ads, malicious ClickFix campaigns, and sophisticated malvertising that trick users into lowering their guard. From there, we explore the Execution Phase, analyzing how attackers weaponize scripting languages, including traditional Bash and Python, as well as native AppleScript, Compiled AppleScript, Perl, and JavaScript for Automation (JXA). Finally, we will examine the delivery mechanisms, contrasting the abuse of native Binaries (Mach-O, Platypus-packaged apps, and Electron frameworks) with the trojanization of Storage and Installer Formats (DMGs and PKGs).",
+    "link": "http://localhost:1313/talks/bsides_frankfurt_2026/",
     "source": "https://dfir.ch/index.xml",
     "type": "dfir",
     "type_label": "DFIR & Forensics",
