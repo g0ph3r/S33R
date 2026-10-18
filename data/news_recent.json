@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-17T22:18:56.160996+00:00",
+  "generated_at": "2026-10-18T00:01:48.855600+00:00",
   "days_back": 30,
-  "total_items": 6192,
+  "total_items": 6189,
   "items": [
     {
       "title": "[Virtual Event] Cybersecurity Outlook 2027",
@@ -24,6 +24,44 @@
       "type_label": "General Security & Blogs",
       "published": "2026-11-12T16:00:00+00:00",
       "published_ts": 1794499200,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Telling technical ownership apart from business accountability",
+      "summary": "",
+      "link": "https://www.scworld.com/tech-explainer/telling-technical-ownership-apart-from-business-accountability",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-17T23:24:37+00:00",
+      "published_ts": 1792279477,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Robust Mahalanobis Applications : Surveillance anomaly detection",
+      "summary": "Online Robust Mahalanobis scores each sample by how far it is from the centre of the healthy joint residual, measured in units of the residual's own spread. What it is The healthy residuals of a robot joint form a cloud around zero. Its shape is not a sphere: the joints are correlated, and a fault along one direction costs more than a fault along another. The classical way to measure distance in this cloud is the Mahalanobis distance: subtract the mean, divide by the covariance, take the Euclidean norm of the result. A sample that is far in units of its own distribution is anomalous. The classical estimator uses the sample mean and the sample covariance. Both are sensitive to outliers. A single extreme sample can drag the mean far from the cloud, and inflate the covariance along its own direction so much that the same outlier looks normal under the new metric \u2014 the masking effect. Robust estimates of location and scatter fix this. This module uses the geometric median for location and the median covariation matrix (MCM) for scatter. Both are 50 % breakdown estimators: half the samples must be corrupted before the estimate moves, against one outlier for the mean. Both are estimated online by averaged stochastic gradient (ASGD), one sample at a time. The score of a sample is the Mahalanobis distance under the current MCM: D(x) = sqrt( sum_j (1 / delta_j) * ^2 ) where m_bar is the current location estimate, P_j is the j-th eigenvector of the averaged MCM V_bar, and delta_j the corresponding eigenvalue. The sum is over the d eigenvalues: it is the Mahalanobis distance written without inverting the matrix, using the eigendecomposition instead. How it works Two running estimates are maintained. m tracks the geometric median, V tracks the MCM. Both are updated by averaged stochastic gradient, one sample at a time. For the geometric median, the paper's recurrence is m_{n+1} = m_n + gamma_{n+1} * (X_{n+1} - m_n) / ||X_{n+1} - m_n|| m_bar_{n+1} = m_bar_n + (1 / (n + 2)) * (m_{n+1} - m_bar_n) The first line is a stochastic gradient step toward the sample, normalised so that every step has the same length. The normalisation is the robustness: a distant sample moves m by at most gamma_{n+1}, no matter how far it is. The second line averages the iterates, which accelerates convergence (Cardot, C\u00e9nac and Zitt 2013). For the MCM, the same shape: V_{n+1} = V_n + gamma_{n+1} * (outer_{n+1} - V_n) / ||outer_{n+1} - V_n||_F V_bar_{n+1} = V_bar_n + (1 / (n + 2)) * (V_{n+1} - V_bar_n) with outer_{n+1} = (X_{n+1} - m_bar_n) (X_{n+1} - m_bar_n)^T the centred outer product of the new sample. The gradient is again normalised, this time to unit Frobenius norm. The step size is gamma_n = c_gamma * (n + n0) ** (-gamma_exp) with gamma_exp in (1/2, 1) for convergence (Cardot and Godichon-Baggioni 2017). The first n_init samples are not used for the ASGD updates. They are kept in a small buffer and used to compute an initial estimate of the location and scatter, from which the ASGD starts. Without the initialisation the ASGD gradients, whose scale is unit and not the scale of the data, would never reach the data. Smallest example import numpy as np from dense_armor.utility.anomaly.mahalanobis import ( OnlineRobustMahalanobis, ) rng = np.random.default_rng(0) det = OnlineRobustMahalanobis(feature_keys=[\"a\", \"b\"], n_init=200) for _ in range(500): x = rng.standard_normal(2) det.learn_one({\"a\": float(x[0]), \"b\": float(x[1])}) print(f\"healthy {det.score_one({'a': 0.0, 'b': 0.0}):.3f}\") print(f\"far {det.score_one({'a': 10.0, 'b': 10.0}):.3f}\") healthy 0.080 far 15.880 The healthy point sits at the centre of the cloud: under a standard bivariate Gaussian its Mahalanobis distance is small, and the score is 0.080. The far point is ten units away along both axes: the distance is large, and the score rises to 15.880, well past the default threshold of 7.0, the classical value for low-dimensional Gaussians. On a real arm The residual of joints 1-4 on a SyntheticArm payload fault. The fault (5 kg added at t = 2 s) shifts the residual on joints 1-5 by tens of N\u00b7m; the healthy run stays within \u00b10.15 N\u00b7m. from pathlib import Path from dense_armor.utility.anomaly.mahalanobis import ( OnlineRobustMahalanobis, ) from dense_armor.utility.datasets import SyntheticArm ds = SyntheticArm( Path(\"test/fixtures/urdf/panda.urdf\"), period_s=2.0, rate_hz=50.0, n_cycles=4, fault_at_s=2.0, fault=\"payload\", payload_mass=5.0, noise_std=(1e-3, 5e-3, 5e-2), seed=0, ) det = OnlineRobustMahalanobis( feature_keys=[\"r0\", \"r1\", \"r2\", \"r3\"], threshold=7.0, ) for sig, _ in ds.stream(): q, qd, qdd = ds.trajectory(sig.t) tau_nom = ds.nominal_torque(q, qd, qdd) x = {f\"r{j}\": float(sig[f\"tau_{j}\"] - tau_nom[j]) for j in range(4)} _ = det.score_one(x) _ = det.learn_one(x) \ufffc Top: SyntheticArm. The fault sends the score past 100 in the first few samples after t = 2 s, then the score drops as the ASGD updates the location and the scatter estimate towards the new distribution \u2014 but the detector has already flagged every post-fault sample until the update catches up. Bottom: DriftStream. The score rises cleanly at the drift and stays above the threshold. The learned 95 % region\u00b6 The Mahalanobis distance is a scalar, but the metric it uses is a d-dimensional ellipsoid. Plotting it in two dimensions makes the shape visible. \ufffc Two joints' residuals, first 200 samples of healthy training (green dots), then 30 fault samples (red crosses). The black ellipse is the 95 % quantile of the MCM currently estimated: a new sample inside the ellipse has Mahalanobis distance below chi2_2(0.95), outside it is flagged. The fault samples all fall outside. Numbers\u00b6 SyntheticArm (200 samples, 100 healthy, 100 fault) and DriftStream (2000 samples, one sudden drift at half), every detector built with its defaults. StreamProtocolROC-AUCFalse alarms on the healthy partThreshold at the last healthy sampleSyntheticArmlearn-on-healthy1.0000.0007.0000SyntheticArmlearn-on-all1.0000.0007.0000DriftStreamlearn-on-healthy0.9930.0007.0000DriftStreamlearn-on-all0.9380.0007.0000 The default n_init is 100, and on SyntheticArm the healthy part has exactly 100 samples: in the benchmark run the detector is still in its initialisation when the healthy part ends, so every healthy score is 0.0 and the false-alarm value 0.000 on SyntheticArm follows from that, not from a decision of the detector. The class is the most accurate of the five on this repository's benchmark and the fastest (0.036 ms per sample on the arm). Details\u00b6 Where the rules come from\u00b6 Guillot, Godichon-Baggioni, Robin and Sansonnet (arXiv:2601.03957) introduce the online median and MCM in Section 3. The recurrence for the geometric median is equation 8, for the MCM equation 10. The Mahalanobis distance under the MCM is Equation (1) in Section 2.2. The step size gamma_n = c * n ** -gamma with gamma in (1/2, 1) is from Cardot, C\u00e9nac and Zitt (2013) and Cardot and Godichon-Baggioni (2017). The paper's full method also reconstructs the eigenvalues of the true covariance from the MCM by a Robbins-Monro scheme (equations 4-5) and scales the distances by chi2_d(0.5) / med(D_1..n) (equation 1). Neither step is implemented here. Choices stated explicitly\u00b6 Offline initialisation. The geometric median is initialised by the Weiszfeld algorithm (Guillot et al., equation 6). The MCM is initialised by the empirical average of the centred outer products, not the Weiszfeld offline MCM of Section A.2: with n_init of tens of samples the average is more stable than the Weiszfeld iteration, which for small samples can converge to a rank-one solution. The online ASGD refines the estimate as soon as new samples arrive. Step length cap. A max_step_frac cap on the ASGD step (default 0.1) prevents a single large sample from moving V by more than a fraction of its own norm. Without the cap, c_gamma = 1 and gamma_exp = 0.7 can move V by 1 in Frobenius norm in one step, much larger than the scale of the data, and the average oscillates through zero. This is a numerical safeguard, not part of the paper. Eigenvalue floor. Every eigenvalue of V_bar is floored at trace(V_bar) / d * 1e-3. The floor keeps the score bounded when the ASGD first steps drive V through zero, without changing the shape of the metric. Also a numerical safeguard. No chi-squared scaling. The paper's equation 1 divides the distances by the median of the past distances, so that the calibrated threshold is the median of a chi2_d distribution. This module does not apply the scaling: the threshold is the one the user calibrates, and the default 7.0 is the classical value for low-dimensional Gaussians. Step index. Guillot et al. use gamma_n = c_gamma (n + n0)^(-gamma) with n counted from the first sample (0.0395 c_gamma for the first update after n_init = 100 with gamma = 0.7). Here n also counts from the first sample (n = n_init + k at the k-th update) and the offset is one larger, gamma_n = c_gamma (n + n0 + 1)^(-gamma): the first update after n_init = 100 uses 0.0393 c_gamma. The averaged estimates use the weight 1 / (n + 1) with the same n, which is the paper's 1 / (n + 2) for the previous step index. The offset of one in gamma_n is a choice of this implementation. Threshold. A fixed float, default 7.0. Measured cost\u00b6 At the benchmark defaults (n_init=100, 4 features), on one CPU thread: 0.036 ms per sample for learn_one + score_one on the arm stream; memory flat: d + d^2 arrays, independent of the stream length. The budget_s declared by the class is 0.005 s. The bug the module fixes\u00b6 The literal Section 3.2 update of Guillot et al. (page 7) without the step cap and without the eigenvalue floor was reimplemented outside the library and run on the 80 healthy residuals that follow n_init = 20, on the issue scenario (joint 1 of the SyntheticArm payload fault, period_s=2.0, rate_hz=50.0, n_cycles=2, payload_mass=5.0, seed 0). With c_gamma = 1.0 the running average V_bar crosses the zero matrix: the final trace(V_bar) is -2.88e-04. Scoring each sample before the update, 19 of the 80 steps have a non-positive eigenvalue and the maximum score is 11.36; scoring after the update, 20 steps and a maximum of 5.96. The cause is the scale of the normalised step against the scale of V: the step has Frobenius norm ~0.04, while V itself is of order 2.6e-03, so V_bar moves through the origin and 1 / delta diverges. With c_gamma equal to the variance of the residual (2.57e-03): 0 steps, trace(V_bar) = +1.37e-03, maximum 3.70. The two guards are max_step_frac = 0.1 and the eigenvalue floor trace(V_bar) / d * 1e-3. On the same 80 samples with the guards the maximum stays below the threshold. The reproduction is the module's test test_mahalanobis_healthy_scores_stay_below_threshold, which uses the 100 healthy residuals of the issue scenario with n_init = 20 and asserts the maximum is 3.739 OCSVM is the alternative when the fault is not a shift but a change of the distribution's shape. Link: https://tatopenn-cell.github.io/Dense-Armor/anomaly/mahalanobis/ submitted by /u/Creative-Feature-264 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1x8o8wc/robust_mahalanobis_applications_surveillance/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-10-17T23:23:47+00:00",
+      "published_ts": 1792279427,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Writing a risk acceptance record the accepting executive can sign",
+      "summary": "",
+      "link": "https://www.scworld.com/tech-explainer/writing-a-risk-acceptance-record-the-accepting-executive-can-sign",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-17T23:06:11+00:00",
+      "published_ts": 1792278371,
       "smart_groups": [],
       "curated": false
     },
@@ -11414,6 +11452,34 @@
       "curated": false
     },
     {
+      "title": "TruConfidence: Why Your Patch Automation Can Finally Be Autonomous",
+      "summary": "TruConfidence: The AI-Powered Remediation Intelligence & Orchestration engine powering TruRisk Eliminate 2.0 delivers autonomous remediation at scale with proof at every step. Executive Summary Vulnerabilities are now discovered faster than enterprises can remediate them. Patch automation has been around for years, but vulnerability backlogs are still growing. Automation isn\u2019t the bottleneck. Confidence is: without evidence [\u2026]",
+      "link": "https://blog.qualys.com/category/product-tech",
+      "source": "Product and Tech \u2013 Qualys Security Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-10-14T12:46:46+00:00",
+      "published_ts": 1791982006,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "TruConfidence: Why Your Patch Automation Can Finally Be Autonomous",
+      "summary": "TruConfidence: The AI-Powered Remediation Intelligence & Orchestration engine powering TruRisk Eliminate 2.0 delivers autonomous remediation at scale with proof at every step. Executive Summary Vulnerabilities are now discovered faster than enterprises can remediate them. Patch automation has been around for years, but vulnerability backlogs are still growing. Automation isn\u2019t the bottleneck. Confidence is: without evidence [\u2026]",
+      "link": "https://blog.qualys.com/product-tech/2026/10/14/truconfidence-why-your-patch-automation-can-finally-be-autonomous",
+      "source": "Qualys Security Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-10-14T12:46:46+00:00",
+      "published_ts": 1791982006,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
       "title": "FBI Disrupts North Korean Famous Chollima Laptop Farms Used to Infiltrate U.S. Companies",
       "summary": "The FBI disrupted several U.S. laptop farms used by North Korean threat group FAMOUS CHOLLIMA in late September 2026, cutting off infrastructure that helped fake remote workers enter American companies. CrowdStrike disclosed the joint operation on October 13, describing it as the start of a wider effort against the group\u2019s domestic support network. The farms [\u2026] The post FBI Disrupts North Korean Famous Chollima Laptop Farms Used to Infiltrate U.S. Companies appeared first on Cyber Security News .",
       "link": "https://cybersecuritynews.com/famous-chollima/",
@@ -14507,6 +14573,36 @@
         "Vulnerabilities / CVEs"
       ],
       "curated": true
+    },
+    {
+      "title": "Microsoft Patch Tuesday, October 2026 Security Update Review",
+      "summary": "Microsoft has released its October 2026 Patch Tuesday security updates, addressing vulnerabilities across its products and services. As organizations continue to navigate an evolving threat landscape, applying security patches promptly remains critical to reducing exposure and strengthening security posture. This month\u2019s updates highlight the importance of identifying affected assets, prioritizing remediation, and staying ahead of [\u2026]",
+      "link": "https://blog.qualys.com/category/vulnerabilities-threat-research",
+      "source": "Qualys Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-10-13T21:32:08+00:00",
+      "published_ts": 1791927128,
+      "smart_groups": [
+        "Ransomware",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Microsoft Patch Tuesday, October 2026 Security Update Review",
+      "summary": "Microsoft has released its October 2026 Patch Tuesday security updates, addressing vulnerabilities across its products and services. As organizations continue to navigate an evolving threat landscape, applying security patches promptly remains critical to reducing exposure and strengthening security posture. This month\u2019s updates highlight the importance of identifying affected assets, prioritizing remediation, and staying ahead of [\u2026]",
+      "link": "https://blog.qualys.com/vulnerabilities-threat-research/2026/10/13/microsoft-patch-tuesday-october-2026-security-update-review",
+      "source": "Qualys Security Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-10-13T21:32:08+00:00",
+      "published_ts": 1791927128,
+      "smart_groups": [
+        "Ransomware",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
     },
     {
       "title": "AI Scams Target Crypto Users, Not Protocols, and Wallet Security Is Catching Up",
@@ -19010,6 +19106,22 @@
         "Identity / Access"
       ],
       "curated": false
+    },
+    {
+      "title": "Exploitability Needs Runtime Evidence: Understanding Runtime Vulnerability Reachability for Containers",
+      "summary": "Key Takeaways Qualys Runtime Vulnerability Reachability for Containers brings runtime evidence directly into vulnerability prioritization. Package presence in a container image does not mean the vulnerable software is actually part of the workload\u2019s live execution. Runtime reachability answers whether the vulnerable software is relevant to a running workload, a different question from whether the vulnerability [\u2026]",
+      "link": "https://blog.qualys.com/product-tech/2026/10/12/runtime-vulnerability-reachability-containers",
+      "source": "Qualys Security Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-10-12T15:00:00+00:00",
+      "published_ts": 1791817200,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
     },
     {
       "title": "Filter, reshape, and redact logs before export with Transformers",
@@ -56513,20 +56625,6 @@
     {
       "title": "Lessons from Microsoft Patch KB5002907: Two Layers of Patch Control in Qualys TruRisk Eliminate",
       "summary": "How reliability scoring keeps risky patches out of zero-touch jobs, and how one blocking rule stops a paused update across your environment. Executive Summary Microsoft has paused the rollout of KB5002907, an optional Microsoft 365 Apps update that left some Office 2016 and Office 2019 installations unlicensed or removed. When an update runs into trouble [\u2026]",
-      "link": "https://blog.qualys.com/category/product-tech",
-      "source": "Product and Tech \u2013 Qualys Security Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-09-29T08:28:47+00:00",
-      "published_ts": 1790670527,
-      "smart_groups": [
-        "Identity / Access"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Lessons from Microsoft Patch KB5002907: Two Layers of Patch Control in Qualys TruRisk Eliminate",
-      "summary": "How reliability scoring keeps risky patches out of zero-touch jobs, and how one blocking rule stops a paused update across your environment. Executive Summary Microsoft has paused the rollout of KB5002907, an optional Microsoft 365 Apps update that left some Office 2016 and Office 2019 installations unlicensed or removed. When an update runs into trouble [\u2026]",
       "link": "https://blog.qualys.com/product-tech/2026/09/29/lessons-from-microsoft-patch-kb5002907-two-layers-of-patch-control-in-qualys-trurisk-eliminate",
       "source": "Qualys Security Blog",
       "type": "vendors",
@@ -58305,21 +58403,6 @@
       "published_ts": 1790607624,
       "smart_groups": [],
       "curated": false
-    },
-    {
-      "title": "The Developer is the New Perimeter: How Supply Chain Attacks Are Becoming Cloud Breaches",
-      "summary": "A routine package install can open the door to a cloud breach. Learn how attackers exploit developer credentials. Discover practical steps to contain exposure and protect your cloud environment.",
-      "link": "https://blog.qualys.com/category/vulnerabilities-threat-research",
-      "source": "Qualys Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-09-28T15:00:00+00:00",
-      "published_ts": 1790607600,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC"
-      ],
-      "curated": true
     },
     {
       "title": "Bitget Restarts Bitcoin Withdrawals Following $387.5m Wallet Breach",
@@ -85965,132 +86048,6 @@
       "published_ts": 1789688963,
       "smart_groups": [
         "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "OpenAI admits its models lie to cover their own mistakes",
-      "summary": "OpenAI launches a formal framework to disclose model misalignment, publishing six reports on models that lied, faked data, or bypassed rules. Most companies don\u2019t publish a document explaining how their product misbehaves. OpenAI just did. On September 16, it released a formal framework for tracking, investigating, and disclosing cases of model misalignment, paired with six [\u2026]",
-      "link": "https://securityaffairs.com/199302/ai/openai-admits-its-models-lie-to-cover-their-own-mistakes.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-17T23:07:21+00:00",
-      "published_ts": 1789686441,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "The End of Point-in-Time Compliance: Why Continuous Audit Readiness Matters to You in the AI Era",
-      "summary": "AI-driven threats are outpacing traditional audits. Discover how continuous monitoring, automated evidence collection, and risk-based remediation help security teams close compliance gaps and maintain audit readiness as environments change daily.",
-      "link": "https://blog.qualys.com/product-tech/2026/09/17/end-of-point-in-time-compliance-continuous-audit-readiness",
-      "source": "Qualys Security Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-09-17T22:52:48+00:00",
-      "published_ts": 1789685568,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "AI coding agents' 0-click RCE flaw could hand attackers keys to the kingdom",
-      "summary": "Plugin4Shell attack affects all the major coding agents, researchers say",
-      "link": "https://www.theregister.com/security/2026/09/17/ai-coding-agents-0-click-rce-flaw-could-hand-attackers-keys-to-the-kingdom/5297335",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-17T22:42:29+00:00",
-      "published_ts": 1789684949,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Cisco warns of max severity ISE zero-day exploited in attacks",
-      "summary": "submitted by /u/AsterPrivacy [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wj8ilb/cisco_warns_of_max_severity_ise_zeroday_exploited/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-17T22:32:59+00:00",
-      "published_ts": 1789684379,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "OpenAI Models Are Writing Their Own Jailbreak Instructions\u2014And Sometimes Obeying Them",
-      "summary": "OpenAI's new transparency framework reveals AI models that invented fake \"breach alerts,\" coached themselves to hide mistakes, and smuggled a file onto the public internet to talk to each other.",
-      "link": "https://decrypt.co/378582/openai-models-ai-jailbreak-instructions-obeying",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-17T22:31:03+00:00",
-      "published_ts": 1789684263,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "PhantomFix: a fake bug report to Sentry Seer can get a coding agent to run attacker code (CVE-2026-90999)",
-      "summary": "submitted by /u/Ok-Pepper-2354 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wj86fr/phantomfix_a_fake_bug_report_to_sentry_seer_can/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-17T22:18:43+00:00",
-      "published_ts": 1789683523,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Inside the Modern SOC: Defending the Cross-Environment Pivot",
-      "summary": "Cross-environment attacks demand a new approach to security operations. Learn how Unit 42 Managed XSIAM helps SOC teams investigate complete attack paths. The post Inside the Modern SOC: Defending the Cross-Environment Pivot appeared first on Unit 42 .",
-      "link": "https://unit42.paloaltonetworks.com/soc-cross-environment-pivot/",
-      "source": "https://unit42.paloaltonetworks.com/feed/",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-09-17T22:00:33+00:00",
-      "published_ts": 1789682433,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Micropatches released for Microsoft Excel Remote Code Execution Vulnerability (CVE-2026-40362)",
-      "summary": "July 2026 Windows Updates brought a patch for CVE-2026-40362, a remote code execution vulnerability in Microsoft Excel that allows a remote attacker to execute arbitrary code on user's computer as soon as they open a malicious Excel document. This vulnerability was found by security researchers Jeongmin Choi with S2W and Haein Lee with KAIST Hacking Lab; both reported this finding to Microsoft. Jeongmin subsequently published a detailed article that allowed us to reproduce the issue and create patches for legacy Microsoft Office users. The Vulnerability The vulnerability is a rare case of \"buffer underflow,\" whereby the flawed code is going backward through an array to locate the element before the last populated one; and when the array is empty, the code locates the element before the start of the arrray, i.e., the \"minus first element.\" This is of course not a part of the array's memory space, so the code overwrites some data located before the array with attacker-controlled content.",
-      "link": "https://0patch.com/blog/micropatches-released-for-microsoft-excel-remote-code-execution-vulnerability-cve-2026-40362",
-      "source": "0patch Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-09-17T22:00:00+00:00",
-      "published_ts": 1789682400,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Windows / Microsoft"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Unsupervised Learning NO. 543",
-      "summary": "Hackers Steal Flock's Camera Software, 153M Driver's Licenses Leaked, My 117 Anthropic Misuse Report Findings, Why I Think ASI Is Imminent, and more...",
-      "link": "https://newsletter.danielmiessler.com/p/unsupervised-learning-no-543",
-      "source": "https://rss.beehiiv.com/feeds/gQxaV1KHkQ.xml",
-      "type": "podcasts",
-      "type_label": "Podcasts & YouTube",
-      "published": "2026-09-17T21:52:06+00:00",
-      "published_ts": 1789681926,
-      "smart_groups": [
-        "Linux / Unix"
       ],
       "curated": false
     },
