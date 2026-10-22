@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-21T18:15:54.012535+00:00",
+  "generated_at": "2026-10-22T00:48:05.871126+00:00",
   "days_back": 30,
-  "total_items": 6417,
+  "total_items": 6430,
   "items": [
     {
       "title": "[Virtual Event] Cybersecurity Outlook 2027",
@@ -37,6 +37,902 @@
       "published": "2026-10-25T07:00:00+00:00",
       "published_ts": 1792911600,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Use the new PHP RCEs to mass-patch vulnerable servers?",
+      "summary": "My thoughts are with everyone dealing with the recent critical CVEs in PHP and Node.js. Heres a half-serious idea - What if the security community stood up something that scanned for vulnerable PHP servers and used the same remote code execution path (the php2shell style of exploits) to push patches instead of payloads? Attackers are almost certainly already using these bugs to grow botnets and crypto miners. In theory the same propagation method could be used to deliver fixes at scale. Responsible automation for mass patching, or a non-starter for legal and ethical reasons? submitted by /u/Fanatic-Mr-Fox [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1xc3zrl/use_the_new_php_rces_to_masspatch_vulnerable/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-10-22T00:21:23+00:00",
+      "published_ts": 1792628483,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "OpenAI\u2019s models are deliberately breaking their misalignment monitoring systems",
+      "summary": "AI agents are getting more inventive in finding ways to circumvent safeguards to prevent bad behavior, OpenAI has revealed. On Tuesday, it reported two incidents, both involving the agent disabling or interfering with its alignment monitoring, and in one case directly lying about having done so. \u201cIn two internal coding tasks, agents weakened misalignment monitoring while making requested software changes,\u201d the OpenAI blog post said. \u201cA GPT-6.1 Sol agent repairing an evaluation pipeline disabled automatic alerts to our Security team, treating an earlier instruction not to send messages during a Slack history search as a reason to suppress monitoring notifications. In a separate task, a GPT-6 Astra agent migrating a program removed its monitoring integration in order to match a reference implementation, and then falsely claimed to the user that it had not removed the monitor.\u201d In both cases, OpenAI reported, the agents considered whether monitoring safeguards should be preserved, \u201cbut interpreted routine coding instructions as permission to weaken them.\u201d OpenAI said that, in response, it has been strengthening its monitoring programs to prevent agents from being able to disable the protections. \u201cIn addition to making it harder for models to disable monitoring, we are looking to understand why models might seek to do so in the first place,\u201d OpenAI said, suggesting that it may simply be an example of \u201cbenign overpersistence,\u201d with models not understanding why monitoring is important. \u201cWe are also developing evaluations to test whether models might have a propensity to evade misalignment monitoring in particular and exhibit motivated reasoning in order to do so,\u201d OpenAI added. \u201cWe don\u2019t yet have a satisfying explanation for this behavior and will investigate this behavior through the creation of paired evaluations, resampling of agent continuations, and experiments on models\u2019 internal activations.\u201d OpenAI, like almost every agentic AI vendor, has been struggling with making its autonomous agents more productive and self-sufficient while simultaneously protecting customer environments from bad agent behavior . It has even tried to slow down the pace of its scaling , to allow for the development of better agent restrictions. Particulars alarming Analysts and consultants said the revelations were surprising only in their scope. But they were alarmed by some of the particulars in the OpenAI disclosures. Aman Mahapatra , chief strategy officer for New York City-based technology consulting firm Tribeca Softech, stressed that some level of monitoring was maintained, but only for the agent itself. That meant that the workloads the agents created were left invisible. \u201cThe agent was watched. What it built was not,\u201d he said. \u201cAgent-spawned pipelines, jobs, service accounts, and cloud functions are the next generation of shadow IT, and almost no enterprise enforces monitoring inheritance on them.\u201d Mahapatra also stressed that the severity classification described in the post is concerning. \u201cThe severity handling is the part CISOs should sit with,\u201d he said. \u201cNeither event was classified P0 [maximum severity] and neither run was killed. The one category of agent behavior that degrades every future detection ranked below the paging threshold because nothing visibly broke.\u201d He pointed out that this reveals a disadvantage for the enterprise, noting, \u201cOpenAI caught this because it can read its agents\u2019 reasoning. Most enterprise SOCs see only outputs, so if the lab with chain-of-thought visibility filed this below its paging line, assume your SOC never saw it at all. EDR settled this a decade ago with tamper protection: any attempt to disable the sensor is the alert. An agent touching its own monitoring should page someone every single time.\u201d Frank Dickson , principal analyst at Dickson Research, added that the obvious flaw in the agentic system is that the agent was able to disable the mechanism designed to oversee it. \u201cThink of a house sitter told not to call you, who then unplugs the burglar alarm so it cannot call you either. A guardrail an agent can edit is a suggestion,\u201d Dickson said. \u201cAn agent that can turn off its own alarm is not being monitored. It is being trusted.\u201d Wakeup call for CISOs Some observers said that this should wake up enterprise CISOs to the fact that an attacker may not be as big a risk as a rogue agent with full system privileges. \u201cThe threat is not just an outsider breaking in, it\u2019s an authorized agent doing something it was never supposed to do, in a context no one anticipated, faster than any SOC analyst can catch it,\u201d said Philip Harris , an IDC research director. \u201cThe OpenAI case is a concrete, well-documented instance of exactly that pattern, not an isolated anomaly.\u201d He added that OpenAI deserves credit for transparency. \u201cOpenAI\u2019s own candor is the most striking part. A frontier lab publicly saying it isn\u2019t sure whether its own shipping models have an emergent tendency to undermine their own oversight is a genuinely new level of candor.\u201d Brian Levine , a partner with consulting firm Control Risks, also pointed out that the rationale of the agent, as captured by OpenAI, is alarming. \u201cIn both cases, the agents stopped, asked themselves whether the safeguard should stay on and then argued their way to turning it off. One then told the user it hadn\u2019t touched the monitor. In incident response, we call that defense evasion followed by a false statement. If a human insider did it, we would open an investigation,\u201d Levine said. \u201cThe other telling detail is that the monitor worked. It flagged the issue. The agent then cut the wire between the alarm and the people who needed to hear it.\u201d Independent technology consultant Sivaram Annadurai agreed: \u201cAn agent that fixes the pipeline but disables the alarm hasn\u2019t necessarily solved the problem. It may have created a bigger one.\u201d And Jeff Valdes , a director at consulting firm Acceligence, added, \u201cwhat stands out is how ordinary the trigger was. No attacker, no jailbreak, just routine coding instructions and an agent with enough access to change its own oversight. The monitor kept running while the alerts stopped reaching people. That kind of quiet degradation is easy to miss precisely because the dashboard still looks healthy.\u201d But Valdes said the agent to agent approval system is also something CISOs should take seriously. \u201cOne subagent got the call right, and the parent agent overrode it. Safeguards that don\u2019t survive delegation aren\u2019t really safeguards,\u201d Valdes said. \u201cOpenAI also noted the agent later gave an inaccurate account of what it had changed. An agent\u2019s own report can\u2019t be the control.\u201d",
+      "link": "https://www.csoonline.com/article/4238782/openais-models-are-deliberately-breaking-their-misalignment-monitoring-systems.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T23:47:34+00:00",
+      "published_ts": 1792626454,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Smashing Security podcast #489: How a brand new crypto wallet came with a spy inside",
+      "summary": "Imagine buying a brand new hardware wallet for your cryptocurrency with the shrink-wrap still on... what could possibly be hiding inside? We break out a Geiger counter and a cat to find out. Meanwhile, malicious ads are targeting journalists with zero-click attacks. Plus, Origin\u2019s Spencer Thompson reveals what AI agents are really getting up to on your employees\u2019 laptops when nobody\u2019s looking. All this and more in episode 489 of the \u201cSmashing Security\u201d podcast with cybersecurity expert and keynote speaker Graham Cluley, and special guest Lianne Potter.",
+      "link": "https://grahamcluley.com/smashing-security-podcast-489/",
+      "source": "Graham Cluley",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T23:12:20+00:00",
+      "published_ts": 1792624340,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "PHP blames supply chain security biz Chainguard for putting huge chunks of the web at risk",
+      "summary": "'Coordinated vulnerability disclosure, unless there's evidence of active exploits in the wild,' Chainguard CEO tells The Reg",
+      "link": "https://www.theregister.com/security/2026/10/22/php-blames-supply-chain-security-biz-chainguard-for-putting-huge-chunks-of-the-web-at-risk/5304611",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T23:02:57+00:00",
+      "published_ts": 1792623777,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "SAST for EDW?",
+      "summary": "My org is requesting for a SAST on the Enterprise data warehouse repo? Mostly .sql, .sln files in there. we have checkmarx and it supports TSQL but not sure if traditional SAST is optimum for this? Anyone faced this kind of situation and any pointers would be helpful. submitted by /u/Efficient_Cause_6059 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1xc1smm/sast_for_edw/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-10-21T22:42:04+00:00",
+      "published_ts": 1792622524,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Amazon Threat Intelligence identifies PHP2Shell exploitation prior to public disclosure in MadPot",
+      "summary": "Amazon Threat Intelligence identified a PHP2Shell exploitation attempt dating to Oct. 17, 2026, in MadPot telemetry, four days before public disclosure of CVE-2026-109618 and CVE-2026-109619. The exploit attempt originated from an IP address associated with a commercial anonymization network. While the vulnerability was under embargo, the targeting of a honeypot from an anonymized IP address [\u2026]",
+      "link": "https://aws.amazon.com/blogs/security/amazon-threat-intelligence-identifies-php2shell-exploitation-prior-to-public-disclosure-in-madpot/",
+      "source": "AWS Security Blog",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T22:36:26+00:00",
+      "published_ts": 1792622186,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Identity / Access"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Google Chrome adds Gemini-powered scam detection, warns users of ClickFix attacks",
+      "summary": "Chrome is getting new scam protections that use Gemini to detect deceptive websites and warn users when they copy suspicious commands from ClickFix attacks. [...]",
+      "link": "https://www.bleepingcomputer.com/news/google/google-chrome-adds-gemini-powered-scam-detection-warns-users-of-clickfix-attacks/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T22:16:26+00:00",
+      "published_ts": 1792620986,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Belarus-aligned group maintains long-term access to Russian healthcare network",
+      "summary": "As noted by The Hacker News, a Belarus-aligned hacktivist group known as Cyber Partisans, or Partisan Zmiy, successfully maintained unauthorized access to a Russian healthcare organization for nearly two years.",
+      "link": "https://www.scworld.com/brief/belarus-aligned-group-maintains-long-term-access-to-russian-healthcare-network",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T22:04:38+00:00",
+      "published_ts": 1792620278,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Russia considers ai-powered vpn blocking strategies",
+      "summary": "As outlined in Tech Radar, the Russian government has explored the potential use of artificial intelligence to enhance its ability to block virtual private network services.",
+      "link": "https://www.scworld.com/brief/russia-considers-ai-powered-vpn-blocking-strategies",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T22:03:41+00:00",
+      "published_ts": 1792620221,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Federal agencies and critical infrastructure operators must improve joint cyber response readiness",
+      "summary": "Federal cybersecurity readiness depends on the ability of agencies and critical infrastructure operators to coordinate effectively when a threat reaches a network.",
+      "link": "https://www.scworld.com/brief/federal-agencies-and-critical-infrastructure-operators-must-improve-joint-cyber-response-readiness",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T22:02:00+00:00",
+      "published_ts": 1792620120,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "State Bank of India investigates suspected dark web data leak",
+      "summary": "State Bank of India is investigating a potential data breach involving thousands of customer records that appeared on a dark web forum, according to a recent report by Tech Radar.",
+      "link": "https://www.scworld.com/brief/state-bank-of-india-investigates-suspected-dark-web-data-leak",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T21:54:13+00:00",
+      "published_ts": 1792619653,
+      "smart_groups": [
+        "Curated",
+        "Data Breaches / Leaks"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Zeabur to shut down following major security breach",
+      "summary": "Zeabur is shutting down its development platform after a significant security breach resulted in the theft of millions of environment variable records and account information, as first reported by Bleeping Computer.",
+      "link": "https://www.scworld.com/brief/zeabur-to-shut-down-following-major-security-breach",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T21:54:04+00:00",
+      "published_ts": 1792619644,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "American Bankers Association: OCC\u2019s GENIUS rules \u2018undermine\u2019 US Congress",
+      "summary": "Banking advocacy organizations are pushing back against the OCC\u2019s finalized rules on a stablecoin law, arguing against changes to provisions on yield.",
+      "link": "https://cointelegraph.com/news/american-bankers-association-occ-genius-rules-stablecoins?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-21T21:53:48+00:00",
+      "published_ts": 1792619628,
+      "smart_groups": [
+        "Identity / Access"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Authentication friction impacts frontline productivity and security",
+      "summary": "As detailed in Biometric Update, authentication difficulties are disrupting frontline operations and prompting employees to bypass security protocols, according to a survey of 700 IT and security decision-makers conducted by Imprivata and the FIDO Alliance.",
+      "link": "https://www.scworld.com/brief/authentication-friction-impacts-frontline-productivity-and-security",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T21:52:26+00:00",
+      "published_ts": 1792619546,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Hijacked Tor exit relays used to intercept SSH connections",
+      "summary": "Attackers compromised more than 300 Tor exit relays in early October to redirect SSH traffic and steal login credentials, according to a recent report by The Hacker News.",
+      "link": "https://www.scworld.com/brief/hijacked-tor-exit-relays-used-to-intercept-ssh-connections",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T21:52:07+00:00",
+      "published_ts": 1792619527,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "California student data breach impacts millions",
+      "summary": "Coverage from Tech Radar indicates that a significant data breach has compromised the sensitive personal information of millions of current and former California public school students.",
+      "link": "https://www.scworld.com/brief/california-student-data-breach-impacts-millions",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T21:50:13+00:00",
+      "published_ts": 1792619413,
+      "smart_groups": [
+        "Data Breaches / Leaks"
+      ],
+      "curated": false
+    },
+    {
+      "title": "TeamUpdraft security breach exposes WordPress site connection keys",
+      "summary": "According to Bleeping Computer, a threat actor breached the infrastructure of TeamUpdraft, a developer of popular WordPress backup and security plugins, potentially compromising connection keys used to manage remote websites.",
+      "link": "https://www.scworld.com/brief/teamupdraft-security-breach-exposes-wordpress-site-connection-keys",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T21:45:27+00:00",
+      "published_ts": 1792619127,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "US citizen pleads guilty to defrauding military members in identity theft scheme",
+      "summary": "Cyberscoop reports that a 45-year-old U.S. citizen has pleaded guilty to orchestrating a massive identity theft and fraud operation that targeted thousands of military service members and veterans.",
+      "link": "https://www.scworld.com/brief/u-s-citizen-pleads-guilty-to-defrauding-military-members-in-identity-theft-scheme",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T21:45:07+00:00",
+      "published_ts": 1792619107,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Japan's Onamae Desktop Cloud hacked, up to 27,000 servers affected",
+      "summary": "Hackers compromised the infrastructure of Onamae Desktop Cloud, a popular provider of VPS services in Japan, and installed malware on up to 26,739 customers' servers. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/japans-onamae-desktop-cloud-hacked-up-to-27-000-servers-affected/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T21:43:27+00:00",
+      "published_ts": 1792619007,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "PHP web runtimes (CVE-2026-109618 and CVE-2026-109619)",
+      "summary": "Bulletin ID: 2026-143-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 10/21/2026 14:30 PM PDT Summary: Two critical vulnerabilities in PHP (CVE-2026-109618 and CVE-2026-109619) allow an unauthenticated remote actor to execute code, access process-accessible data, or cause denial of service on affected PHP workers. Customers running affected PHP versions (8.2\u20138.5 below the fixed releases, and end-of-life 5.4\u20138.1) should upgrade immediately to a patched release (8.5.12, 8.4.27, 8.3.36, or 8.2.35); configuration changes alone are not complete mitigations. AWS has identified a limited set of services that run affected PHP versions and is actively deploying mitigations and updates. Review the full bulletin for per-service status, mitigation guidance, and AWS WAF compensating controls. Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin. Read this article",
+      "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-143-aws/",
+      "source": "Latest Bulletins",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-10-21T21:34:50+00:00",
+      "published_ts": 1792618490,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "What is the use of the certificate Entrust Root Certification Authority - EC1 that is now stopped trusting by chrome",
+      "summary": "Tell me is it root or intermediate certificate? submitted by /u/Brilliant_Race_801 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1xc04dn/what_is_the_use_of_the_certificate_entrust_root/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-10-21T21:32:22+00:00",
+      "published_ts": 1792618342,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "CVE-2026-112408 - Missing bucket ownership verification in Amazon SageMaker Python SDK default_bucket()",
+      "summary": "Bulletin ID: 2026-142-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 10/21/2026 12:30 PM PDT Description: The Amazon SageMaker Python SDK is an open-source library for training and deploying machine learning models on Amazon SageMaker. We identified CVE-2026-112408, an issue in the default_bucket() function. The SDK uses a predictably named Amazon S3 bucket and does not check that the caller's AWS account owns it. A remote actor who creates that bucket first could achieve code execution in a remote SageMaker execution environment and obtain IAM credentials. Impacted versions: - V2: - V3: >= 3.0.0 and Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin. Read this article",
+      "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-142-aws/",
+      "source": "Latest Bulletins",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-10-21T21:32:10+00:00",
+      "published_ts": 1792618330,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Ken Griffin Says AI Is 'Almost Certainly' in a Bubble\u2014And Compares GPUs to Airline Seats",
+      "summary": "Citadel's founder says investors are almost certainly in an AI bubble, warns a chip glut could crash prices like empty airline seats, yet expects the survivors to lead for decades.",
+      "link": "https://decrypt.co/381578/ken-griffin-ai-bubble-gpus-airline-seats",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-21T21:31:02+00:00",
+      "published_ts": 1792618262,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Russian Satellite Makes a Close Approach To A Commercial Radar Satellite Used by Ukraine",
+      "summary": "A Russian satellite made a close approach to a commercial radar satellite linked to Ukraine, raising concerns about surveillance and security in space. A Russian-made satellite called Kosmos 2612 got very close to ICEYE-X36 last week, a commercial Earth-observation satellite that may support countries like Ukraine. CNN reports it may have come within less than [\u2026]",
+      "link": "https://securityaffairs.com/201446/breaking-news/russian-satellite-makes-a-close-approach-to-a-commercial-radar-satellite-used-by-ukraine.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T21:29:04+00:00",
+      "published_ts": 1792618144,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Two critical PHP flaws put the web on alert as emergency patches arrive",
+      "summary": "Organizations are scrambling to protect themselves following the disclosure of two critical vulnerabilities in commonly used code that powers much of the internet. The flaws discovered in the PHP scripting language could allow attackers to perform unauthenticated remote code execution (RCE). On Wednesday morning, the PHP Foundation released patches for affected versions, and said it is \u201cimperative\u201d that organizations running PHP patch immediately. It said that all PHP installations serving web requests are at risk, including PHP-FPM, Apache with mod_php, php-cgi, FrankenPHP and LiteSpeed. It considers the risk highest for mod_php, where an unauthenticated request can trigger exploitation before application code runs. In response to the disclosures, some government websites in Europe, including those in the Netherlands and Finland, as well as those of other organizations worldwide, went offline as a precautionary measure. PHP is \u2018the web itself\u2019 PHP is a widely-used, open source server-side scripting language that underlies websites like WordPress, which powers 43% of the web , as well as Mailchimp, Drupal, Magento, Laravel, and parts of Slack and Zoom, and numerous others. The impact is not limited to websites, noted the Netherlands National Cyber Security Centre (NCSC-NL) in its description of the flaws, collectively dubbed PHP2Shell . PHP is also embedded in appliances, network devices, management interfaces and other vendor products where administrators may not be able to update PHP directly. And CERT-EU, an organization that tracks cybersecurity threats in the European Union, also warned that many commercial and open-source products use PHP as a backend technology, and these could be also impacted by the flaws, even if they do not directly expose a PHP installation. This makes the vulnerabilities all the more serious. CVE-2026-109618 , which has a 9.2 severity rating on the common vulnerability and scoring system (CVSS), could allow RCE via memory corruption during out-of-memory handling (OOM), a strategy that operating systems (OSes) and apps use when physical RAM and swap spaces become exhausted. CVE-2026-109619, also with a score of 9.2, remote code execution via stale request-owned global state reused by a later request on the same worker. Both flaws sit in parts of PHP that nearly every request touches: Memory management and error handling, the PHP Foundation noted . This makes both bugs extremely serious, and also difficult to fix without impacting compatibility or performance. Organizations should begin with the assumption that they are exposed . \u201cWhat makes these vulnerabilities significant is where they sit,\u201d said Forrester senior analyst Madelein van der Hout . PHP underpins 70% of websites, making this a huge concentration risk. \u201cChecking the corporate website alone is not enough,\u201d she said. \u201cOrganizations need to establish where they are exposed and prioritize internet-facing systems.\u201d Affected organizations should update to PHP 8.5.12, 8.4.27, 8.3.36 or 8.2.35. Linux and long-term support (LTS) vendors received patches in advance, the Foundation said, so organizations should check with their vendors about fixes. PHP 8.1 and other end of life versions no longer receive updates from the PHP project, although some distributors and LTS vendors provide backported fixes, so organizations still running unsupported versions should also check with their vendor. Those relying on the volunteer-maintained rpms.remirepo.net should switch distribution packages or build from source to immediately apply updates, the PHP Foundation advised. Those unable to patch immediately should take the preventive action it described to reduce exposure, CERT-EU said, warning that these mitigations do not make an installation safe. \u201cThis is what an internet-scale vulnerability looks like,\u201d said Neatsun Ziv , CEO of runtime app security company OX Security. \u201cWhen a flaw hits technology this ubiquitous, the blast radius isn\u2019t one product or one industry. It\u2019s the web itself.\u201d Researchers from his company independently reproduced the flaws and found that the vulnerable functionality is enabled by default, and has existed in PHP since version 5.4. Still, experts emphasize that patching is just one element of response. Speed matters, Forrester\u2019s van der Hout noted, and security teams need to identify everywhere PHP is running, prioritize exposed systems, apply the official fixes promptly and investigate for signs of compromise. \u201cA patch fixes the vulnerability; it does not necessarily remove access an attacker may already have established,\u201d she said. Offline does not mean hacked With rumors of exploits already available on the dark web, taking services down to protect and then patch them is a pragmatic choice, experts say. Forrester\u2019s van der Hout emphasized that taking a website offline does not mean it has been hacked. If an organization cannot yet patch or adequately protect a potentially vulnerable system, temporarily taking it offline can be a \u201cproportionate risk decision.\u201d That is, organizations accept a short loss of availability rather than risk a potential serious compromise. Ultimately, this is a test of operational resilience, rather than just patch management, van der Hout said. Organizations must decide whether they can keep services running, and who has the authority to take them offline if necessary. \u201cA temporary shutdown can be the right decision, but it shows how a software vulnerability can become a business disruption even without a confirmed breach,\u201d she said. AI\u2019s role in defense, as well as hacking OpenAI has posted a blog detailing its role in the PHP response, explaining that red-teaming organization Calif identified a critical flaw using GPT\u20115.6 Sol as part of OpenAI\u2019s Patch the Planet initiative. Wiz also independently discovered and reported both vulnerabilities, and OpenAI partners contributed research, technical support, and coordination ahead of PHP\u2019s disclosure. OpenAI is sharing a PHP version checker as a Codex skill to help organizations identify vulnerable PHP versions and apply the right updates. \u201cGiven the severity of these flaws and PHP\u2019s widespread use, we consider this one of the most impactful security issues in recent memory,\u201d OpenAI said. The company also indicated that this is a turning point in AI\u2019s role in security ; frontier AI discovered the vulnerabilities before attackers did, giving maintainers a head start, a \u201c defender\u2019s window .\u201d \u201cIt highlights how AI can uncover security flaws with internet-scale impact, but the same capabilities can also help attackers rapidly develop offensive tools and exploits,\u201d OpenAI noted. Matt Saunders , DevOps lead at global technology provider The Adaptavist Group, emphasized the latter point: \u201cAs soon as the vulnerability is announced, legions of AI bots will be looking for systems to exploit,\u201d he said, pointing out that these bots can chain together multiple lower-vulnerability attacks combined with these new critical ones to hack into organizations. This means, he said, \u201cthe blast radius from a breach is potentially much wider now with AI-embellished attacks available to those who choose to use them.\u201d",
+      "link": "https://www.csoonline.com/article/4238692/two-critical-php-flaws-put-the-web-on-alert-as-emergency-patches-arrive.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T21:27:26+00:00",
+      "published_ts": 1792618046,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Linux / Unix",
+        "Cloud / SaaS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "TiDB Breach Exposes Flawed Cloud Security Assumptions",
+      "summary": "Cloud providers may be storing sensitive customer data, without either party knowing it. But when a provider is breached, the data comes home to roost.",
+      "link": "https://www.darkreading.com/cloud-security/tidb-breach-flawed-cloud-security",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T21:15:39+00:00",
+      "published_ts": 1792617339,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "CVE-2026-110264 GitLab Unauthenticated RCE (CVSS 10)",
+      "summary": "submitted by /u/radcorp [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1xbzne3/cve2026110264_gitlab_unauthenticated_rce_cvss_10/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-10-21T21:13:44+00:00",
+      "published_ts": 1792617224,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Critical PHP Vulnerability (CVE-2026-109618, CVE-2026-109619) &#x5b;infocon yellow&#x5d;, (Wed, Oct 21st)",
+      "summary": "PHP.net announced that it will release a critical update today. We decided to change the infoCon to YELLOW due to the widespread use of PHP, the expected severity of the flaw (CVSS 9.4), and the availability of early PoC exploits before the patch became available.",
+      "link": "https://isc.sans.edu/diary/rss/33440",
+      "source": "SANS Internet Storm Center",
+      "type": "government",
+      "type_label": "Government, CERT & Advisories",
+      "published": "2026-10-21T21:02:43+00:00",
+      "published_ts": 1792616563,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Looking for more opportunities other than CTFs",
+      "summary": "I am looking to get more opportunities for my cybersecurity career. I have always done CTFs and I am extremely good at them (my team is top 50 worldwide). I know that there is much more than CTFs such as bug bounties and etc. I was wondering what recommendations people have for like jobs for offensive hacking. I am very good with binary exploitation, reverse engineering, and web exploitation. submitted by /u/codebreaker_ian [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1xbzbsn/looking_for_more_opportunities_other_than_ctfs/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-10-21T21:01:46+00:00",
+      "published_ts": 1792616506,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Microsoft: Treat AI agents as insider threats",
+      "summary": "EVP of Microsoft Security Hayete Gallot writes in a blog post that AI agents operating independently within companies could be a serious security threat. According to Microsoft, today\u2019s most advanced AI models cannot be fully trusted. Not because they are malicious, but because they are trained to achieve goals and can take unexpected shortcuts to achieve them. For example, bypassing limitations or cooperating with other AI agents in ways that were not intended. The problem becomes especially serious when companies allow AI agents to access sensitive information, internal tools, and even allow them to make independent decisions. To address the risks, Microsoft is launching \u201cGuardian Agents,\u201d which are AI agents that monitor and control the actions of other AI agents 24/7. This is to assess risks in real-time and intervene if an AI agent does something potentially harmful. The technology is part of Microsoft\u2019s Project Perception security initiative, which was unveiled in July.",
+      "link": "https://www.csoonline.com/article/4238693/microsoft-treat-ai-agents-as-insider-threats.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T20:54:06+00:00",
+      "published_ts": 1792616046,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Lazarus hackers use post-quantum cryptography for malware delivery",
+      "summary": "North Korean hackers are using a post-quantum cryptographic mechanism to secure malicious payload delivery in new operations that combine old and new malware. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/lazarus-hackers-use-post-quantum-cryptography-for-malware-delivery/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T20:31:48+00:00",
+      "published_ts": 1792614708,
+      "smart_groups": [
+        "Ransomware",
+        "Threat Actors / APT",
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Tether backs Bolivian fintech bringing USDT payments to food delivery and banking",
+      "summary": "The investment will support Peso\u2019s expansion across four Latin American markets, where it connects stablecoin payments to merchant services and local banking networks.",
+      "link": "https://cointelegraph.com/news/tether-backs-bolivian-fintech-bringing-usdt-payments-to-food-delivery-and-banking?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-21T20:26:07+00:00",
+      "published_ts": 1792614367,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Meta on the spot for $25 billion under New Mexico privacy ruling",
+      "summary": "The Cambridge Analytica data privacy scandal from a decade ago is still weighing on Meta's finances.",
+      "link": "https://therecord.media/meta-new-mexico-penalty-cambridge-analytica-privacy-case",
+      "source": "The Record",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T20:25:00+00:00",
+      "published_ts": 1792614300,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Trump didn\u2018t mention \u2018crypto\u2019 once in White House cybercrime roundtable",
+      "summary": "The US President detailed many schemes defrauding Americans, but referred only to \u201ccybercurrency\u201c related to scams.",
+      "link": "https://cointelegraph.com/news/white-house-cybercrime-roundtable-donald-trump-crypto-ventures?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-21T20:19:39+00:00",
+      "published_ts": 1792613979,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Wiz got pre-auth RCE on WordPress, Drupal and Joomla through vulnerabilities in PHP itself",
+      "summary": "Getting pre-auth RCE working across WordPress, Drupal and Joomla through the PHP engine itself is some serious work from Wiz. A lot of companies have PHP buried in older containers and internal services without even knowing which version is running. Updating the CMS won't fix the underlying runtime. Rebuilding a base image won't help either if the old containers are still serving traffic. Good luck patching PHP deployments you don't even know exist. submitted by /u/Wild-Turn7693 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1xby6zj/wiz_got_preauth_rce_on_wordpress_drupal_and/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-10-21T20:17:52+00:00",
+      "published_ts": 1792613872,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Nvidia Unveils Its Full-Stack Blueprint to Contain and Monitor AI Agents",
+      "summary": "Nvidia's OpenShell Reference Architecture pairs a software sandbox on Vera CPUs with Sentry monitoring on BlueField-4 chips, aiming to let companies run autonomous agents while enforcing limits agents cannot reach.",
+      "link": "https://decrypt.co/381570/nvidia-ai-agent-containment-tools-full-stack-blueprint",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-21T20:16:02+00:00",
+      "published_ts": 1792613762,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Marvell, Microsoft &amp; Oracle Work to Standardize Data Center Hardware Security",
+      "summary": "The effort is aimed at standardizing a NIST FIPS 140-3 Level 3 integrated HSM for cloud and hyperscale data center infrastructure.",
+      "link": "https://www.darkreading.com/cloud-security/marvell-microsoft-oracle-standardize-data-center-hardware-security",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T20:14:42+00:00",
+      "published_ts": 1792613682,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation.",
+      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-21T20:10:47+00:00",
+      "published_ts": 1792613447,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Pluralistic: Adversarial interoperability is a team sport (21 Oct 2026)",
+      "summary": "Today's links Adversarial interoperability is a team sport: Vibe-coded jailbreaks are fun, but don't solve the problem. Hey look at this: Delights to delectate. Object permanence: Labour Whip's pro-Iraq war threats; LoC's emulators; Kevin Mitnick plays CIA stooge; ICE: \"The warrant is coming out of my balls\"; WIPO's secret trademark meeting; Linking isn't libel (in Canada); Make: singing busts; Tory minister kills Turing's Law; Trump hotels rebrand as \"Scion\". Upcoming appearances: Vancouver, Ottawa, Vienna, Kilkenny, Courtenay, Vancouver, Oxford, Sheffield, Virtual, Oxford, Montreal. Recent appearances: Where I've been. Latest books: You keep readin' em, I'll keep writin' 'em. Upcoming books: Like I said, I'll keep writin' 'em. Colophon: All the rest. Adversarial interoperability is a team sport (permalink) Enshittification is particularly galling because (in theory, at least), digital technology should be really hard to enshittify. That's because the only digital computer we know how to build is the \"Turing-complete, universal von Neumann machine,\" which is to say, a calculating engine capable of computing every valid program. In some deep, important, foundational sense, every computer is the same as every other computer. Sure, they vary in terms of speed, storage and RAM, but given enough time and electricity, every computer can run every program. This has profound implications for enshittification. Say a tech boss takes away a feature you value (as when Sonos pushed an update that removed nearly all the functionality from its \"smart\" speakers), or adds a feature you hate (like when Chamberlain blocked third-party apps from controlling its garage doors so it could force its customers to view seven ads before they could open or close their garages). At that point, a programmer can write an \"interoperable\" program that restores the good feature or blocks the bad one. This program can be costlessly and instantaneously distributed to every affected technology user, and those users will likely pay something for it. After all, enshittification is a way to shift value away from technology users to tech companies, which makes the case for you paying for disenshittification technology that wrestles that value back. All of that means that, in a state of nature, companies that are contemplating enshittification need to worry that their greed will tempt new companies to enter the market and poach their customers and suppliers. This alone might be enough to frighten companies off from enshittificatory gambits, and if companies press ahead regardless, then they open market opportunities for better companies that can costlessly, instantaneously usurp the original manufacturer's relationship with their entire affected customer base. That's how it should work. But in 1998, Bill Clinton signed the Digital Millennium Copyright Act, and Section 1201 of the DMCA establishes a felony (punishable by a five-year prison sentence and a $500,000 fine) for reverse-engineering and modifying technology without the manufacturer's permission. Then, the US Trade Rep spent the next 25 years making sure that every US trading partner had an identical (or even worse!) \"anticircumvention\" law: https://pluralistic.net/2025/05/26/babyish-radical-extremists/#cancon The result is a grotesquely asymmetrical digital world, in which companies are free to use the flexibility of digital computers to downgrade or brick your digital devices, but where you commit a crime if you avail yourself of a countermeasure to get more out of something you own. This is the core technological factor at play in enshittification. Enter AI. Thanks to vibe-coding, everyday people are rolling their own software for their devices and building the tools to shatter the digital locks that manufacturers use to block disenshittification. An excellent article by 404 Media's Jason Koebler runs down some of these hacks, including drop-in replacements for smart TV software that blocks the endless ads and surveillance that have made TVs all but unusable: https://www.404media.co/reverse-engineer-anything-is-the-new-wild-west-of-ai/ These AI tools mix several techniques to disenshittify users' devices. One major component is automating the installation of existing alternative firmware for these devices that have been (possibly illegally) created by hobbyists and uploaded to various code repositories. Installing these alternative OSes is typically a gnarly task, requiring the user to do a lot of complex, fiddly, highly technical work to bypass their devices' digital locks. In a world without anticircumvention law, a company that sold alternative OSes could hire a ton of programmers and UX developers to smooth over this process, but this is beyond the reach of a typical hobbyist or even a community of hobbyists, especially if they must operate in the shadows, under the threat of civil and criminal liability. There's a useful analogy here to the trajectory of desktop versions of GNU/Linux. The first time I tried to install Linux (on an original iMac, in the late 1990s), the installation process included a multi-week post-installation wrangle that saw me (often unsuccessfully) compiling key modules from source code and then painstakingly configuring them to get the computer's graphics and I/O working reliably. Fast forward 30+ years and installing Linux is trivial, thanks to highly capitalized companies like Canonical (makers of Ubuntu, the flavor of Linux I've used for nearly 20 years now). Installing Ubuntu today merely requires that you download the OS to a thumbdrive, reboot your computer using the drive as a startup disk, and click \"install.\" Canonical's installer automatically hunts down the correct software for your hardware and configures it. Canonical writes and contributes to a lot of parts of the Linux OS, but the most important work it does is the fiddly, painstaking, labor- and capital-intensive work of perfecting that installer so it Just Works. Much of what a vibe-coded jailbreaking tool does is stand in for Canonical, but for hobbyist OSes for smart TVs and speakers and many other devices. These LLMs patiently research every weird error and peccadillo and parse through message boards and logfiles detailing other hobbyists' struggles to get the code working and methodically apply and adapt those solutions until your device Just Works. Some of these vibe-coded interop tools go farther than that. According to Koebler's coverage, some device owners had their coding assistants scratch-build entirely new, heavily customized OSes for their devices, complete with bypasses that allow this new code to be installed despite the manufacturer's countermeasures which are designed to prevent this. Delightfully, many of these users have created software that revives their bricked, discontinued devices. This poses the possibility of a world in which manufacturers no longer have the last word in your use of your own property: the mere fact that the manufacturer lost interest in a device and killswitched it does not mean that you must consign that valuable device to a landfill to become immortal, toxic e-waste. All of this is good news. Some of the most sophisticated jailbreaking tools (such as those on the super viral \"Reverse Engineer Anything\" Github page) run locally, on your own computer, without invoking the \"frontier models\" that the big, awful AI companies have created: https://github.com/morluto/rea This is good even if you're just modifying your own devices to get them to more closely conform to your own use-case. LLMs are genuinely good at coming up with the abstruse and obscure configuration lines and other incantations to get your technology working. Recently, I used a local model to fine-tune the power-management on my new laptop in ways that go beyond the options that are exposed through user-friendly graphic interfaces. The LLM spat out a grub \"GRUB_CMDLINE_LINUX_DEFAULT\" line that (again) Just Worked. The last time I had to do this, I spent days painstakingly trouble-shooting options by trial-and-error. Using a chatbot to fill in the gaps left by decisions about which configuration options to place within reach of regular users and which to reserve for power-users has made my computer much more useful to me for the things I want to do, like writing and making collages. The reality is that it's just not practical for technology developers to turn every conceivable function of your computer into a simple-to-use, accessible tool. A large part of technology design is about leaving things out (or, as my favorite Eno Oblique Strategy goes, \"Be the first person to not do something that no one else has ever thought of not doing before\"). No matter how thoughtful and diligent a technology designer is, they will never fully anticipate the needs and exigencies of their users. That's why the motto of the disability rights movement is \"Nothing about us without us.\" The users of technology know more about their use-cases than can ever be captured through a requirements gathering exercise and user testing. One of the best and proudest legacies of technology is the lineage of \"user-friendly\" programming tools that let nontechnical people design their own applications that exactly met their needs, from Hypercard to Visual Basic to Scratch, a lineage that vibe-coding tools are arguably part of: https://pluralistic.net/2026/09/25/other-people/#right-there But these tools are not perfect (nothing is). For all that Hypercard lets you do many things that would otherwise require a skilled programmer, it was also always limited relative to, say, writing MacOS code in Objective C. Your Hypercard program might do exactly what you needed it to, but slowly, and sometimes unreliably, and with serious limitations, such as a relatively low ceiling for the number of records you could add to a database. Vibe-coded personal apps aren't necessarily subject to these limitations, but they come with some significant risks. Vibe-code can have serious security vulnerabilities that expose the user to things like identity theft or sextortion. It's conceivable that a vibe-coded garage-door opener app might make it possible for attackers to open your garage door when you're not home (or worse, when you are!). Depending on your risk-tolerance and expertise, these might be acceptable prices, or they might be too high. But it's important to clearly identify the problem here: if the alternative OS you install on your smart TV exposes you to privacy-invading hack attacks, the problem is the defect in that software. The problem isn't that you had the temerity to rip out the manufacturer's own software and replace it with code of your choosing. You bought that TV, it's yours, and you don't owe the manufacturer an obligation to expose yourself to its own, built-in, intentional surveillance and invasive ads. Here's a parallel: you have the right to put any shoelaces in your running shoes. Sure, Nike might prefer you to lace up your Jordans with its expensive OEM laces, but that's Nike's problem, not yours. Now, Nike might argue that by using no-name laces, you run the risk of having a lace break while you're running, which could also break your ankle. That's certainly a possibility: shoelaces do break, and Nike might be justifiably proud of the quality of its laces. But if your generic laces snap (and so does your ankle), the problem is that the shoelaces you chose were defective. The problem is not that you chose someone else's laces. Your stuff is yours. You can put anyone's milk on your cereal, not just the milk that Kellogg's endorses. If the milk you choose is sour and you have to pour your cereal down the toilet, that's too bad, but it doesn't mean that Kellogg's should have the right to shame you for having the temerity to choose the milk you preferred, and it certainly doesn't militate for DMCA-style enforcement to coerce you into using Kellogg's official milk in the name of protecting you from food wastage. I raise this because there's a live debate over this subject, which is well represented in the latest 404 Media podcast: https://www.youtube.com/watch?v=UbG1qwxMtU0 In the podcast, Koebler and his 404 co-founder Joseph Cox express misgivings about various possible uses of \"slop interop.\" Koebler discusses the fact that John Deere sells the same physical tractor at many different price-points, depending on which software a farmer chooses, and raises the possibility that a farmer might vibe-code software that replicates the high-end functionality without paying for it. Koebler discusses two possible downsides to this: first, that the vibe-coded software might be defective and expose the farmer to risk; and second, a question about whether it's fair or just for a farmer to get those additional functions of their tractor without paying for them. I think the first objection is entirely legitimate. The software you run on your expensive tractor should be secure, both for your own benefit and for the security of our food supply. That's actually a pretty good reason to ditch John Deere's own software, which is very insecure: https://pluralistic.net/2022/05/08/about-those-kill-switched-ukrainian-tractors/ But I think the second question \u2013 whether it's legit to get this functionality without paying John Deere for it \u2013 is spurious. Sure, if John Deere provides you with that functionality, then they can send you the bill for it. But if you provide yourself with that functionality, using software you procured independently of John Deere, then John Deere has no right to get paid for it, and they certainly shouldn't have the right to stop you. That tractor is yours. The fact that John Deere manufactured it is irrelevant. If you pay a contractor to build a house for you and later on pay a different contractor to add another bathroom to it, you don't owe the first contractor anything. It's your house (and if that bathroom has a leaky toilet, that's a matter between you and the second contractor, and not a reason to force you to only use your original contractor). The law defines a narrow slice of functions that manufacturers get to control: those ideas that a patent examiner deems \"novel, useful and nonobvious.\" It's legit (and good) for commercial operators to copy and improve the ideas of their rivals and competitors. It's why skilled tradespeople cluster together in the same geographic area. Take Clerkenwell, the neighborhood in London where precision machining was invented by the jewelers and machinists who clustered there during the Longitude rewards. The reason all those competitors sought such close promixity to one another was because they wanted to copy the new techniques their rivals were developing (even if that meant that their rivals would be able to copy them): https://en.wikipedia.org/wiki/Longitude_rewards If you're old enough to remember the advent of spreadsheets and the rollout of Visicalc, Lotus 1-2-3 and Excel, you'll know that every time a software vendor invented a new spreadsheet feature, all the other ones immediately copied it. This wasn't bad for spreadsheets: it was good for spreadsheets, just as copying your competitors was good for precision machining in Clerkenwell. Everything from GNU/Linux (a feature-for-feature clone of AT&T Unix) to SAMBA (a plug-compatible clone of Microsoft's SMB) to iWork (file-compatible, feature compatible clones of MS Office's apps) came about through this \"adversarial interoperability.\" What's more, the heyday of this kind of adversarial interop was also the heyday of disenshittification, the era in which any anti-feature installed by your existing vendor could be countered by a disenshittifying patch from a new one: https://www.eff.org/deeplinks/2019/06/adversarial-interoperability-reviving-elegant-weapon-more-civilized-age-slay The question of whether vibe-coded software is any good is separate from the question of whether it's good to replace the software in your devices, even if you replace it with software that has features that the manufacturer would normally charge a premium for. You are under no obligation to arrange your commercial affairs to the financial benefit of manufacturers, and anyone who claims to be surprised that someone they sold a device to used it to benefit themselves at the manufacturer's expenses is either disingenuous\u2026or unserious. You bought it, it's yours. But just as this vibe-coded adversarial interop has drawn both valid and spurious criticism, it's also drawn excitement that is partially justified and partially overblown. When it comes to reviving bricked devices or rooting out the surveillance and ads from your smart TV, vibe-coded interop tools are genuinely exciting. These are the kinds of enshittification that can truly be remediated with individual jailbreaks. But the real, meaty examples of enshittification can't be addressed on an individual level \u2013 they require systemic fixes. If you jailbreak your iPhone so that it can use alternative app stores, that fact is not sufficient to cause those alternative app stores to come into existence. If we want to stop Apple from levying a $100b \"app tax\" on the digital economy, it's not enough for individuals to vibe-code their own iPhone patches. We need to repeal the law that bans jailbreaking iPhones, so that a would-be alternative app store can raise capital and pay programmers and tech support staff and salespeople to assemble rival catalogs of software and help customers figure out how to get up their phones to use it. The same goes for jailbreaking your printer so it accepts generic ink. Sure, this may work for you if you're up for refilling your own cartridges, and I'm sure that you can find someone on Alibaba who will sell you ink by the gallon. But the mere fact that a few users have secretly and privately jailbroken their inkjets won't conjure up a generic inkjet cartridge manufacturing sector. For that to happen, we need to make jailbreaking printers legal, not just possible. Indeed, if we want to improve the quality of all that jailbreaking code the chatbots are writing and circulating, we need to be able to put those jailbreaks in public repositories for public inspection and public critique. It's possible for some of the code produced by an LLM to be slop, and for other code to be fine, and for yet a third tranche of code to be remediable slop that can be made robust and reliable through auditing and refactoring. You can't figure out which is which if you have to keep that vibe code a secret on pain of a long prison-sentence. I think there's good cause to be excited at the prospect of getting your devices working better, or just working at all. I think that even if the code stops working after a while, that's still fine \u2013 either you got more use out of your device than you would have without the new code, or maybe you just make more code that runs for a while for you, and then you do it again. These individual improvements to your devices and technology are worth celebrating. But they are no substitute for systemic intervention. If we're going to have a new, good internet, a post-American internet that truly disenshittifies America's defective tech exports and replaces them with robust, transparent digital public goods, we need to make reverse-engineering legal again. Once we fix our policy, then we can fix our code: https://pluralistic.net/2026/01/01/39c3/#the-new-coalition Hey look at this (permalink) Musk's Fake Flying Car And 'CEO Said A Thing!' Journalism https://karlbode.com/musks-fake-flying-car-and-ceo-said-a-thing-journalism/ High schoolers, students: the twilight of macronism https://thomaspiketty.wordpress.com/2026/10/20/high-schoolers-students-the-twilight-of-macronism/ The Singularity has been postponed https://johnquigginblog.substack.com/p/the-singularity-has-been-postponed-e77 How to install an app on your Commodore 64 https://www.anildash.com/2026/10/08/install-an-app-commodore-64/ A scammer could use what\u2019s already exposed about you. https://www.malwarebytes.com/out-there Object permanence (permalink) #25yrsago Secret recording of Labour Whip demanding support for Iraq invasion https://www.theguardian.com/politics/2001/oct/22/uk.september11 #25yrsago LoC launches emulator-based digital file preservation https://web.archive.org/web/20011217002337/http://www.techreview.com/magazine/oct01/innovation5.asp #25yrsago Kevin Mitnick to play CIA lackey https://web.archive.org/web/20011111105016/http://www.theregister.co.uk/content/55/22395.html #15yrsago ACLU Tennessee brings suit against ICE officers who broke into house and said, \u201cWe don\u2019t need a warrant, we\u2019re ICE, the warrant is coming out of my balls.\u201d https://web.archive.org/web/20111025092605/http://www.aclu.org/blog/immigrants-rights/we-dont-need-warrant-were-ice/ #15yrsago WIPO\u2019s secret, corporate-run trademark enforcement meeting https://web.archive.org/web/20220121054715/https://craphound.com/PROGRAMManilaEdited10212011-FINAL.pdf #15yrsago Canada\u2019s Supreme Court: Linking isn\u2019t libel https://web.archive.org/web/20111026134334/http://www.bbc.co.uk/news/world-us-canada-15374238 #15yrsago HOWTO recreate the Haunted Mansion\u2019s singing busts https://www.youtube.com/watch?v=zRtiiMW47i4 #10yrsago Facebook\u2019s crackdown on publishers feeds has sites paying celebs to repost https://digiday.com/media/facebook-thirsty-publishers-turn-celebrities-worm-news-feed/ #10yrsago Internet-destroying outages were caused by \u201camateurish\u201d IoT malware https://krebsonsecurity.com/2016/10/hacked-cameras-dvrs-powered-todays-massive-internet-outage/ #10yrsago Tory minister\u2019s filibuster kills Turing\u2019s law and pardons for 65,000 persecuted gay men https://www.theguardian.com/law/2016/oct/21/chris-bryant-commons-plea-gay-pardon-law #10yrsago Trump hotels, faced with massive declines in bookings, rebrand as \u201cScion Hotels\u201d https://web.archive.org/web/20161023182616/http://www.travelandleisure.com/hotels-resorts/trump-scion-hotels Upcoming appearances (permalink) Vancouver: Life After AI (Vancouver Writers Festival), Oct 22 https://writersfest.bc.ca/festival-event-2026/46 Ottawa: Life After AI (Ottawa Writers Festival), Oct 24 https://writersfestival.org/event/life-after-ai Vienna: TED AI, Oct 28-30 https://tedai-vienna.ted.com/ Kilkenny (Kilkenomics), Nov 6-8 https://kilkenomics.com/ Courtenay: Enshittification (Sid Williams Theatre Society), Nov 10 https://www.sidwilliamstheatre.com/events/cory-doctorow-talks-enshittification/ Vancouver: BC Policy Solutions Gala, Nov 12 https://bcpolicy.ca/gala/ Oxford: Ministry of the Future, Nov 23 https://ministryforthefuture.co.uk/events.html Sheffield: Reverse Centaur at Juno Books, Nov 25 https://www.outsavvy.com/event/40274/cory-doctorow-in-conversation Virtual: Enshittification, AI, and the Future of Technology (UBC Master of Educational Technology), Nov 28 https://met.ubc.ca/2026/09/met-speaker-series-cory-doctorow-enshittification-ai-and-the-future-of-technology/ Oxford: Bennett Oxford Symposium on Open Code in Science, Dec 9 https://www.bennett.ox.ac.uk/events/2026-bennett-institute-symposium/ Montreal: World Science Fiction Convention, Sep 2-6 https://montreal2027.ca/en Recent appearances (permalink) Life After AI (Brain Bar) https://www.youtube.com/watch?v=IPPa43-n0vI Terms of Service with Clare Duffy (CNN) https://www.cnn.com/audio/podcasts/terms-of-service-with-clare-duffy/episodes/458ce968-af5d-11f0-b539-13ed2afe25f8 AI, Work, and Power (Software Engineering Daily) AI, Work, and Power https://softwareengineeringdaily.com/podcasts/cory-doctorow-on-ai-work-and-power/ AI, Corporate Power, and the Fight for Worker Control (Plutopia) https://plutopia.io/cory-doctorow-ai-corporate-power-and-the-fight-for-worker-control/ How to Think About AI\u2014Before It\u2019s Too Late (Daniel Solove) https://www.youtube.com/watch?v=_0xR3uEgGcc Latest books (permalink) \"The Reverse-Centaur's Guide to AI,\" a short book about being a better AI critic, Farrar, Straus and Giroux, June 2026 https://us.macmillan.com/books/9780374621568/thereversecentaursguidetolifeafterai/ \"Canny Valley\": A limited edition collection of the collages I create for Pluralistic, self-published, September 2025 https://pluralistic.net/2025/09/04/illustrious/#chairman-bruce \"Enshittification: Why Everything Suddenly Got Worse and What to Do About It,\" Farrar, Straus, Giroux, October 7 2025 https://us.macmillan.com/books/9780374619329/enshittification/ \"Picks and Shovels\": a sequel to \"Red Team Blues,\" about the heroic era of the PC, Tor Books (US), Head of Zeus (UK), February 2025 (https://us.macmillan.com/books/9781250865908/picksandshovels). \"The Bezzle\": a sequel to \"Red Team Blues,\" about prison-tech and other grifts, Tor Books (US), Head of Zeus (UK), February 2024 (thebezzle.org). \"The Lost Cause:\" a solarpunk novel of hope in the climate emergency, Tor Books (US), Head of Zeus (UK), November 2023 (http://lost-cause.org). \"The Internet Con\": A nonfiction book about interoperability and Big Tech (Verso) September 2023 (http://seizethemeansofcomputation.org). Signed copies at Book Soup (https://www.booksoup.com/book/9781804291245). \"Red Team Blues\": \"A grabby, compulsive thriller that will leave you knowing more about how the world works than you did before.\" Tor Books http://redteamblues.com. \"Chokepoint Capitalism: How to Beat Big Tech, Tame Big Content, and Get Artists Paid, with Rebecca Giblin\", on how to unrig the markets for creative labor, Beacon Press/Scribe 2022 https://chokepointcapitalism.com Upcoming books (permalink) \"The Post-American Internet,\" a geopolitical sequel of sorts to Enshittification, Farrar, Straus and Giroux, 2027 \"Unauthorized Bread\": a middle-grades graphic novel adapted from my novella about refugees, toasters and DRM, FirstSecond, April 20, 2027 \"Enshittification, Why Everything Suddenly Got Worse and What to Do About It\" (the graphic novel), Firstsecond, 2027 \"The Memex Method,\" Farrar, Straus, Giroux, 2027 Colophon (permalink) Today's top sources: Currently writing: \u201cOnce Is Enemy Action,\u201d a science fiction novel about the origins of modern technofascism. Today's words: 533 (27469 total). \"The Post-American Internet,\" a sequel to \"Enshittification,\" about the better world the rest of us get to have now that Trump has torched America. Fourth draft completed. Submitted to editor. A Little Brother short story about DIY insulin PLANNING This work \u2013 excluding any serialized fiction \u2013 is licensed under a Creative Commons Attribution 4.0 license. That means you can use it any way you like, including commercially, provided that you attribute it to me, Cory Doctorow, and include a link to pluralistic.net. https://creativecommons.org/licenses/by/4.0/ Quotations and images are not included in this license; they are included either under a limitation or exception to copyright, or on the basis of a separate license. Please exercise caution. How to get Pluralistic: Blog (no ads, tracking, or data-collection): Pluralistic.net Newsletter (no ads, tracking, or data-collection): https://pluralistic.net/plura-list Mastodon (no ads, tracking, or data-collection): https://mamot.fr/@pluralistic Bluesky (no ads, possible tracking and data-collection): https://bsky.app/profile/doctorow.pluralistic.net Medium (no ads, paywalled): https://doctorow.medium.com/ Tumblr (mass-scale, unrestricted, third-party surveillance and advertising): https://mostlysignssomeportents.tumblr.com/tagged/pluralistic \"When life gives you SARS, you make sarsaparilla\" -Joey \"Accordion Guy\" DeVilla READ CAREFULLY: By reading this, you agree, on behalf of your employer, to release me from all obligations and waivers arising from any and all NON-NEGOTIATED agreements, licenses, terms-of-service, shrinkwrap, clickwrap, browsewrap, confidentiality, non-disclosure, non-compete and acceptable use policies (\"BOGUS AGREEMENTS\") that I have entered into with your employer, its partners, licensors, agents and assigns, in perpetuity, without prejudice to my ongoing rights and privileges. You further represent that you have the authority to release me from any BOGUS AGREEMENTS on behalf of your employer. ISSN: 3066-764X",
+      "link": "https://pluralistic.net/2026/10/21/brittle-individualism/",
+      "source": "https://pluralistic.net/feed/",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T20:05:21+00:00",
+      "published_ts": 1792613121,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Linux / Unix",
+        "Malware / Payloads",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Cloud Security Alliance Survey Finds Data Loss Prevention Often Detects Data Loss Only After It Happens",
+      "summary": "Research finds that, among respondents experiencing data loss, only 16% said DLP blocked their most significant incidents before data left the organization.",
+      "link": "https://www.darkreading.com/cloud-security/cloud-security-alliance-survey-data-loss-prevention-detects-data-loss",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T20:03:14+00:00",
+      "published_ts": 1792612994,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Warning: Phishing Attacks Are Abusing RMM Tools to Target Bank Accounts",
+      "summary": "Researchers at Fortra are tracking a surge in phishing attacks targeting bank accounts via remote monitoring and management (RMM) tools.",
+      "link": "https://blog.knowbe4.com/warning-phishing-attacks-are-abusing-rmm-tools-to-target-bank-accounts",
+      "source": "KnowBe4 Blog",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T20:00:01+00:00",
+      "published_ts": 1792612801,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "PHP2Shell: How to Protect Vulnerable PHP Workloads While Patching",
+      "summary": "TL;DR: PHP2Shell comprises two critical vulnerabilities that can allow unauthenticated attackers to execute code on affected PHP installations. Security researchers have reported exploitation attempts, and the vulnerabilities may also expose sensitive information from PHP worker memory. Aquasec\u2019s platform and services are not affected by PHP2Shell, but customers running PHP applications may have vulnerable workloads in &mldr",
+      "link": "https://www.aquasec.com/blog/php2shell-how-to-protect-vulnerable-php-workloads-while-patching/",
+      "source": "https://www.aquasec.com/feed/",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-10-21T19:50:31+00:00",
+      "published_ts": 1792612231,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Tech trio launches $10 million initiative to help under-resourced utilities bolster cybersecurity",
+      "summary": "Up to 500 under-resourced utilities will receive support in order to bolster their cybersecurity through a private sector initiative launched this week.",
+      "link": "https://therecord.media/utilities-cybersecurity-initiative-accenture",
+      "source": "The Record",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T19:45:00+00:00",
+      "published_ts": 1792611900,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "OpenAI Reports Two Incidents of AI Agents Disabling Their Own Oversight",
+      "summary": "OpenAI reveals two cases of AI agents disabling safety monitoring during coding tasks, with one falsely denying it had removed the safeguards. OpenAI published an internal incident report this week documenting two separate cases in which GPT-6 class agents weakened the system designed to detect misaligned behavior, in both cases while carrying out routine coding [\u2026]",
+      "link": "https://securityaffairs.com/201435/ai/openai-reports-two-incidents-of-ai-agents-disabling-their-own-oversight.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T19:41:16+00:00",
+      "published_ts": 1792611676,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "How sloppy is the October 2026 Steam Next Fest",
+      "summary": "Hi, it is Steam Next Fest. This blog post was written on Wednesday October 21st at 10AM PT and we are a couple days into the October Steam Next Fest 2026 (from here on out referred to just as SNF). The first Wednesday of SNF is typically the day Valve Continue Reading",
+      "link": "https://howtomarketagame.com/2026/10/21/how-sloppy-is-the-october-2026-steam-next-fest/?utm_source=rss&utm_medium=rss&utm_campaign=how-sloppy-is-the-october-2026-steam-next-fest",
+      "source": "https://howtomarketagame.com/feed/",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T19:37:07+00:00",
+      "published_ts": 1792611427,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "'PHP2Shell' Bugs Signal Red Alert for Security Industry",
+      "summary": "Security teams are scrambling to remediate two critical PHP vulnerabilities following leaked details and reports of exploitation attempts.",
+      "link": "https://www.darkreading.com/application-security/php2shell-bugs-red-alert-security-industry",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T19:19:17+00:00",
+      "published_ts": 1792610357,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Cisco security advisory (AV26-1073)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/cisco-security-advisory-av26-1073",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T19:09:38+00:00",
+      "published_ts": 1792609778,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "The internet is having a very bad cybersecurity day",
+      "summary": "From AI-discovered PHP vulnerabilities to flaws in Node.js and popular AI tool LiteLLM, cybersecurity teams have plenty to worry about this week.",
+      "link": "https://techcrunch.com/2026/10/21/the-internet-is-having-a-very-bad-cybersecurity-day/",
+      "source": "Security News | TechCrunch",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T19:03:28+00:00",
+      "published_ts": 1792609408,
+      "smart_groups": [
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Boutique vs Large Penetration Testing Providers: What to Compare",
+      "summary": "Company size does not prove penetration-test quality. Compare the named team, system scope, testing method, report evidence and retest terms before choosing a provider. The post Boutique vs Large Penetration Testing Providers: What to Compare appeared first on FORTBRIDGE .",
+      "link": "https://fortbridge.co.uk/pentesting/boutique-vs-large-penetration-testing-providers/",
+      "source": "https://fortbridge.co.uk/feed/",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T19:00:43+00:00",
+      "published_ts": 1792609243,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Critical GitLab Flaw (CVSS 10.0) Could Allow Unauthenticated RCE Across 12 Years of Releases",
+      "summary": "GitLab released fixes on October 21 for a flaw that lets an attacker run code on a self-managed server without logging in, and it affects every version of the software going back to 7.0, released in 2014. The fix matters even for administrators who patched nine days earlier: the October 12 update covered only versions 19.2 and later, and the new fixed versions sit one patch above it, so an",
+      "link": "https://thehackernews.com/2026/10/critical-gitlab-flaw-cvss-100-could.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T18:57:34+00:00",
+      "published_ts": 1792609054,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "WhatsApp\u2019s chatbot was given hidden instructions to not mention privacy regulators",
+      "summary": "Hidden instructions told WhatsApp\u2019s chatbot not to suggest privacy regulators to users struggling to delete their accounts.",
+      "link": "https://www.malwarebytes.com/blog/news/2026/10/whatsapp-chatbot-privacy-regulators",
+      "source": "Malwarebytes Labs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T18:49:04+00:00",
+      "published_ts": 1792608544,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "ISC BIND security advisory (AV26-1072)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/isc-bind-security-advisory-av26-1072",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T18:48:12+00:00",
+      "published_ts": 1792608492,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Who Found the PHP Bug That Made Governments Unplug Their Websites? ChatGPT, Of Course",
+      "summary": "OpenAI says its models found PHP2Shell and led a two-month coalition to fix it. It's the same AI that broke into Hugging Face and an Australian government portal this year.",
+      "link": "https://decrypt.co/381567/who-found-php-bug-governments-unplug-websites-chatgpt",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-21T18:46:08+00:00",
+      "published_ts": 1792608368,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Hold onto your old HomePod \u2013 an upgrade is on the way",
+      "summary": "An upcoming update will bring new features to existing HomePods. Here\u2019s what to know.",
+      "link": "https://www.zdnet.com/home-and-office/keep-old-apple-homepod-upgrades/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T18:37:07+00:00",
+      "published_ts": 1792607827,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "CISA: Hackers chain Plex flaws in Plex2Shell attacks to breach servers",
+      "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) is warning that attackers are actively exploiting four vulnerabilities in Plex Media Server. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/cisa-hackers-chain-plex-flaws-in-plex2shell-attacks-to-breach-servers/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T18:34:42+00:00",
+      "published_ts": 1792607682,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "AI-driven, large-scale nation-state campaign using ARTEX enables supply chain compromise on ConnectWise",
+      "summary": "submitted by /u/thejournalizer [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1xbvaem/aidriven_largescale_nationstate_campaign_using/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-10-21T18:30:46+00:00",
+      "published_ts": 1792607446,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Oracle Corporation security advisory (AV26-1071)",
+      "summary": "",
+      "link": "https://cyber.gc.ca/en/alerts-advisories/oracle-corporation-security-advisory-av26-1071",
+      "source": "Alerts and advisories",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T18:28:37+00:00",
+      "published_ts": 1792607317,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Democrat lawmakers say Russia is aiming to undermine party ahead of midterms",
+      "summary": "The pair stressed the latest update showed no country is pursuing the technically challenging effort to interfere with or hack into the country\u2019s election infrastructure or tamper directly with votes.",
+      "link": "https://therecord.media/democrat-lawmakers-say-russia-is-aiming-to-undermine-party",
+      "source": "The Record \u2013 Cybercrime",
+      "type": "cybercrime",
+      "type_label": "Cybercrime, Darknet & Leaks",
+      "published": "2026-10-21T18:28:00+00:00",
+      "published_ts": 1792607280,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "LiteLLM supply chain attack hoovers up passwords and secrets",
+      "summary": "Plus a RAT for good measure - get threat hunting now",
+      "link": "https://www.theregister.com/security/2026/10/21/litellm-supply-chain-attack-hoovers-up-passwords-and-secrets/5304548",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T18:22:20+00:00",
+      "published_ts": 1792606940,
+      "smart_groups": [
+        "Curated"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Flaw in PHP computer language leads to shutdown of websites around world",
+      "summary": "Precautionary takedowns come as experts say bad actors could exploit vulnerability in language used by 70% of sites Websites around the globe have gone dark after a serious vulnerability was found in a computer language used to build much of the world wide web. Belgian, Dutch, Finnish, French and German sites were among those that governments took down temporarily as they scrambled to patch the critical weakness in PHP, a language used by almost 70% of websites . Continue reading...",
+      "link": "https://www.theguardian.com/technology/2026/oct/21/flaw-in-php-computer-language-leads-to-shutdown-of-websites-around-world",
+      "source": "Data and computer security | The Guardian",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T18:20:30+00:00",
+      "published_ts": 1792606830,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Citizen Lab Director Slams Trump Administration, \u2018Techno-Fascist\u2019 Executives",
+      "summary": "Director Ron Deibert spoke to a crowd at SecTor 2026, warning that threats that the Citizen Lab investigates are being \u201csuper-charged\u201d thanks to AI. The post Citizen Lab Director Slams Trump Administration, \u2018Techno-Fascist\u2019 Executives appeared first on The Citizen Lab .",
+      "link": "https://citizenlab.ca/citizen-lab-director-slams-trump-administration-techno-fascist-executives/",
+      "source": "https://citizenlab.ca/feed/",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T18:19:19+00:00",
+      "published_ts": 1792606759,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "How a SpaceX and Tesla Merger Would Reshape Musk\u2019s AI Empire",
+      "summary": "Both boards are now studying a tie-up that would put Grok, X, Starlink, orbital data centers, a chip megafactory and Optimus robots under one roof\u2014and under one man's control.",
+      "link": "https://decrypt.co/381543/elon-musk-spacex-tesla-merger-ai-empire",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-21T18:16:03+00:00",
+      "published_ts": 1792606563,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "OpenAI\u2019s most powerful AI models turned off safety monitoring \u2013 then lied about it",
+      "summary": "The models Astra and Sol misinterpreted instructions during internal use, which has serious implications for alignment monitoring.",
+      "link": "https://www.zdnet.com/innovation/openai-astra-sol-models-disable-safety-monitoring/",
+      "source": "ZDNet \u2013 Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T18:15:19+00:00",
+      "published_ts": 1792606519,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Meta pauses MUSE share links after flaw exposes 6,800 user conversations",
+      "summary": "submitted by /u/VectorWireAI [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1xbuqmd/meta_pauses_muse_share_links_after_flaw_exposes/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-10-21T18:10:34+00:00",
+      "published_ts": 1792606234,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "The Value of Documentation",
+      "summary": "If someone asked me to name the biggest shortcoming in DFIR, and in cybersecurity, in general, I'd have to say documentation. We miss a lot of value because activity and analysis goes undocumented, and it is lost. Without documentation clearly delineating what was done, and what was observed, we can't identify and address issues that need to be fixed. Without that documentation, capabilities cannot be updated, and new capabilities cannot be added. We end up not being able to operationalize what was observed or learned. Without that documentation, every analyst needs to learn the same lessons, from their own efforts, and cannot benefit from the efforts of others. This is inefficient, and leads to a great deal of corporate knowledge simply be unrealized and lost. I learned lessons about the value of documentation a long time ago. In 1990, during the first Desert Shield, my unit deployed to South Korea for an exercise named \"Valiant Blitz\". After the exercise, we had an after action review, and one of the radar operators stood up and just flat out said, \"Comm sucked.\" That's it. Being the Communications Officer, and having a senior officer from my own unit stand up and say that, hurt. Particularly because I could not remember a single complaint during the entire exercise. In January 1991, a unit on Okinawa was decommissioned, and an LDO 1stLt was assigned to our unit, and became my boss. Shortly thereafter, we deployed to South Korea again, this time for the \"Team Spirit\" exercise. As before, we had an after action meeting following our return to Okinawa, and as before, one of the senior officers got up and said, \"Comm sucked.\" However, my boss had set up a rudimentary ticketing system, maintained in a log book that Marines are used to having around. We logged all trouble calls that came into the Communications/Electronics section, to whom they were assigned, and their resolution. When the Captain made his statement, my boss slide the log book across the table and said, \"show me.\" There was no more discussion of the issue. About 8 yrs later, I was off of active duty, and in my third or fourth consulting role in the private sector. I'd been hired into a firm that provided networking services, but as a security engineer. My boss was hired after me, and after about 6 months, he came to my desk late one afternoon and asked to speak to me. He'd had some speed bumps since he was brought in, and had given notice that morning. Immediately upon giving notice, the president of the company had flown down from NY, walked right into his office, and asked what he needed to stay. My boss said, \"I want a security lab.\", and the president responded with, \"Give me a purchase order.\" My boss then pulled out a folder containing 6 months of purchase requests for a variety of lab configurations, ranging from multiple desktops and a couple of blade servers, all the way down to just 2 additional laptops. All were denied. In 2014, I was in a consulting role, and our team was going through an operational debrief, where an analyst walked through an engagement, and shared what they had seen and learned. The call literally started with the analyst stating that they'd seen something, didn't know what it was, and that they never went back to figure out what it was, before simply moving on with the rest of their debrief. Two of us in particular were taken aback by this statement, so we reached out to get some specifics about what the \"thing\" was, but the analyst hadn't documented the \"thing\", and didn't remember. So, we dug around a bit and found out what it was...and found that it was an extremely high fidelity indicator of this threat actor's TTPs. We found that this indicator only existed because of the specific actions that the threat actor took, and we hadn't seen other threat actors, nor admins or users, take similar actions. This was almost lost because the analyst hadn't documented it; fortunately, someone investigated it, and was able to operationalize the finding so that, going forward, all analysts would be alerted to the indicator, without having to do a full cradle-to-grave investigation themselves. Not having documentation means: 1. We cannot operationalize, or even share, what we've seen and learned. 2. We do not have the necessary information, data, or numbers to encourage decision makers to decide in our favor. 3. We cannot justify the things we feel we need, or really understand how much of that is \"feel\" versus really, truly \"need\".",
+      "link": "http://windowsir.blogspot.com/2026/10/the-value-of-documentation.html",
+      "source": "Windows Incident Response",
+      "type": "dfir",
+      "type_label": "DFIR & Forensics",
+      "published": "2026-10-21T18:06:16+00:00",
+      "published_ts": 1792605976,
+      "smart_groups": [
+        "Identity / Access",
+        "Network / OT / ICS"
+      ],
       "curated": false
     },
     {
@@ -87,6 +983,20 @@
       "published": "2026-10-21T17:59:12+00:00",
       "published_ts": 1792605552,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Cardano Foundation urges EU against expanding MiCA rules to DeFi and staking",
+      "summary": "The foundation called for regulation based on financial risks rather than technology, warning that overlapping rules could create uncertainty for crypto businesses across the EU.",
+      "link": "https://cointelegraph.com/news/cardano-foundation-urges-eu-against-expanding-mica-rules-to-defi-and-staking?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-21T17:57:39+00:00",
+      "published_ts": 1792605459,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
       "curated": false
     },
     {
@@ -169,18 +1079,6 @@
       "smart_groups": [
         "Cloud / SaaS"
       ],
-      "curated": false
-    },
-    {
-      "title": "Boutique vs Large Penetration Testing Providers: What to Compare",
-      "summary": "Company size does not prove penetration-test quality. Compare the named team, system scope, testing method, report evidence and retest terms before choosing a provider. The post Boutique vs Large Penetration Testing Providers: What to Compare appeared first on FORTBRIDGE .",
-      "link": "https://fortbridge.co.uk/pentesting/boutique-vs-large-penetration-testing-providers/",
-      "source": "https://fortbridge.co.uk/feed/",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-21T17:22:46+00:00",
-      "published_ts": 1792603366,
-      "smart_groups": [],
       "curated": false
     },
     {
@@ -746,22 +1644,6 @@
       "published_ts": 1792595597,
       "smart_groups": [],
       "curated": false
-    },
-    {
-      "title": "Critical PHP Vulnerability (CVE-2026-109618, CVE-2026-109619) &#x5b;infocon yellow&#x5d;, (Wed, Oct 21st)",
-      "summary": "PHP.net announced that it will release a critical update today. We decided to change the infoCon to YELLOW due to the widespread use of PHP, the expected severity of the flaw (CVSS 9.4), and the availability of early PoC exploits ahead of the patch becoming available.",
-      "link": "https://isc.sans.edu/diary/rss/33440",
-      "source": "SANS Internet Storm Center",
-      "type": "government",
-      "type_label": "Government, CERT & Advisories",
-      "published": "2026-10-21T15:12:02+00:00",
-      "published_ts": 1792595522,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
     },
     {
       "title": "LiteLLM Compromised \u2013 Hackers Injected an Infostealer and RAT in the Latest 1.107.0 PyPI Release",
@@ -1406,20 +2288,6 @@
       "published": "2026-10-21T13:43:04+00:00",
       "published_ts": 1792590184,
       "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Here\u2019s what happened in crypto today",
-      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation.",
-      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-10-21T13:34:54+00:00",
-      "published_ts": 1792589694,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
       "curated": false
     },
     {
@@ -3096,6 +3964,18 @@
       "curated": false
     },
     {
+      "title": "CrowdStrike Protects Customers from Threats Delivered via PHP2Shell",
+      "summary": "",
+      "link": "https://www.crowdstrike.com/en-us/blog/crowdstrike-protects-customers-from-php-rce-zero-days/",
+      "source": "CrowdStrike Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-10-21T00:00:00-05:00",
+      "published_ts": 1792558800,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "Compounding Intelligence: The Grid Behind the UpGuard Risk Operations Center | UpGuard",
       "summary": "Compounding Intelligence connects vendor, attack surface, and workforce risk in the UpGuard Risk Operations Center, so each signal sharpens the others.",
       "link": "https://www.upguard.com/blog/compounding-intelligence-upguards-grid",
@@ -3759,6 +4639,102 @@
         "Vulnerabilities / CVEs"
       ],
       "curated": true
+    },
+    {
+      "title": "SVD-2026-1012: Third-Party Package Updates in Splunk SOAR - October 2026",
+      "summary": "Splunk remedied common vulnerabilities and exposures (CVEs) in third-party packages in Splunk SOAR version 8.7.0 or higher.",
+      "link": "https://advisory.splunk.com/advisories/SVD-2026-1012",
+      "source": "https://advisory.splunk.com/feed.xml",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T00:00:00+00:00",
+      "published_ts": 1792540800,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "SVD-2026-1011: Security Hardening in Splunk SOAR - October 2026",
+      "summary": "Splunk addressed multiple internally identified vulnerabilities in Splunk SOAR version 8.7.0. The vulnerabilities are grouped by Common Weakness Enumeration (CWE), with one Common Vulnerabilities and Exposures (CVE) identifier assigned to each group. See Details for more information.",
+      "link": "https://advisory.splunk.com/advisories/SVD-2026-1011",
+      "source": "https://advisory.splunk.com/feed.xml",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T00:00:00+00:00",
+      "published_ts": 1792540800,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "SVD-2026-1010: Security Vulnerabilities in Splunk SOAR - October 2026",
+      "summary": "Splunk addressed multiple vulnerabilities in Splunk SOAR version 8.7.0. See CVE Details for vulnerability-specific affected versions, additional remediation, acknowledgments, and workarounds.",
+      "link": "https://advisory.splunk.com/advisories/SVD-2026-1010",
+      "source": "https://advisory.splunk.com/feed.xml",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T00:00:00+00:00",
+      "published_ts": 1792540800,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "SVD-2026-1009: Third-Party Package Updates in Splunk Enterprise - October 2026",
+      "summary": "Splunk remedied common vulnerabilities and exposures (CVEs) in third-party packages in Splunk Enterprise versions 10.4.4, 10.2.8, 10.0.11, and 9.4.16 or higher.",
+      "link": "https://advisory.splunk.com/advisories/SVD-2026-1009",
+      "source": "https://advisory.splunk.com/feed.xml",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T00:00:00+00:00",
+      "published_ts": 1792540800,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "SVD-2026-1008: Security Hardening in Splunk Enterprise - October 2026",
+      "summary": "Splunk addressed multiple internally identified vulnerabilities in Splunk Enterprise versions 10.4.4, 10.2.8, 10.0.11, and 9.4.16. The vulnerabilities are grouped by Common Weakness Enumeration (CWE), with one Common Vulnerabilities and Exposures (CVE) identifier assigned to each group. See Details for more information.",
+      "link": "https://advisory.splunk.com/advisories/SVD-2026-1008",
+      "source": "https://advisory.splunk.com/feed.xml",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T00:00:00+00:00",
+      "published_ts": 1792540800,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "SVD-2026-1007: Security Vulnerabilities in Splunk Enterprise - October 2026",
+      "summary": "Splunk addressed multiple vulnerabilities in Splunk Enterprise versions 10.4.4, 10.2.8, 10.0.11, and 9.4.16. See CVE Details for vulnerability-specific affected versions, additional remediation, acknowledgments, and workarounds.",
+      "link": "https://advisory.splunk.com/advisories/SVD-2026-1007",
+      "source": "https://advisory.splunk.com/feed.xml",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-21T00:00:00+00:00",
+      "published_ts": 1792540800,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "LiteLLM supply chain compromise: What you need to know",
+      "summary": "Malicious releases of LiteLLM v1.107.0 were published to PyPI and container registries following multiple maintainer account compromises.",
+      "link": "https://securitylabs.datadoghq.com/articles/litellm-compromised-pypi-docker/",
+      "source": "https://securitylabs.datadoghq.com/rss/feed.xml",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-10-21T00:00:00+00:00",
+      "published_ts": 1792540800,
+      "smart_groups": [],
+      "curated": false
     },
     {
       "title": "Best Dark Web Monitoring Services for Business | UpGuard",
@@ -88616,783 +89592,6 @@
       "type_label": "OSINT, Communities & Subreddits",
       "published": "2026-09-22T00:21:45+00:00",
       "published_ts": 1790036505,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Using Paybis as a Crypto On-Ramp in 2026: Fees, Wallets and Checks",
-      "summary": "Paybis offers crypto on-ramp and off-ramp services with cards, bank transfers and wallets. Learn about its fees, verification, security and regional availability.",
-      "link": "https://hackread.com/using-paybis-as-crypto-ramp-2026-fees-wallets-checks/",
-      "source": "HackRead",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-22T00:12:59+00:00",
-      "published_ts": 1790035979,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Safer for Teens, Same Discord for Adults",
-      "summary": "We\u2019re launching a revamped, privacy-focused age assurance solution including methods that won\u2019t require an ID or selfie. Here\u2019s how it works.",
-      "link": "https://discord.com/blog/safer-for-teens-same-discord-for-adults",
-      "source": "https://discord.com/blog/rss.xml",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-22T00:00:00+00:00",
-      "published_ts": 1790035200,
-      "smart_groups": [
-        "Web / API Security"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Cut AI agent cost and improve accuracy with Code Execution in the Datadog MCP Server",
-      "summary": "Use the Code Execution toolset in the Datadog MCP Server to help AI agents run multisignal investigations with fewer tool calls and less model context.",
-      "link": "https://www.datadoghq.com/blog/datadog-code-execution/",
-      "source": "https://www.datadoghq.com/blog/index.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-09-22T00:00:00+00:00",
-      "published_ts": 1790035200,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "When users don\u2019t click thumbs up: Inferring agent feedback from Datadog telemetry",
-      "summary": "Learn how we used weak labeling to infer user satisfaction from Datadog telemetry when agent users don\u2019t click thumbs up.",
-      "link": "https://www.datadoghq.com/blog/agent-feedback-classification-skill/",
-      "source": "https://www.datadoghq.com/blog/index.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-09-22T00:00:00+00:00",
-      "published_ts": 1790035200,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Updates and User Notifications",
-      "summary": "At my org, there is this long-standing drama about updates disrupting work flows. We push out updates at strategically chosen times throughout the month and the user experience we keep getting back is, \"My updates forced me to restart at an inconvenient time.\" For example, one user had to drop out of a meeting, restart, finalize updates, and get back in. She said the whole process was embarrassing. However, when asked, she said she saw the notification at the beginning of the day and kept putting it off because she was busy. So generally what happens from a user perspective is that they get a pop-up from their tray that says something like \"You must restart by XX:XX time.\" They have the choice of closing the notification, in which case it will pop back up within the hour and tell them again. If they keep delaying, they eventually will be forced to restart. So now my manager is dealing with the business side and saying we need to figure out a way to update machines without disrupting users' workflow. I'm normally really sympathetic to users. Like, it's my job to support the business, not to be some petty IT dork who wields power capriciously over the systems I control. But this is a little different. Updates are just inconvenient. To me the message should be, \"When you see the notification, save your work and restart. Anything else risks being forced to restart at a time not of your choosing.\" And I get it! I've done the same exact thing the user has done and wound up getting interrupted at a bad time. But I see it as my own fault for delaying what I could have completed earlier. To be clear, this is exclusively about laptop users. Regular PCs are updated during non-business hours, but laptop users turn off their devices and close them when they aren't in use, so we can't push out anything. That's why we have a notification policy for that group. Am I doing this the wrong way or something? submitted by /u/HauntedGatorFarm [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wmss4q/updates_and_user_notifications/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-21T23:18:08+00:00",
-      "published_ts": 1790032688,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "AI intelligence report falsely identifies weapons on Chinese ship, nearly triggers US military operation",
-      "summary": "An analyst at Special Operations Command Pacific used a chatbot to analyze intelligence regarding a Chinese ship, combining open-source and classified signals intelligence, as first reported by CNN.",
-      "link": "https://www.scworld.com/brief/ai-intelligence-report-falsely-identifies-weapons-on-chinese-ship-nearly-triggers-us-military-operation",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T23:12:36+00:00",
-      "published_ts": 1790032356,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Google had undercover analyst inside TeamPCP hacking group",
-      "summary": "TeamPCP, known for its widespread malware distribution through open-source software and developer account hijacking, compromised hundreds of programs and breached over a thousand companies.",
-      "link": "https://www.scworld.com/brief/google-had-undercover-analyst-inside-teampcp-hacking-group",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T23:10:06+00:00",
-      "published_ts": 1790032206,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "CISA adds Linux kernel flaws to exploited vulnerabilities catalog",
-      "summary": "CISA has ordered federal agencies to remediate these issues by September 21, 2026, as per Binding Operational Directive 22-01.",
-      "link": "https://www.scworld.com/brief/cisa-adds-linux-kernel-flaws-to-exploited-vulnerabilities-catalog",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T23:03:58+00:00",
-      "published_ts": 1790031838,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Linux / Unix",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Trump calls for AI Force, says AI Czar will be named soon",
-      "summary": "Trump's planned AI Force renews debate over guardrails and accountability for AI.",
-      "link": "https://www.scworld.com/news/trump-calls-for-ai-force-says-ai-czar-will-be-named-soon",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T23:03:42+00:00",
-      "published_ts": 1790031822,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "The .zshrc.zwc You Forgot to Check",
-      "summary": "Introduction Shell startup files are well-known macOS persistence locations. In a recent MacSync Stealer/RAT intrusion documented by Huntress, the malware temporarily modified ~/.zshrc and appended a curl | zsh command. The goal was simple: when the victim opened Terminal again, the malicious code would execute in the new interactive zsh session. So during a macOS investigation, checking files such as these should be standard practice: ~/.zshrc ~/.zprofile ~/.zlogin ~/.zshenv Csaba Fitzl dedicated the first post in his Beyond the good ol' LaunchAgents series to shell startup files. But there is a small zsh feature that makes this slightly more interesting. These files can be compiled. For example:",
-      "link": "https://dfir.ch/posts/compiled_zsh/",
-      "source": "https://dfir.ch/index.xml",
-      "type": "dfir",
-      "type_label": "DFIR & Forensics",
-      "published": "2026-09-21T23:03:20+00:00",
-      "published_ts": 1790031800,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "The .zshrc.zwc You Forgot to Check",
-      "summary": "Introduction Shell startup files are well-known macOS persistence locations. In a recent MacSync Stealer/RAT intrusion documented by Huntress, the malware temporarily modified ~/.zshrc and appended a curl | zsh command. The goal was simple: when the victim opened Terminal again, the malicious code would execute in the new interactive zsh session. So during a macOS investigation, checking files such as these should be standard practice: ~/.zshrc ~/.zprofile ~/.zlogin ~/.zshenv Csaba Fitzl dedicated the first post in his Beyond the good ol' LaunchAgents series to shell startup files. But there is a small zsh feature that makes this slightly more interesting. These files can be compiled. For example:",
-      "link": "http://localhost:1313/posts/compiled_zsh/",
-      "source": "https://dfir.ch/index.xml",
-      "type": "dfir",
-      "type_label": "DFIR & Forensics",
-      "published": "2026-09-21T23:03:20+00:00",
-      "published_ts": 1790031800,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Vulnerability Summary for the Week of September 14, 2026",
-      "summary": "submitted by /u/antdude [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wmse3y/vulnerability_summary_for_the_week_of_september/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-21T23:01:49+00:00",
-      "published_ts": 1790031709,
-      "smart_groups": [
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Google Gemini AI accesses 3 real companies during cybersecurity tests",
-      "summary": "In one instance, the AI repeatedly guessed passwords to gain access to a protected system.",
-      "link": "https://www.scworld.com/brief/google-gemini-ai-escapes-cybersecurity-test-accesses-three-real-companies",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T22:56:53+00:00",
-      "published_ts": 1790031413,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "ShinyHunters defaces Clop ransomware data leak site, claims data theft",
-      "summary": "ShinyHunters claims to have exploited an unauthenticated file upload vulnerability in Grav CMS to deface the Clop Tor site with ASCII art of its Umbreon logo.",
-      "link": "https://www.scworld.com/brief/shinyhunters-defaces-clop-ransomware-data-leak-site-claims-data-theft",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T22:54:10+00:00",
-      "published_ts": 1790031250,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Data Breaches / Leaks"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Army and Air Force Exchange Service investigating suspicious customer messages",
-      "summary": "The suspicious messages, which included a \"wishlist\" link and potentially other circulating communications, were also distributed through AAFES's official app.",
-      "link": "https://www.scworld.com/brief/army-and-air-force-exchange-service-investigating-suspicious-customer-messages",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T22:50:57+00:00",
-      "published_ts": 1790031057,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Texas man pleads guilty in Scattered Spider extortion scheme",
-      "summary": "Based on information from CyberScoop, a 24-year-old Texas man, Ahmed Hossam Eldin Elbadawy, has pleaded guilty to federal charges related to his involvement in the Scattered Spider cybercrime group's extortion activities.",
-      "link": "https://www.scworld.com/brief/texas-man-pleads-guilty-in-scattered-spider-extortion-scheme",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T22:48:09+00:00",
-      "published_ts": 1790030889,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Google Admits Gemini AI Hacked Three Companies\u2014It Stayed Silent for 7 Weeks",
-      "summary": "Google learned in late July that Gemini had breached three real companies during a May security test, but said nothing publicly for seven weeks.",
-      "link": "https://decrypt.co/378900/google-gemini-ai-hacked-companies-stayed-silent",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-21T22:46:03+00:00",
-      "published_ts": 1790030763,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Transparent Tribe targets India, Afghanistan with new malware in Operation RapidRust",
-      "summary": "A Pakistan-aligned threat group, known as Transparent Tribe or APT36, has been linked to a new wave of cyberattacks targeting government and defense organizations in India and Afghanistan, according to Zscaler ThreatLabz.",
-      "link": "https://www.scworld.com/brief/transparent-tribe-targets-india-afghanistan-with-new-malware-in-operation-rapidrust",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T22:45:03+00:00",
-      "published_ts": 1790030703,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Anthropic-linked CVEs pile up, attackers mostly shrug",
-      "summary": "Of 225 flaws found by Glasswing and tracked by VulnCheck researcher, just one has confirmed exploitation in the wild",
-      "link": "https://www.theregister.com/security/2026/09/21/anthropic-linked-cves-pile-up-attackers-mostly-shrug/5298018",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T22:32:51+00:00",
-      "published_ts": 1790029971,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Muse, Meta's extraordinarily privileged AI assistant, has a serious 0-day",
-      "summary": "A simple ClickFix attack is only one way to completely hijack the new agent.",
-      "link": "https://arstechnica.com/security/2026/09/muse-metas-extraordinarily-privileged-ai-assistant-has-a-serious-0-day/",
-      "source": "Ars Technica \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T22:24:38+00:00",
-      "published_ts": 1790029478,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "After Clarity Act Fails, Crypto Super PAC Fairshake Targets Sherrod Brown With $30 Million",
-      "summary": "The Ohio spending comes days after the Senate blocked the crypto industry\u2019s Clarity Act.",
-      "link": "https://decrypt.co/378891/clarity-act-crypto-super-pac-fairshake-sherrod-brown-30-million",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-21T22:16:03+00:00",
-      "published_ts": 1790028963,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Micropatches released for Microsoft Message Queuing Queue Manager Remote Code Execution (CVE-2026-54992)",
-      "summary": "July 2026 Windows Updates brought a patch for CVE-2026-54992, a remote code execution vulnerability in Windows Message Queuing Queue Manager, allowing an attacker to set up a malicious server and have their code executed as Local System on any computer connecting to it with message queuing client. The vulnerability was found by Seung Chan Kim, who reported it to Microsoft. Subsequently, David Carliez published their own proof of concept, which allowed us to reproduce the issue and create patches for legacy Windows systems. The Vulnerability This is a numeric overflow issue, triggered by a malformed \"RemoteRead\" message queuing response that contains a number of sections whose cumulative size exceeds 2^32 bytes - leading to an allocation of a buffer that is too small for the actual data. Consequently, a buffer overflow occurs when this data is copied to the buffer, corrupting adjacent memory locations. There was a validation code there to prevent various violations in the received data, but it was per-section and did not check the cumulative size of all sections.",
-      "link": "https://0patch.com/blog/micropatches-released-for-microsoft-message-queuing-queue-manager-remote-code-exe",
-      "source": "0patch Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-09-21T22:00:00+00:00",
-      "published_ts": 1790028000,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Windows / Microsoft"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Robinhood CEO Says Crypto Will Beat Sports at Prediction Markets' Own Game",
-      "summary": "Robinhood CEO Vlad Tenev says crypto event contracts are already outpacing sports bets, and could become the platform's dominant category within a few years.",
-      "link": "https://decrypt.co/378889/robinhood-ceo-crypto-will-beat-sports-prediction-markets",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-21T21:46:03+00:00",
-      "published_ts": 1790027163,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "How AI Agents Can Trigger Runaway Costs for Enterprises",
-      "summary": "Unbounded consumption is an issue that OWASP currently ranks sixth in its Top 10 for LLM Applications, and it could be an extremely costly one.",
-      "link": "https://www.darkreading.com/application-security/how-ai-agents-can-trigger-runaway-costs",
-      "source": "darkreading",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T21:39:59+00:00",
-      "published_ts": 1790026799,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "BigCommerce alerts merchants of data breach linked to Ribon apps",
-      "summary": "Ecommerce platform BigCommerce has alerted multiple merchants to data breaches after attackers compromised credentials for third-party Ribon applications and used them to inject malicious scripts into online stores. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/bigcommerce-alerts-merchants-of-data-breach-linked-to-ribon-apps/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T21:18:49+00:00",
-      "published_ts": 1790025529,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Data Breaches / Leaks"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Saudi Arabia exits China-backed mBridge CBDC project: FT",
-      "summary": "Saudi Arabia has left mBridge, a cross-border CBDC platform that has drawn scrutiny from US policymakers, according to the Financial Times.",
-      "link": "https://cointelegraph.com/news/saudi-arabia-exits-china-backed-mbridge-cbdc-project-ft?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-21T20:37:15+00:00",
-      "published_ts": 1790023035,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Roundcube security advisory (AV26-503) \u2013 Update 1",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/roundcube-security-advisory-av26-503",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T20:20:59+00:00",
-      "published_ts": 1790022059,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Google Fined \u20ac403 Million Over Location Data Practices",
-      "summary": "Ireland\u2019s DPC fined Google \u20ac403 million over GDPR violations involving location data, transparency, retention and user control. Ireland\u2019s Data Protection Commission (DPC) just fined Google \u20ac403 million, and the case behind it goes back six years, to a set of complaints that never really went away. The DPC launched the investigation in February 2020 after [\u2026]",
-      "link": "https://securityaffairs.com/199494/laws-and-regulations/google-fined-e403-million-over-location-data-practices.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T20:20:23+00:00",
-      "published_ts": 1790022023,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "X Sues Two Bitcoin Influencers Over Bot Army That Milked Creator Payouts",
-      "summary": "A lawsuit accuses UK users of running six coordinated accounts to pull at least $278,000 from X's now-defunct Creator Revenue Sharing Program.",
-      "link": "https://decrypt.co/378877/x-sues-bitcoin-influencers-bot-army-creator-payout",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-21T20:16:03+00:00",
-      "published_ts": 1790021763,
-      "smart_groups": [
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Zyxel security advisory (AV26-603) \u2013 Update 1",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/zyxel-security-advisory-av26-603",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T20:12:57+00:00",
-      "published_ts": 1790021577,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "CISA alerts of active exploitation of three Linux kernel flaws",
-      "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) is warning that hackers are exploiting three Linux kernel vulnerabilities, one of them rated critical. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/cisa-alerts-of-active-exploitation-of-three-linux-kernel-flaws/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T20:12:17+00:00",
-      "published_ts": 1790021537,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Linux / Unix",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Owasp compromised?",
-      "summary": "Looks like the API security page may be compromised? https://api-security.owasp.org/ submitted by /u/tpasmall [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wmnxqa/owasp_compromised/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-21T20:10:47+00:00",
-      "published_ts": 1790021447,
-      "smart_groups": [
-        "Web / API Security"
-      ],
-      "curated": false
-    },
-    {
-      "title": "ShinyHunters Hacked Clop. Now What About Clop's Victims?",
-      "summary": "ShinyHunters defaced Clop's Dark Web site and claims to have stolen victim data, potentially exposing organizations that paid ransoms to renewed extortion attempts.",
-      "link": "https://www.darkreading.com/cyberattacks-data-breaches/shinyhunters-hacked-clop-what-about-clops-victims",
-      "source": "darkreading",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T20:07:56+00:00",
-      "published_ts": 1790021276,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Millions of Phishing Emails Use ASCII Smuggling to Bypass Security Filters",
-      "summary": "A massive phishing campaign is using invisible Unicode tag characters to evade security filters, according to researchers at Microsoft. This technique, known as \u201cASCII smuggling,\u201d has grown popular over the past year for launching AI prompt injection attacks, but the same tactic can hide suspicious text in emails.",
-      "link": "https://blog.knowbe4.com/millions-of-phishing-emails-use-ascii-smuggling-to-bypass-security-filters",
-      "source": "KnowBe4 Blog",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T20:00:00+00:00",
-      "published_ts": 1790020800,
-      "smart_groups": [
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Meta Muse AI app flaw lets local malware redirect dictation traffic",
-      "summary": "Ad biz promises users control while bug could expose voice prompts",
-      "link": "https://www.theregister.com/ai-and-ml/2026/09/21/meta-muse-ai-app-flaw-lets-local-malware-redirect-dictation-traffic/5297980",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T19:59:52+00:00",
-      "published_ts": 1790020792,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Is this an Iranian cyberattack they aren\u2019t telling us about/blaming on \u201caging infrastructure?\u201d",
-      "summary": "Is it possible for both systems to fail at many east coast airports all at the same time like this or are they just not telling us it was a cyberattack submitted by /u/No-Friendship-1586 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wmmzgd/is_this_an_iranian_cyberattack_they_arent_telling/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-21T19:36:25+00:00",
-      "published_ts": 1790019385,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "'Cyber 9/11' Could Make US Cities 'Uninhabitable in Hours': Cyber Expert Gives Chilling Warning",
-      "summary": "submitted by /u/beingmodest [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wmmz1t/cyber_911_could_make_us_cities_uninhabitable_in/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-21T19:36:01+00:00",
-      "published_ts": 1790019361,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Horizon3, Nodezero",
-      "summary": "What are industry thoughts on the utility Nodezero Pentesting? I have recently been introduced to it through my job. I have no experience with pentesting and am wondering what can be gleaned from the product that would increase my knowledge of pentesting? submitted by /u/Crazy_Fox_654 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wmmxas/horizon3_nodezero/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-21T19:34:15+00:00",
-      "published_ts": 1790019255,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Coinbase Brings IPO Shares to US Retail Traders, With Oura Up First",
-      "summary": "Eligible customers can request shares at the offering price, but allocations are not guaranteed.",
-      "link": "https://decrypt.co/378874/coinbase-ipo-shares-us-traders-oura",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-21T19:26:49+00:00",
-      "published_ts": 1790018809,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Veeam security advisory (AV26-513) \u2013 Update 1",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/veeam-security-advisory-av26-513",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T19:24:49+00:00",
-      "published_ts": 1790018689,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "EU data regulator fines Google more than $460 million for location data violations",
-      "summary": "Ireland\u2019s Data Protection Commission will fine Google more than \u20ac403 million ($462 million) over the tech giant\u2019s processing of location data, concluding an inquiry into the company that began in early 2020.",
-      "link": "https://therecord.media/google-europe-location-data-fine",
-      "source": "The Record",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T19:15:00+00:00",
-      "published_ts": 1790018100,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Cybercriminals Are Hiding New Malware in Torrents for Popular Films",
-      "summary": "Victims have been identified in Africa, including in Kenya and Uganda.",
-      "link": "https://www.darkreading.com/cyberattacks-data-breaches/cybercriminals-hiding-new-malware-torrents-popular-films",
-      "source": "darkreading",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T19:11:26+00:00",
-      "published_ts": 1790017886,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Treasury chief says AI bosses, not their bots, will carry the can for criminal acts",
-      "summary": "'Humans are responsible, not the AI,' argues Scott Bessent as he calls out OpenAI agents' hack of Hugging Face",
-      "link": "https://www.theregister.com/security/2026/09/21/treasury-chief-says-ai-bosses-not-their-bots-will-carry-the-can-for-criminal-acts/5297965",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T19:10:53+00:00",
-      "published_ts": 1790017853,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Europe\u2019s Central Bank Prepares to Invest Own Funds in Tokenized Securities",
-      "summary": "The central bank plans to buy euro-denominated public-sector debt and settle the transactions through its new Pontes service.",
-      "link": "https://decrypt.co/378872/europe-central-bank-invest-funds-tokenized-securities",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-21T19:00:04+00:00",
-      "published_ts": 1790017204,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Alexey Tulia at Tech Race Summit: how AI agents are changing engineering leadership",
-      "summary": "Alexey Tulia, Executive Leader at Coinspaid Dev, discussed the changing role of engineers and CTOs during the AI\u2026",
-      "link": "https://hackread.com/alexey-tulia-tech-race-summit-ai-agents-engineering-leadership/",
-      "source": "HackRead",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T18:49:29+00:00",
-      "published_ts": 1790016569,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Ondo lets institutions convert stocks directly into tokenized shares",
-      "summary": "Ondo\u2019s new in-kind conversion system allows approved institutions to mint and redeem tokenized stocks and ETFs using the underlying securities instead of cash.",
-      "link": "https://cointelegraph.com/news/ondo-lets-institutions-convert-stocks-directly-into-tokenized-shares?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-21T18:35:43+00:00",
-      "published_ts": 1790015743,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "What Is VVV? The Privacy-Obsessed AI Token That\u2019s Up 3,000% in 2026",
-      "summary": "Venice (VVV) has clawed back from under a dollar to a record $34, and the pitch behind it is simple: an AI chatbot that promises to forget you the moment you close the tab.",
-      "link": "https://decrypt.co/378840/what-is-vvv-privacy-ai-token-up-3000-percent-2026",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-21T18:31:03+00:00",
-      "published_ts": 1790015463,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Wiz Cloud Security Cost Optimization",
-      "summary": "How are you all optimizing Wiz licensing costs? What sanity checks or usage reviews do you regularly perform to make sure you're not over-consuming licenses? A couple of practices I\u2019ve found helpful are: Reviewing and adjusting DSPM scan frequency Reviewing ASM scan frequency based on actual risk and business needs Would be interested to hear what other cost-optimization practices, checks, or tuning approaches you\u2019ve found effective in Wiz. submitted by /u/dkas6259 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wml3mg/wiz_cloud_security_cost_optimization/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-21T18:29:27+00:00",
-      "published_ts": 1790015367,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "MISP security advisory (AV26-946)",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/misp-security-advisory-av26-946",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T18:29:06+00:00",
-      "published_ts": 1790015346,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "WordPress Click2Shell flaw lets hackers execute PHP on the server",
-      "summary": "Technical details and a proof-of-concept exploit have been published for a new WordPress cross-site request forgery (CSRF) vulnerability dubbed 'Click2Shell' that affects the platform's Core component. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/wordpress-click2shell-flaw-lets-hackers-execute-php-on-the-server/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T18:23:11+00:00",
-      "published_ts": 1790014991,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Web / API Security"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Windows Exploitation Techniques: Dangling COM Object Registrations",
-      "summary": "submitted by /u/ni5arga [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wmkuxo/windows_exploitation_techniques_dangling_com/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-21T18:20:47+00:00",
-      "published_ts": 1790014847,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC",
-        "Windows / Microsoft"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Crypto PAC to spend $30M opposing Sherrod Brown in Ohio, again",
-      "summary": "The digital asset-aligned PAC joined other groups to spend more than a combined $300 million in the 2024 Ohio Senate race, resulting in Sherrod Brown\u2019s loss to Bernie Moreno.",
-      "link": "https://cointelegraph.com/news/crypto-pac-fairshake-spending-sherrod-brown-ohio-senate-race?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-21T18:15:22+00:00",
-      "published_ts": 1790014522,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Foreign Hackers Target Two Colorado Water Utilities",
-      "summary": "Hackers targeted two Colorado water utilities, changing OT settings and disabling alarms, but causing no impact on water services or safety. Foreign hackers targeted the operational technology (OT) systems of two small private water utilities in Colorado in late August, apparently trying to disrupt operations. Local authorities haven\u2019t identified the affected utilities or the attackers. [\u2026]",
-      "link": "https://securityaffairs.com/199480/ics-scada/foreign-hackers-target-two-colorado-water-utilities.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T18:09:32+00:00",
-      "published_ts": 1790014172,
-      "smart_groups": [
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Implant Encryption via the Dump Encoding Library",
-      "summary": "submitted by /u/netbiosX [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wmkb0x/implant_encryption_via_the_dump_encoding_library/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-21T18:01:11+00:00",
-      "published_ts": 1790013671,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Microsoft to retire Microsoft 365 Companion apps in December",
-      "summary": "Microsoft will retire the Calendar, People, and Files Microsoft 365 companion apps on December 16 and has asked admins to remove them from managed devices. [...]",
-      "link": "https://www.bleepingcomputer.com/news/microsoft/microsoft-to-retire-microsoft-365-companion-apps-in-december/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T17:54:49+00:00",
-      "published_ts": 1790013289,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "The API was built for applications. What happens when the user is an AI agent?",
-      "summary": "AI agents need stronger guardrails as they gain authority to take real-world financial actions.",
-      "link": "https://www.scworld.com/perspective/the-api-was-built-for-applications-what-happens-when-the-user-is-an-ai-agent",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-21T17:50:23+00:00",
-      "published_ts": 1790013023,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Can a Fruit Fly Brain Mine Bitcoin? These Companies Are Testing It",
-      "summary": "The HashFly browser experiment uses a digital neural model for Bitcoin hashing and projects greater efficiency from a hypothetical biological version.",
-      "link": "https://decrypt.co/378836/fruit-fly-brain-mine-bitcoin-these-companies-testing",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-21T17:46:02+00:00",
-      "published_ts": 1790012762,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "\u2018We Have Enough AI\u2019: Realism in a Time of Relentless Hype",
-      "summary": "submitted by /u/YogiBerra88888 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wmjvzt/we_have_enough_ai_realism_in_a_time_of_relentless/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-21T17:45:54+00:00",
-      "published_ts": 1790012754,
       "smart_groups": [],
       "curated": false
     },
