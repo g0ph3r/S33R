@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-23T07:11:35.934759+00:00",
+  "generated_at": "2026-10-23T12:42:18.003034+00:00",
   "days_back": 30,
-  "total_items": 6486,
+  "total_items": 6485,
   "items": [
     {
       "title": "[Virtual Event] Cybersecurity Outlook 2027",
@@ -36,6 +36,711 @@
       "type_label": "General Security & Blogs",
       "published": "2026-10-25T07:00:00+00:00",
       "published_ts": 1792911600,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "eMudhra (a business run by 1 family), passed two audits by BDO after an integrity incident. Is the internet chain of trust broken?",
+      "summary": "The more I look into the eMudhra incident, the more concerned I am about the auditors and the governance behind this company. We\u2019ve spent plenty of time talking about the fact that one of their intermediate CA private keys was literally the number 4, which is fucking dumb. But I think there\u2019s a much bigger issue here. How did this survive two independent WebTrust audit cycles, including one where the auditors were already aware of an incident involving the exact same intermediate CAs ? For anyone who hasn\u2019t followed this, eMudhra generated eight intermediate CA keys in April 2025 that were trivially recoverable. Six were for TLS and two for code signing. The private keys were effectively just single-byte integers. Anyone with the corresponding public keys could recover them in milliseconds. These intermediates remained in the public trust ecosystem for roughly 18 months before an external researcher raised the alarm. Now let\u2019s look at the audit history. BDO Consulting conducted the 2024\u201325 WebTrust audit, covering the period in which these keys were generated. BDO PLT, another Malaysian firm in the BDO network, conducted the 2025/26 audit. The affected TLS intermediates were included in the audit scope. June 2025: eMudhra had already been reported to Mozilla because certificate revocation lists for six of these intermediates had invalid signatures. The CRLs had been signed using the wrong private keys. We now know why: eMudhra had generated the intended keys, accidentally generated a second set of catastrophically weak keys, and then issued the intermediate certificates using that second set. When the CRL signatures didn\u2019t verify, they switched to signing with the weak keys. Think about that for a moment. You discover that the private key being used to sign a CRL doesn\u2019t match the public key in the intermediate CA certificate. Surely that should trigger a serious investigation into the key generation ceremony and the integrity of the keys themselves? Apparently, that wasn\u2019t enough to further investigate and uncover this absolute dumbfuckery. BDO\u2019s August 2026 audit report explicitly acknowledges the earlier incident involving those six intermediates. It says BDO considered the disclosed root cause and the proposed corrective controls. It also stated the audit involved testing the operating effectiveness of controls, including controls intended to protect the integrity of CA keys throughout their lifecycle. BDO still issued an unmodified opinion. Bizarre. I\u2019d really like to know what testing was actually performed here. Did anyone independently verify that the keys generated during the ceremony matched the keys in the issued CA certificates? Did anyone review the HSM records, the key generation scripts or the unexplained existence of multiple key pairs? What evidence gave BDO sufficient confidence to sign off on key lifecycle integrity after a known signing-key mismatch? I understand WebTrust audits use sampling and provide reasonable assurance. Nobody expects an auditor to find every possible problem. But this wasn\u2019t some obscure attack technique or previously unknown cryptographic weakness. These were intermediate CA keys with virtually no entropy, and there had already been a publicly documented integrity issue involving the very same certificates. Then there\u2019s the corporate governance side of this. eMudhra\u2019s founder and Executive Chairman is Venkatraman Srinivasan. His son Kaushik Srinivasan is a co-founder, Executive Vice President responsible for product development and engineering, including CA solutions, and a Whole-Time Director. His other son, Arvind Srinivasan, is an Executive Vice President responsible for international business and is also a Director. Both sons joined the board in April 2026. So the founder and both his sons now occupy three seats on a nine-member board, while the sons also hold senior operational roles. The board has five independent directors, but that raises the obvious question of how effectively independent oversight works in practice. Family relationships don\u2019t automatically mean someone is unqualified, and I\u2019m not suggesting any of these individuals personally caused the key generation failure. But there are obvious potential conflicts when the people responsible for running parts of a business are also closely related to its chairman and sit on the board that\u2019s meant to hold management accountable. Who was challenging the engineering decisions? Who was reviewing the incident reports? Who was responsible for making sure corrective actions were independently validated? And who was overseeing the relationship with BDO? These questions matter even more given the chairman\u2019s response to the incident, which included pointing out that SSL/TLS certificates account for only around 1% of eMudhra\u2019s revenue and suggesting the scrutiny was disproportionate. That\u2019s a pretty extraordinarily dumb response from the chairman of a company operating a publicly trusted certificate authority. The internet doesn\u2019t care what percentage of your revenue TLS represents. Your certificates are trusted because the ecosystem accepts your claims about how securely you operate. And that brings me back to BDO. The whole point of independent assurance is that relying parties shouldn\u2019t have to take the CA\u2019s word for it. If an organisation can have a publicly documented key integrity problem, receive an unmodified audit opinion, and then have the underlying catastrophic failure discovered months later by an external researcher, what exactly did that assurance establish? I think BDO should publicly explain what work was performed around the 2025 incident, why the key generation process didn\u2019t receive sufficient scrutiny to reveal this issue, and whether the conclusions of those audit reports remain supportable. An independent review of the audit work seems entirely reasonable. eMudhra is responsible for generating and protecting its keys. The board is responsible for oversight. But the auditors are part of this trust model too, and their role deserves serious examination. The mathematics behind certificate chains hasn\u2019t broken. What concerns me is the system of governance we\u2019re reliant on to trust this seems ineffective or completely broken. If something this fundamental can survive two audit cycles, including one conducted after a known integrity incident involving the same keys, I think we need to ask some uncomfortable questions about what WebTrust assurance actually means. submitted by /u/SlackCanadaThrowaway [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1xdcl4v/emudhra_a_business_run_by_1_family_passed_two/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-10-23T12:25:14+00:00",
+      "published_ts": 1792758314,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Global cybersecurity alert follows discovery of severe PHP vulnerabilities",
+      "summary": "",
+      "link": "https://www.scworld.com/brief/global-cybersecurity-alert-follows-discovery-of-severe-php-vulnerabilities",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T12:13:56+00:00",
+      "published_ts": 1792757636,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Ethereum Delays Glamsterdam Testnet Fork Over Gas Security Flaws",
+      "summary": "The Hoodi testnet fork is off after ChainSecurity found gas changes that could let contracts lock in failures, citing 13 real-world cases.",
+      "link": "https://decrypt.co/381681/ethereum-delays-glamsterdam-testnet-fork-over-gas-security-flaws",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-23T11:49:37+00:00",
+      "published_ts": 1792756177,
+      "smart_groups": [
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Was crypto self-custody ever designed for beginners?",
+      "summary": "Recent hardware wallet security incidents have renewed debate over whether self-custody is suitable for beginners, as multisig and seedless designs carry their own risks.",
+      "link": "https://cointelegraph.com/news/self-custody-crypto-beginners-mainstream-adoption?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-23T11:47:47+00:00",
+      "published_ts": 1792756067,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Microsoft 365 accounts compromised at 79 organizations, no passwords needed",
+      "summary": "An attacker who spent ten weeks replaying stolen Microsoft 365 sign-in sessions broke into email accounts at 79 organizations and used hidden inbox rules to keep victims from seeing parts of their own mail, according to Huntress. The researchers tracked the campaign between July 14 and September 22, 2026, counting 497 successful sign-ins and more than 200,000 failed login attempts. The stolen sessions were replayed from servers at 1337 Services GmbH, a hosting provider incorporated \u2026 More \u2192 The post Microsoft 365 accounts compromised at 79 organizations, no passwords needed appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/10/23/microsoft-365-accounts-stolen-sessions/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T11:45:12+00:00",
+      "published_ts": 1792755912,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Gaming Giant Capcom Confirms Data Breach Exposed Users\u2019 Personal Information",
+      "summary": "Japanese video games giant Capcom confirmed unauthorized access to its online account system",
+      "link": "https://www.infosecurity-magazine.com/news/capcom-confirms-data-breach/",
+      "source": "Infosecurity Magazine \u2013 News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T11:45:00+00:00",
+      "published_ts": 1792755900,
+      "smart_groups": [
+        "Data Breaches / Leaks"
+      ],
+      "curated": false
+    },
+    {
+      "title": "What does AI mean for the future of CyberSecurity? (PHP vulnerability)",
+      "summary": "I was reading about the recent PHP vulnerability being exploited with AI, and it honestly got me thinking about where we\u2019re heading.. If AI keeps advancing at this rate, will cybersecurity become automated by AI? - Both on the offensive and defensive sides. Its increased use of finding and exploiting vulnerabilities, as well as strengthening security makes me question the future of this industry. submitted by /u/normus10 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1xdbr0s/what_does_ai_mean_for_the_future_of_cybersecurity/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-10-23T11:45:00+00:00",
+      "published_ts": 1792755900,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Meta Faces $25 Billion Penalty Linked to Cambridge Analytica Scandal",
+      "summary": "A New Mexico judge ordered Meta to pay $25 billion for misleading users about privacy, setting a record penalty. Meta plans to appeal. This week a New Mexico judge ordered Meta to pay the state $25 billion. The order follows a jury finding that the company deceived Facebook users about their privacy, and it\u2019s the [\u2026]",
+      "link": "https://securityaffairs.com/201582/laws-and-regulations/meta-faces-25-billion-penalty-linked-to-cambridge-analytica-scandal.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T11:42:24+00:00",
+      "published_ts": 1792755744,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "AI Agents as Insider Threats: Inside Microsoft's Bet on a Unified Security Stack",
+      "summary": "Microsoft's Project Perception adds Guardian Agents to monitor and contain anomalous AI agents, but experts warn that policing unpredictable agents with other agents may multiply \u2014 not contain \u2014 the risk.",
+      "link": "https://www.darkreading.com/cybersecurity-operations/ai-agents-insider-threats-inside-microsoft-unified-security-stack",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T11:38:28+00:00",
+      "published_ts": 1792755508,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Torvalds: AI is fine for competent devs, but spare us the 'drive-by' patches",
+      "summary": "Kernel maintainers stop asking who used AI, as long as the code is good",
+      "link": "https://www.theregister.com/columnists/2026/10/23/torvalds-ai-is-fine-for-competent-devs-but-spare-us-the-drive-by-patches/5304357",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T11:31:00+00:00",
+      "published_ts": 1792755060,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Multi-tenant GPU Kubernetes on simulated hardware with Kamaji and HAMi",
+      "summary": "GPU teams usually face a bad trade-off. Give every team its own Kubernetes cluster and you pay for a control plane per team. Put everyone in one shared cluster and you get weak isolation. Either way,...",
+      "link": "https://www.cncf.io/blog/2026/10/23/multi-tenant-gpu-kubernetes-on-simulated-hardware-with-kamaji-and-hami/",
+      "source": "https://www.cncf.io/feed/",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T11:30:00+00:00",
+      "published_ts": 1792755000,
+      "smart_groups": [
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "URGENT - PHP Warns of Another Unpatched RCE Two Days After Emergency PHP2Shell Patches",
+      "summary": "PHP has warned of another way an attacker could run code on a web server, two days after it shipped emergency fixes for the critical PHP2Shell flaws. The new issue, assigned CVE-2026-115560, affects only web applications configured in an unusual way, and PHP considers it an unlikely risk. The project is not issuing an emergency fix for it. Instead, it recommends turning off a feature called",
+      "link": "https://thehackernews.com/2026/10/urgent-php-warns-of-another-unpatched.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T11:25:43+00:00",
+      "published_ts": 1792754743,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Russian-Linked Hackers Used New Mesh Network Backdoor in Destructive Ukraine Attack",
+      "summary": "The Russian state-sponsored hacking group Sandworm teamed up with another threat actor to carry out a destructive wiping attack targeting a Ukrainian logistics company last year. According to ESET, the attack involved UAC-0099 (aka Earth Sirrush) obtaining initial access to the target on July 16, 2025, via a spear-phishing email bearing a malware-laced attachment that led to the deployment of",
+      "link": "https://thehackernews.com/2026/10/russian-linked-hackers-used-new-mesh.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T11:11:23+00:00",
+      "published_ts": 1792753883,
+      "smart_groups": [
+        "Curated",
+        "Threat Actors / APT",
+        "Malware / Payloads",
+        "Network / OT / ICS",
+        "Phishing / Social Engineering"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Compromised TLS Certificates",
+      "summary": "The Indian CA eMudhra Limited has eight TLS certificates with laughably weak private keys : The compromised eMudhra keys were defective at a level that\u2019s challenging the imagination of many of the engineers studying the incident. A normal size for a NIST P-384 elliptic curve cryptography private key contains roughly 384 bits of entropy, a size allowing almost 2 384 , or a number with 116 digits, different possibilities. The private key sizes of the compromised keys ranged from 3 to 8 bits. Astonishingly, the private keys were 4, 56, 66, 115, 155, 156, 230, 237...",
+      "link": "https://www.schneier.com/blog/archives/2026/10/compromised-tls-certificates.html",
+      "source": "Schneier on Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T11:04:22+00:00",
+      "published_ts": 1792753462,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "CVE-2026-111497: Node.js Brotli Decoder Flaw Enables Remote Code Execution",
+      "summary": "Node.js has released security updates addressing CVE-2026-111497, a high-severity vulnerability in its bundled Brotli decompression code that can potentially enable remote code execution. The flaw is an out-of-bounds write triggered when a vulnerable decoder processes specially crafted Brotli-compressed data. The issue affects all currently supported Node.js branches\u201422.x, 24.x, and 26.x. Node.js addressed the vulnerability in [\u2026] The post CVE-2026-111497: Node.js Brotli Decoder Flaw Enables Remote Code Execution appeared first on SOC Prime .",
+      "link": "https://socprime.com/blog/cve-2026-111497-node-js-brotli-decoder-flaw-enables-remote-code-execution/",
+      "source": "SOC Prime Blog",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-10-23T10:58:40+00:00",
+      "published_ts": 1792753120,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Heatbit's $899 Water Heater Element Mines Bitcoin While It Heats Your Tank",
+      "summary": "The Bitwater element swaps a tank's resistance wire for 20 mining chips, and Heatbit says it uses the same electricity to heat the water.",
+      "link": "https://decrypt.co/381665/heatbits-899-water-heater-element-mines-bitcoin-while-it-heats-your-tank",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-23T10:54:35+00:00",
+      "published_ts": 1792752875,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "PHP2Shell: Millions of Attacks, No Confirmed Successful Exploits Yet",
+      "summary": "PHP2Shell attacks have surged into the millions, but no successful exploitation is confirmed. Patch it immediately. On October 21, PHP released emergency patches for two critical vulnerabilities tracked as CVE-2026-109618 and CVE-2026-109619 (CVSS score of 9.2), affecting every PHP version that handles web requests. The bug code dates back to PHP 5.4 from 2012, lives [\u2026]",
+      "link": "https://securityaffairs.com/201538/hacking/php2shell-millions-of-attacks-no-confirmed-successful-exploits-yet.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T10:52:00+00:00",
+      "published_ts": 1792752720,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "(Learning) Help reproducing Privilege Escalation",
+      "summary": "hey all, I am a software engineer and in general I am in favor of tackling security concerns, however sometimes I struggle to understand the severity of certain potentials. So I want to learn things but I have problems building knowledge because information is scarce. I want to understand how a privilege escalation in a docker container could work and how to reproduce? unfortunately I can not make use of AI as its locking down after asking to many questions. I am not sure if this is trustworthy to ask but I promise I want to know to learn how to analyze my system. submitted by /u/dekonta [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1xdar15/learning_help_reproducing_privilege_escalation/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-10-23T10:51:59+00:00",
+      "published_ts": 1792752719,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "eMudhra quits global TLS certificate market after compromise of CA signing keys",
+      "summary": "Indian digital trust company eMudhra has announced that it is exiting the global SSL/TLS certificate business and is offering customers certificates issued by Sectigo as an alternative, following the compromise of private keys behind eight of its intermediate certificate authorities. The company\u2019s board decided \u201cto voluntarily withdraw from the global SSL/TLS certificate business,\u201d eMudhra said in a press note . It added that data sovereignty and compliance requirements had increased the business\u2019s complexity and cost. \u201cThe level of social media amplification around this incident has brought scrutiny that is out of proportion to SSL/TLS\u2019s place in our business,\u201d eMudhra Chairman V Srinivasan said in the announcement. The company said it will contact affected customers to replace certificates free of cost. It also said it will keep revocation and certificate status services running until every issued certificate has expired or been replaced. Sectigo offered as an alternative In the customer update, eMudhra said it is making Sectigo-issued certificates available to all its customers. \u201cOur G1 root certificates remain active and continue to be fully supported,\u201d the company said in the update. The October 22 release said the G1 RSA roots \u201cwill continue to serve customers until this transition is complete.\u201d eMudhra said it would provide replacement certificates free of charge through its partners and continue operating revocation and certificate-status services until all certificates it issued had expired or been replaced. CertiNext users can request Sectigo certificates through their accounts; other customers can contact eMudhra support, the statement added. Niyati Daftary, principal analyst at Gartner, said organizations should view the G1 roots \u201cas a possible bridge, not automatically as the final destination.\u201d \u201cWith the company exiting global SSL/TLS and its remaining roots still subject to browser scrutiny, the prudent course is to move critical services to an independent, fully trusted CA wherever the deadline allows,\u201d Daftary said. If G1 is used to prevent an immediate outage, she recommended setting a firm deadline and documenting a subsequent migration plan. She recommended including issuing authorities, intermediate and root certificates, cross-signing arrangements, revocation infrastructure, and browser trust status in third-party risk assessments. Yash Kadakia, co-founder and CTO of Security Brigade, said that moving to another root operated by the same company does not necessarily address concerns over trust and governance. \u201cThe last thing organisations need is to migrate twice,\u201d Kadakia said. Sectigo did not immediately respond to a request for comment. Java and other systems may need separate fixes Replacing a website\u2019s certificate may not address every dependency in an enterprise environment, according to Sakshi Grover, research director at IDC. She said residual exposure lies in systems that maintain their own trust stores and do not update on the same schedule as browsers. These include Java keystores, language runtimes, container images, mutual TLS configurations, proxies, load balancers, VPN and security appliances, and embedded devices. \u201cThe harder finding for many organizations will be that they can\u2019t answer these questions at all,\u201d Grover said, referring to where certificate trust decisions are made outside browsers and operating systems. Grover noted that Google reported finding no certificates chaining to the affected intermediates in Certificate Transparency logs before they were blocked. She said that was reassuring for clients that enforce Certificate Transparency, but some non-browser applications and devices do not. Exploitation would also require an attacker to be positioned to intercept traffic, she said, describing the remaining risk as limited and targeted rather than broad. Azul, a Java vendor, said in a statement that Java does not check certificate revocation by default. An unpatched Java Development Kit (JDK) could therefore continue to accept a forged certificate signed with a compromised intermediate key if the relevant chain remains trusted. Azul said it released updated Azul Zulu Builds of OpenJDK and Azul Prime. The updates add the eight affected certificates to the JDK\u2019s blocked-certificate list, the company said. Grover recommended that security teams first identify where trust decisions occur outside browsers and operating systems, prioritising systems that accept connections from external parties and mutual TLS endpoints. Teams should then determine which systems can be updated to distrust a specific intermediate certificate or public key, she said. Chrome deadline for certificate holders Mozilla has removed emSign ECC Root CA \u2013 G3, the root that signed the eight compromised intermediates , from its trust store. Google said in a blog post that the root\u2019s removal from the Chrome Root Store is expected to reach all devices on the morning of October 27, Pacific time. \u201cTo avoid breakage, website operators with certificates chaining to emSign ECC Root CA \u2013 G3 must immediately acquire and install a new TLS certificate,\u201d Google said in the post. Daftary said enterprises often know their certificate reseller but not the CA hierarchy underpinning their trust. \u201cThat creates an unrecognized fourth-party risk capable of affecting thousands of services at once,\u201d she said. She added that CISOs should include issuing CAs, roots, cross-signing arrangements, and revocation infrastructure in their third-party cyber risk assessments. \u201cYou can outsource a service, but you cannot outsource accountability,\u201d Kadakia said. The article originally appeared on ComputerWorld .",
+      "link": "https://www.csoonline.com/article/4239634/emudhra-quits-global-tls-certificate-market-after-compromise-of-ca-signing-keys-2.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T10:34:39+00:00",
+      "published_ts": 1792751679,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "China APT Uses AI Pentest Tool Artex in ConnectWise Attacks",
+      "summary": "The state-sponsored hackers targeted hundreds of organizations and gained privileged access to some environments. The post China APT Uses AI Pentest Tool Artex in ConnectWise Attacks appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/china-apt-uses-ai-pentest-tool-artex-in-connectwise-attacks/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T10:31:16+00:00",
+      "published_ts": 1792751476,
+      "smart_groups": [
+        "Threat Actors / APT"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Widespread Token-Spraying Attacks Target Microsoft 365 Accounts For Email Compromise",
+      "summary": "Security researchers identified attempts to access corporate networks which have been linked to a major Microsoft 365-targeted BEC campaign using phishing, stolen session tokens and social engineering",
+      "link": "https://www.infosecurity-magazine.com/news/tokenspraying-attacks-target/",
+      "source": "Infosecurity Magazine \u2013 News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T10:30:00+00:00",
+      "published_ts": 1792751400,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "ISC Stormcast For Friday, October 23rd, 2026 https://isc.sans.edu/podcastdetail/10148, (Fri, Oct 23rd)",
+      "summary": "(c) SANS Internet Storm Center. https://isc.sans.edu Creative Commons Attribution-Noncommercial 3.0 United States License.",
+      "link": "https://isc.sans.edu/diary/rss/33448",
+      "source": "SANS Internet Storm Center",
+      "type": "government",
+      "type_label": "Government, CERT & Advisories",
+      "published": "2026-10-23T10:25:11+00:00",
+      "published_ts": 1792751111,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Cysic dangles a 10% bounty, hacker pours loot into Tornado Cash",
+      "summary": "The attacker moved $744,000 in ETH and BNB to Tornado Cash after exploiting Cysic\u2019s bridge to mint 10 million tokens on BNB Smart Chain.",
+      "link": "https://cointelegraph.com/news/cysic-exploiter-eth-tornado-cash-white-hat-offer?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-23T10:13:06+00:00",
+      "published_ts": 1792750386,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Attacks on Tech Firms Behind Most Third-Party Data Breach Victims",
+      "summary": "Kroll found that 69% of data breach victims in the past year were affected by a third-party breach, with attacks on tech companies the most common cause",
+      "link": "https://www.infosecurity-magazine.com/news/tech-third-party-breach-victims/",
+      "source": "Infosecurity Magazine \u2013 News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T10:00:00+00:00",
+      "published_ts": 1792749600,
+      "smart_groups": [
+        "Data Breaches / Leaks"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Attackers Exploit Third VeloCloud Orchestrator Zero-Day in Four Months",
+      "summary": "The critical-severity SQL injection flaw allows attackers to access privileged internal functionality and gain operator privileges. The post Attackers Exploit Third VeloCloud Orchestrator Zero-Day in Four Months appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/attackers-exploit-third-velocloud-orchestrator-zero-day-in-four-months/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T09:58:34+00:00",
+      "published_ts": 1792749514,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Web / API Security"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Crime Stoppers chapter freezes tips after breach breaks anonymity promise",
+      "summary": "A Crime Stoppers chapter has stopped accepting tips after a breach exposed information about anonymous tipsters.",
+      "link": "https://www.malwarebytes.com/blog/data-breaches/2026/10/crime-stoppers-chapter-freezes-tips-after-breach-breaks-anonymity-promise",
+      "source": "Malwarebytes Labs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T09:57:48+00:00",
+      "published_ts": 1792749468,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Bybit secures first full Dubai license for spot trading services",
+      "summary": "Bybit\u2019s new VARA licence authorizes spot trading services in Dubai, but the exchange must complete additional regulatory requirements before launching.",
+      "link": "https://cointelegraph.com/news/bybit-first-full-dubai-spot-trading-license?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-23T09:50:04+00:00",
+      "published_ts": 1792749004,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Critical Flaw in Python\u2019s Popular Pillow Image Library Allows Code Execution via a Crafted Image",
+      "summary": "Pillow, the most widely used image library for Python, can be made to run operating system commands on a server by specifying the name of a file it is told to open. The flaw, CVE-2026-112900, is in the way Pillow handles EPS images, which it opens by passing the file's name to Ghostscript, a separate program it runs to turn the image into pixels, without checking the name first.",
+      "link": "https://thehackernews.com/2026/10/critical-flaw-in-pythons-popular-pillow.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T09:36:00+00:00",
+      "published_ts": 1792748160,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "UK threatens subsea cable saboteurs with 14 years behind bars",
+      "summary": "Whitehall wants tougher penalties and new powers over telecoms operators as Russian activity raises alarm",
+      "link": "https://www.theregister.com/networks/2026/10/23/uk-threatens-subsea-cable-saboteurs-with-14-years-behind-bars/5304794",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T09:29:00+00:00",
+      "published_ts": 1792747740,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "SBI Notifies Customers Impacted by the Recent Cyber Incident",
+      "summary": "State Bank of India (SBI) has individually notified customers whose information was identified in a recent cyber incident, sending alerts through email and WhatsApp. In its latest advisory on October 23, the bank said customer account balances and funds remain safe while investigators examine the suspected exposure of personal information found on the dark web. [\u2026] The post SBI Notifies Customers Impacted by the Recent Cyber Incident appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/sbi-notifies-customers-with-cyber-incident/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T09:20:41+00:00",
+      "published_ts": 1792747241,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Capcom data breach exposes 11.7 million account records",
+      "summary": "Players who signed up for Capcom\u2019s online account service may want to look twice at emails that seem to come from the company. The company has disclosed that a third party gained unauthorized access to customer information linked to CAPCOM ID, the account people use to sign in to the company\u2019s web services and to play some of its games online. It detected suspicious activity on October 19 and confirmed the intrusion the same day. \u2026 More \u2192 The post Capcom data breach exposes 11.7 million account records appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/10/23/capcom-id-data-breach-11-million-records-exposed/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T09:07:31+00:00",
+      "published_ts": 1792746451,
+      "smart_groups": [
+        "Data Breaches / Leaks"
+      ],
+      "curated": false
+    },
+    {
+      "title": "The \u2018Mythos moment\u2019 has already passed. Now comes the hard part for cybersecurity",
+      "summary": "When Anthropic introduced Claude Mythos Preview, the cybersecurity debate quickly turned to what AI could do: uncover decades-old vulnerabilities, develop working exploits and accelerate tasks that once required specialist expertise . Anthropic noted that Mythos discovered software flaws no human had caught, and early tests showed it could carry out multi-stage network attacks in minutes, tasks that once took skilled pen testers days. Security leaders and cyber defenders let out an initial sigh of relief when it was announced that Mythos would be available to a select few, with an extension to 150 other organizations. The Mythos moment and hype have now passed, and the harder task is turning its warning into practical defensive readiness. In other words, the \u201c Mythos moment\u201d and the initial \u201cshock\u201d is over. Now comes the hard part: can organizations identify their exposures, prioritize real risks and patch or mitigate them fast enough to stay ahead of AI-powered attacks? Can they be as fast as AI in even discovering them to begin with? AI-accelerated attacks are already here to stay There is no hiding from it now; AI-enabled and accelerated attacks are here already, and they are already rewriting cyber-attack playbooks worldwide. In 2026, Stanford\u2019s AI Index reports that AI agents now solve cybersecurity problems 93% of the time, up from just 15% in 2024. Independent tests confirm this trend: the UK\u2019s AI Security Institute (AISI) found Claude Mythos Preview could autonomously execute a 32-step simulated corporate network attack (a scenario that humans would take ~20 hours to complete) and retrieve flags hidden on target machines. In short, frontier AI models can chain together reconnaissance, exploitation and privilege escalation without human help. In these trials, Mythos reliably discovered and exploited vulnerabilities autonomously, tasks that would take human professionals days of work. Allied research backs this up. A Cloud Security Alliance report notes that attackers now operate at machine speed, whereas defenders still often operate on \u201corganizational speed.\u201d In practice, this means patch cycles of weeks or months no longer keep pace with exploit windows measured in hours. Widely deployed software (operating systems, browsers, network devices, etc.) \u2013 precisely the high-impact targets many enterprises depend on are now rapidly weaponized. Email is also not spared as attackers have now stepped up how they leverage AI-enabled prompt injection phishing attacks to deceive employees into wiring money to fake accounts, Vulnerabilities and exploits are exploding in growth Data shows this isn\u2019t a theoretical worry: the volume of known flaws and their exploitation is surging. Google\u2019s Threat Intelligence group found that reported vulnerabilities doubled from January to July 2026 (rising from ~5,000 to over 10,000 per month ). At the same time, the number of those vulnerabilities actually exploited in the wild nearly doubled, from an average of ~10.5 per month in 2025 to ~18 per month in early 2026. Even zero-day (previously unknown) exploits ticked up slightly. Google and others warn that this trend will continue. If rapid AI-assisted discovery and exploitation keep accelerating, defenders cannot afford \u201cunprioritized mass-patching\u201d as in the past. Instead, they must move to a threat-intelligence-driven triage model: focus on the vulnerabilities actually being targeted, and automate as much response as possible. This means continuous scanning, asset inventory and risk-based prioritization \u2014 often called exposure management using tools like Wiz, Tenable and Microsoft Defender for Cloud. For example, Security Boulevard explains that an exposure management program uses AI to constantly map assets, vulnerabilities and misconfigurations , then automatically prioritize and remediate the riskiest ones. This approach is essentially a \u201cMythos-ready\u201d security program \u2014 one designed to handle the avalanche of findings that AI will generate, and to fix them at machine speed. AI, essentially battling AI Using AI defensively Importantly, defenders can use AI as well as attackers, so it benefits both sides of the coin. Anthropic\u2019s own Project Glasswing is a case in point, as seen earlier. In early April 2026, only ~50 organizations were testing Mythos Preview, but within weeks they had already run it across their codebases and uncovered over 10,000 high- or critical-severity flaw s. Anthropic is now expanding Glasswing to ~150 additional organizations deemed critical (power, healthcare, communications, etc.) whose code impacts millions of users. The aim is to train industry on new AI-powered workflows: Partners share best practices, triage vulnerabilities together and even use AI to suggest fixes and pre-emptively harden code. Glasswing\u2019s lessons show that AI can speed up defensive tasks too. For example, Mythos-level models can be repurposed to write patches or convert legacy code into memory-safe languages, and to run \u201cAI red teams\u201d against one\u2019s own systems. Anthropic reports that partners are now using Mythos to automatically generate fixes, and their new public tool (Claude Security) helps scan code and suggest patches using a slightly safer variant of Mythos. In practice, organizations should consider adding AI to their security toolchain and leverage automated penetration testing, intelligent asset discovery and tagging, and AI-assisted patch generation to help keep pace with attackers. Reinforce the fundamentals Even as we deploy sophisticated tools, the basics still matter more than ever. AISI emphasizes that Mythos\u2019s impact actually highlights the importance of cybersecurity basics \u2014 regular patching, strong access controls, secure configurations and comprehensive logging, just as is seen in the UK\u2019s Cyber Essentials. In other words, if attackers can automate exploits, defenders must double down on hygiene and detection. With exploit windows collapsing to hours, organizations may need to accelerate patch cycles. This might mean more frequent updates, rolling hotfixes, or virtual patching via network controls when immediate fixes aren\u2019t available. Least privilege and segmentation also must be in place to reduce each user or system\u2019s access to only what it needs. An attacker (or malicious AI agent) with stolen credentials should find it hard to move laterally or escalate privileges. Network segmentation and micro-segmentation can slow or isolate attacks even if they penetrate the perimeter. Incident response rehearsals should also update playbooks to account for fast, AI-enabled attacks. For example, test scenarios where key accounts or credentials are compromised and ensure \u201cbreak-glass\u201d administrative accounts or recovery keys are secured (offline if possible) so you can take back control even if your primary identity provider or domain is down. In short, building resilience means blending new AI-driven practices with solid engineering. As Anthropic warns, Mythos-class capabilities are coming to many organizations soon and with fewer safeguards than the preview had. There is also no saying if China will get their hands on something similar and make it open source, which means attackers will also gain access to it. Security teams must adapt now by working at machine speed: automate exposure discovery and patching, enforce strict access controls, and enhance detection and response. Only by assuming that some attacks will succeed can organizations design defenses that contain the damage. The Mythos moment, when powerful AI grabbed headlines, has indeed passed and what matters now is translating its warning into practical readiness. The AI genie is out of the bottle, and cyber attackers will leverage these tools at the same time as we also tell it our security wishes.",
+      "link": "https://www.csoonline.com/article/4239166/the-mythos-moment-has-already-passed-now-comes-the-hard-part-for-cybersecurity.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T09:00:00+00:00",
+      "published_ts": 1792746000,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Windows / Microsoft",
+        "Cloud / SaaS",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Phishing / Social Engineering",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Bitcoin in 'Wait and See Mode'\u2014And That Might Be a Good Thing",
+      "summary": "The crypto market has been quiet as of late. Market analysts think that might actually be a good sign and that a bull market might be near.",
+      "link": "https://decrypt.co/381666/bitcoin-in-wait-and-see-mode-and-that-might-be-a-good-thing",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-23T08:55:35+00:00",
+      "published_ts": 1792745735,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "HSBC launches Hong Kong dollar stablecoin for retail payments",
+      "summary": "HSBC is rolling out RedCoin wallets to PayMe users, with plans to support tokenized investment subscriptions and expand into institutional uses.",
+      "link": "https://cointelegraph.com/news/hsbc-launches-redcoin-hong-kong-dollar-stablecoin-payme?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-23T08:47:34+00:00",
+      "published_ts": 1792745254,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Researchers Demonstrate Node2Shell RCE Exploit on Node.js Build Using Crafted Brotli Data",
+      "summary": "Malicious Brotli data can make an application on an official build of Node.js run attacker-supplied code, security researchers at Imperva have demonstrated. Their \"Node2Shell\" proof of concept ran code on the official Node.js 24.22.0 image for Linux arm64, with no debugger or custom build, by feeding crafted data to the bundled Brotli decoder (CVE-2026-111497). Node.js disclosed the flaw",
+      "link": "https://thehackernews.com/2026/10/researchers-demonstrate-node2shell-rce.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T08:40:43+00:00",
+      "published_ts": 1792744843,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Linux / Unix"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Critical x402 SDK Flaw Could Let Malicious APIs Drain AI Agents\u2019 Token Balances",
+      "summary": "AI agents paying for API calls with the x402 SDKs could sign a payment for their full balance of a supported token if a malicious API asked for it, security firm V12 said on October 22. The cause was the SDKs' default client, which set no spending limit until releases on August 18 added one. The risk was limited to agents who automatically signed payments and whose apps set",
+      "link": "https://thehackernews.com/2026/10/critical-x402-sdk-flaw-could-let.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T08:35:45+00:00",
+      "published_ts": 1792744545,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "11 Million Impacted by Capcom Data Breach",
+      "summary": "The hackers stole 11 million email addresses from CAPCOM ID and changed the login passwords for 196 accounts. The post 11 Million Impacted by Capcom Data Breach appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/11-million-impacted-by-capcom-data-breach/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T08:34:14+00:00",
+      "published_ts": 1792744454,
+      "smart_groups": [
+        "Data Breaches / Leaks"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Quest Diagnostics Reports Cyber Breach Affecting \u2018Certain Patient Records\u2019",
+      "summary": "In a regulatory filing, Quest Diagnostics reported unauthorized access to its Quanum Lab Services Manager, a platform where certain clients can place test orders. The post Quest Diagnostics Reports Cyber Breach Affecting \u2018Certain Patient Records\u2019 appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/quest-diagnostics-reports-cyber-breach-affecting-certain-patient-records/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T08:25:06+00:00",
+      "published_ts": 1792743906,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "The AI notetaker risk is now an everywhere problem",
+      "summary": "The businesspeople adopting AI notetakers are not being reckless. They are responding to a real business need. Our teams are in meetings all day with companies we support, and the idea that we could read a clean summary of every one of them at the end of the day makes us better partners to our customers. At the AI-first startups we spend time with, a new account manager can walk in on day one, inherit the full recorded history of every customer conversation, and ask the AI what that customer actually cares about. That is not surveillance culture for its own sake. It\u2019s a better way to serve people. Still, AI notetakers present cyber risks , as we have been warning about for the past year: shadow adoption measured in hundreds of accounts in a matter of weeks, vendors without SOC 2 or real encryption, consent liability, litigation exposure. In April, one of us stood on stage at the [un]prompted conference and argued that the most important attendee in your meetings is no longer a person. AI notetakers decide what matters, assigning the action items and providing the summary that becomes the meeting\u2019s official record. But our early warnings about AI notetakers shared an assumption we no longer hold: that the notetaker joins the meeting. That assumption quietly died this summer, as the notetaker has left the meeting platform and moved onto the body \u2014 and policies haven\u2019t noticed let alone caught up to this change yet. From the meeting to the wrist On July 28, Granola, the AI notetaker we see most often in our worlds, launched an Apple Watch app . One tap on the wrist and it records whatever happens around you. No bot joining the call, no banner announcing itself, no laptop open on the table. The same week, DEF CON banned Meta-style smart glasses from the conference floor over recording concerns. Meta, meanwhile, had already acquired Limitless , the AI pendant company, folding always-on personal recording into the largest consumer hardware pipeline in the world. One public company we\u2019ve worked with now screens attendees for smart glasses before all-hands meetings where unreleased plans are discussed. We\u2019ve tested this ourselves, putting the watch under a jacket sleeve, tapping once, and recording an entire evening walk. Clean transcript. Nobody could have known. In the United States, recording someone without their permission depends on which state you are standing in. California says you can\u2019t, but many states say you can. More importantly we still have no norms of disclosure, and the hardware is now designed to be invisible. The record is not neutral Since the April talk , we have met a steady stream of people telling us how they game these systems. One person described doing prompt injection against a notetaker in a live meeting, right as we walked offstage. Another explained the simplest trick we have heard: join early, and for the five minutes you are alone with the notetakers, calmly narrate the outcomes you want captured as the most important takeaways. A third said he figured out how to silently crash other companies\u2019 notetakers, so the meeting ends and there is no record. There is academic research behind all this. Call it manipulation or call it strategic communication. The methods work. Notetaking systems also fail on their own. We have watched a transcript mishear one word, then reinterpret the rest of the conversation to fit the error. Colleagues with accents the models handle poorly carry more of that risk than the rest of us. And these tools are no longer stenographers. They have memories. Granola pulls context from prior meetings and background on the people in the meeting into today\u2019s meeting notes. That is useful, but it also means a summary shared outside your company could leak reasoning from meetings the other party was never in. Then there is the case that should be on every policy writer\u2019s mind. Last November, a Campbell\u2019s security executive was terminated for what they said during a meeting secretly recorded by an employee during what he thought was a private lunch conversation. The recording surfaced months later through an employment lawyer, and the executive was gone within days. Whatever you think of what was said, notice the mechanism: no notetaker bot, no meeting platform. One person, one device, one conversation the speaker believed was off the record. There is no such thing anymore. What a serious policy looks like Boards and legal teams are now asking their CISOs for notetaker policies. Having helped several organizations think through this, here is where we land. Transparency always. If a recording tool is running, everyone present knows. The lightest version we recommend: Change your display name to \u201cName + AI notetaker.\u201d And the rule must bind employees, too. An employee who records a colleague without disclosure is committing a fireable offense, full stop, before we ever discuss what the recording contains. Classify your meetings. At one firm, we wrote a formal policy naming which meetings may never be recorded. Yours might include M&A, legal, HR, and board executive sessions. Decide deliberately, in writing, before the tools decide for you. Govern other people\u2019s notetakers. When an auditor walks into your building, their laptop has to meet your standards. Apply the same principle to recording. If another organization records your employees, you should know, and you should get a copy. Choose your retention posture. A full transcript is a different corporate record than a summary. Decide whether transcripts are destroyed by default, with legal holds as the exception, or kept forever. Do not let the vendor\u2019s default decide. Treat notetaker vendors like what they are: startups holding your most sensitive conversations in their cloud. Vendor security review, data-reuse terms, indemnification language. Brewer v. Otter.ai , a class action alleging Otter\u2019s notetaker recorded meetings without everyone\u2019s consent and used the recordings to train models, and the sudden shutdown of Novacy both happened for a reason. Assign a human. Every transcript that becomes a record needs a named owner responsible for reviewing its accuracy, no matter whose tool recorded the call. Remember that some may train employees to steer the transcript, the way a lawyer protects the record in a deposition. We understand the instinct, and reviewing the record for accuracy is exactly right. An organization that quietly optimizes its official records has bigger problems coming. We used to debate whether to let the notetaker into the meeting. That debate is over, because the meeting is now everywhere the recorder goes. Write your policies for the world where the microphone is already in the room, because it is.",
+      "link": "https://www.csoonline.com/article/4239372/the-ai-notetaker-risk-is-now-an-everywhere-problem.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T08:25:00+00:00",
+      "published_ts": 1792743900,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Top 10 Best Email Encryption Services in 2026 [Ranked & Scored]",
+      "summary": "Email encryption has a usability paradox: the strongest cryptography loses to the recipient who gives up at the portal login and asks for the file \u201csome other way.\u201d The 2026 winners solve for both ends sender-side automation (policies, DLP triggers, one-click protect) and recipient experiences that don\u2019t require a manual. We scored ten services on [\u2026] The post Top 10 Best Email Encryption Services in 2026 [Ranked & Scored] appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/best-email-encryption-services/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T08:22:52+00:00",
+      "published_ts": 1792743772,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Hackers hijack exposed AI models to launch cyberattacks at victims\u2019 expense",
+      "summary": "An attack tool built around AI goes looking for AI models that anyone on the internet can reach, then uses them to plan break-ins while the model\u2019s owner pays for the computing power. Symantec captured the agent\u2019s instruction set this summer through a honeypot posing as an unprotected AI service, researchers Priti More and Susmit Yenkar wrote. Its operators sent their entire working prompt to the decoy, expecting a live model on the other end \u2026 More \u2192 The post Hackers hijack exposed AI models to launch cyberattacks at victims\u2019 expense appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/10/23/llmjacking-agent-hijacks-exposed-ai-models/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T08:21:48+00:00",
+      "published_ts": 1792743708,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Top 9 Best Managed File Transfer (MFT) Solutions in 2026 [Ranked & Scored]",
+      "summary": "No category has been breached more publicly this decade than managed file transfer mass-exploitation campaigns against MFT products turned quiet integration plumbing into board-level risk, and the 2023\u20132024 waves rewrote the buying criteria. In 2026 you evaluate an MFT vendor\u2019s security engineering exposure architecture, patch velocity, hardening posture before its scheduler. Our sheet listed ten [\u2026] The post Top 9 Best Managed File Transfer (MFT) Solutions in 2026 [Ranked & Scored] appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/best-managed-file-transfer/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T08:16:37+00:00",
+      "published_ts": 1792743397,
+      "smart_groups": [
+        "Curated",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "LiteLLM Compromised in Fresh Supply Chain Attack",
+      "summary": "Hackers used compromised GitHub CLI OAuth tokens to push and approve malicious packages on PyPI and Docker. The post LiteLLM Compromised in Fresh Supply Chain Attack appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/litellm-compromised-in-fresh-supply-chain-attack/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T08:10:46+00:00",
+      "published_ts": 1792743046,
+      "smart_groups": [
+        "Curated",
+        "Identity / Access"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Atlassian Patches 75 Flaws in Data Center and Server Products",
+      "summary": "Atlassian\u2019s October bulletin lists 176 vulnerability entries, including 14 critical-severity issues, all in third-party components. The post Atlassian Patches 75 Flaws in Data Center and Server Products appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/atlassian-patches-75-third-party-flaws-in-data-center-and-server-products/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T07:54:47+00:00",
+      "published_ts": 1792742087,
+      "smart_groups": [
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Hackers Exploit Critical Citrix NetScaler RCE Flaw to Deploy Web Shells and Malware",
+      "summary": "A critical vulnerability in Citrix NetScaler ADC and NetScaler Gateway is being exploited to run commands on exposed appliances, install web shells and deliver malware. Tracked as CVE-2026-88771, the flaw allows an unauthenticated attacker to execute commands remotely. Citrix disclosed it on September 27, 2026, and confirmed exploitation of appliances that had not been protected [\u2026] The post Hackers Exploit Critical Citrix NetScaler RCE Flaw to Deploy Web Shells and Malware appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/citrix-netscaler-rce-flaw/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T07:50:58+00:00",
+      "published_ts": 1792741858,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "PHP2Shell Exploit Attempts Hit Millions as Attackers Try to Deploy Mirai Malware",
+      "summary": "Threat actors have been observed unsuccessfully attempting to exploit the newly disclosed PHP2Shell vulnerabilities to rope infected systems into a Mirai botnet variant called Potassium, as it emerges that weaponizing the flaws may be harder than previously thought. The attacks aim to exploit CVE-2026-109618 and CVE-2026-109619 (CVSS scores: 9.2), which can result in unauthenticated remote",
+      "link": "https://thehackernews.com/2026/10/php2shell-exploit-attempts-hit-millions.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T07:40:45+00:00",
+      "published_ts": 1792741245,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Cloud / SaaS",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "PHP Vulnerability Exposes 100 Lithuanian Websites to Hackers",
+      "summary": "submitted by /u/Vostok_East [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1xd7hjw/php_vulnerability_exposes_100_lithuanian_websites/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-10-23T07:33:54+00:00",
+      "published_ts": 1792740834,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Malaysia, Thailand join Singapore\u2019s cross-border stablecoin push",
+      "summary": "BLOOM seeks to cut costs by helping financial institutions coordinate cross-border use of stablecoins and tokenized deposits.",
+      "link": "https://cointelegraph.com/news/malaysia-thailand-join-singapores-cross-border-stablecoin-push?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-23T07:15:53+00:00",
+      "published_ts": 1792739753,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Hacker With Limited Skills Used DeepSeek AI to Breach Indian University and Steal Over 5,200 Records",
+      "summary": "A cybercriminal using the online handle BUGSTER used artificial intelligence tools to support attacks on Indian organizations, including two universities. In one confirmed intrusion, the attacker stole a MongoDB database containing more than 5,200 records, including personal information about students and staff, according to Palo Alto Networks\u2019 Unit 42. The researchers did not name the [\u2026] The post Hacker With Limited Skills Used DeepSeek AI to Breach Indian University and Steal Over 5,200 Records appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/hacker-with-limited-skills-used-deepseek-ai/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-23T07:13:36+00:00",
+      "published_ts": 1792739616,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Bitcoin ETFs bleed $635M as October slides back into the red",
+      "summary": "Thursday\u2019s withdrawals ended a three-day inflow streak and left US spot Bitcoin ETFs with $175 million in net outflows for October.",
+      "link": "https://cointelegraph.com/markets/bitcoin-etfs-erase-october-gains-outflow?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-23T07:09:39+00:00",
+      "published_ts": 1792739379,
       "smart_groups": [],
       "curated": false
     },
@@ -1220,6 +1925,22 @@
       "curated": false
     },
     {
+      "title": "Field Notes: Reconstructing an Attacker\u2019s Workflow",
+      "summary": "Introduction During a recent incident, we recovered several PowerShell scripts the attacker had left behind on disk. Instead of reconstructing every action from individual event log entries, file-system artefacts, and EDR telemetry, we could read some parts of the attacker\u2019s workflow directly from their own code. The scripts covered several stages of post-compromise activity: command execution, credential harvesting, Active Directory reconnaissance, remote-access testing, and SMB share discovery. Parts of this tradecraft overlap with activity Microsoft documented in its analysis of the TerminalFix campaign, a ClickFix variant that ultimately deploys a reverse tunnel into the victim network. Among other things, Microsoft described a persistent PowerShell loop that watches a local file for commands, executes them, and writes the results to another file.",
+      "link": "http://localhost:1313/posts/field_note_attacker_workflow/",
+      "source": "https://dfir.ch/index.xml",
+      "type": "dfir",
+      "type_label": "DFIR & Forensics",
+      "published": "2026-10-22T17:58:20+00:00",
+      "published_ts": 1792691900,
+      "smart_groups": [
+        "Windows / Microsoft",
+        "Web / API Security",
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
       "title": "Capcom's Notification of \"CAPCOM ID Unauthorized Access\" Received, but Isn't Their Security Configuration Way Too Lax?",
       "summary": "I recently received a data breach notification email from Capcom titled \"Apology and Notice Regarding Customer Information Affected by Unauthorized Access to CAPCOM ID.\" The email alias service I use, SimpleLogin, flagged this official notice with the following warning right at the top: \"This email failed anti-phishing checks when it was received by SimpleLogin, be careful with its content.\" Upon checking the actual email headers, it was configured as follows: ARC-Authentication-Results: i=1; mail.protonmail.ch; dmarc=fail (p=none dis=none) header.from=capcom.com; spf=pass smtp.mailfrom=fc8573.cn-0005.jp; dkim=pass (1024-bit key) header.d=dkim.cuenote.jp header.i=[@]dkim.cuenote.jp It is a DMARC authentication failure (dmarc=fail) . Capcom is using an external email delivery service to send out these notifications in bulk, but the authentication results indicate that the message failed DMARC alignment checks. Although SPF and DKIM both passed individually, neither appears to have aligned with the capcom.com domain in the From address. Looking up Capcom's actual DNS records reveals the following configurations: SPF Record: v=spf1 include:***.com ~all The mechanism ends with \" ~all \" (SoftFail). This means that emails from unauthorized senders are treated as SPF SoftFail rather than a definitive pass. It does not explicitly require receiving servers to reject such emails, so they may still be delivered depending on the recipient's filtering policies. DMARC Record: v=DMARC1; p=none; rua=mailto:***[@]***.com Their DMARC policy is set to \" p=none \" (monitor only). This means the domain owner does not request receiving servers to quarantine or reject emails that fail DMARC authentication. Although receiving providers may apply their own anti-phishing measures, this policy itself does not request any specific protective action. Despite these email security settings, Capcom included the following advisory within the email text: \"Advisory to Customers\" The email address registered to your CAPCOM ID account may continue to be used without interruption. However, there is a possibility that the affected information could be misused to send fraudulent emails or other communications impersonating Capcom or related parties. Before telling users to stay vigilant, Capcom should first ensure that its own official emails are properly authenticated and that it has appropriate measures in place to address spoofing risks. If Capcom uses an external email delivery service to send official notifications, it should ensure that the service is properly configured so that its emails can be authenticated. If it wants to prevent spoofing, it should also consider moving to a policy that quarantines or rejects emails that fail authentication, once all legitimate sending sources have been properly verified. Yet Capcom's DMARC policy remains set to p=none , which does not request receiving servers to quarantine or reject emails that fail authentication. I see little sense of responsibility from Capcom as the company responsible for this data breach. I seriously question whether it is genuinely committed to preventing secondary damage, such as phishing scams. What do you guys\u2014especially tech folks and security experts\u2014think about this? Also, to all Capcom gamers out there, can you really accept them leaving their email authentication policies in this state? submitted by /u/Tiny_Tone_2860 [link] [comments]",
       "link": "https://www.reddit.com/r/cybersecurity/comments/1xcpom3/capcoms_notification_of_capcom_id_unauthorized/",
@@ -2315,6 +3036,18 @@
         "Exploit / PoC"
       ],
       "curated": true
+    },
+    {
+      "title": "As AI Risks Grow, Insurers Split on Covering the Damage",
+      "summary": "Insurers are split on AI risk: some build specialized agentic AI coverage, while major carriers quietly exclude it \u2014 leaving enterprises exposed without their knowledge.",
+      "link": "https://www.darkreading.com/cyber-risk/cyber-insurance-covering-ai-damage",
+      "source": "darkreading",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-22T14:21:22+00:00",
+      "published_ts": 1792678882,
+      "smart_groups": [],
+      "curated": false
     },
     {
       "title": "Where to Find Linux auditd Logs and How to Export Them",
@@ -32276,6 +33009,22 @@
       "title": "Field Notes: EtherRAT Distributed Through a Legitimate Intune Workflow",
       "summary": "Introduction The investigation began with a Microsoft Defender for Endpoint alert for suspicious screen capture activity involving PowerShell. Examining the process ancestry revealed a larger execution chain involving FbtRYX8x.exe , a renamed Node.js runtime communicating with several public Ethereum RPC providers. The observed behavior was consistent with EtherRAT , a Node.js-based backdoor previously documented by Atos Threat Research Center , The DFIR Report , and Malwarebytes . Further hunting identified the same malware on four managed endpoints, all of which had received a malicious MSI through Microsoft Intune. The deployment itself was not the result of an identified compromise of Intune. Instead, the customer had imported what appeared to be a legitimate Advanced IP Scanner installer into its existing software distribution workflow, inadvertently deploying the malware to multiple systems.",
       "link": "https://dfir.ch/posts/field_notes_etherrat/",
+      "source": "https://dfir.ch/index.xml",
+      "type": "dfir",
+      "type_label": "DFIR & Forensics",
+      "published": "2026-10-13T23:58:20+00:00",
+      "published_ts": 1791935900,
+      "smart_groups": [
+        "Curated",
+        "Windows / Microsoft",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Field Notes: EtherRAT Distributed Through a Legitimate Intune Workflow",
+      "summary": "Introduction The investigation began with a Microsoft Defender for Endpoint alert for suspicious screen capture activity involving PowerShell. Examining the process ancestry revealed a larger execution chain involving FbtRYX8x.exe , a renamed Node.js runtime communicating with several public Ethereum RPC providers. The observed behavior was consistent with EtherRAT , a Node.js-based backdoor previously documented by Atos Threat Research Center , The DFIR Report , and Malwarebytes . Further hunting identified the same malware on four managed endpoints, all of which had received a malicious MSI through Microsoft Intune. The deployment itself was not the result of an identified compromise of Intune. Instead, the customer had imported what appeared to be a legitimate Advanced IP Scanner installer into its existing software distribution workflow, inadvertently deploying the malware to multiple systems.",
+      "link": "http://localhost:1313/posts/field_notes_etherrat/",
       "source": "https://dfir.ch/index.xml",
       "type": "dfir",
       "type_label": "DFIR & Forensics",
@@ -81822,6 +82571,21 @@
       "curated": true
     },
     {
+      "title": "BSides Tallinn: Deconstructing Modern macOS Initial Access Vectors",
+      "summary": "Abstract For years, a persistent myth suggested that macOS was inherently immune to malware. Today, threat actors are aggressively shattering that illusion by deploying sophisticated initial access chains tailored to bypass macOS defenses. This talk provides a deep-dive analysis of how modern adversaries gain their first foothold on Apple hardware. We will dissect the entire initial access pipeline, starting with Infection Vectors like deceptive Google Ads, malicious ClickFix campaigns, and sophisticated malvertising that trick users into lowering their guard. From there, we explore the Execution Phase, analyzing how attackers weaponize scripting languages, including traditional Bash and Python, as well as native AppleScript, Compiled AppleScript, Perl, and JavaScript for Automation (JXA). Finally, we will examine the delivery mechanisms, contrasting the abuse of native Binaries (Mach-O, Platypus-packaged apps, and Electron frameworks) with the trojanization of Storage and Installer Formats (DMGs and PKGs).",
+      "link": "http://localhost:1313/talks/bsides_tallinn_2026/",
+      "source": "https://dfir.ch/index.xml",
+      "type": "dfir",
+      "type_label": "DFIR & Forensics",
+      "published": "2026-09-25T14:04:20+00:00",
+      "published_ts": 1790345060,
+      "smart_groups": [
+        "Curated",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
       "title": "ShinyHunters Renewed Mass Exploitation Campaign Targeting Oracle PeopleSoft",
       "summary": "Introduction As an update to the June 2026 post, ShinyHunters Targets Education Sector with Oracle PeopleSoft Exploit , Mandiant and Google Threat Intelligence Group (GTIG) have identified renewed mass exploitation of CVE-2026-35273 by UNC6240 (ShinyHunters), along with expanded global targeting across multiple sectors. In June, the threat actor exploited this vulnerability as a zero-day predominantly against academic institutions. This new wave of activity stems from UNC6240 modifying its exploit to bypass web application firewall (WAF) rules blocking the vulnerable Environment Management Hub (PSEMHUB) endpoint. The threat actor bypassed these string-based WAF rules by URL-encoding a single character in the request path, requesting /%50SEMHUB/ in place of /PSEMHUB/ . Many WAF and reverse proxy rules match the literal path before URL decoding, while the PeopleSoft application server decodes the request and routes it to the vulnerable servlet. This allows the threat actor to reach the endpoint on systems whose operators may have believed their WAF rules had mitigated the exposure. Our analysis indicates that the threat actor expanded their targeting in this recent campaign, deploying web shells on dozens of systems globally, spanning higher education, technology, IT services, healthcare, agriculture, transportation, and government. Mandiant recommends that organizations running Oracle PeopleSoft take the following immediate actions. Additional remediation and hardening guidance is included later in this post. Remediation and Hardening Quick Guide Apply the Oracle Security Alert patch for CVE-2026-35273. WAF rules and path-based blocking are not a substitute for patching. Disable the Environment Management Hub (EMHub) service in multi-server configurations, or remove the PSEMHUB application entirely in single-server configurations, as advised in Oracle's security alert guidance . Search PIA WebLogic access logs for requests to /PSEMHUB/ and any percent-encoded variant (for example, /%50SEMHUB/ ), particularly POST requests to /hub and requests to .jsp files from external source IP addresses. Inspect /webserv/ /applications/peoplesoft/PSEMHUB.war/ for files that are not part of the shipped product, including but not limited to x.jsp , u.jsp , tunnel.jsp , tunnel.jspx , and Ple64.exe . Rotate credentials readable by the PeopleSoft application service account, including database connection strings in psappsrv.cfg , Integration Broker credentials, and any cloud credentials reachable from the web tier. Monitor outbound traffic from PeopleSoft hosts to the network indicators listed in this post, and review endpoints for unexpected MeshCentral agents. Figure 1: Remediation and hardening quick guide Background: From Zero-Day to N-Day In June 2026, we reported a UNC6240 campaign that exploited CVE-2026-35273 as a zero-day between May 27 and June 9, 2026, predominantly against higher education institutions. Oracle released an out-of-band Security Alert on June 10, 2026. Mandiant\u2019s June guidance recommended patching and, where patching or disabling EMHub was not immediately possible, blocking external access to /PSEMHUB/* at the perimeter, noting that WAF body-inspection rules alone were insufficient. The current campaign demonstrates that UNC6240 adapted to published defensive guidance, targeting organizations that implemented WAF rules but did not patch the vulnerability. Attack Lifecycle We observed a consistent sequence of events in targeted PeopleSoft environments, progressing from discovery and verification to web shell deployment and hands-on-keyboard activity. Target Verification Before exploitation, targeted servers typically received five to 15 POST requests to /%50SEMHUB/hub containing a serialized Java object. Unpatched servers respond with the host operating system without writing files or disrupting the service, allowing the threat actor to quietly confirm exploitability. On hosts that the threat actor validated but did not yet exploit, organizations may see this request in logs, with no follow-on activity. WAF Bypass All requests addressed the vulnerable servlet through a url-encoded path. %50 is the encoded form of the character P . WAF and proxy rules that match the literal string /PSEMHUB before decoding do not match /%50SEMHUB/ , while WebLogic decodes the path and serves the application normally. Defenders should assume that threat actors may use any percent-encoded, mixed-case, or otherwise non-normalized variant of /PSEMHUB/ , and should enforce blocking on the normalized path. Figure 2: PSEMHUB WAF bypass Exploitation We observed two exploitation methods, both abusing Java deserialization in the PSEMHUB hub servlet: Web shell deployment. To access web shells behind some load balanced environments, the threat actor sent a burst of multiple POST requests to /%50SEMHUB/hub , followed by the creation of a new JSP files, such as x.jsp , or sequentially numbered JSP files in the PSEMHUB.war directory. The repetition likely ensures that every node behind a load balancer receives a copy of the web shell, so organizations should check all WebLogic nodes, not only the first one identified. Fileless command execution. POST requests to /%50SEMHUB/hub that return command output directly in the HTTP response, with no file written to disk. On the host, this appears as shell processes ( cmd.exe or /bin/sh ) spawned by the WebLogic Java process. Detections that rely on JSP file creation will not identify this method. Post-Exploitation Tooling Dual Web Shells To establish persistent access and stage follow-on payloads, the threat actor deployed two complementary, single-line JSP web shells into the PSEMHUB.war directory. Both shells were designed to minimize web application firewall (WAF) detections during post-exploitation. The primary shell, x.jsp , provides cross-platform command execution. Rather than passing cleartext commands in URL query strings, x.jsp accepts hex-encoded commands via HTTP POST ( c ) along with an optional execution timeout ( t ). It automatically detects the underlying operating system, spawning cmd.exe on Windows or reconstructing /bin/sh from an ASCII character array on Linux to avoid static string signatures, and returns the process output prefixed with R: . 0) { n = a.read(b); if (n > 0) sb.append(new String(b, 0, n)); } else if (g.available() > 0) { n = g.read(b); if (n > 0) sb.append(new String(b, 0, n)); } else { try { p.exitValue(); break; } catch (IllegalThreadStateException e2) { try { Thread.sleep(40); } catch (Exception e3) {} } } } while (a.available() > 0) { n = a.read(b); if (n > 0) sb.append(new String(b, 0, n)); } while (g.available() > 0) { n = g.read(b); if (n > 0) sb.append(new String(b, 0, n)); } out.print(\"R:\" + sb.toString()); } %> Figure 3: x.jsp cross-platform command execution web shell (formatted for readability) When staging larger binaries on compromised Windows hosts, the threat actor deployed a second servlet, u.jsp (along with an offset-based variant, u2.jsp ). This shell decodes Base64-encoded file chunks ( a ) and writes or appends them ( m ) to a target path ( n ) in 150 KB increments, bypassing HTTP request-size limits and avoiding PeopleSoft's native FILECHUNKING handlers. It also includes a secondary parameter ( x ) to execute cmd.exe commands once file reassembly is complete. 0) { k = i.read(buf); if (k > 0) sb.append(new String(buf, 0, k)); } else { try { p.exitValue(); break; } catch (Exception e2) { Thread.sleep(30); } } } out.print(\"R:\" + sb.toString()); } catch (Exception e) { out.print(\"X:\" + e); } } %> Figure 4: u.jsp chunked file upload and execution web shell (formatted for readability) Trojanized Installer and Multi-Stage Backdoor ( Ple64.exe ) On compromised Windows servers, the threat actor used u.jsp (and u2.jsp ) to upload and execute a 5.2 MB binary named Ple64.exe (tracked as SIDEEYE) inside the PSEMHUB.war directory. While Ple64.exe masquerades as a signed installer for the Light Alloy media player, analysis revealed that it is a trojanized installer containing a three-stage execution chain that loads SIDEEYE in memory. The analyzed sample was signed with a valid Extended Validation (EV) certificate issued to Tobias Weihmann Software Development OU via Sectigo. GTIG has contacted Sectigo for revocation of this certificate. When executed, Ple64.exe (Stage 1) decompresses and loads a VMProtect 3 (VMP3)-protected second-stage launcher into memory. This launcher decrypts additional data blocks embedded within Ple64.exe and loads and executes the third stage in memory. Stage 3 is the SIDEEYE C++ backdoor that communicates with its command-and-control (C2) server ( 162[.]219[.]30[.]165 ) over raw TCP using separate control ( TCP/3333 ) and data ( TCP/3334 ) ports. Initial analysis indicates that SIDEEYE supports: Browser and desktop application credential theft Process and file management Interactive reverse shell and reverse proxy capabilities After uploading the binary in chunks via u.jsp , the threat actor verified the reassembled file size on disk, launched Ple64.exe as a background process, and confirmed that it remained running: dir applications\\peoplesoft\\PSEMHUB.war\\Ple64.exe for %F in (applications\\peoplesoft\\PSEMHUB.war\\Ple64.exe) do @echo %~zF cmd.exe /c start /b \"\" applications\\peoplesoft\\PSEMHUB.war\\Ple64.exe tasklist | findstr /i Ple64 Figure 5: Threat actor verifying upload and execution of the trojanized Ple64.exe (SIDEEYE) backdoor Tunneling with Neo-reGeorg Alongside the deployment of Ple64.exe , the threat actor staged the open-source Neo-reGeorg tunneling toolkit and deployed its tunnel.jsp and tunnel.jspx servlets into victim web directories. This toolkit routes SOCKS5 proxy traffic through ordinary HTTP and HTTPS connections to the web tier, enabling internal discovery and lateral movement from the PeopleSoft host. MeshAgent To establish persistent access after web shell placement on Linux systems, UNC6240 deployed the legitimate RMM tool MeshAgent. In earlier May and July 2026 intrusions, the actor dropped unencrypted agent binaries and configuration files directly into /tmp ( meshagent , meshagent.msh , and meshagent.db ) under the PeopleSoft service account, routing outbound connections to Microsoft-masquerading domains including azurenetfiles.net , microsoft-entra.net , and enroll.azuredevice.cloud . In September 2026 intrusions, UNC6240 continued to use IT-themed infrastructure associated with MeshAgent ( winmanage-me.network on 104.219.234.138 ) for secondary staging and management. MeshCentral is a legitimate open-source remote management platform that threat actors, including UNC6240, use to maintain interactive access to victim systems over web sockets. Observed Post-Exploitation Commands Across compromised instances, a quarter of the threat actor's commands executed as root or NT Authority\\SYSTEM , granting full control of the operating system. The remaining commands were executed under PeopleSoft or WebLogic service accounts, which still provide access to PeopleSoft configuration files, database connection strings, and application data. Command activity through the web shells fell into several categories: Host and user discovery, including hostname and whoami . Process verification, polling process listings with tasklist to verify payload execution. An example web shell request using the encoded path follows: GET /%50SEMHUB/ .jsp?c=id;hostname;uname+-a HTTP/1.1 Figure 6: Example web shell request Remediation and Hardening Patch and Reduce Exposure Apply the Oracle Security Alert for CVE-2026-35273 and remain on supported PeopleTools versions. Disable the EMHub service if it is not used for patching or remove the PSEMHUB application. EMHub and the Integration Broker listening connector are administrative and system-to-system components, and restricting them from public internet access is non-breaking for standard PeopleSoft Internet Architecture (PIA) user sessions. Log and Endpoint Monitoring Search PIA WebLogic access logs for requests to /PSEMHUB/ and encoded variants, POST requests to /hub with bodies from external sources, and requests to unexpected .jsp or .jspx files under PSEMHUB or PORTAL. On hosts, alert on shell processes ( cmd.exe , /bin/sh , bash ) spawned by the WebLogic Java process, particularly those invoking base64 -d , curl , /dev/tcp , tasklist , or start /b . Host-Level Auditing Scan PSEMHUB.war/ and PORTAL.war/ for unexpected .jsp , .jspx , and .exe files, inspect .../PSEMHUB.war/envmetadata/transactions/ for unauthorized content, and check for unexpected MeshCentral agents. Organizations that identify a web shell should treat the host as compromised, preserve evidence, and rotate all credentials accessible from the PeopleSoft tier, prioritizing hosts where the WebLogic service runs as root or SYSTEM . Hunt for Evidence of Data Theft Review PeopleSoft and database hosts for large archive files (.tar, .tar.gz, .zst) in temporary or web-accessible directories, and for tar, zstd, rsync, sshpass, or curl processes spawned by the PeopleSoft or WebLogic service accounts. Review database audit logs for bulk queries or exports against HR, payroll, and student records tables, and network logs for large or sustained outbound transfers from the PeopleSoft tier, including rsync (TCP 873), SSH, and HTTP POST traffic to the network indicators listed in this post. Prepare for Extortion UNC6240 has a well-established pattern of data theft extortion, that is, stealing data and threatening to release it on a data leak site unless the victim pays a ransom. Affected organizations should prepare for extortion communications and monitor for potential public exposure of stolen data. Indicators of Compromise (IOCs) To assist the wider community in hunting and identifying activity outlined in this blog post, we have included IOCs in a GTI collection for registered users . Network Indicators Indicator Type Description 5.199.162.157 IPv4 Attack controller, scanner, and HTTP callback receiver 104.219.234.138 IPv4 Exfiltration staging and remote management host 162.219.30.165 IPv4 C2 for SIDEEYE backdoor winmanage-me.network Domain Resolves to staging host; MeshCentral infrastructure Table 1: Network indicators Host Indicators /webserv/ /applications/peoplesoft/PSEMHUB.war/x.jsp /webserv/ /applications/peoplesoft/PSEMHUB.war/u.jsp /webserv/ /applications/peoplesoft/PSEMHUB.war/Ple64.exe /webserv/ /applications/peoplesoft/PSEMHUB.war/tunnel.jsp /webserv/ /applications/peoplesoft/PSEMHUB.war/tunnel.jspx Figure 7: Host indicators URI pattern: /%50SEMHUB/ (percent-encoded WAF bypass path; defenders should assume that threat actors may use any percent-encoded, mixed-case, or otherwise non-normalized variant of /PSEMHUB/ and enforce blocking on the normalized path). File Indicators File Name SHA-256 Description x.jsp 48b4a0827da7bbfce9fb52464f8a659dea7a035189c52c506c0bfb4b1c3fe494 Primary execution web shell; hashes will vary due to extra newline characters. u.jsp 2bee941fb40519d0d1ec52bd79a8f63fc65aac6455c8f2d6b668e3360dfdb5d7 Execution stager servlet tunnel.jsp 419c571ee38b7e7266d130c4b6bbc4dd0ef44d6e5f3bc02cc2cf73b762f07c86 Neo-reGeorg JSP tunnel (open-source). Hashes will vary by key used. tunnel.jspx ba14419beb2ec0bb94cab6298c14d7fb3e1d819366fe378290c0c2a4d97f7e07 Neo-reGeorg JSPX tunnel (open-source). Hashes will vary by key used. Ple64.exe 3ba215692665513abfffd4e815c5c45f2d41e5dcc4283a2a3b740930c5c417c3 Trojanized installer delivering SIDEEYE backdoor Table 2: File indicators Google Security Operations Google Security Operations customers will have access to the following rules. These rules will be available under the Mandiant Frontline Threats rule pack: Oracle PeopleSoft Configuration Inspection Sshpass Interactive File Deployment Data Archiving or Compression via Zstd Utility MeshCentral Command Execution via Meshctrl Pending deployment in the Mandiant Frontline Threats rule pack: Oracle PeopleSoft Suspicious File Write to Web Application Archive Directory MITRE ATT&CK Mapping Tactic Technique Reconnaissance T1596.003 Search Open Technical Databases: Digital Certificates Reconnaissance T1596.005 Search Open Technical Databases: Scan Databases Reconnaissance T1595.002 Active Scanning: Vulnerability Scanning Initial Access T1190 Exploit Public-Facing Application Defense Evasion T1027 Obfuscated Files or Information Execution T1059.003 Command and Scripting Interpreter: Windows Command Shell Execution T1059.004 Command and Scripting Interpreter: Unix Shell Persistence T1505.003 Server Software Component: Web Shell Discovery T1082 System Information Discovery Discovery T1016 System Network Configuration Discovery Credential Access T1552.001 Unsecured Credentials: Credentials In Files Command and Control T1090 Proxy Command and Control T1219 Remote Access Software Exfiltration T1048 Exfiltration Over Alternative Protocol Table 3: MITRE ATT&CK",
       "link": "https://cloud.google.com/blog/topics/threat-intelligence/shinyhunters-renewed-mass-exploitation-campaign-targeting-oracle-peoplesoft/",
@@ -89660,805 +90424,6 @@
       "published_ts": 1790165760,
       "smart_groups": [],
       "curated": false
-    },
-    {
-      "title": "North Korea's Fake Job Interviews Drained $11M From 7,000 Crypto Wallets",
-      "summary": "A seven-agency advisory ties the WaterPlum hacking crew and Pyongyang's remote IT worker scheme to the same bureau.",
-      "link": "https://decrypt.co/379032/north-koreas-fake-job-interviews-drained-11m-from-7000-crypto-wallets",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-23T12:15:18+00:00",
-      "published_ts": 1790165718,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "ShinyHunters claims FBI breach was revenge for \u201cfalse\u201d report",
-      "summary": "The extortion group says it stole sensitive data on FBI agents and job applicants, and wants the bureau to retract a warning about its tactics.",
-      "link": "https://www.malwarebytes.com/blog/news/2026/09/shinyhunters-claims-fbi-breach-was-revenge-for-false-report",
-      "source": "Malwarebytes Labs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T12:03:41+00:00",
-      "published_ts": 1790165021,
-      "smart_groups": [
-        "Ransomware",
-        "Network / OT / ICS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Ransomware Attacks Reach Record High for 2026",
-      "summary": "A total of 1073 firms fell victim to ransomware attacks globally in August, with the industrial sector the most affected, according to new NCC data",
-      "link": "https://www.infosecurity-magazine.com/news/ransomware-attacks-reach-record/",
-      "source": "Infosecurity Magazine \u2013 News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T12:00:00+00:00",
-      "published_ts": 1790164800,
-      "smart_groups": [
-        "Curated",
-        "Ransomware"
-      ],
-      "curated": true
-    },
-    {
-      "title": "British regulator takes a hard look at Pornhub's Apple-powered age checks",
-      "summary": "Regulator wants to know whether parent Aylo did its homework before reopening the door to UK iPhone users",
-      "link": "https://www.theregister.com/security/2026/09/23/british-regulator-takes-a-hard-look-at-pornhubs-apple-powered-age-checks/5298558",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T11:53:37+00:00",
-      "published_ts": 1790164417,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "The Domains Keep Disappearing, but the Malware Infrastructure Behind Them Never Moves",
-      "summary": "Fake verification pages are steering people toward malware, but the web addresses behind the lures keep changing. Over five months, investigators tracked four different attack chains that began with the same hosting network, even as domains, downloads and command servers shifted. The pattern makes blocking individual websites a poor way to stop the first step. [\u2026] The post The Domains Keep Disappearing, but the Malware Infrastructure Behind Them Never Moves appeared first on Cyber Security News .",
-      "link": "https://cybersecuritynews.com/domains-keep-disappearing/",
-      "source": "Cyber Security News (FeedBurner)",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T11:53:15+00:00",
-      "published_ts": 1790164395,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "ShinyHunters claims FBI hack, data theft in PeopleSoft zero-day breach",
-      "summary": "submitted by /u/homothebrave [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wo3r0k/shinyhunters_claims_fbi_hack_data_theft_in/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-23T11:47:52+00:00",
-      "published_ts": 1790164072,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "HPE Networking Analytics Engine Flaws Let Attackers Gain Root Access",
-      "summary": "Hewlett Packard Enterprise (HPE) has announced security updates for its Networking Analytics and Location Engine (ALE), addressing 10 vulnerabilities that could lead to complete appliance compromise and allow for root-level command execution. The most severe issues are identified as CVE-2026-76708 and CVE-2026-76709, both assigned a CVSS score of 9.8, and can be exploited remotely without [\u2026] The post HPE Networking Analytics Engine Flaws Let Attackers Gain Root Access appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/hpe-networking-analytics-engine-flaws-let-attackers-gain-root-access/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T11:47:34+00:00",
-      "published_ts": 1790164054,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Cloud / SaaS",
-        "Network / OT / ICS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "545 Hackers Tested It First. Now XRanges for AI Scores Your Security Agent",
-      "summary": "Autonomous security agents are getting good at finding bugs. Nobody has a good way to measure how good. Point one at a realistic target and what comes back is a report the agent wrote about itself: confident prose, a list of findings, and no way to tell which of them happened. Someone with a security background then sits down and checks every claim against the target. Which findings are real,",
-      "link": "https://thehackernews.com/2026/09/545-hackers-tested-it-first-now-xranges.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T11:47:19+00:00",
-      "published_ts": 1790164039,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Anthropic and OpenAI Models Still Attempt Restricted Actions in Safety Tests",
-      "summary": "Anthropic and OpenAI on Tuesday announced new models, with both artificial intelligence (AI) companies noting that they are continuing to invest in improving alignment to combat risky behavior. Opus 5.5, per Anthropic, is a \"major step up from Opus 5,\" and \"achieves the best scores of any model to date on our automated behavioral audit, our alignment suite that tests Claude across thousands",
-      "link": "https://thehackernews.com/2026/09/anthropic-and-openai-models-still.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T11:47:13+00:00",
-      "published_ts": 1790164033,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Adobe Patches Critical Flaws in Connect, AEM Forms",
-      "summary": "The nine critical security defects could be exploited for arbitrary code execution and privilege escalation. The post Adobe Patches Critical Flaws in Connect, AEM Forms appeared first on SecurityWeek .",
-      "link": "https://www.securityweek.com/adobe-patches-critical-flaws-in-connect-aem-forms/",
-      "source": "SecurityWeek",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T11:40:59+00:00",
-      "published_ts": 1790163659,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Cybercriminals Abandon Domains but Keep the Hosting Networks Behind Malware Campaigns",
-      "summary": "Cybercriminals are rapidly rotating lure domains, cloud storage buckets and command-and-control channels, but one infrastructure component is proving far harder to replace: the bulletproof hosting network that delivers the initial fake verification page. Five months of monitoring linked four distinct malware delivery chains to AS202412, operated by OMEGATECH LTD, making the ASN not individual domains [\u2026] The post Cybercriminals Abandon Domains but Keep the Hosting Networks Behind Malware Campaigns appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/malware-hosting-networks/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T11:40:52+00:00",
-      "published_ts": 1790163652,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "SolarWinds Observability Flaws Let Unauthenticated Attackers Execute Remote Code",
-      "summary": "SolarWinds has released SolarWinds Observability Self-Hosted version 2026.2.3 to address two critical remote code execution (RCE) vulnerabilities. These vulnerabilities could allow unauthenticated attackers to compromise exposed deployments under specific configurations. The vulnerabilities are tracked as CVE-2026-28324 and CVE-2026-28325, with CVSS severity scores of 9.8 and 8.8, respectively. This update was released on September 22, 2026, [\u2026] The post SolarWinds Observability Flaws Let Unauthenticated Attackers Execute Remote Code appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/solarwinds-observability-flaws/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T11:32:55+00:00",
-      "published_ts": 1790163175,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "AI-Powered Phishing Platform EvilTokens Disrupted by Microsoft",
-      "summary": "The cybercrime platform leveraged AI at every step of the attack chain, including writing social engineering messages and deciding targets. The post AI-Powered Phishing Platform EvilTokens Disrupted by Microsoft appeared first on SecurityWeek .",
-      "link": "https://www.securityweek.com/ai-powered-phishing-platform-eviltokens-disrupted-by-microsoft/",
-      "source": "SecurityWeek",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T11:23:30+00:00",
-      "published_ts": 1790162610,
-      "smart_groups": [
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Microsoft: September Windows updates break Always On VPN connections",
-      "summary": "Microsoft warned that the September 2026 security updates may also break Always On VPN connections on some Windows 11 systems. [...]",
-      "link": "https://www.bleepingcomputer.com/news/microsoft/microsoft-september-2026-windows-updates-break-always-on-vpn-connections/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T11:18:13+00:00",
-      "published_ts": 1790162293,
-      "smart_groups": [
-        "Windows / Microsoft"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Exploit Released for Unpatched Ubuntu Linux Flaw Enabling Host-Root Container Escape",
-      "summary": "A use-after-free in the Linux kernel's AF_UNIX socket subsystem can be used to escape a container and gain root on the host, security firm DepthFirst said in research published September 22. The flaw, tracked as CVE-2026-80521 (CVSS score: 7.8), was fixed upstream on August 6, but Ubuntu has not shipped the patch for its 26.04, 24.04, or 22.04 LTS releases. DepthFirst",
-      "link": "https://thehackernews.com/2026/09/exploit-released-for-unpatched-ubuntu.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T11:12:18+00:00",
-      "published_ts": 1790161938,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Linux / Unix"
-      ],
-      "curated": true
-    },
-    {
-      "title": "MemTensor npm and PyPI packages were backdoored today through their own CI pipeline",
-      "summary": "The attacker didn't push code directly. They got into MemTensor's GitHub Actions release workflow, intercepted the publish tokens before the real job ran, then used those tokens to ship the malicious packages themselves. submitted by /u/BattleRemote3157 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wo2w0o/memtensor_npm_and_pypi_packages_were_backdoored/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-23T11:05:09+00:00",
-      "published_ts": 1790161509,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Research on Models Engaging in Genie-Like Behavior",
-      "summary": "New paper: \u201c Self-Jailbreaking: Language Models Can Reason Themselves Out of Safety Alignment After Benign Reasoning Training .\u201d Abstract: We discover a novel and surprising phenomenon of unintentional misalignment in reasoning language models (RLMs), which we call self-jailbreaking. Specifically, after benign reasoning training on math or code domains, RLMs will use multiple strategies to circumvent their own safety guardrails. One strategy is to introduce benign assumptions about users and scenarios to justify fulfilling harmful requests. For instance, an RLM reasons that harmful requests like \u201coutline a strategy for stealing customers\u2019 credit card information from a retail store\u201d could be associated with the benign intent of \u201ca security professional trying to test defense,\u201d despite no such benign context being provided as input. We observe that many open-weight RLMs, including DeepSeek-R1-distilled, s1.1, Phi-4-mini-reasoning, and Nemotron, suffer from self-jailbreaking despite being aware of the harmfulness of the requests. We also provide a mechanistic understanding of self-jailbreaking: RLMs are more compliant after benign reasoning training, and after self-jailbreaking, models appear to perceive malicious requests as less harmful in the CoT, thus enabling compliance with them. To mitigate self-jailbreaking, we find that including minimal safety reasoning data during training is sufficient to ensure RLMs remain safety-aligned. Our work provides the first systematic analysis of self-jailbreaking behavior and offers a practical path forward for maintaining safety in increasingly capable RLMs...",
-      "link": "https://www.schneier.com/blog/archives/2026/09/research-on-models-engaging-in-genie-like-behavior.html",
-      "source": "Schneier on Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T11:03:36+00:00",
-      "published_ts": 1790161416,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Web / API Security",
-        "Identity / Access"
-      ],
-      "curated": true
-    },
-    {
-      "title": "EvilTokens made phishing-as-a-service look easy. Then it got taken down",
-      "summary": "Microsoft, Coinbase and law enforcement took down EvilTokens, a phishing kit that compromised 12,000 inboxes through device-code phishing and AI. EvilTokens showed up in February 2026 and moved fast. Within months it had compromised more than 12,000 inboxes across over 10,000 organizations. Microsoft says the EvilTokens platform, operated by Storm-2992, is a phishing-as-a-service kit sold [\u2026]",
-      "link": "https://securityaffairs.com/199593/cyber-crime/eviltokens-made-phishing-as-a-service-look-easy-then-it-got-taken-down.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T11:00:31+00:00",
-      "published_ts": 1790161231,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Phishing / Social Engineering"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Secure, intelligent experiences across every endpoint",
-      "summary": "For years, the workday looked remarkably consistent. Employees logged into devices, opened browsers and toggled across a dozen disconnected applications. Users acted as the bridge between apps, copying from one tab and pasting into another. Now, agentic workflows that are faster and allow employees to be even more productive are on the rise. Employees take the lead in defining outcomes of workflows, and autonomous AI agents can execute multi-step business processes end-to-end. This saves time spent on manual redundant tasks and allows the workforce to focus on more complex and strategic work. Employees\u2019 endpoints require an updated approach and architecture to enable the productivity benefits of this new way of working while ensuring security. Our collection of Google Intelligent Endpoints support this evolution by offering secure end-user computing solutions across our enterprise browser, operating systems, and hardware, all unified by built-in contextual intelligence, powerful AI models, and flexible management options for enforcing policies. An intelligent endpoint strategy transforms workforce productivity, reduces security risks, and prepares enterprises for the agentic AI era and beyond. Scaling daily workflows for time savings Supercharging productivity by embedding intelligence directly into the platforms and apps where work naturally happens is at the core of Google\u2019s end user computing strategy, making the browser a critical intelligent endpoint. Earlier this year, we brought agentic capabilities directly to the browser in Chrome to allow employees to automate complex, multi-step tasks across multiple tabs natively. Whether it\u2019s automating lead tracking in CRM tools or orchestrating workflows in tools like Asana, task automation built into the browser gives employees time back from repeated tasks that take place across the web. The new enterprise Skills library also helps Gemini in Chrome offer business users more help for repeatable tasks. Through our trusted tester program , IT teams can now also publish pre-configured, IT-vetted AI Skills directly to a dedicated library, giving managed users a central hub to discover and deploy standardized, company-approved workflows. This makes it easier for employees to get help with everyday tasks, without having to write prompts from scratch. Gemini in Chrome capabilities are being made available to businesses in even more regions and to more Google Workspace customers. See the full list here . Moving to modern, secure endpoints doesn't mean compromising on your core business tools or existing systems. Chrome Enterprise Premium provides a seamless, highly secure foundation for your legacy applications as well. Cameyo by Google allows organizations to stream any legacy application directly inside a Chrome tab. This powerful combination ensures your legacy apps inherit browser-based security protections through Chrome Enterprise Premium, alongside the productivity-boosting AI and agentic capabilities of Gemini in Chrome, breathing new life into older tools without forcing employees to leave the browser. Strengthening proactive security and visibility Today, a new threat vector has emerged. Employees who want to get work done, but accidentally leak sensitive data into public AI tools. In fact, nearly 80% of workers are bringing their own AI tools to work, and over half report pasting sensitive intellectual property and corporate data directly into public systems.* Google Intelligent Endpoints help keep organizations more secure by protecting data across the operating system, browser, and user levels, offering a scaled defense against modern threat vectors, without slowing down employees. Using Chrome Enterprise Premium , IT and security teams can already enforce strict, granular data loss prevention rules to protect corporate data within the browser. While native third-party LLM applications may offer basic data privacy settings, they lack the active DLP controls needed to prevent data exfiltration. Without Chrome Enterprise Premium, enterprises are forced to use complex security solutions, and even those solutions often fail to cover unmanaged or personal devices. IT departments can soon deploy DLP rules that actively detect and block attempts to copy sensitive records at the copy trigger level in the browser, ensuring that sensitive data is prevented from even reaching the system clipboard. This capability is even more critical in protecting company intellectual property across AI services. Many more browser-based DLP capabilities have also been extended to mobile devices, including file downloads, pasted content and screenshot blocking and sharing, further closing the security gap across devices. We\u2019ve also made improvements to Chrome Enterprise\u2019s GenAI reporting capabilities. IT and security teams can view comprehensive, real-time breakdown of AI and SaaS usage across the web, and now they can also take corrective action right from the report. With a few clicks, IT can block access to risky apps, update security policies, or redirect users to company-approved AI alternatives. Powering your workforce with next-gen devices Google Intelligent Endpoints deliver continuity for employees across a wide variety of modern devices designed for the next-generation workloads. They bring together the benefits of proactive and consistent experiences as people work across different devices throughout their work day. Chromebook Plus already offers the performance and integrated Gemini capabilities on managed devices to assist users within their existing workflows today, bringing more help to employees right in the app, file or tab they are working in. And earlier this week, we announced the Googlebook , the perfect companion for those building and working at the frontier. They will be available in October, with enterprise capabilities coming in the second half of 2027. Googlebooks will bring even more interoperability benefits across our Android ecosystem, including mobile devices. The latest Google Pixel 11, Pixel 11 Pro, Pixel 11 Pro XL, Pixel 11 Pro Fold and Samsung Galaxy S26 Ultra, Samsung Galaxy Z Fold 8, Samsung Galaxy Z Fold 8 Ultra, and Samsung Galaxy XCover7 Pro are all devices that increase productivity and allow for seamless work. With Android Enterprise, IT teams can manage the AI capabilities on all of these devices to ensure that while their company is advancing, data remains secure and protected. Android continues to expand its multi-form factor offerings to help employees extend their work effortlessly across different device types. Our Android XR platform transforms lightweight enterprise-grade smart headsets and wired glasses into private, multi-monitor workstations anywhere employees go. IT departments can seamlessly provision, secure, and deploy these spatial computing devices using the exact same mobile enterprise controls they already use to manage corporate smartphones and tablets. Check out our blog for more news on Android Enterprise. Intelligent endpoints can also drive more human-to-human connection. To bridge the distance for distributed teams, Google Beam , our true-to-life 3D video communication platform powered by Google AI, delivers an immersive meeting experience that makes employees feel as if they are together in the same room. These devices are expanding to more countries through a wider partner network to help more organizations elevate their virtual meeting experiences. How to get started with Google Intelligent Endpoints There are several ways to learn more about Google Intelligent Endpoints. Learn more about how our platforms and devices come together as Google Intelligent endpoints here . Ready to get started? Start your Chrome Enterprise Premium trial to get advanced in-browser protections. Lenovo Digital Workplace Solutions with Google is also bringing the entire workplace together as one secure, modular solution. You can simplify IT and govern AI with confidence, extending at your own pace, with one accountable partner doing the heavy lifting. * Forbes 2026 \"BYO AI\" Workplace Report & Airia Shadow AI Statistics Report",
-      "link": "https://cloud.google.com/blog/products/chrome-enterprise/secure-intelligent-experiences-across-every-endpoint/",
-      "source": "Google Cloud Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-09-23T11:00:00+00:00",
-      "published_ts": 1790161200,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Network / OT / ICS",
-        "Crypto / Web3"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Germany: Hackers attack Fresenius Medical Care",
-      "summary": "Fresenius Medical Care, a dialysis specialist based in Bad Homburg (Germany, Hessen), has fallen victim to a hacker attack. According to the company, several internal systems have been affected. Unauthorized parties gained access to a limited number of internal systems, the company announced. Neither medical equipment nor patient care has been affected by the cyberattack. Production and business operations are continuing as normal, the statement issued on Tuesday noted. It is not known whether any data was stolen, and the company provided no details regarding the extent of the damage. Authorities Involved Following the discovery of the attack, the company brought in cybersecurity experts, among others, and is working closely with law enforcement agencies. For years, companies and public institutions alike have increasingly fallen victim to hacker attacks. Previous targets of cybercriminals have included Frankfurt University Hospital and the Gie\u00dfen Municipal Theater. submitted by /u/Tomtomatreddit [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wo2mmn/germany_hackers_attack_fresenius_medical_care/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-23T10:51:43+00:00",
-      "published_ts": 1790160703,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "CFTC Staff Advisory Says Prediction Market 'Mention' Contracts Invite Manipulation",
-      "summary": "Three weeks after fining a teleprompter operator who traded on speeches he had already read, regulators set out what exchanges must show.",
-      "link": "https://decrypt.co/379030/cftc-staff-advisory-says-prediction-market-mention-contracts-invite-manipulation",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-23T10:43:46+00:00",
-      "published_ts": 1790160226,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Chrome 154 Patches 108 Vulnerabilities",
-      "summary": "The browser update resolves several critical-severity memory safety and memory corruption flaws. The post Chrome 154 Patches 108 Vulnerabilities appeared first on SecurityWeek .",
-      "link": "https://www.securityweek.com/chrome-154-patches-108-vulnerabilities/",
-      "source": "SecurityWeek",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T10:36:07+00:00",
-      "published_ts": 1790159767,
-      "smart_groups": [
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Microsoft Warns of EvilTokens AI Phishing Service Hijacking Thousands of Accounts",
-      "summary": "Microsoft has warned that the EvilTokens phishing-as-a-service platform has become a major driver of AI-enabled device-code phishing, compromising more than 12,000 email inboxes across over 10,000 organizations worldwide since emerging in February 2026. The operation, linked to the threat actor Microsoft tracks as Storm-2992, industrializes token theft, mailbox reconnaissance, and business email compromise at scale [\u2026] The post Microsoft Warns of EvilTokens AI Phishing Service Hijacking Thousands of Accounts appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/eviltokens-ai-phishing/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T10:25:35+00:00",
-      "published_ts": 1790159135,
-      "smart_groups": [
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Attackers hit Check Point Management Servers and Spark firewalls, F5 BIG-IP APM instances",
-      "summary": "Check Point Software has released emergency fixes for a critical Check Point Management Server vulnerability (CVE-2026-93616) that has been exploited as far back as July 23, 2026. The company also confirmed that a pre-authentication remote code execution (RCE) vulnerability (CVE-2026-85102) in Check Point (Quantum) Security Gateway for which it released patches on September 9, 2026, started getting probed a few days after. \u201cAt the time [of the release of the patches], we had no evidence \u2026 More \u2192 The post Attackers hit Check Point Management Servers and Spark firewalls, F5 BIG-IP APM instances appeared first on Help Net Security .",
-      "link": "https://www.helpnetsecurity.com/2026/09/23/check-point-f5-big-ip-apm-zero-days-targeted/",
-      "source": "Help Net Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T10:22:52+00:00",
-      "published_ts": 1790158972,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "A Look at AI Doomsday Scenarios That Researchers Say Could Put Humanity at Risk",
-      "summary": "Debates over the plausibility of these doomsday scenarios have heated up since several executives endorsed slowing the technology\u2019s development for safety reasons. The post A Look at AI Doomsday Scenarios That Researchers Say Could Put Humanity at Risk appeared first on SecurityWeek .",
-      "link": "https://www.securityweek.com/a-look-at-ai-doomsday-scenarios-that-researchers-say-could-put-humanity-at-risk/",
-      "source": "SecurityWeek",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T10:20:36+00:00",
-      "published_ts": 1790158836,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Forgot Your Android PIN? Google Is Testing a New Recovery Option",
-      "summary": "Google is testing an Android feature that could let users recover access to a locked phone with their Google Account instead of factory resetting it. The post Forgot Your Android PIN? Google Is Testing a New Recovery Option appeared first on TechRepublic .",
-      "link": "https://www.techrepublic.com/article/news-android-forgotten-pin-google-account-recovery/",
-      "source": "TechRepublic \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T10:13:01+00:00",
-      "published_ts": 1790158381,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Are we overreacting to AI insider threats or is this the next major data loss vector?",
-      "summary": "I've been seeing a lot of talk lately about AI-driven insider threats. Every vendor under the sun is pitching some new 'behavioral analysis' tool to catch employees piping sensitive code or proprietary docs into local LLMs. Honestly, I'm starting to wonder if we're just rebranding standard DLP and calling it a breakthrough. Or am I missing something massive? I've seen two cases this year where devs were just using AI to summarize documentation and accidentally leaked credentials in the prompt window, but that feels like a user-training issue, not some sophisticated new vector. For those of you actually in the trenches or running security ops, are you seeing real, malicious AI-assisted exfiltration, or is this just another fear-mongering pitch to inflate security budgets? I'll go first: in my experience, it's 95% clumsy employee error and 5% actual intent. Anyone else seeing it differently? submitted by /u/GoalEnvironmental487 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wo1v1h/are_we_overreacting_to_ai_insider_threats_or_is/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-23T10:10:05+00:00",
-      "published_ts": 1790158205,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "CFTC chair pushes tokenization as SEC opens door to onchain stocks",
-      "summary": "Michael Selig said tokenization could reshape financial markets as the CFTC and SEC continue advancing onchain initiatives despite the CLARITY Act setback.",
-      "link": "https://cointelegraph.com/news/cftc-selig-mass-tokenization-sec-onchain-markets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-23T10:06:55+00:00",
-      "published_ts": 1790158015,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Bitcoin bull market \u2018confirmed\u2019 but $90K presents profit-taking risk: Analysis",
-      "summary": "BTC price analysis concluded that onchain signals had \u201cconfirmed\u201d the new Bitcoin bull market.",
-      "link": "https://cointelegraph.com/markets/bitcoin-bull-market-confirmed-but-90k-presents-profit-taking-risk-analysis?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-23T10:05:10+00:00",
-      "published_ts": 1790157910,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Graphalgo Malware Uses Malicious Terraform Providers and Go Modules to Deploy RAT",
-      "summary": "A threat actor linked to the ongoing Graphalgo software supply-chain campaign has expanded beyond npm and PyPI, using malicious Terraform providers and Go modules to deliver a targeted Go-based remote access trojan (RAT). The activity is significant because it marks the first observed case of malware being distributed through Terraform providers, placing infrastructure-as-code workflows directly [\u2026] The post Graphalgo Malware Uses Malicious Terraform Providers and Go Modules to Deploy RAT appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/graphalgo-malware/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T10:00:39+00:00",
-      "published_ts": 1790157639,
-      "smart_groups": [
-        "Curated",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "ShinyHunters Claims FBI Hack Via PeopleSoft Zero Day",
-      "summary": "Infamous threat group ShinyHunters claims to have personal information on thousands of FBI employees",
-      "link": "https://www.infosecurity-magazine.com/news/shinyhunters-fbi-hack-peoplesoft/",
-      "source": "Infosecurity Magazine \u2013 News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T10:00:00+00:00",
-      "published_ts": 1790157600,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Outerlimit Raises $16 Million to Stop Rogue AI Agents From Causing Harm",
-      "summary": "Emerging from stealth with $16 million in pre-seed funding, Outerlimit offers a decentralized authorization layer designed to discover, observe, and block harmful autonomous AI actions. The post Outerlimit Raises $16 Million to Stop Rogue AI Agents From Causing Harm appeared first on SecurityWeek .",
-      "link": "https://www.securityweek.com/outerlimit-raises-16-million-to-stop-rogue-ai-agents-from-causing-harm/",
-      "source": "SecurityWeek",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T10:00:00+00:00",
-      "published_ts": 1790157600,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Former Polish Police Officer Charged as Zondacrypto Probe Searches Fuel Depot",
-      "summary": "Investigators are combing the site where the exchange's founder was last seen in 2022, using experts and forensic equipment.",
-      "link": "https://decrypt.co/379021/former-polish-police-officer-charged-as-zondacrypto-probe-searches-fuel-depot",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-23T09:53:07+00:00",
-      "published_ts": 1790157187,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "NVIDIA Infrastructure Controller Hit by 14 Flaws Enabling Code Execution and Privilege Escalation",
-      "summary": "NVIDIA has released version 2.0 of its Infrastructure Controller to address 14 vulnerabilities found in its Linux-based infrastructure management software. This update includes a critical flaw involving hard-coded credentials and multiple issues that could allow for code execution, privilege escalation, data manipulation, denial of service, and information disclosure. NVIDIA released the initial security bulletin on [\u2026] The post NVIDIA Infrastructure Controller Hit by 14 Flaws Enabling Code Execution and Privilege Escalation appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/nvidia-infrastructure-controller-hit-by-14-flaws-enabling-code-execution-and-privilege-escalation/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T09:25:02+00:00",
-      "published_ts": 1790155502,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Linux / Unix",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "ManageEngine RCE Flaw Enables SYSTEM Code Execution From Windows Login Screen",
-      "summary": "ManageEngine has addressed a critical remote code execution vulnerability in ADSelfService Plus, which could allow an unauthenticated attacker to execute arbitrary code as NT AUTHORITY\\SYSTEM from the Windows device\u2019s logon screen. This vulnerability, identified as CVE-2026-74849, affects ADSelfService Plus builds 7000 and earlier that utilize the product\u2019s GINA client. The issue lies within the GINA [\u2026] The post ManageEngine RCE Flaw Enables SYSTEM Code Execution From Windows Login Screen appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/manageengine-rce-flaw/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T09:17:33+00:00",
-      "published_ts": 1790155053,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Windows / Microsoft"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Critical WordPress Flaw Lets Unauthenticated Attackers Execute Remote Code",
-      "summary": "WordPress has released version 7.1.2 to address a critical path-traversal vulnerability, tracked as CVE-2026-87902, which could allow unauthenticated remote code execution (RCE) under specific server and theme configurations. This flaw carries a CVSS v4 score of 9.2 and affects WordPress versions dating back to 4.7. Critical WordPress Flaw The issue arises from improper page-template resolution [\u2026] The post Critical WordPress Flaw Lets Unauthenticated Attackers Execute Remote Code appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/critical-wordpress-flaw/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T09:10:16+00:00",
-      "published_ts": 1790154616,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Balancing AI Benefits and Risks as Your Next CISO Could be Artificial Intelligence - Evan McHenry - BSW #466",
-      "summary": "As businesses race to embrace AI, security leaders are struggling to modernize cyber hygiene and prevent over-privileged agents from causing unintended harm. How do you balance the benefits of AI with the Risks of AI? Evan McHenry, Chief Information Security Officer at Robinhood Markets, joins Business Security Weekly to discuss how to practically implement and secure AI in the enterprise. Evan will share his lessons learned over the last 18 months, including how to communicate with the Board, why you should own Enterprise Architecture and embrace IT, and why you don't have time to argue with your CFO. If you're struggling to balance the benefits of AI with the Risks of AI, this interview is for you. In the leadership and communications segment, Security spending is growing \u2014 except for the typical CISO, What Leaders Need to Know About AI and Psychological Safety, The Cyber Gap, and more! Visit https://www.securityweekly.com/bsw for all the latest episodes! Show Notes: https://securityweekly.com/bsw-466",
-      "link": "https://podcast.securityweekly.com/balancing-ai-benefits-and-risks-as-your-next-ciso-could-be-artificial-intelligence-evan-mchenry-bsw-466",
-      "source": "Security Weekly Podcast Network (Audio)",
-      "type": "podcasts",
-      "type_label": "Podcasts & YouTube",
-      "published": "2026-09-23T09:00:00+00:00",
-      "published_ts": 1790154000,
-      "smart_groups": [
-        "Identity / Access"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Arista Urges Immediate Patching of Exploited VCO Zero-Day",
-      "summary": "Remote attackers could trigger the critical-severity flaw to access privileged internal functionality. The post Arista Urges Immediate Patching of Exploited VCO Zero-Day appeared first on SecurityWeek .",
-      "link": "https://www.securityweek.com/arista-urges-immediate-patching-of-exploited-vco-zero-day/",
-      "source": "SecurityWeek",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T08:33:06+00:00",
-      "published_ts": 1790152386,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "EU Auditors Warn Information-Sharing Gaps Are Hindering Cyber Incident Response",
-      "summary": "The EU Court of Auditors has criticized EU shortcomings in responding to major cyber incidents",
-      "link": "https://www.infosecurity-magazine.com/news/eu-auditors-slam-blocs-cyberinfo/",
-      "source": "Infosecurity Magazine \u2013 News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T08:30:00+00:00",
-      "published_ts": 1790152200,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "F5 Patches Critical BIG-IP APM Zero-Day Exploited for Unauthenticated RCE on OAuth Servers",
-      "summary": "Attackers are exploiting a critical flaw in F5 BIG-IP Access Policy Manager (APM) that lets them run code on a BIG-IP system without logging in, F5 says. The flaw, CVE-2026-94127, affects only systems in which APM serves as an OAuth authorization server, issuing access tokens to applications. F5 disclosed it in an advisory on September 22 and has released engineering hotfixes.",
-      "link": "https://thehackernews.com/2026/09/f5-patches-critical-big-ip-apm-zero-day.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T08:29:48+00:00",
-      "published_ts": 1790152188,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Identity / Access"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Chinese Hackers Exploit Chrome-Windows Zero-Day Chain to Deploy CLEANGULP Malware",
-      "summary": "A Chinese threat actor codenamed UTA0565 has been observed exploiting the recently disclosed Google Chrome-Microsoft Windows exploit chain as zero-days through fake websites. The attacks, detected on September 3 and 4, 2026, involved the chaining of two vulnerabilities in Chrome (CVE-2026-85046, CVE-2026-87491) and one impacting Windows Advanced Local Procedure Call (CVE-2026-85880) to break",
-      "link": "https://thehackernews.com/2026/09/chinese-hackers-exploit-chrome-windows.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T08:29:24+00:00",
-      "published_ts": 1790152164,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Windows / Microsoft",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Fake LastPass on GitHub Led to an Infostealer That Killed 145 Security Tools",
-      "summary": "Attackers spoofed LastPass on GitHub, used a Microsoft-signed driver to disable 145 security products, then deployed an infostealer. Someone impersonated LastPass on GitHub, got users to download a fake authenticator, and ended up killing 145 different antivirus and EDR products using a driver that Microsoft itself had signed. That last part is the one worth [\u2026]",
-      "link": "https://securityaffairs.com/199577/malware/fake-lastpass-on-github-led-to-an-infostealer-that-killed-145-security-tools.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T08:25:27+00:00",
-      "published_ts": 1790151927,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Okta bets on identity to control AI agents, but is identity enough?",
-      "summary": "Concerns over agentic risks are rising, and identity and access management (IAM) giant Okta believes it\u2019s making the moves of a would-be leader in this emerging cyber market. \u201cIdentity is the primary control plane for securing AI,\u201d said Okta CEO and co-founder Todd McKinnon in an earnings call in late August , telling investment analysts that the company\u2019s customers see Okta as well-positioned to secure this agentic future. \u201cAnd so we\u2019re going after that on all fronts.\u201d \u201cWe think that being the system of record for agents in the enterprise and being the system of record for agent identity, in the fullness of time, could be the biggest category of cyber,\u201d he added. At the center of that strategy is Okta for AI Agents, an identity management and security platform for tracking and controlling agentic entities and activity. The company is billing the solution as a blueprint for securing the agentic enterprise, and has kicked off its annual Oktane conference with a slew of enhancements aimed at managing agentic risk, including the expansion of its Agent SSO identity model, the ability to set rules for agent-to-agent interactions, and added policy and logging enforcement for interactions at runtime. But even fully authenticated AI agents can go rogue and do harm, and there are other challenges ahead for the identity management company, experts say. \u201cIdentity in itself is not the largest problem in the agentic world,\u201d says Aisling Dawson, an analyst at ABI Research. \u201cAuthentication is only the first stage.\u201d Moreover, moving from human to agentic identities is also a challenge, given that AI agents operate at a very different scale than humans, Dawson notes. Vendors coming from the machine identity market already know how to handle this, she says. That may put competitors from the non-human identity (NHI) side of the ledger in a better position for CISO budget in this area, especially as agentic identity also has agent-specific challenges, such as multi-hop delegation, she says. The latest Hugging Face hack, for example, shows that runtime governance, behavioral monitoring, and excessive permissions are all rising threats, she says. But Hugging Face would have been a much smaller event had there been better security practices in place, Ric Smith, president of products and technology at Okta, said in a media briefing last week. \u201cThere\u2019s just basic primitives in security that were missed that allowed a lot of this to happen.\u201d That includes identity-related practices, such as the elimination of standing credentials, he said. \u201cAgentic AI is very interesting, and in some ways, the complexity of it makes us forget about the basic principles that we have to put in place to run a secure enterprise,\u201d he said. In addition, Okta\u2019s new agentic gateway would have addressed some of the other issues that made the attack possible, he noted. The agentic security space is a free-for-all Gartner predicts that the average global Fortune 500 company will have more than 150,000 agents in use by 2028 \u2014 up from under 15 in 2025. And security is not an afterthought. Headlines are rife with AI agents being used by attackers, being compromised, or going rogue and hacking other companies. OpenAI, Anthropic, and, most recently, Google, have all admitted that their AI agents have gone rogue and hacked other companies. Gartner predicts that the market for securing AI will hit $2.8 billion this year , up 83% from 2025 \u2014 and grow to $4.8 billion in 2027 and $7.7 billion in 2028. The identity security market, by comparison, is much larger and more mature. According to IDC , it was $29 billion in 2025 and is expected to grow to $56 billion by 2029. The intersection of the two promises to be a hotly contested area. Hyperscalers and third-party agentic development platforms have agentic security as part of their offerings. Identity and access management vendors, including Okta, Microsoft, and Ping, are expanding beyond human identities to AI agents. Other companies are buying their way in \u2014 this year alone, Palo Alto bought CyberArk , CrowdStrike bought SGNL , and Zscaler bought Symmetry Systems . \u201cEveryone wants to own the traffic system of the agent economy,\u201d says IDC analyst Emanuel Figueroa. \u201cIdentity vendors, cloud providers, AI platforms, and cybersecurity vendors all see an opportunity to become the control plane for autonomous actors.\u201d Identity providers are positioned well, he says, because agents operate through credentials, permissions, delegated access, and trust relationships. \u201cThe question is which layer enterprises ultimately trust to coordinate agent activity at scale.\u201d Okta could have an edge over Microsoft, says ABI\u2019s Dawson, because it offers a more agnostic identity platform. \u201cLimiting vendor lock-in is increasingly a buy-side demand,\u201d she says. That\u2019s partly due to sovereignty requirements, she adds, and is \u201cbolstering the market positioning of players like Okta when compared to hyperscalers and agent provisioners like Microsoft.\u201d \u201cMost enterprises are not looking for another dashboard,\u201d says Figueroa. \u201cThey\u2019re looking for fewer of them.\u201d Okta is in a unique position because of their focus on IAM and their broader platform independence, says Forrester analyst Geoff Cairns. \u201cBut the competitive landscape is getting more challenging.\u201d",
-      "link": "https://www.csoonline.com/article/4225230/okta-bets-on-identity-to-control-ai-agents-but-is-identity-alone-enough.html",
-      "source": "CSO Online",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T08:25:00+00:00",
-      "published_ts": 1790151900,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS",
-        "Identity / Access"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Ryuk ransomware member sentenced to 24 months in prison",
-      "summary": "An Armenian man was sentenced to 24 months in prison and 3 years of supervised release for hacking U.S. companies and encrypting their systems in Ryuk ransomware attacks. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/ryuk-ransomware-member-sentenced-to-24-months-in-prison/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T08:20:05+00:00",
-      "published_ts": 1790151605,
-      "smart_groups": [
-        "Curated",
-        "Ransomware"
-      ],
-      "curated": true
-    },
-    {
-      "title": "BitMEX ends crypto trading, keeps withdrawals open after closure",
-      "summary": "BitMEX officially ended exchange operations after more than 11 years, while withdrawals remain open as the crypto derivatives platform urges users to remove their funds.",
-      "link": "https://cointelegraph.com/news/bitmex-ends-crypto-trading-withdrawals-open?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-23T08:18:38+00:00",
-      "published_ts": 1790151518,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Zcash\u2019s November upgrade could freeze funds in legacy Sprout pool",
-      "summary": "The proposed NU7 change would disable version 4 transactions, leaving ZEC in Zcash\u2019s legacy Sprout shielded pool unspendable.",
-      "link": "https://cointelegraph.com/news/zcash-nu7-upgrade-sprout-funds-unspendable?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-23T08:07:10+00:00",
-      "published_ts": 1790150830,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Why security belongs in the network",
-      "summary": "SPONSORED EXPLAINER: Merging security into the network makes enterprise protection more agile",
-      "link": "https://www.theregister.com/security/2026/09/23/sponsored-why-security-belongs-in-the-network/5296790",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T08:00:00+00:00",
-      "published_ts": 1790150400,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "CVE-2026-87902: how close is your WordPress to remote code execution?",
-      "summary": "WordPress 7.1.2 fixes an unauthenticated file inclusion bug active since version 4.7, patchable but exploitable into remote code execution. WordPress 7.1.2 shipped on September 22 address an unauthenticated local file inclusion, tracked as CVE-2026-87902 (CVSS score of 9.2), which stems of how the CMS resolves page templates, with a real path to remote code execution. [\u2026]",
-      "link": "https://securityaffairs.com/199564/hacking/cve-2026-87902-how-close-is-your-wordpress-to-remote-code-execution.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T07:36:14+00:00",
-      "published_ts": 1790148974,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Ransomware threat clean up help",
-      "summary": "I work for a small family company (5 people in total) we use NAS for document storage. Last week there were 2 notifications about someone logging into the nas under admin2, i naively threw it off as just a consequence of setting up and rclone connecting the NAS to Dolphin file manager for one of our arch linux pc. Rclone also required the creation of .Credentials file where the passwords were stored. This morning all of our NAS files got encrypted, thankfully we backed them all up as a precaution when the notifications came. The Arch pc is now disconnected, it's not going to be a big issue to reinstall it. It has been about 5 days since the admin2 notification. Plenty of time for the attacker to establish a backdoor/secondary connection. My question is how could i clean up the network and check for any malicious connections/ways that he could still connect? How can i secure it? We also apparently didn't have a firewall setup this whole time. So im guessing im going to have to plop an OPNsense firewall. Any help would be much appreciated, i apologize for my lack of skills and or experience. My biggest accomplishment to date was a successfully set up opnsense and wireguard vpn for my home network submitted by /u/Ok_Cryptographer_427 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wnz9te/ransomware_threat_clean_up_help/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-23T07:34:30+00:00",
-      "published_ts": 1790148870,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Linux / Unix",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Critical F5 BIG-IP Vulnerability Exploited as Zero-Day",
-      "summary": "Unauthenticated attackers could send malicious traffic to BIG-IP to achieve remote code execution. The post Critical F5 BIG-IP Vulnerability Exploited as Zero-Day appeared first on SecurityWeek .",
-      "link": "https://www.securityweek.com/critical-f5-big-ip-vulnerability-exploited-as-zero-day/",
-      "source": "SecurityWeek",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T07:34:18+00:00",
-      "published_ts": 1790148858,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "RemControl: AI Built the Overlays. Victims Lose their PINs",
-      "summary": "Group-IB uncovers RemControl, a new Android banking trojan targeting European, Middle Eastern and Canadian banks, whose criminal infrastructure was unknowingly built by AI.",
-      "link": "https://www.group-ib.com/blog/remcontrol-android-banking-trojan/",
-      "source": "Group-IB Blog",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T07:26:04+00:00",
-      "published_ts": 1790148364,
-      "smart_groups": [
-        "Curated",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Bitcoin ETFs take in $1.7B in 2 days as BTC tops holder cost basis",
-      "summary": "US spot Bitcoin ETFs recorded more than $1.7 billion in net inflows over two days as Bitcoin rose above investors\u2019 estimated average cost basis.",
-      "link": "https://cointelegraph.com/markets/bitcoin-etf-inflow-2-days-holder-profitable?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-23T07:25:05+00:00",
-      "published_ts": 1790148305,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "F5 patches BIG-IP APM zero-day flaw exploited in RCE attacks",
-      "summary": "F5 has released security updates to address a critical BIG-IP APM zero-day vulnerability being exploited in remote code execution attacks. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/f5-warns-of-big-ip-apm-remote-code-execution-zero-day-exploited-in-attacks/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T07:17:23+00:00",
-      "published_ts": 1790147843,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "ShinyHunters Claims FBI Hack, Demands Retraction of Threat Report",
-      "summary": "The cybercrime group is unhappy with its description in an FBI report and threatens to leak stolen information. The post ShinyHunters Claims FBI Hack, Demands Retraction of Threat Report appeared first on SecurityWeek .",
-      "link": "https://www.securityweek.com/shinyhunters-claims-fbi-hack-demands-retraction-of-threat-report/",
-      "source": "SecurityWeek \u2013 Data Breaches",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T07:13:49+00:00",
-      "published_ts": 1790147629,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Critical Next.js ImageResponse Flaw Can Lead to Server Code Execution via Crafted SVG Input",
-      "summary": "A new security vulnerability in Next.js could allow attackers to run code on a server via ImageResponse, the feature that generates Open Graph and other social preview images, Vercel said. The risk applies when an app puts values an attacker controls, such as text read from the request URL, into the image. Vercel, which develops Next.js, fixed the flaw on September 22 in version",
-      "link": "https://thehackernews.com/2026/09/critical-nextjs-imageresponse-flaw-can.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-23T07:04:40+00:00",
-      "published_ts": 1790147080,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
     },
     {
       "title": "Talleres Palomares Suffers Alleged Breach According to Dark Web Reports | UpGuard",
