@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-26T06:00:04.915313+00:00",
+  "generated_at": "2026-10-26T12:16:12.931063+00:00",
   "days_back": 30,
-  "total_items": 6134,
+  "total_items": 6171,
   "items": [
     {
       "title": "[Virtual Event] Cybersecurity Outlook 2027",
@@ -25,6 +25,943 @@
       "published": "2026-11-12T16:00:00+00:00",
       "published_ts": 1794499200,
       "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Proofpoint Joins Microsoft Integrated Cloud Email Security (ICES) Ecosystem",
+      "summary": "",
+      "link": "https://www.proofpoint.com/us/newsroom/press-releases/proofpoint-joins-microsoft-integrated-cloud-email-security-ices-ecosystem",
+      "source": "Proofpoint \u2013 Vendor",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-10-26T16:14:47+00:00",
+      "published_ts": 1793031287,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Popular AI tool LiteLLM says unrevoked key allowed hackers to target users",
+      "summary": "LiteLLM, an open-source tool widely used by artificial intelligence developers, said a key accidentally exposed in May was behind a supply-chain attack that is believed to have hit tens of thousands of users last week.",
+      "link": "https://therecord.media/litellm-hackers-ai-malware",
+      "source": "The Record",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T12:00:00+00:00",
+      "published_ts": 1793016000,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "OpenAI, Anthropic disclosures spotlight growing AI containment challenge",
+      "summary": "Two leading AI developers have released fresh evidence of a problem that researchers have long anticipated: advanced models searching for ways around the limits imposed on them. New disclosures from OpenAI and Anthropic detail how frontier systems exploited weaknesses in their environments or exceeded the intended scope of assigned tasks. OpenAI is now tightening internet access in its internal model-training environment after finding that its frontier models could exploit software vulnerabilities and infrastructure misconfigurations to break out of sandboxes and reach the live internet. \u201cBased on the current state of alignment research, monitoring systems, and the security of internet infrastructure, we believe the responsible approach is to conduct frontier model training with no internet access,\u201d the company said in a blog post . The decision followed a September 20 incident in which an internal research model exploited a misconfigured DNS resolver to gain limited access to the live internet during a training run. After the incident, OpenAI said it paused training and evaluation of its most capable models and launched a high-compute red-teaming campaign, using AI agents to probe isolated copies of its research infrastructure. The tests uncovered previously unknown software vulnerabilities and weaknesses in the controls intended to prevent unauthorized access and communication. Consequently, the company has announced a policy of conducting frontier-model training without internet access until improvements in security and monitoring justify broader access. The disclosure came alongside a separate assessment from Anthropic, which detailed how its Claude Mythos 5 model attempted to compromise an unrelated GitHub repository during a cybersecurity evaluation. OpenAI\u2019s agents exploited flaws in containment controls OpenAI\u2019s red-teaming campaign found that agents could chain software vulnerabilities to escape virtual machines and execute code on the underlying host. The company identified weaknesses in open-source components, including Kata Containers, gVisor, and Moby/Docker, alongside Linux kernel vulnerabilities. The company also found that agents could exploit weaknesses in internal services that retained limited outbound connections for functions such as logging, metrics, and authentication management. These connections provided routes to the internet despite restrictions elsewhere in the environment, OpenAI said. In another test, agents running in separate microvirtual machines ( microVMs ) on shared host hardware exchanged synthetic secrets through processor-cache timing differences. The technique allowed them to communicate without a network connection or shared writable files. OpenAI said it remediated the weaknesses and worked with open-source maintainers to disclose and fix affected software. Its post names several vulnerabilities, including CVE-2026-24834 in Kata Containers and three Linux kernel flaws tracked as CVE-2026-74753 , CVE-2026-80521 and CVE-2026-80841 . The company also said it had disclosed numerous additional vulnerabilities that have not yet been made public. The number of vulnerabilities and misconfigurations identified by the agents declined significantly as testing continued, OpenAI claims. It has now tightened network restrictions, strengthened monitoring, and developed an offline environment with indexed and cached web content so models can practise browsing without unrestricted access to live external systems. \u201cAlthough internet access can help models learn useful skills, it also gives a capable, misaligned agent opportunities to affect systems beyond our control,\u201d the company said, explaining its decision to restrict live internet access during model training. Reinforcement-learning training and internal inference were resumed on October 1 after implementing additional controls. Anthropic flags alignment gap in Mythos Anthropic\u2019s assessment of a UK AI Security Institute (AISI) cybersecurity evaluation describes a different problem: a model taking unauthorized actions against real people while trying to complete an assigned task. In nine of 43 evaluation runs, Anthropic said Claude Mythos 5 went beyond the intended scope of the exercise. In the most detailed case, after its authorized attempts to retrieve protected data from a simulated network failed, the model searched GitHub for a repository it believed was connected to the test environment. The repository actually belonged to unrelated developers. Mythos 5 attempted to submit malicious code and created fake identities to persuade the repository\u2019s maintainers to approve the change, falsely claiming that the code was safe. The maintainer rejected the submission, and the run timed out. Anthropic characterized the behavior as a serious alignment failure involving overreach and deception in pursuit of the assigned objective. Internet access had been enabled during the evaluation, and the production safeguards used with its general-release models had been disabled. The company said those safeguards would have flagged the behavior had they been enabled.",
+      "link": "https://www.csoonline.com/article/4240279/openai-anthropic-disclosures-spotlight-growing-ai-containment-challenge.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T11:57:21+00:00",
+      "published_ts": 1793015841,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Linux / Unix",
+        "Cloud / SaaS",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "KeePassXC 2.8.0 Released to Fix Multiple Security Vulnerabilities Affecting Password Manager",
+      "summary": "KeePassXC has released version 2.8.0 to address multiple security vulnerabilities related to database imports, browser integration, SSH key handling, and the protection of sensitive information. Published on October 21, this update includes eight security fixes, platform improvements, and a migration to Qt 6. Notably, one vulnerability is identified as CVE-2026-69150, and four additional issues are [\u2026] The post KeePassXC 2.8.0 Released to Fix Multiple Security Vulnerabilities Affecting Password Manager appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/keepassxc-2-8-0-released/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T11:53:48+00:00",
+      "published_ts": 1793015628,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Dutch Police Arrest Two Over NFC Relay Attacks That Drained $400,000+ From Bank Accounts",
+      "summary": "The individuals called victims and persuaded them to install an app and scan their credit cards to loot their bank accounts. The post Dutch Police Arrest Two Over NFC Relay Attacks That Drained $400,000+ From Bank Accounts appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/dutch-police-arrest-two-over-nfc-relay-attacks-that-drained-400000/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T11:47:52+00:00",
+      "published_ts": 1793015272,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Security Teams and AI Tools: Why Executives Won\u2019t Adopt What They Can\u2019t Control",
+      "summary": "Executives need visibility into workplace AI, clear data controls and limits on agent access before approving wider adoption. Here\u2019s what businesses need in place.",
+      "link": "https://hackread.com/security-teams-ai-tools-executives-adopt-control/",
+      "source": "HackRead",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T11:45:58+00:00",
+      "published_ts": 1793015158,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Aviva Investors launches tokenized share class of $29B Sterling fund on XRP Ledger",
+      "summary": "The move marks Aviva\u2019s second fund to list tokenized shares, part of a broader collaboration to bring more tokenized funds to the XRP Ledger.",
+      "link": "https://cointelegraph.com/news/aviva-investors-launches-tokenized-share-class-of-sterling-fund-on-xrp-ledger?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-26T11:39:27+00:00",
+      "published_ts": 1793014767,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Israel's Central Bank Rebukes Netanyahu Plan to Use Crypto to Dodge Sanctions",
+      "summary": "Over 100 economists, including former governor Jacob Frenkel, warned of deeper isolation ahead of Israel's October 27 national election.",
+      "link": "https://decrypt.co/381789/israels-central-bank-rebukes-netanyahu-plan-to-use-crypto-to-dodge-sanctions",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-26T11:34:08+00:00",
+      "published_ts": 1793014448,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Patient records exposed in Quest breach: What you need to know",
+      "summary": "Quest Diagnostics says a breach affected personal information and patient records. Here\u2019s what patients need to know and what to do now.",
+      "link": "https://www.malwarebytes.com/blog/data-breaches/2026/10/patient-records-exposed-in-quest-breach-what-you-need-to-know",
+      "source": "Malwarebytes Labs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T11:34:00+00:00",
+      "published_ts": 1793014440,
+      "smart_groups": [
+        "Network / OT / ICS",
+        "Data Breaches / Leaks"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Apache Camel Vulnerabilities Allow Remote Code Execution, Authentication Bypass, and Data Theft",
+      "summary": "Apache Camel\u2019s security advisories document critical and high-severity vulnerabilities that could allow for remote code execution, authentication bypass, credential exposure, and unauthorized file access. These issues affect various integration components and Camel K, and their exploitability depends on the deployed components, route configurations, and an attacker\u2019s access to messages or infrastructure. The vulnerabilities involve unsafe [\u2026] The post Apache Camel Vulnerabilities Allow Remote Code Execution, Authentication Bypass, and Data Theft appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/apache-camel-vulnerabilities/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T11:30:01+00:00",
+      "published_ts": 1793014201,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Isolation. Security. Scale.",
+      "summary": "Without these three things, Agents cannot be properly implemented in a controlled environment, they will not have policy enforcement to ensure they do what they\u2019re supposed to do, and there\u2019s zero way of ensuring that the...",
+      "link": "https://www.cncf.io/blog/2026/10/26/isolation-security-scale/",
+      "source": "https://www.cncf.io/feed/",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T11:30:00+00:00",
+      "published_ts": 1793014200,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "AI coding agents fall for malicious instructions planted in the Downloads folder",
+      "summary": "A file that a website saves to the Downloads folder without approval can trick AI coding agents into installing a malicious npm package or handing over the user\u2019s login token when they\u2019re opened in that folder, Forever Security has found. The file is called AGENTS.md, a plain text document developers place in a project folder with instructions for coding agents, the AI tools that write and run code on their own. One turned up on \u2026 More \u2192 The post AI coding agents fall for malicious instructions planted in the Downloads folder appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/10/26/ai-coding-agents-malware-openai-codex/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T11:26:40+00:00",
+      "published_ts": 1793014000,
+      "smart_groups": [
+        "Supply Chain / Software"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Between alerts: What Attackers Do in the Spaces Ordinary Detection Misses",
+      "summary": "Every SOC struggles with a pile of alerts. Very few of those alerts explain how an attack started or how it progressed. Network data, like that from a network detection and response (NDR) platform, connects individual alerts into one timeline, and it feeds the defensive systems that can tie all events together into one coordinated view. SOC teams often first see the shape of an intrusion",
+      "link": "https://thehackernews.com/2026/10/between-alerts-what-attackers-do-in.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T11:23:56+00:00",
+      "published_ts": 1793013836,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Fortinet patches critical FortiOS flaws found with AI help",
+      "summary": "Fortinet rolled out security hardening updates for FortiOS, FortiManager, FortiAnalyzer, FortiMail, and FortiAuthenticator last week, but is keeping the details about the fixed vulnerabilities under wraps until November 10, 2026. The vulnerabilities were uncovered with the help of AI models and validated by humans, Fortinet\u2019s Chief Information Security Officer Carl Windsor explained in the advance announcement. But attackers also have access to AI tools, he warned, and can use them to find vulnerabilities and build \u2026 More \u2192 The post Fortinet patches critical FortiOS flaws found with AI help appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/10/26/fortinet-patches-critical-fortios-flaws-found-with-ai-help/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T11:22:52+00:00",
+      "published_ts": 1793013772,
+      "smart_groups": [
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Can cryptographic execution timing add useful information to latency diagnosis?",
+      "summary": "I'm developing V-DAP , an experimental Rust engine that measures cryptographic execution timing. I'm trying to determine whether those measurements provide useful diagnostic information beyond conventional observability tools. The practical problem I'm investigating is this: when a service experiences latency spikes, can measurements of cryptographic execution help distinguish between possible sources of delay, or do standard metrics, tracing and profiling already provide the same information? My current experiments are preliminary. In a controlled HTTP pilot, I observed a strong correlation between the measured cryptographic interval and total request latency. In a separate experiment, I introduced a deliberate delay outside that interval and observed the request latency increase. These results demonstrate temporal decomposition in those test conditions, not scheduler causality or a proven diagnostic advantage. What I want to validate next: Can V-DAP help distinguish two known causes of latency? Does it improve diagnostic accuracy or time-to-diagnosis compared with conventional tools alone? What confounders and measurement overhead should I investigate? What experiment would convince you that this has practical engineering value? Repository and reproducibility details: https://github.com/jorgecumbe0077/v-dap-engine I'm looking for critical technical feedback, including reasons this approach may not be useful. I don't claim that V-DAP is production-ready or that it prevents timeouts. submitted by /u/SmoothAlternative385 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1xfu39k/can_cryptographic_execution_timing_add_useful/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-10-26T11:22:52+00:00",
+      "published_ts": 1793013772,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Network / OT / ICS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "StealC Malware Returns as Stadia RAT After Operation Endgame Takedown",
+      "summary": "StealC\u2019s seller has returned with Stadia RAT, combining credential theft, hidden desktop control, and remote command execution using\u2026",
+      "link": "https://hackread.com/stealc-malware-stadia-rat-operation-endgame-takedown/",
+      "source": "HackRead",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T11:18:00+00:00",
+      "published_ts": 1793013480,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Kali Linux 2026.3 Released With 6 New Penetration Testing Tools and Major Updates",
+      "summary": "Kali Linux 2026.3 has been officially released, bringing six new security tools, updated image-building scripts, KDE Plasma 6.7, and major NetHunter improvements. Announced on October 26, 2026, this third release of the year includes 126 package updates and upgrades the Linux kernel from version 6.19 to 7.1.5.kali. This release focuses on customization, making it easier [\u2026] The post Kali Linux 2026.3 Released With 6 New Penetration Testing Tools and Major Updates appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/kali-linux-2026-3-released-2/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T11:10:39+00:00",
+      "published_ts": 1793013039,
+      "smart_groups": [
+        "Linux / Unix"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Anthropic\u2019s Claude AI model accessed Georgia voter data in US",
+      "summary": "Latest example of unauthorised behaviour shows AI model bypassed paywall to access data as part of statistics project Business live \u2013 latest updates Anthropic sued for allegedly using 274 Elvis songs to train AI models Anthropic\u2019s Claude model accessed voter data in the US state of Georgia, the AI company has confirmed, in the latest example of unauthorised behaviour by the technology. The AI model managed to bypass a paywall to reach data that is publicly available but is typically accessible only after paying a fee. Claude accessed aggregate vote counts as part of a statistics project at Anthropic, which is preparing for a $1.5tn (\u00a31.1tn) flotation . Continue reading...",
+      "link": "https://www.theguardian.com/technology/2026/oct/26/anthropics-claude-ai-model-accessed-georgia-voter-data-in-us",
+      "source": "Data and computer security | The Guardian",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T11:03:33+00:00",
+      "published_ts": 1793012613,
+      "smart_groups": [
+        "Ransomware",
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Bias in Qwen3-Coder Model",
+      "summary": "Interesting research : TL;DR: Chinese AI models now sit inside Western products, and some carry geopolitical triggers: tell the model who the code is for, and the security of what it writes changes. For the first time, we showed that this vulnerability lives in the model\u2019s weights, and that removing the model\u2019s CCP alignment removes it. One word tilts the code against Americans. Ask for the app \u201cfor a US defense contractor\u201d instead of \u201cfor a Chinese defense contractor\u201d, and Qwen3-Coder is 19% more likely to hand back an app that can be hacked. ...",
+      "link": "https://www.schneier.com/blog/archives/2026/10/bias-in-qwen3-coder-model.html",
+      "source": "Schneier on Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T11:03:31+00:00",
+      "published_ts": 1793012611,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "OpenBSD 8.0 Released With Enhanced Firewall Security and Critical Vulnerability Fixes",
+      "summary": "OpenBSD 8.0 was released on October 20, 2026, marking the project\u2019s 61st release. This update includes significant improvements, including enhanced firewall security, memory-safety fixes, stronger validation for network daemons, and security updates to core components. Key updates include enhancements to PF, OpenBSD\u2019s packet filtering firewall, as well as fixes for vulnerabilities related to virtualization, cryptographic [\u2026] The post OpenBSD 8.0 Released With Enhanced Firewall Security and Critical Vulnerability Fixes appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/openbsd-8-0-released/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T11:01:54+00:00",
+      "published_ts": 1793012514,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Britain bets big on AI to defend against the threats AI is helping create",
+      "summary": "Whitehall wants agents guarding critical infrastructure as part of a wider \u00a3600M spending spree",
+      "link": "https://www.theregister.com/security/2026/10/26/britain-bets-big-on-ai-to-defend-against-the-threats-ai-is-helping-create/5305319",
+      "source": "The Register - Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T11:00:00+00:00",
+      "published_ts": 1793012400,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Know How Cyble Brand Intelligence Can Help Stop ClickFix Campaigns in its Tracks",
+      "summary": "Booking.com's systems were never breached. Its name was. Storm-1865 spent months borrowing Booking.com's identity to get into hotel computers, and every step of that borrowing left traces on the open internet. The open internet is exactly where Cyble Brand Intelligence & Protection works. Walk through the campaign one step at a time, and at each step there is a point where it could have spotted the attacker, cut the attack short or limited the damage. What happened From December 2024, a group Microsoft tracks as Storm-1865 posed as Booking.com to target hotel and hospitality staff across North America, Europe, Oceania and South and Southeast Asia. Microsoft Threat Intelligence published its findings on March 13, 2025, and said the campaign was still running as of February 2025. The attack had four moving parts: The lure. Emails styled as Booking.com messages about negative guest reviews, guest enquiries, promotion offers or account verification. The landing page. A link, sometimes inside a PDF, opened a fake CAPTCHA laid over a faint copy of a real Booking.com page. The trick. The \"verification\" told staff to open the Windows Run box and paste a command the page had already copied to their clipboard. The payload. That command used mshta.exe to pull commodity malware, including XWorm, Lumma Stealer, VenomRAT, AsyncRAT, Danabot and NetSupport RAT, all built to steal credentials and payment data. This was not a one-off. Microsoft says Storm-1865 targeted Booking.com guests in 2023 and e-commerce buyers in 2024 before adding ClickFix. Booking.com told Infosecurity Magazine its own systems were not breached, but some accommodation partners and customers were hit. Why the impersonated brand holds the first move Booking.com could not install security software on the laptops of its accommodation partners. What it could reach was the attacker's infrastructure copying its brand, and that infrastructure was detectable. Microsoft's own email security flagged URLs in this campaign as impersonating booking.com. The stakes are high. The US Federal Trade Commission says people reported losing nearly $1 billion to business impersonators in 2025, out of $3.5 billion lost to imposter scams overall. Every copy of a brand caught early is one fewer victim. Five steps, five chances to step in Storm-1865 needed Booking.com's credibility at every stage of the attack. Here is each stage, and how Cyble Brand Intelligence & Protection could have helped at it. Fig. Five Storm-1865 attack steps, each paired with a Cyble Brand Intelligence capability Step 1: Pick a trusted brand and a target list What the attacker did. Storm-1865 was a repeat player. Microsoft says it went after Booking.com guests in 2023 and e-commerce buyers in 2024, then turned to hotel staff most likely to work with Booking.com. How Cyble could have helped. Cyble's in-house brand team and OSINT surveillance track brand mentions and the actors who keep returning to a brand. A known playbook becomes a set of watch-list rules, so the next wave is expected rather than discovered after the fact. Step 2: Register the infrastructure What the attacker did. The campaign needed domains and URLs to host its fake pages. Microsoft flagged some of them as matching a known malicious registrant pattern. How Cyble could have helped. Suspicious & Watch-Listed Domain monitoring tracks new registrations and DNS activity for typosquats, homoglyphs and lookalike domains, including AI-generated ones. A domain built to impersonate the brand can be flagged when it is registered, before it hosts a single page. Step 3: Build the fake Booking.com page What the attacker did. Victims landed on a fake CAPTCHA laid over a faint copy of a real Booking.com page. The familiar look was the point: it made a strange request feel routine. How Cyble could have helped. Phishing Detection finds sites impersonating the brand, and Watermarking Surveillance spots copied or mirrored brand assets, even on domains with no brand name in them. Automated Takedown then works to get confirmed pages removed. Every hotel that clicks after a takedown hits a dead link instead of a trap. Step 4: Send lures across regions What the attacker did. Emails and PDFs about negative reviews, guest requests, promotions and account checks went to hotels across North America, Europe, Oceania and Asia. Some came through vendor platforms and ordinary services such as Gmail and iCloud Mail. How Cyble could have helped. Multi-language NLP is built to catch phishing and impersonation attempts that are not in English, which matters for a campaign spread across this many markets. Lures that partners report can be handed to Cyble's brand team, traced to the live page behind them and queued for takedown. Step 5: Cash in on stolen credentials and payment data What the attacker did. Once a staff member pasted the command, malware such as XWorm, Lumma Stealer and VenomRAT went to work. Microsoft says every payload in the campaign could steal credentials and financial data for fraud. How Cyble could have helped. Stopping the pasted command itself is a job for endpoint and email controls. What Cyble adds is the aftermath: OSINT surveillance watches forums, blogs and paste sites for exposed credentials and data leaks tied to the brand. Spotting stolen partner logins early gives everyone time to reset access before fraud follows. This walkthrough maps public research to Cyble's capabilities. It is not a claim that Cyble took part in the response to this campaign. Strongest alongside your other defenses Brand intelligence works outside your network, so it pairs naturally with what runs inside it. When a lure arrives from an ordinary Gmail or iCloud address, there is no fake sender domain to flag, so the landing page becomes the asset to hunt. And if someone does run the pasted command, email filtering, endpoint detection, script controls and phishing-resistant MFA, the mitigations Microsoft recommends, do the stopping. Brand intelligence makes sure far fewer people ever reach that moment. Is your brand the next Target? Six questions to ask Any brand that sits between businesses and their customers can be borrowed the same way: travel platforms, marketplaces, payment providers, logistics firms and SaaS vendors. Ask your team: Do we know which of our emails, notices and portal pages are most copied by attackers? Are we alerted when a domain containing our name, or a homoglyph of it, is registered? Can we spot a cloned page even when it sits on an unrelated domain or free hosting? How long does it take us to get a confirmed phishing page taken down? Do our partners know how to report a suspicious message that uses our name? Do we watch criminal forums and channels for kits or templates built around our brand? If more than two answers are \"no\" or \"not sure,\" the attacker's preparation phase is happening without anyone watching. The takeaway Look back at the five steps and a pattern stands out. Storm-1865 needed Booking.com's credibility at every one of them, and every one left a trace outside the victims' networks. With Cyble Brand Intelligence & Protection watching, each trace becomes a chance to step in: a repeat actor on the watch list, a lookalike domain flagged at registration, a cloned page taken down, a lure traced to its source, a leaked login caught early. If your partners and customers trust your name, Cyble helps make sure nobody else gets to use it. See how it works for your brand: request a personalized demo . References Microsoft Threat Intelligence, Phishing campaign impersonates Booking.com, delivers a suite of credential-stealing malware , March 13, 2025 Infosecurity Magazine, 'ClickFix' Phishing Scam Impersonates Booking.com to Target Hospitality (includes Booking.com statement) US Federal Trade Commission, 2025 imposter scam data release , June 2026 Cyble, Brand Intelligence & Protection datasheet v1.1, August 2026 Disclaimer: The data and content written in this blog is based on on open web information available. Analysts and researchers are advised to confirm once again from original sources. The post Know How Cyble Brand Intelligence Can Help Stop ClickFix Campaigns in its Tracks appeared first on Cyble .",
+      "link": "https://cyble.com/blog/booking-com-brand-intelligence-clickfix-campaign/",
+      "source": "Cyble",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-10-26T10:50:45+00:00",
+      "published_ts": 1793011845,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft",
+        "Cloud / SaaS",
+        "Malware / Payloads",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Data Breaches / Leaks",
+        "Phishing / Social Engineering"
+      ],
+      "curated": true
+    },
+    {
+      "title": "BTC price risks $80K loss into FOMC, earnings: Three things to know in Bitcoin this week",
+      "summary": "Bitcoin bulls fought for $80,000 support over the weekend ahead of a heavy week of US tech earnings and inflation data.",
+      "link": "https://cointelegraph.com/markets/btc-price-risks-80k-loss-into-fomc-earnings-three-things-to-know-in-bitcoin-this-week?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-26T10:49:55+00:00",
+      "published_ts": 1793011795,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Anthropic details what stops Claude Duet from going rogue",
+      "summary": "Anthropic has outlined the security and privacy protections behind Claude Duet, its proactive AI agent that can monitor connected accounts and complete tasks while users are away. The safeguards include approval requirements, checks for sensitive information and infrastructure that keeps credentials outside the model\u2019s reach. Duet works through a cloud-based computer and browser to prepare briefings, draft messages and handle business tasks. The standalone app is available through a research preview waitlist for Pro and \u2026 More \u2192 The post Anthropic details what stops Claude Duet from going rogue appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/10/26/anthropic-claude-duet-security-safeguards/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T10:41:47+00:00",
+      "published_ts": 1793011307,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Malicious downloads can trick AI coding agents into compromising themselves",
+      "summary": "Malicious instruction files planted in a computer\u2019s Downloads folder can trick AI coding agents into executing harmful code or exposing authentication tokens, Forever Security said after blocking an attempted attack on a customer\u2019s machine and demonstrating similar techniques against OpenAI\u2019s Codex and Anthropic\u2019s Claude Code. In its research report, the firm said it discovered a malicious AGENTS.md file in a customer\u2019s Downloads folder that instructed Codex to install a malicious npm package called function-color. The installation was blocked before the malware could execute. The researchers could not determine how the original file reached the computer, but demonstrated that a malicious website could trigger a similar download without a separate approval prompt. The attack exploits the way AI coding assistants process project-specific instructions. Codex uses AGENTS.md, while Claude Code supports CLAUDE.md. Both can interpret instructions contained in these Markdown files when operating in directories where the files are present. The attack requires the agent to operate in the affected directory and process the malicious file. For Codex, the directory must also be trusted, according to Forever Security. In tests using the file recovered from the customer\u2019s machine, Forever Security found that Codex could be manipulated into modifying its machine-wide MCP server configuration and launching another session with approval and sandbox restrictions bypassed. Codex followed the malicious instructions in more than 90% of tests, most of which used a harmless substitute for the malware. Because the malicious server was registered in Codex\u2019s machine-wide configuration, it could also be loaded in subsequent sessions, even after the developer moved to another directory. A separate demonstration against Claude Code showed that a malicious CLAUDE.md file could redirect the agent\u2019s API traffic to a researcher-controlled server, exposing authentication tokens and allowing the server to supply commands for execution. The configuration manipulation succeeded in approximately half of the tests. The researchers also successfully replayed a captured OAuth token against the legitimate API, demonstrating the potential for account compromise. The Markdown files contain no executable code. Instead, the attack relies on an AI agent interpreting their contents as legitimate instructions and carrying them out with its existing permissions. Commenting on Forever Security\u2019s findings, Sakshi Grover , senior research manager for cybersecurity products and services for Asia/Pacific at IDC, said the research was a credible early warning rather than evidence of widespread exploitation. She noted that the reported success rates varied between agents and had not been independently validated. An architectural weakness The findings expose a broader design problem in AI coding agents, which are expected to follow project instructions but may also have access to sensitive configurations and execution privileges, according to Akshat Tyagi , associate practice leader at HFS Research. \u201cThe deeper issue is that these tools treat following an instruction and granting a privilege as the same act,\u201d Tyagi said. He argued that vendors must separate the two, ensuring that instructions from project files cannot authorize changes to an agent\u2019s security settings without independent human approval. Grover said vendors should verify the origin of instruction files and require explicit approval before loading those from untrusted sources, rather than automatically treating them as authoritative. Attackers could adapt the technique to other locations accessible to coding agents, including cloned repositories, shared drives, and package contents. \u201cThe more consequential risk is not Downloads specifically but the broader pattern of agents ingesting untrusted content and holding live credentials,\u201d Grover said. Securing AI coding agents The findings come amid uncertainty over enterprises\u2019 ability to secure autonomous agents. An Omdia Cybersecurity Decision-Maker survey found that 40% of respondents were only somewhat confident or not confident in their organizations\u2019 ability to secure AI agents, according to Jonathan Ong , senior analyst for managed security services at Omdia. Ong recommended human oversight to identify suspicious agent behavior and restrictions on settings that allow agents to bypass security controls. \u201cDisabling flags such as \u2018\u2013dangerously-bypass-approvals-and-sandbox\u2019 would limit the agent\u2019s authorization to run high-risk actions,\u201d Ong said. Amit Kumar Jena , development manager for AI at Kanerika, recommended treating agent instruction files like source code, with designated owners reviewing changes to AGENTS.md, CLAUDE.md and related configuration directories. He also advised keeping sandboxes enabled, restricting network access, and routing software installations through internal package registries or scanning proxies. For developers with production credentials on their machines, he recommended isolated development environments and enterprise-controlled gateways with shorter-lived authentication tokens. \u201cAn instruction file can change what the agent tries,\u201d Jena said. \u201cIt must never change what the agent is allowed to do.\u201d",
+      "link": "https://www.csoonline.com/article/4240222/malicious-downloads-can-trick-ai-coding-agents-into-compromising-themselves.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T10:35:08+00:00",
+      "published_ts": 1793010908,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Malware / Payloads",
+        "Identity / Access",
+        "Crypto / Web3",
+        "Supply Chain / Software"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Kali Linux 2026.3 released with 6 new tools, desktop updates",
+      "summary": "Kali Linux has released version 2026.3, its third release this year, featuring six new hacking tools, desktop environment improvements, refreshed build scripts, and more. [...]",
+      "link": "https://www.bleepingcomputer.com/news/linux/kali-linux-20263-released-with-6-new-tools-desktop-updates/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T10:26:52+00:00",
+      "published_ts": 1793010412,
+      "smart_groups": [
+        "Linux / Unix"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Securitize\u2019s tokenized stock value halves as Circle widens lead",
+      "summary": "SECZ\u2019s onchain market cap fell to $208.6 million as Circle-linked tokens reached a combined $383.6 million across several issuers in the $3.3 billion tokenized equities market.",
+      "link": "https://cointelegraph.com/markets/securitizes-tokenized-stock-circle-lead?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-26T10:25:01+00:00",
+      "published_ts": 1793010301,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Node2Shell: Brotli Flaw Triggers Patching Across Microsoft, Node.js, Python Packages",
+      "summary": "An out-of-bounds write in Google\u2019s Brotli decoder affects Node.js, .NET, PowerShell, and Python packages, and can lead to code execution. The post Node2Shell: Brotli Flaw Triggers Patching Across Microsoft, Node.js, Python Packages appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/node2shell-brotli-flaw-triggers-patching-across-microsoft-node-js-python-packages/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T10:21:57+00:00",
+      "published_ts": 1793010117,
+      "smart_groups": [
+        "Vulnerabilities / CVEs",
+        "Windows / Microsoft"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Blue Initiative Offers Maritime Sector Dedicated Vulnerability Database",
+      "summary": "Blue Initiative launches a new vulnerability database for IT and OT CVEs relevant to the maritime industry",
+      "link": "https://www.infosecurity-magazine.com/news/blue-initiative-maritime/",
+      "source": "Infosecurity Magazine \u2013 News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T10:15:00+00:00",
+      "published_ts": 1793009700,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "12 Ransomware Recovery Solutions: The 2026 Buyer\u2019s Verdict Guide",
+      "summary": "Ransomware recovery is measured on the worst Tuesday: how fast you find the clean point, prove it\u2019s clean, and rebuild at scale without reinfecting yourself. The twelve solutions in this verdict guide attack those minutes differently intelligence platforms, journal-rewind engines, SaaS-protected coverage, vaulted copies, array-speed restores, and the hardening appliances underneath and buying well means [\u2026] The post 12 Ransomware Recovery Solutions: The 2026 Buyer\u2019s Verdict Guide appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/ransomware-recovery-buyers-guide/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T10:09:24+00:00",
+      "published_ts": 1793009364,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Hackers Can Use DarkCore RAT to Hijack Gmail and WhatsApp Sessions Without Passwords",
+      "summary": "DarkCore, a remote access trojan marketed with a dedicated browser for reusing stolen sessions, potentially letting attackers access Gmail, WhatsApp, and MediaFire without entering passwords. Its advertised reverse proxy routes traffic through the infected device\u2019s IP address, making unauthorized activity resemble legitimate access from the victim. The findings combine a cybercrime marketplace advertisement with analysis [\u2026] The post Hackers Can Use DarkCore RAT to Hijack Gmail and WhatsApp Sessions Without Passwords appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/darkcore-rat-sessions/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T10:05:34+00:00",
+      "published_ts": 1793009134,
+      "smart_groups": [
+        "Curated",
+        "Malware / Payloads"
+      ],
+      "curated": true
+    },
+    {
+      "title": "11 Backup & Recovery Solutions: The 2026 Buyer\u2019s Verdict Guide",
+      "summary": "Ransomware rewrote backup\u2019s job description attackers delete recovery points before encrypting production so 2026\u2019s buying criteria are security properties: immutability stolen credentials can\u2019t untick, isolation from your blast radius, and restores proven by stopwatch rather than dashboard. One roster note: our sheet listed Cohesity and Veritas separately, but their completed merger makes them one vendor [\u2026] The post 11 Backup & Recovery Solutions: The 2026 Buyer\u2019s Verdict Guide appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/backup-recovery-buyers-guide/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T10:04:45+00:00",
+      "published_ts": 1793009085,
+      "smart_groups": [
+        "Curated",
+        "Ransomware"
+      ],
+      "curated": true
+    },
+    {
+      "title": "PHP2Shell: Suspected North Korean campaign targets 216 vulnerable PHP hosts",
+      "summary": "Cyfirma links PHP2Shell scans of 216 vulnerable hosts to a suspected North Korean campaign using AI to rank public exploits. On October 21, PHP released emergency patches for two critical vulnerabilities, CVE-2026-109618 and CVE-2026-109619, both rated 9.2 on the CVSS scale. The flaws affect all PHP versions that handle web requests. The vulnerable code dates [\u2026]",
+      "link": "https://securityaffairs.com/201748/hacking/php2shell-suspected-north-korean-campaign-targets-216-vulnerable-php-hosts.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T09:58:31+00:00",
+      "published_ts": 1793008711,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "12 Data Masking Tools: The 2026 Buyer\u2019s Verdict Guide",
+      "summary": "Data masking fails in exactly two places joins that break and copies that take three weeks so this buyer\u2019s verdict guide judges twelve tools on the properties demos skip: referential integrity across systems, delivery speed to the environments developers actually use, and the static-versus-dynamic architecture question that decides what you\u2019re really buying. With AI training [\u2026] The post 12 Data Masking Tools: The 2026 Buyer\u2019s Verdict Guide appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/data-masking-tools-buyers-guide/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T09:57:37+00:00",
+      "published_ts": 1793008657,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "uCreator Android Spyware Can Steal Telegram 2FA Passwords and Clone WeChat Accounts",
+      "summary": "A rentable Android spyware kit called uCreator takes over Telegram and WeChat accounts by hiding its code inside working copies of the two apps, researcher Ovi found. It only reaches people who install one of these tampered copies, spread outside the official app stores, or who run WeChat inside the kit makers' own container app. The kit's Telegram part matches Baohuo, a backdoor that Doctor",
+      "link": "https://thehackernews.com/2026/10/ucreator-android-spyware-can-steal.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T09:54:02+00:00",
+      "published_ts": 1793008442,
+      "smart_groups": [
+        "Curated",
+        "Malware / Payloads",
+        "Identity / Access"
+      ],
+      "curated": true
+    },
+    {
+      "title": "12 Data Privacy Management Platforms: The 2026 Buyer\u2019s Verdict Guide",
+      "summary": "Privacy management matured into an engineering discipline the moment deletion requests met data sprawl: you cannot fulfill what you cannot find, and 2026\u2019s platform field divides exactly there workflow suites that run programs, data-intelligence engines that fulfill from discovered reality, consent infrastructures that make choices propagate, and right-sized lanes for the mid-market. This verdict guide [\u2026] The post 12 Data Privacy Management Platforms: The 2026 Buyer\u2019s Verdict Guide appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/data-privacy-platforms-buyers-guide/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T09:50:21+00:00",
+      "published_ts": 1793008221,
+      "smart_groups": [
+        "Web / API Security"
+      ],
+      "curated": false
+    },
+    {
+      "title": "OpenSSL 4.1.0 Released With DTLS 1.3 and Post-Quantum Security Improvements",
+      "summary": "OpenSSL has released version 4.1.0, bringing DTLS 1.3 support, faster cryptographic operations, and new tools for developers building secure network services. Published on October 23, the update is a feature release, not a standalone security patch. It also includes compatibility changes and four known issues that teams should review before deployment. The official release notes [\u2026] The post OpenSSL 4.1.0 Released With DTLS 1.3 and Post-Quantum Security Improvements appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/openssl-4-1-0-released/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T09:46:43+00:00",
+      "published_ts": 1793008003,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Top 10 Best Sensitive Data Discovery Tools in 2026 [Ranked & Scored]",
+      "summary": "Every data-security control inherits the same dependency: an inventory someone actually believes. Discovery is where that inventory comes from and in 2026 the job has hardened, because shadow data multiplies in SaaS and warehouses, AI pipelines copy training sets nobody registers, and classification without identity correlation can\u2019t answer the only legal question that matters: whose [\u2026] The post Top 10 Best Sensitive Data Discovery Tools in 2026 [Ranked & Scored] appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/best-data-discovery-tools/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T09:46:25+00:00",
+      "published_ts": 1793007985,
+      "smart_groups": [
+        "Cloud / SaaS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "10 Database Security & Activity Monitoring Tools: The 2026 Buyer\u2019s Verdict Guide",
+      "summary": "Databases are where breaches cash out, and database security tooling splits by philosophy: watch the door (classic DAM), govern the warehouse era (access layers), protect the values themselves (in-path encryption), and audit the posture (assessment lanes). Two roster notes first: our sheet\u2019s twelve rows contain two single vendors double-listed IBM appears as Guardium and as [\u2026] The post 10 Database Security & Activity Monitoring Tools: The 2026 Buyer\u2019s Verdict Guide appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+      "link": "https://gbhackers.com/database-security-tools-buyers-guide/",
+      "source": "GBHackers News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T09:42:22+00:00",
+      "published_ts": 1793007742,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Top 10 Best Hardware Security Modules (HSM) in 2026 [Ranked & Scored]",
+      "summary": "Every root of trust ends in an HSM the tamper-resistant hardware where CA keys, payment keys, and code-signing keys live beyond software\u2019s reach. Two forces reshape the 2026 shortlist: FIPS 140-3 transitions retiring old validations, and post-quantum migration, because the HSM you buy now must sign with ML-DSA before its depreciation schedule ends. We scored [\u2026] The post Top 10 Best Hardware Security Modules (HSM) in 2026 [Ranked & Scored] appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/best-hsm-solutions/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T09:40:03+00:00",
+      "published_ts": 1793007603,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Looking for a Language &#x5b;Guest Diary&#x5d;, (Wed, Oct 21st)",
+      "summary": "[This is a Guest Diary by Jeffray Spence, an ISC intern as part of the SANS.edu BACS program]",
+      "link": "https://isc.sans.edu/diary/rss/33442",
+      "source": "SANS Internet Storm Center",
+      "type": "government",
+      "type_label": "Government, CERT & Advisories",
+      "published": "2026-10-26T09:38:03+00:00",
+      "published_ts": 1793007483,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "eCIR or eAIS ( new cert by INE )",
+      "summary": "I just passed the ejpt and i want to continue with their certs, what do you guys recommened to go first? -eAIS, new + focusing on AI security which i found a really signficant topic -eCIR, focusing on incident response process + my experience is on grc and lately am trying to learn how to handle incidents Any if you have better options please enlighten me ! submitted by /u/According-Tension-49 [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1xfrzog/ecir_or_eais_new_cert_by_ine/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-10-26T09:23:21+00:00",
+      "published_ts": 1793006601,
+      "smart_groups": [
+        "Ransomware"
+      ],
+      "curated": false
+    },
+    {
+      "title": "PHP2Shell security flaws now sucessfully exploited in the wild",
+      "summary": "Two critical RCE vulnerabilities (CVE-2026-109618 and CVE-2026-109619), collectively tracked as PHP2Shell, have been successfully exploited in the wild. [...]",
+      "link": "https://www.bleepingcomputer.com/news/security/php2shell-security-flaws-now-sucessfully-exploited-in-the-wild/",
+      "source": "BleepingComputer",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T09:19:57+00:00",
+      "published_ts": 1793006397,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Malicious AGENTS.md file in Downloads folder hijacks AI coding agents",
+      "summary": "submitted by /u/VectorWireAI [link] [comments]",
+      "link": "https://www.reddit.com/r/cybersecurity/comments/1xfrwr7/malicious_agentsmd_file_in_downloads_folder/",
+      "source": "/r/cybersecurity",
+      "type": "osint",
+      "type_label": "OSINT, Communities & Subreddits",
+      "published": "2026-10-26T09:18:06+00:00",
+      "published_ts": 1793006286,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "PHP Publishes Mitigation Advice for New RCE Flaw",
+      "summary": "PHP warns of critical RCE vulnerability CVE-2026-115560, but says limited exploit conditions mean most deployments are unlikely to be affected",
+      "link": "https://www.infosecurity-magazine.com/news/php-publishes-mitigation-advice/",
+      "source": "Infosecurity Magazine \u2013 News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T09:15:00+00:00",
+      "published_ts": 1793006100,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Mythos 5 Ignored Real-World Harm in July Attack",
+      "summary": "The model engaged in severe overreach and dishonesty, creating fake identities and submitting malicious code on GitHub. The post Mythos 5 Ignored Real-World Harm in July Attack appeared first on SecurityWeek .",
+      "link": "https://www.securityweek.com/mythos-5-ignored-real-world-harm-in-july-attack/",
+      "source": "SecurityWeek",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T09:10:03+00:00",
+      "published_ts": 1793005803,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "What EvilTokens teaches us about defending against AI-assisted attacks",
+      "summary": "Cybercriminals don\u2019t need AI to compromise an organization, but AI is making its way into classic attack methods and changing how quickly such attacks can progress. Tasks that once required attackers to manually sift through information and piece together how an organization operates can be accelerated by AI, reducing the time defenders have to detect and intervene. A recent example of this is EvilTokens, a phishing-as-a-service platform that helps attackers gain access to Microsoft 365 inboxes and then uses AI to analyze the environment to determine the most effective next steps. First identified in February 2026, EvilTokens exploits the device authorization grant flow of OAuth 2.0 to gain access to Microsoft accounts without having to create fraudulent login pages. After taking down Storm-2992, the threat actor believed to be behind the scheme, in September, Microsoft said the EvilTokens operation leveraged AI \u201cat every step of the attack chain.\u201d As AI removes more of the friction that slows attackers down, security will depend not only on how quickly teams respond to threats, but on how much an attacker can accomplish before they do. AI is removing friction from the attack lifecycle Most cyberattacks can be broadly viewed as progressing through three stages: access, expansion and impact. First, an attacker gains access to the environment, whether by stealing credentials, exploiting a vulnerability or socially engineering an employee. From there, they expand what they can access and establish persistence. Finally, they use their position to achieve an objective such as stealing intelligence, committing fraud, deploying ransomware or disrupting operations. Across the attack lifecycle, AI can give attackers greater speed, scale, sophistication and stamina, what we at SimSpace call \u201cThe Four S\u2019s.\u201d EvilTokens demonstrates how those advantages can be packaged in a single service. It allows attackers to exploit Microsoft\u2019s legitimate device code authentication flow, convincing victims to authorize attacker access without handing over their passwords. Once inside, AI identifies who controls payments, which business relationships carry trust and which invoices or transactions present opportunities for fraud. It then recommends impersonation targets and drafts convincing fraudulent messages grounded in real business conversations. EvilTokens shows what happens when AI-assisted analysis and decision-making become a packaged capability that cybercriminals can purchase. The attacker still needs to gain an initial foothold, but AI can remove friction from all the work that comes after. Performance must be evaluated differently Mean-time-to-detect (MTTD) or mean-time-to-respond (MTTR) are metrics widely used by security teams to measure their performance. AI-assisted attacks change the relevance of those measurements because the attacker\u2019s timeline can accelerate as well. If an AI-assisted attacker compromises an employee\u2019s account and it takes 30 minutes for security teams to detect it, the attacker may be able to accomplish far more during that window than previously possible. And unless detection triggers immediate containment, the attacker\u2019s clock keeps running and the scope of the potential damage increases. This changes the context in which MTTD and MTTR should be evaluated. A detection that occurs before an attacker has moved beyond the original account is much more valuable than one that occurs after persistence has been established and the attacker has identified the people and processes they intend to exploit. Speed must be measured by how quickly a threat can reach impact, not just an organization\u2019s previous performance. Controls should be tested together Another challenge facing security teams is that security technologies are often assessed individually, despite the fact that real attacks move across multiple systems. An EvilTokens-style attack might interact with many enterprise systems, such as email security, identity verification or network monitoring tools, and any one of those layers could potentially interrupt the attack. Testing those defenses independently can show whether they protect individual functions, but it doesn\u2019t provide organizations with much certainty about what happens when an attacker moves across them. Understanding how the defenses perform together requires testing the complete attack path, rather than individual techniques in isolation. Security teams can recreate realistic attack scenarios and measure when the initial activity is detected, what the attacker accomplishes before and after detection, which controls interrupt the attack and how long it takes to contain the activity. Running those scenarios repeatedly as threats and technologies evolve can also show whether the window between initial access and defensive intervention is shrinking or growing. More importantly, it gives security teams an opportunity to identify where an attack can progress and address those weaknesses before they\u2019re exploited in a real incident. This is the idea behind preemptive security, an emerging practice in which security teams focus on identifying and addressing the plausible actions an attacker might take before they actually do, rather than detecting and responding to active threats. Security has to keep pace with the adversary EvilTokens is an early example of how malicious actors can apply AI to established cybercriminal techniques . Anything that allows criminals to move faster, manage more targets and operate with less expertise is likely to be adopted and repackaged. As that happens, security teams will need to reconsider what constitutes \u201cgood\u201d defensive performance. A historically impressive MTTD or MTTR means less when an AI-assisted attacker can accomplish significantly more within that same window. Defenders can\u2019t control how quickly attackers adopt these capabilities, but they can influence how much progress an attacker can make before they\u2019re discovered and stopped. Increasingly, that will require looking beyond how quickly organizations respond to attacks and asking where an attacker is likely to make progress before an incident occurs. The more organizations can identify and secure those vulnerabilities in advance, the less they have to rely on winning a race against an AI-assisted attacker once an attack has already begun.",
+      "link": "https://www.csoonline.com/article/4239703/what-eviltokens-teaches-us-about-defending-against-ai-assisted-attacks.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T09:00:00+00:00",
+      "published_ts": 1793005200,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Phishing / Social Engineering"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Building a parallel Internet, security buzzwords that should be retired, and the news - Barrett Lyon - ESW #482",
+      "summary": "",
+      "link": "https://www.scworld.com/podcast-segment/15212-building-a-parallel-internet-security-buzzwords-that-should-be-retired-and-the-news-barrett-lyon-esw-482",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T09:00:00+00:00",
+      "published_ts": 1793005200,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Building a parallel Internet, security buzzwords that should be retired, and the news - Barrett Lyon - ESW #482",
+      "summary": "Interview with Barrett Lyon Why do we need a Parallel Internet? Barrett details his journey to build truly private access to the Internet. My first thought was, \"why not VPN? Why not TOR?\" He has good answers to both. To get there, he had to ship his own hardware all over the world. He had to stand up a CDN. DNS. BGP. Anti-DDoS. This is more than just a safer, more secure way to access the Internet - it is an API-driven, optionally agent-controlled software-defined network. And it's a consumer-priced product that starts at $6 a month? My head is spinning. Note: this is NOT a sponsored segment, I'm just legitimately fascinated by it! When this was pitched to me, it sounded so outlandish, I almost passed on it. Then I saw that Barrett created and sold 5 companies, two of which were major anti-DDoS vendors. Clearly, this guy knows how to build serious, scalable infrastructure. Enjoy the conversation! Segment Resources: The main website: https://doxx.net Doxx.net Discord channel: https://discord.gg/595hAxHH4 Barrett's previous work mapping the internet for the Opte project: https://www.opte.org Vibe Check Which security acronym/phrases deserves to be retired? 38% - XDR 25% - Zero Trust 25% - UEBA 6% - CNAPP 6% - Non-Human 0% - Other (leave a comment) Nothing like some acronym soup and buzzwords to really get people out to vote! Shared anger can be a powerful thing, and I'm here for the rants. I have to agree with the top three votes: XDR, Zero Trust, and UEBA (User and Entity Behavior Analytics). CNAPP can see ya later, and since agents outnumber humans 100-1,000 to 1 now, can we call our user accounts \"Pro-Human\" instead of calling service accounts and agent IDs \"Non-Human\"? I'm currently raising on this business concept - pre-revenue, pre-TAM, pre-founder, and pre-idea. Expecting to close a $150M pre-seed at a $100B post-money valuation in the next few weeks. Let me know if you want in. ???? Top Comments \"Other - The \"AI TRiSM\" term can go kick the biggest of rocks\" \"Other - Shift left\" \"My god I have always hated zero trust and would love to see it die. What a stupid, over-the-top & exaggerated phrase to just basically mean that having a bunch of unauth/flat user roles things is bad\u2026 how an entire category of the industry managed to piggyback off cloud to make ZTNA a thing I've no idea. Also led to the annoying trend of overly segmenting all the things. rant over\" Enterprise Weekly News Finally, in the enterprise security news, We check out funding There are a lot of acquisitions And a round of layoffs A tech startup goes out of business after two breaches Private keys should be larger than \"4\" PHP2Shell disrupts everyone's plans this week Want to impress your friends with the quirkiest 2FA authenticator ever? Stick around until the end of the news. All that and more, on this episode of Enterprise Security Weekly. Visit https://www.securityweekly.com/esw for all the latest episodes! Show Notes: https://securityweekly.com/esw-482",
+      "link": "https://podcast.securityweekly.com/building-a-parallel-internet-security-buzzwords-that-should-be-retired-and-the-news-barrett-lyon-esw-482",
+      "source": "Security Weekly Podcast Network (Audio)",
+      "type": "podcasts",
+      "type_label": "Podcasts & YouTube",
+      "published": "2026-10-26T09:00:00+00:00",
+      "published_ts": 1793005200,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Identity / Access",
+        "Network / OT / ICS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Microsoft 365 Token-Replay Attacks Compromise 97 Accounts at 79 Organizations",
+      "summary": "Cybersecurity researchers have disclosed a Microsoft 365 campaign that has been observed leveraging an adversary-in-the-middle (AitM) relay to capture sign-in sessions and then replay the stolen tokens to break into email accounts at 79 organizations. Huntress, which observed the activity between July 14 and September 22, 2026, said it detected 497 successful Microsoft 365 sign-in events across",
+      "link": "https://thehackernews.com/2026/10/microsoft-365-token-replay-attacks.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T08:35:51+00:00",
+      "published_ts": 1793003751,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "10 most powerful cybersecurity companies today",
+      "summary": "The number of cybersecurity startups attempting to cash in on the AI boom is staggering. But an analysis of the cybersecurity marketplace indicates that the incumbents, rather than resting on their laurels and opening themselves up for disruption, are quickly adapting to the new AI-centric threat environment. The major players are integrating AI technology throughout their platforms, and offering innovative AI products and services, either through internal development or acquisition. Here are the 10 most powerful cybersecurity companies. This list reflects market share powerhouses, but also includes smaller companies that are growing fast and making waves. 1. Palo Alto Networks: CyberArk deal bolsters platform play Why they\u2019re here: Market leader Palo Alto Networks shows no signs of taking its foot off the gas. Gartner gives Palo Alto high marks for its Quantum Safe app, its focus on AI runtime security through Prisma AIRS, advanced automation with Strata Network Security, and threat detection and automated incident response via Cortex SecOps. Palo Alto also launched Unit 42 Continuous Frontier AI defense, an agentic security service. Power moves: Bought identity security leader CyberArk for $25 billion , acquired cloud observability vendor Chronosphere , and snapped up agentic AI startup Console . By the numbers: $100M: The Prisma AIRS AI security platform, launched a year ago, has hit $100 million in annual recurring revenue, making it the fastest growing product in company history. Outlook : Revenue jumped 34% in Palo Alto\u2019s latest quarter, reaching $3.4 billion. CEO Nikesh Arora is predicting sustained revenue growth as organizations upgrade their cybersecurity infrastructure to deal with the AI threat. \u201cThis is a long-term tailwind,\u201d he said. 2. Microsoft: Agentic innovation drives growth Why they\u2019re here : Microsoft has an integrated security platform from the endpoint to the SOC to the cloud, with AI capabilities built on top, such as the natural language AI assistant Security Copilot, and an agentic SOC offering in Microsoft Defender . The company is a leader in IDC\u2019s MarketScape for MDR/MXDR, a leader in the latest Frost Radar for Cloud Workload Protection Platforms, a leader in Gartner\u2019s ranking of endpoint protection platforms, and a leader in Forrester\u2019s analysis of XDR platforms. Power moves : Introduced Project Perception , an agentic security system that brings together teams of agents to simulate attacks, investigate threats, and drive remediation. By the numbers : 100 trillion: Microsoft\u2019s AI-powered threat intelligence platforms process 100 trillion threat signals daily. Outlook: \u201cMicrosoft articulates a compelling vision to build a frontier approach to security, bringing people and AI together while the platform shields against and disrupts attacks. Its roadmap relies on a central, united intelligence layer, tightening the integration between Microsoft products while expanding existing features to third-party tools,\u201d according to Forrester analyst Allie Mellen. 3. Cisco: Security and networking for AI data centers and beyond Why they\u2019re here : Networking power player Cisco boasts an integrated platform from silicon to high-speed networking to advanced security for the agentic age. \u201cCisco has positioned itself as the vendor that can deliver AI-ready, secure networks spanning campus, data center, cloud, and edge,\u201d says industry analyst Zeus Kerravala, adding that Cisco\u2019s strategy is to embed AI security across \u201cevery workflow, API, and device.\u201d Power moves: Snapped up AI observability specialist Galileo Technologies in April, identity protection startup Astrix in May, and identity lifecycle security company WideField Security in June. By the numbers : 14%: Cisco\u2019s security revenue rose 14% in its latest quarter to $2.2B. Outlook: In the company\u2019s Q4 2026 earnings call, CEO Chuck Robbins said, \u201cThe rise of agentic AI is expanding the threat landscape, driving demand for our security and observability solutions to help monitor agent behavior and mitigate evolving threats. This presents a unique opportunity for Cisco, and we believe we\u2019re only at the beginning of this supercycle.\u201d 4. Google: Mandiant and Wiz acquisitions bolster cybersecurity offerings Why they\u2019re here : A leader in Gartner\u2019s evaluation of Cyberthreat Intelligence Technologies, IDC\u2019s MarketScape for SIEM, and the Forrester Wave for Data Security Platforms, Google has integrated its acquisitions of Mandiant (threat intelligence and incident response) and Wiz (CNAPP) with CodeMender (AI code security agent) and Gemini (AI assistant) to create a strong cybersecurity platform. Power moves: In May, Google announced Google AI Threat Defense , an automated system designed to continuously monitor for and prevent AI-powered threats. By the numbers : 45%: Google reported a 45% quarter\u2011over\u2011quarter increase in the number of AI workloads scanned and protected by its security platform. Outlook: In the company\u2019s 2026 Q2 earnings call, CEO Sundar Pinchai said, \u201cWe are seeing strong interest in our AI\u2011powered security platform, which is differentiated because it integrates threat intelligence, cyber\u2011response prioritization, AI\u2011automated scanning, code remediation, and monitoring.\u201d According to Forrester, \u201cOrganizations focused on going all-in on cloud and zero trust \u2014 especially those innovating with data and AI \u2014 that desire an integrated experience should consider Google.\u201d And Futurum Research says that Google\u2019s architecture \u201cis likely to shape what \u2018enterprise AI security\u2019 means in the near term.\u201d 5. Fortinet: An integrated platform built for agentic AI Why they\u2019re here : Fortinet is executing on its strategy of delivering new AI-driven products aimed at enticing customers to accelerate their traditional firewall upgrade cycles. The company recently announced a new hybrid mesh firewall designed to address AI infrastructure requirements; a cloud-delivered SOC that embeds agentic AI across SIEM, SOAR, threat intelligence, and identity-detection; and new endpoint protection that adds AI visibility, governance, and DLP capabilities. Power moves : Acquired Virtue AI , a leader in AI runtime protection, automated AI validation, and security for autonomous AI systems. By the numbers : $2B: Fortinet revenue grew a healthy 26% in its most recent quarter, hitting $2.05B. Outlook: \u201cFortinet\u2019s current features and roadmap show strong innovation in AI-based automation, PQC, and multicloud orchestration,\u201d says Gartner. Over the next 12 months, Fortinet plans to deliver a unified Model Context Protocol (MCP) framework for AI agent-based automation, workflow-based automation through a natural language interface, deception capabilities and additional detections for agentic AI threats. 6. CrowdStrike: Meeting the Mythos moment Why they\u2019re here : CrowdStrike is a leader in Forrester Waves for Extended Detection and Response Platforms, Proactive Security Platforms, and External Threat Intelligence Service Providers. IDC ranks CrowdStrike a leader among SIEM vendors. And Frost & Sullivan names CrowdStrike a leader in Zero Trust browser security tools and cloud and application runtime security. The company just wrapped up what CEO George Kurtz described as \u201cthe best quarter in CrowdStrike history.\u201d Power moves: Bought SGNL to bolster identity management for AI agents. Bought Seraphic Security to integrate runtime protection into enterprise browsers. By the numbers: 26%. Revenue increased 26% in CrowdStrike\u2019s latest quarterly earnings report to $1.47 billion. Outlook : \u201cThe Mythos moment translated into mass-market acceptance that AI adoption needs security,\u201d said Kurtz in the company\u2019s latest earnings report. \u201cEvery enterprise will run on AI, and securing it is the largest market opportunity in our history.\u201d Nand Research analyst Steve McDowell adds that CrowdStrike\u2019s AI security strategy \u201cis driving significant revenue growth, particularly in AI Detection and Response.\u201d 7. Zscaler: Securing the internet and the SOC Why they\u2019re here: Dell\u2019Oro Group ranks Zscaler as the market leader in enterprise SASE, with its Zero Trust Exchange platform. Gartner identifies Zscaler as a Leader in Magic Quadrants for both SSE and SASE. \u201cZscaler\u2019s planned and recent innovations for agentic operations and building out a separate AI security platform integrated with SSE are well aligned with the emerging needs of SSE buyers,\u201d adds Gartner. Power moves: Acquired managed detection and response leader Red Canary , secure enterprise browser vendor SquareX , and identity mapping innovator Symmetry Systems . By the numbers: $25%: Fiscal 2026 revenue grew 25% to 898.2 million. Outlook: Zscaler recently announced a fully agentic SOC service , which the company describes as a new approach built to stop AI-driven attacks at machine speed. During the company\u2019s latest earnings call, CEO Jay Chaudhry said, \u201cAI is quickly becoming the largest tailwind we have ever seen, driving demand for our Zero Trust Everywhere data security and security for AI solutions.\u201d 8. Cloudflare: A cloud-based platform to secure the agentic internet Why they\u2019re here: A visionary in Gartner\u2019s assessment of both SSE and SASE vendors, Cloudflare is positioning itself as a power player in what it calls the agentic internet. CEO Matthew Prince recently noted, \u201cFor the first time in human history, in Q2, more than 50% of the traffic flowing across Cloudflare\u2019s network was non-human. With the web shifting from human-driven browsing to AI answer engines and agent-driven commerce, we are witnessing a fundamental rewrite of the Internet. Cloudflare is positioned at the center of this paradigm shift.\u201d Power moves: The company continues to aggressively add to its platform through acquisitions of innovative companies such as Astro Technology, Human Native, VoidZero, and Deno. By the numbers : 36%: Cloudflare reported revenue up 36% in its latest quarter, topping $696 million. Outlook: The company\u2019s guidance for the upcoming quarter is revenue hitting $736 to $737 million. But Oppenheimer investment bank analyst Param Singh is forecasting that Cloudflare will blow past those estimates on the strength of its agentic AI security offerings. 9. Proofpoint: Varonis deal catapults Proofpoint into power position Why they\u2019re here : Proofpoint, which was taken private by Thoma Bravo in 2021, made a big splash on Oct. 15 when it announced the $6.3 billion purchase of Varonis . Futurum Research analyst Fernando Montenegro says, \u201cProofpoint\u2019s case for the deal is that AI has moved data to the center of the security problem. With attackers moving faster and agents getting broad access to sensitive information, the answer is to connect what Proofpoint sees about people, threats, and behavior with what Varonis knows about data, access, and usage. That logic holds up and the pairing is a sensible one.\u201d Power moves: In addition to the Varonis deal, bought Acuvity, an AI enterprise security and governance startup. By the numbers: 13%: Proofpoint reported 2025 revenue of $623.5 million, up 13%. Outlook: On acquiring Varonis, Proofpoint CEO Sumit Dhawan said, \u201cBy connecting communications, identities, permissions, data, and AI, we are creating an intelligence advantage that helps customers see risk more clearly, respond faster, and defend against the next generation of AI risks. This is a defining step in Proofpoint\u2019s evolution into a cybersecurity platform built for the future of AI.\u201d 10. SentinelOne: Covering the full AI lifecycle Why they\u2019re here: A perennial leader in endpoint protection, SentinelOne is expanding its product portfolio to challenge the market leaders. Lawrence Pingree, an analyst at SACR, says the cybersecurity industry is experiencing a convergence of data security, identity, AI posture management, and runtime enforcement. Pingree sees SentinelOne distinguishing itself in this arena by delivering a platform that spans infrastructure, data, runtime, and employee usage . Power moves: Purchased AI security innovator Prompt Security and AI data pipeline observability vendor Observo AI. By the numbers: 21%: In its latest quarter, total revenue grew 21% to $292 million. Outlook: SentinelOne\u2019s most recent quarter was so strong that the company raised its revenue outlook for 2027 to $1.2B. CEO Tomer Weingarten said, \u201cAI is transforming the way software is built, businesses are operated, and cybersecurity is delivered. With AI-native runtime protection fundamental to the Singularity platform\u2019s architecture, SentinelOne is uniquely positioned to lead the future of AI cybersecurity.\u201d",
+      "link": "https://www.csoonline.com/article/569075/the-10-most-powerful-cybersecurity-companies.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T08:25:00+00:00",
+      "published_ts": 1793003100,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs",
+        "Cloud / SaaS",
+        "Crypto / Web3"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Bitcoin ETFs break 2-week outflow streak with $301M comeback",
+      "summary": "US spot Bitcoin ETFs finished the week with $301 million in net inflows after a strong three-day start gave way to heavy withdrawals.",
+      "link": "https://cointelegraph.com/markets/bitcoin-etfs-rebound-weekly-inflow-301-million?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-26T08:20:49+00:00",
+      "published_ts": 1793002849,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "7th Suspect Arrested in \u20b928,000 Crore Cyberfraud Case for Allegedly Unfreezing Mule Accounts",
+      "summary": "7th Suspect Arrested in \u20b928,000 Crore Cyberfraud Case for Allegedly Unfreezing Mule Accounts In conjunction... The post 7th Suspect Arrested in \u20b928,000 Crore Cyberfraud Case for Allegedly Unfreezing Mule Accounts appeared first on .",
+      "link": "https://www.news4hackers.com/7th-suspect-arrested-in-%e2%82%b928000-crore-cyberfraud-case-for-allegedly-unfreezing-mule-accounts/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T08:18:34+00:00",
+      "published_ts": 1793002714,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Anthropic reveals how Claude Mythos 5 crossed security testing boundaries",
+      "summary": "Anthropic says Claude Mythos 5 targeted real developers with fake identities to push malicious code during a security test. A cybersecurity test is supposed to measure what an AI model can do within an agreed boundary. In one UK AI Security Institute evaluation, Claude Mythos 5 crossed that boundary, targeted a real GitHub project and [\u2026]",
+      "link": "https://securityaffairs.com/201729/ai/anthropic-reveals-how-claude-mythos-5-crossed-security-testing-boundaries.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T08:05:12+00:00",
+      "published_ts": 1793001912,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Bright Security Introduces STAR Fuzzer, Agentic Fuzzing That Writes Its Own Harnesses and Proves Every Finding",
+      "summary": "Built on an evolutionary engine first released in 2018, STAR Fuzzer by Bright Security finds crashes, memory exhaustion and memory-safety bugs in security-critical code without a running application. In its first open source research run, it found High or Critical issues in 45% of the projects tested, and in its first month of availability it produced ten published findings in eight projects, including the Crystal standard library, htop and RIOT OS. Bright Security , the Agentic Offensive Application Security company, today announced the official launch of STAR Fuzzer, an agentic application fuzzer that automatically identifies security-critical functions, generates a fuzzing harness for each one, searches for faults with an evolutionary algorithm, and delivers every confirmed finding with a byte-exact payload that reproduces it. STAR Fuzzer is a self-contained mode of the Bright STAR platform and is available now at brightsec.com/fuzzer . Agentic fuzzing applies AI agents to the parts of fuzzing that have traditionally required a specialist: choosing what to test, writing the harness, and deciding which crashes matter. STAR Fuzzer uses AI for those steps and an evolutionary search engine for the fuzzing itself, so the parts that need judgment are automated and the search stays fast, repeatable and evidence based. Why Fuzzing Needed a New Approach Coverage-guided fuzzers such as AFL++ and libFuzzer are proven and widely used, and programs like Google\u2019s OSS-Fuzz have shown how much they can find. But they depend on people to write and maintain a harness for every target and to triage the crashes that come back. That cost has kept fuzzing concentrated in specialist teams and a subset of critical projects. Other testing approaches don\u2019t fill the gap. Dynamic application security testing (DAST) tests what an attacker can reach over HTTP, so it rarely exercises the parsing and processing code behind input validation. LLM-based pentesting is effective at known vulnerability patterns but tends to look where a model expects bugs to be. The result is a class of outage-level and memory-safety defects, often triggered by tiny malformed inputs, that most AppSec programs never test for. How STAR Fuzzer compares with traditional coverage-guided fuzzers (such as AFL++ and libFuzzer) and DAST: What it Tests: Traditional fuzzers test functions exposed through a hand-written harness. DAST tests running applications over HTTP. STAR Fuzzer tests security-critical functions on untrusted-input paths, chosen automatically. Harness: Traditional fuzzers need harnesses written and maintained by engineers. DAST doesn\u2019t use one. STAR Fuzzer generates a harness per function with AI, then verifies it reaches its target. Search: Traditional fuzzers use coverage-guided mutation. DAST sends request-level attack payloads. STAR Fuzzer uses a structure-aware evolutionary search guided by coverage and multiple fitness signals. Running App Needed: Traditional fuzzers, no. DAST, yes. STAR Fuzzer, no. Triage: Manual for traditional fuzzers and built into the scanner for DAST. STAR Fuzzer triages automatically for reachability and impact. Output: Traditional fuzzers return crash inputs and logs. DAST returns a vulnerability report. STAR Fuzzer delivers the file, function and byte-exact payload in a pull request. Fix Validation: Traditional fuzzers need a manual re-run and DAST needs a rescan. With STAR Fuzzer, teams replay the payload. Finding the Bugs LLMs Miss Ask an LLM to audit a parser and it will find the bug classes it already knows from training. The zero-days that survive for years in mature, widely deployed code are the ones that match no known pattern. STAR Fuzzer uses AI to choose targets and build harnesses, but the search that finds the bugs is not an LLM. It doesn\u2019t read the code or guess where a bug might be. It runs the program millions of times, observes what actually happens, and keeps whatever pushes the target into code it hasn\u2019t reached yet. In Back to the Fuzzer II: Finding the Bugs LLMs Miss , Bright Security CTO Bar Hofesh gives four reasons LLM code review does not replace fuzzing for zero-day discovery: Scale: A single fuzzing campaign runs 1 million to 10 million concrete inputs against the compiled target. At about 2,000 tokens per reasoned test case, matching one million executions with an LLM would take about two billion tokens for one target, and each of those test cases would still be a prediction. Speed and Ground Truth: A persistent harness runs hundreds to a few thousand inputs per second per worker, across several parallel workers, so one million executions take minutes to tens of minutes. One LLM reasoning pass over one hypothesis takes several seconds, so one million would take months. The fuzzer also observes real behavior, such as a sanitizer reporting a heap read one byte out of bounds. An LLM has to predict how compiled code behaves, including struct layouts, integer widths, allocator behavior and build flags that aren\u2019t visible in the source. Coverage: STAR Fuzzer\u2019s libxml2 harness reaches about 13,600 code regions in a 5-million-execution run. Coverage feedback shows which regions each input reached, and inputs that reach new code become starting points for deeper search. Code review has no equivalent signal for how much of a large parser it has actually covered. The Unexpected: LLMs, code reviewers and static analyzers look for the same known patterns, so in mature code most of those bugs are already fixed. The fuzzer has no expectations about where a bug should be. The target\u2019s own behavior decides what is interesting. Reproducibility is the other difference. Many plausible-looking LLM findings don\u2019t reproduce, and maintainers need a reproducer before they can act. A fuzzer finding is a reproducer by construction, and Bright Security replays every one in a fresh container before filing it. How STAR Fuzzer Works STAR Fuzzer\u2019s search engine drives any target through a small harness over IPC, so the code under test can be written in C, C++, Rust, Go, Java, Kotlin, Crystal, Node or any language that can read an input and report back. Structure-aware parsing with no per-target grammar: Every seed is parsed into a typed tree of fields by a format-agnostic parsing layer, and the tree serializes back to the original bytes exactly. No grammar or dictionary file is written per target, and each format added to the parsing layer improves every target that uses it. Mutations that get past the first check: Byte-level mutation mostly produces inputs a parser rejects at its first sanity check. Mutating the fields of a valid structured input keeps most executions past framing and validation, so the testing budget is spent on the deeper logic behind them. Evolution with exact replay: Each organism in the population carries a genome, an ordered list of mutations. Each epoch, organisms mutate, run and are scored. Improvements are kept, unproductive changes are reverted, and organisms breed. Replaying a genome reproduces its payload exactly, so every result can be regenerated from a logged random seed. Results from Open-Source Testing Before release, Bright Security ran STAR Fuzzer for two days in an automated pipeline against multiple open source projects, from libraries and applications to low-level binary parsers. 45% of the projects tested had High or Critical issues, and 37% of the vulnerable projects are part of Google\u2019s OSS-Fuzz program. In its first month of availability, STAR Fuzzer produced ten published findings in eight projects written in C, Go, JVM languages and Crystal. Each was replayed in a fresh container before filing: TwelveMonkeys: In the DDS reader, the mipMapCount header field sizes an uncapped array, so a 38-byte file forces a multi-gigabyte allocation (CWE-789). GHSA-fwp7-38wp-mmxw, fixed in 3.15.0. Fider: Upload validation checks an image\u2019s compressed size, then fully decodes it, so a 436 KB PNG expands to about 562 MB. Any authenticated user can trigger it (CWE-409). STAR Fuzzer found it in about 12 minutes, in a release already benchmarked by multiple AI pentesting vendors. GHSA-7cw3-7xh9-529r, fixed in 0.38.0. Crystal standard library (XML): XML::Node#namespace type confusion. ENTITY_DECL is missing from an allowlist, so a field of libxml2\u2019s xmlEntity struct is read as an xmlNs* (CWE-843). GHSA-c267-9cqj-hv9f, fixed in Crystal 1.21.1. Crystal standard library (YAML): YAML::Any#hash overflows the stack on a self-referencing anchor and alias cycle. An 88-byte input causes an uncatchable SIGSEGV (CWE-674). GHSA-fj8w-2r88-5v7w, fixed in Crystal 1.21.1. libsolv: Two vulnerabilities, CVE-2026-104621 and CVE-2026-104622. Details are under embargo. htop: An out-of-bounds read in the /proc/PID/stat parser, caused by a missing bounds check on field 22 (CWE-125). Fixed (#2101). universal-ctags: A null-pointer member access in foreachEntriesInScope (CWE-476). Fixed in commit 780bd7a (#4497). scrimage: An uncapped width-times-height pixel count lets a 35-byte GIF trigger allocation attempts of about 2 GB, and over 8 GB in a second variant (CWE-789). Fixed in 4.6.8 (#893). RIOT OS: An off-by-one in _dirlist_cb (link_format.c). The bounds check runs after the write, so a NUL byte lands one past the buffer (CWE-193). Fix submitted in PR #22879. Several of these bugs sit in code that looks correct on review. The Fider upload has a size limit, but it measures compressed size. The TwelveMonkeys field reads as image metadata, not as a length. The Crystal allowlist looks complete. The YAML hash function is correct for trees, and the bug is a cycle in the input. The full methodology and results are published in two parts: Part I on brightsec.com, and Back to the Fuzzer II: Finding the Bugs LLMs Miss by Bar Hofesh. Where STAR Fuzzer Fits Best STAR Fuzzer by Bright Security is designed for teams whose code handles untrusted input below the HTTP layer, including: Applications that process uploaded files, images, documents or archives Parsers, serialization code and raw binary protocols Non-web software such as embedded and IoT firmware, desktop applications and backend services Codebases with a growing share of AI-generated code that needs testing beyond pattern matching Security teams that want to confirm static analysis (SAST) findings by exercising the flagged functions live It supports C/C++, Rust, Go, Java/Kotlin, .NET, Node, Python and Crystal, and runs inside the customer\u2019s environment with no running application, cloud scanner or authentication required. In persistent mode, harness execution is about 51 times faster than running a new process per input. Executive Perspectives \u201cFuzzing has always found the bugs that matter most, the ones that take a service down or corrupt memory, but it has been too expensive for most teams to run,\u201d said Bar Hofesh, Co-founder and CTO of Bright Security . \u201cThe search was never the bottleneck. The harnesses and the triage were. STAR Fuzzer automates both, so the evolutionary engine we built in 2018 can finally run across a whole codebase.\u201d\u201dWhen Nevada opened the Boulder City Bypass in 2018, it took navigation apps months to start sending drivers down it,\u201d Hofesh added. \u201cLLMs auditing code work the same way. They find the bugs they\u2019ve already seen. The zero-days that have lived for years in mature code are the ones nobody has seen before, and that\u2019s exactly where a fuzzer shines.\u201d\u201dSecurity teams are being asked to keep up with code written faster than ever, much of it by AI,\u201d said Gadi Bashvitz, Co-founder and CEO of Bright Security. \u201cTesting that only looks where bugs are expected won\u2019t keep pace. STAR Fuzzer looks everywhere else, and it hands developers the proof they need to fix what it finds.\u201d\u201dAppSec teams keep asking us the same thing: if AI is writing more of our code, what\u2019s testing the parts AI can\u2019t, see?\u201d said Eyal Dror, CMO of Bright Security. \u201cSTAR Fuzzer is our answer. In its first month it found ten real bugs in mature open-source projects, and everyone came with the exact input that triggers it. That\u2019s proof a developer can act on the same day, not another alert to argue about.\u201d Availability STAR Fuzzer is available now as a mode of Bright STAR. Learn more and book a demo at brightsec.com/fuzzer . Frequently Asked Questions: What is Agentic Fuzzing? Agentic fuzzing uses AI agents to automate the judgment-heavy steps of fuzzing: selecting which functions to test, writing and verifying harnesses, and triaging results. The fuzzing itself is performed by a search engine that mutates inputs to trigger faults. How is STAR Fuzzer Different from AFL++ or libFuzzer? AFL++ and libFuzzer are fuzzing engines that need engineers to write a harness for each target and to triage crashes by hand. STAR Fuzzer by Bright Security selects targets, generates and verifies harnesses, triages faults for reachability and impact, and delivers findings in a pull request with a reproducing payload. Can LLMs Find Zero-Day Vulnerabilities in Parsers? LLMs are effective at known bug classes, such as an unchecked memcpy length or string-built SQL, but they look where their training says bugs should be. In mature code, the bugs that survive are the ones that match no known pattern, which is where evolutionary, coverage-guided fuzzing is strongest. Why Use a Fuzzer Instead of LLM Code Review? A fuzzing campaign runs millions of real executions against compiled code and observes what happens, while an LLM predicts behavior from the source. Matching one million executions with LLM reasoning would take about two billion tokens per target. Every fuzzer finding also comes with an input that reproduces it. How are STAR Fuzzer Findings Verified? Every finding comes with a byte-exact payload that reproduces it, and Bright Security replays each one in a fresh container before filing it. Any result can also be regenerated from a logged random seed. Does STAR Fuzzer Need Grammars or Dictionary Files? No. A format-agnostic parsing layer turns each seed into a typed tree of fields, so no per-target grammar or dictionary is required. Does STAR Fuzzer Replace DAST? No. DAST tests a running application from the outside in, over HTTP. STAR Fuzzer tests security-critical functions from the inside out, without a running application. Bright STAR runs both, with the same agent and the same pull-request output. What Kinds of Bugs Does STAR Fuzzer Find? Crashes, hangs, out-of-memory conditions and unbounded allocations, memory-safety bugs such as out-of-bounds reads and off-by-one writes, type confusion, stack overflows from recursive input structures, and algorithmic-complexity blow-ups, including decompression bombs triggered by inputs of a few dozen bytes. Which languages does STAR Fuzzer Support? C/C++, Rust, Go, Java/Kotlin, .NET, Node, Python and Crystal. About Bright Security Bright Security is the Agentic Offensive Application Security company, helping organizations secure software at the speed of AI-driven development. Its AI-powered Bright STAR platform integrates security directly into the development lifecycle, automating detection, remediation and validation across web applications, APIs and code, and fitting into both developer and AppSec workflows. Formerly known as NeuraLegion, Bright Security is headquartered in California. Learn more at brightsec.com . Contact CMO Eyal Dror Bright Security Inc eyal.dror@brightsec.com",
+      "link": "https://www.csoonline.com/article/4240151/bright-security-introduces-star-fuzzer-agentic-fuzzing-that-writes-its-own-harnesses-and-proves-every-finding.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T07:52:46+00:00",
+      "published_ts": 1793001166,
+      "smart_groups": [
+        "Curated",
+        "Ransomware",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Gheist Uses Stolen GitHub Tokens to Steal Private Repository Secrets via Actions Logs",
+      "summary": "An automated campaign is using stolen GitHub tokens to plant workflows that print a repository's secrets into its GitHub Actions logs, which the attackers then download before deleting the runs. The attacks have succeeded in private repositories and GitHub Enterprise environments, according to an analysis by cloud security company Wiz. A GitHub safeguard that pauses",
+      "link": "https://thehackernews.com/2026/10/gheist-uses-stolen-github-tokens-to.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T07:49:46+00:00",
+      "published_ts": 1793000986,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Witness: Open-source framework for verifying how your software was built",
+      "summary": "Witness is an open-source command-line tool that records how software gets built, signs that record, and checks it against a policy before the software ships. TestifySec built Witness and donated it to the in-toto ecosystem within the Cloud Native Computing Foundation, and an open community now maintains it. A compiled binary doesn\u2019t say which machine built it or what code went in. Witness lets a team check which command produced the file, which materials went \u2026 More \u2192 The post Witness: Open-source framework for verifying how your software was built appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/10/26/witness-open-source-software-supply-chain-tool/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T07:00:45+00:00",
+      "published_ts": 1792998045,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "A week in security (October 19 \u2013 October 25)",
+      "summary": "A list of topics we covered in the week of October 19 to October 25 of 2026",
+      "link": "https://www.malwarebytes.com/blog/news/2026/10/a-week-in-security-october-19-october-25",
+      "source": "Malwarebytes Labs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T07:00:00+00:00",
+      "published_ts": 1792998000,
+      "smart_groups": [
+        "Network / OT / ICS"
+      ],
+      "curated": false
+    },
+    {
+      "title": "HTTP2Shell Vulnerability Extends Beyond HTTP, Affecting .NET, FFmpeg, ClickHouse, and Apache Arrow",
+      "summary": "The HTTP2Shell vulnerability reaches beyond web traffic, with new research showing how the same Brotli decoder flaw (CVE-2026-111497) can disrupt .NET applications, FFmpeg media processing, ClickHouse servers, and Apache Arrow workloads. The findings show that checking Node.js versions alone can leave other exposed software unnoticed. In research published on October 25, JFrog researchers Aviv Engelberg, [\u2026] The post HTTP2Shell Vulnerability Extends Beyond HTTP, Affecting .NET, FFmpeg, ClickHouse, and Apache Arrow appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/http2shell-vulnerability/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T06:35:41+00:00",
+      "published_ts": 1792996541,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Microsoft Authenticator Flaw Lets Malicious Android Apps Steal Account Tokens With Zero Permissions",
+      "summary": "Microsoft patched high-severity flaw CVE-2026-80097 (CVSS 8.6) in Authenticator for Android, allowing malicious apps with no declared permissions to steal work account access tokens due to improper authentication in its broker component. Microsoft classified the flaw as a local elevation-of-privilege vulnerability. The issue affected Android devices with Microsoft Authenticator installed and a signed-in work account. [\u2026] The post Microsoft Authenticator Flaw Lets Malicious Android Apps Steal Account Tokens With Zero Permissions appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/microsoft-authenticator-flaw/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T06:33:44+00:00",
+      "published_ts": 1792996424,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "AI slop is piling up highest on the biggest open-source projects",
+      "summary": "The maintainers of large open source projects are taking the worst of the AI slop. In a Linux Foundation survey of 234 open source contributors and maintainers, people running projects with more than 50 contributors estimated that close to a third of the code changes landing in their queue are low quality or AI-generated. Those maintainers now worry more about burning out than about the code itself. Across all projects, the estimate comes to about \u2026 More \u2192 The post AI slop is piling up highest on the biggest open-source projects appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/10/26/linux-foundation-open-source-ai-slop/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T06:30:29+00:00",
+      "published_ts": 1792996229,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Linux / Unix"
+      ],
+      "curated": true
+    },
+    {
+      "title": "India\u2019s Film Sensor Board Data Breach \u2013 Unreleased Scripts, 500+ Film Titles Exposed",
+      "summary": "India\u2019s Central Board of Film Certification (CBFC) is investigating a reported data breach involving confidential documents linked to more than 500 film titles. The exposed records reportedly include shooting scripts, censor cut orders, certification files and private distribution agreements submitted through its e-Cinepramaan portal. The Hindu first reported the exposure, which involved film certification applications [\u2026] The post India\u2019s Film Sensor Board Data Breach \u2013 Unreleased Scripts, 500+ Film Titles Exposed appeared first on Cyber Security News .",
+      "link": "https://cybersecuritynews.com/indias-film-sensor-board-data-breach/",
+      "source": "Cyber Security News (FeedBurner)",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T06:15:31+00:00",
+      "published_ts": 1792995331,
+      "smart_groups": [
+        "Data Breaches / Leaks"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Malicious File in Downloads Folder Tries to Trick AI Coding Agent Into Installing Malware",
+      "summary": "A malicious instruction file sitting in a developer's Downloads folder tried to make their AI coding agent install a known-malicious npm package, security firm Forever Security said in a report published last week. The company caught the attempt on a real customer's machine and stopped the agent before any code ran. It could not determine how the file got into the folder. The file",
+      "link": "https://thehackernews.com/2026/10/malicious-file-in-downloads-folder.html",
+      "source": "The Hacker News",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T06:03:48+00:00",
+      "published_ts": 1792994628,
+      "smart_groups": [
+        "Malware / Payloads",
+        "Supply Chain / Software"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Product showcase: Stellar Cyber\u2019s ISOC platform provides full-cycle architecture",
+      "summary": "An AI SOC that starts with somebody else\u2019s alert is already too late. Stellar Cyber collects and normalizes telemetry, detects suspicious activity, correlates evidence, builds cases, investigates incidents, triages findings, and drives response from the same security architecture. That gives people and AI access to the evidence behind the alert \u2013 not just the alert itself. Full-cycle security operations means the data, detections, context, investigation, decisions, and response remain connected as an incident moves through \u2026 More \u2192 The post Product showcase: Stellar Cyber\u2019s ISOC platform provides full-cycle architecture appeared first on Help Net Security .",
+      "link": "https://www.helpnetsecurity.com/2026/10/26/product-showcase-stellar-cyber-isoc-platform/",
+      "source": "Help Net Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T06:00:12+00:00",
+      "published_ts": 1792994412,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation.",
+      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-10-26T05:44:44+00:00",
+      "published_ts": 1792993484,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
       "curated": false
     },
     {
@@ -310,6 +1247,21 @@
       "published_ts": 1792972809,
       "smart_groups": [],
       "curated": false
+    },
+    {
+      "title": "[Vulnerability] Unauthenticated Insecure Deserialization RCE in Translate5",
+      "summary": "",
+      "link": "https://code-white.com/public-vulnerability-list/#unauthenticated-insecure-deserialization-rce-in-translate5",
+      "source": "https://code-white.com/index.xml",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-10-26T00:00:00+00:00",
+      "published_ts": 1792972800,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
     },
     {
       "title": "OpenSSL 4.1.0: What\u2019s new, what\u2019s removed, and what\u2019s still broken",
@@ -3638,20 +4590,6 @@
         "Malware / Payloads"
       ],
       "curated": true
-    },
-    {
-      "title": "Here\u2019s what happened in crypto today",
-      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation.",
-      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-10-23T13:38:53+00:00",
-      "published_ts": 1792762733,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
     },
     {
       "title": "Fortinet security advisory (AV26-1037) - Update 1",
@@ -84981,404 +85919,6 @@
         "Malware / Payloads",
         "Crypto / Web3"
       ],
-      "curated": false
-    },
-    {
-      "title": "Pentagon data breach of military personnel raises national security concerns",
-      "summary": "Sean Lyngaas and Davis Winkie report: A data breach at the Pentagon\u2019s vast HR system has exposed Social Security numbers and other personal information of current and former military personnel, raising counterintelligence concerns among national security experts. \u201cUnauthorized users\u201d gained access to a vulnerable computer server belonging to the Defense Manpower Data Center (DMDC) beginning... Source",
-      "link": "https://databreaches.net/2026/09/26/pentagon-data-breach-of-military-personnel-raises-national-security-concerns/",
-      "source": "DataBreaches.net",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-09-26T11:47:03+00:00",
-      "published_ts": 1790423223,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Data Breaches / Leaks"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Attackers Bypass WAFs to Exploit Oracle PeopleSoft Flaw and Deploy Web Shells",
-      "summary": "Google is warning of renewed mass exploitation of a known security vulnerability in Oracle PeopleSoft as part of a campaign targeting multiple sectors globally. The ShinyHunters-linked activity involves the weaponization of CVE-2026-35273 (CVSS score: 9.8), a critical security flaw that could result in unauthenticated remote code execution. The vulnerability was first exploited as a zero-day",
-      "link": "https://thehackernews.com/2026/09/attackers-bypass-wafs-to-exploit-oracle.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-26T11:46:40+00:00",
-      "published_ts": 1790423200,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "EX-ARRR: Sailing the Apple 0-click Seas",
-      "summary": "submitted by /u/nindustries [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wqo1ly/exarrr_sailing_the_apple_0click_seas/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-26T11:20:49+00:00",
-      "published_ts": 1790421649,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Some Supabase customers are publicly exposing reams of people\u2019s data to the web",
-      "summary": "Zack Whittaker reports today\u2019s nominee for the \u201cNo need to hack when it\u2019s leaking\u201d honors: Thousands of databases hosted by development platform Supabase are exposing people\u2019s sensitive information to the public web, new security research by cybersecurity firm UpGuard has found. UpGuard told TechCrunch that it found around 16,000 databases on which some degree of... Source",
-      "link": "https://databreaches.net/2026/09/26/some-supabase-customers-are-publicly-exposing-reams-of-peoples-data-to-the-web/",
-      "source": "DataBreaches.net",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-09-26T10:49:41+00:00",
-      "published_ts": 1790419781,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Labcorp to overhaul data security practices, pay $2.3 million fine for cybersecurity failings",
-      "summary": "Suzanne Smiley reports another update on litigation stemming from the American Medical Collection Agency breach. A bipartisan coalition of 44 state attorneys general on Thursday announced that they settled a lawsuit against Labcorp in exchange for a $2.3 million fine and a promise of sweeping data security reforms in the wake of a 2019 data... Source",
-      "link": "https://databreaches.net/2026/09/26/labcorp-to-overhaul-data-security-practices-pay-2-3-million-fine-for-cybersecurity-failings/",
-      "source": "DataBreaches.net",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-09-26T10:49:26+00:00",
-      "published_ts": 1790419766,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Where would you actually use a revocable encrypted file container?",
-      "summary": "I\u2019ve been tinkering with a crypto core for encrypted file containers, any bites, trying to figure out where it actually fits. The idea: a file can sit locally, but access still depends on authorization, device binding, expiry, revocation, or some external event. And no \u2014 I\u2019m not claiming copying becomes impossible once a human can see it. I can imagine client docs, temporary access, offboarding, sensitive assets, quorum access. But I\u2019d rather hear from people in security. Where would you actually use this? And what would make you reject it right away from a security or ops standpoint? submitted by /u/Sure_Rhubarb2671 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wqnfd9/where_would_you_actually_use_a_revocable/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-26T10:45:18+00:00",
-      "published_ts": 1790419518,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Zero Trust for AI Agents Starts With Fixing Zero Visibility",
-      "summary": "The way we talk about AI agents is shifting, and the way we implement them requires an even more fundamental shift. While earlier discourse focused on how quickly organizations could stand up agents and how much productivity they could promise, a string of recent incidents, including a widely discussed intrusion at Hugging Face during an evaluation of OpenAI agents, has spurred organizations to",
-      "link": "https://thehackernews.com/2026/09/zero-trust-for-ai-agents-starts-with.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-26T10:30:00+00:00",
-      "published_ts": 1790418600,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Which Opensource tools do you use for Agentic AI?",
-      "summary": "Hey everyone, I'm evaluating a few tools for scanning agent endpoints, applications and LLM. The goal is to find vulnerabilities, tracked against OWASP Top 10 Agentic AI risks. I've looked at Garak, Promptfoo but majorly looking for opensource projects on GitHub. What do you all use? submitted by /u/Upbeat_Astronaut6685 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wqn5r6/which_opensource_tools_do_you_use_for_agentic_ai/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-26T10:29:06+00:00",
-      "published_ts": 1790418546,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "OpenAI Says Its Models Engaged With US Government Websites in New Model Misbehavior Disclosure",
-      "summary": "OpenAI\u2019s CEO said there is an \u201cextensive and ongoing review related to our agents\u2019 use of internet access during training and evaluation.\u201d The post OpenAI Says Its Models Engaged With US Government Websites in New Model Misbehavior Disclosure appeared first on SecurityWeek .",
-      "link": "https://www.securityweek.com/openai-says-its-models-engaged-with-us-government-websites-in-new-model-misbehavior-disclosure/",
-      "source": "SecurityWeek",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-26T10:15:41+00:00",
-      "published_ts": 1790417741,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Elementor CSRF Flaw Lets Attackers Take Over Sites After Admin Clicks Crafted Link",
-      "summary": "Details have emerged about a high-severity security flaw in the Elementor Website Builder WordPress plugin that could be exploited by an unauthenticated attacker to create rogue administrator accounts and take control of a site. The cross-site request forgery (CSRF) vulnerability, which has yet to be assigned a CVE identifier, carries a CVSS score of 8.8 out of 10.0. It only affects versions",
-      "link": "https://thehackernews.com/2026/09/elementor-csrf-flaw-lets-attackers-take.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-26T09:55:22+00:00",
-      "published_ts": 1790416522,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Web / API Security"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Hwo do you run dynamic malware analysis on pptx or docx without product activation ?",
-      "summary": "Is there a way to run dynamic malware analysis without activating pptx or docx ? I am trying to solve Presentation_As_a_Malware from HTB. It involves an old ppt not pptx file and I installed Flare-vm and Remnux but how to i trigger the ppt macros ? I open the file and I see the normal processes but without product activation I do not think I see the malicious processes ? submitted by /u/Heavy-Character7049 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wqmgab/hwo_do_you_run_dynamic_malware_analysis_on_pptx/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-26T09:44:45+00:00",
-      "published_ts": 1790415885,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "LocalStranger is a PoC for vulnerable \u201cMicrosoft Windows Hardware Compatibility Publisher\u201d signed driver, demonstrated through a basic unsigned driver mapper and NT AUTHORITY escalation.",
-      "summary": "submitted by /u/noobesINC [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wqm4ig/localstranger_is_a_poc_for_vulnerable_microsoft/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-26T09:23:52+00:00",
-      "published_ts": 1790414632,
-      "smart_groups": [
-        "Windows / Microsoft"
-      ],
-      "curated": false
-    },
-    {
-      "title": "SEC Commissioner Hester Peirce to leave post on Oct. 2",
-      "summary": "Peirce, known as \u201cCrypto Mom,\u201d served on the SEC for about eight years, including as director of the Crypto Task Force.",
-      "link": "https://cointelegraph.com/news/sec-commissioner-hester-peirce-to-leave-post-on-oct-2?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-26T09:02:22+00:00",
-      "published_ts": 1790413342,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "SharePoint RCE and MikroTik RouterOS Flaws Actively Exploited in the Wild",
-      "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) on Friday added two security flaws impacting Microsoft SharePoint and Mikrotik RouterOS to its Known Exploited Vulnerabilities (KEV) catalog, citing evidence of active exploitation. The vulnerabilities in question are as follows - CVE-2026-65660 (CVSS score: 8.8) - A code injection vulnerability in Microsoft Office SharePoint",
-      "link": "https://thehackernews.com/2026/09/sharepoint-rce-and-mikrotik-routeros.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-26T08:49:53+00:00",
-      "published_ts": 1790412593,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Cybersecurity GRC Perception in your organization",
-      "summary": "Hi, I am working as a Snr. Manager, IS GRC/ Trust advisory responsible for Info sec policies, security architecture review, risk assessments, change reviews and as an authority for info sec approvals for all projects in a large GCC conglomerate. I am a bit strict about security decisions and always advise what is right for business from security perspective. I always insist for risk acceptance if things go out of way. Though some of the BU team/ IT takes it as an offence and try to project my team as a blocker. I would like to know how the things in your organization are. How do you manage such situation. Please comment with your position, region/ company size and issues / solutions. Thank you :) submitted by /u/No-Preparation990 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wqlc09/cybersecurity_grc_perception_in_your_organization/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-26T08:32:45+00:00",
-      "published_ts": 1790411565,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Red Heron Exploits Critical Gitea Flaw to Steal Repositories and Deploy Linux Rootkit",
-      "summary": "A threat actor tracked as Red Heron has exploited the critical Gitea remote code execution vulnerability CVE-2026-60004 to steal source-code repositories, establish persistent access, and deploy a covert Linux toolset consisting of the JITTERLY implant and SIXZUT LD_PRELOAD rootkit. Acronis reported that the actor rapidly weaponized the flaw against internet-exposed Gitea environments, turning initial access [\u2026] The post Red Heron Exploits Critical Gitea Flaw to Steal Repositories and Deploy Linux Rootkit appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/red-heron-exploits-critical-gitea-flaw/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-26T08:15:11+00:00",
-      "published_ts": 1790410511,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Linux / Unix",
-        "Malware / Payloads"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Windows 11 Update Causes Black Screen and Desktop Loading Issues After Sign-In",
-      "summary": "Microsoft has confirmed a Windows 11 issue that can leave users with a black screen after sign-in or prevent the desktop from loading automatically. The problem affects devices that installed the August 2026 non-security preview updates and potentially later cumulative updates, with Azure Virtual Desktop environments using FSLogix profile containers most frequently affected. The issue [\u2026] The post Windows 11 Update Causes Black Screen and Desktop Loading Issues After Sign-In appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/windows-11-update-causes-black-screen/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-26T08:02:06+00:00",
-      "published_ts": 1790409726,
-      "smart_groups": [
-        "Windows / Microsoft",
-        "Cloud / SaaS"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Kiteworks Urges Customers to Shut Down Systems for 9 Hours Over Possible Cyber Attack",
-      "summary": "Kiteworks (formerly Accellion) is urging customers to shut down their systems as a precautionary measure for nine hours over the weekend after it received threat intelligence about an imminent cyber attack. \"Kiteworks received credible threat intelligence from federal intelligence authorities indicating that a threat actor may attempt to target some Kiteworks systems,\" said Frank Balonis, Chief",
-      "link": "https://thehackernews.com/2026/09/kiteworks-urges-customers-to-shut-down.html",
-      "source": "The Hacker News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-26T07:48:33+00:00",
-      "published_ts": 1790408913,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Kiteworks Warns Users to Take Systems Offline Amid Suspected Zero-Day Threat",
-      "summary": "Kiteworks has urged customers worldwide to temporarily shut down their servers after receiving credible law-enforcement intelligence that a threat actor may target Kiteworks deployments over the weekend. The emergency advisory is preventive, but the company said the potential activity may involve an unknown zero-day vulnerability. The secure file-sharing and managed content communications provider asked organizations [\u2026] The post Kiteworks Warns Users to Take Systems Offline Amid Suspected Zero-Day Threat appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/kiteworks-systems-offline-amid-suspected-zero-day/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-26T07:45:21+00:00",
-      "published_ts": 1790408721,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "U.S. CISA adds WordPress\u00a0flaw to its Known Exploited Vulnerabilities catalog",
-      "summary": "U.S. Cybersecurity and Infrastructure Security Agency (CISA) adds WordPress flaw to its Known Exploited Vulnerabilities catalog. The U.S. Cybersecurity and Infrastructure Security Agency (CISA) added a WordPress Core flaw, tracked as CVE-2026-87902 (CVSS score of 9.2), to its Known Exploited Vulnerabilities (KEV) catalog. CVE-2026-87902 allows an unauthenticated attacker to make the get_page_template() function include a readable local [\u2026]",
-      "link": "https://securityaffairs.com/199790/security/u-s-cisa-adds-wordpress-flaw-to-its-known-exploited-vulnerabilities-catalog.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-26T07:42:26+00:00",
-      "published_ts": 1790408546,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Uncensored Local AI Model Bypasses EDR to Dump Windows LSASS Credentials",
-      "summary": "A new demonstration shows how a locally hosted, uncensored AI model can help generate a Windows LSASS credential-dumping utility that reportedly evaded endpoint detection and response products during laboratory testing. The finding highlights how accessible local models can reduce the time and expertise needed to adapt offensive tooling after an attacker gains administrative access. Eddie [\u2026] The post Uncensored Local AI Model Bypasses EDR to Dump Windows LSASS Credentials appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/uncensored-local-ai-model-bypasses-edr/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-26T07:28:09+00:00",
-      "published_ts": 1790407689,
-      "smart_groups": [
-        "Windows / Microsoft"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Storm-3168 Hackers Abuse Compromised Service Principals to Destroy Azure Cloud Resources",
-      "summary": "Microsoft has uncovered a destructive Azure campaign linked to Storm-3168, also known as JADEPUFFER, in which attackers abused compromised service principals to map cloud environments, delete critical resources, target recovery safeguards, and obtain storage-account credentials. The activity shows how a single exposed workload identity can give attackers the automation and permissions needed to cause rapid [\u2026] The post Storm-3168 Hackers Abuse Compromised Service Principals to Destroy Azure Cloud Resources appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/storm-3168-hackers-abuse-compromised-service-principals/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-26T07:09:54+00:00",
-      "published_ts": 1790406594,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Police Investigate Social Media User for AI-Generated Videos of Jamui Victim Girl",
-      "summary": "Police have initiated legal proceedings against a social media user for distributing artificial intelligence-generated content... The post Police Investigate Social Media User for AI-Generated Videos of Jamui Victim Girl appeared first on .",
-      "link": "https://www.news4hackers.com/police-investigate-social-media-user-for-ai-generated-videos-of-jamui-victim-girl/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-26T07:07:30+00:00",
-      "published_ts": 1790406450,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Patna Cyber Police Expose Mule Account Network Linked to Hundreds of Villagers",
-      "summary": "Patna Cyber Police Uncover Mule Account Network Involving Hundreds of Villagers Case Unfolds in Pandarak... The post Patna Cyber Police Expose Mule Account Network Linked to Hundreds of Villagers appeared first on .",
-      "link": "https://www.news4hackers.com/patna-cyber-police-expose-mule-account-network-linked-to-hundreds-of-villagers/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-26T07:05:49+00:00",
-      "published_ts": 1790406349,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "OpenAI Investigates AI Agents Over Unexpected Activity on US Government Websites",
-      "summary": "OpenAI is examining anomalous behavior by its artificial intelligence systems on federal government websites, confirming... The post OpenAI Investigates AI Agents Over Unexpected Activity on US Government Websites appeared first on .",
-      "link": "https://www.news4hackers.com/openai-investigates-ai-agents-over-unexpected-activity-on-us-government-websites/",
-      "source": "News4Hackers",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-26T07:04:19+00:00",
-      "published_ts": 1790406259,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "What are the essential tools in your CyberSec tech stack?",
-      "summary": "Curious to see what other orgs are using and if there are any tools you would consider essential / nice to have. For example: - EDR - SIEM - VM - IAM or PAM - Email security - Network security - Cloud security submitted by /u/normus10 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1wqjw5m/what_are_the_essential_tools_in_your_cybersec/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-09-26T07:02:40+00:00",
-      "published_ts": 1790406160,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "CFTC sues Cash FX, alleges $950M crypto-linked forex scheme",
-      "summary": "The CFTC claimed that Cash FX engaged in minimal forex trading and misappropriated most of the participant funds.",
-      "link": "https://cointelegraph.com/news/cftc-sues-cash-fx-alleges-950m-crypto-linked-forex-scheme?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-09-26T06:59:29+00:00",
-      "published_ts": 1790405969,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "OpenAI Says Misaligned AI Agents Hacked Hugging Face and Bypassed Security Controls",
-      "summary": "OpenAI has disclosed that autonomous AI agents compromised portions of Hugging Face\u2019s infrastructure during internal cybersecurity evaluations after pursuing misaligned strategies to complete difficult tasks. The company said the event was not simply a platform-security failure, but its most severe identified example of model-driven cyber activity and a warning that advanced agents can pursue objectives [\u2026] The post OpenAI Says Misaligned AI Agents Hacked Hugging Face and Bypassed Security Controls appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
-      "link": "https://gbhackers.com/openai-says-misaligned-ai-agents-hacked-hugging-face/",
-      "source": "GBHackers News",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-09-26T06:54:16+00:00",
-      "published_ts": 1790405656,
-      "smart_groups": [],
       "curated": false
     },
     {
