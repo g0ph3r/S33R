@@ -5474,6 +5474,22 @@
     "curated": true
   },
   {
+    "title": "CVE-2026-119115 - Incorrect authorization in issuer resolution in AWS Private CA Connector for Kubernetes",
+    "summary": "Read this article",
+    "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-156-aws/",
+    "source": "Latest Bulletins",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-10-29T16:58:55+00:00",
+    "published_ts": 1793293135,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Cloud / SaaS"
+    ],
+    "curated": true
+  },
+  {
     "title": "Linux Kernel TCP Flaw With 9.8 CVSS Score Affects Ubuntu, Red Hat and Other Distributions",
     "summary": "submitted by /u/One_Paint8721 [link] [comments]",
     "link": "https://www.reddit.com/r/cybersecurity/comments/1xipflj/linux_kernel_tcp_flaw_with_98_cvss_score_affects/",
@@ -5486,22 +5502,6 @@
       "Linux / Unix"
     ],
     "curated": false
-  },
-  {
-    "title": "CVE-2026-119115 - Incorrect authorization in issuer resolution in AWS Private CA Connector for Kubernetes",
-    "summary": "Bulletin ID: 2026-156-AWS Publication Date: 10/29/2026 09:30 AM PDT Description: We are aware of CVE-2026-119115, an incorrect authorization issue in the issuer resolution logic. In affected versions, under certain conditions, an authenticated user whose approval policy only authorizes a namespace-scoped issuer could obtain certificates, including subordinate CA certificates, signed by a cluster-scoped issuer they are not authorized to use. Impacted versions: - aws-privateca-issuer before v1.10.1 - AWS Private CA Connector for Kubernetes EKS add-on before v1.10.1-eksbuild.1 Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin. Read this article",
-    "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-156-aws/",
-    "source": "Latest Bulletins",
-    "type": "vendors",
-    "type_label": "Vendors & Product Blogs",
-    "published": "2026-10-29T16:45:45+00:00",
-    "published_ts": 1793292345,
-    "smart_groups": [
-      "Curated",
-      "Vulnerabilities / CVEs",
-      "Cloud / SaaS"
-    ],
-    "curated": true
   },
   {
     "title": "Hackers Launch 8,200 DDoS Attacks Every Hour, Cloudflare’s Latest Report Reveals",
@@ -8583,18 +8583,16 @@
   },
   {
     "title": "CVE-2026-111497: Native Brotli Decoder Remote Code Execution and Memory Disclosure",
-    "summary": "Bulletin ID: 2026-155-AWS Publication Date: 10/28/2026 15:00 PM PDT Description: AWS is aware of CVE-2026-111497, an issue in the native Brotli decompression library that could allow a third party to run code or read process memory in an affected application. AWS Lambda, AWS Amplify, AWS App Runner, Amazon CloudWatch Synthetics, AWS CodeBuild, AWS Elastic Beanstalk, and AWS Elemental MediaLive are addressing this issue. Some services require customer action. For details, see the bulletin. Read this article",
+    "summary": "Read this article",
     "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-155-aws/",
     "source": "Latest Bulletins",
     "type": "vendors",
     "type_label": "Vendors & Product Blogs",
-    "published": "2026-10-28T21:58:12+00:00",
-    "published_ts": 1793224692,
+    "published": "2026-10-28T21:58:13+00:00",
+    "published_ts": 1793224693,
     "smart_groups": [
       "Curated",
-      "Vulnerabilities / CVEs",
-      "Cloud / SaaS",
-      "Network / OT / ICS"
+      "Vulnerabilities / CVEs"
     ],
     "curated": true
   },
@@ -12693,6 +12691,23 @@
     "published_ts": 1793142205,
     "smart_groups": [],
     "curated": false
+  },
+  {
+    "title": "A Read-Only MCP Server with Bunny Edge Script",
+    "summary": "Likely unnecessary, but a neat side project and feasibility study: I now have my own read-only Model Context Protocol (MCP) server at https://mcp.janbrennenstuhl.eu/mcp . Agents can use it as a remote tool and search my essays and field guides, read any entry as Markdown, and pull quotable findings with their corresponding anchors. The whole thing is a single Bunny edge script of about 200 lines, and it is already listed in the official MCP Registry as eu.janbrennenstuhl/site . The source is public . I don’t expect many people to add my blog to their agents, and there is no hard use case I am aware of. I mainly built it because it fits the zeitgeist and a live, small, well-behaved server is a working example I can point to when I argue about how such a server could look and feel. Building it also took me through the publishing side of the ecosystem, and gave me some new perspectives on the topic. What the server offers and what it refuses # I already publish everything on this blog in machine-readable form: Markdown twins of every page, a catalog, a findings file, a search index and llms.txt . All of it is described and referenced on a dedicated page for agents . The MCP server adds nothing new, but wraps the same files in 4 tools so an agent doesn’t have to know or discover the files and their layout on its own: search_site runs a full-text search over essays, field-guide entries, talks, projects, the glossary and the profile page, optionally filtered by kind or topic. get_entry returns the full Markdown of 1 entry, by catalog id or canonical URL. get_findings lists quotable findings with their anchor URL, source and review status. list_topics returns the 6 topics with descriptions and entry counts. Each tool carries the readOnlyHint and openWorldHint: false annotations, and the server’s instructions tell the agentic client to cite canonical URLs and name the CC BY 4.0 condition. The server fetches only 4 kinds of files from www.janbrennenstuhl.eu : the search index, the catalog, the findings file and the Markdown twins. It caches them for 5 minutes, and it never fetches a URL that arrives in a request. get_entry resolves an id or URL against the catalog first, so a caller can’t turn the server into a proxy. There is no sign-in, because everything it serves is public anyway, and the Bunny pull zone in front of it rate-limits each client. On the wire, the server speaks 2 generations of the protocol. For the current revision 2026-07-28 it is stateless: each request carries its protocol version in _meta , and the script checks that the mirrored MCP-Protocol-Version , Mcp-Method and Mcp-Name headers match the body before it answers. For clients from 2025-03-26 to 2025-11-25 it still answers the initialize handshake. Requests from a browser origin other than the site are rejected, anything but POST gets a 405, and every response is marked no-store . Why it runs as a standalone edge script on its own zone # The site is static and lives on Bunny’s CDN, so the natural place for a small dynamic endpoint was a Bunny edge script . Bunny runs these on Deno, and a standalone script answers every request to its pull zone itself. I didn’t want a second host or a container for 4 read-only tools. The script does not live on my blog’s www zone, because that zone would get in its way. Its rules redirect directory URLs to their trailing-slash form, so /mcp would become a 301 to /mcp/ , and a redirect breaks clients that POST JSON-RPC. The zone’s caching and Content Security Policy headers are built for static files too. So the server has its own pull zone with its own hostname, certificate and rate limit, and if something goes wrong I can switch it off without touching the actual website. Bunny accepts 1 file per script, and I wanted the handler to stay testable on its own. A small Python script in the repository inlines handler.ts into main.ts , a CI job verifies and stores it as an artifact, and a publishing job deploys exactly those bytes. It’s de-facto a monorepo and the bundle is deployed with every release of the site, so a change to the tools goes live the same way a new article does. Registering it with a P-384 DNS proof # The official MCP registry needs proof that I control the namespace a server is published under. For a domain-based name such as eu.janbrennenstuhl/site , the authentication guide suggests proving DNS ownership with a DNS TXT record on the apex domain that holds a public key, and the official mcp-publisher command line tool signs a challenge with the matching private key. Currently supported are Ed25519 and ECDSA P-384. I took the P-384 route because the openssl that ships with my macOS is LibreSSL, and LibreSSL 3.3.6 answers the guide’s first command with Algorithm Ed25519 not found . Generating the key and the record works as documented: openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:secp384r1 -out key.pem PUBLIC_KEY = \" $( openssl ec -in key.pem -text -noout -conv_form compressed \\ | grep -A4 \"pub:\" | tail -n +2 | tr -d ' :\\n' | xxd -r -p | base64 ) \" echo \"janbrennenstuhl.eu. IN TXT \\\"v=MCPv1; k=ecdsap384; p= ${ PUBLIC_KEY } \\\"\" So far so straightforward. The subsequent login step however is where the official docs fall short. Its P-384 login command is identical to the Ed25519 one apart from how the private key is extracted. What the guide fails to mention is that the login command has an --algorithm flag that accepts ed25519 or ecdsap384 and defaults to Ed25519. Without the flag the login fails: Logging in with dns... Signing in process using key algorithm ed25519 Error: failed to get token: failed to sign timestamp: invalid seed length: expected 32 bytes, got 49 The command that works is: PRIVATE_KEY = \" $( openssl ec -in key.pem -noout -text | grep -A4 \"priv:\" | tail -n +2 | tr -d ' :\\n' ) \" mcp-publisher login dns --algorithm ecdsap384 --domain janbrennenstuhl.eu --private-key \" ${ PRIVATE_KEY } \" mcp-publisher publish Of course, publish runs in the directory that holds the custom server.json . Mine declares the name, the source code repository, a websiteUrl pointing to the agents page, and a single remote of type streamable-http . The private key stays somewhere safe and secure, outside any git repository. I also set up a unit test that keeps the version in server.json in sync with the version the server reports and with the URL in the site’s /.well-known/api-catalog , so I can’t publish an entry that disagrees with the running server. And with these little hurdles taken, the MCP Registry lists the entry as active . Yeah! What I expect from it # Little direct traffic, as I said. An MCP server for a personal site is useful in about the same way a well-kept llms.txt is: it lowers the effort for the few agents that look, and the files it serves are generated with every release anyway. What it gives me is a reference. When I write that a read-only server should carry tool annotations, refuse arbitrary fetches, validate the mirrored headers of the stateless protocol revision, and prove its namespace to the registry, I can now link to a server that does all of that and to the few LoCs behind it. One downside remains: My MCP server has no authorization at all, so there is no sense in adding it to the MCP auth atlas at Letsauth Lab that I maintain. If I ever add a tool that is worth protecting, this is where the next essay starts.",
+    "link": "https://www.janbrennenstuhl.eu/bunny-edgescript-mcp-server/",
+    "source": "Jan Brennenstuhl",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-10-27T23:00:00+00:00",
+    "published_ts": 1793142000,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Network / OT / ICS",
+      "Crypto / Web3"
+    ],
+    "curated": true
   },
   {
     "title": "China-linked Warlock ransomware group targets global infrastructure",
@@ -22558,6 +22573,22 @@
     "curated": true
   },
   {
+    "title": "CVE-2026-111943: eMudhra intermediate CA key recovery in AWS trust bundles",
+    "summary": "Read this article",
+    "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-150-aws/",
+    "source": "Latest Bulletins",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-10-25T03:11:55+00:00",
+    "published_ts": 1792897915,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Cloud / SaaS"
+    ],
+    "curated": true
+  },
+  {
     "title": "CVE-2026-87912 and CVE-2026-87913: Missing S3 bucket ownership verification in the AWS Security Agent plugin for aws-agents-for-devsecops and MCP Server",
     "summary": "Read this article",
     "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-105-aws/",
@@ -22629,22 +22660,6 @@
     "type_label": "Vendors & Product Blogs",
     "published": "2026-10-25T03:11:39+00:00",
     "published_ts": 1792897899,
-    "smart_groups": [
-      "Curated",
-      "Vulnerabilities / CVEs",
-      "Cloud / SaaS"
-    ],
-    "curated": true
-  },
-  {
-    "title": "CVE-2026-111943: eMudhra intermediate CA key recovery in AWS trust bundles",
-    "summary": "Bulletin ID: 2026-150-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 10/24/2026 20:00 PM PDT Summary: AWS identified CVE-2026-111943, a key-generation flaw at external CA eMudhra/emSign that made intermediate CA private keys recoverable. Three roots are affected: AAA Certificate Services, emSign Root TLS CA - G3, and emSign ECC Root CA - G3. They shipped in AWS-owned trust bundles, exposing soft-fail TLS clients to man-in-the-middle risk. AWS is removing the roots. Customers using CloudFront custom origins or ALB OIDC/JWT auth should check whether their certificates chain to an affected root and reissue from a different CA before enforcement. Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin. Read this article",
-    "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-150-aws/",
-    "source": "Latest Bulletins",
-    "type": "vendors",
-    "type_label": "Vendors & Product Blogs",
-    "published": "2026-10-25T03:07:57+00:00",
-    "published_ts": 1792897677,
     "smart_groups": [
       "Curated",
       "Vulnerabilities / CVEs",
@@ -24212,18 +24227,16 @@
   },
   {
     "title": "CVE-2026-115812 and CVE-2026-115813: Issue in Amazon Web Services Multi Model Server",
-    "summary": "Bulletin ID: 2026-148-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 10/23/2026 10:30 AM PDT Description: Amazon Web Services Multi Model Server (MMS) is an open source tool for serving machine learning models for inference. It was published by AWS on GitHub, PyPI, and Docker Hub, and reached end of life; its source repository has been archived and read-only since November 20, 2025. CVE-2026-115812: An issue in model archive extraction could allow a crafted model archive to write files outside the intended directory, potentially resulting in code execution with the privileges of the MMS process. CVE-2026-115813: An issue in the model download path could allow the MMS management interface to be directed to make requests to unintended network destinations. Impacted versions: Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin. Read this article",
+    "summary": "Read this article",
     "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-148-aws/",
     "source": "Latest Bulletins",
     "type": "vendors",
     "type_label": "Vendors & Product Blogs",
-    "published": "2026-10-23T17:45:37+00:00",
-    "published_ts": 1792777537,
+    "published": "2026-10-23T17:47:47+00:00",
+    "published_ts": 1792777667,
     "smart_groups": [
       "Curated",
-      "Ransomware",
-      "Vulnerabilities / CVEs",
-      "Cloud / SaaS"
+      "Vulnerabilities / CVEs"
     ],
     "curated": true
   },
@@ -27230,17 +27243,16 @@
   },
   {
     "title": "CVE-2026-115419 - Unintended disclosure of data element to wrong session in Strands Agents SDK A2A Server",
-    "summary": "Bulletin ID: 2026-146-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 10/22/2026 13:00 PM PDT Description: Strands Agents is an open-source SDK, available for Python and TypeScript, for building AI agents. The SDK includes an Agent2Agent (A2A) server component that exposes an agent over HTTP so other agents and clients can call it. We identified CVE-2026-115419, an issue where the A2A server did not properly isolate conversation state between callers. An authenticated remote user could access another caller's conversation history or influence model behavior for other callers in multi-tenant deployments. Impacted versions: - strands-agents (Python): all versions containing the multiagent.a2a module, - @strands-agents/sdk (TypeScript): Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin. Read this article",
+    "summary": "Read this article",
     "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-146-aws/",
     "source": "Latest Bulletins",
     "type": "vendors",
     "type_label": "Vendors & Product Blogs",
-    "published": "2026-10-22T20:07:11+00:00",
-    "published_ts": 1792699631,
+    "published": "2026-10-22T20:07:12+00:00",
+    "published_ts": 1792699632,
     "smart_groups": [
       "Curated",
-      "Vulnerabilities / CVEs",
-      "Cloud / SaaS"
+      "Vulnerabilities / CVEs"
     ],
     "curated": true
   },
@@ -27377,6 +27389,21 @@
     "curated": false
   },
   {
+    "title": "CVE-2026-115414 - OS Command Injection Issue in SAM CLI Terraform Hook",
+    "summary": "Read this article",
+    "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-145-aws/",
+    "source": "Latest Bulletins",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-10-22T18:56:14+00:00",
+    "published_ts": 1792695374,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
     "title": "Unvetted AI agents are accessing U.S. bank accounts",
     "summary": "Major U.S. banks are detecting unauthorized third-party AI agents operating inside customer accounts, with some agents attempting to take actions that appear to be independent of user instructions, sources tell Axios. Banks including Morgan Stanley, Bank of America, JPMorgan, Wells Fargo, and others are racing to contain agent risks. Some are aware of unauthorized access, people familiar with the issue said. It could possibly be related to the Iran War. In that case, it would be the first Cyber War. submitted by /u/chota-kaka [link] [comments]",
     "link": "https://www.reddit.com/r/cybersecurity/comments/1xcr90c/unvetted_ai_agents_are_accessing_us_bank_accounts/",
@@ -27388,22 +27415,6 @@
     "smart_groups": [
       "Curated",
       "Vulnerabilities / CVEs"
-    ],
-    "curated": true
-  },
-  {
-    "title": "CVE-2026-115414 - OS Command Injection Issue in SAM CLI Terraform Hook",
-    "summary": "Bulletin ID: 2026-145-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 10/22/2026 11:30 AM PDT Description: AWS SAM CLI is an open-source framework for building serverless applications. We identified CVE-2026-115414, an OS command injection issue in the Terraform hook (sam build --hook-name terraform) in AWS SAM CLI. The Terraform hook generates a Makefile recipe that interpolates a Terraform resource address without fully neutralizing shell metacharacters, which could allow an actor who can influence the Terraform configuration or plan file consumed by a build to execute arbitrary commands as the build user on the host running the build. Impacted versions: >=1.63.0, Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin. Read this article",
-    "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-145-aws/",
-    "source": "Latest Bulletins",
-    "type": "vendors",
-    "type_label": "Vendors & Product Blogs",
-    "published": "2026-10-22T18:50:58+00:00",
-    "published_ts": 1792695058,
-    "smart_groups": [
-      "Curated",
-      "Vulnerabilities / CVEs",
-      "Cloud / SaaS"
     ],
     "curated": true
   },
@@ -31377,6 +31388,36 @@
     "curated": false
   },
   {
+    "title": "PHP web runtimes (CVE-2026-109618 and CVE-2026-109619)",
+    "summary": "Read this article",
+    "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-143-aws/",
+    "source": "Latest Bulletins",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-10-21T21:41:25+00:00",
+    "published_ts": 1792618885,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "CVE-2026-112408 - Missing bucket ownership verification in Amazon SageMaker Python SDK default_bucket()",
+    "summary": "Read this article",
+    "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-142-aws/",
+    "source": "Latest Bulletins",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-10-21T21:41:25+00:00",
+    "published_ts": 1792618885,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
     "title": "CVE-2026-85781 - Unverified access point ownership in Amazon EFS CSI Driver",
     "summary": "Bulletin ID: 2026-099-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 09/04/2026 11:45 AM PDT Description: The Amazon EFS CSI Driver is an open-source Kubernetes Container Storage Interface (CSI) driver that lets Kubernetes workloads use Amazon EFS file systems. We identified CVE-2026-85781, an issue in the driver's volume-deletion logic. When the controller is configured with the non-default --delete-access-point-root-dir=true option, it did not verify that the EFS access point referenced by a PersistentVolume's volume handle belonged to the file system referenced by that same volume handle. An authenticated Kubernetes user with permission to create PersistentVolumes could use a crafted volume handle to cause the controller to recursively delete directories from an Amazon EFS file system that the user was not otherwise authorized to modify. This issue does not affect Amazon EFS itself; Amazon EFS access controls operated as designed. Impacted versions: Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin.",
     "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-099-aws/",
@@ -31541,22 +31582,6 @@
     "curated": true
   },
   {
-    "title": "PHP web runtimes (CVE-2026-109618 and CVE-2026-109619)",
-    "summary": "Bulletin ID: 2026-143-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 10/21/2026 14:30 PM PDT Summary: Two critical vulnerabilities in PHP (CVE-2026-109618 and CVE-2026-109619) allow an unauthenticated remote actor to execute code, access process-accessible data, or cause denial of service on affected PHP workers. Customers running affected PHP versions (8.2–8.5 below the fixed releases, and end-of-life 5.4–8.1) should upgrade immediately to a patched release (8.5.12, 8.4.27, 8.3.36, or 8.2.35); configuration changes alone are not complete mitigations. AWS has identified a limited set of services that run affected PHP versions and is actively deploying mitigations and updates. Review the full bulletin for per-service status, mitigation guidance, and AWS WAF compensating controls. Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin. Read this article",
-    "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-143-aws/",
-    "source": "Latest Bulletins",
-    "type": "vendors",
-    "type_label": "Vendors & Product Blogs",
-    "published": "2026-10-21T21:34:50+00:00",
-    "published_ts": 1792618490,
-    "smart_groups": [
-      "Curated",
-      "Vulnerabilities / CVEs",
-      "Cloud / SaaS"
-    ],
-    "curated": true
-  },
-  {
     "title": "What is the use of the certificate Entrust Root Certification Authority - EC1 that is now stopped trusting by chrome",
     "summary": "Tell me is it root or intermediate certificate? submitted by /u/Brilliant_Race_801 [link] [comments]",
     "link": "https://www.reddit.com/r/cybersecurity/comments/1xc04dn/what_is_the_use_of_the_certificate_entrust_root/",
@@ -31567,22 +31592,6 @@
     "published_ts": 1792618342,
     "smart_groups": [],
     "curated": false
-  },
-  {
-    "title": "CVE-2026-112408 - Missing bucket ownership verification in Amazon SageMaker Python SDK default_bucket()",
-    "summary": "Bulletin ID: 2026-142-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 10/21/2026 12:30 PM PDT Description: The Amazon SageMaker Python SDK is an open-source library for training and deploying machine learning models on Amazon SageMaker. We identified CVE-2026-112408, an issue in the default_bucket() function. The SDK uses a predictably named Amazon S3 bucket and does not check that the caller's AWS account owns it. A remote actor who creates that bucket first could achieve code execution in a remote SageMaker execution environment and obtain IAM credentials. Impacted versions: - V2: - V3: >= 3.0.0 and Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin. Read this article",
-    "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-142-aws/",
-    "source": "Latest Bulletins",
-    "type": "vendors",
-    "type_label": "Vendors & Product Blogs",
-    "published": "2026-10-21T21:32:10+00:00",
-    "published_ts": 1792618330,
-    "smart_groups": [
-      "Curated",
-      "Vulnerabilities / CVEs",
-      "Cloud / SaaS"
-    ],
-    "curated": true
   },
   {
     "title": "Ken Griffin Says AI Is 'Almost Certainly' in a Bubble—And Compares GPUs to Airline Seats",
@@ -36286,18 +36295,17 @@
   },
   {
     "title": "CVE-2026-112407 - Incorrect privilege assignment in AWS CICD-toolchain-for-serverless-applications",
-    "summary": "Bulletin ID: 2026-141-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 10/20/2026 13:30 PM PDT Description: CICD-toolchain-for-serverless-applications is an AWS sample application that provisions a CI/CD pipeline for serverless applications through the AWS Serverless Application Repository. We identified CVE-2026-112407, an incorrect privilege assignment in the IAM policy of AWS CICD-toolchain-for-serverless-applications before 1.0.11 that allows remote authenticated users with push access to the application source repository to escalate privileges and access or modify resources outside the application stack in the same AWS account via application templates deployed by the toolchain pipeline. Impacted versions: =1.0.7 AND Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin. Read the article",
+    "summary": "Read this article",
     "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-141-aws/",
     "source": "Latest Bulletins",
     "type": "vendors",
     "type_label": "Vendors & Product Blogs",
-    "published": "2026-10-20T20:39:30+00:00",
-    "published_ts": 1792528770,
+    "published": "2026-10-20T20:41:20+00:00",
+    "published_ts": 1792528880,
     "smart_groups": [
       "Curated",
       "Vulnerabilities / CVEs",
-      "Cloud / SaaS",
-      "Supply Chain / Software"
+      "Cloud / SaaS"
     ],
     "curated": true
   },
@@ -36375,17 +36383,16 @@
   },
   {
     "title": "CVE-2026-112380 - Missing authorization in the WhatsApp channel in Kiro Crew",
-    "summary": "Bulletin ID: 2026-140-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 10/20/2026 13:00 PM PDT Description: Kiro Crew is an open-source personal AI agent that can be reached from a web dashboard, a CLI, or messaging channels such as WhatsApp, and that runs tools on the operator's machine. We identified CVE-2026-112380, an authorization issue in the WhatsApp channel and the internal subagent run-control endpoints. In certain configurations where a WhatsApp group was added to an operator's allowed groups, or where the direct-message policy was set to open, a member of that WhatsApp group could send instructions to another session's subagent. The subagent then executed those instructions on the operator's machine under that session's approval policy, and the resulting audit trail was attributed to the operator rather than the actual sender. The default configuration is not affected: whatsapp.groups defaults to empty and whatsapp.dm_policy defaults to self, so a group that is not explicitly listed is dropped before dispatch. Impacted versions: >=0.4.0 AND Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin. Read the article",
+    "summary": "Read this article",
     "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-140-aws/",
     "source": "Latest Bulletins",
     "type": "vendors",
     "type_label": "Vendors & Product Blogs",
-    "published": "2026-10-20T20:19:42+00:00",
-    "published_ts": 1792527582,
+    "published": "2026-10-20T20:23:08+00:00",
+    "published_ts": 1792527788,
     "smart_groups": [
       "Curated",
-      "Vulnerabilities / CVEs",
-      "Cloud / SaaS"
+      "Vulnerabilities / CVEs"
     ],
     "curated": true
   },
@@ -46464,6 +46471,36 @@
     "curated": true
   },
   {
+    "title": "CVE-2026-102551 & CVE-2026-102552 - Issue with FreeRTOS-Plus-TCP",
+    "summary": "Read this article",
+    "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-139-aws/",
+    "source": "Latest Bulletins",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-10-16T17:37:47+00:00",
+    "published_ts": 1792172267,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "CVE-2026-109587 & CVE-2026-109588 - Issue with FreeRTOS-Kernel",
+    "summary": "Read this article",
+    "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-138-aws/",
+    "source": "Latest Bulletins",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-10-16T17:37:47+00:00",
+    "published_ts": 1792172267,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
     "title": "KGB RAT malware uses psychological tactics to scare and steal from Windows users",
     "summary": "A new malware strain named KGB RAT is weaponizing fear tactics, including fake Blue Screens of Death and jump scares, to target Windows users.",
     "link": "https://www.scworld.com/brief/kgb-rat-malware-uses-psychological-tactics-to-scare-and-steal-from-windows-users",
@@ -46502,39 +46539,6 @@
     "published_ts": 1792172105,
     "smart_groups": [],
     "curated": false
-  },
-  {
-    "title": "CVE-2026-102551 & CVE-2026-102552 - Issue with FreeRTOS-Plus-TCP",
-    "summary": "Bulletin ID: 2026-139-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 10/16/2026 10:15 AM PDT Description: FreeRTOS-Plus-TCP is an open-source, thread-safe TCP/IP stack for the FreeRTOS kernel, distributed by Amazon for use on embedded and IoT devices. AWS identified two issues with FreeRTOS-Plus-TCP, affecting multiple versions. CVE-2026-102551: improper verification of the source of a communication channel in the IPv6 Router Advertisement handler. The handler does not fully validate that a received Router Advertisement originates from an on-link source before acting on it. Under certain conditions, a remote third-party might influence an endpoint's IPv6 gateway, prefix, and address configuration, potentially enabling interception of the device's IPv6 traffic. This issue is reachable in the library's default configuration, where ipconfigUSE_IPv6 and ipconfigUSE_RA are both enabled. CVE-2026-102552: improper verification of the source of a communication channel in the DNS resolver. The resolver does not fully validate that a DNS reply originates from the server that was queried before accepting it. Under certain conditions, a remote third-party might insert a chosen address into the device's DNS cache, potentially redirecting the device's subsequent connections for the affected name. Impacted versions: - CVE-2026-102551 (Router Advertisement): - CVE-2026-102552 (DNS resolver): Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin.",
-    "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-139-aws/",
-    "source": "Latest Bulletins",
-    "type": "vendors",
-    "type_label": "Vendors & Product Blogs",
-    "published": "2026-10-16T17:34:49+00:00",
-    "published_ts": 1792172089,
-    "smart_groups": [
-      "Curated",
-      "Vulnerabilities / CVEs",
-      "Cloud / SaaS"
-    ],
-    "curated": true
-  },
-  {
-    "title": "CVE-2026-109587 & CVE-2026-109588 - Issue with FreeRTOS-Kernel",
-    "summary": "Bulletin ID: 2026-138-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 10/16/2026 10:00 AM PDT Description: FreeRTOS-Kernel is a real-time operating system kernel for microcontrollers and small microprocessors, distributed by Amazon. AWS identified two issues with the FreeRTOS-Kernel Arm Cortex-R82 (Armv8-R AArch64) MPU port, affecting multiple versions. CVE-2026-109587: incorrect authorization in the Arm Cortex-R82 MPU port. On MPU-enabled builds, the port does not correctly enforce the memory-region boundaries assigned to an unprivileged task when it passes a buffer argument to an MPU system call. Under certain conditions, an unprivileged task might read and write privileged kernel memory outside the regions assigned to it. This issue affects Arm Cortex-R82 builds with configENABLE_MPU=1; applications that do not use the FreeRTOS MPU are not affected. CVE-2026-109588: numeric truncation in the MPU buffer authorization check on the Arm Cortex-R82 MPU port. On MPU-enabled builds, the buffer-length validation does not correctly account for the full length of a buffer passed to a stream buffer system call. Under certain conditions, an unprivileged task might read or write privileged kernel memory beyond the validated buffer window. This issue affects Arm Cortex-R82 builds with configENABLE_MPU=1; applications that do not use the FreeRTOS MPU are not affected. Impacted versions: - CVE-2026-109587 (MPU region authorization): V11.3.0 and V11.3.1 (Arm Cortex-R82 builds with configENABLE_MPU=1) - CVE-2026-109588 (MPU buffer length truncation): V11.3.0 and V11.3.1 (Arm Cortex-R82 builds with configENABLE_MPU=1) Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin.",
-    "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-138-aws/",
-    "source": "Latest Bulletins",
-    "type": "vendors",
-    "type_label": "Vendors & Product Blogs",
-    "published": "2026-10-16T17:34:49+00:00",
-    "published_ts": 1792172089,
-    "smart_groups": [
-      "Curated",
-      "Vulnerabilities / CVEs",
-      "Cloud / SaaS",
-      "Identity / Access"
-    ],
-    "curated": true
   },
   {
     "title": "Gigabyte kernel driver bug LPE",
@@ -53997,17 +54001,16 @@
   },
   {
     "title": "CVE-2026-110310 - RSA PKCS#1 v1.5 padding oracle via legacy envelope key format downgrade in Amazon S3 Encryption Client for .NET",
-    "summary": "Bulletin ID: 2026-135-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 10/14/2026 12:30 PM PDT Description: We identified CVE-2026-110310, an issue in Amazon S3 encryption client for .NET that could allow a remote user who can read encrypted objects in the S3 bucket can force a padding downgrade by altering the padding scheme recorded in an object's metadata to legacy PKCS#1 v1.5. Since this padding scheme is susceptible to the Bleichenbacher attack, the user can use a PKCS#1 v1.5 padding oracle to recover the RSA-wrapped envelope key and decrypt the object. Impacted versions: >= 2.1.0; 3.0.0 to 3.2.1; 4.0.0 to 4.0.2 Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin.",
+    "summary": "Read this article",
     "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-135-aws/",
     "source": "Latest Bulletins",
     "type": "vendors",
     "type_label": "Vendors & Product Blogs",
-    "published": "2026-10-14T19:48:49+00:00",
-    "published_ts": 1792007329,
+    "published": "2026-10-14T19:49:20+00:00",
+    "published_ts": 1792007360,
     "smart_groups": [
       "Curated",
-      "Vulnerabilities / CVEs",
-      "Cloud / SaaS"
+      "Vulnerabilities / CVEs"
     ],
     "curated": true
   },
@@ -67508,6 +67511,22 @@
     "curated": false
   },
   {
+    "title": "CVE-2026-108096: Improper authorization in query resolvers for SQL-backed models in AWS Amplify API Category",
+    "summary": "Read this article",
+    "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-133-aws/",
+    "source": "Latest Bulletins",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-10-09T18:19:40+00:00",
+    "published_ts": 1791569980,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Cloud / SaaS"
+    ],
+    "curated": true
+  },
+  {
     "title": "MonsterCloud CEO Zohar Pinhasi Accused of Paying Hackers, Defrauding Victims",
     "summary": "The DOJ accuses MonsterCloud CEO Zohar Pinhasi of secretly paying ransomware gangs for decryption keys while charging victims…",
     "link": "https://hackread.com/monstercloud-ceo-zohar-pinhasi-ransomware-victims/",
@@ -67576,24 +67595,6 @@
     "smart_groups": [
       "Curated",
       "Ransomware"
-    ],
-    "curated": true
-  },
-  {
-    "title": "CVE-2026-108096: Improper authorization in query resolvers for SQL-backed models in AWS Amplify API Category",
-    "summary": "Bulletin ID: 2026-133-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 10/09/2026 11:00 AM PDT Description: AWS Amplify API Category is a CDK Construct library for defining GraphQL data models with authorization rules as AWS AppSync APIs. We identified CVE-2026-108096, where improper authorization in the query resolvers generated by @aws-amplify/graphql-index-transformer might allow an authenticated remote user to read records owned by other users of the same application via crafted queries. Impacted versions: - @aws-amplify/graphql-index-transformer >=2.2.0, - @aws-amplify/graphql-api-construct >=1.4.0, - @aws-amplify/data-construct Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin.",
-    "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-133-aws/",
-    "source": "Latest Bulletins",
-    "type": "vendors",
-    "type_label": "Vendors & Product Blogs",
-    "published": "2026-10-09T18:13:24+00:00",
-    "published_ts": 1791569604,
-    "smart_groups": [
-      "Curated",
-      "Vulnerabilities / CVEs",
-      "Cloud / SaaS",
-      "Web / API Security",
-      "Crypto / Web3"
     ],
     "curated": true
   },
@@ -68034,6 +68035,23 @@
     "curated": true
   },
   {
+    "title": "CVE-2026-107783 - Insertion of sensitive information into log file in AWS Tools for PowerShell",
+    "summary": "Read this article",
+    "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-132-aws/",
+    "source": "Latest Bulletins",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-10-09T16:15:39+00:00",
+    "published_ts": 1791562539,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Windows / Microsoft",
+      "Cloud / SaaS"
+    ],
+    "curated": true
+  },
+  {
     "title": "How to Implement AI Integration for Modern Business Teams",
     "summary": "Learn how businesses can use AI to reduce repetitive work, improve workflows, connect information, and... The post How to Implement AI Integration for Modern Business Teams appeared first on .",
     "link": "https://www.news4hackers.com/how-to-implement-ai-integration-for-modern-business-teams/",
@@ -68203,23 +68221,6 @@
       "Cloud / SaaS",
       "Network / OT / ICS",
       "Crypto / Web3"
-    ],
-    "curated": true
-  },
-  {
-    "title": "CVE-2026-107783 - Insertion of sensitive information into log file in AWS Tools for PowerShell",
-    "summary": "Bulletin ID: 2026-132-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 10/09/2026 08:30 AM PDT Description: AWS Tools for PowerShell V5 lets developers and administrators manage their AWS services from the PowerShell scripting environment. We identified CVE-2026-107783, where insertion of sensitive information into log file in AWS Tools for PowerShell before 5.0.306 might allow local users to recover an IAM user's cleartext AWS Management Console password from command output and log artifacts. Impacted versions: Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin.",
-    "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-132-aws/",
-    "source": "Latest Bulletins",
-    "type": "vendors",
-    "type_label": "Vendors & Product Blogs",
-    "published": "2026-10-09T15:56:44+00:00",
-    "published_ts": 1791561404,
-    "smart_groups": [
-      "Curated",
-      "Vulnerabilities / CVEs",
-      "Windows / Microsoft",
-      "Cloud / SaaS"
     ],
     "curated": true
   },
@@ -70661,6 +70662,22 @@
     "curated": false
   },
   {
+    "title": "CVE-2026-107322 - OS command injection in Amazon Agent Plugins for AWS databases-on-aws",
+    "summary": "Read this article",
+    "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-130-aws/",
+    "source": "Latest Bulletins",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-10-08T19:54:58+00:00",
+    "published_ts": 1791489298,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Cloud / SaaS"
+    ],
+    "curated": true
+  },
+  {
     "title": "CVE-2026-107608: Improper link resolution in asset bundling output handling in aws-cdk-lib",
     "summary": "Bulletin ID: 2026-131-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 10/08/2026 12:30 PM PDT Description: AWS CDK is an open source framework that allows customers to build cloud infrastructure using their favorite programming language (Python, Typescript, C#, Go). That infrastructure is then able to be deployed with AWS CDK command line commands to AWS CloudFormation. We identified CVE-2026-107608, which is an issue where Docker files could be configured to insert symlinked files into the output of the AWS CDK asset bundling process when it was invoked with a Docker file. When bundling an asset using AWS CDK with a docker file, prior to 2.267.0, it was possible for a docker file to insert a symlinked file or directory into the output of asset bundling without the symlink having been provided as input to the bundling process. Impacted versions: All aws-cdk-lib versions before 2.267.0 Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin.",
     "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-131-aws/",
@@ -70728,22 +70745,6 @@
     "published_ts": 1791487863,
     "smart_groups": [],
     "curated": false
-  },
-  {
-    "title": "CVE-2026-107322 - OS command injection in Amazon Agent Plugins for AWS databases-on-aws",
-    "summary": "Bulletin ID: 2026-130-AWS Scope: AWS Content Type: Important (requires attention) Publication Date: 10/08/2026 11:30 AM PDT Description: Amazon Agent Plugins for AWS is an open source collection of plugins that extends supported AI coding agents with AWS-focused workflows and tool integrations. The databases-on-aws plugin provides database design, development, migration, and operational guidance, including Aurora DSQL helper scripts. We identified CVE-2026-107322, where an incomplete list of disallowed inputs in databases-on-aws versions before 1.7.1 could allow a remote unauthenticated actor to supply crafted content that an agent ingests. The affected code is not a listening network service; operating-system command execution on the host is possible only if the agent subsequently invokes the local helper with the crafted database command value. Any resulting command runs with the permissions of the process running the helper. This issue does not affect the Aurora DSQL service or bypass database privileges. Impacted versions: databases-on-aws versions 1.0.0 through 1.7.0 Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin.",
-    "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-130-aws/",
-    "source": "Latest Bulletins",
-    "type": "vendors",
-    "type_label": "Vendors & Product Blogs",
-    "published": "2026-10-08T19:29:19+00:00",
-    "published_ts": 1791487759,
-    "smart_groups": [
-      "Curated",
-      "Vulnerabilities / CVEs",
-      "Cloud / SaaS"
-    ],
-    "curated": true
   },
   {
     "title": "TP-Link Faces 5 State Lawsuits: Are Its Routers Still Legal in the US?",
