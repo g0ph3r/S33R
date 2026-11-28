@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-27T20:32:00.119479+00:00",
+  "generated_at": "2026-11-28T03:29:09.219239+00:00",
   "days_back": 30,
-  "total_items": 5911,
+  "total_items": 5882,
   "items": [
     {
       "title": "[Virtual Event] Cybersecurity Outlook 2027",
@@ -12,6 +12,260 @@
       "type_label": "General Security & Blogs",
       "published": "2026-12-03T16:00:00+00:00",
       "published_ts": 1796313600,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Cybercriminals Use Stolen API Credentials to Book \u20b92.15 Crore Flight Tickets in Mumbai",
+      "summary": "A significant financial fraud in Mumbai highlights the vulnerability of corporate systems in India to... The post Cybercriminals Use Stolen API Credentials to Book \u20b92.15 Crore Flight Tickets in Mumbai appeared first on .",
+      "link": "https://www.news4hackers.com/cybercriminals-use-stolen-api-credentials-to-book-%e2%82%b92-15-crore-flight-tickets-in-mumbai/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-11-28T02:02:15+00:00",
+      "published_ts": 1795831335,
+      "smart_groups": [
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Fake Government App Exposes Italy\u2019s Expanding Spyware Surveillance Industry",
+      "summary": "A fake Interior Ministry app used Morpheus spyware to target asylum seekers in Italy, raising questions about surveillance and oversight. An Android app called FirmaDigitale promised asylum seekers news on their protection status, instead, it was delivering spyware. An IrpiMedia investigation by Rosita Rijtano builds on Lookout\u2019s 2024 discovery and attributes the malware to IPS, [\u2026]",
+      "link": "https://securityaffairs.com/204142/intelligence/fake-government-app-exposes-italys-expanding-spyware-surveillance-industry.html",
+      "source": "Security Affairs",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-11-28T00:08:30+00:00",
+      "published_ts": 1795824510,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Frida 17.28.1 Released",
+      "summary": "Fixes for those embedding Frida, with @kkuehl tracking down a crash when creating a second DeviceManager and a hang on deinit. Also in this one: @Cassian433 made thread enumeration work in a spawned process that hasn\u2019t been resumed yet, and @hsorbo taught our XPC client about messages that want a reply. Embedders Kirby found that creating a DeviceManager after another one had attached to the system session and been closed crashed. This is a regression from 17.27.6, where the agent moved into a shared resource directory. Its image then outlived the session that had shut its GLib down, so loading it into our own process a second time ran its environment init against a type system that was already gone. There is now one agent container per process, created on first use and torn down by frida_shutdown() or frida_deinit() , and a host session only closes its own sessions in it. He also found that frida_deinit() hung whenever idund was running. Stopping Idun\u2019s device monitor left its backends in place, and the daemon backend\u2019s client kept a D-Bus connection alive, which kept GLib\u2019s D-Bus worker alive, so shutting GIO down waited forever. Thanks, Kirby! Linux @Cassian433 fixed Process.enumerateThreads() returning an empty array in a process that was spawned and not yet resumed, which @JingMatrix reported last year. Reading a thread\u2019s registers means attaching to it with ptrace() , which fails when another process is already tracing it, as our helper is with the main thread of a process it has paused. Such a thread is now kept, just without its CPU context. Thanks! On musl, the agent stays loaded across injections. Threads stopped during unload could report garbage after the agent\u2019s runner was gone, leaving a flag set with nothing scheduled, which disabled thread garbage collection in every later session. iOS H\u00e5vard noticed that CoreDevice\u2019s streaming actions, such as streamapplist , never delivered anything. They push their results as messages flagged as wanting a reply, which Idun\u2019s XPC connection silently dropped unless they were replies themselves. Those are now forwarded, and our Fruity backend acknowledges each one, as devicectl does. Thanks! GLib A leak in our GLib is gone. If code on a new thread asks for the current thread before GLib\u2019s own thread entrypoint runs, as an Interceptor hook on libc\u2019s thread entrypoint may, GLib creates a placeholder and queues cleanups on it. The placeholder was then replaced without being destroyed, along with everything it was meant to clean up. Enjoy! Changelog agent-container: Share one container across host sessions, fixing a crash when creating a second DeviceManager . Thanks @kkuehl ! idun: Release the device monitor\u2019s backends on stop, fixing frida_deinit() hanging while idund is running. Thanks @kkuehl ! linux: Keep threads whose registers can\u2019t be read. Thanks @Cassian433 and @JingMatrix ! agent: Don\u2019t wedge thread garbage collection on garbage reported during teardown. glib: Adopt the placeholder thread in the thread proxy, fixing a leak. idun: Forward XPC messages that want a reply. Thanks @hsorbo ! fruity: Acknowledge XPC messages that want a reply. Thanks @hsorbo !",
+      "link": "https://frida.re/news/2026/11/28/frida-17-28-1-released/",
+      "source": "https://frida.re/feed.xml",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-11-27T23:00:37+00:00",
+      "published_ts": 1795820437,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Linux / Unix"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Here\u2019s what happened in crypto today",
+      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation.",
+      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-11-27T22:12:51+00:00",
+      "published_ts": 1795817571,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Friday Squid Blogging: Giant Squid in Newfoundland",
+      "summary": "The two have an interesting history . As usual, you can also use this squid post to talk about the security stories in the news that I haven\u2019t covered. Blog moderation policy.",
+      "link": "https://www.schneier.com/blog/archives/2026/11/friday-squid-blogging-giant-squid-in-newfoundland.html",
+      "source": "Schneier on Security",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-11-27T22:01:25+00:00",
+      "published_ts": 1795816885,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Rinoa Poison: The Repoisoning Part 2 - SWN #637",
+      "summary": "",
+      "link": "https://www.scworld.com/podcast-segment/15342-rinoa-poison-the-repoisoning-part-2-swn-637",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-11-27T22:00:00+00:00",
+      "published_ts": 1795816800,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "OpenAI Turns the Tables on Apple With Its Own Trade-Secret Theft Claims",
+      "summary": "The ChatGPT maker\u2019s counterclaims flip the script on a dispute Apple started in July, alleging the iPhone maker took its trade secrets and pressured shared hardware suppliers to freeze it out of the AI-device race.",
+      "link": "https://decrypt.co/384222/openai-countersuit-apple-trade-secret-theft-claims",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-11-27T21:46:03+00:00",
+      "published_ts": 1795815963,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Franklin Templeton makes room for HYPE in crypto index ETF",
+      "summary": "The addition comes as US spot investment products tracking Hyperliquid\u2019s native token reach $266.5 million in assets under management.",
+      "link": "https://cointelegraph.com/news/franklin-templeton-hype-crypto-index-etf?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-11-27T21:15:29+00:00",
+      "published_ts": 1795814129,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Could AI Break Bitcoin? Not Yet, Research Firm K33 Says",
+      "summary": "A draft AI-assisted proof of the Riemann Hypothesis renewed worries about the math securing Bitcoin, but K33 says no cryptographic compromise has been demonstrated.",
+      "link": "https://decrypt.co/384218/could-ai-break-bitcoin-not-yet-research-firm-k33-says",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-11-27T20:46:02+00:00",
+      "published_ts": 1795812362,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Flaw in Linux NFS file sharing exposes servers to remote takeover",
+      "summary": "Researchers have found a critical flaw in the Linux kernel\u2019s NFS file-sharing server that lets unauthenticated attackers obtain a root shell on affected systems. The flaw remained undetected in the kernel for 12 years, until two researchers, one using an AI agent, discovered it independently. NFS is typically used inside local networks, including in container networks in Kubernetes clusters and on build servers in development environments. However, it is also enabled on many embedded devices and in network-attached storage (NAS) devices which might be running older kernel versions and can only be patched with firmware updates. Tracked as CVE-2026-99362 and dubbed NFS2ROOT, the flaw affects systems running the NFSv4.1 or NFSv4.2 versions of the Network File System protocol, the default in many Linux distributions. The vulnerability allows anyone who can reach a server\u2019s port 2049 to corrupt the memory of the nfsd process, the kernel component that serves NFS requests. It is rated 9.8 in severity. A researcher with French security agency ANSSI, J\u00e9r\u00e9my Jean, found the bug in August, and his fix was merged into the mainline kernel on September 14. According to security firm OpenSec Intelligence, which also discovered the heap overflow vulnerability and published technical details about it this week, the flaw can be exploited to gain a shell with root privileges. OpenSec found the bug using its AI-powered security testing harness and submitted its own patch to the Linux kernel maintainers on September 22. However, since it takes time for all supported kernel branches to backport fixes, the bug wasn\u2019t disclosed, nor was a CVE ID assigned, until November 19. The flaw was introduced in Linux 3.16 in 2014 and is now patched in eight stable kernel branches: 5.10.275, 5.15.226, 6.1.193, 6.6.163, 6.12.117, 6.18.61, 7.3.2 and 7.4-rc1. On systems that can\u2019t be immediately patched, administrators are advised to use firewall rules that block access to port 2049 from untrusted systems. Another option is to turn off NFSv4.1 and 4.2 in the nfsd config and then restart the service, but this will turn off pNFS and some features.",
+      "link": "https://www.csoonline.com/article/4254114/flaw-in-linux-nfs-file-sharing-exposes-servers-to-remote-takeover.html",
+      "source": "CSO Online",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-11-27T20:43:35+00:00",
+      "published_ts": 1795812215,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs",
+        "Exploit / PoC",
+        "Linux / Unix",
+        "Cloud / SaaS"
+      ],
+      "curated": true
+    },
+    {
+      "title": "F\u00e9d\u00e9ration Internationale de Football Association confirms cyberattack",
+      "summary": "Tech Radar disclosed that the F\u00e9d\u00e9ration Internationale de Football Association has confirmed a cyberattack resulting in unauthorized access to internal personal and business information.",
+      "link": "https://www.scworld.com/brief/federation-internationale-de-football-association-confirms-cyberattack",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-11-27T20:32:32+00:00",
+      "published_ts": 1795811552,
+      "smart_groups": [
+        "Identity / Access"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Information Commissioner's Office reprimands UK Home Office over border system",
+      "summary": "The Information Commissioner's Office has issued a formal reprimand to the United Kingdom Home Office regarding a border watchlist platform that lacked a functional mechanism for correcting inaccurate personal data, based on information published by The Register.",
+      "link": "https://www.scworld.com/brief/information-commissioners-office-reprimands-uk-home-office-over-border-system",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-11-27T20:31:02+00:00",
+      "published_ts": 1795811462,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Cybercriminals use AI website builder to host phishing pages on Hugging Face",
+      "summary": "As outlined in HackRead, cybercriminals are increasingly leveraging artificial intelligence to facilitate phishing campaigns.",
+      "link": "https://www.scworld.com/brief/cybercriminals-use-ai-website-builder-to-host-phishing-pages-on-hugging-face",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-11-27T20:30:26+00:00",
+      "published_ts": 1795811426,
+      "smart_groups": [
+        "Phishing / Social Engineering"
+      ],
+      "curated": false
+    },
+    {
+      "title": "BT launches cyber resilience training for small businesses",
+      "summary": "BT has introduced a nationwide cyber resilience training initiative in collaboration with major technology firms to improve security capabilities for small businesses, with further coverage provided by IT Pro.",
+      "link": "https://www.scworld.com/brief/bt-launches-cyber-resilience-training-for-small-businesses",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-11-27T20:30:13+00:00",
+      "published_ts": 1795811413,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Qualified electronic signatures fail to ensure data redaction integrity",
+      "summary": "In a report by HackRead, researchers highlight how qualified electronic signatures are being misused to provide a false sense of security regarding the redaction of sensitive data in PDF documents.",
+      "link": "https://www.scworld.com/brief/qualified-electronic-signatures-fail-to-ensure-data-redaction-integrity",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-11-27T20:29:55+00:00",
+      "published_ts": 1795811395,
+      "smart_groups": [
+        "Linux / Unix"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Google mandates new security standards for AI agents",
+      "summary": "As detailed in Infosecurity Magazine, Google is implementing new security requirements for AI agents operating within its Workspace and cloud environments to address evolving digital threats.",
+      "link": "https://www.scworld.com/brief/google-mandates-new-security-standards-for-ai-agents",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-11-27T20:28:33+00:00",
+      "published_ts": 1795811313,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "European Union proposes \u20ac50 billion fund to boost quantum computing",
+      "summary": "The European Union is planning to establish a \u20ac50 billion sovereign tech equity fund to support quantum computing startups and enhance regional competitiveness against the United States and China, with further coverage provided by IT Pro.",
+      "link": "https://www.scworld.com/brief/european-union-proposes-50-billion-fund-to-boost-quantum-computing",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-11-27T20:27:12+00:00",
+      "published_ts": 1795811232,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "Flight Centre investigates third-party data breach",
+      "summary": "Flight Centre Travel Group is investigating a cyber incident involving a third-party accommodation booking system that potentially exposed customer travel records, as first reported by Security Affairs.",
+      "link": "https://www.scworld.com/brief/flight-centre-investigates-third-party-data-breach",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-11-27T20:24:35+00:00",
+      "published_ts": 1795811075,
+      "smart_groups": [
+        "Data Breaches / Leaks"
+      ],
+      "curated": false
+    },
+    {
+      "title": "Peninsula Energy suspends uranium operations following cyberattack",
+      "summary": "Based on information from The Register, Peninsula Energy has temporarily halted its uranium mining operations in Wyoming after a cybersecurity incident impacted critical control systems.",
+      "link": "https://www.scworld.com/brief/peninsula-energy-suspends-uranium-operations-following-cyberattack",
+      "source": "SCM feed for Latest",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-11-27T20:22:44+00:00",
+      "published_ts": 1795810964,
       "smart_groups": [],
       "curated": false
     },
@@ -97,6 +351,20 @@
       "curated": false
     },
     {
+      "title": "4 Scary Bitcoin Charts That Suggest This Bear Market Is Different",
+      "summary": "Bitcoin is trading below several of its most popular long-term price models, breaking historical support levels that previously helped investors anticipate the cryptocurrency's eventual recovery from prolonged, painful bear markets.",
+      "link": "https://decrypt.co/384177/bitcoin-4-scary-charts-crypto-winter-bear-market",
+      "source": "Decrypt",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-11-27T19:46:02+00:00",
+      "published_ts": 1795808762,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
       "title": "DWP \u2018cyber incident\u2019 knocks almost all pensions and benefits systems offline",
       "summary": "Department for Work and Pensions urges people to be alert to scams related to outage and contact helpline with urgent difficulties Tell us: have you been affected by the DWP \u2018cyber incident\u2019 Benefits and pensions claimants have faced chaos after the system was hit by a \u201cserious cyber incident\u201d, fuelling concerns about the UK government\u2019s ability to defend itself against malicious attacks. The government took its portal down late on Thursday after detecting \u201cunusual activity\u201d, meaning anyone trying to check their state pension, make an application for disability benefits or claim universal credit on Friday was unable to do so. Continue reading...",
       "link": "https://www.theguardian.com/politics/2026/nov/27/dwp-cyber-incident-pensions-benefits-systems-offline",
@@ -174,6 +442,18 @@
       "smart_groups": [
         "Identity / Access"
       ],
+      "curated": false
+    },
+    {
+      "title": "Bitcoin whales pile into BTC despite shrinking profit cushion",
+      "summary": "CryptoQuant data shows Bitcoin whales are breaking with historical fourth-quarter selling patterns despite a market downturn.",
+      "link": "https://cointelegraph.com/markets/bitcoin-whales-pile-btc-despite-shrinking-profit-cushion?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "Cointelegraph.com News",
+      "type": "crypto",
+      "type_label": "Crypto & Blockchain Security",
+      "published": "2026-11-27T19:23:00+00:00",
+      "published_ts": 1795807380,
+      "smart_groups": [],
       "curated": false
     },
     {
@@ -296,6 +576,18 @@
       "curated": false
     },
     {
+      "title": "Cyberattack on Supermarket Refrigerators: How Hackers Drive Public Panic",
+      "summary": "hi The post Cyberattack on Supermarket Refrigerators: How Hackers Drive Public Panic appeared first on .",
+      "link": "https://www.news4hackers.com/cyberattack-on-supermarket-refrigerators-how-hackers-drive-public-panic/",
+      "source": "News4Hackers",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-11-27T17:17:15+00:00",
+      "published_ts": 1795799835,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
       "title": "Critical Drupal Security Flaw Leads to Site Takeover Attacks",
       "summary": "Drupal Security Vulnerability Drupal has identified a critical vulnerability that enables unauthorized individuals to seize... The post Critical Drupal Security Flaw Leads to Site Takeover Attacks appeared first on .",
       "link": "https://www.news4hackers.com/critical-drupal-security-flaw-leads-to-site-takeover-attacks/",
@@ -399,6 +691,30 @@
       "type_label": "General Security & Blogs",
       "published": "2026-11-27T15:27:20+00:00",
       "published_ts": 1795793240,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "ownCloud Infinite Scale 8.2 updates round-up (8.2.1 to 8.2.4)",
+      "summary": "Four ownCloud Infinite Scale 8.2 patch releases, one friendly round-up Between 2 October and 26 November we shipped four maintenance releases for oCIS 8.2. Here\u2019s what changed, what we\u2019d like you to do, and what you can leave alone. If you run ownCloud Infinite Scale (oCIS), you may have noticed a steady stream of patch [\u2026]",
+      "link": "https://owncloud.com/blogs/owncloud-infinite-scale-8-2-updates-round-up-8-2-1-to-8-2-4/",
+      "source": "https://owncloud.com/feed/",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-11-27T15:24:48+00:00",
+      "published_ts": 1795793088,
+      "smart_groups": [],
+      "curated": false
+    },
+    {
+      "title": "ownCloud Infinite Scale 9.0 release candidates (rc.1 to rc.3)",
+      "summary": "ownCloud Infinite Scale 9.0 is taking shape: what\u2019s in the release candidates, and how you can help Three release candidates are out, and 9.0.0 is scheduled for 4 December. Here\u2019s what\u2019s inside, what to watch for, and where we\u2019d love your feedback. ownCloud Infinite Scale (oCIS) 9.0 isn\u2019t final yet, but it\u2019s far enough along [\u2026]",
+      "link": "https://owncloud.com/blogs/owncloud-infinite-scale-9-0-release-candidates-rc-1-to-rc-3/",
+      "source": "https://owncloud.com/feed/",
+      "type": "vendors",
+      "type_label": "Vendors & Product Blogs",
+      "published": "2026-11-27T15:14:26+00:00",
+      "published_ts": 1795792466,
       "smart_groups": [],
       "curated": false
     },
@@ -627,20 +943,6 @@
       "published": "2026-11-27T13:36:37+00:00",
       "published_ts": 1795786597,
       "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Here\u2019s what happened in crypto today",
-      "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation.",
-      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-11-27T13:28:26+00:00",
-      "published_ts": 1795786106,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
       "curated": false
     },
     {
@@ -961,6 +1263,20 @@
       "curated": false
     },
     {
+      "title": "What Happens When You Mine Crypto in a Game Instead of Real Life?",
+      "summary": "Learn how crypto mining games work, how they differ from real cryptocurrency mining, and what to know about rewards, withdrawals, costs and risks.",
+      "link": "https://hackread.com/what-happens-when-you-mine-crypto-in-game/",
+      "source": "HackRead",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-11-27T11:01:03+00:00",
+      "published_ts": 1795777263,
+      "smart_groups": [
+        "Crypto / Web3"
+      ],
+      "curated": false
+    },
+    {
       "title": "SVDB: A structured database for better vulnerability management",
       "summary": "We are publishing an enriched, structured database to help with vulnerability management at https://svdb.positive.security/",
       "link": "https://positive.security/blog/svdb",
@@ -1069,6 +1385,20 @@
         "Exploit / PoC"
       ],
       "curated": true
+    },
+    {
+      "title": "Fake Car Diagnostic Tools on GitHub Target Repair Shops with Malware",
+      "summary": "16 fake GitHub repositories were found using real automotive code and AI-written READMEs to lure technicians into installing malware that could steal automaker logins.",
+      "link": "https://hackread.com/fake-car-diagnostic-tools-github-repair-shops-malware/",
+      "source": "HackRead",
+      "type": "general",
+      "type_label": "General Security & Blogs",
+      "published": "2026-11-27T10:07:13+00:00",
+      "published_ts": 1795774033,
+      "smart_groups": [
+        "Malware / Payloads"
+      ],
+      "curated": false
     },
     {
       "title": "Flight Centre Data Breach: Passport Details Compromised",
@@ -1850,6 +2180,21 @@
       "source": "Sophos News",
       "type": "vendors",
       "type_label": "Vendors & Product Blogs",
+      "published": "2026-11-27T00:00:00+00:00",
+      "published_ts": 1795737600,
+      "smart_groups": [
+        "Curated",
+        "Vulnerabilities / CVEs"
+      ],
+      "curated": true
+    },
+    {
+      "title": "Detection engineering is hard, help your AI",
+      "summary": "Many of us use AI in some form or another every day in our jobs. As someone who works in cybersecurity, I\u2019m no different. When people talk about AI in the context of a SOC, many think about writing threat reports from online sources or closing alerts with a lot of tokens. But I think one discipline in security is still far from solved by AI: detection engineering. If you let any AI out there create a KQL detection they come up with the correct table names, in many cases even the columns, but often it ends when they hallucinate ActionTypes or completely miss how the XML is stored inside of one of the columns. And this is where a generated detection that looks good and runs well but never could detect anything can be more than harmful, it can lead to a false sense of protection and to missing alerts.",
+      "link": "https://cloudbrothers.info/detection-engineering-is-hard-help-your-ai/",
+      "source": "https://cloudbrothers.info/index.xml",
+      "type": "general",
+      "type_label": "General Security & Blogs",
       "published": "2026-11-27T00:00:00+00:00",
       "published_ts": 1795737600,
       "smart_groups": [
@@ -81594,720 +81939,6 @@
       "type_label": "Government, CERT & Advisories",
       "published": "2026-10-29T03:10:12+00:00",
       "published_ts": 1793243412,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Non-profit group leaks data of more than 40,000 homeland security workers",
-      "summary": "Information released by Distributed Denial of Secrets is the third such government data disclosure in the last month Data identifying more than 41,000 employees and contractors for the US Department of Homeland Security (DHS) was released on Wednesday in an unprecedented leak that reveals how the agency is organized. The records, which were made public by the transparency non-profit Distributed Denial of Secrets, reference operation names, surveillance programs and information on undercover initiatives. The DHS did not immediately return a message seeking comment. Continue reading...",
-      "link": "https://www.theguardian.com/us-news/2026/oct/28/homeland-security-data-leak",
-      "source": "Data and computer security | The Guardian",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-29T01:25:35+00:00",
-      "published_ts": 1793237135,
-      "smart_groups": [
-        "Ransomware"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Bitcoin faces fresh pressure after Fed\u2019s hawkish rate hold: Analysts",
-      "summary": "Traders are pricing in a 78% chance of a December rate hike, while analysts say Treasury yields, the US dollar and upcoming inflation data could determine Bitcoin\u2019s next move.",
-      "link": "https://cointelegraph.com/markets/bitcoin-faces-fresh-pressure-after-feds-hawkish-rate-hold-analysts?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-10-29T01:12:01+00:00",
-      "published_ts": 1793236321,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Yet Another ClickFix Campaign, (Wed, Oct 28th)",
-      "summary": "Introduction",
-      "link": "https://isc.sans.edu/diary/rss/33466",
-      "source": "SANS Internet Storm Center",
-      "type": "government",
-      "type_label": "Government, CERT & Advisories",
-      "published": "2026-10-29T00:42:15+00:00",
-      "published_ts": 1793234535,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Smashing Security podcast #490: How Jared Kushner&#8217;s iPhone was allegedly hacked twice",
-      "summary": "Dutch spies, Russian hackers and Jared Kushner\u2019s iPhone. It sounds like the ingredients for a thriller, but according to claims in a new book the US President's son-in-law may have been hacked twice. Is any of it true, and what does it tell us about the phones in our pockets? Meanwhile, James Ball explains that of the internet\u2019s most trusted security keys were protected by numbers so small that one of them was... four. Yes, \"4\". And then, of course, to make the week worse we suffered a PHPocalpyse... Plus, Chuck Randolph of 360 Privacy explains how the internet has made it scarily easy to put company executives and public officials in danger. All this and more in episode 490 of the \u201cSmashing Security\u201d podcast with cybersecurity expert and keynote speaker Graham Cluley, and special guest James Ball.",
-      "link": "https://grahamcluley.com/smashing-security-podcast-490/",
-      "source": "Graham Cluley",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-29T00:16:56+00:00",
-      "published_ts": 1793233016,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Offensivecon Tokyo 2026 Review",
-      "summary": "This conference was an interesting experience for me, though probably not for the reasons I originally expected. There were some genuinely excellent presentations and valuable technical insights, but also some pretty disappointing moments that left me questioning whether attending was worth it. A few friends and I submitted talks back on June 1st, but acceptance decisions weren't announced until late September. For an international conference in Japan in late October, that meant committing to flights and travel arrangements before knowing whether we'd be presenting. None of our talks were accepted, but with our trips already booked, we decided to attend anyway, despite the additional $1,800 per person conference admission. At that price, especially when the talks are eventually released online for free, you're paying for an experience that should offer substantially more than just access to presentations. I was still optimistic going in, but after the opening keynote, I couldn't help feeling like I'd been sold something very different from what I'd expected. What had initially seemed like unfortunate travel logistics and an expensive ticket suddenly started to feel like a pretty questionable investment. I think keynote presentations carry a particular responsibility that ordinary conference talks don't. A keynote is often an attendee's first real impression of a conference. It establishes the tone, introduces the themes, and implicitly communicates what the organizers believe is important or representative of the event. In many ways, the opening keynote is the conference's opportunity to demonstrate why attendees should be excited about everything that follows. That's why the Day 1 keynote was especially disappointing. Based on the title, I was genuinely excited to hear a discussion of Recursive Self-Improvement (RSI), particularly given how rapidly AI is changing and how much interest there is in systems that can iteratively improve their own capabilities. This is an incredibly relevant topic for vulnerability research, where AI is already forcing us to reconsider many of our assumptions about how research gets performed. Instead, the presentation largely focused on extracting insights at minimal cost, building benchmarks, and constructing datasets. Those are perfectly legitimate subjects, but they weren't what I understood the talk to be promising. As far as I could tell, there wasn't an actual demonstration or particularly substantive discussion of recursive model self-improvement. I was also left wondering how XBOW's approach related to RSI in the traditional sense, particularly given my understanding that they rely on models they don't directly control. The entire presentation felt more like a loosely assembled vendor pitch than the carefully considered technical keynote I'd expected. And that's where the experience really started to sour for me. After spending thousands of dollars to travel internationally and attend, sitting through what felt like a promotional presentation as the opening keynote left me feeling like I'd paid for something very different from what I'd been led to expect. I don't think it's unreasonable to expect significantly more from the keynote of a conference charging this much money. A keynote isn't just another presentation in the schedule; it sets expectations for the quality, direction, and substance of the entire event. When it misses that mark so dramatically, it affects how you perceive everything that comes afterward. The physical conference itself also caught me off guard. The entire event was essentially contained within a single conference room and an adjoining hallway, with one vendor, XBOW, and perhaps five to seven tables for eating or socializing. There was very little space outside the main room for people to congregate. During a coffee break on the second day, I tried counting attendees and came up with somewhere around 60 people. Now, there's nothing inherently wrong with a small conference. Some of the best technical exchanges happen at smaller, more focused events. But the combination of the scale, facilities, and exceptionally high ticket price was difficult to reconcile. There was also a noticeable sense that many attendees and speakers already knew one another from previous offensive security conferences or shared professional backgrounds. It seemed like quite a few had worked together at places like Binary Gecko, XBOW, or elsewhere in the industry. Again, that's not necessarily a bad thing. Tight-knit research communities are common, especially in offensive security. But as someone attending from outside those established circles, I couldn't shake the feeling that I'd somehow paid a substantial amount of money to attend what was, in practice, a relatively small gathering of people who already knew one another. Despite all of this, I don't want to dismiss the entire conference, because there were genuinely good presentations. The Day 2 keynote, in particular, was a substantial improvement. It addressed something I think is critically important right now, the fact that our industry is changing rapidly, and that researchers and organizations will need to adapt if they want to remain relevant. I didn't agree with every technical detail, particularly some of the discussion around influencing training data and exploiting that material, but the broader message resonated with me. Several other talks also stood out, either because they were exceptionally well presented and showed some various novel components on how to infer or understand data with vulnerability research. Those presentations provided real value. They offered interesting technical insights, introduced new ideas, and gave me things to think about afterward. They were the moments when the conference began to resemble what I'd originally hoped it would be. But they also highlighted something else that I found increasingly difficult to ignore. We're in the middle of what feels like a software industrial revolution. AI is fundamentally changing how we write, understand, analyze, and interact with software. The implications go far beyond simply making individual researchers more productive. We're starting to see changes in the economics and scale of vulnerability discovery, the automation of complex analysis, and the processes through which entire software systems are developed and secured. Vulnerability research is right in the middle of that transformation. And yet, what surprised me most was how little of that transformation seemed to be reflected in the overall direction of the conference. Almost everyone seemed aware of what was happening. Many presenters were already using AI in their research, and conversations throughout the event made it clear that researchers understood the significance of these tools. But much of the selected content still seemed anchored in the traditional model of vulnerability research: finding highly specific bugs, developing intricate exploitation techniques, and presenting the technical details of individual discoveries. There's obviously still tremendous value in that work. Deep technical understanding and exploitation expertise aren't suddenly irrelevant just because AI is getting better. But the methods by which we discover, analyze, and ultimately exploit vulnerabilities are changing underneath us. I would have loved to see more discussion of that shift. Not simply talks about using an LLM to assist with an existing workflow, but serious exploration of what vulnerability research looks like when the fundamental constraints around time, scale, cost, and human effort start to change. It felt like the community understood that a major transformation was underway, while the conference's overall program was still largely organized around the world that existed before it. Perhaps that's just the nature of a conference with a particular technical focus. But I couldn't help wondering whether the talk selection reflected a disconnect between where the industry has traditionally placed its attention and where the most consequential developments are now happening. I came away with mixed feelings. There were undeniably talented researchers at this event, and some of the presentations were excellent. I learned things, heard interesting perspectives, and had conversations that made attending worthwhile. But I also came away feeling that the overall experience didn't remotely justify its cost. And I keep coming back to that keynote. When you're asking people to spend thousands of dollars, often traveling across the world to attend, your opening presentation should make them feel confident that they've made a worthwhile investment. It should represent the intellectual ambition and technical quality of the event. Instead, I spent much of that first morning wondering why I'd paid so much money to listen to what felt like a sales pitch. The stronger presentations that followed helped recover some of that initial disappointment, but they couldn't entirely erase it. I'm genuinely curious to see how this conference evolves as AI continues to reshape vulnerability research and the broader software industry. There's certainly an opportunity for it to become a place where researchers grapple with some of the most important changes happening in our field. For now, though, I suspect I'll be following that evolution from the sidelines, watching the presentations online rather than paying to attend in person again.",
-      "link": "http://blog.lockboxx.org/2026/10/offensivecon-tokyo-2026-review.html",
-      "source": "http://feeds.feedburner.com/blogspot/ofozM",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-29T00:01:37+00:00",
-      "published_ts": 1793232097,
-      "smart_groups": [
-        "Curated",
-        "Ransomware",
-        "Vulnerabilities / CVEs",
-        "Exploit / PoC",
-        "Network / OT / ICS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Transferring Unused IPv4 Addresses in Asia Pacific: The Complete APNIC Playbook",
-      "summary": "Understand APNIC IPv4 transfer rules, buyer requirements, fees and approval steps, with helpful checks to assess address blocks before completing a transaction.",
-      "link": "https://hackread.com/transferring-ipv4-addresses-asia-pacific-apnic-playbook/",
-      "source": "HackRead",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-29T00:01:19+00:00",
-      "published_ts": 1793232079,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Extracting Timestamps from ChatGPT IDs",
-      "summary": "Since mid-2024, ChatGPT conversation IDs (and more!) have been UUIDv8s with an extractable creation timestamp. This post explains the ID structure and how to extract the timestamp.",
-      "link": "https://hindsig.ht/blog/decoding-chatgpt-ids/",
-      "source": "dfir.blog",
-      "type": "dfir",
-      "type_label": "DFIR & Forensics",
-      "published": "2026-10-29T00:00:00+00:00",
-      "published_ts": 1793232000,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "A Good Day for Cryptography",
-      "summary": "October 16, 2026 was a good day for the cryptography community. A 25-year-old question about the math behind some of the Internet\u2019s most widely used encryption was finally answered . The previously lost method used to create the widely-used NIST elliptic curves has been found. In 2023, Filippo Valsorda created a bounty for answering the question, with a twist: if the solvers gave the prize to a nonprofit, it would be tripled, from $12,288 to $36,864. A group of engineers raised their hands to fund the bounty prize. Such a generous and thoughtful idea. And you guessed it! The solvers, a team of researchers at Anthropic, took Filippo up on it and donated the bounty to ISRG. ISRG is grateful for the generous support and we\u2019re grateful because the answer itself strengthens confidence in cryptography that secures much of the web. A good day indeed. What was the bounty? What was the answer? It\u2019s a long story. TL;DR: The NIST elliptic curves, used in encryption across the Internet, were built from \u201cseeds\u201d that two NSA engineers generated in the late 1990s. Years later, nobody could remember exactly how they\u2019d made them. Humans do what humans do, and without an answer, some people grew skeptical. That kind of doubt chips away at trust, which obviously isn\u2019t great for cryptographic infrastructure. The answer turned out to be reassuring: the seeds came from an ordinary random number generator, seeded with the time. What we love most about this story is that Filippo and our community wanted to uphold the public\u2019s trust. We build and protect Internet infrastructure, and work to keep it secure every day. Filippo didn\u2019t have to create this bounty, but he wanted answers for his fellow engineers and the public. The engineers who chipped in didn\u2019t have to put up their hard-earned dollars, but they wanted to help put the speculation to rest. And the team at Anthropic didn\u2019t have to spend time solving it, but enlisted Claude\u2019s help in closing this cryptographic chapter of history. Who do you know that is helping make the Internet better? Thank them! Many of them are paid to do this work, but they also do it on their own time because they care deeply. And so do we. In the cryptography and security community, we are working every day to protect our teams, our organizations, our friends and family, and in ISRG\u2019s case, billions of users online. Consider making a donation in honor of that work. You can give online or make your donation via stock, crypto, check, DAF, and more. Learn more in the Ways To Give section of our donation page. The following individuals made all this possible: Filippo Valsorda , who started the NIST Elliptic Curves Seeds Bounty. Read his bounty announcement and his post when the bounty was claimed . John Wood, Henry de Valence, Ava Howell, Zack Voase, Lucy Sweet, Amir Omidi, Paul Crowley, Iain McGinniss, Nicholas Carlini, and Steve Weis , the team at Anthropic who solved it and chose to send the prize to ISRG. Read Anthropic\u2019s writeup . Amir Omidi, Chris Palmer, Colm MacC\u00e1rthaigh, David Adrian, David Anderson, Filippo Valsorda, Jeff Hodges, Matt Green, Matthew McPherrin, Paul Kehrer, Ryan Sleevi, and Soatok , who chipped in their own money to fund the bounty. Thank you for making the Internet more secure every day.",
-      "link": "https://letsencrypt.org/2026/10/29/good-day-cryptography.html",
-      "source": "https://letsencrypt.org/feed.xml",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-29T00:00:00+00:00",
-      "published_ts": 1793232000,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "C2PA's eMudhra Moment",
-      "summary": "",
-      "link": "https://www.da.vidbuchanan.co.uk/blog/c2pa-four.html",
-      "source": "https://www.da.vidbuchanan.co.uk/blog/rss.xml",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-29T00:00:00+00:00",
-      "published_ts": 1793232000,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "A practical guide to HIPAA password requirements",
-      "summary": "An explanation of the HIPAA password requirements advice on implementing a HIPAA-compliant password policy.",
-      "link": "https://bitwarden.com/blog/hipaa-password-requirements/",
-      "source": "https://bitwarden.com/blog/feed.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-10-29T00:00:00+00:00",
-      "published_ts": 1793232000,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Node2Shell: Reproducing CVE-2026-111497 in the Node.js Brotli decoder",
-      "summary": "We reproduced CVE-2026-111497, an out-of-bounds write in the Brotli decoder bundled with Node.js and other runtimes, and explain how to detect and remediate it.",
-      "link": "https://securitylabs.datadoghq.com/articles/node2shell-cve-2026-111497-nodejs-brotli-decoder/",
-      "source": "https://securitylabs.datadoghq.com/rss/feed.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-10-29T00:00:00+00:00",
-      "published_ts": 1793232000,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Datadog named a Leader in the Forrester Wave\u2122: AIOps Platforms, Q4 2026",
-      "summary": "Datadog has been named a Leader in this report, reflecting Datadog\u2019s commitment to transforming observability into AI-powered, autonomous operations.",
-      "link": "https://www.datadoghq.com/blog/datadog-aiops-platforms-forrester-wave-2026/",
-      "source": "https://www.datadoghq.com/blog/index.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-10-29T00:00:00+00:00",
-      "published_ts": 1793232000,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Trace voice agents with Datadog Agent Observability",
-      "summary": "Use Agent Observability to replay voice interactions and investigate latency, cost, interruptions, and transcripts across OpenAI Realtime sessions.",
-      "link": "https://www.datadoghq.com/blog/agent-observability-voice-agent/",
-      "source": "https://www.datadoghq.com/blog/index.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-10-29T00:00:00+00:00",
-      "published_ts": 1793232000,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Detect when your AI agent copies a self-replicating prompt injection",
-      "summary": "Learn how Datadog AI Guard can flag self-replicating prompt injections when an AI agent copies hidden instructions into email replies or skill files.",
-      "link": "https://www.datadoghq.com/blog/detect-when-your-ai-agent-copies-a-self-replicating-prompt-injection/",
-      "source": "https://www.datadoghq.com/blog/index.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-10-29T00:00:00+00:00",
-      "published_ts": 1793232000,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Default to serverless for AI agents, then let production data decide what moves",
-      "summary": "Learn how to run AI agents as serverless workflows, build an execution profile, and compare costs against warm or dedicated compute.",
-      "link": "https://www.datadoghq.com/blog/serverless-ai-agents/",
-      "source": "https://www.datadoghq.com/blog/index.xml",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-10-29T00:00:00+00:00",
-      "published_ts": 1793232000,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "The Story of init.g(malaga): Three Editions of Growing Future Leaders",
-      "summary": "This blog post outlines the origins of and how it has developed over the past few years, including a preview of what awaits participants in the 2026 edition. Why M\u00e1laga? From a Homegrown Startup to a Community Crossroads To understand why resonates...",
-      "link": "https://bughunters.google.com/blog/the-story-of-initg-malaga",
-      "source": "Security Engineering Blog",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-10-29T00:00:00+00:00",
-      "published_ts": 1793232000,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "AI used in Aur0ra ransomware testing and execution",
-      "summary": "The GOLD OGRE threat group has used AI extensively to develop tools and to orchestrate and execute ransomware operations",
-      "link": "https://www.sophos.com/en-us/blog/ai-used-in-aur0ra-ransomware-testing-and-execution",
-      "source": "Sophos News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-10-29T00:00:00+00:00",
-      "published_ts": 1793232000,
-      "smart_groups": [
-        "Curated",
-        "Ransomware"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Physical Penetration Testing: When Human Trust Bypasses Layers of Security with a Simple Pretext",
-      "summary": "A physical penetration test reveals how social engineering, badge security gaps, exposed network access, and everyday human behavior can undermine layers of physical security.",
-      "link": "https://www.sophos.com/en-us/blog/physical-penetration-testing-when-human-trust-bypasses-layers-of-security-with-a-simple-pretext",
-      "source": "Sophos News",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-10-29T00:00:00+00:00",
-      "published_ts": 1793232000,
-      "smart_groups": [
-        "Phishing / Social Engineering"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Upwind raises $400M after walking away from Datadog acquisition offer",
-      "summary": "The cloud security startup raised a Series C at a $3.8B valuation, instead of selling itself for the same price.",
-      "link": "https://techcrunch.com/2026/10/28/upwind-raises-400m-after-walking-away-from-datadog-acquisition-offer/",
-      "source": "Security News | TechCrunch",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T23:15:00+00:00",
-      "published_ts": 1793229300,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Next-gen privacy protocols: WireGuard vs OpenVPN vs Shadowsocks",
-      "summary": "Compare WireGuard, OpenVPN and Shadowsocks for speed, privacy, enterprise access and censorship resistance, including VPN tunnels differ from encrypted proxies.",
-      "link": "https://hackread.com/next-gen-privacy-protocols-wireguard-openvpn-shadowsocks/",
-      "source": "HackRead",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T22:33:34+00:00",
-      "published_ts": 1793226814,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "CVE-2026-111497: Native Brotli Decoder Remote Code Execution and Memory Disclosure",
-      "summary": "Read this article",
-      "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-155-aws/",
-      "source": "Latest Bulletins",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-10-28T21:58:13+00:00",
-      "published_ts": 1793224693,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Bitcoin Treasury Datavault AI Says It Can\u2019t Access Its BTC, Stock Tanks",
-      "summary": "Datavault AI says it has been unable to withdraw its Bitcoin from Biconomy since June and will restate four financial reports tied to a $150 million Scilex deal.",
-      "link": "https://decrypt.co/382116/bitcoin-treasury-datavault-ai-stock-crashes-cant-access-btc",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-10-28T21:46:02+00:00",
-      "published_ts": 1793223962,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Canadian \u2018crypto king\u2019 case to go to jury as criminal trial winds down",
-      "summary": "Aiden Pleterski, facing fraud charges in Canada over his alleged role in a digital asset Ponzi scheme, said that he was innocent at closing.",
-      "link": "https://cointelegraph.com/news/canada-crypto-king-jury-criminal-trial-closing?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "Cointelegraph.com News",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-10-28T21:35:52+00:00",
-      "published_ts": 1793223352,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "After the breach: Uncovering the full scope of the attack",
-      "summary": "Following an incident, every major decision depends on knowing exactly what happened.",
-      "link": "https://www.scworld.com/resource/after-the-breach-uncovering-the-full-scope-of-the-attack",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T21:33:46+00:00",
-      "published_ts": 1793223226,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Federal Election Commission systems taken offline following cyberattack",
-      "summary": "The Federal Election Commission has taken multiple filing systems offline following a targeted cyberattack, according to a recent report by Nextgov.",
-      "link": "https://www.scworld.com/brief/federal-election-commission-systems-taken-offline-following-cyberattack",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T21:33:09+00:00",
-      "published_ts": 1793223189,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Upwind Security raises $400 million to scale cloud and AI security platform",
-      "summary": "Upwind Security Inc. has secured $400 million in new funding, bringing its total valuation to $3.8 billion as it expands its automated cloud security operations, based on information published by Silicon Angle.",
-      "link": "https://www.scworld.com/brief/upwind-security-raises-400-million-to-scale-cloud-and-ai-security-platform",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T21:31:02+00:00",
-      "published_ts": 1793223062,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Discord to index discoverable server discussions for web search",
-      "summary": "Discord is updating its platform to allow search engines to index discussions within Discoverable Servers, making content accessible to users without accounts or invitations, based on information published by Bleeping Computer.",
-      "link": "https://www.scworld.com/brief/discord-to-index-discoverable-server-discussions-for-web-search",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T21:26:41+00:00",
-      "published_ts": 1793222801,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Cisco releases open source project quarry to monitor AI agent behavior",
-      "summary": "Cisco has introduced Project Quarry, an open source behavior detection engine designed to monitor AI agents and prevent unauthorized actions, according to a recent report by The Register.",
-      "link": "https://www.scworld.com/brief/cisco-releases-open-source-project-quarry-to-monitor-ai-agent-behavior",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T21:26:25+00:00",
-      "published_ts": 1793222785,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "FCC commissioner outlines timeline for US Cyber Trust Mark rollout",
-      "summary": "Nextgov reports that the Federal Communications Commission aims to have products featuring the U.S. Cyber Trust Mark available to consumers within the next year.",
-      "link": "https://www.scworld.com/brief/fcc-commissioner-outlines-timeline-for-u-s-cyber-trust-mark-rollout",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T21:22:29+00:00",
-      "published_ts": 1793222549,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Security researchers identify bluetooth vulnerabilities in warehouse barcode scanners",
-      "summary": "Barcode scanners used in warehouses contain critical Bluetooth vulnerabilities that could allow attackers to infiltrate enterprise networks, as first reported by Tech Radar.",
-      "link": "https://www.scworld.com/brief/security-researchers-identify-bluetooth-vulnerabilities-in-warehouse-barcode-scanners",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T21:22:00+00:00",
-      "published_ts": 1793222520,
-      "smart_groups": [
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Malicious AI desktop applications distribute Yoba malware",
-      "summary": "Based on information from Infosecurity Magazine, attackers are distributing a sophisticated malware chain by impersonating popular artificial intelligence desktop applications on GitHub.",
-      "link": "https://www.scworld.com/brief/malicious-ai-desktop-applications-distribute-yoba-malware",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T21:18:27+00:00",
-      "published_ts": 1793222307,
-      "smart_groups": [
-        "Malware / Payloads"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Chip Maker SK Hynix Posts Record Quarter as AI Memory Demand Overwhelms Supply",
-      "summary": "SK Hynix's quarterly revenue topped 100 trillion won for the first time, and the chipmaker says memory demand will outrun supply through 2030, with DRAM and HBM sold out through 2029.",
-      "link": "https://decrypt.co/382114/sk-hynix-record-quarter-ai-memory-demand",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-10-28T21:16:03+00:00",
-      "published_ts": 1793222163,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Army selects Amazon Web Services and World Wide Technology for Project Griffin",
-      "summary": "In a report by Defensescoop, the Army announced the selection of Amazon Web Services and World Wide Technology to support Project Griffin, an artificial intelligence-enabled cybersecurity initiative.",
-      "link": "https://www.scworld.com/brief/army-selects-amazon-web-services-and-world-wide-technology-for-project-griffin",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T21:15:15+00:00",
-      "published_ts": 1793222115,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Federal agencies face growing fraud threats requiring better data visibility",
-      "summary": "Federal agencies are struggling to combat increasingly sophisticated fraud schemes that exploit gaps in information and fragmented risk assessments, as first reported by Fedscoop.",
-      "link": "https://www.scworld.com/brief/federal-agencies-face-growing-fraud-threats-requiring-better-data-visibility",
-      "source": "SCM feed for Latest",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T21:15:02+00:00",
-      "published_ts": 1793222102,
-      "smart_groups": [
-        "Curated",
-        "Exploit / PoC"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Hochul signs AI chatbot and baby monitor regulations",
-      "summary": "submitted by /u/news-10 [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1xi06pn/hochul_signs_ai_chatbot_and_baby_monitor/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-10-28T20:51:46+00:00",
-      "published_ts": 1793220706,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Court strikes down West Virginia law barring disclosure of public officials\u2019 personal data",
-      "summary": "A federal appellate court panel said West Virginia's version of Daniel's Law \u2014 meant to shield the personal data of police and other officials \u2014 is unconstitutional.",
-      "link": "https://therecord.media/west-virginia-daniels-law-struck-down-appellate-court",
-      "source": "The Record",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T20:50:00+00:00",
-      "published_ts": 1793220600,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Police seize Virtualine bulletproof service tied to ransowmare, cybercrime",
-      "summary": "U.S. law enforcement has seized the primary domain of Virtualine, a bulletproof hosting service advertised on cybercrime forums for facilitating illegal activities. [...]",
-      "link": "https://www.bleepingcomputer.com/news/security/police-seize-virtualine-bulletproof-service-tied-to-ransowmare-cybercrime/",
-      "source": "BleepingComputer",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T20:47:22+00:00",
-      "published_ts": 1793220442,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Volcano v1.16 Released: NamespaceQueue, fairshare, and a broader HyperNode ecosystem",
-      "summary": "Volcano v1.16.0 is available . v1.16.0 introduces NamespaceQueue and the fairshare plugin. Tenants can use hierarchical queues within their own namespaces to organize quotas and queue hierarchies within administrator-authorized resource pools. Fairshare brings historical resource consumption...",
-      "link": "https://www.cncf.io/blog/2026/10/28/volcano-v1-16-released-namespacequeue-fairshare-and-a-broader-hypernode-ecosystem/",
-      "source": "https://www.cncf.io/feed/",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T20:45:08+00:00",
-      "published_ts": 1793220308,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": true
-    },
-    {
-      "title": "The 4 biggest Amazon smart home announcements from today",
-      "summary": "From a new smart alarm clock to an Alexa-powered 3D map of your home, here\u2019s what\u2019s new from Amazon, including prices and release dates.",
-      "link": "https://www.zdnet.com/home-and-office/amazon-echo-smart-home-announcements-october-2026-price-availability/",
-      "source": "ZDNet \u2013 Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T20:35:05+00:00",
-      "published_ts": 1793219705,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Japan Airlines warns of data breach as country grapples with multiple cyber incidents",
-      "summary": "Hackers stole passport numbers, frequent flyer numbers, email addresses and phone numbers for about 2,000 customers.",
-      "link": "https://therecord.media/japan-airlines-warns-of-breach-country-grapples-with-incidents",
-      "source": "The Record \u2013 Cybercrime",
-      "type": "cybercrime",
-      "type_label": "Cybercrime, Darknet & Leaks",
-      "published": "2026-10-28T20:33:00+00:00",
-      "published_ts": 1793219580,
-      "smart_groups": [
-        "Data Breaches / Leaks"
-      ],
-      "curated": false
-    },
-    {
-      "title": "If-statement that caused HTTP2Shell was itself undisclosed patch of vulnerability",
-      "summary": "submitted by /u/klaasvanschelven [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1xhzm7k/ifstatement_that_caused_http2shell_was_itself/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-10-28T20:30:11+00:00",
-      "published_ts": 1793219411,
-      "smart_groups": [
-        "Vulnerabilities / CVEs"
-      ],
-      "curated": false
-    },
-    {
-      "title": "Most Servers on the Planet Are Vulnerable to This Firmware Code-Execution Flaw",
-      "summary": "The critical flaw in UEFI firmware\u2014used by most server vendors and data centers\u2014allows attackers to execute code early in the boot process.",
-      "link": "https://www.wired.com/story/most-servers-on-the-planet-are-vulnerable-to-a-code-execution-flaw-in-uefi-firmware/",
-      "source": "Security News: Cybersecurity, Hacks, Privacy, National Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T20:30:00+00:00",
-      "published_ts": 1793219400,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "John Strand's 11 Core Skills: For SOC Analysts",
-      "summary": "The cybersecurity battlefield evolves daily, with SOC analysts serving as front-line defenders. After years of training SOC teams, I\u2019ve identified 11 core skills that separate effective defenders from the rest.",
-      "link": "https://www.blackhillsinfosec.com/soc-core-skills/",
-      "source": "https://www.blackhillsinfosec.com/feed/",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-10-28T20:27:36+00:00",
-      "published_ts": 1793219256,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "How push Defender indicator blocks to all clients",
-      "summary": "The MSSP SOC I work for currently only adds entities to the Defender indicator lists as a reactive action based on alerts. These indicators are only blocked for the client where the alert triggered. I'm wanting to change this, but I'm not sure how. The ideal work flow would be that all indicators added to any clients Defender would be automatically collected, validated, then have the ability push these to all clients. Alternatively, the analysts would add the indicators to a separate tool, which then pushes the blocks out to all clients, whilst still allowing for the ability to do client specific blocks. Is this something other MSSPs do? Are there any mechanisms to do this? submitted by /u/_Wildgoose [link] [comments]",
-      "link": "https://www.reddit.com/r/cybersecurity/comments/1xhzgqi/how_push_defender_indicator_blocks_to_all_clients/",
-      "source": "/r/cybersecurity",
-      "type": "osint",
-      "type_label": "OSINT, Communities & Subreddits",
-      "published": "2026-10-28T20:24:25+00:00",
-      "published_ts": 1793219065,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Hive and Nefilim Ransomware Affiliate Gets 70 Months In Jail",
-      "summary": "Artem Stryzhak gets 70 months in prison for Hive and Nefilim ransomware attacks, while the FBI offers $11 million for his alleged co-conspirator. A federal court in Brooklyn has sentenced Artem Stryzhak, a Ukrainian national, to 70 months in prison for using ransomware to extort millions of dollars from victims. The U.S. Attorney\u2019s Office for [\u2026]",
-      "link": "https://securityaffairs.com/201960/cyber-crime/hive-and-nefilim-ransomware-affiliate-gets-70-months-in-jail.html",
-      "source": "Security Affairs",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T20:19:06+00:00",
-      "published_ts": 1793218746,
-      "smart_groups": [
-        "Curated",
-        "Ransomware"
-      ],
-      "curated": true
-    },
-    {
-      "title": "AI Security Startup Upwind Raises $400M at $3.8B Valuation",
-      "summary": "The cloud and AI security firm Upwind says revenue quadrupled in 2026 as it targets risks from autonomous AI agents.",
-      "link": "https://decrypt.co/382101/ai-security-startup-upwind-raises-400m",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-10-28T20:16:03+00:00",
-      "published_ts": 1793218563,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Hacker stole personnel data about thousands of Homeland Security employees, including CBP and ICE agents",
-      "summary": "A hacker obtained personally identifiable information about more than 40,000 Homeland Security staffers, which has since been published online.",
-      "link": "https://techcrunch.com/2026/10/28/hacker-stole-personnel-data-about-thousands-of-homeland-security-employees-including-cbp-and-ice-agents/",
-      "source": "Security News | TechCrunch",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T20:01:00+00:00",
-      "published_ts": 1793217660,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "Massive Leak Exposes 41,000 Homeland Security Workers\u2014Including Undercover ICE Agents",
-      "summary": "The leaked records include the locations of ICE and CBP facilities, workers\u2019 cell phone numbers, and the members of groups tied to wiretap programs, Palantir software, and xAI\u2019s Grok chatbot.",
-      "link": "https://www.wired.com/story/massive-leak-exposes-41000-homeland-security-workers-including-undercover-ice-agents/",
-      "source": "Security News: Cybersecurity, Hacks, Privacy, National Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T20:00:00+00:00",
-      "published_ts": 1793217600,
-      "smart_groups": [
-        "Curated"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Oracle celebrates end of Cybersecurity Awareness Month with quadruple trouble",
-      "summary": "Attackers probe another EBS bug, and ShinyHunters' PeopleSoft 0-day turns out to involve three vulns",
-      "link": "https://www.theregister.com/security/2026/10/28/oracle-celebrates-end-of-cybersecurity-awareness-month-with-quadruple-trouble/5306121",
-      "source": "The Register - Security",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T19:56:56+00:00",
-      "published_ts": 1793217416,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "VMware security advisory (AV26-763) \u2013 Update 2",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/vmware-security-advisory-av26-763",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T19:53:28+00:00",
-      "published_ts": 1793217208,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "More Americans Have Tried Crypto, But Few Are Sticking With It: Survey",
-      "summary": "A survey conducted by Ipsos for the DeFi Education Fund found that 22% of Americans have ever owned or used crypto, up from 18%, while past-year use held flat at 13%.",
-      "link": "https://decrypt.co/382100/more-americans-tried-crypto-few-staying-survey",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-10-28T19:46:03+00:00",
-      "published_ts": 1793216763,
-      "smart_groups": [
-        "Crypto / Web3"
-      ],
-      "curated": false
-    },
-    {
-      "title": "CVE-2026-115415 - Secret masking bypass in the environment tool in Strands Agents Tools",
-      "summary": "Bulletin ID: 2026-154-AWS Publication Date: 10/28/2026 12:30 PM PDT Description: We identified CVE-2026-115415, an issue where the environment tool accepted a masking parameter from the large language model (LLM) through its tool schema. A crafted prompt, delivered through content the agent is asked to process, could instruct the model to call the tool with masking turned off. The tool would then return the agent host's environment variables in cleartext, including cloud credentials and API keys, without prompting the operator for consent. Impacted versions: >= 0.1.0 AND Please refer to the article below for the most up-to-date and complete information related to this AWS Security Bulletin. Read this article",
-      "link": "https://aws.amazon.com/security/security-bulletins/rss/2026-154-aws/",
-      "source": "Latest Bulletins",
-      "type": "vendors",
-      "type_label": "Vendors & Product Blogs",
-      "published": "2026-10-28T19:39:08+00:00",
-      "published_ts": 1793216348,
-      "smart_groups": [
-        "Curated",
-        "Vulnerabilities / CVEs",
-        "Cloud / SaaS"
-      ],
-      "curated": true
-    },
-    {
-      "title": "GhostAction Hacking Wave Fizzles, But Attackers Lurk on in GitHub",
-      "summary": "The supply chain attack campaign's shift toward developer endpoints and cloud access signals what could be next for the cybercrime outfit.",
-      "link": "https://www.darkreading.com/application-security/ghostaction-hacking-wave-fizzles-attackers-github",
-      "source": "darkreading",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T19:39:00+00:00",
-      "published_ts": 1793216340,
-      "smart_groups": [
-        "Curated"
-      ],
-      "curated": true
-    },
-    {
-      "title": "Mozilla security advisory (AV26-1100)",
-      "summary": "",
-      "link": "https://cyber.gc.ca/en/alerts-advisories/mozilla-security-advisory-av26-1100",
-      "source": "Alerts and advisories",
-      "type": "general",
-      "type_label": "General Security & Blogs",
-      "published": "2026-10-28T19:17:01+00:00",
-      "published_ts": 1793215021,
-      "smart_groups": [],
-      "curated": false
-    },
-    {
-      "title": "OpenAI Plans to Buy Google's AI Chips as It Looks Beyond Nvidia: Report",
-      "summary": "OpenAI, one of Nvidia's biggest customers, reportedly plans to buy Google's TPU chips. Neither company has confirmed the report, and the price and size of the order were not disclosed.",
-      "link": "https://decrypt.co/382090/openai-plans-buy-google-ai-chips-looks-beyond-nvidia",
-      "source": "Decrypt",
-      "type": "crypto",
-      "type_label": "Crypto & Blockchain Security",
-      "published": "2026-10-28T19:16:02+00:00",
-      "published_ts": 1793214962,
       "smart_groups": [],
       "curated": false
     },
