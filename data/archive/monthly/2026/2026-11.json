@@ -7,7 +7,7 @@
     "type": "general",
     "type_label": "General Security & Blogs",
     "published": null,
-    "published_ts": 1795781880.644712,
+    "published_ts": 1795866292.212829,
     "smart_groups": [
       "Curated",
       "Vulnerabilities / CVEs"
@@ -22,7 +22,7 @@
     "type": "osint",
     "type_label": "OSINT, Communities & Subreddits",
     "published": null,
-    "published_ts": 1795781880.64471,
+    "published_ts": 1795866292.212827,
     "smart_groups": [
       "Cloud / SaaS"
     ],
@@ -36,11 +36,2199 @@
     "type": "vendors",
     "type_label": "Vendors & Product Blogs",
     "published": null,
-    "published_ts": 1795781880.644704,
+    "published_ts": 1795866292.21282,
     "smart_groups": [
       "Data Breaches / Leaks"
     ],
     "curated": false
+  },
+  {
+    "title": "Cybercriminals Use Stolen API Credentials to Book ₹2.15 Crore Flight Tickets in Mumbai",
+    "summary": "A significant financial fraud in Mumbai highlights the vulnerability of corporate systems in India to... The post Cybercriminals Use Stolen API Credentials to Book ₹2.15 Crore Flight Tickets in Mumbai appeared first on .",
+    "link": "https://www.news4hackers.com/cybercriminals-use-stolen-api-credentials-to-book-%e2%82%b92-15-crore-flight-tickets-in-mumbai/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-28T02:02:15+00:00",
+    "published_ts": 1795831335,
+    "smart_groups": [
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Fake Government App Exposes Italy’s Expanding Spyware Surveillance Industry",
+    "summary": "A fake Interior Ministry app used Morpheus spyware to target asylum seekers in Italy, raising questions about surveillance and oversight. An Android app called FirmaDigitale promised asylum seekers news on their protection status, instead, it was delivering spyware. An IrpiMedia investigation by Rosita Rijtano builds on Lookout’s 2024 discovery and attributes the malware to IPS, […]",
+    "link": "https://securityaffairs.com/204142/intelligence/fake-government-app-exposes-italys-expanding-spyware-surveillance-industry.html",
+    "source": "Security Affairs",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-28T00:08:30+00:00",
+    "published_ts": 1795824510,
+    "smart_groups": [
+      "Malware / Payloads"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Frida 17.28.1 Released",
+    "summary": "Fixes for those embedding Frida, with @kkuehl tracking down a crash when creating a second DeviceManager and a hang on deinit. Also in this one: @Cassian433 made thread enumeration work in a spawned process that hasn’t been resumed yet, and @hsorbo taught our XPC client about messages that want a reply. Embedders Kirby found that creating a DeviceManager after another one had attached to the system session and been closed crashed. This is a regression from 17.27.6, where the agent moved into a shared resource directory. Its image then outlived the session that had shut its GLib down, so loading it into our own process a second time ran its environment init against a type system that was already gone. There is now one agent container per process, created on first use and torn down by frida_shutdown() or frida_deinit() , and a host session only closes its own sessions in it. He also found that frida_deinit() hung whenever idund was running. Stopping Idun’s device monitor left its backends in place, and the daemon backend’s client kept a D-Bus connection alive, which kept GLib’s D-Bus worker alive, so shutting GIO down waited forever. Thanks, Kirby! Linux @Cassian433 fixed Process.enumerateThreads() returning an empty array in a process that was spawned and not yet resumed, which @JingMatrix reported last year. Reading a thread’s registers means attaching to it with ptrace() , which fails when another process is already tracing it, as our helper is with the main thread of a process it has paused. Such a thread is now kept, just without its CPU context. Thanks! On musl, the agent stays loaded across injections. Threads stopped during unload could report garbage after the agent’s runner was gone, leaving a flag set with nothing scheduled, which disabled thread garbage collection in every later session. iOS Håvard noticed that CoreDevice’s streaming actions, such as streamapplist , never delivered anything. They push their results as messages flagged as wanting a reply, which Idun’s XPC connection silently dropped unless they were replies themselves. Those are now forwarded, and our Fruity backend acknowledges each one, as devicectl does. Thanks! GLib A leak in our GLib is gone. If code on a new thread asks for the current thread before GLib’s own thread entrypoint runs, as an Interceptor hook on libc’s thread entrypoint may, GLib creates a placeholder and queues cleanups on it. The placeholder was then replaced without being destroyed, along with everything it was meant to clean up. Enjoy! Changelog agent-container: Share one container across host sessions, fixing a crash when creating a second DeviceManager . Thanks @kkuehl ! idun: Release the device monitor’s backends on stop, fixing frida_deinit() hanging while idund is running. Thanks @kkuehl ! linux: Keep threads whose registers can’t be read. Thanks @Cassian433 and @JingMatrix ! agent: Don’t wedge thread garbage collection on garbage reported during teardown. glib: Adopt the placeholder thread in the thread proxy, fixing a leak. idun: Forward XPC messages that want a reply. Thanks @hsorbo ! fruity: Acknowledge XPC messages that want a reply. Thanks @hsorbo !",
+    "link": "https://frida.re/news/2026/11/28/frida-17-28-1-released/",
+    "source": "https://frida.re/feed.xml",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T23:00:37+00:00",
+    "published_ts": 1795820437,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Linux / Unix"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Here’s what happened in crypto today",
+    "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation.",
+    "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T22:12:51+00:00",
+    "published_ts": 1795817571,
+    "smart_groups": [
+      "Crypto / Web3"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Friday Squid Blogging: Giant Squid in Newfoundland",
+    "summary": "The two have an interesting history . As usual, you can also use this squid post to talk about the security stories in the news that I haven’t covered. Blog moderation policy.",
+    "link": "https://www.schneier.com/blog/archives/2026/11/friday-squid-blogging-giant-squid-in-newfoundland.html",
+    "source": "Schneier on Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T22:01:25+00:00",
+    "published_ts": 1795816885,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Rinoa Poison: The Repoisoning Part 2 - SWN #637",
+    "summary": "",
+    "link": "https://www.scworld.com/podcast-segment/15342-rinoa-poison-the-repoisoning-part-2-swn-637",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T22:00:00+00:00",
+    "published_ts": 1795816800,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "OpenAI Turns the Tables on Apple With Its Own Trade-Secret Theft Claims",
+    "summary": "The ChatGPT maker’s counterclaims flip the script on a dispute Apple started in July, alleging the iPhone maker took its trade secrets and pressured shared hardware suppliers to freeze it out of the AI-device race.",
+    "link": "https://decrypt.co/384222/openai-countersuit-apple-trade-secret-theft-claims",
+    "source": "Decrypt",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T21:46:03+00:00",
+    "published_ts": 1795815963,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Franklin Templeton makes room for HYPE in crypto index ETF",
+    "summary": "The addition comes as US spot investment products tracking Hyperliquid’s native token reach $266.5 million in assets under management.",
+    "link": "https://cointelegraph.com/news/franklin-templeton-hype-crypto-index-etf?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T21:15:29+00:00",
+    "published_ts": 1795814129,
+    "smart_groups": [
+      "Crypto / Web3"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Could AI Break Bitcoin? Not Yet, Research Firm K33 Says",
+    "summary": "A draft AI-assisted proof of the Riemann Hypothesis renewed worries about the math securing Bitcoin, but K33 says no cryptographic compromise has been demonstrated.",
+    "link": "https://decrypt.co/384218/could-ai-break-bitcoin-not-yet-research-firm-k33-says",
+    "source": "Decrypt",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T20:46:02+00:00",
+    "published_ts": 1795812362,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Flaw in Linux NFS file sharing exposes servers to remote takeover",
+    "summary": "Researchers have found a critical flaw in the Linux kernel’s NFS file-sharing server that lets unauthenticated attackers obtain a root shell on affected systems. The flaw remained undetected in the kernel for 12 years, until two researchers, one using an AI agent, discovered it independently. NFS is typically used inside local networks, including in container networks in Kubernetes clusters and on build servers in development environments. However, it is also enabled on many embedded devices and in network-attached storage (NAS) devices which might be running older kernel versions and can only be patched with firmware updates. Tracked as CVE-2026-99362 and dubbed NFS2ROOT, the flaw affects systems running the NFSv4.1 or NFSv4.2 versions of the Network File System protocol, the default in many Linux distributions. The vulnerability allows anyone who can reach a server’s port 2049 to corrupt the memory of the nfsd process, the kernel component that serves NFS requests. It is rated 9.8 in severity. A researcher with French security agency ANSSI, Jérémy Jean, found the bug in August, and his fix was merged into the mainline kernel on September 14. According to security firm OpenSec Intelligence, which also discovered the heap overflow vulnerability and published technical details about it this week, the flaw can be exploited to gain a shell with root privileges. OpenSec found the bug using its AI-powered security testing harness and submitted its own patch to the Linux kernel maintainers on September 22. However, since it takes time for all supported kernel branches to backport fixes, the bug wasn’t disclosed, nor was a CVE ID assigned, until November 19. The flaw was introduced in Linux 3.16 in 2014 and is now patched in eight stable kernel branches: 5.10.275, 5.15.226, 6.1.193, 6.6.163, 6.12.117, 6.18.61, 7.3.2 and 7.4-rc1. On systems that can’t be immediately patched, administrators are advised to use firewall rules that block access to port 2049 from untrusted systems. Another option is to turn off NFSv4.1 and 4.2 in the nfsd config and then restart the service, but this will turn off pNFS and some features.",
+    "link": "https://www.csoonline.com/article/4254114/flaw-in-linux-nfs-file-sharing-exposes-servers-to-remote-takeover.html",
+    "source": "CSO Online",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T20:43:35+00:00",
+    "published_ts": 1795812215,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC",
+      "Linux / Unix",
+      "Cloud / SaaS"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Fédération Internationale de Football Association confirms cyberattack",
+    "summary": "Tech Radar disclosed that the Fédération Internationale de Football Association has confirmed a cyberattack resulting in unauthorized access to internal personal and business information.",
+    "link": "https://www.scworld.com/brief/federation-internationale-de-football-association-confirms-cyberattack",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T20:32:32+00:00",
+    "published_ts": 1795811552,
+    "smart_groups": [
+      "Identity / Access"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Information Commissioner's Office reprimands UK Home Office over border system",
+    "summary": "The Information Commissioner's Office has issued a formal reprimand to the United Kingdom Home Office regarding a border watchlist platform that lacked a functional mechanism for correcting inaccurate personal data, based on information published by The Register.",
+    "link": "https://www.scworld.com/brief/information-commissioners-office-reprimands-uk-home-office-over-border-system",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T20:31:02+00:00",
+    "published_ts": 1795811462,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Cybercriminals use AI website builder to host phishing pages on Hugging Face",
+    "summary": "As outlined in HackRead, cybercriminals are increasingly leveraging artificial intelligence to facilitate phishing campaigns.",
+    "link": "https://www.scworld.com/brief/cybercriminals-use-ai-website-builder-to-host-phishing-pages-on-hugging-face",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T20:30:26+00:00",
+    "published_ts": 1795811426,
+    "smart_groups": [
+      "Phishing / Social Engineering"
+    ],
+    "curated": false
+  },
+  {
+    "title": "BT launches cyber resilience training for small businesses",
+    "summary": "BT has introduced a nationwide cyber resilience training initiative in collaboration with major technology firms to improve security capabilities for small businesses, with further coverage provided by IT Pro.",
+    "link": "https://www.scworld.com/brief/bt-launches-cyber-resilience-training-for-small-businesses",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T20:30:13+00:00",
+    "published_ts": 1795811413,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Qualified electronic signatures fail to ensure data redaction integrity",
+    "summary": "In a report by HackRead, researchers highlight how qualified electronic signatures are being misused to provide a false sense of security regarding the redaction of sensitive data in PDF documents.",
+    "link": "https://www.scworld.com/brief/qualified-electronic-signatures-fail-to-ensure-data-redaction-integrity",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T20:29:55+00:00",
+    "published_ts": 1795811395,
+    "smart_groups": [
+      "Linux / Unix"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Google mandates new security standards for AI agents",
+    "summary": "As detailed in Infosecurity Magazine, Google is implementing new security requirements for AI agents operating within its Workspace and cloud environments to address evolving digital threats.",
+    "link": "https://www.scworld.com/brief/google-mandates-new-security-standards-for-ai-agents",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T20:28:33+00:00",
+    "published_ts": 1795811313,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "European Union proposes €50 billion fund to boost quantum computing",
+    "summary": "The European Union is planning to establish a €50 billion sovereign tech equity fund to support quantum computing startups and enhance regional competitiveness against the United States and China, with further coverage provided by IT Pro.",
+    "link": "https://www.scworld.com/brief/european-union-proposes-50-billion-fund-to-boost-quantum-computing",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T20:27:12+00:00",
+    "published_ts": 1795811232,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Flight Centre investigates third-party data breach",
+    "summary": "Flight Centre Travel Group is investigating a cyber incident involving a third-party accommodation booking system that potentially exposed customer travel records, as first reported by Security Affairs.",
+    "link": "https://www.scworld.com/brief/flight-centre-investigates-third-party-data-breach",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T20:24:35+00:00",
+    "published_ts": 1795811075,
+    "smart_groups": [
+      "Data Breaches / Leaks"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Peninsula Energy suspends uranium operations following cyberattack",
+    "summary": "Based on information from The Register, Peninsula Energy has temporarily halted its uranium mining operations in Wyoming after a cybersecurity incident impacted critical control systems.",
+    "link": "https://www.scworld.com/brief/peninsula-energy-suspends-uranium-operations-following-cyberattack",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T20:22:44+00:00",
+    "published_ts": 1795810964,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Microsoft confirms authentication issues following November security updates",
+    "summary": "",
+    "link": "https://www.scworld.com/brief/microsoft-confirms-authentication-issues-following-november-security-updates",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T20:06:39+00:00",
+    "published_ts": 1795809999,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "London Gatwick Airport warns of data breach in drop-off payment system",
+    "summary": "",
+    "link": "https://www.scworld.com/brief/london-gatwick-airport-warns-of-data-breach-in-drop-off-payment-system",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T20:06:28+00:00",
+    "published_ts": 1795809988,
+    "smart_groups": [
+      "Data Breaches / Leaks"
+    ],
+    "curated": false
+  },
+  {
+    "title": "French hospitals face series of cyberattacks",
+    "summary": "According to The Record, the University Hospital of Guadeloupe is investigating a significant ransomware attack that has disrupted critical medical services.",
+    "link": "https://www.scworld.com/brief/french-hospitals-face-series-of-cyberattacks",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T20:06:09+00:00",
+    "published_ts": 1795809969,
+    "smart_groups": [
+      "Curated",
+      "Ransomware"
+    ],
+    "curated": true
+  },
+  {
+    "title": "North Korean hackers expand PolinRider campaign via GitHub repositories",
+    "summary": "Per The Hacker News, threat actors linked to North Korea are actively distributing the PolinRider malware by embedding a Python loader within public GitHub repositories.",
+    "link": "https://www.scworld.com/brief/north-korean-hackers-expand-polinrider-campaign-via-github-repositories",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T20:05:54+00:00",
+    "published_ts": 1795809954,
+    "smart_groups": [
+      "Malware / Payloads"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Counter-Strike 2 players face rising risks from sophisticated digital scams",
+    "summary": "Counter-Strike 2 players are increasingly targeted by sophisticated scams designed to compromise Steam accounts and steal valuable in-game assets, according to a recent report by HackRead.",
+    "link": "https://www.scworld.com/brief/counter-strike-2-players-face-rising-risks-from-sophisticated-digital-scams",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T20:05:41+00:00",
+    "published_ts": 1795809941,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "New SYS010 infostealer malware campaign targets Meta business accounts",
+    "summary": "As reported by Bleeping Computer, a sophisticated new version of the SYS01 infostealer, identified as SYS010, is currently targeting Meta business accounts through malicious advertisements on social media platforms.",
+    "link": "https://www.scworld.com/brief/new-sys010-infostealer-malware-campaign-targets-meta-business-accounts",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T20:05:25+00:00",
+    "published_ts": 1795809925,
+    "smart_groups": [
+      "Malware / Payloads"
+    ],
+    "curated": false
+  },
+  {
+    "title": "4 Scary Bitcoin Charts That Suggest This Bear Market Is Different",
+    "summary": "Bitcoin is trading below several of its most popular long-term price models, breaking historical support levels that previously helped investors anticipate the cryptocurrency's eventual recovery from prolonged, painful bear markets.",
+    "link": "https://decrypt.co/384177/bitcoin-4-scary-charts-crypto-winter-bear-market",
+    "source": "Decrypt",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T19:46:02+00:00",
+    "published_ts": 1795808762,
+    "smart_groups": [
+      "Crypto / Web3"
+    ],
+    "curated": false
+  },
+  {
+    "title": "DWP ‘cyber incident’ knocks almost all pensions and benefits systems offline",
+    "summary": "Department for Work and Pensions urges people to be alert to scams related to outage and contact helpline with urgent difficulties Tell us: have you been affected by the DWP ‘cyber incident’ Benefits and pensions claimants have faced chaos after the system was hit by a “serious cyber incident”, fuelling concerns about the UK government’s ability to defend itself against malicious attacks. The government took its portal down late on Thursday after detecting “unusual activity”, meaning anyone trying to check their state pension, make an application for disability benefits or claim universal credit on Friday was unable to do so. Continue reading...",
+    "link": "https://www.theguardian.com/politics/2026/nov/27/dwp-cyber-incident-pensions-benefits-systems-offline",
+    "source": "Data and computer security | The Guardian",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T19:45:51+00:00",
+    "published_ts": 1795808751,
+    "smart_groups": [
+      "Ransomware"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Researchers identify Electrolux-branded smart boilers connecting to Russian servers",
+    "summary": "Security researchers have discovered that certain Electrolux-branded smart boilers are transmitting data to servers located in Russia, raising significant privacy and security concerns for international users.",
+    "link": "https://www.scworld.com/brief/researchers-identify-electrolux-branded-smart-boilers-connecting-to-russian-servers",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T19:42:07+00:00",
+    "published_ts": 1795808527,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "UK banks demand accountability from tech firms following rise in fraud",
+    "summary": "Financial institutions in the United Kingdom are calling for technology and telecommunications companies to share responsibility for fraud prevention after reporting that total losses climbed to nearly 660 million pounds during the first half of 2026, as first reported by Infosecurity Magazine.",
+    "link": "https://www.scworld.com/brief/uk-banks-demand-accountability-from-tech-firms-following-rise-in-fraud",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T19:37:31+00:00",
+    "published_ts": 1795808251,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Microsoft store hosts malware-laden app despite security warnings",
+    "summary": "Per IT Pro, a security firm has reported that Microsoft refused to remove a malicious application from its official store, despite evidence that the software serves as a gateway for cyberattacks.",
+    "link": "https://www.scworld.com/brief/microsoft-store-hosts-malware-laden-app-despite-security-warnings",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T19:30:05+00:00",
+    "published_ts": 1795807805,
+    "smart_groups": [
+      "Malware / Payloads"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Microsoft president warns of ongoing tech outages due to AI security threats",
+    "summary": "As outlined in Tech Radar, Microsoft president and vice chair Brad Smith has issued a warning that businesses and consumers should prepare for continued technology outages in the coming months and years.",
+    "link": "https://www.scworld.com/brief/microsoft-president-warns-of-ongoing-tech-outages-due-to-ai-security-threats",
+    "source": "SCM feed for Latest",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T19:29:20+00:00",
+    "published_ts": 1795807760,
+    "smart_groups": [
+      "Ransomware"
+    ],
+    "curated": false
+  },
+  {
+    "title": "pCloud confirms password manager hack after suspicious login alerts",
+    "summary": "The pCloud Pass password manager suffered a cyberattack, with users reporting that unknown devices had connected to their accounts even with two-factor authentication (2FA) enabled. [...]",
+    "link": "https://www.bleepingcomputer.com/news/security/pcloud-confirms-password-manager-hack-after-suspicious-login-alerts/",
+    "source": "BleepingComputer",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T19:26:04+00:00",
+    "published_ts": 1795807564,
+    "smart_groups": [
+      "Identity / Access"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Bitcoin whales pile into BTC despite shrinking profit cushion",
+    "summary": "CryptoQuant data shows Bitcoin whales are breaking with historical fourth-quarter selling patterns despite a market downturn.",
+    "link": "https://cointelegraph.com/markets/bitcoin-whales-pile-btc-despite-shrinking-profit-cushion?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T19:23:00+00:00",
+    "published_ts": 1795807380,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "New Boston Scientific data breach exposes personal, medical info",
+    "summary": "Medical technology company Boston Scientific is sending data breach notices to individuals affected by a cyberattack on the firm. [...]",
+    "link": "https://www.bleepingcomputer.com/news/security/new-boston-scientific-data-breach-exposes-personal-medical-info/",
+    "source": "BleepingComputer",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T18:57:42+00:00",
+    "published_ts": 1795805862,
+    "smart_groups": [
+      "Data Breaches / Leaks"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Drupal security advisory (AV26-1209) – Update 1",
+    "summary": "",
+    "link": "https://cyber.gc.ca/en/alerts-advisories/drupal-security-advisory-av26-1209",
+    "source": "Alerts and advisories",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T18:42:19+00:00",
+    "published_ts": 1795804939,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "GeoServer security advisory (AV26-1207) – Update 1",
+    "summary": "",
+    "link": "https://cyber.gc.ca/en/alerts-advisories/geoserver-security-advisory-av26-1207",
+    "source": "Alerts and advisories",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T18:36:34+00:00",
+    "published_ts": 1795804594,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "$7 Billion in Bitcoin Options Just Expired: Here’s What It Means",
+    "summary": "Bitcoin’s largest options expiry this month comes as traders increasingly seek protection against further losses, with some hedging against a potential drop to $40,000 before the end of the year.",
+    "link": "https://decrypt.co/384154/7-billion-bitcoin-options-just-expired-what-it-means",
+    "source": "Decrypt",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T18:16:03+00:00",
+    "published_ts": 1795803363,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "The Com: the global cybercrime network posing a ‘chilling threat’ to children",
+    "summary": "FBI estimates thousands of people identify as members, or recent members, of group linked to indecent images of girls and blackmail It sounds benign: the Com, short for the Community. But crime agencies around the world warn that it is far from that and the young cybercriminals involved are causing havoc and putting children at chilling, sickening risk. Beau-Jack Mensforth was jailed by a UK judge on Friday for his activities as part of the Com. He was one individual operating from his bedroom in north-east England, but there are probably thousands more like him and parents are being urged by police to be aware and to check their children’s devices. Continue reading...",
+    "link": "https://www.theguardian.com/technology/2026/nov/27/the-com-global-cybercrime-network-posing-chilling-threat-to-children",
+    "source": "The Guardian Cybercrime",
+    "type": "cybercrime",
+    "type_label": "Cybercrime, Darknet & Leaks",
+    "published": "2026-11-27T17:53:30+00:00",
+    "published_ts": 1795802010,
+    "smart_groups": [
+      "Ransomware"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Hackers Hit US Air Force Cloud System Running Air-Defense and Munitions Data",
+    "summary": "The intrusion at Cloud One, discovered during a system upgrade, has prompted a Cyber Command damage assessment and disrupted the platform that runs air-defense radar feeds, munitions tracking and personnel data.",
+    "link": "https://decrypt.co/384174/us-air-force-hack-cloud-system-air-defense-munitions-data",
+    "source": "Decrypt",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T17:43:29+00:00",
+    "published_ts": 1795801409,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "China sets March 2027 rollout for blockchain identity regulations",
+    "summary": "China has issued new regulations governing blockchain-based digital identities, setting rules for cross-platform verification and data privacy.",
+    "link": "https://cointelegraph.com/news/china-march-2027-rollout-blockchain-identity-regulations?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T17:37:23+00:00",
+    "published_ts": 1795801043,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "UK man jailed for online blackmail of vulnerable girls around the world",
+    "summary": "Beau-Jack Mensforth, 20, part of a group known as the Com, coerced girls into self-harm, making indecent images of themselves and physically harming pets The Com: the global cybercrime network posing a ‘chilling threat’ to children A 20-year-old man from north-east England has been jailed for blackmailing vulnerable girls around the world, prompting a senior police officer to urge parents to regularly check their children’s devices. Beau-Jack Mensforth admitted 17 offences of making and distributing indecent photographs of children, blackmail, and participating in the activities of an organised crime group. Continue reading...",
+    "link": "https://www.theguardian.com/uk-news/2026/nov/27/man-jailed-in-newcastle-for-blackmailing-vulnerable-girls-online",
+    "source": "The Guardian Cybercrime",
+    "type": "cybercrime",
+    "type_label": "Cybercrime, Darknet & Leaks",
+    "published": "2026-11-27T17:27:03+00:00",
+    "published_ts": 1795800423,
+    "smart_groups": [
+      "Curated",
+      "Ransomware",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Where Deception Fits in a Zero Trust Threat Hunting Framework",
+    "summary": "Key Takeaways Zero Trust controls access, but cannot always identify malicious activity from compromised accounts or legitimate-looking sessions. Deception technology uses decoys and breadcrumbs to expose attackers through high-confidence alerts. Fake credentials and deceptive assets help detect credential theft, reconnaissance, and lateral movement. Integrating deception with network, endpoint, and identity telemetry strengthens threat hunting. Risk-based […] The post Where Deception Fits in a Zero Trust Threat Hunting Framework appeared first on Fidelis Security .",
+    "link": "https://fidelissecurity.com/threatgeek/deception/threat-hunting-framework-zero-trust/",
+    "source": "Fidelis Security",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-11-27T17:22:26+00:00",
+    "published_ts": 1795800146,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Cyberattack on Supermarket Refrigerators: How Hackers Drive Public Panic",
+    "summary": "hi The post Cyberattack on Supermarket Refrigerators: How Hackers Drive Public Panic appeared first on .",
+    "link": "https://www.news4hackers.com/cyberattack-on-supermarket-refrigerators-how-hackers-drive-public-panic/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T17:17:15+00:00",
+    "published_ts": 1795799835,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Critical Drupal Security Flaw Leads to Site Takeover Attacks",
+    "summary": "Drupal Security Vulnerability Drupal has identified a critical vulnerability that enables unauthorized individuals to seize... The post Critical Drupal Security Flaw Leads to Site Takeover Attacks appeared first on .",
+    "link": "https://www.news4hackers.com/critical-drupal-security-flaw-leads-to-site-takeover-attacks/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T17:16:04+00:00",
+    "published_ts": 1795799764,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Fake Car Diagnostic Tools on GitHub Distribute Malware to Repair Shops",
+    "summary": "Cybercriminals have established a new threat vector by distributing malicious software through fake automotive diagnostic... The post Fake Car Diagnostic Tools on GitHub Distribute Malware to Repair Shops appeared first on .",
+    "link": "https://www.news4hackers.com/fake-car-diagnostic-tools-on-github-distribute-malware-to-repair-shops/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T17:14:46+00:00",
+    "published_ts": 1795799686,
+    "smart_groups": [
+      "Malware / Payloads"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Game Mining vs Real Crypto Mining: Key Differences",
+    "summary": "Crypto gaming platforms present an alternative method for earning digital assets, simulating cryptocurrency mining through... The post Game Mining vs Real Crypto Mining: Key Differences appeared first on .",
+    "link": "https://www.news4hackers.com/game-mining-vs-real-crypto-mining-key-differences/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T17:13:32+00:00",
+    "published_ts": 1795799612,
+    "smart_groups": [
+      "Crypto / Web3"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Nvidia's Blackwell Chips Turn Up in China as Trump Floats Government Stake",
+    "summary": "Banned Nvidia racks were found at a Shanghai data center tied to Alice Huang, as Trump said the U.S. could still take a stake in the firm.",
+    "link": "https://decrypt.co/384153/nvidias-blackwell-chips-turn-up-in-china-as-trump-floats-government-stake",
+    "source": "Decrypt",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T17:09:30+00:00",
+    "published_ts": 1795799370,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Unpatched Cacti zero-day with public PoC gives remote code execution",
+    "summary": "A zero-day vulnerability in the Cacti network monitoring platform has been publicly disclosed, along with a proof-of-concept exploit that lets unauthenticated attackers execute commands on vulnerable servers. [...]",
+    "link": "https://www.bleepingcomputer.com/news/security/unpatched-cacti-zero-day-with-public-poc-gives-remote-code-execution/",
+    "source": "BleepingComputer",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T17:06:13+00:00",
+    "published_ts": 1795799173,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Suspected Vietnam-Linked Hackers Target Southeast Asia in South China Sea Espionage Campaign",
+    "summary": "A Vietnam-sponsored hacking group has been attributed to attacks targeting Southeast Asian military, government, and legislative organizations with an aim to gather intelligence on South China Sea defense and military agreements. The previously undocumented incursion set, detailed by SOCRadar, has been codenamed WeaveLotus. The activity is assessed to have comprised five intrusions in Thailand",
+    "link": "https://thehackernews.com/2026/11/suspected-vietnam-linked-hackers-target.html",
+    "source": "The Hacker News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T16:36:11+00:00",
+    "published_ts": 1795797371,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "AI-Powered GTA 6 PC Ports Now Have Multiplayer as Modders Unlock 30 and 60 FPS",
+    "summary": "Modders have added multiplayer to an unofficial PC port and unlocked higher frame rates on jailbroken consoles.",
+    "link": "https://decrypt.co/384138/ai-powered-gta-6-pc-ports-now-have-multiplayer-as-modders-unlock-30-and-60-fps",
+    "source": "Decrypt",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T16:21:40+00:00",
+    "published_ts": 1795796500,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Matters.AI Lands India’s Largest Cybersecurity Pre-Series A Round to Fight AI Data Risks",
+    "summary": "The security startup consolidates four legacy security tools into an autonomous platform that uses context-aware AI to trace sensitive data lineage, analyze user intent, and automatically remediate threats across enterprise environments.",
+    "link": "https://www.darkreading.com/cyber-risk/matters-india-cybersecurity-pre-series-ai-data-risks",
+    "source": "darkreading",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T15:27:20+00:00",
+    "published_ts": 1795793240,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "ownCloud Infinite Scale 8.2 updates round-up (8.2.1 to 8.2.4)",
+    "summary": "Four ownCloud Infinite Scale 8.2 patch releases, one friendly round-up Between 2 October and 26 November we shipped four maintenance releases for oCIS 8.2. Here’s what changed, what we’d like you to do, and what you can leave alone. If you run ownCloud Infinite Scale (oCIS), you may have noticed a steady stream of patch […]",
+    "link": "https://owncloud.com/blogs/owncloud-infinite-scale-8-2-updates-round-up-8-2-1-to-8-2-4/",
+    "source": "https://owncloud.com/feed/",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-11-27T15:24:48+00:00",
+    "published_ts": 1795793088,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "ownCloud Infinite Scale 9.0 release candidates (rc.1 to rc.3)",
+    "summary": "ownCloud Infinite Scale 9.0 is taking shape: what’s in the release candidates, and how you can help Three release candidates are out, and 9.0.0 is scheduled for 4 December. Here’s what’s inside, what to watch for, and where we’d love your feedback. ownCloud Infinite Scale (oCIS) 9.0 isn’t final yet, but it’s far enough along […]",
+    "link": "https://owncloud.com/blogs/owncloud-infinite-scale-9-0-release-candidates-rc-1-to-rc-3/",
+    "source": "https://owncloud.com/feed/",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-11-27T15:14:26+00:00",
+    "published_ts": 1795792466,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "US Air Force cloud platform reportedly hacked in latest federal breach",
+    "summary": "Hackers have reportedly breached the US Air Force's Cloud One computing platform, adding to a recent wave of cyberattacks affecting US government agencies, including the FBI, CIA, and Treasury Department. [...]",
+    "link": "https://www.bleepingcomputer.com/news/security/us-air-force-cloud-platform-reportedly-hacked-in-latest-federal-breach/",
+    "source": "BleepingComputer",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T15:09:40+00:00",
+    "published_ts": 1795792180,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Air Force Cloud One Breach: Updates Blocked, Migration Paused, Scope Unknown",
+    "summary": "Reuters reports a breach of the US Air Force’s Cloud One. The scope, attackers and data stolen remain unknown; updates are blocked. Reuters reports that hackers have breached Cloud One, one of the US Air Force ‘s main cloud computing platforms. The breach could put a large amount of sensitive military data at risk, including […]",
+    "link": "https://securityaffairs.com/204136/security/air-force-cloud-one-breach-updates-blocked-migration-paused-scope-unknown.html",
+    "source": "Security Affairs",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T15:03:05+00:00",
+    "published_ts": 1795791785,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Your Firewall Isn't Enough: The Hidden Risk of Unmanaged VMs",
+    "summary": "Forgotten virtual machines, unpatched servers, and excessive access permissions can create security blind spots across IT infrastructure. ISPsystem explains how centralized infrastructure management, access controls, and resource lifecycle automation can help reduce these risks. [...]",
+    "link": "https://www.bleepingcomputer.com/news/security/your-firewall-isnt-enough-the-hidden-risk-of-unmanaged-vms/",
+    "source": "BleepingComputer",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T15:00:10+00:00",
+    "published_ts": 1795791610,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Drupal sites are being hijacked, and a follow-up flaw is already under attack",
+    "summary": "Attackers are exploiting a second critical Drupal flaw. Some sites remained vulnerable even after the first patch.",
+    "link": "https://www.malwarebytes.com/blog/bugs/2026/11/drupal-sites-are-being-hijacked-and-a-follow-up-flaw-is-already-under-attack",
+    "source": "Malwarebytes Labs",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T14:53:16+00:00",
+    "published_ts": 1795791196,
+    "smart_groups": [
+      "Curated",
+      "Exploit / PoC"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Hackers Set Freezer Controls to 100°C, Then Lock Technicians Out of the System",
+    "summary": "Hackers changed a freezer chamber’s temperature setting to 100°C at Salamerija Alpija, a meat processing plant in Tolmin, Slovenia. When a service technician tried to sign in to the cooling control system, his access was blocked. Instead of the controls, his screen showed a photo of Italian minister Matteo Salvini with a caption that translates […] The post Hackers Set Freezer Controls to 100°C, Then Lock Technicians Out of the System appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/freezer-control-cyberattack/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T14:52:38+00:00",
+    "published_ts": 1795791158,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "12-Year-Old NFS2ROOT Linux Flaw Let Hackers Take Full Control of Servers Without a Password",
+    "summary": "A critical Linux kernel flaw called NFS2ROOT could let an attacker take full control of an unpatched Network File System (NFS) server without logging in. The vulnerability, tracked as CVE-2026-99362, affects the Linux kernel’s NFS server when NFSv4.1 or NFSv4.2 is enabled and an attacker can reach TCP port 2049. The affected code dates back […] The post 12-Year-Old NFS2ROOT Linux Flaw Let Hackers Take Full Control of Servers Without a Password appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/nfs2root-linux-vulnerability/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T14:48:39+00:00",
+    "published_ts": 1795790919,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Linux / Unix"
+    ],
+    "curated": true
+  },
+  {
+    "title": "What was Coinbase worth while Nasdaq was closed?",
+    "summary": "A Thanksgiving buyer paid 106.24 USDC per Coinbase share. Whether that looked like a holiday rally depended on when you’d last checked the stock.",
+    "link": "https://cointelegraph.com/news/what-was-coinbase-worth-while-nasdaq-was-closed?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T14:40:54+00:00",
+    "published_ts": 1795790454,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Japan’s education ministry discloses breach of government procurement system",
+    "summary": "Japan’s education ministry disclosed earlier this week that hackers breached its government procurement system, potentially exposing records containing business information and email addresses.",
+    "link": "https://therecord.media/japan-education-ministry-cyberattack",
+    "source": "The Record – Cybercrime",
+    "type": "cybercrime",
+    "type_label": "Cybercrime, Darknet & Leaks",
+    "published": "2026-11-27T14:15:00+00:00",
+    "published_ts": 1795788900,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Hackers Break Into U.S. Air Force Cloud Platform Used to Manage Military Operations and Data",
+    "summary": "Hackers broke into Cloud One, the U.S. Air Force’s main cloud computing platform, putting sensitive military, personnel, and logistics data at risk. Three people familiar with the breach told Reuters about the intrusion. Two said it was discovered during upgrade work within roughly a month of the November 27 report. It was not determined who […] The post Hackers Break Into U.S. Air Force Cloud Platform Used to Manage Military Operations and Data appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/hackers-break-u-s-air-force-cloud/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T14:01:11+00:00",
+    "published_ts": 1795788071,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Network / OT / ICS"
+    ],
+    "curated": true
+  },
+  {
+    "title": "'God Mode' Flaws Could Wreak Border-Control Havoc",
+    "summary": "Attackers could have disrupted traveler entry into Nigeria, Ethiopia, Zambia, Sri Lanka, Fiji, and Ghana via several vulnerabilities in their online visa and immigration systems.",
+    "link": "https://www.darkreading.com/vulnerabilities-threats/god-mode-flaws-wreak-border-control-havoc",
+    "source": "darkreading",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T14:00:00+00:00",
+    "published_ts": 1795788000,
+    "smart_groups": [
+      "Vulnerabilities / CVEs",
+      "Cloud / SaaS"
+    ],
+    "curated": false
+  },
+  {
+    "title": "The Good, the Bad and the Ugly in Cybersecurity - Week 48 (2026)",
+    "summary": "Police disrupt 57 illegal streaming services, Com affiliates hijack cloud accounts via vishing, and ARTEX AI is reportedly used to breach a CIA system.",
+    "link": "https://www.sentinelone.com/blog/the-good-the-bad-and-the-ugly-in-cybersecurity-week-48-8",
+    "source": "https://www.sentinelone.com/feed/",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-11-27T14:00:00+00:00",
+    "published_ts": 1795788000,
+    "smart_groups": [
+      "Phishing / Social Engineering"
+    ],
+    "curated": false
+  },
+  {
+    "title": "What's on the Ethereum Roadmap: Glamsterdam, Hegotá and Beyond",
+    "summary": "Ethereum has rolled out a steady stream of upgrades since 2022. Here’s how those changes fit together—and what’s still ahead.",
+    "link": "https://decrypt.co/resources/whats-on-ethereum-roadmap-glamsterdam-hegota-beyond",
+    "source": "Decrypt",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T13:50:04+00:00",
+    "published_ts": 1795787404,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Binance to launch tokenized IPO program after regulatory approval: Yi He",
+    "summary": "Binance is hiring for equity capital markets roles, including an analyst to develop tokenized equity products and assess prospective issuers.",
+    "link": "https://cointelegraph.com/news/binance-ipo-program-regulatory-approval-yi-he?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T13:44:00+00:00",
+    "published_ts": 1795787040,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "CVE-2026-132165: Drupal Fail2Install RCE Exploited in the Wild",
+    "summary": "Drupal administrators are facing an actively exploited vulnerability tracked as CVE-2026-132165, also known as Fail2Install, that can allow an unauthenticated attacker to force a live Drupal website back into its installation workflow. Under specific conditions, this can lead to complete site takeover or pre-authentication remote code execution. Drupal originally disclosed the vulnerability on November 18, […] The post CVE-2026-132165: Drupal Fail2Install RCE Exploited in the Wild appeared first on SOC Prime .",
+    "link": "https://socprime.com/blog/cve-2026-132165-drupal-fail2install-rce-exploited-in-the-wild/",
+    "source": "SOC Prime Blog",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-11-27T13:39:03+00:00",
+    "published_ts": 1795786743,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Pluralistic: Taylorism and AI's shared sales-pitch (27 Nov 2026)",
+    "summary": "Today's links Taylorism and AI's shared sales-pitch: Bosses will buy anything if they think it'll give them more control over their workers. Hey look at this: Delights to delectate. Object permanence: UK recordings copyright won't go to 95 years; McDonald's sandwich patent; McLaren's son torches punk tat; Chestburster turkey; O(N^2) nationalism. Upcoming appearances: Virtual, Oxford, Santa Barbara, Montreal. Recent appearances: Where I've been. Latest books: You keep readin' em, I'll keep writin' 'em. Upcoming books: Like I said, I'll keep writin' 'em. Colophon: All the rest. Taylorism and AI's shared sales-pitch (permalink) More than a century ago, the most powerful, wealthiest men in the world fell for a con-artist named Frederick Winslow Taylor, who sold them expensive consulting services to help them apply \"Scientific Management\" to their companies: https://en.wikipedia.org/wiki/Frederick_Winslow_Taylor Upon receipt of eye-popping consulting fees, Taylor dispatched unqualified young men in \"scientist\" drag (lab coats, clipboards, stopwatches) to fan out over factory floors. These smart young men noted how much time each worker at each station took to perform each task, then \"optimized\" each worker using a homebrew choreographer's notation that showed the \"correct\" way to make each motion and set an upper bound for how many seconds it should take to perform each task. Notably, these \"scientists\" refused to discuss their findings with the workers they observed: they never asked why a worker made a specific motion or tackled a task in a certain way. The workers were presumed to be ploddingly unreflective about their jobs (at best), or malicious featherbedders who were stealing from the boss by slacking off (at worst). Either way, Taylor's \"scientists\" could see no reason to discuss their findings with the workers. The job of the \"scientists\" was to transform those workers into a well-oiled machine, and no one but a blockhead would ask a piston or a gear why it chose to move the way it did. To use a technical term, these \"scientists\" were fucking idiots and their recommendations were (to use another technical term) bullshit. Not only did they set impossible quotas for workers, they were also notably bad at choreography and routinely required workers to move in ways that resulted in early fatigue and high rates of injury. Wherever Taylor's \"scientists\" went, morale plunged, labor unrest surged, and the business was made worse off. Which all raises a question: why would the owners of these businesses – who had the intelligence and self-interest to build up extremely profitable enterprises – throw away their money and kneecap their firms on this charlatanry? The answer lies in the psychology of Taylor's sales-pitch. Taylor's marks owed their fortunes and power to their ability to scale up their firms to sizes never before seen, thanks to innovations like the assembly line and to exogenous factors like mechanized transportation and long-distance telecommunications, which let them address much larger markets than their predecessors. The downside to this was a large workforce (too large to keep individual tabs on) that was spread out over a large factory floor or complex (too large to constantly observe). This created a paradox: these powerful, wealthy men were vulnerable to the lowest footsoldiers in their laboring armies, any of whom might slack off, organize a union or sabotage the line, safe in the knowledge that they were part of a vast cohort that could neither be tractably surveilled nor controlled. Imagine the indignation those industrial titans must have experienced at the thought that some mere pismire could blacken their eyes and destroy their profits, and nothing could be done about it! After all, the quest for wealth and power is, above everything else, the quest for impunity, for an existence in which you can never be thwarted: https://pluralistic.net/2026/10/09/impunitism/#rats-eating-my-face The Robber Barons' fury at this indignity made them easy marks for Taylor's salesmen, who promised them a return to the natural order in which workers would be literally reduced to machine-parts. After Taylor's men had done their jobs, the boss could strut the catwalks high above the factory floor and observe a visibly cowed workforce, where every worker's every moment was a constant reminder that they were there to do as they were told, not to exercise judgment, air grievances, or act in their own self-interest. Like every power-tripping control freak, these business tyrants were their own worst enemies, doomed to a long and humiliating Tarkin's Downfall (\"The more you tighten your grip, Tarkin, the more star systems will slip through your fingers\" – P.L. Organa). Taylor was no master of improving industrial production, but he was a genius at figuring out how to sell things to anxious bosses. I don't know whether Taylor believed his nonsense: he might have been every bit as satisfied as his marks at the sight of a factory full of human workers who'd been reduced to the state of machine-parts. Perhaps he truly had no inkling that the reason his services sold so well is that they played perfectly on the insecurities of business tyrants. Or maybe he was a cynic with a thorough grasp of oligarch psychology and a total indifference to the quality of workers' lives and the long-term health of his customers' business interests. Perhaps some of Taylor's executives were true believers, while others were cynics, and together they formed an unbeatable partnership because the former would go where the latter would not (and vice versa): https://pluralistic.net/2026/07/24/supplemental-income/#andrew-tate-gwyneth-paltrow It doesn't matter. The purpose of a system is what it does. Taylor created a template for selling garbage products to insecure bosses that made workers' lives worse and undermined the health of the firm, and that template has been mobilized by firms large and small in the years since. Every bossware company that made bank selling companies surveillance tools during the pandemic's work-from-home phase wasn't just doing Taylorism(1) (timing, surveilling and scoring workers), but also Taylorism(2) (fleecing bosses who were terrified of their workforce's power and independence): https://pluralistic.net/2024/08/02/despotism-on-demand/#virtual-whips (In case you have any doubt, yes, this is a post about AI.) Many workers – and even managers – have expressed bafflement at their bosses' love-affairs with AI. Even workers who can see ways to use AI tools to improve their jobs around the margins are shocked (and sometimes resentful) at their bosses' insistence that they use AI for everything, even when that adds expense and reduces quality: https://pluralistic.net/2026/08/01/dare-snot/#i-will-fucking-piledrive-you-if-you-mention-ai-again At the heart of this confusion is the fact that these same bosses are usually unwavering when it comes to measuring profit and loss and requiring a solid business-case for major shifts in corporate organization. Despite this, an AI pitchman can send these bosses swooning with all the ardor of Jensen Huang meeting an attractive woman who flirtatiously asks him to take her on a \"quirky\" date, say, to one of his chip warehouses? Bosses are such easy marks for AI pitchmen for the same reason their predecessors were easy marks for Taylor's salesforce. The modern boss is a financial engineer, possibly with a law degree, whose main expertise is in balance-sheet manipulation and shareholder relations. These bosses don't know how to do anything. They can come up with as many amazing plans to revolutionize their businesses as they want, but inevitably, those plans lead to ego-shattering confrontations with skilled workers who tell them that all their ideas are impossible, illegal, or stupid: https://pluralistic.net/2026/01/05/fisher-price-steering-wheel/#billionaire-solipsism Enter the AI salesman, offering the prospect of a new workforce of literal mechanical slaves, whose presence allows the boss to fire 90% of their workers, with the result that the remaining workers will be so terrorized at the thought of losing their jobs that they never even think of sassing back: https://pluralistic.net/2026/07/10/posthuman-as-in-no-humans/#hell-is-other-people This won't work. Replacing workers with chatbots is as counterproductive as putting one of Taylor's choreographers in charge of them. Sure, AI can help workers: if the workers get to decide how the chatbots are integrated into their jobs, and if this integration doesn't increase the pace of work, making it impossible for the human workers to catch the machine's mistakes: https://pluralistic.net/2025/12/05/pop-that-bubble/#u-washington After all, the statistical methods used to produce AI outputs produce errors that are as close to being correct as is statistically possible, while still being wrong: https://pluralistic.net/2026/10/06/nonfungible/#theory-free Ergonomics are real. Taylorism is fake. Automation is real. AI is fake: https://pluralistic.net/2026/09/12/god-in-the-box/#llms-are-fake Statistical extrapolation tools can lead to productivity gains – just as incorporating ergonomic principles into the design of the job-site can improve productivity and reduce injury. But in both cases, the gains are contingent on the workers having a say in the deployment and a veto over demands that don't work for them. But that's not how you sell Taylorism…or AI. The pitch isn't about making the business more profitable or efficient. Such a proposition has limited efficacy and competes against other forms of capital investment that might be better for the bottom line. The pitch is about easing the psychological trauma of being the boss but not being able to boss people around. That's an unbeatable proposition. No one will ever lose money by betting on the insecurities of America's business tyrants. Hey look at this (permalink) Welcome to the Madhouse https://www.antipope.org/charlie/blog-static/2026/11/welcome-to-the-idiocracy.html Zangemann’s latest inventions https://zangemann.com/en/ Kagi Watch https://kagi.com/watch Chinese households shed trillions in consumer debt https://archive.is/G58Mx#selection-1589.0-1589.50 Object permanence (permalink) #25yrsago Wil Wheaton on The Weakest Link https://yro.slashdot.org/story/01/11/27/0214230/wil-wheaton-playing-for-eff #20yrsago UK recording copyrights won’t go to 95 years http://news.bbc.co.uk/1/hi/entertainment/6186436.stm #20yrsago McDonald’s tries to patent sandwich-making https://web.archive.org/web/20061206043545/http://www.metro.co.uk/news/article.html?in_article_id=26183&in_page_id=34 #20yrsago Australia’s copyright law breaks search engines https://web.archive.org/web/20061206023332/http://www.abc.net.au/news/newsitems/200611/s1782921.htm #15yrsago Judge exercises extreme sarcasm on US Bank https://www.huffingtonpost.co.uk/entry/dennis-blackmon-georgia-judge-mocks-us-bank-denied-mortgage-modification_n_1094797 #15yrsago Interrogation of Byron Sonne, Toronto G20 hacker on trumped up charges for mocking G20 security https://web.archive.org/web/20111128231050/http://toronto.openfile.ca/toronto/text/video-how-byron-sonne-blinded-us-science #10yrsago The next four years in one GIF https://memex.craphound.com/2016/11/26/the-next-four-years-in-one-gif/ #10yrsago Malcolm McLaren’s son torched his punk collection to protest the 40th anniversary of punk “celebrations” https://www.bbc.co.uk/news/uk-38120496 #10yrsago To see what Trump will do to America, look to his disastrous walled Scottish golf course https://www.nytimes.com/2016/11/25/world/europe/donald-trump-scotland-wall.html #10yrsago Chestburster roast turkey https://bloody-disgusting.com/movie/3415757/aliens-inspired-chest-burster-turkey-recipe/ #5yrsago UK ICO: surveillance advertising is dead https://pluralistic.net/2021/11/26/ico-ico/#market-structuring #1yrago O(N^2) nationalism https://pluralistic.net/2025/11/26/difficult-multipolarism/#eurostack Upcoming appearances (permalink) Virtual: Enshittification, AI, and the Future of Technology (UBC Master of Educational Technology), Nov 28 https://met.ubc.ca/2026/09/met-speaker-series-cory-doctorow-enshittification-ai-and-the-future-of-technology/ Oxford: Bennett Oxford Symposium on Open Code in Science, Dec 8 https://www.bennett.ox.ac.uk/events/2026-bennett-institute-symposium/ Santa Barbara: UCSB Reads, Apr 29 https://www.library.ucsb.edu/events-exhibitions/ucsb-reads-2027-presents-author-cory-doctorow Montreal: World Science Fiction Convention, Sep 2-6 https://montreal2027.ca/en Recent appearances (permalink) Beyond the robot apocalypse – who really wins in a world of AI? (ABC Conversations) https://www.abc.net.au/listen/programs/conversations/cory-doctorow-artificial-intelligence/107388236 How AI is Breaking the Internet (and Everything Else) (Blood in the Machine) https://www.youtube.com/watch?v=mXRaPjFRyT0 Clint Eastwood (No Gods No Mayors) https://www.patreon.com/NoGodsNoMayors/posts/clint-eastwood-173008088 Life After AI (Brain Bar) https://www.youtube.com/watch?v=IPPa43-n0vI Terms of Service with Clare Duffy (CNN) https://www.cnn.com/audio/podcasts/terms-of-service-with-clare-duffy/episodes/458ce968-af5d-11f0-b539-13ed2afe25f8 Latest books (permalink) \"The Reverse-Centaur's Guide to AI,\" a short book about being a better AI critic, Farrar, Straus and Giroux, June 2026 https://us.macmillan.com/books/9780374621568/thereversecentaursguidetolifeafterai/ \"Canny Valley\": A limited edition collection of the collages I create for Pluralistic, self-published, September 2025 https://pluralistic.net/2025/09/04/illustrious/#chairman-bruce \"Enshittification: Why Everything Suddenly Got Worse and What to Do About It,\" Farrar, Straus, Giroux, October 7 2025 https://us.macmillan.com/books/9780374619329/enshittification/ \"Picks and Shovels\": a sequel to \"Red Team Blues,\" about the heroic era of the PC, Tor Books (US), Head of Zeus (UK), February 2025 (https://us.macmillan.com/books/9781250865908/picksandshovels). \"The Bezzle\": a sequel to \"Red Team Blues,\" about prison-tech and other grifts, Tor Books (US), Head of Zeus (UK), February 2024 (thebezzle.org). \"The Lost Cause:\" a solarpunk novel of hope in the climate emergency, Tor Books (US), Head of Zeus (UK), November 2023 (http://lost-cause.org). \"The Internet Con\": A nonfiction book about interoperability and Big Tech (Verso) September 2023 (http://seizethemeansofcomputation.org). Signed copies at Book Soup (https://www.booksoup.com/book/9781804291245). \"Red Team Blues\": \"A grabby, compulsive thriller that will leave you knowing more about how the world works than you did before.\" Tor Books http://redteamblues.com. \"Chokepoint Capitalism: How to Beat Big Tech, Tame Big Content, and Get Artists Paid, with Rebecca Giblin\", on how to unrig the markets for creative labor, Beacon Press/Scribe 2022 https://chokepointcapitalism.com Upcoming books (permalink) \"The Post-American Internet,\" a geopolitical sequel of sorts to Enshittification, Farrar, Straus and Giroux, 2027 \"Unauthorized Bread\": a middle-grades graphic novel adapted from my novella about refugees, toasters and DRM, FirstSecond, April 20, 2027 \"Enshittification, Why Everything Suddenly Got Worse and What to Do About It\" (the graphic novel), Firstsecond, 2027 \"The Memex Method,\" Farrar, Straus, Giroux, 2027 Colophon (permalink) Today's top sources: Currently writing: “Once Is Enemy Action,” a science fiction novel about the origins of modern technofascism. Today's words: 513 (40187 total). \"The Post-American Internet,\" a sequel to \"Enshittification,\" about the better world the rest of us get to have now that Trump has torched America. Fourth draft completed. Submitted to editor. A Little Brother short story about DIY insulin PLANNING This work – excluding any serialized fiction – is licensed under a Creative Commons Attribution 4.0 license. That means you can use it any way you like, including commercially, provided that you attribute it to me, Cory Doctorow, and include a link to pluralistic.net. https://creativecommons.org/licenses/by/4.0/ Quotations and images are not included in this license; they are included either under a limitation or exception to copyright, or on the basis of a separate license. Please exercise caution. How to get Pluralistic: Blog (no ads, tracking, or data-collection): Pluralistic.net Newsletter (no ads, tracking, or data-collection): https://pluralistic.net/plura-list Mastodon (no ads, tracking, or data-collection): https://mamot.fr/@pluralistic Bluesky (no ads, possible tracking and data-collection): https://bsky.app/profile/doctorow.pluralistic.net Medium (no ads, paywalled): https://doctorow.medium.com/ Tumblr (mass-scale, unrestricted, third-party surveillance and advertising): https://mostlysignssomeportents.tumblr.com/tagged/pluralistic \"When life gives you SARS, you make sarsaparilla\" -Joey \"Accordion Guy\" DeVilla READ CAREFULLY: By reading this, you agree, on behalf of your employer, to release me from all obligations and waivers arising from any and all NON-NEGOTIATED agreements, licenses, terms-of-service, shrinkwrap, clickwrap, browsewrap, confidentiality, non-disclosure, non-compete and acceptable use policies (\"BOGUS AGREEMENTS\") that I have entered into with your employer, its partners, licensors, agents and assigns, in perpetuity, without prejudice to my ongoing rights and privileges. You further represent that you have the authority to release me from any BOGUS AGREEMENTS on behalf of your employer. ISSN: 3066-764X",
+    "link": "https://pluralistic.net/2026/11/27/taylor-made/",
+    "source": "https://pluralistic.net/feed/",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T13:38:29+00:00",
+    "published_ts": 1795786709,
+    "smart_groups": [
+      "Curated",
+      "Ransomware",
+      "Vulnerabilities / CVEs",
+      "Identity / Access",
+      "Network / OT / ICS"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Mitel security advisory (AV26-1212)",
+    "summary": "",
+    "link": "https://cyber.gc.ca/en/alerts-advisories/mitel-security-advisory-av26-1212",
+    "source": "Alerts and advisories",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T13:36:37+00:00",
+    "published_ts": 1795786597,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Binance Fully Lifts Withdrawal Suspension Four Weeks After $6.4B Hack",
+    "summary": "Binance has restored all withdrawals after October's hack, as the U.S. says it has helped freeze, seize or return $2.9 billion of the funds.",
+    "link": "https://decrypt.co/384121/binance-fully-lifts-withdrawal-suspension-four-weeks-after-6-4b-hack",
+    "source": "Decrypt",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T13:24:17+00:00",
+    "published_ts": 1795785857,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Hacker Playbook: Launch Cyberattacks on Supermarket Refrigerators To Drive Public Panic",
+    "summary": "This week in cybersecurity from the editors at Cybercrime Magazine Sausalito, Calif. – Nov. 27, 2026 – Listen to the Podcast Hackers raised the temperature of refrigerators and freezers at hundreds of French supermarkets to as high as 50 degrees Celsius (122 degrees Fahrenheit) overnight The post Hacker Playbook: Launch Cyberattacks on Supermarket Refrigerators To Drive Public Panic appeared first on Cybercrime Magazine .",
+    "link": "https://cybersecurityventures.com/hacker-playbook-launch-cyberattacks-on-supermarket-refrigerators-to-drive-public-panic/",
+    "source": "Cybersecurity Ventures",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T13:23:55+00:00",
+    "published_ts": 1795785835,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "FIFA hacked, cybercriminals claim access to sensitive internal records",
+    "summary": "Cybercriminals broke into FIFA’s systems and gained access to “a limited set of personal and business information,” world football’s governing body confirmed on Thursday. “FIFA is working closely with the relevant authorities, including law enforcement,” the Zurich-based football governing body told The Associated Press, without saying when the attack happened or what kind of information the intruders took. “FIFA condemns in the strongest possible terms the unlawful acquisition and publication of information, particularly personal data. … More → The post FIFA hacked, cybercriminals claim access to sensitive internal records appeared first on Help Net Security .",
+    "link": "https://www.helpnetsecurity.com/2026/11/27/fifa-cyberattack-data-leak/",
+    "source": "Help Net Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T13:21:50+00:00",
+    "published_ts": 1795785710,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Identity / Access"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Software giant SAP confirms cyber incident amid reports of source code breach",
+    "summary": "German software giant SAP confirmed a cybersecurity incident following reports that hackers infiltrated its software development infrastructure, potentially gaining access to the company’s source code.",
+    "link": "https://therecord.media/sap-germany-cyberattack-github",
+    "source": "The Record – Cybercrime",
+    "type": "cybercrime",
+    "type_label": "Cybercrime, Darknet & Leaks",
+    "published": "2026-11-27T13:15:00+00:00",
+    "published_ts": 1795785300,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Rad Pro Random Number Generator",
+    "summary": "Rad Pro, a custom firmware for Geiger counters/radiation meters, has a random number generator. It is a Hardware Random Number Generator, it generates random numbers from a physical process (radiation). From the main screen: You go into the settings menu to Random generator: And there you have many options: I select Alphanumeric, and this gives […]",
+    "link": "https://blog.didierstevens.com/2026/11/27/rad-pro-random-number-generator/",
+    "source": "https://blog.didierstevens.com/feed/",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T13:05:43+00:00",
+    "published_ts": 1795784743,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Brazil’s stock exchange pushes stablecoin launch back to 2027",
+    "summary": "Brazil’s stock exchange is working with six major financial institutions on a real-backed stablecoin that could launch as early as the first quarter of 2027.",
+    "link": "https://cointelegraph.com/news/brazil-b3-stablecoin-tokenization-launch-2027?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T12:39:54+00:00",
+    "published_ts": 1795783194,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Hackers Use Fake Facebook Ads to Spread Malware That Steals Business Accounts and Emails",
+    "summary": "Cybercriminals are buying the same Meta ad inventory that legitimate brands use. They use it to push the SYS01 infostealer, which targets Facebook Business accounts and turns each stolen account into funding for the next wave of ads. Thousands of ads were observed, and individual ads reached tens of thousands of people, mostly men aged […] The post Hackers Use Fake Facebook Ads to Spread Malware That Steals Business Accounts and Emails appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/fake-facebook-ads/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T12:32:44+00:00",
+    "published_ts": 1795782764,
+    "smart_groups": [
+      "Malware / Payloads"
+    ],
+    "curated": false
+  },
+  {
+    "title": "New SYS010 Malware Uses Fake Facebook Ads to Steal Meta Business Accounts and Gmail Data",
+    "summary": "Fake Facebook ads offering free animated Windows wallpapers are spreading SYS010, an information stealer that targets Meta Business accounts and webmail. The download delivers a working wallpaper app, but it also runs malware in the background. On selected computers, the malware forces browsers to install extensions that can steal session cookies and collect Facebook advertising […] The post New SYS010 Malware Uses Fake Facebook Ads to Steal Meta Business Accounts and Gmail Data appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/new-sys010-malware/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T12:29:38+00:00",
+    "published_ts": 1795782578,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Windows / Microsoft",
+      "Malware / Payloads"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Austria-supervised crypto firms report 20.4B euros in H1 trading volume",
+    "summary": "About 74% of accounts were based in other EEA countries, highlighting the market’s cross-border nature and putting Europe’s supervisory framework in focus, FMA said.",
+    "link": "https://cointelegraph.com/news/austria-supervised-crypto-firms-report-204b-h1-volume?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T12:20:00+00:00",
+    "published_ts": 1795782000,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Hackers Use Hidden Chrome Extension to Read Gmail Messages Without Stealing Passwords",
+    "summary": "Hackers using Remus Stealer can read unread Gmail messages without stealing the victim’s Google password. The Windows malware installs a Chrome extension disguised as Google Sheets, then uses the Gmail session already open in the browser. The victim does not have to open a message for the extension to collect it, putting private conversations, sign-in […] The post Hackers Use Hidden Chrome Extension to Read Gmail Messages Without Stealing Passwords appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/hackers-use-hidden-chrome-extension/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T12:19:36+00:00",
+    "published_ts": 1795781976,
+    "smart_groups": [
+      "Windows / Microsoft",
+      "Malware / Payloads"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Malware steals Gmail messages using a fake Google Sheets extension",
+    "summary": "Remus’s fake Chrome extension can read Gmail after a password change if you sign back in on the infected browser.",
+    "link": "https://www.malwarebytes.com/blog/news/2026/11/malware-steals-gmail-messages-using-a-fake-google-sheets-extension",
+    "source": "Malwarebytes Labs",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T12:09:14+00:00",
+    "published_ts": 1795781354,
+    "smart_groups": [
+      "Malware / Payloads"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Recent Outages Have Economic Causes",
+    "summary": "This essay originally appeared in The Guardian . It’s an expanded version of the one I posted as “ We Get the Infrastructure We Pay For .” It’s been a bad week for our computerized infrastructure. We’ve seen outages at Microsoft , the FAA , a handful of banks , United Airlines , an unnamed classified NSA network , and Apple . People should be forgiven for suspecting a coordinated cyberattack, a common cause, or at least a conspiracy. But there is none. The incidents are unrelated. They’re not the result of any cyberattack, coordinated or not. And, even more surprising, they don’t seem to be the result of AI. (We can’t say anything about the NSA; we’ll probably never know the details of that one.) It’s really just a series of unfortunate coincidences...",
+    "link": "https://www.schneier.com/blog/archives/2026/11/recent-outages-have-economic-causes.html",
+    "source": "Schneier on Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T12:02:23+00:00",
+    "published_ts": 1795780943,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "CISA Adds Three Known Exploited Vulnerabilities to Catalog",
+    "summary": "CISA has added three new vulnerabilities to its Known Exploited Vulnerabilities (KEV) Catalog , based on evidence of active exploitation. CVE-2026-120705 OSGeo GeoServer XML Injection Vulnerability CVE-2026-129243 OSGeo GeoServer Incorrect Authorization Vulnerability CVE-2026-136716 Drupal Core Improper Check for Unusual or Exceptional Conditions Vulnerability These types of vulnerabilities are a frequent attack vector for malicious cyber actors and pose significant risks to the federal enterprise. Binding Operational Directive (BOD) 26-04: Prioritizing Security Updates Based on Risk establishes vulnerability management requirements for Federal Civilian Executive Branch (FCEB) agencies. BOD 26-04 reinforces the importance of the KEV Catalog and requires federal agencies to prioritize rapid remediation of high-risk vulnerabilities, specifically those identified by Common Vulnerabilities and Exposures (CVEs) listed in CISA’s KEV Catalog on publicly exposed assets that grant total control of the asset post-exploitation, while deferring action for lower-risk vulnerabilities. BOD 26-04 further establishes basic expectations for when agencies must check whether threat actors compromised the system before the patch was applied. While BOD 26-04 applies only to FCEB agencies, CISA encourages all organizations to adopt risk-based vulnerability management and prioritize remediation of KEV Catalog vulnerabilities . CISA will continue to add vulnerabilities to the catalog that meet the specified criteria . Aware of an exploited vulnerability not currently listed in the KEV Catalog? Submit it for potential addition through CISA’s KEV Nomination Form . Potential KEV additions must have a CVE ID, evidence of exploitation, and clear mitigation guidance.",
+    "link": "https://www.cisa.gov/news-events/alerts/2026/11/27/cisa-adds-three-known-exploited-vulnerabilities-catalog",
+    "source": "US-CERT – Current Activity",
+    "type": "government",
+    "type_label": "Government, CERT & Advisories",
+    "published": "2026-11-27T12:00:00+00:00",
+    "published_ts": 1795780800,
+    "smart_groups": [
+      "Curated",
+      "Ransomware",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC",
+      "Data Breaches / Leaks"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Microsoft Store App Found Delivering Vinci RAT Capable of Remote System Control",
+    "summary": "Cybersecurity researchers have disclosed details of a cyber attack in which a threat actor leveraged a Microsoft Store application to deliver a remote access trojan (RAT) called Vinci RAT. The intrusion, according to eSentire, begins with a redirection to a bogus site for a sniping tool (\"snipp.codes-team[.]com\"), from where a Microsoft-signed installer called \"Snipping-Tool.exe\" is",
+    "link": "https://thehackernews.com/2026/11/microsoft-store-app-found-delivering.html",
+    "source": "The Hacker News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T11:49:34+00:00",
+    "published_ts": 1795780174,
+    "smart_groups": [
+      "Curated",
+      "Malware / Payloads"
+    ],
+    "curated": true
+  },
+  {
+    "title": "SAP Security Incident: Stolen Tokens Raise Supply Chain Concerns",
+    "summary": "SAP confirms a security incident as reports point to stolen GitHub tokens and altered source code. Data breach remains unconfirmed. SAP has confirmed a security incident, and most of the details come from the press, not from the company. The global enterprise found suspicious activity in its IT systems. DER SPIEGEL reported that attackers stole […]",
+    "link": "https://securityaffairs.com/204121/data-breach/sap-security-incident-stolen-tokens-raise-supply-chain-concerns.html",
+    "source": "Security Affairs",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T11:39:20+00:00",
+    "published_ts": 1795779560,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Data Breaches / Leaks"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Hackers Hide Malware as Google Sheets to Secretly Read Your Gmail Messages",
+    "summary": "Remus Stealer’s operators are advertising a way to open a victim’s Gmail inbox directly from a stolen-device record. They claim access survives password changes and session revocation. The evidence points to a mailbox-access workflow built into an infostealer service. It does not show a Gmail zero-day. The version 1.3.9 announcement promotes email-code interception without collecting […] The post Hackers Hide Malware as Google Sheets to Secretly Read Your Gmail Messages appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/secret-gmail-access/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T11:36:59+00:00",
+    "published_ts": 1795779419,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Malware / Payloads"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Kalshi Courts Small Businesses With 'Microinsurance' as State Crackdowns Bite",
+    "summary": "Kalshi says about 500 businesses have used it to hedge risks such as tariffs and bad weather, as legal fights weigh on its sports markets.",
+    "link": "https://decrypt.co/384118/kalshi-courts-small-businesses-with-microinsurance-as-state-crackdowns-bite",
+    "source": "Decrypt",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T11:19:47+00:00",
+    "published_ts": 1795778387,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Microsoft removes WSUS server role in Windows Server 2028",
+    "summary": "Microsoft will remove the WSUS server role from Windows Server 2028, the next major release of its server operating system. [...]",
+    "link": "https://www.bleepingcomputer.com/news/microsoft/microsoft-removes-wsus-server-role-in-windows-server-2028/",
+    "source": "BleepingComputer",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T11:18:36+00:00",
+    "published_ts": 1795778316,
+    "smart_groups": [
+      "Windows / Microsoft"
+    ],
+    "curated": false
+  },
+  {
+    "title": "UK Welfare and Pension Services Taken Offline Following Cyber Incident",
+    "summary": "The DWP said that online services had been taken offline as a precaution following a cyber-incident, regular pension and benefit payments have not been affected",
+    "link": "https://www.infosecurity-magazine.com/news/uk-welfare-services-offline/",
+    "source": "Infosecurity Magazine – News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T11:15:00+00:00",
+    "published_ts": 1795778100,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Bitcoin supply metric hits 11-year low as new ‘capitulation’ signal arrives",
+    "summary": "The seven-day moving average of Bitcoin’s supply profit/loss ratio hit an 11-year low as BTC price losses month-to-date remain near 20%.",
+    "link": "https://cointelegraph.com/markets/bitcoin-supply-metric-new-capitulation-signal?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T11:14:28+00:00",
+    "published_ts": 1795778068,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Chinese and North Korean state hackers add ARTEX AI framework to their arsenal",
+    "summary": "State-sponsored hacking groups tied to Beijing and Pyongyang have started running the ARTEX pentesting tool in attacks, Microsoft Threat Intelligence warned this week. Published on GitHub in July 2026 by a user going by Autumn-27, ARTEX is an LLM-driven open-source penetration testing framework that runs attacks largely on its own, with the operator setting a goal and AI agents planning and carrying out the steps needed to reach it. In November, China-based cybersecurity company ThreatBook … More → The post Chinese and North Korean state hackers add ARTEX AI framework to their arsenal appeared first on Help Net Security .",
+    "link": "https://www.helpnetsecurity.com/2026/11/27/artex-ai-pentest-framework-china-north-korea-state-hackers/",
+    "source": "Help Net Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T11:06:57+00:00",
+    "published_ts": 1795777617,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Flight Centre Cyber Breach: Customer Data Potentially Accessed",
+    "summary": "Flight Centre Travel Group Cybersecurity Incident Flight Centre Travel Group is addressing a cybersecurity incident... The post Flight Centre Cyber Breach: Customer Data Potentially Accessed appeared first on .",
+    "link": "https://www.news4hackers.com/flight-centre-cyber-breach-customer-data-potentially-accessed/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T11:05:40+00:00",
+    "published_ts": 1795777540,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Retired CAG Officer Scammed in Canara Bank Pension Card Fraud, Lakhs Lost",
+    "summary": "An elderly retired official from the Comptroller and Auditor General’s office in Mumbai fell victim... The post Retired CAG Officer Scammed in Canara Bank Pension Card Fraud, Lakhs Lost appeared first on .",
+    "link": "https://www.news4hackers.com/retired-cag-officer-scammed-in-canara-bank-pension-card-fraud-lakhs-lost/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T11:04:02+00:00",
+    "published_ts": 1795777442,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "What Happens When You Mine Crypto in a Game Instead of Real Life?",
+    "summary": "Learn how crypto mining games work, how they differ from real cryptocurrency mining, and what to know about rewards, withdrawals, costs and risks.",
+    "link": "https://hackread.com/what-happens-when-you-mine-crypto-in-game/",
+    "source": "HackRead",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T11:01:03+00:00",
+    "published_ts": 1795777263,
+    "smart_groups": [
+      "Crypto / Web3"
+    ],
+    "curated": false
+  },
+  {
+    "title": "SVDB: A structured database for better vulnerability management",
+    "summary": "We are publishing an enriched, structured database to help with vulnerability management at https://svdb.positive.security/",
+    "link": "https://positive.security/blog/svdb",
+    "source": "https://positive.security/blog/rss.xml",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T11:00:00+00:00",
+    "published_ts": 1795777200,
+    "smart_groups": [
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": false
+  },
+  {
+    "title": "In Other News: Tanker Cyberattacks, EU Quantum Act, New VirusTotal Capabilities",
+    "summary": "Noteworthy stories that might have slipped under the radar: RansomwareHelp accused of profiting from ransom payments, USDA payment systems breach, cybersecurity firm Radware hacked. The post In Other News: Tanker Cyberattacks, EU Quantum Act, New VirusTotal Capabilities appeared first on SecurityWeek .",
+    "link": "https://www.securityweek.com/in-other-news-tanker-cyberattacks-eu-quantum-act-new-virustotal-capabilities/",
+    "source": "SecurityWeek",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T11:00:00+00:00",
+    "published_ts": 1795777200,
+    "smart_groups": [
+      "Curated",
+      "Ransomware"
+    ],
+    "curated": true
+  },
+  {
+    "title": "How to Keep Your Security Picture Current When Attackers Move at AI Speed",
+    "summary": "Most security metrics are not built to be used. They are built to be shown. Somewhere between the quarterly review and the next status update, a set of numbers gets assembled that looks reassuring in a room and tells almost no one what is actually happening across the environment that week. Someone pulls them together the week before, cleans them up, and presents a picture of a program that is,",
+    "link": "https://thehackernews.com/2026/11/how-to-keep-your-security-picture.html",
+    "source": "The Hacker News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T10:32:18+00:00",
+    "published_ts": 1795775538,
+    "smart_groups": [
+      "Network / OT / ICS"
+    ],
+    "curated": false
+  },
+  {
+    "title": "FIFA Confirms Cyber-Attack, Personal and Business Information Compromised",
+    "summary": "A cyber-attack targeting FIFA has exposed a “limited set of personal and business information”",
+    "link": "https://www.infosecurity-magazine.com/news/fifa-confirms-cyberattack/",
+    "source": "Infosecurity Magazine – News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T10:30:00+00:00",
+    "published_ts": 1795775400,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Bluefin to shut down perps, refocus on spot trading and tokenized RWAs",
+    "summary": "Bluefin will close its perps platform on Dec. 4, exiting a shrinking Sui market where it once handled over $500 million in daily trades.",
+    "link": "https://cointelegraph.com/news/bluefin-shut-down-perps-refocus-spot-trading-tokenized-rwas?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T10:26:06+00:00",
+    "published_ts": 1795775166,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Ethereum Sets December 15 Date for Delayed Glamsterdam Testnet Upgrade",
+    "summary": "Core developers will ship Glamsterdam's contested gas changes unaltered, after security concerns halted the Hoodi fork in October.",
+    "link": "https://decrypt.co/384104/ethereum-sets-december-15-date-for-delayed-glamsterdam-testnet-upgrade",
+    "source": "Decrypt",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T10:15:51+00:00",
+    "published_ts": 1795774551,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "GitHub RCE Vulnerability Allows Hackers to Compromise Servers With a Single Git Push Command",
+    "summary": "A serious vulnerability in GitHub’s internal Git infrastructure allowed an authenticated user to execute arbitrary commands on the server while processing a single git push. This flaw, identified as CVE-2026-3854, impacted GitHub.com, GitHub Enterprise Cloud, and self-hosted GitHub Enterprise Server (GHES). Wiz Research discovered the issue and reported it through GitHub’s bug bounty program. GitHub […] The post GitHub RCE Vulnerability Allows Hackers to Compromise Servers With a Single Git Push Command appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/github-rce-vulnerability/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T10:14:56+00:00",
+    "published_ts": 1795774496,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Drupal warns of new site takeover flaw exploited in attacks",
+    "summary": "The Drupal security team says attackers are exploiting a second critical vulnerability that lets them breach and hijack unpatched websites. [...]",
+    "link": "https://www.bleepingcomputer.com/news/security/drupal-warns-of-new-access-bypass-flaw-exploited-in-attacks/",
+    "source": "BleepingComputer",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T10:10:15+00:00",
+    "published_ts": 1795774215,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Fake Car Diagnostic Tools on GitHub Target Repair Shops with Malware",
+    "summary": "16 fake GitHub repositories were found using real automotive code and AI-written READMEs to lure technicians into installing malware that could steal automaker logins.",
+    "link": "https://hackread.com/fake-car-diagnostic-tools-github-repair-shops-malware/",
+    "source": "HackRead",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T10:07:13+00:00",
+    "published_ts": 1795774033,
+    "smart_groups": [
+      "Malware / Payloads"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Flight Centre Data Breach: Passport Details Compromised",
+    "summary": "Flight Centre Travel Group Customer Data Breach The Brisbane-based travel company Flight Centre Travel Group... The post Flight Centre Data Breach: Passport Details Compromised appeared first on .",
+    "link": "https://www.news4hackers.com/flight-centre-data-breach-passport-details-compromised/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T10:05:28+00:00",
+    "published_ts": 1795773928,
+    "smart_groups": [
+      "Data Breaches / Leaks"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Microsoft Emergency Hotpatch Fixes Windows Server Crashes",
+    "summary": "Microsoft has deployed an unscheduled patch to resolve critical failures impacting Windows Server 2025 systems.... The post Microsoft Emergency Hotpatch Fixes Windows Server Crashes appeared first on .",
+    "link": "https://www.news4hackers.com/microsoft-emergency-hotpatch-fixes-windows-server-crashes/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T10:04:10+00:00",
+    "published_ts": 1795773850,
+    "smart_groups": [
+      "Windows / Microsoft"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Colorado Data Breach Impacts 100,000 Residents",
+    "summary": "The Colorado Governor’s Office of Information Technology has revealed a security incident that exposed user... The post Colorado Data Breach Impacts 100,000 Residents appeared first on .",
+    "link": "https://www.news4hackers.com/colorado-data-breach-impacts-100000-residents/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T10:02:38+00:00",
+    "published_ts": 1795773758,
+    "smart_groups": [
+      "Data Breaches / Leaks"
+    ],
+    "curated": false
+  },
+  {
+    "title": "British social security system techies yank services offline following 'cyber incident'",
+    "summary": "Pensioners assured their funds will arrive as normal",
+    "link": "https://www.theregister.com/security/2026/11/27/british-social-security-system-techies-yank-services-offline-following-cyber-incident/5312522",
+    "source": "The Register - Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T10:01:00+00:00",
+    "published_ts": 1795773660,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "The British Government is Turning Everyone Into a Prepper",
+    "summary": "Forget guns and underground bunkers. Britain’s burgeoning survivalist movement is more worried about backup power, baby formula, and making friends with the neighbors.",
+    "link": "https://www.wired.com/story/the-british-government-is-turning-everyone-into-a-prepper/",
+    "source": "Security News: Cybersecurity, Hacks, Privacy, National Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T10:00:00+00:00",
+    "published_ts": 1795773600,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "SAP confirms security incident after suspicious GitHub activity",
+    "summary": "SAP has confirmed to BleepingComputer that it took urgent action to protect its customers after detecting suspicious activity in its IT environment. [...]",
+    "link": "https://www.bleepingcomputer.com/news/security/sap-confirms-security-incident-after-suspicious-github-activity/",
+    "source": "BleepingComputer",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T09:56:36+00:00",
+    "published_ts": 1795773396,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "SAP Cyberattack Confirmed: Source Code Compromised in Data Breach",
+    "summary": "SAP has acknowledged a cybersecurity incident impacting its development environment. SAP Confirms Cybersecurity Incident Enterprise... The post SAP Cyberattack Confirmed: Source Code Compromised in Data Breach appeared first on .",
+    "link": "https://www.news4hackers.com/sap-cyberattack-confirmed-source-code-compromised-in-data-breach/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T09:53:12+00:00",
+    "published_ts": 1795773192,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Data Breaches / Leaks"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Linux NFS2ROOT Vulnerability: Critical Flaw Allows Root Privilege Escalation",
+    "summary": "A critical vulnerability in the Linux kernel’s Network File System server, designated CVE-2026-99362, has been... The post Linux NFS2ROOT Vulnerability: Critical Flaw Allows Root Privilege Escalation appeared first on .",
+    "link": "https://www.news4hackers.com/linux-nfs2root-vulnerability-critical-flaw-allows-root-privilege-escalation/",
+    "source": "News4Hackers",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T09:52:05+00:00",
+    "published_ts": 1795773125,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Linux / Unix"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Fake Telegram Job Ads Linked to Espionage Recruitment and Paid Arson Offers",
+    "summary": "A Telegram network that mixes ordinary-looking job ads with overt intelligence recruitment and paid-crime offers. They tracked 88 accounts that published 3,089 recruitment posts between August 2024 and October 2026. The posts appeared in communities across Israel, the Gulf states, the UK and the US. Group-IB found the activity using its Threat Intelligence platform, which […] The post Fake Telegram Job Ads Linked to Espionage Recruitment and Paid Arson Offers appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/fake-telegram-job-ads/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T09:36:02+00:00",
+    "published_ts": 1795772162,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Critical Erlang/OTP Vulnerability Allows Hackers to Bypass TLS Certificate Authentication",
+    "summary": "A critical vulnerability has been identified in the Erlang/OTP SSL application that affects TLS 1.2 clients. This vulnerability allows these clients to complete a handshake without properly authenticating the server, even when certificate verification is enabled. Tracked as CVE-2026-124286, this flaw lets an attacker in a man-in-the-middle position impersonate a legitimate server, allowing them to […] The post Critical Erlang/OTP Vulnerability Allows Hackers to Bypass TLS Certificate Authentication appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/critical-erlang-otp-vulnerability/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T09:32:29+00:00",
+    "published_ts": 1795771949,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Flight Centre Travel Group warns of customer data breach involving some passport details",
+    "summary": "Travellers who booked accommodation through Flight Centre and several of its leisure brands may have had their names, and in rare cases passport and health details, accessed by unknown persons, Flight Centre Travel Group (FLT) disclosed. In a statement to the Australian Securities Exchange, the Brisbane-based travel company said it is investigating “unusual activity” in a third-party accommodation booking system used by the Flight Centre brand, Travel Associates, Cruiseabout and some independent agents. Flight bookings … More → The post Flight Centre Travel Group warns of customer data breach involving some passport details appeared first on Help Net Security .",
+    "link": "https://www.helpnetsecurity.com/2026/11/27/flight-centre-travel-group-data-breach-booking-system/",
+    "source": "Help Net Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T09:31:44+00:00",
+    "published_ts": 1795771904,
+    "smart_groups": [
+      "Identity / Access",
+      "Data Breaches / Leaks"
+    ],
+    "curated": false
+  },
+  {
+    "title": "100,000 Potentially Impacted by Colorado Data Breach",
+    "summary": "Hackers breached the digital identification and document storage application myColorado and accessed user-uploaded data. The post 100,000 Potentially Impacted by Colorado Data Breach appeared first on SecurityWeek .",
+    "link": "https://www.securityweek.com/100000-potentially-impacted-by-colorado-data-breach/",
+    "source": "SecurityWeek",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T09:30:54+00:00",
+    "published_ts": 1795771854,
+    "smart_groups": [
+      "Data Breaches / Leaks"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Hackers Trojanize Official Q-Dir and DesktopOK Downloads to Deliver Remote Access Malware",
+    "summary": "Cybersecurity researchers have disclosed details of a software supply chain attack that has tampered with Q-Dir and DesktopOK installation files distributed via the official SoftwareOK website. \"Evidence indicates that malicious files were generated not only when users downloaded the programs directly from the official download page but also during the update process of previously installed",
+    "link": "https://thehackernews.com/2026/11/hackers-trojanize-official-q-dir-and.html",
+    "source": "The Hacker News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T09:29:30+00:00",
+    "published_ts": 1795771770,
+    "smart_groups": [
+      "Curated",
+      "Malware / Payloads",
+      "Supply Chain / Software"
+    ],
+    "curated": true
+  },
+  {
+    "title": "3,089 Telegram Job Posts Uncovered in Suspected Spy Recruitment Campaigns",
+    "summary": "A Telegram account offered readers in a Hebrew-language sports group 1,500 shekels for one night’s work. The same ad appeared at precisely 9:43:01 p.m. on 51 days. The account later promoted what looked like a part-time job with a U.S. environmental consultancy. The two offers helped researchers connect ordinary-looking gig ads to a wider set […] The post 3,089 Telegram Job Posts Uncovered in Suspected Spy Recruitment Campaigns appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/telegram-job-posts/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T09:22:53+00:00",
+    "published_ts": 1795771373,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Tor Browser 15.0.23 Released With Fixes for Security Bypass Vulnerabilities",
+    "summary": "The Tor Project released Tor Browser version 15.0.23, addressed two vulnerabilities that allowed WebAssembly to run despite restrictions imposed by the browser’s Safer security level. The update also included security patches from Mozilla and upgraded the NoScript extension across all platforms. An issue with signing the Windows installer affected how users could obtain the release; […] The post Tor Browser 15.0.23 Released With Fixes for Security Bypass Vulnerabilities appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/tor-browser-15-0-23-released/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T09:20:53+00:00",
+    "published_ts": 1795771253,
+    "smart_groups": [
+      "Vulnerabilities / CVEs",
+      "Windows / Microsoft"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Cacti 4HTTP2ROOT Zero-Day Enables Unauthenticated Remote Code Execution",
+    "summary": "A zero-day vulnerability known as 4HTTP2ROOT allows remote attackers to execute operating system commands on Cacti version 1.2.31 without valid credentials if anonymous guest access is enabled. Security researcher ek0ms savi0r disclosed this flaw on November 26, 2026. Previdian confirmed a public proof of concept in their lab. At the time of disclosure, no official […] The post Cacti 4HTTP2ROOT Zero-Day Enables Unauthenticated Remote Code Execution appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/cacti-4http2root-zero-day/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T09:10:37+00:00",
+    "published_ts": 1795770637,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Tor Browser Flaw Could Reveal Users’ Real IP Addresses With Just One Click on Malicious Websites",
+    "summary": "A malicious website could expose a Tor Browser user’s public IP address with a single click, according to research published by security firm Calif on November 26, 2026. Researcher Carlos Roque demonstrated the attack against Tor Browser 15.0.22 on Linux with default settings. The Tor Project had already shipped the fix in Tor Browser 15.0.23 […] The post Tor Browser Flaw Could Reveal Users’ Real IP Addresses With Just One Click on Malicious Websites appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/tor-browser-flaw/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T09:09:49+00:00",
+    "published_ts": 1795770589,
+    "smart_groups": [
+      "Linux / Unix"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Microsoft pushes emergency hotpatch to fix Windows Server crashes",
+    "summary": "Microsoft has released an emergency hotpatch update to address Windows Server 2025 crashes triggered after installing this month's security hotpatch update (KB5131077). [...]",
+    "link": "https://www.bleepingcomputer.com/news/microsoft/new-out-of-band-oob-emergency-hotpatch-fixes-windows-server-2025-crashes/",
+    "source": "BleepingComputer",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T09:08:16+00:00",
+    "published_ts": 1795770496,
+    "smart_groups": [
+      "Windows / Microsoft"
+    ],
+    "curated": false
+  },
+  {
+    "title": "CyberStrikeAI Creator Shuts Down Open-Source AI Offensive Framework",
+    "summary": "The open source version of CyberStrikeAI has been permanently removed from, but an enterprise version of the AI pentesting tool is still accessible",
+    "link": "https://www.infosecurity-magazine.com/news/cyberstrikeai-shut-down-threatbook/",
+    "source": "Infosecurity Magazine – News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T09:00:00+00:00",
+    "published_ts": 1795770000,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "FIFA Confirms a Cyberattack, Hackers Claim 12 GB of Internal Files",
+    "summary": "FIFA confirms a cyberattack exposing personal and business data, while the Handsome Boy Hacking Club claims responsibility for the breach. FIFA confirmed it was the victim of a cyberattack, threat actors gained access to what soccer’s world governing body describes as a “limited set of personal and business information.” The organization told The Associated Press […]",
+    "link": "https://securityaffairs.com/204100/data-breach/fifa-confirms-a-cyberattack-hackers-claim-12-gb-of-internal-files.html",
+    "source": "Security Affairs",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T08:48:03+00:00",
+    "published_ts": 1795769283,
+    "smart_groups": [
+      "Identity / Access"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Hackers Hide Remote-Control Malware in Official Software Downloads That Appear to Work Normally",
+    "summary": "Attackers have turned the official SoftwareOK website into a malware delivery channel. They tampered with Q-Dir and DesktopOK installers so the programs run normally. SoftwareOK distributes free Windows utilities such as Q-Dir, DesktopOK and WinScan2PDF. ASEC says the malicious files came through the official distribution path, not through third-party mirrors or advertisements. The affected builds […] The post Hackers Hide Remote-Control Malware in Official Software Downloads That Appear to Work Normally appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/q-dir-and-desktop-ok-installers/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T08:21:29+00:00",
+    "published_ts": 1795767689,
+    "smart_groups": [
+      "Windows / Microsoft",
+      "Malware / Payloads"
+    ],
+    "curated": false
+  },
+  {
+    "title": "New NFS2ROOT Linux flaw can let attackers gain root privileges",
+    "summary": "​A 12-year-old critical vulnerability in the Linux kernel's Network File System (NFS) server, tracked as CVE-2026-99362, allows remote attackers to gain root privileges. [...]",
+    "link": "https://www.bleepingcomputer.com/news/security/new-nfs2root-linux-flaw-can-let-attackers-gain-root-privileges/",
+    "source": "BleepingComputer",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T08:06:58+00:00",
+    "published_ts": 1795766818,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Linux / Unix"
+    ],
+    "curated": true
+  },
+  {
+    "title": "ESMA to overhaul EU’s MiCA crypto register in 2027",
+    "summary": "ESMA’s new MiCA register will replace manual reporting and introduce automated data checks and a version history for crypto white papers.",
+    "link": "https://cointelegraph.com/news/esma-overhaul-eu-mica-crypto-register-2027?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T08:04:39+00:00",
+    "published_ts": 1795766679,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Hex Package Manager Warns of Potential Data Breach",
+    "summary": "A vulnerability in hex.pm allowed hackers to run commands on web servers. No evidence of data modification was found, but database reads are not logged. The post Hex Package Manager Warns of Potential Data Breach appeared first on SecurityWeek .",
+    "link": "https://www.securityweek.com/hex-package-manager-warns-of-potential-data-breach/",
+    "source": "SecurityWeek",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T07:44:49+00:00",
+    "published_ts": 1795765489,
+    "smart_groups": [
+      "Vulnerabilities / CVEs",
+      "Data Breaches / Leaks"
+    ],
+    "curated": false
+  },
+  {
+    "title": "SAP Confirms Cyberattack, Source Code Reportedly Compromised",
+    "summary": "SAP has detected suspicious activity on GitHub, where hackers reportedly used stolen employee tokens to copy and alter source code. The post SAP Confirms Cyberattack, Source Code Reportedly Compromised appeared first on SecurityWeek .",
+    "link": "https://www.securityweek.com/sap-confirms-cyberattack-source-code-reportedly-compromised/",
+    "source": "SecurityWeek",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T07:36:14+00:00",
+    "published_ts": 1795764974,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Top 10 Best Security Service Edge (SSE) Solutions in 2026 [Ranked & Scored]",
+    "summary": "Security Service Edge is the security portion of SASE SWG, CASB, ZTNA, and increasingly DLP and browser isolation, all delivered from the cloud and most organisations deploy it well before they take on the networking half. The solutions below separate on service convergence under one policy engine, data-protection depth, and threat-prevention model. Zscaler takes 1; […] The post Top 10 Best Security Service Edge (SSE) Solutions in 2026 [Ranked & Scored] appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/best-sse-solutions/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T07:29:51+00:00",
+    "published_ts": 1795764591,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Top 10 Best SASE (Secure Access Service Edge) Solutions in 2026 [Ranked & Scored]",
+    "summary": "SASE fuses SD-WAN networking with a cloud security stack in one fabric, yet the term papers over a genuine divide: some vendors grew up in networking and bolted security on, others grew up in security and tacked on the network, and a handful engineered the whole thing single-pass from day one. The solutions below separate […] The post Top 10 Best SASE (Secure Access Service Edge) Solutions in 2026 [Ranked & Scored] appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/best-sase-solutions-2/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T07:27:39+00:00",
+    "published_ts": 1795764459,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Hackers Turn Trusted Windows Software Downloads Into Tools for Secretly Controlling PCs",
+    "summary": "Tampered installers for two Windows utilities, Q-Dir and DesktopOK, turned official SoftwareOK downloads into a way for hackers to take remote control of PCs. The installers launched the genuine applications, giving users little reason to suspect anything was wrong. In the background, they downloaded a Python-based remote access trojan, or RAT, that could run commands, […] The post Hackers Turn Trusted Windows Software Downloads Into Tools for Secretly Controlling PCs appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/hackers-turn-trusted-windows-software/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T07:27:11+00:00",
+    "published_ts": 1795764431,
+    "smart_groups": [
+      "Curated",
+      "Windows / Microsoft",
+      "Malware / Payloads"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Top 10 Best DMARC & Email Authentication Tools in 2026 [Ranked & Scored]",
+    "summary": "DMARC’s entire value is reaching an enforcement policy p=reject without blocking your own legitimate mail, and that journey is where most programs stall. Every tool here parses aggregate reports; they separate on how much of the SPF/DKIM/DMARC gauntlet they automate, how well they discover the sprawl of third-party senders, and who they’re priced for. Valimail […] The post Top 10 Best DMARC & Email Authentication Tools in 2026 [Ranked & Scored] appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/best-dmarc-tools/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T07:25:42+00:00",
+    "published_ts": 1795764342,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Top 10 Best Business Email Compromise (BEC) Protection Tools in 2026 [Ranked & Scored]",
+    "summary": "BEC is the most expensive attack in email precisely because there’s nothing to scan no malware, no malicious link, just a perfectly worded message asking finance to change a wire or an executive to approve a payment. Stopping it means modeling who normally talks to whom about what, catching the deviation, and defending the vendor […] The post Top 10 Best Business Email Compromise (BEC) Protection Tools in 2026 [Ranked & Scored] appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/best-bec-protection/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T07:23:34+00:00",
+    "published_ts": 1795764214,
+    "smart_groups": [
+      "Malware / Payloads",
+      "Phishing / Social Engineering"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Top 10 Best Human Risk Management Platforms in 2026 [Ranked & Scored]",
+    "summary": "Human risk management is awareness training all grown up: instead of annual compliance clips, it assigns each person a risk figure, intervenes adaptively, and in the newest tools folds in technical signals like which mailboxes are actually in the crosshairs. The platforms below separate on per-person measurement, adaptive intervention, and whether they catch modern vectors […] The post Top 10 Best Human Risk Management Platforms in 2026 [Ranked & Scored] appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/best-human-risk-management/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T07:20:32+00:00",
+    "published_ts": 1795764032,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "New York AG secures $1.37B court judgment against NovaTech founders",
+    "summary": "The judgment follows an August 2025 default ruling against the founders over a Ponzi scheme that targeted Haitian and other immigrant communities.",
+    "link": "https://cointelegraph.com/news/new-york-ag-137b-court-judgment-novatech?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T07:19:44+00:00",
+    "published_ts": 1795763984,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "LostTrust Ransomware Revival Linked to Eclipse as Hackers Target U.S. Government and Energy Firms",
+    "summary": "A Russian-speaking ransomware crew is testing its implants against Microsoft Defender before deployment. Of 17 organizations named in the operators’ own material, 14 are in the United States. They include a federal agency, three energy cooperatives and a healthcare provider. The operators keep a lab domain enrolled in Microsoft Defender for Endpoint and run their […] The post LostTrust Ransomware Revival Linked to Eclipse as Hackers Target U.S. Government and Energy Firms appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/losttrust-ransomware/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T07:11:58+00:00",
+    "published_ts": 1795763518,
+    "smart_groups": [
+      "Curated",
+      "Ransomware"
+    ],
+    "curated": true
+  },
+  {
+    "title": "How to Bypass Readout Protection on a Microcontroller",
+    "summary": "Bypassing readout protection of STM32 microcontrollers through voltage glitching is well established, and previous work has shown that the STM32L051 is vulnerable to a flash-erase suppression attack that can unprotect the chip and allow full firmware extraction. However, this approach is unreliable – deleting the entire flash content during the attack is a real risk. In this article, we present...",
+    "link": "https://blog.syss.com/posts/tracerip/",
+    "source": "https://blog.syss.com/feed",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T07:00:00+00:00",
+    "published_ts": 1795762800,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Hack fixing the lack of Kubernetes certificate revocation",
+    "summary": "Recently I was taking another look at one of my perennial favourite Kubernetes security problems, the lack of certificate revocation and, with some agentic assistance, I realised there’s a kind of hacky approach that will work to mitigating some of the risks of using client certificate authentication in Kubernetes.",
+    "link": "https://raesene.github.io/blog/2026/11/27/hack-fixing-k8s-lack-of-cert-revocation/",
+    "source": "https://raesene.github.io/feed.xml",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T07:00:00+00:00",
+    "published_ts": 1795762800,
+    "smart_groups": [
+      "Cloud / SaaS"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Hackers Test Malware Against Microsoft Defender Until It Runs Without Triggering an Alert",
+    "summary": "A Russian-speaking ransomware crew tested its Windows malware against Microsoft Defender for Endpoint in a lab it controlled. On October 16, 2026, Defender flagged one build and automatically isolated the test machine. Five days later, a revised build reached the crew’s command-and-control server without triggering an alert in the exported device timeline. That second test […] The post Hackers Test Malware Against Microsoft Defender Until It Runs Without Triggering an Alert appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/malware-against-microsoft-defender/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T06:55:15+00:00",
+    "published_ts": 1795762515,
+    "smart_groups": [
+      "Curated",
+      "Ransomware",
+      "Windows / Microsoft",
+      "Malware / Payloads"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Hackers Steal Military Files and 19GB of Government Documents in Southeast Asia",
+    "summary": "A Vietnam-linked threat actor tracked as WeaveLotus breached government, military and legislative bodies in Thailand and the Philippines. It took gigabytes of internal documents, project plans and credentials, according to the SOCRadar Threat Research Unit (STRU). STRU confirmed five intrusions across Thailand and the Philippines. WeaveLotus also ran reconnaissance against more than 30 Indonesian government […] The post Hackers Steal Military Files and 19GB of Government Documents in Southeast Asia appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/military-files-exposed/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T06:42:13+00:00",
+    "published_ts": 1795761733,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Hackers Breach Military and Government Networks Across Southeast Asia, Stealing Sensitive Documents",
+    "summary": "Hackers stole gigabytes of sensitive documents and exposed government credentials in a cyber espionage campaign that breached military, government and legislative organizations in Thailand and the Philippines. The operation, called RedOps, ran from August to September 2026 and involved five confirmed intrusions. Researchers also observed reconnaissance against more than 30 Indonesian government organizations but found […] The post Hackers Breach Military and Government Networks Across Southeast Asia, Stealing Sensitive Documents appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/military-and-government-networks/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T06:35:33+00:00",
+    "published_ts": 1795761333,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "In 2027, “the agent did it” stops being an excuse",
+    "summary": "Enterprises will come under growing pressure to establish accountability for autonomous AI agents in 2027, with regulators, corporate boards and insurers demanding evidence of how organizations govern automated decisions, manage access privileges and prevent operational disruption, according to SailPoint’s 2027 Identity Security Predictions. The company’s Horizons of Identity Security 2026–2027 research found that 79% of enterprises have deployed AI agents in production, while just 2% have implemented identity security controls designed for them, creating what … More → The post In 2027, “the agent did it” stops being an excuse appeared first on Help Net Security .",
+    "link": "https://www.helpnetsecurity.com/2026/11/27/sailpoint-2027-ai-identity-security-predictions-report/",
+    "source": "Help Net Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T06:30:14+00:00",
+    "published_ts": 1795761014,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Standard Chartered’s Crypto Unit Zodia Custody Hit by Data Breach, Exposing Client and Employee Information",
+    "summary": "Standard Chartered’s cryptocurrency custody unit, Zodia Custody, disclosed a security breach that exposed information about some institutional clients and employees. Chief Executive Richard Clark told Reuters on November 26 that the company had found no unauthorized transactions in its investigation to date. The disclosure came weeks after Standard Chartered increased its stake in the business […] The post Standard Chartered’s Crypto Unit Zodia Custody Hit by Data Breach, Exposing Client and Employee Information appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/standard-chartereds-crypto-unit-zodia-custody-hit-by-data-breach/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T06:07:26+00:00",
+    "published_ts": 1795759646,
+    "smart_groups": [
+      "Data Breaches / Leaks",
+      "Crypto / Web3"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Switzerland Confirms AI-Assisted Cyberattacks Breached Critical Infrastructure Operators",
+    "summary": "Attackers using AI agents have broken into computer systems at Swiss organizations in four of five confirmed attacks, the first such cases in the country, the country's cybersecurity agency said yesterday. Three of the attacks targeted critical infrastructure operators, and two of those succeeded, with no major disruptions reported. The victims have not been named, and it is not known who is",
+    "link": "https://thehackernews.com/2026/11/switzerland-confirms-ai-assisted.html",
+    "source": "The Hacker News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T06:04:20+00:00",
+    "published_ts": 1795759460,
+    "smart_groups": [
+      "Network / OT / ICS"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Product showcase: Norton helps Claude users uncover the telltale signs of fraud",
+    "summary": "The Norton connector for Claude brings the company’s Genie AI-powered scam detection capabilities into the chatbot. Users can submit suspicious emails, text messages, screenshots, and links for analysis, as well as ask questions about cybersecurity, privacy, and identity protection. The integration does not require a Norton account or a separate application. Setting up the connector I tested the Norton connector using Claude on an iPhone. The integration provides three tools. The first checks links, messages, … More → The post Product showcase: Norton helps Claude users uncover the telltale signs of fraud appeared first on Help Net Security .",
+    "link": "https://www.helpnetsecurity.com/2026/11/27/product-showcase-norton-claude-scam-detection/",
+    "source": "Help Net Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T06:00:59+00:00",
+    "published_ts": 1795759259,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Unpatched Cacti Zero-Day Enables RCE in Just Four HTTP Requests via Guest Access",
+    "summary": "Details have emerged about a new zero-day vulnerability in Cacti, an open-source network monitoring tool, that could be exploited to achieve remote code execution. The proof-of-concept (PoC) exploit, which has yet to be assigned a CVE identifier, has been tracked as 4HTTP2SHELL and 4HTTP2ROOT. \"I found a path from a fresh, unauthenticated HTTP session to command execution as the Cacti server",
+    "link": "https://thehackernews.com/2026/11/unpatched-cacti-zero-day-enables-rce-in.html",
+    "source": "The Hacker News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T05:48:20+00:00",
+    "published_ts": 1795758500,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs",
+      "Exploit / PoC"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Cacti 4HTTP2ROOT Zero-Day Lets Hackers Execute Commands on Network Monitoring Servers Without Login",
+    "summary": "A zero-day vulnerability in Cacti, an open-source network monitoring tool, lets attackers run operating system commands without logging in if guest access is enabled. Security researcher ek0ms savi0r disclosed the flaw, dubbed 4HTTP2ROOT, on November 26, 2026. A public proof of concept demonstrated command execution in four HTTP requests against Cacti 1.2.31, and Previdian reported […] The post Cacti 4HTTP2ROOT Zero-Day Lets Hackers Execute Commands on Network Monitoring Servers Without Login appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/cacti-4http2root-zero-day/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T05:47:56+00:00",
+    "published_ts": 1795758476,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Hackers Hide PolinRider Malware in 375 GitHub Repositories to Execute Malicious Code",
+    "summary": "Hackers planted PolinRider malware in 375 GitHub repositories, hiding a Python loader in ordinary-looking project files. The loader retrieves JavaScript stored in an Ethereum transaction and runs it through Node.js. In some projects, running tests is enough to trigger the loader. In others, it can run when the application starts and imports the planted module. […] The post Hackers Hide PolinRider Malware in 375 GitHub Repositories to Execute Malicious Code appeared first on Cyber Security News .",
+    "link": "https://cybersecuritynews.com/hackers-hide-polinrider-malware/",
+    "source": "Cyber Security News (FeedBurner)",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T05:39:50+00:00",
+    "published_ts": 1795757990,
+    "smart_groups": [
+      "Malware / Payloads"
+    ],
+    "curated": false
+  },
+  {
+    "title": "US seizes nearly $17 billion in global war on scam rings",
+    "summary": "The US government has gone after more than 800 alleged scammers in what it calls its largest-ever crackdown on scams targeting Americans. The Department of Justice announced that the effort covers more than 400 cases in 85 federal districts, including new charges, guilty verdicts and sentences, and 30 defendants were extradited to the United States. American prosecutors and agents joined police in more than 10 countries to raid scam call centers and compounds abroad. The … More → The post US seizes nearly $17 billion in global war on scam rings appeared first on Help Net Security .",
+    "link": "https://www.helpnetsecurity.com/2026/11/27/doj-scam-crackdown-800-scammers/",
+    "source": "Help Net Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T05:30:28+00:00",
+    "published_ts": 1795757428,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Bitcoin Core Privacy Flaw Allows Attackers to Track Wallet Addresses for Less Than $1",
+    "summary": "Bitcoin Core’s wallet rebroadcast feature can reveal which node tracks a Bitcoin address, potentially linking public blockchain activity to the node’s IP address. In a November 25 disclosure on Delving Bitcoin, researcher ismaelsadeeq estimated a transaction cost of $0.18 to $0.34 per probe. That figure covers the payment and relay fee, not the infrastructure needed […] The post Bitcoin Core Privacy Flaw Allows Attackers to Track Wallet Addresses for Less Than $1 appeared first on GBHackers Security | #1 Globally Trusted Cyber Security News Platform .",
+    "link": "https://gbhackers.com/bitcoin-core-privacy-flaw/",
+    "source": "GBHackers News",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T05:27:49+00:00",
+    "published_ts": 1795757269,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Japan’s crypto security group taps SEAL to speed up hack response",
+    "summary": "The partnership comes weeks after a third-party data breach exposed hundreds of thousands of customer email addresses belonging to two Japanese crypto exchanges.",
+    "link": "https://cointelegraph.com/news/japans-crypto-security-group-taps-seal-to-speed-up-hack-response?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T05:22:36+00:00",
+    "published_ts": 1795756956,
+    "smart_groups": [
+      "Data Breaches / Leaks",
+      "Crypto / Web3"
+    ],
+    "curated": false
+  },
+  {
+    "title": "AI raises new questions about what penetration testing proves",
+    "summary": "AI is becoming an established part of threat-led penetration testing (TLPT), with 81% of surveyed providers using the technology beyond experimentation, according to research from CREST. The study, AI and the Future of Threat-Led Penetration Testing: Capability, Control and Credible Assurance, draws on responses from 26 providers and insights from two industry roundtables involving cybersecurity professionals and institutional stakeholders, with a focus on financial services. AI expands threat emulation capabilities Over the next 12 months, … More → The post AI raises new questions about what penetration testing proves appeared first on Help Net Security .",
+    "link": "https://www.helpnetsecurity.com/2026/11/27/crest-ai-threat-led-penetration-testing/",
+    "source": "Help Net Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T05:00:32+00:00",
+    "published_ts": 1795755632,
+    "smart_groups": [
+      "Cloud / SaaS"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Ethereum devs set Glamsterdam’s Hoodi rollout for mid-December after delays",
+    "summary": "Glamsterdam’s Hoodi upgrade was delayed in October after concerns that changes to gas pricing could break some existing smart contracts.",
+    "link": "https://cointelegraph.com/news/ethereum-devs-set-glamsterdams-hoodi-rollout-for-mid-december-after-delays?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T04:47:36+00:00",
+    "published_ts": 1795754856,
+    "smart_groups": [
+      "Crypto / Web3"
+    ],
+    "curated": false
+  },
+  {
+    "title": "AI is driving a flood of crypto bug reports. Now it’s helping sort them",
+    "summary": "Bug bounty platform HackerOne said it’s increasing its triage throughput with AI agents after a record quarter of reports in the third quarter.",
+    "link": "https://cointelegraph.com/news/ai-driving-flood-of-crypto-bug-reports-now-helping-sort-them?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T01:47:38+00:00",
+    "published_ts": 1795744058,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Free e-government platform that serves two billion people in ten countries has critical SQL injection bug",
+    "summary": "India’s Digital Infrastructure for Governance Impact and Transformation tool can leak data",
+    "link": "https://www.theregister.com/security/2026/11/27/free-e-government-platform-that-serves-two-billion-people-in-ten-countries-has-critical-sql-injection-bug/5312449",
+    "source": "The Register - Security",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T01:19:31+00:00",
+    "published_ts": 1795742371,
+    "smart_groups": [
+      "Vulnerabilities / CVEs",
+      "Web / API Security"
+    ],
+    "curated": false
+  },
+  {
+    "title": "Privacy coins face diverging fortunes as KuCoin moves to drop Monero",
+    "summary": "As KuCoin joins exchanges dropping Monero ahead of new EU restrictions, Grayscale argues that Zcash’s privacy design sets it apart.",
+    "link": "https://cointelegraph.com/news/privacy-coins-kucoin-drop-monero-grayscale-zcash?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+    "source": "Cointelegraph.com News",
+    "type": "crypto",
+    "type_label": "Crypto & Blockchain Security",
+    "published": "2026-11-27T00:35:39+00:00",
+    "published_ts": 1795739739,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "British government takes services offline following ‘cyber incident’",
+    "summary": "The Department for Work and Pensions said Friday that it had experienced a cyber incident, with several services taken down as a precaution.",
+    "link": "https://therecord.media/uk-department-work-pensions-cyber-incident",
+    "source": "The Record",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T00:00:00+00:00",
+    "published_ts": 1795737600,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Cyberattack disrupts global news distribution platform at France’s AFP",
+    "summary": "French international news agency Agence France-Presse was hit by a cyberattack Thursday, forcing it to take offline one of its main platforms for distributing news content to media organizations worldwide.",
+    "link": "https://therecord.media/france-afp-hit-by-cyberattack",
+    "source": "The Record",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T00:00:00+00:00",
+    "published_ts": 1795737600,
+    "smart_groups": [],
+    "curated": false
+  },
+  {
+    "title": "Prioritize security findings with Datadog Crown Jewels",
+    "summary": "Discover your most critical cloud resources automatically with Datadog Crown Jewels, then use business context to prioritize vulnerabilities and misconfigurations.",
+    "link": "https://www.datadoghq.com/blog/prioritize-security-findings-crown-jewels/",
+    "source": "https://www.datadoghq.com/blog/index.xml",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-11-27T00:00:00+00:00",
+    "published_ts": 1795737600,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "The network is back: Four questions for the AI era",
+    "summary": "Sophos’ recent roundtable “Securing the AI-Era Network” examined the forces reshaping network security. Here are four key takeaways to help you start important conversations about your organization’s security strategy.",
+    "link": "https://www.sophos.com/en-us/blog/the-network-is-back-four-questions-for-the-ai-era",
+    "source": "Sophos News",
+    "type": "vendors",
+    "type_label": "Vendors & Product Blogs",
+    "published": "2026-11-27T00:00:00+00:00",
+    "published_ts": 1795737600,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
+  },
+  {
+    "title": "Detection engineering is hard, help your AI",
+    "summary": "Many of us use AI in some form or another every day in our jobs. As someone who works in cybersecurity, I’m no different. When people talk about AI in the context of a SOC, many think about writing threat reports from online sources or closing alerts with a lot of tokens. But I think one discipline in security is still far from solved by AI: detection engineering. If you let any AI out there create a KQL detection they come up with the correct table names, in many cases even the columns, but often it ends when they hallucinate ActionTypes or completely miss how the XML is stored inside of one of the columns. And this is where a generated detection that looks good and runs well but never could detect anything can be more than harmful, it can lead to a false sense of protection and to missing alerts.",
+    "link": "https://cloudbrothers.info/detection-engineering-is-hard-help-your-ai/",
+    "source": "https://cloudbrothers.info/index.xml",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-27T00:00:00+00:00",
+    "published_ts": 1795737600,
+    "smart_groups": [
+      "Curated",
+      "Vulnerabilities / CVEs"
+    ],
+    "curated": true
   },
   {
     "title": "‘Very racist’ Netflix SBF series, BitMart’s $319M shortfall: Asia Express",
@@ -52,20 +2240,6 @@
     "published": "2026-11-26T22:39:46+00:00",
     "published_ts": 1795732786,
     "smart_groups": [],
-    "curated": false
-  },
-  {
-    "title": "Here’s what happened in crypto today",
-    "summary": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation.",
-    "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-    "source": "Cointelegraph.com News",
-    "type": "crypto",
-    "type_label": "Crypto & Blockchain Security",
-    "published": "2026-11-26T22:12:06+00:00",
-    "published_ts": 1795731126,
-    "smart_groups": [
-      "Crypto / Web3"
-    ],
     "curated": false
   },
   {
@@ -2492,18 +4666,6 @@
     "curated": false
   },
   {
-    "title": "Drupal security advisory (AV26-1209)",
-    "summary": "",
-    "link": "https://cyber.gc.ca/en/alerts-advisories/drupal-security-advisory-av26-1209",
-    "source": "Alerts and advisories",
-    "type": "general",
-    "type_label": "General Security & Blogs",
-    "published": "2026-11-25T19:21:44+00:00",
-    "published_ts": 1795634504,
-    "smart_groups": [],
-    "curated": false
-  },
-  {
     "title": "Google Search Can Now Access Your Wallet Data: How Personal Intelligence Works",
     "summary": "Google Search can now use connected Wallet data to personalize financial advice. Here's how to enable the feature, what Google does with your information, and which privacy settings to review. The post Google Search Can Now Access Your Wallet Data: How Personal Intelligence Works appeared first on TechRepublic .",
     "link": "https://www.techrepublic.com/article/news-google-search-wallet-data-personal-intelligence/",
@@ -2632,6 +4794,20 @@
     "title": "MadApe: The Code That Opens the Door",
     "summary": "Group-IB uncovers MadApe, a previously undocumented Microsoft Device Code phishing kit that uses business-themed PDF lures, configurable redirects and fake document-sharing pages to trick victims into completing Microsoft Device Code authentication across a broad infrastructure cluster.",
     "link": "https://www.group-ib.com/blog/madape-the-code-that-opens-the-door/",
+    "source": "Group-IB Blog",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-25T18:02:37+00:00",
+    "published_ts": 1795629757,
+    "smart_groups": [
+      "Phishing / Social Engineering"
+    ],
+    "curated": false
+  },
+  {
+    "title": "MadApe: The Code That Opens the Door",
+    "summary": "Group-IB uncovers MadApe, a previously undocumented Microsoft Device Code phishing kit that uses business-themed PDF lures, configurable redirects and fake document-sharing pages to trick victims into completing Microsoft Device Code authentication across a broad infrastructure cluster.",
+    "link": "https://www.group-ib.com/blog/madape-microsoft-device-code-phishing-kit/",
     "source": "Group-IB Blog",
     "type": "general",
     "type_label": "General Security & Blogs",
@@ -3067,18 +5243,6 @@
       "Phishing / Social Engineering"
     ],
     "curated": true
-  },
-  {
-    "title": "GeoServer security advisory (AV26-1207)",
-    "summary": "",
-    "link": "https://cyber.gc.ca/en/alerts-advisories/geoserver-security-advisory-av26-1207",
-    "source": "Alerts and advisories",
-    "type": "general",
-    "type_label": "General Security & Blogs",
-    "published": "2026-11-25T15:29:23+00:00",
-    "published_ts": 1795620563,
-    "smart_groups": [],
-    "curated": false
   },
   {
     "title": "Two Newly Disclosed GeoServer Vulnerabilities Under Attack",
@@ -4635,21 +6799,6 @@
     "published": "2026-11-24T21:37:30+00:00",
     "published_ts": 1795556250,
     "smart_groups": [
-      "Cloud / SaaS"
-    ],
-    "curated": false
-  },
-  {
-    "title": "'God Mode' Flaws Could Wreak Border-Control Havoc",
-    "summary": "Attackers could have disrupted traveler entry into Nigeria, Ethiopia, Zambia, Sri Lanka, Fiji, and Ghana via several vulnerabilities in their online visa and immigration systems.",
-    "link": "https://www.darkreading.com/vulnerabilities-threats/god-mode-flaws-wreak-border-control-havoc",
-    "source": "darkreading",
-    "type": "general",
-    "type_label": "General Security & Blogs",
-    "published": "2026-11-24T21:36:11+00:00",
-    "published_ts": 1795556171,
-    "smart_groups": [
-      "Vulnerabilities / CVEs",
       "Cloud / SaaS"
     ],
     "curated": false
@@ -48281,6 +50430,20 @@
     "curated": false
   },
   {
+    "title": "Before A Stolen Password Becomes An Attack: Identity Protection With Group-IB XDR",
+    "summary": "Identify compromised Active Directory accounts with Group-IB Threat Intelligence and reset affected passwords from the Group-IB XDR Console before attackers can use them.",
+    "link": "https://www.group-ib.com/blog/identity-protection-group-ib-xdr/",
+    "source": "Group-IB Blog",
+    "type": "general",
+    "type_label": "General Security & Blogs",
+    "published": "2026-11-09T17:06:19+00:00",
+    "published_ts": 1794243979,
+    "smart_groups": [
+      "Windows / Microsoft"
+    ],
+    "curated": false
+  },
+  {
     "title": "Notepad++ 8.9.9 Released With Fixes for 6 Vulnerabilities Allowing Plugin Command Execution",
     "summary": "Notepad++ released version 8.9.9 on November 6, 2026, fixing six security flaws across Windows message handling, protected file saving, clipboard operations, and MIME Tools decoding. The update addresses flaws including conditional plugin command execution, memory exposure, and buffer overflow. The release notes list no assigned CVE identifiers for these issues. The command execution issue involves […] The post Notepad++ 8.9.9 Released With Fixes for 6 Vulnerabilities Allowing Plugin Command Execution appeared first on Cyber Security News .",
     "link": "https://cybersecuritynews.com/notepad-8-9-9-released/",
@@ -50011,20 +52174,6 @@
       "Exploit / PoC"
     ],
     "curated": true
-  },
-  {
-    "title": "Before A Stolen Password Becomes An Attack: Identity Protection With Group-IB XDR",
-    "summary": "Identify compromised Active Directory accounts with Group-IB Threat Intelligence and reset affected passwords from the Group-IB XDR Console before attackers can use them.",
-    "link": "https://www.group-ib.com/blog/identity-protection-group-ib-xdr/",
-    "source": "Group-IB Blog",
-    "type": "general",
-    "type_label": "General Security & Blogs",
-    "published": "2026-11-09T07:20:03+00:00",
-    "published_ts": 1794208803,
-    "smart_groups": [
-      "Windows / Microsoft"
-    ],
-    "curated": false
   },
   {
     "title": "PolinRider Malware Returns in 10 Hijacked npm Packages Using Ethereum Blockchain to Deliver Malicious Code",
